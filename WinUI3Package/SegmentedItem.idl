@@ -1,0 +1,9 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SegmentedItem : Microsoft.UI.Xaml.Controls.ListViewItem
+    {
+        SegmentedItem();
+    }
+}

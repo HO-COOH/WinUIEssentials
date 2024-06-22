@@ -1,0 +1,52 @@
+namespace WinUI3Package
+{
+   [bindable]
+    [default_interface]
+    [contentproperty("WindowContent")]
+    unsealed runtimeclass WindowEx : Microsoft.UI.Xaml.Window
+    {
+        WindowEx();
+        
+        /*MinMaxSize*/
+        Int32 MinWidth;
+        Int32 MaxWidth;
+        Int32 MinHeight;
+        Int32 MaxHeight;
+
+        /*Size*/
+        Int32 Width;
+        Int32 Height;
+        Int32 RawWidth;
+        Int32 RawHeight;
+        UInt32 Dpi{ get; };
+
+        Int32 LeftInset{ get; };
+        Int32 RightInset{ get; };
+        Int32 LeftInsetRaw{ get; };
+        Int32 RightInsetRaw{ get; };
+        
+        /*CaptionButton*/
+        Boolean IsMinimizable;
+        Boolean IsMaximizable;
+
+        /*Win32WindowStyle*/
+        Boolean HasBorder;
+        Boolean HasTitleBar;
+        Boolean IsResizable;
+        Boolean IsAlwaysOnTop;
+        Boolean IsShownInSwitcher;
+        Boolean TitleBarDarkMode;
+        Boolean TitleBarAutoDarkMode;
+        Microsoft.UI.Xaml.UIElement TitleBar;
+        String Icon;
+
+        //Microsoft.UI.Windowing.AppWindow AppWindow{ get; };
+        UInt64 Hwnd{ get; };
+
+        Microsoft.UI.Xaml.UIElement WindowContent;
+
+        static Microsoft.UI.Xaml.DependencyProperty IsInteractiveProperty{ get; };
+        static void SetIsInteractive(Microsoft.UI.Xaml.Controls.Control element, Boolean value);
+        static Boolean GetIsInteractive(Microsoft.UI.Xaml.Controls.Control element);
+    }
+}

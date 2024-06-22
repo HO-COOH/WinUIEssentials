@@ -1,0 +1,11 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass IsNullOrEmptyStateTrigger : Windows.UI.Xaml.StateTriggerBase
+    {
+        IsNullOrEmptyStateTrigger();
+        Object Value;
+        static Windows.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

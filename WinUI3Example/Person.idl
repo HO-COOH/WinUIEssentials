@@ -1,0 +1,10 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass Person 
+    {
+        Person(String name);
+        String Name{ get; };
+    }
+}

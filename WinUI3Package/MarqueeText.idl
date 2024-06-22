@@ -1,0 +1,52 @@
+namespace WinUI3Package
+{
+    enum MarqueeBehavior
+    {
+        // The text flows across the screen from start to finish.
+        Ticker,
+        // As the text flows across the screen a duplicate follows.
+        Looping,
+        //The text bounces back and forth across the screen.
+        Bouncing
+    };
+
+    enum MarqueeDirection
+    {
+        Left,
+        Right,
+        Up,
+        Down
+    };
+
+    [bindable]
+    [default_interface]
+    runtimeclass MarqueeText : Microsoft.UI.Xaml.Controls.Control
+    {
+        MarqueeText();
+        
+        Double Speed;
+        static Microsoft.UI.Xaml.DependencyProperty SpeedProperty{ get; };
+
+        Microsoft.UI.Xaml.Media.Animation.RepeatBehavior RepeatBehavior;
+        static Microsoft.UI.Xaml.DependencyProperty RepeatBehaviorProperty{ get; };
+
+        MarqueeBehavior Behavior;
+        static Microsoft.UI.Xaml.DependencyProperty BehaviorProperty{ get; };
+
+        MarqueeDirection Direction;
+        static Microsoft.UI.Xaml.DependencyProperty DirectionProperty{ get; };
+
+        String Text;
+        static Microsoft.UI.Xaml.DependencyProperty TextProperty{ get; };
+
+        Boolean PauseOnHover;
+        static Microsoft.UI.Xaml.DependencyProperty PauseOnHoverProperty{ get; };
+
+        Double IntervalSpace;
+        static Microsoft.UI.Xaml.DependencyProperty IntervalSpaceProperty{ get; };
+
+        void Pause();
+        void Resume();
+        void Reset();
+    }
+}

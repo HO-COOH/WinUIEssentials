@@ -1,0 +1,15 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass IsEqualStringTrigger : Microsoft.UI.Xaml.StateTriggerBase
+    {
+        IsEqualStringTrigger();
+
+        String From;
+        static Microsoft.UI.Xaml.DependencyProperty FromProperty{ get; };
+
+        String To;
+        static Microsoft.UI.Xaml.DependencyProperty ToProperty{ get; };
+    }
+}

@@ -1,0 +1,11 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SegmentedItemCornerRadiusConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        SegmentedItemCornerRadiusConverter();
+
+        Windows.UI.Xaml.CornerRadius SegmentedCornerRadius;
+    }
+}

@@ -1,0 +1,18 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass FontIconExtension : Microsoft.UI.Xaml.Markup.MarkupExtension
+    {
+        FontIconExtension();
+
+        Double FontSize;
+        Windows.UI.Text.FontWeight FontWeight;
+        Microsoft.UI.Xaml.Media.FontFamily FontFamily;
+        Windows.UI.Text.FontStyle FontStyle;
+        Microsoft.UI.Xaml.Media.Brush Foreground;
+        String Glyph;
+        Boolean IsTextScaleFactorEnabled;
+        Boolean MirroredWhenRightToLeft;
+    }
+}

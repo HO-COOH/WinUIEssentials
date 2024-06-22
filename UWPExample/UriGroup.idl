@@ -1,0 +1,17 @@
+import "UriModel.idl";
+
+namespace UWPExample
+{
+    [Windows.UI.Xaml.Data.Bindable]
+    [default_interface]
+    runtimeclass UriGroup 
+    {
+        UriGroup(
+            String title,
+            Windows.Foundation.Collections.IVector<Object> uris
+        );
+        
+        String Title{ get; };
+        Windows.Foundation.Collections.IVector<Object> Uris{ get; };
+    }
+}

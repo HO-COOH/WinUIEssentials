@@ -1,0 +1,47 @@
+<!-- Copyright (c) Microsoft Corporation and Contributors. -->
+<!-- Licensed under the MIT License. -->
+
+<Page
+    x:Class="WinUI3Example.MarqueeTextPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:WinUI3Package"
+    mc:Ignorable="d">
+
+
+    <StackPanel HorizontalAlignment="Stretch" Spacing="10">
+        <Slider x:Name="MarqueeSpeedSlider" Header="Speed" Value="48" Maximum="200"/>
+        <Slider x:Name="FontSizeSlider" Header="Font Size" Value="14" Minimum="4" Maximum="100"/>
+        <Slider x:Name="SpaceIntervalSlider" Header="Interval space(only effective on looping marquee" Value="32" Minimum="1" Maximum="500"/>
+
+        <ComboBox x:Name="MarqueeDirectionComboBox" Header="Marquee Direction" SelectedIndex="0">
+            <x:String>Left</x:String>
+            <x:String>Right</x:String>
+            <x:String>Up</x:String>
+            <x:String>Down</x:String>
+        </ComboBox>
+
+        <ComboBox x:Name="MarqueeBehaviorComboBox" Header="Marquee Behavior" SelectedIndex="0">
+            <x:String>Ticker</x:String>
+            <x:String>Looping</x:String>
+            <x:String>Bouncing</x:String>
+        </ComboBox>
+
+        <ToggleSwitch Header="PauseOnHover" x:Name="PauseOnHoverToggle"/>
+
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button Click="{x:Bind Test.Resume}">Play</Button>
+            <Button Click="{x:Bind Test.Pause}">Pause</Button>
+            <Button Click="{x:Bind Test.Reset}">Reset</Button>
+        </StackPanel>
+
+        <essential:MarqueeText x:Name="Test" Speed="{x:Bind MarqueeSpeedSlider.Value, Mode=OneWay}" PauseOnHover="{x:Bind PauseOnHoverToggle.IsOn, Mode=OneWay}" 
+                                Direction="{x:Bind local:MarqueeTextPage.GetDirectionFromIndex(MarqueeDirectionComboBox.SelectedIndex), Mode=OneWay}"
+                                Behavior="{x:Bind local:MarqueeTextPage.GetBehaviorFromIndex(MarqueeBehaviorComboBox.SelectedIndex), Mode=OneWay}"
+                                FontSize="{x:Bind FontSizeSlider.Value, Mode=OneWay}" IntervalSpace="{x:Bind SpaceIntervalSlider.Value, Mode=OneWay}"
+                                Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
+    </StackPanel>
+</Page>

@@ -1,0 +1,13 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass UIElementExtension 
+    {
+        UIElementExtension();
+       
+        static Microsoft.UI.Xaml.DependencyProperty ClipToBoundsProperty{ get; };
+        static Boolean GetClipToBounds(Microsoft.UI.Xaml.UIElement element);
+        static void SetClipToBounds(Microsoft.UI.Xaml.UIElement element, Boolean value);
+    }
+}

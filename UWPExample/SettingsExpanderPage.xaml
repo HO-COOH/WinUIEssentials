@@ -1,0 +1,248 @@
+﻿<Page
+    x:Class="UWPExample.SettingsExpanderPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPExample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:UWPPackage"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="SettingsSectionHeaderTextBlockStyle"
+               BasedOn="{StaticResource BodyStrongTextBlockStyle}"
+               TargetType="TextBlock">
+            <Style.Setters>
+                <Setter Property="Margin" Value="1,30,0,6" />
+            </Style.Setters>
+        </Style>
+
+    </Page.Resources>
+
+    <StackPanel Spacing="5" Margin="5">
+        <ToggleSwitch Header="Is Expanded" x:Name="IsCardExpanded"/>
+        <ToggleSwitch Header="Is Enabled" x:Name="IsCardEnabled"/>
+        <essential:SettingsExpander x:Name="settingsCard"
+                            Description="The SettingsExpander has the same properties as a Card, and you can set SettingsCard as part of the Items collection."
+                            Header="SettingsExpander"
+                            IsEnabled="{x:Bind IsCardEnabled.IsOn, Mode=OneWay}"
+                            IsExpanded="{x:Bind IsCardExpanded.IsOn, Mode=OneWay}">
+            <essential:SettingsExpander.HeaderIcon>
+                <FontIcon Glyph="&#xE91B;"/>
+            </essential:SettingsExpander.HeaderIcon>
+            <!--  TODO: This should be TwoWay bound but throws compile error in Uno.  -->
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem>Option 1</ComboBoxItem>
+                <ComboBoxItem>Option 2</ComboBoxItem>
+                <ComboBoxItem>Option 3</ComboBoxItem>
+            </ComboBox>
+            
+
+            <essential:SettingsExpander.Items>
+                <essential:SettingsCard Header="A basic SettingsCard within an SettingsExpander">
+                    <Button Content="Button" />
+                </essential:SettingsCard>
+                <essential:SettingsCard Description="SettingsCard within an Expander can be made clickable too!"
+                                Header="This item can be clicked"
+                                IsClickEnabled="True" />
+
+                <essential:SettingsCard ContentAlignment="Left">
+                    <CheckBox Content="Here the ContentAlignment is set to Left. This is great for e.g. CheckBoxes or RadioButtons." />
+                </essential:SettingsCard>
+
+                <essential:SettingsCard HorizontalContentAlignment="Left"
+                                ContentAlignment="Vertical"
+                                Description="You can also align your content vertically. Make sure to set the HorizontalAlignment to Left when you do!"
+                                Header="Vertically aligned">
+                    <GridView SelectedIndex="1">
+                        <GridViewItem>
+                            <Border Width="64"
+                                Height="64"
+                                Background="#0078D4"
+                                CornerRadius="4" />
+                        </GridViewItem>
+                        <GridViewItem>
+                            <Border Width="64"
+                                Height="64"
+                                Background="#005EB7"
+                                CornerRadius="4" />
+                        </GridViewItem>
+                        <GridViewItem>
+                            <Border Width="64"
+                                Height="64"
+                                Background="#003D92"
+                                CornerRadius="4" />
+                        </GridViewItem>
+                        <GridViewItem>
+                            <Border Width="64"
+                                Height="64"
+                                Background="#001968"
+                                CornerRadius="4" />
+                        </GridViewItem>
+                    </GridView>
+                </essential:SettingsCard>
+                <essential:SettingsCard Description="You can override the Left indention of a SettingsCard by overriding the SettingsCardLeftIndention"
+                                Header="Customization">
+                    <essential:SettingsCard.Resources>
+                        <x:Double x:Key="SettingsCardLeftIndention">40</x:Double>
+                    </essential:SettingsCard.Resources>
+                </essential:SettingsCard>
+            </essential:SettingsExpander.Items>
+        </essential:SettingsExpander>
+
+        <essential:SettingsExpander Description="The SettingsExpander can use ItemsSource to define its Items."
+                                   Header="Settings Expander with ItemsSource"
+                                   ItemsSource="{x:Bind MyDataSet}">
+            <essential:SettingsExpander.HeaderIcon>
+                <FontIcon Glyph="&#xEA37;"/>
+            </essential:SettingsExpander.HeaderIcon>
+            <essential:SettingsExpander.ItemTemplate>
+                <DataTemplate x:DataType="local:MyDataModel">
+                    <essential:SettingsCard Description="{x:Bind Info}"
+                                           Header="{x:Bind Name}">
+                        <HyperlinkButton Content="{x:Bind LinkDescription}"
+                                         NavigateUri="{x:Bind Url}" />
+                    </essential:SettingsCard>
+                </DataTemplate>
+            </essential:SettingsExpander.ItemTemplate>
+            <essential:SettingsExpander.ItemsHeader>
+                <muxc:InfoBar Title="This is the ItemsHeader"
+                              BorderThickness="0"
+                              CornerRadius="0"
+                              IsIconVisible="False"
+                              IsOpen="True"
+                              Severity="Success">
+                    <muxc:InfoBar.ActionButton>
+                        <HyperlinkButton Content="It can host custom content" />
+                    </muxc:InfoBar.ActionButton>
+                </muxc:InfoBar>
+            </essential:SettingsExpander.ItemsHeader>
+            <essential:SettingsExpander.ItemsFooter>
+                <essential:SettingsCard Header="This is the ItemsFooter"
+                                       Style="{StaticResource DefaultSettingsExpanderItemStyle}">
+                    <Button Content="Add a device" />
+                </essential:SettingsCard>
+            </essential:SettingsExpander.ItemsFooter>
+        </essential:SettingsExpander>
+
+        <essential:SettingsExpander Description="SettingsExpander can use a DataTemplate, DataTemplateSelector, or IElementFactory for its ItemTemplate."
+                                   Header="Settings Expander with a custom ItemTemplate"
+                                   ItemsSource="{x:Bind MyDataSet}">
+            <essential:SettingsExpander.HeaderIcon>
+                <FontIcon Glyph="&#xE8FD;"/>
+            </essential:SettingsExpander.HeaderIcon>
+            <essential:SettingsExpander.ItemTemplate>
+                <local:MyDataModelTemplateSelector>
+                    <local:MyDataModelTemplateSelector.ButtonTemplate>
+                        <DataTemplate x:DataType="local:MyDataModel">
+                            <essential:SettingsCard Description="{x:Bind ItemType}"
+                                                   Header="{x:Bind Name}">
+                                <Button Click="Button_Click"
+                                        Content="{x:Bind LinkDescription}" />
+                            </essential:SettingsCard>
+                        </DataTemplate>
+                    </local:MyDataModelTemplateSelector.ButtonTemplate>
+
+                    <local:MyDataModelTemplateSelector.LinkButtonTemplate>
+                        <DataTemplate x:DataType="local:MyDataModel">
+                            <essential:SettingsCard Description="{x:Bind ItemType}"
+                                                   Header="{x:Bind Name}">
+                                <HyperlinkButton Content="{x:Bind LinkDescription}"
+                                                 NavigateUri="{x:Bind Url}" />
+                            </essential:SettingsCard>
+                        </DataTemplate>
+                    </local:MyDataModelTemplateSelector.LinkButtonTemplate>
+
+                    <local:MyDataModelTemplateSelector.NoButtonTemplate>
+                        <DataTemplate x:DataType="local:MyDataModel">
+                            <essential:SettingsCard Description="{x:Bind ItemType}"
+                                                   Header="{x:Bind Name}" />
+                        </DataTemplate>
+                    </local:MyDataModelTemplateSelector.NoButtonTemplate>
+                </local:MyDataModelTemplateSelector>
+            </essential:SettingsExpander.ItemTemplate>
+        </essential:SettingsExpander>
+
+        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                           Text="Section 1" />
+        <essential:SettingsCard Description="This is a default card, with the Header, HeaderIcon, Description and Content set"
+                                       Header="This is the Header">
+            <essential:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xE716;"/>
+            </essential:SettingsCard.HeaderIcon>
+            <ToggleSwitch IsOn="True" />
+        </essential:SettingsCard>
+
+        <essential:SettingsExpander Description="The SettingsExpander has the same properties as a SettingsCard"
+                                           Header="SettingsExpander">
+            <essential:SettingsExpander.HeaderIcon>
+                <FontIcon Glyph="&#xE91B;"/>
+            </essential:SettingsExpander.HeaderIcon>
+            <Button Content="Content"
+                            Style="{StaticResource AccentButtonStyle}" />
+
+            <essential:SettingsExpander.Items>
+                <essential:SettingsCard Header="A basic SettingsCard within an SettingsExpander">
+                    <Button Content="Button" />
+                </essential:SettingsCard>
+                <essential:SettingsCard Description="SettingsCard within an Expander can be made clickable too!"
+                                               Header="This item can be clicked"
+                                               IsClickEnabled="True" />
+
+                <essential:SettingsCard ContentAlignment="Left">
+                    <CheckBox Content="Here the ContentAlignment is set to Left. This is great for e.g. CheckBoxes or RadioButtons" />
+                </essential:SettingsCard>
+            </essential:SettingsExpander.Items>
+        </essential:SettingsExpander>
+
+        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                           Text="Section 2" />
+        <essential:SettingsCard Description="Another card to show grouping of cards"
+                                       Header="Another SettingsCard">
+            <essential:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xE799;"/>
+            </essential:SettingsCard.HeaderIcon>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem>Option 1</ComboBoxItem>
+                <ComboBoxItem>Option 2</ComboBoxItem>
+                <ComboBoxItem>Option 3</ComboBoxItem>
+            </ComboBox>
+        </essential:SettingsCard>
+
+        <essential:SettingsCard Description="Another card to show grouping of cards"
+                                       Header="Yet another SettingsCard">
+            <essential:SettingsCard.HeaderIcon>
+                <FontIcon Glyph="&#xE768;"/>
+            </essential:SettingsCard.HeaderIcon>
+            <Button Content="Content" />
+        </essential:SettingsCard>
+
+        <!--  Example 'About' section  -->
+        <TextBlock Style="{StaticResource SettingsSectionHeaderTextBlockStyle}"
+                           Text="About" />
+
+        <essential:SettingsExpander Description="© 2023. All rights reserved."
+                                           Header="Community Toolkit Gallery">
+            <essential:SettingsExpander.HeaderIcon>
+                <BitmapIcon UriSource="ms-appx:///Assets/Square44x44Logo.scale-100.png"/>
+            </essential:SettingsExpander.HeaderIcon>
+            <TextBlock IsTextSelectionEnabled="True"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Text="Version 8.0.0" />
+            <essential:SettingsExpander.Items>
+                <essential:SettingsCard HorizontalContentAlignment="Left"
+                                               ContentAlignment="Left">
+                    <StackPanel Margin="-12,0,0,0"
+                                        Orientation="Vertical">
+                        <HyperlinkButton Content="Link 1" />
+                        <HyperlinkButton Content="Link 2" />
+                        <HyperlinkButton Content="Link 3" />
+                    </StackPanel>
+                </essential:SettingsCard>
+            </essential:SettingsExpander.Items>
+        </essential:SettingsExpander>
+        <HyperlinkButton Margin="0,8,0,0"
+                                 Content="Send feedback" />
+
+    </StackPanel>
+</Page>

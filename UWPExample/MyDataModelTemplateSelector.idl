@@ -1,0 +1,13 @@
+namespace UWPExample
+{
+    [bindable]
+    [default_interface]
+    runtimeclass MyDataModelTemplateSelector : Windows.UI.Xaml.Controls.DataTemplateSelector
+    {
+        MyDataModelTemplateSelector();
+
+        Windows.UI.Xaml.DataTemplate ButtonTemplate;
+        Windows.UI.Xaml.DataTemplate LinkButtonTemplate;
+        Windows.UI.Xaml.DataTemplate NoButtonTemplate;
+    }
+}

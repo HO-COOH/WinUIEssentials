@@ -1,0 +1,16 @@
+namespace UWPExample
+{
+    //https://github.com/CommunityToolkit/Windows/blob/main/components/SettingsControls/samples/SettingsExpanderItemsSourceSample.xaml.cs
+    [bindable]
+    [default_interface]
+    runtimeclass MyDataModel 
+    {
+        MyDataModel();
+        
+        String Name;
+        String Info;
+        String ItemType;
+        String LinkDescription;
+        String Url;
+    }
+}

@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="UWPExample.IconButtonPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPExample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:UWPPackage"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <ToggleSwitch x:Name="ExpandToggle"/>
+
+        <essential:IconButton x:Name="NormalButton" FontSize="20" IsExpanded="{x:Bind ExpandToggle.IsOn, Mode=OneWay}">
+            <essential:IconButton.Icon>
+                <FontIcon Glyph="&#xE700;"/>
+            </essential:IconButton.Icon>
+
+            <SymbolIcon Symbol="Accept"/>
+
+            <essential:IconButton.Container>
+                <Button x:Name="NormalInnerButton" Click="NormalInnerButton_Click"/>
+            </essential:IconButton.Container>
+        </essential:IconButton>
+
+        <essential:IconButton x:Name="ToggleButton" FontSize="20" IsExpanded="{x:Bind ExpandToggle.IsOn, Mode=OneWay}">
+            <essential:IconButton.Icon>
+                <FontIcon Glyph="&#xE700;"/>
+            </essential:IconButton.Icon>
+
+            Some content
+
+            <essential:IconButton.Container>
+                <ToggleButton x:Name="ToggleInnerButton" Click="ToggleInnerButton_Click"/>
+            </essential:IconButton.Container>
+        </essential:IconButton>
+
+
+        <essential:IconButton x:Name="HyperlinkButton" FontSize="20" IsExpanded="{x:Bind ExpandToggle.IsOn, Mode=OneWay}">
+            <essential:IconButton.Icon>
+                <FontIcon Glyph="&#xE700;"/>
+            </essential:IconButton.Icon>
+
+            <TextBlock  Text="https://www.google.com" TextDecorations="Underline"/>
+            <essential:IconButton.Container>
+                <HyperlinkButton NavigateUri="https://www.google.com"/>
+            </essential:IconButton.Container>
+        </essential:IconButton>
+    </StackPanel>
+</Page>

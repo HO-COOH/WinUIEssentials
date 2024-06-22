@@ -1,0 +1,11 @@
+//import "IIncrementLoadingVector.idl";
+
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass IncrementalLoadingPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        IncrementalLoadingPage();
+        //WinUI3Example.IIncrementLoadingVector Persons{ get; };
+    }
+}

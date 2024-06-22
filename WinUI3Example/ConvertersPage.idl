@@ -1,0 +1,15 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass ConvertersPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ConvertersPage();
+
+        Microsoft.UI.Xaml.Controls.ToggleSwitch VisibleToggle1{ get; };
+        Microsoft.UI.Xaml.Controls.ToggleSwitch VisibleToggle2{ get; };
+        Microsoft.UI.Xaml.Controls.TextBox InputString{ get; };
+    }
+}

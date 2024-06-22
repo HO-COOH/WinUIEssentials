@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="WinUI3Example.CustomMicaWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:WinUI3Package"
+    mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <essential:CustomMicaBackdrop FallbackColor="{x:Bind FallbackColorPicker.Color, Mode=OneWay}"
+                                      LuminosityOpacity="{x:Bind local:CustomAcrylicWindow.DoubleToSingle(LuminosityOpacitySlider.Value), Mode=OneWay}"
+                                      TintColor="{x:Bind TintColorPicker.Color, Mode=OneWay}"
+                                      TintOpacity="{x:Bind local:CustomAcrylicWindow.DoubleToSingle(TintOpacitySlider.Value), Mode=OneWay}"
+                                      EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}"/>
+    </Window.SystemBackdrop>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
+            <StackPanel.Resources>
+                <Style TargetType="Slider" BasedOn="{StaticResource DefaultSliderStyle}">
+                    <Setter Property="StepFrequency" Value="0.01"/>
+                    <Setter Property="Minimum" Value="0"/>
+                    <Setter Property="Maximum" Value="1"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="FallbackColor:"/>
+            <ColorPicker x:Name="FallbackColorPicker"/>
+
+            <Slider Header="LuminosityOpacity" x:Name="LuminosityOpacitySlider"/>
+
+            <TextBlock Text="TintColor:"/>
+            <ColorPicker x:Name="TintColorPicker"/>
+
+            <Slider Header="TintOpacity" x:Name="TintOpacitySlider"/>
+
+            <ToggleSwitch Header="Enable acrylic when window is inactive" x:Name="EnableSwitch"/>
+        </StackPanel>
+    </ScrollViewer>
+
+</Window>

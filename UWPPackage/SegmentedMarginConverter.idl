@@ -1,0 +1,13 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SegmentedMarginConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        SegmentedMarginConverter();
+
+        Windows.UI.Xaml.Thickness LeftItemMargin;
+        Windows.UI.Xaml.Thickness MiddleItemMargin;
+        Windows.UI.Xaml.Thickness RightItemMargin;
+    }
+}

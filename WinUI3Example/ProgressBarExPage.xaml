@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WinUI3Example.ProgressBarExPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:WinUI3Package"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="20" Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Spacing="20">
+            <StackPanel>
+                <TextBlock Text="HighColor:"/>
+                <ColorPicker x:Name="HighColorPicker" IsAlphaEnabled="True" IsAlphaSliderVisible="True" IsAlphaTextInputVisible="True"/>
+            </StackPanel>
+
+            <StackPanel>
+                <TextBlock Text="BaseColor:"/>
+                <ColorPicker x:Name="BaseColorPicker" IsAlphaEnabled="True" IsAlphaSliderVisible="True" IsAlphaTextInputVisible="True"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Slider x:Name="PercentSlider" Minimum="0" Maximum="1.0" StepFrequency="0.01" Grid.Row="1" Header="Percent: "/>
+
+
+        <essential:ProgressBarEx Grid.Row="2" HorizontalAlignment="Stretch" Height="50" Value="{x:Bind PercentSlider.Value, Mode=OneWay}" HighColor="{x:Bind HighColorPicker.Color, Mode=OneWay}"
+                             BaseColor="{x:Bind BaseColorPicker.Color, Mode=OneWay}"
+                                 Background="Red" BorderBrush="Green" BorderThickness="1"/>
+
+        <essential:ProgressBarEx Grid.Row="3" HorizontalAlignment="Stretch" Height="50" Value="{x:Bind PercentSlider.Value, Mode=OneWay}" CornerRadius="20">
+            <Button Style="{StaticResource AccentButtonStyle}" Content="ButtonInside" HorizontalAlignment="Center"/>
+        </essential:ProgressBarEx>
+    </Grid>
+
+</Page>

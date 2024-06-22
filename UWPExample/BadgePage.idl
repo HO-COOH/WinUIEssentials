@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass BadgePage : Windows.UI.Xaml.Controls.Page
+    {
+        BadgePage();
+    }
+}

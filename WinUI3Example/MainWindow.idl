@@ -1,0 +1,11 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass MainWindow : WinUI3Package.WindowEx
+    {
+        MainWindow();
+        Windows.Foundation.Collections.IVector<Object> Pages{ get; };
+    }
+}

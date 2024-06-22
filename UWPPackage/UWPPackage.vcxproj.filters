@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{92e46e53-0f3d-44e2-8405-ca87d3a6bea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls">
+      <UniqueIdentifier>{db76334f-9dff-4acb-8cdb-6fdfead70be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Converters">
+      <UniqueIdentifier>{858a7c4a-4e66-4978-9d25-d86fd71e33eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Triggers">
+      <UniqueIdentifier>{521fd732-a0d4-4420-a284-7ff5c1997bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\GroupBox">
+      <UniqueIdentifier>{71f464d0-b5c2-4933-ac17-7298cebef74b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SettingsCard">
+      <UniqueIdentifier>{067bcf75-9e30-466d-826c-8dcc962eadc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SettingsExpander">
+      <UniqueIdentifier>{87ccb50b-6d50-446a-a638-27eac1a5aa15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MarkupExtensions">
+      <UniqueIdentifier>{1e4a702c-c96e-4162-ad75-929772ca9eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\MarqueeText">
+      <UniqueIdentifier>{f1a74a3a-dc24-4185-9aaa-86e8cdaf5c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\IconButton">
+      <UniqueIdentifier>{01fd93c1-3039-4be8-9741-899f4271ffcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ProgressBarEx">
+      <UniqueIdentifier>{cfc76919-eddb-46ef-9741-eaffdc4667bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\Segmented">
+      <UniqueIdentifier>{37121013-2205-49ac-aff0-8d7f90a69296}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="include\Glyphs.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ToastBuilder.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ToastTemplates.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="ReverseConverterBase.hpp">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PropertyChangeHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WinUIIncludes.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BadgeGlyphs.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WindowHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Export.h" />
+    <ClInclude Include="include\TemplateControlHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TileTemplates.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TileBuilder.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BuiltInUris.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UWPPackage.def" />
+    <None Include="packages.config" />
+    <None Include=".nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PropertySheet.props" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="Placeholder.idl" />
+    <Midl Include="CursorController.idl" />
+    <Midl Include="BoolToVisibilityConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="ContainerToBoolConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="StringToBoolConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="ReferenceToBoolConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="ConverterGroup.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="NegateBoolConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="Triggers\IsEqualStateTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="Triggers\IsNullOrEmptyStateTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="ControlSizeTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="GroupBox.idl">
+      <Filter>Controls\GroupBox</Filter>
+    </Midl>
+    <Midl Include="SettingsPaneEx.idl" />
+    <Midl Include="SettingsCommandEx.idl" />
+    <Midl Include="SettingsCard.idl">
+      <Filter>Controls\SettingsCard</Filter>
+    </Midl>
+    <Midl Include="SettingsExpanderItemStyleSelector.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="SettingsExpander.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="DependentValue.idl" />
+    <Midl Include="FontIconExtension.idl">
+      <Filter>MarkupExtensions</Filter>
+    </Midl>
+    <Midl Include="MarqueeText.idl">
+      <Filter>Controls\MarqueeText</Filter>
+    </Midl>
+    <Midl Include="IconButton.idl">
+      <Filter>Controls\IconButton</Filter>
+    </Midl>
+    <Midl Include="ProgressBarEx.idl">
+      <Filter>Controls\ProgressBarEx</Filter>
+    </Midl>
+    <Midl Include="UIElementExtension.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="EqualPanel.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="Segmented.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="SegmentedItem.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="SegmentedItemCornerRadiusConverter.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="SegmentedMarginConverter.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="GroupBox_Resource.xaml">
+      <Filter>Controls\GroupBox</Filter>
+    </Page>
+    <Page Include="SettingsCard_Resource.xaml">
+      <Filter>Controls\SettingsCard</Filter>
+    </Page>
+    <Page Include="SettingsExpander_Resource.xaml">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Page>
+    <Page Include="Glyphs.xaml">
+      <Filter>include</Filter>
+    </Page>
+    <Page Include="MarqueeText_Resource.xaml">
+      <Filter>Controls\MarqueeText</Filter>
+    </Page>
+    <Page Include="IconButton_Resource.xaml">
+      <Filter>Controls\IconButton</Filter>
+    </Page>
+    <Page Include="ProgressBarEx_Resource.xaml">
+      <Filter>Controls\ProgressBarEx</Filter>
+    </Page>
+    <Page Include="Segmented_Resource.xaml">
+      <Filter>Controls\Segmented</Filter>
+    </Page>
+  </ItemGroup>
+</Project>

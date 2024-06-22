@@ -1,0 +1,10 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass DependentValuePage : Windows.UI.Xaml.Controls.Page
+    {
+        DependentValuePage();
+
+        UWPPackage.DependentValue MyDoubleValue{ get; };
+    }
+}

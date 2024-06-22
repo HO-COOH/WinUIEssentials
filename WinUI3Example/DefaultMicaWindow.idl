@@ -1,0 +1,10 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass DefaultMicaWindow : Microsoft.UI.Xaml.Window
+    {
+        DefaultMicaWindow();
+
+        static Microsoft.UI.Composition.SystemBackdrops.MicaKind ToMicaKind(Object selection);
+    }
+}

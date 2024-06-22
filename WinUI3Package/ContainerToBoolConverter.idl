@@ -1,0 +1,14 @@
+namespace WinUI3Package
+{
+    /**
+     * @brief This class convert container -> Visibility
+     * @details not empty -> Visible, null OR empty -> Collapsed
+     * @if converterParameter is specified as "Reverse", convert not empty -> Collapsed, null OR empty -> Visible
+    */
+    [default_interface]
+    runtimeclass ContainerToBoolConverter : Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        ContainerToBoolConverter();
+        Boolean Reverse;
+    }
+}

@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml" />
+    <Page Include="ToastPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="CursorControllerPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="BadgePage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="ConvertersPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="GroupBoxPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="SettingsCardPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="TaskbarPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="TriggersPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="DependentValuePage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="SettingsExpanderPage.xaml">
+      <Filter>Pages\SettingsExpanderPage</Filter>
+    </Page>
+    <Page Include="MarqueeTextPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="GlyphsPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="TitleBarPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="Win32TitleBar.xaml">
+      <Filter>Windows</Filter>
+    </Page>
+    <Page Include="CustomTitleBar.xaml">
+      <Filter>Windows</Filter>
+    </Page>
+    <Page Include="ProgressBarExPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="LineGraphPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="LineGraphControl.xaml" />
+    <Page Include="WindowExPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="UIElementExtensionPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="SegmentedPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="IconButtonPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="UriPage.xaml">
+      <Filter>Pages\UriPage</Filter>
+    </Page>
+    <Page Include="IncrementalLoadingPage.xaml">
+      <Filter>Pages\IncrementalLoadingVectorPage</Filter>
+    </Page>
+    <Page Include="BackdropPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="CustomAcrylicWindow.xaml">
+      <Filter>Windows\Acrylic</Filter>
+    </Page>
+    <Page Include="DefaultAcrylicWindow.xaml">
+      <Filter>Windows\Acrylic</Filter>
+    </Page>
+    <Page Include="DefaultMicaWindow.xaml">
+      <Filter>Windows\Mica</Filter>
+    </Page>
+    <Page Include="CustomMicaWindow.xaml">
+      <Filter>Windows\Mica</Filter>
+    </Page>
+    <Page Include="TransparentWindowDemo.xaml">
+      <Filter>Windows\Transparent</Filter>
+    </Page>
+    <Page Include="EntranceAnimationDemo.xaml">
+      <Filter>Windows\Transparent</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="App.idl" />
+    <Midl Include="MainWindow.idl" />
+    <Midl Include="MyDataModel.idl">
+      <Filter>Pages\SettingsExpanderPage</Filter>
+    </Midl>
+    <Midl Include="MyDataModelTemplateSelector.idl">
+      <Filter>Pages\SettingsExpanderPage</Filter>
+    </Midl>
+    <Midl Include="LineGraph.idl" />
+    <Midl Include="UriGroup.idl">
+      <Filter>Pages\UriPage</Filter>
+    </Midl>
+    <Midl Include="UriModel.idl">
+      <Filter>Pages\UriPage</Filter>
+    </Midl>
+    <Midl Include="Person.idl">
+      <Filter>Pages\IncrementalLoadingVectorPage</Filter>
+    </Midl>
+    <Midl Include="BackdropPage.idl">
+      <Filter>Pages</Filter>
+    </Midl>
+    <Midl Include="CustomAcrylicWindow.idl">
+      <Filter>Windows\Acrylic</Filter>
+    </Midl>
+    <Midl Include="DefaultAcrylicWindow.idl">
+      <Filter>Windows\Acrylic</Filter>
+    </Midl>
+    <Midl Include="CustomMicaWindow.idl">
+      <Filter>Windows\Mica</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="DefaultAcrylicWindow.cpp">
+      <Filter>Windows\Acrylic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Global.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-16.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-32.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-48.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-256.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-unplated_targetsize-48.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-16.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-24.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-32.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-48.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-lightunplated_targetsize-256.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\MainLogo.ico">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{68226a70-c3cd-4205-93aa-95f3ebb8be34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages">
+      <UniqueIdentifier>{c4ed0077-ab1a-424c-8d69-cfe5eca219e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\SettingsExpanderPage">
+      <UniqueIdentifier>{74b6dc55-d6d8-4db0-b6c4-38f4c301e3f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{ca3d30fe-7d2f-4512-9fca-ae1fbc9d1668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\UriPage">
+      <UniqueIdentifier>{315751c7-0665-45bd-a5ce-b6451965804e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\IncrementalLoadingVectorPage">
+      <UniqueIdentifier>{d306ad37-ea85-49fe-a0bd-f0f7d586abbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Acrylic">
+      <UniqueIdentifier>{c28f8164-e459-4aa6-85e3-97f3243c6584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Mica">
+      <UniqueIdentifier>{8108e428-f2df-4b28-b61d-44e983de8a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\Transparent">
+      <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="WinUI3Example_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+  </ItemGroup>
+</Project>

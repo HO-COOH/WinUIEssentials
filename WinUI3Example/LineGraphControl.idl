@@ -1,0 +1,10 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass LineGraphControl : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        LineGraphControl();
+
+        void AddPoint(Double x, Double y);
+    }
+}

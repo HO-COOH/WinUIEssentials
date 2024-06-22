@@ -1,0 +1,23 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass SegmentedPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        SegmentedPage();
+
+        /*BasicSegmentedExample*/
+        Microsoft.UI.Xaml.Controls.ToggleSwitch EnabledSwitch1{ get; };
+        Microsoft.UI.Xaml.Controls.ToggleSwitch ReorderingSwitch1{ get; };
+        Microsoft.UI.Xaml.Controls.ComboBox SelectionModeComboBox1{ get; };
+        Microsoft.UI.Xaml.Controls.ComboBox HorizontalAlignmenmtComboBox1{ get; };
+
+
+        Microsoft.UI.Xaml.Controls.ToggleSwitch EnabledSwitch2{ get; };
+        Microsoft.UI.Xaml.Controls.ToggleSwitch ReorderingSwitch2{ get; };
+        Microsoft.UI.Xaml.Controls.ComboBox SelectionModeComboBox2{ get; };
+        Microsoft.UI.Xaml.Controls.ComboBox HorizontalAlignmenmtComboBox2{ get; };
+
+        static Microsoft.UI.Xaml.Controls.ListViewSelectionMode ConvertToSelectionMode(Object selectionMode);
+        static Microsoft.UI.Xaml.HorizontalAlignment ConvertToHorizontalAlignment(Object horizontalAlignment);
+    }
+}

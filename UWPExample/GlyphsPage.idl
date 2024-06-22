@@ -1,0 +1,15 @@
+namespace UWPExample
+{
+    struct Icon
+    {
+        String Glyph;
+        String Name;
+    };
+
+    [default_interface]
+    runtimeclass GlyphsPage : Windows.UI.Xaml.Controls.Page
+    {
+        GlyphsPage();
+        Windows.Foundation.Collections.IVector<Object> Glyphs{ get; };
+    }
+}

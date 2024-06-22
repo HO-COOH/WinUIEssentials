@@ -1,0 +1,11 @@
+namespace UWPExample
+{
+    [bindable]
+    [default_interface]
+    runtimeclass UriModel
+    {
+        UriModel(String name, Windows.Foundation.Uri uri);
+        String Name{ get; };
+        Windows.Foundation.Uri Uri{ get; };
+    }
+}

@@ -1,0 +1,13 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass UIElementExtension 
+    {
+        UIElementExtension();
+
+        static Windows.UI.Xaml.DependencyProperty ClipToBoundsProperty{ get; };
+        static Boolean GetClipToBounds(Windows.UI.Xaml.UIElement element);
+        static void SetClipToBounds(Windows.UI.Xaml.UIElement element, Boolean value);
+    }
+}

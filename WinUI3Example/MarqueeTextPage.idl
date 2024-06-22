@@ -1,0 +1,23 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass MarqueeTextPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        MarqueeTextPage();
+
+        Microsoft.UI.Xaml.Controls.Slider MarqueeSpeedSlider{ get; };
+        Microsoft.UI.Xaml.Controls.Slider FontSizeSlider{ get; };
+        Microsoft.UI.Xaml.Controls.Slider SpaceIntervalSlider{ get; };
+        Microsoft.UI.Xaml.Controls.ToggleSwitch PauseOnHoverToggle{ get; };
+        Microsoft.UI.Xaml.Controls.ComboBox MarqueeDirectionComboBox{ get; };
+        Microsoft.UI.Xaml.Controls.ComboBox MarqueeBehaviorComboBox{ get; };
+
+        static WinUI3Package.MarqueeBehavior GetBehaviorFromIndex(Int32 value);
+        static WinUI3Package.MarqueeDirection GetDirectionFromIndex(Int32 value);
+
+        WinUI3Package.MarqueeText Test{ get; };
+    }
+}

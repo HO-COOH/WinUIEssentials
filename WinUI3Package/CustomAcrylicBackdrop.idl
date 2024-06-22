@@ -1,0 +1,27 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass CustomAcrylicBackdrop : Microsoft.UI.Xaml.Media.SystemBackdrop
+    {
+        CustomAcrylicBackdrop();
+        
+        Windows.UI.Color FallbackColor;
+        static Microsoft.UI.Xaml.DependencyProperty FallbackColorProperty{ get; };
+
+        Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicKind Kind;
+        static Microsoft.UI.Xaml.DependencyProperty KindProperty{ get; };
+
+        Single LuminosityOpacity;
+        static Microsoft.UI.Xaml.DependencyProperty LuminosityOpacityProperty{ get; };
+
+        Windows.UI.Color TintColor;
+        static Microsoft.UI.Xaml.DependencyProperty TintColorProperty{ get; };
+
+        Single TintOpacity;
+        static Microsoft.UI.Xaml.DependencyProperty TintOpacityProperty{ get; };
+
+        Boolean EnableWhenInactive;
+        static Microsoft.UI.Xaml.DependencyProperty EnableWhenInactiveProperty{ get; };
+    }
+}

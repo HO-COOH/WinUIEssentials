@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass TransparentWindowDemo : WinUI3Package.TransparentWindow
+    {
+        TransparentWindowDemo();
+    }
+}

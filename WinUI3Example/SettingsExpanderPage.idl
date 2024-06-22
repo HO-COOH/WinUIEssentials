@@ -1,0 +1,16 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass SettingsExpanderPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        SettingsExpanderPage();
+
+        Microsoft.UI.Xaml.Controls.ToggleSwitch IsCardExpanded{ get; };
+        Microsoft.UI.Xaml.Controls.ToggleSwitch IsCardEnabled{ get; };
+
+        Windows.Foundation.Collections.IVector<Object> MyDataSet{ get; };
+    }
+}

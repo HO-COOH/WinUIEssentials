@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass WindowExPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        WindowExPage();
+    }
+}

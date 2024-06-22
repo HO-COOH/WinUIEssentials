@@ -1,0 +1,9 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TransparentBackdrop : Microsoft.UI.Xaml.Media.SystemBackdrop
+    {
+        TransparentBackdrop();
+    }
+}

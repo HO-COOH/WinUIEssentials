@@ -1,0 +1,15 @@
+import "TransparentWindow.idl";
+
+namespace WinUI3Package
+{
+    [Microsoft.UI.Xaml.Data.Bindable]
+    [default_interface]
+    runtimeclass RoundedAnimatedAcrylicWindowWithShadow : WinUI3Package.TransparentWindow
+    {
+        RoundedAnimatedAcrylicWindowWithShadow();
+
+        Microsoft.UI.Xaml.CornerRadius CornerRadius;
+        Microsoft.UI.Xaml.Media.Animation.Storyboard EntranceStoryboard;
+        Microsoft.UI.Xaml.Media.Animation.Storyboard ExitStoryboard;
+    }
+}

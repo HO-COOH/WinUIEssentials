@@ -1,0 +1,266 @@
+﻿<Page
+    x:Class="UWPExample.SegmentedPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPExample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:UWPPackage"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Spacing="10" Margin="10">
+        <StackPanel.Resources>
+            <x:Double x:Key="IconToTextSpacing">8</x:Double>
+            <Style TargetType="FontIcon">
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+            <Style x:Key="TitleTextStyle" TargetType="TextBlock">
+                <Setter Property="Margin" Value="0,20,0,0"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+        </StackPanel.Resources>
+
+        <!--BasicSegmentedExample-->
+        <TextBlock Text="The basics" Style="{StaticResource TitleTextStyle}"/>
+        <RelativePanel>
+            <StackPanel Orientation="Vertical" Spacing="8">
+                <TextBlock Text="Icon + content"/>
+                <essential:Segmented IsEnabled="{x:Bind EnabledSwitch1.IsOn, Mode=OneWay}"
+                              SelectionMode="{x:Bind local:SegmentedPage.ConvertToSelectionMode(SelectionModeComboBox1.SelectedItem), Mode=OneWay}"
+                              CanReorderItems="{x:Bind ReorderingSwitch1.IsOn, Mode=OneWay}"
+                              AllowDrop="{x:Bind ReorderingSwitch1.IsOn, Mode=OneWay}"
+                              HorizontalAlignment="{x:Bind local:SegmentedPage.ConvertToHorizontalAlignment(HorizontalAlignmenmtComboBox1.SelectedItem), Mode=OneWay}">
+                    <essential:SegmentedItem>
+                        <StackPanel Spacing="8" Orientation="Horizontal">
+                            <FontIcon Glyph="&#xEA3A;"/>
+                            <TextBlock Text="Item1"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <StackPanel Spacing="8" Orientation="Horizontal">
+                            <FontIcon Glyph="&#xEA3A;"/>
+                            <TextBlock Text="Item2"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <StackPanel Spacing="8" Orientation="Horizontal">
+                            <FontIcon Glyph="&#xEA3A;"/>
+                            <TextBlock Text="Item3 with a long label"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <StackPanel Spacing="8" Orientation="Horizontal">
+                            <FontIcon Glyph="&#xEA3A;"/>
+                            <TextBlock Text="Item4"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+                </essential:Segmented>
+
+                <TextBlock Text="Icon only" Margin="0,24,0,0"/>
+                <essential:Segmented IsEnabled="{x:Bind EnabledSwitch1.IsOn, Mode=OneWay}"
+                              SelectionMode="{x:Bind local:SegmentedPage.ConvertToSelectionMode(SelectionModeComboBox1.SelectedItem), Mode=OneWay}"
+                              CanReorderItems="{x:Bind ReorderingSwitch1.IsOn, Mode=OneWay}"
+                              AllowDrop="{x:Bind ReorderingSwitch1.IsOn, Mode=OneWay}"
+                              HorizontalAlignment="{x:Bind local:SegmentedPage.ConvertToHorizontalAlignment(HorizontalAlignmenmtComboBox1.SelectedItem), Mode=OneWay}">
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE8BF;"/>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE8C0;"/>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE787;"/>
+                    </essential:SegmentedItem>
+                </essential:Segmented>
+
+                <TextBlock Text="Different sizes" Margin="0,24,0,0"/>
+                <essential:Segmented IsEnabled="{x:Bind EnabledSwitch1.IsOn, Mode=OneWay}"
+                              SelectionMode="{x:Bind local:SegmentedPage.ConvertToSelectionMode(SelectionModeComboBox1.SelectedItem), Mode=OneWay}"
+                              CanReorderItems="{x:Bind ReorderingSwitch1.IsOn, Mode=OneWay}"
+                              AllowDrop="{x:Bind ReorderingSwitch1.IsOn, Mode=OneWay}"
+                              HorizontalAlignment="{x:Bind local:SegmentedPage.ConvertToHorizontalAlignment(HorizontalAlignmenmtComboBox1.SelectedItem), Mode=OneWay}">
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <SymbolIcon Symbol="Accept"/>
+                            <TextBlock Text="Content1"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <SymbolIcon Symbol="Add"/>
+                            <TextBlock Text="Content2"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <SymbolIcon Symbol="Admin"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Content longerrrrrrrrrr"/>
+                                <TextBlock Text="Content 2nd line"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+                </essential:Segmented>
+
+                <TextBlock Text="Vertical layout" Margin="0,24,0,0"/>
+                <essential:Segmented IsEnabled="{x:Bind EnabledSwitch1.IsOn, Mode=OneWay}" 
+                              SelectionMode="{x:Bind local:SegmentedPage.ConvertToSelectionMode(SelectionModeComboBox1.SelectedItem), Mode=OneWay}"
+                              CanReorderItems="{x:Bind ReorderingSwitch1.IsOn, Mode=OneWay}"
+                              AllowDrop="{x:Bind ReorderingSwitch1.IsOn, Mode=OneWay}"
+                              HorizontalAlignment="{x:Bind local:SegmentedPage.ConvertToHorizontalAlignment(HorizontalAlignmenmtComboBox1.SelectedItem), Mode=OneWay}">
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <SymbolIcon Symbol="Accept"/>
+                            <TextBlock Text="Content1"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <SymbolIcon Symbol="Add"/>
+                            <TextBlock Text="Content2"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <SymbolIcon Symbol="Admin"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="Content longerrrrrrrrrr"/>
+                                <TextBlock Text="Content 2nd line"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+
+                    <essential:Segmented.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </essential:Segmented.ItemsPanel>
+                </essential:Segmented>
+            </StackPanel>
+
+            <!--Controls-->
+            <StackPanel Orientation="Vertical" RelativePanel.AlignRightWithPanel="True" VerticalAlignment="Center">
+                <ToggleSwitch OnContent="Enabled" OffContent="Disabled" x:Name="EnabledSwitch1" Header="IsEnabled:" IsOn="True"/>
+                <ToggleSwitch OnContent="Enabled" OffContent="Disabled" x:Name="ReorderingSwitch1" Header="Reordering:" IsOn="True"/>
+                <ComboBox x:Name="SelectionModeComboBox1" SelectedIndex="0" Header="Selection Mode:">
+                    <x:String>Single</x:String>
+                    <x:String>Multiple</x:String>
+                </ComboBox>
+                <ComboBox x:Name="HorizontalAlignmenmtComboBox1" SelectedIndex="0" Header="Horizontal alignment:">
+                    <x:String>Left</x:String>
+                    <x:String>Center</x:String>
+                    <x:String>Right</x:String>
+                    <x:String>Stretch</x:String>
+                </ComboBox>
+            </StackPanel>
+        </RelativePanel>
+
+        <!--Other styles-->
+        <TextBlock Text="Other styles" Style="{StaticResource TitleTextStyle}"/>
+        <RelativePanel>
+            <StackPanel Orientation="Vertical" Spacing="8">
+                <TextBlock Text="PivotSegmentedStyle"/>
+                <essential:Segmented SelectedIndex="1"
+                      Style="{StaticResource PivotSegmentedStyle}"
+                      IsEnabled="{x:Bind EnabledSwitch2.IsOn, Mode=OneWay}"
+                              AllowDrop="{x:Bind ReorderingSwitch2.IsOn, Mode=OneWay}"
+                              HorizontalAlignment="{x:Bind local:SegmentedPage.ConvertToHorizontalAlignment(HorizontalAlignmenmtComboBox2.SelectedItem), Mode=OneWay}">
+                    <essential:SegmentedItem>Item 1</essential:SegmentedItem>
+                    <essential:SegmentedItem>Item 2</essential:SegmentedItem>
+                    <essential:SegmentedItem>Item with long label</essential:SegmentedItem>
+                    <essential:SegmentedItem>Item 4</essential:SegmentedItem>
+                </essential:Segmented>
+
+                <TextBlock Text="ButtonSegmentedStyle Icon only" Margin="0,24,0,0"/>
+                <essential:Segmented Style="{StaticResource ButtonSegmentedStyle}" IsEnabled="{x:Bind EnabledSwitch2.IsOn, Mode=OneWay}"
+                              CanReorderItems="{x:Bind ReorderingSwitch2.IsOn, Mode=OneWay}"
+                              AllowDrop="{x:Bind ReorderingSwitch2.IsOn, Mode=OneWay}"
+                              HorizontalAlignment="{x:Bind local:SegmentedPage.ConvertToHorizontalAlignment(HorizontalAlignmenmtComboBox2.SelectedItem), Mode=OneWay}">
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE8BF;"/>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE8C0;"/>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE787;"/>
+                    </essential:SegmentedItem>
+                </essential:Segmented>
+
+                <TextBlock Text="ButtonSegmentedStyle Icon only vertical" Margin="0,24,0,0"/>
+                <essential:Segmented Style="{StaticResource ButtonSegmentedStyle}" IsEnabled="{x:Bind EnabledSwitch2.IsOn, Mode=OneWay}"
+                              CanReorderItems="{x:Bind ReorderingSwitch2.IsOn, Mode=OneWay}"
+                              AllowDrop="{x:Bind ReorderingSwitch2.IsOn, Mode=OneWay}"
+                              HorizontalAlignment="{x:Bind local:SegmentedPage.ConvertToHorizontalAlignment(HorizontalAlignmenmtComboBox2.SelectedItem), Mode=OneWay}">
+                    <essential:Segmented.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </essential:Segmented.ItemsPanel>
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE8BF;"/>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE8C0;"/>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <FontIcon Glyph="&#xE787;"/>
+                    </essential:SegmentedItem>
+                </essential:Segmented>
+
+                <TextBlock Text="ButtonSegmentedStyle + Text" Margin="0,24,0,0"/>
+                <essential:Segmented Style="{StaticResource ButtonSegmentedStyle}" IsEnabled="{x:Bind EnabledSwitch2.IsOn, Mode=OneWay}"
+                              CanReorderItems="{x:Bind ReorderingSwitch2.IsOn, Mode=OneWay}"
+                              AllowDrop="{x:Bind ReorderingSwitch2.IsOn, Mode=OneWay}"
+                              HorizontalAlignment="{x:Bind local:SegmentedPage.ConvertToHorizontalAlignment(HorizontalAlignmenmtComboBox2.SelectedItem), Mode=OneWay}">
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="{StaticResource IconToTextSpacing}">
+                            <FontIcon Glyph="&#xE8BF;"/>
+                            <TextBlock Text="Day"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="{StaticResource IconToTextSpacing}">
+                            <FontIcon Glyph="&#xE8C0;"/>
+                            <TextBlock Text="Week"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+                    <essential:SegmentedItem>
+                        <StackPanel Orientation="Horizontal" Spacing="{StaticResource IconToTextSpacing}">
+                            <FontIcon Glyph="&#xE787;"/>
+                            <TextBlock Text="Month"/>
+                        </StackPanel>
+                    </essential:SegmentedItem>
+                </essential:Segmented>
+            </StackPanel>
+
+            <!--Controls-->
+
+            <StackPanel Orientation="Vertical" RelativePanel.AlignRightWithPanel="True" VerticalAlignment="Center">
+                <ToggleSwitch OnContent="Enabled" OffContent="Disabled" x:Name="EnabledSwitch2" Header="IsEnabled:" IsOn="True"/>
+                <ToggleSwitch OnContent="Enabled" OffContent="Disabled" x:Name="ReorderingSwitch2" Header="Reordering:" IsOn="True"/>
+                <ComboBox x:Name="SelectionModeComboBox2" SelectedIndex="0" Header="Selection Mode:">
+                    <x:String>Single</x:String>
+                    <x:String>Multiple</x:String>
+                </ComboBox>
+                <ComboBox x:Name="HorizontalAlignmenmtComboBox2" SelectedIndex="0" Header="Horizontal alignment:">
+                    <x:String>Left</x:String>
+                    <x:String>Center</x:String>
+                    <x:String>Right</x:String>
+                    <x:String>Stretch</x:String>
+                </ComboBox>
+
+            </StackPanel>
+        </RelativePanel>
+
+
+
+
+    </StackPanel>
+
+</Page>

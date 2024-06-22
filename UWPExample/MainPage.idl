@@ -1,0 +1,9 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass MainPage : Windows.UI.Xaml.Controls.Page
+    {
+        MainPage();
+        Windows.Foundation.Collections.IVector<Object> Pages{ get; };
+    }
+}

@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass BackdropPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        BackdropPage();
+    }
+}

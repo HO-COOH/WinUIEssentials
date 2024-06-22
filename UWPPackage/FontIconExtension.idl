@@ -1,0 +1,18 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass FontIconExtension : Windows.UI.Xaml.Markup.MarkupExtension
+    {
+        FontIconExtension();
+        
+        Double FontSize;
+        Windows.UI.Text.FontWeight FontWeight;
+        Windows.UI.Xaml.Media.FontFamily FontFamily;
+        Windows.UI.Text.FontStyle FontStyle;
+        Windows.UI.Xaml.Media.Brush Foreground;
+        String Glyph;
+        Boolean IsTextScaleFactorEnabled;
+        Boolean MirroredWhenRightToLeft;
+    }
+}

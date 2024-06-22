@@ -1,0 +1,11 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass TilesPage : Windows.UI.Xaml.Controls.Page
+    {
+        TilesPage();
+
+        Windows.UI.Xaml.Controls.ListView List{ get; };
+        static String GetXml(Int32 Selection);
+    }
+}

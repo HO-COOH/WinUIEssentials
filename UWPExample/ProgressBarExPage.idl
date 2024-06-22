@@ -1,0 +1,12 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass ProgressBarExPage : Windows.UI.Xaml.Controls.Page
+    {
+        ProgressBarExPage();
+
+        Windows.UI.Xaml.Controls.ColorPicker HighColorPicker{ get; };
+        Windows.UI.Xaml.Controls.ColorPicker BaseColorPicker{ get; };
+        Windows.UI.Xaml.Controls.Slider PercentSlider{ get; };
+    }
+}

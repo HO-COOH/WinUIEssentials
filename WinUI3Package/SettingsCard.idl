@@ -1,0 +1,43 @@
+namespace WinUI3Package
+{
+    enum ContentAlignment
+    {
+        Right,
+        Left,
+        Vertical
+    };
+
+
+    [bindable]
+    [default_interface]
+    runtimeclass SettingsCard : Microsoft.UI.Xaml.Controls.Primitives.ButtonBase
+    {
+
+        SettingsCard();
+
+        /*properties*/
+        Object Header;
+        static Microsoft.UI.Xaml.DependencyProperty HeaderProperty{ get; };
+
+        Object Description;
+        static Microsoft.UI.Xaml.DependencyProperty DescriptionProperty{ get; };
+
+        Object HeaderIcon;
+        static Microsoft.UI.Xaml.DependencyProperty HeaderIconProperty{ get; };
+
+        Object ActionIcon;
+        static Microsoft.UI.Xaml.DependencyProperty ActionIconProperty{ get; };
+
+        String ActionIconToolTip;
+        static Microsoft.UI.Xaml.DependencyProperty ActionIconToolTipProperty{ get; };
+
+        Boolean IsClickEnabled;
+        static Microsoft.UI.Xaml.DependencyProperty IsClickEnabledProperty{ get; };
+
+        Boolean IsActionIconVisible;
+        static Microsoft.UI.Xaml.DependencyProperty IsActionIconVisibleProperty{ get; };
+
+        ContentAlignment ContentAlignment;
+        static Microsoft.UI.Xaml.DependencyProperty ContentAlignmentProperty{ get; };
+    }
+}

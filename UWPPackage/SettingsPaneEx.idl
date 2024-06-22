@@ -1,0 +1,25 @@
+import "SettingsCommandEx.idl";
+namespace UWPPackage
+{
+    [bindable]
+    [contentproperty("Content")]
+    [default_interface]
+    runtimeclass SettingsPaneEx : Windows.UI.Xaml.Controls.Control
+    {
+        SettingsPaneEx();
+
+        //For using SettingsPaneEx in attached-property mode, usually defined as a global Settings in <Application.Resources>
+        static Windows.UI.Xaml.DependencyProperty SettingsProperty{get; };
+        static void SetSettings(Object element, Windows.Foundation.Collections.IVector<UWPPackage.SettingsCommandEx> value);
+        static Windows.Foundation.Collections.IVector<UWPPackage.SettingsCommandEx> GetSettings(Object element);
+        static void Show();
+
+        static Windows.UI.Xaml.DependencyProperty KeyboardAcceleratorProperty{get; };
+        static void SetKeyboardAccelerator(Object element, Windows.UI.Xaml.Input.KeyboardAccelerator key);
+        static Windows.UI.Xaml.Input.KeyboardAccelerator GetKeyboardAccelerator(Object element);
+
+        //For using SettingsPaneEx in local page
+        Windows.Foundation.Collections.IVector<UWPPackage.SettingsCommandEx> Content{get; };
+        void ShowCurrent();
+    }
+}

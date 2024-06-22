@@ -1,0 +1,12 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass DependentValuePage : Microsoft.UI.Xaml.Controls.Page
+    {
+        DependentValuePage();
+        WinUI3Package.DependentValue MyDoubleValue{ get; };
+    }
+}

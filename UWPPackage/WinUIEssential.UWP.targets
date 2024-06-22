@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemDefinitionGroup>
+        <ClCompile>
+            <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+        </ClCompile>
+    </ItemDefinitionGroup>
+    
+    <!--Add dll and xaml here-->
+    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\UWPPackage.winmd">
+            <IsWinMDFile>true</IsWinMDFile>
+            <Implementation>UWPPackage.dll</Implementation>
+        </Reference>
+        
+        <!-- <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\GroupBox_Resource.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page>
+        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\SettingsCard_Resource.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page>
+        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\SettingsExpander_Resource.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page>
+        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\MarqueeText_Resource.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page>
+        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\Glyphs.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page> -->
+
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\Glyphs.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\GroupBox_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\SettingsCard_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\SettingsExpander_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\MarqueeText_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\ProgressBarEx_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\Segmented_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\UWPPackage.winmd">
+            <IsWinMDFile>true</IsWinMDFile>
+            <Implementation>UWPPackage.dll</Implementation>
+        </Reference>
+
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\Glyphs.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\GroupBox_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\SettingsCard_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\SettingsExpander_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\MarqueeText_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\ProgressBarEx_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\Segmented_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+
+        <!--This is unable to build when uploaded to nuget.org. It seems to copy the whole 'package' folder into the output directory-->
+        <!-- <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\GroupBox_Resource.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page>
+        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\SettingsCard_Resource.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page>
+        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\SettingsExpander_Resource.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page>
+        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\MarqueeText_Resource.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page>
+        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\Glyphs.xaml">
+            <DeploymentContent>true</DeploymentContent>
+        </Page> -->
+    </ItemGroup>
+
+    <!-- lib -->
+    <!-- <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+        <Link>
+            <AdditionalDependencies>$(MSBuildThisFileDirectory)..\..\lib\native\$(Configuration)\$(Platform)\UWPPackage.lib;%(AdditionalDependencies)</AdditionalDependencies>
+        </Link>
+    </ItemDefinitionGroup> -->
+
+    <PropertyGroup>
+        <BeforeMidlCompileTargets>
+            $(BeforeMidlCompileTargets);
+            AddDesktopExtension
+        </BeforeMidlCompileTargets>
+    </PropertyGroup>
+
+    <UsingTask TaskName="AddDesktopExtension" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+        <ParameterGroup>
+            <FilePath Required="true"/>
+        </ParameterGroup>
+        <Task>
+            <Using Namespace="System" />
+            <Using Namespace="System.IO" />
+            <Using Namespace="System.Xml" />
+            <Using Namespace="System.Text"/>
+            <Code Type="Fragment" Language="cs">
+<![CDATA[
+bool modified = false;
+string getCondition(string configuration, string platform)
+{
+    string escaped = "'?(Configuration)|?(Platform)'=='"
+    + configuration 
+    + "|"
+    + platform
+    + "'";
+    return escaped.Replace('?', '$');
+}
+
+string Project()
+{
+    string escaped = "?([Microsoft.Build.Utilities.ToolLocationHelper]::GetPlatformExtensionSDKLocation(`WindowsDesktop, Version=10.0.22621.0`, ?(TargetPlatformIdentifier), ?(TargetPlatformVersion),  ?(SDKReferenceDirectoryRoot), ?(SDKExtensionDirectoryRoot), ?(SDKReferenceRegistryRoot)))\\DesignTime\\CommonConfiguration\\Neutral\\WindowsDesktop.props";
+    return escaped.Replace('?', '$');
+}
+
+string Condition()
+{
+    string escaped = "exists('?([Microsoft.Build.Utilities.ToolLocationHelper]::GetPlatformExtensionSDKLocation(`WindowsDesktop, Version=10.0.22621.0`, ?(TargetPlatformIdentifier), ?(TargetPlatformVersion),  ?(SDKReferenceDirectoryRoot), ?(SDKExtensionDirectoryRoot), ?(SDKReferenceRegistryRoot)))\\DesignTime\\CommonConfiguration\\Neutral\\WindowsDesktop.props')";
+    return escaped.Replace('?', '$');
+}
+
+bool AlreadyAdded(XmlNodeList allImportGroups, XmlElement toAdd)
+{
+    foreach (XmlNode importGroup in allImportGroups)
+    {
+        if (toAdd.OuterXml == importGroup.OuterXml)
+            return true;
+    }
+    return false;
+}
+
+void AddToDocument(XmlNode projectNode)
+{
+    string Node = "ImportGroup";
+    string Label = "PropertySheets";
+
+    string ItemGroup = "ItemGroup";
+    string SDKReference = "SDKReference";
+
+
+    string[] Configurations = new string[] { "Debug", "Release" };
+    string[] Platforms = new string[] { "x64", "Win32", "ARM", "ARM64" };
+    var root = projectNode.OwnerDocument;
+
+    var allImportGroups = root.GetElementsByTagName(Node);
+    var allItemGroups = root.GetElementsByTagName(ItemGroup);
+    foreach (var configuration in Configurations)
+    {
+        foreach (var platform in Platforms)
+        {
+
+            var importGroup = root.CreateElement(Node, root.DocumentElement.NamespaceURI);
+            importGroup.SetAttribute(nameof(Label), Label);
+            importGroup.SetAttribute("Condition", getCondition(configuration, platform));
+
+            var import = root.CreateElement("Import", root.DocumentElement.NamespaceURI);
+            import.SetAttribute("Project", Project());
+            import.SetAttribute("Condition", Condition());
+            importGroup.AppendChild(import);
+
+            if (!AlreadyAdded(allImportGroups, importGroup))
+            {
+                projectNode.AppendChild(importGroup);
+                modified = true;
+            }
+        }
+    }
+    var sdkItemGroup = root.CreateElement(ItemGroup, root.DocumentElement.NamespaceURI);
+    var sdkReference = root.CreateElement(SDKReference, root.DocumentElement.NamespaceURI);
+    sdkReference.SetAttribute("Include", "WindowsDesktop, Version=10.0.22621.0");
+    sdkItemGroup.AppendChild(sdkReference);
+    if(!AlreadyAdded(allItemGroups, sdkItemGroup))
+    {
+        projectNode.AppendChild(sdkItemGroup); 
+        modified = true;
+    }
+}
+
+void WriteToFile(string filePath, string content)
+{
+    using (var writer = new StreamWriter(filePath))
+    {
+        writer.Write(content);
+    }
+}
+
+string FormatXml(XmlDocument xd)
+{
+    StringBuilder sb = new StringBuilder();
+    StringWriter sw = new StringWriter(sb);
+    XmlTextWriter xtw = null;
+    try
+    {
+        xtw = new XmlTextWriter(sw);
+        xtw.Formatting = Formatting.Indented;
+        xd.WriteTo(xtw);
+    }
+    finally
+    {
+        if (xtw != null)
+            xtw.Close();
+    }
+    return sb.ToString();
+}
+
+XmlDocument document = new XmlDocument();
+document.Load(FilePath);
+
+var project = document.ChildNodes[1];
+AddToDocument(project);
+
+if(modified)
+{
+    var result = FormatXml(document);
+    WriteToFile(FilePath, result);
+    Log.LogWarning("Modified: " + FilePath);
+}
+]]>
+            </Code>
+        </Task>
+    </UsingTask>
+
+    <Target Name="AddDesktopExtension">
+        <Message Importance="high" Text="Checking $(MSBuildProjectFullPath) for [DesktopExtensions]"/>
+        <AddDesktopExtension FilePath="$(MSBuildProjectFullPath)"/>
+    </Target>
+
+    <PropertyGroup>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <None Include="licenses\LICENSE.txt" Pack="true" PackagePath=""/>
+    </ItemGroup>
+</Project>

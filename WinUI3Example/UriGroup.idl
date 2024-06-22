@@ -1,0 +1,15 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass UriGroup 
+    {
+        UriGroup(
+            String title,
+            Windows.Foundation.Collections.IVector<Object> uris
+        );
+
+        String Title{ get; };
+        Windows.Foundation.Collections.IVector<Object> Uris{ get; };
+    }
+}

@@ -1,0 +1,14 @@
+namespace WinUI3Package
+{
+    /**
+     * @brief This class convert Object(Windows.Foundation.IInspectable) -> Visibility
+     * @details not null -> true, null -> false
+     * @if converterParameter is specified as "Reverse", convert null -> true, not null -> false
+    */
+    [default_interface]
+    runtimeclass ReferenceToBoolConverter : Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        ReferenceToBoolConverter();
+        Boolean Reverse;
+    }
+}

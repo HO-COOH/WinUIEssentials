@@ -1,0 +1,13 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass LineGraph : Microsoft.UI.Xaml.Controls.Control
+    {
+        LineGraph();
+        
+        void AddPoint(Double x, Double y);
+        
+
+    }
+}

@@ -1,0 +1,13 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SegmentedMarginConverter : Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        SegmentedMarginConverter();
+
+        Microsoft.UI.Xaml.Thickness LeftItemMargin;
+        Microsoft.UI.Xaml.Thickness MiddleItemMargin;
+        Microsoft.UI.Xaml.Thickness RightItemMargin;
+    }
+}

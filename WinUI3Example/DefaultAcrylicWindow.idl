@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass DefaultAcrylicWindow : Microsoft.UI.Xaml.Window
+    {
+        DefaultAcrylicWindow();
+    }
+}

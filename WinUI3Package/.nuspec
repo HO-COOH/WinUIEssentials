@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>WinUIEssential.WinUI3</id>
+        <version>1.2.1</version>
+        <title>WinUIEssential(WinUI3)</title>
+        <authors>Peter</authors>
+        <owners></owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Essential helpers for developing WinUI(UWP)</description>
+        <icon>assets\MainLogo.png</icon>
+        <dependencies>
+            <group targetFramework="native">
+                <dependency id="Microsoft.WindowsAppSDK" version="1.4.231115000"/>
+                <dependency id="Microsoft.Windows.CppWinRT" version="2.0.230706.1"/>
+            </group>
+        </dependencies>
+        <license type="expression">MIT</license>
+        <readme>docs\README.md</readme>
+        <projectUrl>https://github.com/HO-COOH/WinUIEssentials</projectUrl>
+        <tags>c++ cpp was winui3 winui cpp20</tags>
+        <repository type="git" url="https://github.com/HO-COOH/WinUIEssentials"/>
+    </metadata>
+    <files>
+        <!--build/native-->
+        <file src="include/**" target="build/native/include"/>
+        <file src="WinUIEssential.WinUI3.targets" target="build/native"/>
+        
+        <!--lib/native(The last item in each group is control resource)-->
+        <file src="..\x64\Debug\WinUI3Package\WinUI3Package.winmd" target="lib/native/Debug/x64"/>
+        <file src="..\x64\Debug\WinUI3Package\WinUI3Package.dll" target="lib/native/Debug/x64"/>
+        <file src="..\x64\Debug\WinUI3Package\WinUI3Package.pri" target="lib/native/Debug/x64"/>
+        <file src="..\x64\Debug\WinUI3Package\WinUI3Package\*.*" target="lib/native/Debug/x64/WinUI3Package"/>
+
+        <file src="..\x64\Release\WinUI3Package\WinUI3Package.winmd" target="lib/native/Release/x64"/>
+        <file src="..\x64\Release\WinUI3Package\WinUI3Package.dll" target="lib/native/Release/x64"/>
+        <file src="..\x64\Release\WinUI3Package\WinUI3Package.pri" target="lib/native/Release/x64"/>
+        <file src="..\x64\Release\WinUI3Package\WinUI3Package\*.*" target="lib/native/Release/x64/WinUI3Package"/>
+
+
+        <!-- Meta -->
+        <file src="..\MainLogo.png" target="assets\"/>
+        <file src="..\LICENSE.txt" target="licenses\"/>
+        <file src="..\README.md" target="docs\"/>
+    </files>
+</package>

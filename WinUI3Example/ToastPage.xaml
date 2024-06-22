@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WinUI3Example.ToastPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:WinUI3Package"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Spacing="5">
+        <Button x:Name="BodyTextOnlyBtn" Click="BodyTextOnlyBtn_Click">BodyTextOnly</Button>
+        <Button x:Name="SingleLineHeaderWithBodyBtn" Click="SingleLineHeaderWithBodyBtn_Click">SingleLineHeaderWithBody</Button>
+        <Button x:Name="TwoLineHeaderWithBodyBtn" Click="TwoLineHeaderWithBodyBtn_Click">TwoLineHeaderWithBody</Button>
+        <Button x:Name="HeaderWithTwoSingleLineBody" Click="HeaderWithTwoSingleLineBody_Click">HeaderWithSingleLineBody</Button>
+        <Button x:Name="ImageWithBodyOnly" Click="ImageWithBodyOnly_Click">ImageWithBodyOnly</Button>
+        <Button x:Name="ImageWithHeaderAndBodyBtn" Click="ImageWithHeaderAndBodyBtn_Click">ImageWithHeaderAndBody</Button>
+        <Button x:Name="ImageWithTwoLineHeaderAndBody" Click="ImageWithTwoLineHeaderAndBody_Click">ImageWithTwoLineHeaderAndBody</Button>
+        <Button x:Name="ImageWithHeaderAndTwoSingleLineBody" Click="ImageWithHeaderAndTwoSingleLineBody_Click">ImageWithHeaderAndTwoSingleLineBody</Button>
+
+        <essential:SettingsExpander Header="ToastBuilder" Description="Custom toast using builder syntax in C++">
+            <Button x:Name="ToastBuilderBtn" Click="ToastBuilderBtn_Click">ToastBuilder API</Button>
+            <essential:SettingsExpander.Items>
+                <essential:SettingsCard Header="Audio">
+                    <ComboBox x:Name="AudioComboBox" PlaceholderText="Select audio">
+                        <x:String>ms-winsoundevent:Notification.Default</x:String>
+                        <x:String>ms-winsoundevent:Notification.IM</x:String>
+                        <x:String>ms-winsoundevent:Notification.Mail</x:String>
+                        <x:String>ms-winsoundevent:Notification.Reminder</x:String>
+                        <x:String>ms-winsoundevent:Notification.SMS</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm2</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm3</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm4</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm5</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm6</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm7</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm8</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm9</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Alarm10</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call2</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call3</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call4</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call5</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call6</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call7</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call8</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call9</x:String>
+                        <x:String>ms-winsoundevent:Notification.Looping.Call10</x:String>
+                    </ComboBox>
+                </essential:SettingsCard>
+                <essential:SettingsCard Header="Loop">
+                    <ToggleSwitch x:Name="LoopingToggle"/>
+                </essential:SettingsCard>
+            </essential:SettingsExpander.Items>
+        </essential:SettingsExpander>
+        
+        <ContentDialog x:Name="ActivationDialog" PrimaryButtonText="OK">
+            <StackPanel>
+                <TextBlock>
+                    <Run Text="Argument:" FontSize="20"/>
+                    <Run x:Name="ArgumentText"/>
+                </TextBlock>
+
+                <ListView x:Name="ArgumentsList"/>
+            </StackPanel>
+        </ContentDialog>
+    </StackPanel>
+</Page>

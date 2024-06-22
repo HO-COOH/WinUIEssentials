@@ -1,0 +1,12 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SettingsExpanderItemStyleSelector : Windows.UI.Xaml.Controls.StyleSelector
+    {
+        SettingsExpanderItemStyleSelector();
+
+        Windows.UI.Xaml.Style DefaultStyle;
+        Windows.UI.Xaml.Style ClickableStyle;
+    }
+}

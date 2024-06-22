@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WinUI3Example.GlyphsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <GridView ItemsSource="{x:Bind Glyphs}" Margin="10" CornerRadius="0">
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="local:Icon">
+                <Border Width="143" Height="121" BorderBrush="Gray" BorderThickness="1" CornerRadius="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <FontIcon Glyph="{x:Bind Glyph}" FontSize="32"/>
+                        <TextBlock Text="{x:Bind Name}" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap"/>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+
+        <GridView.ItemContainerStyle>
+            <Style TargetType="GridViewItem">
+                <Setter Property="CornerRadius" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+            </Style>
+        </GridView.ItemContainerStyle>
+    </GridView>
+</Page>

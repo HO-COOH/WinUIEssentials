@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="include\ToastTemplates.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Glyphs.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ToastBuilder.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="ReverseConverterBase.hpp">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PropertyChangeHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TemplateControlHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Export.h" />
+    <ClInclude Include="include\BadgeGlyphs.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Taskbar.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TileBuilder.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TileTemplates.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BuiltInUris.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Microsoft.UI.hpp" />
+    <ClInclude Include="include\WASDK headers\Microsoft.UI.hpp">
+      <Filter>include\WASDK headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp">
+      <Filter>include\WASDK headers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WASDK headers\Microsoft.Graphics.Canvas.hpp">
+      <Filter>include\WASDK headers</Filter>
+    </ClInclude>
+    <ClInclude Include="OverrideChecker.h">
+      <Filter>Backdrop</Filter>
+    </ClInclude>
+    <ClInclude Include="HwndHelper.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsVersion.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WinUI3Package.def" />
+    <None Include="packages.config" />
+    <None Include=".nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{f8d8d370-4f18-4c11-a8c6-6145dcde80da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Converters">
+      <UniqueIdentifier>{705ed3e6-dfae-492b-ae3c-1b4f2e9acecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Triggers">
+      <UniqueIdentifier>{3cc9cab8-b17a-4fce-806e-769d99c0084d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MarkupExtensions">
+      <UniqueIdentifier>{877a96cc-8fdd-4e4b-af4d-f103a2fbdef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls">
+      <UniqueIdentifier>{64af69c0-57c7-4bf9-877e-c252bcb5167a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\GroupBox">
+      <UniqueIdentifier>{8b0acd1f-86d3-45a7-afa9-9f5fb4907e28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SettingsCard">
+      <UniqueIdentifier>{1d6eabd4-0f64-467a-9db2-2b785ed1e7a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SettingsExpander">
+      <UniqueIdentifier>{7f4c5d5f-7657-42e8-ab4c-28ffd4afc61d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\MarqueeText">
+      <UniqueIdentifier>{342a38f3-e345-43bb-8be2-ad8634e7b7bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ProgressBarEx">
+      <UniqueIdentifier>{ead65dbf-1731-4bcd-a3a9-962f5b192067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\Segmented">
+      <UniqueIdentifier>{c3d7f26b-3a72-4fcd-9785-dc79e19e3fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\IconButton">
+      <UniqueIdentifier>{64a19f1a-af66-42a0-8ae4-dc93200c018f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\WASDK headers">
+      <UniqueIdentifier>{da85204c-5ff8-479c-856f-025dae56a4b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backdrop">
+      <UniqueIdentifier>{4d6c1eb3-9f93-4673-8586-b366867150ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{38a5dc06-667d-431a-98ec-cc28afaea55b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\AcrylicVisual">
+      <UniqueIdentifier>{4a4728e6-ace7-48cb-91e7-184251c9a0ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows">
+      <UniqueIdentifier>{f75bc99f-6f1e-4b55-bb3b-051e279439bd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="Placeholder.idl" />
+    <Midl Include="CursorController.idl" />
+    <Midl Include="BoolToVisibilityConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="ContainerToBoolConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="ConverterGroup.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="NegateBoolConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="ReferenceToBoolConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="StringToBoolConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="ControlSizeTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="IsEqualStateTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="IsNullOrEmptyStateTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="FontIconExtension.idl">
+      <Filter>MarkupExtensions</Filter>
+    </Midl>
+    <Midl Include="include\DependentValue.idl" />
+    <Midl Include="GroupBox.idl">
+      <Filter>Controls\GroupBox</Filter>
+    </Midl>
+    <Midl Include="SettingsCard.idl">
+      <Filter>Controls\SettingsCard</Filter>
+    </Midl>
+    <Midl Include="SettingsExpander.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="SettingsExpanderItemStyleSelector.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="MarqueeText.idl">
+      <Filter>Controls\MarqueeText</Filter>
+    </Midl>
+    <Midl Include="ProgressBarEx.idl">
+      <Filter>Controls\ProgressBarEx</Filter>
+    </Midl>
+    <Midl Include="UIElementExtension.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="EqualPanel.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="Segmented.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="SegmentedItem.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="SegmentedItemCornerRadiusConverter.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="SegmentedMarginConverter.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="IconButton.idl">
+      <Filter>Controls\IconButton</Filter>
+    </Midl>
+    <Midl Include="CustomAcrylicBackdrop.idl">
+      <Filter>Backdrop</Filter>
+    </Midl>
+    <Midl Include="CustomMicaBackdrop.idl">
+      <Filter>Backdrop</Filter>
+    </Midl>
+    <Midl Include="HostBackdropVisual.idl">
+      <Filter>Controls\AcrylicVisual</Filter>
+    </Midl>
+    <Midl Include="TransparentBackdrop.idl">
+      <Filter>Backdrop</Filter>
+    </Midl>
+    <Midl Include="TransparentWindow.idl">
+      <Filter>Windows</Filter>
+    </Midl>
+    <Midl Include="WindowEx.idl">
+      <Filter>Windows</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="GroupBox_Resource.xaml">
+      <Filter>Controls\GroupBox</Filter>
+    </Page>
+    <Page Include="SettingsExpander_Resource.xaml">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Page>
+    <Page Include="SettingsCard_Resource.xaml">
+      <Filter>Controls\SettingsCard</Filter>
+    </Page>
+    <Page Include="Glyphs.xaml">
+      <Filter>include</Filter>
+    </Page>
+    <Page Include="MarqueeText_Resource.xaml">
+      <Filter>Controls\MarqueeText</Filter>
+    </Page>
+    <Page Include="ProgressBarEx_Resource.xaml">
+      <Filter>Controls\ProgressBarEx</Filter>
+    </Page>
+    <Page Include="Segmented_Resource.xaml">
+      <Filter>Controls\Segmented</Filter>
+    </Page>
+    <Page Include="IconButton_Resource.xaml">
+      <Filter>Controls\IconButton</Filter>
+    </Page>
+    <Page Include="HostBackdropVisual_Resource.xaml">
+      <Filter>Controls\AcrylicVisual</Filter>
+    </Page>
+    <Page Include="RoundedAnimatedAcrylicWindowWithShadow.xaml">
+      <Filter>Windows</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+  </ItemGroup>
+</Project>

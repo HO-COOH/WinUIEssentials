@@ -1,0 +1,14 @@
+import "UriModel.idl";
+import "UriGroup.idl";
+
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass UriPage : Windows.UI.Xaml.Controls.Page
+    {
+        UriPage();
+       
+        Windows.Foundation.Collections.IVector<Object> Uris{ get; };
+        Windows.UI.Xaml.Data.CollectionViewSource GroupedUri{ get; };
+    }
+}

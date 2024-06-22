@@ -1,0 +1,10 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass IconButtonPage : Windows.UI.Xaml.Controls.Page
+    {
+        IconButtonPage();
+
+        Windows.UI.Xaml.Controls.ToggleSwitch ExpandToggle{ get; };
+    }
+}

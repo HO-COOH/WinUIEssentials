@@ -1,0 +1,29 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ControlSizeTrigger : Microsoft.UI.Xaml.StateTriggerBase
+    {
+        ControlSizeTrigger();
+
+        Boolean CanTrigger;
+        static Microsoft.UI.Xaml.DependencyProperty CanTriggerProperty{ get; };
+
+        Double MaxWidth;
+        static Microsoft.UI.Xaml.DependencyProperty MaxWidthProperty{ get; };
+
+        Double MinWidth;
+        static Microsoft.UI.Xaml.DependencyProperty MinWidthProperty{ get; };
+
+        Double MaxHeight;
+        static Microsoft.UI.Xaml.DependencyProperty MaxHeightProperty{ get; };
+
+        Double MinHeight;
+        static Microsoft.UI.Xaml.DependencyProperty MinHeightProperty{ get; };
+
+        Microsoft.UI.Xaml.FrameworkElement TargetElement;
+        static Microsoft.UI.Xaml.DependencyProperty TargetElementProperty{ get; };
+
+        Boolean IsActive{ get; };
+    }
+}

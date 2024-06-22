@@ -1,0 +1,14 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass CursorController : Windows.UI.Xaml.DependencyObject
+    {
+        CursorController();
+
+        static Windows.UI.Xaml.DependencyProperty TypeProperty{get; };
+
+        static Windows.UI.Core.CoreCursorType GetType(Windows.UI.Xaml.UIElement obj);
+        static void SetType(Windows.UI.Xaml.UIElement obj, Windows.UI.Core.CoreCursorType type);
+    }
+}

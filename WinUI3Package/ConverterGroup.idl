@@ -1,0 +1,15 @@
+namespace WinUI3Package
+{
+    /*
+        Multiple converter container,
+        converting values from the output of the last converter to the input of the next converter
+    */
+    [default_interface]
+    [contentproperty("Converters")]
+    runtimeclass ConverterGroup : Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        ConverterGroup();
+
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Data.IValueConverter> Converters;
+    }
+}

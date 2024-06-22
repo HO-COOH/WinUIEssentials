@@ -1,0 +1,12 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SettingsCommandEx : Windows.UI.Xaml.Controls.SettingsFlyout, Windows.UI.Popups.IUICommand
+    {
+        SettingsCommandEx();
+
+        //Fires when the command is clicked
+        event Windows.Foundation.EventHandler<Windows.UI.Popups.IUICommand> Invoke;
+    }
+}

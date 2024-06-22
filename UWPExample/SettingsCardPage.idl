@@ -1,0 +1,10 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass SettingsCardPage : Windows.UI.Xaml.Controls.Page
+    {
+        SettingsCardPage();
+        
+        Windows.UI.Xaml.Controls.ToggleSwitch IsCardEnabled{ get; };
+    }
+}

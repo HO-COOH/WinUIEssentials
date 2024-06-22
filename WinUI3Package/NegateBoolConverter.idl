@@ -1,0 +1,9 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass NegateBoolConverter : Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        NegateBoolConverter();
+    }
+}

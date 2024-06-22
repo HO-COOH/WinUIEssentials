@@ -1,0 +1,9 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass Win32TitleBar : WinUI3Package.WindowEx
+    {
+        Win32TitleBar();
+        Int32 MyProperty;
+    }
+}

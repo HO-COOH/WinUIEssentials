@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass ToastPage : Windows.UI.Xaml.Controls.Page
+    {
+        ToastPage();
+    }
+}

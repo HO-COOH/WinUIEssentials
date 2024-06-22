@@ -1,0 +1,14 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass DependentValue : Microsoft.UI.Xaml.DependencyObject
+    {
+        DependentValue();
+
+        Double Value;
+        static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+
+        event Windows.Foundation.EventHandler<Double> ValueChanged;
+    }
+}

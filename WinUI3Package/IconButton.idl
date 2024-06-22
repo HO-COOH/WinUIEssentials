@@ -1,0 +1,19 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass IconButton : Microsoft.UI.Xaml.Controls.ContentControl
+    {
+        IconButton();
+        Object Icon;
+        static Microsoft.UI.Xaml.DependencyProperty IconProperty{ get; };
+
+        void Collapse();
+        void Expand();
+
+        Boolean IsExpanded;
+        static Microsoft.UI.Xaml.DependencyProperty IsExpandedProperty{ get; };
+
+        Microsoft.UI.Xaml.Controls.Primitives.ButtonBase Container;
+    }
+}

@@ -1,0 +1,33 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ProgressBarEx : Microsoft.UI.Xaml.Controls.ContentControl
+    {
+        ProgressBarEx();
+
+        //HighColor for the highlight color
+        Windows.UI.Color HighColor;
+        static Microsoft.UI.Xaml.DependencyProperty HighColorProperty{ get; };
+
+        //Base for the rest of the progress background color
+        Windows.UI.Color BaseColor;
+        static Microsoft.UI.Xaml.DependencyProperty BaseColorProperty{ get; };
+
+        //0~100
+        Double Percent;
+        static Microsoft.UI.Xaml.DependencyProperty PercentProperty{ get; };
+
+        //0~1.0
+        Double Value;
+        static Microsoft.UI.Xaml.DependencyProperty ValueProperty{ get; };
+
+        /*
+            Nope, I don't want to support listening for GradientStop changes in XAML, wasting too much performance
+            because I have to listen for the VectorChange event and all the GradientStop property change event.
+            The most important thing is, it's hard for users to get the effect looked right
+        */
+        //Windows.Foundation.Collections.IObservableVector<Microsoft.UI.Xaml.Media.GradientStop> GradientStops;
+        //static Microsoft.UI.Xaml.DependencyProperty GradientStopsProperty{ get; };
+    }
+}

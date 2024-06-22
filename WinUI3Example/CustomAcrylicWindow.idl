@@ -1,0 +1,11 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass CustomAcrylicWindow : Microsoft.UI.Xaml.Window
+    {
+        CustomAcrylicWindow();
+
+        static Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicKind ToAcrylicKind(Object selection);
+        static Single DoubleToSingle(Double value);
+    }
+}

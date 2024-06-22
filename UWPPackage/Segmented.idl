@@ -1,0 +1,9 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass Segmented : Windows.UI.Xaml.Controls.ListViewBase
+    {
+        Segmented();
+    }
+}

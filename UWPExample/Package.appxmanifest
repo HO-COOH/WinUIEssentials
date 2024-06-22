@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+         xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
+         xmlns:uap4="http://schemas.microsoft.com/appx/manifest/uap/windows10/4" IgnorableNamespaces="uap mp rescap uap4">
+  <Identity
+    Name="9005b3b6-60b6-483e-8d4c-6539cfd25436"
+    Publisher="CN=Peter"
+    Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="9005b3b6-60b6-483e-8d4c-6539cfd25436" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <Properties>
+    <DisplayName>UWPExample</DisplayName>
+    <PublisherDisplayName>Peter</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="UWPExample.App">
+      <uap:VisualElements DisplayName="UWPExample" Description="Project for a single page C++/WinRT Universal Windows Platform (UWP) app with no predefined layout"
+        Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.search"/>
+        <Extension Category="windows.backgroundTasks">
+          <BackgroundTasks/>
+        </Extension>
+      </Extensions>
+
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+      <rescap:Capability Name="runFullTrust" />
+      <!--<uap4:CustomCapability Name="Microsoft.coreAppActivation_8wekyb3d8bbwe"/>-->
+  </Capabilities>
+</Package>

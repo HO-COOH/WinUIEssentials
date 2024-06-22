@@ -1,0 +1,23 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass SegmentedPage : Windows.UI.Xaml.Controls.Page
+    {
+        SegmentedPage();
+
+        /*BasicSegmentedExample*/
+        Windows.UI.Xaml.Controls.ToggleSwitch EnabledSwitch1{ get; };
+        Windows.UI.Xaml.Controls.ToggleSwitch ReorderingSwitch1{ get; };
+        Windows.UI.Xaml.Controls.ComboBox SelectionModeComboBox1{ get; };
+        Windows.UI.Xaml.Controls.ComboBox HorizontalAlignmenmtComboBox1{ get; };
+
+
+        Windows.UI.Xaml.Controls.ToggleSwitch EnabledSwitch2{ get; };
+        Windows.UI.Xaml.Controls.ToggleSwitch ReorderingSwitch2{ get; };
+        Windows.UI.Xaml.Controls.ComboBox SelectionModeComboBox2{ get; };
+        Windows.UI.Xaml.Controls.ComboBox HorizontalAlignmenmtComboBox2{ get; };
+
+        static Windows.UI.Xaml.Controls.ListViewSelectionMode ConvertToSelectionMode(Object selectionMode);
+        static Windows.UI.Xaml.HorizontalAlignment ConvertToHorizontalAlignment(Object horizontalAlignment);
+    }
+}

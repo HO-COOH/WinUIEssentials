@@ -1,0 +1,12 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass ConvertersPage : Windows.UI.Xaml.Controls.Page
+    {
+        ConvertersPage();
+
+        Windows.UI.Xaml.Controls.ToggleSwitch VisibleToggle1{ get; };
+        Windows.UI.Xaml.Controls.ToggleSwitch VisibleToggle2{ get; };
+        Windows.UI.Xaml.Controls.TextBox InputString{ get; };
+    }
+}

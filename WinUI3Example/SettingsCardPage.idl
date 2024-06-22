@@ -1,0 +1,12 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass SettingsCardPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        SettingsCardPage();
+        Microsoft.UI.Xaml.Controls.ToggleSwitch IsCardEnabled{ get; };
+    }
+}

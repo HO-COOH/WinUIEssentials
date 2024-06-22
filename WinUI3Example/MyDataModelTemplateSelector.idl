@@ -1,0 +1,13 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass MyDataModelTemplateSelector : Microsoft.UI.Xaml.Controls.DataTemplateSelector
+    {
+        MyDataModelTemplateSelector();
+
+        Microsoft.UI.Xaml.DataTemplate ButtonTemplate;
+        Microsoft.UI.Xaml.DataTemplate LinkButtonTemplate;
+        Microsoft.UI.Xaml.DataTemplate NoButtonTemplate;
+    }
+}

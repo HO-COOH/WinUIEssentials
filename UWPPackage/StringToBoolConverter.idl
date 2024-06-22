@@ -1,0 +1,14 @@
+namespace UWPPackage
+{
+    /**
+     * @brief This class convert String(winrt::hstring) -> bool
+     * @details not empty -> Visible, false -> Collapsed
+     * @if converterParameter is specified as "Reverse", convert true -> Collapsed, false -> Visible
+    */
+    [default_interface]
+    runtimeclass StringToBoolConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        StringToBoolConverter();
+        Boolean Reverse;
+    }
+}

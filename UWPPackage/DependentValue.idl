@@ -1,0 +1,14 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass DependentValue : Windows.UI.Xaml.DependencyObject
+    {
+        DependentValue();
+
+        Double Value;
+        static Windows.UI.Xaml.DependencyProperty ValueProperty{ get; };
+
+        event Windows.Foundation.EventHandler<Double> ValueChanged;
+    }
+}

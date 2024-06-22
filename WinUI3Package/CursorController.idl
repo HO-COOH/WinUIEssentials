@@ -1,0 +1,14 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass CursorController : Microsoft.UI.Xaml.DependencyObject
+    {
+        CursorController();
+
+        static Microsoft.UI.Xaml.DependencyProperty TypeProperty{get; };
+
+        static Windows.UI.Core.CoreCursorType GetType(Microsoft.UI.Xaml.UIElement obj);
+        static void SetType(Microsoft.UI.Xaml.UIElement obj, Windows.UI.Core.CoreCursorType type);
+    }
+}

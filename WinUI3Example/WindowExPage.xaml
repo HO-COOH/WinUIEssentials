@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WinUI3Example.WindowExPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:WinUI3Package"
+    mc:Ignorable="d">
+
+    <essential:GroupBox Header="Window options (indeterminate state means uses default value)">
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource DefaultCheckBoxStyle}">
+                    <Setter Property="IsThreeState" Value="True"/>
+                    <Setter Property="IsChecked" Value="{x:Null}"/>
+                </Style>
+            </StackPanel.Resources>
+            <CheckBox x:Name="ExtendContentIntoTitleBarCheckBox">ExtendContentIntoTitleBar</CheckBox>
+            <CheckBox x:Name="HasBorderCheckBox">HasBorder</CheckBox>
+            <CheckBox x:Name="HasTitleBarCheckBox">HasTitleBar</CheckBox>
+            <CheckBox x:Name="IsResizableCheckBox">IsResizable</CheckBox>
+            <CheckBox x:Name="IsMinimizableCheckBox">IsMinimizable</CheckBox>
+            <CheckBox x:Name="IsMaximizableCheckBox">IsMaximizable</CheckBox>
+            <CheckBox x:Name="TransparentCheckBox">Transparent</CheckBox>
+
+            <Button Click="Button_Click">Create window</Button>
+        </StackPanel>
+    </essential:GroupBox>
+</Page>

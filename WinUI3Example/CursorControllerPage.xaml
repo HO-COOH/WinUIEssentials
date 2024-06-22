@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WinUI3Example.CursorControllerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:WinUI3Package"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+
+        <Style TargetType="Rectangle">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="50"/>
+        </Style>
+    </Page.Resources>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Spacing="10">
+            
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.Arrow"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="Arrow"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.Cross"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="Cross"/>
+            </StackPanel>
+
+            <!--<StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.Hover"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="Custom"/>
+            </StackPanel>-->
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.Hand"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="Hand"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.Help"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="Help"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.IBeam"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="IBeam"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.Person"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="Person"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.Pin"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="Pin"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.SizeAll"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="SizeAll"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.SizeNortheastSouthwest"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="SizeNortheastSouthwest"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.SizeNorthSouth"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="SizeNorthSouth"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.SizeNorthwestSoutheast"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="SizeNorthwestSoutheast"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.SizeWestEast"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="SizeWestEast"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.UniversalNo"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="UniversalNo"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.UpArrow"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="UpArrow"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="CoreCursorType.Wait"/>
+                <Rectangle Fill="Red" essential:CursorController.Type="Wait"/>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+
+</Page>

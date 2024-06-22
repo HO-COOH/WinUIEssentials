@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="UWPExample.UriPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPExample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <CollectionViewSource x:Name="GroupedUri" Source="{x:Bind Uris}" IsSourceGrouped="True" ItemsPath="Uris"/>
+
+        <DataTemplate x:Key="ZoomInTemplate" x:DataType="local:UriModel">
+            <HyperlinkButton Content="{x:Bind Name}" NavigateUri="{x:Bind Uri}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ZoomInGroupHeaderTemplate" x:DataType="local:UriGroup">
+            <TextBlock Text="{x:Bind Title}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ZoomOutTemplate" x:DataType="ICollectionViewGroup">
+            <TextBlock Text="{x:Bind ((local:UriGroup)Group).Title}"/>
+        </DataTemplate>
+    </Page.Resources>
+
+    <SemanticZoom>
+        <SemanticZoom.ZoomedInView>
+            <GridView ItemsSource="{x:Bind GroupedUri.View}" ItemTemplate="{StaticResource ZoomInTemplate}">
+                <GridView.GroupStyle>
+                    <GroupStyle HeaderTemplate="{StaticResource ZoomInGroupHeaderTemplate}"/>
+                </GridView.GroupStyle>
+            </GridView>
+        </SemanticZoom.ZoomedInView>
+        
+        <SemanticZoom.ZoomedOutView>
+            <ListView ItemsSource="{x:Bind GroupedUri.View.CollectionGroups}"
+                      ItemTemplate="{StaticResource ZoomOutTemplate}"/>
+        </SemanticZoom.ZoomedOutView>
+    </SemanticZoom>
+</Page>

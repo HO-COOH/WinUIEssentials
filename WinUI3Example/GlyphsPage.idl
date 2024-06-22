@@ -1,0 +1,18 @@
+// Copyright (c) Microsoft Corporation and Contributors.
+// Licensed under the MIT License.
+
+namespace WinUI3Example
+{
+    struct Icon
+    {
+        String Glyph;
+        String Name;
+    };
+
+    [default_interface]
+    runtimeclass GlyphsPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        GlyphsPage();
+        Windows.Foundation.Collections.IVector<Object> Glyphs{ get; };
+    }
+}

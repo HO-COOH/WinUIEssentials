@@ -1,0 +1,15 @@
+namespace UWPExample
+{
+    [bindable]
+    [default_interface]
+    runtimeclass IsEqualValueTrigger : Windows.UI.Xaml.StateTriggerBase
+    {
+        IsEqualValueTrigger();
+        
+        Object From;
+        static Windows.UI.Xaml.DependencyProperty FromProperty{ get; };
+
+        Object To;
+        static Windows.UI.Xaml.DependencyProperty ToProperty{ get; };
+    }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="WinUI3Example.DefaultAcrylicWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:WinUI3Package"
+    mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <essential:CustomAcrylicBackdrop EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}"
+                                         Kind="{x:Bind local:CustomAcrylicWindow.ToAcrylicKind(KindComboBox.SelectedItem), Mode=OneWay}"/>
+    </Window.SystemBackdrop>
+
+    <StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <ToggleSwitch Header="Enable acrylic when window is inactive" x:Name="EnableSwitch"/>
+        <ComboBox Header="Kind" x:Name="KindComboBox">
+            <x:String>Default</x:String>
+            <x:String>Base</x:String>
+            <x:String>Thin</x:String>
+        </ComboBox>
+    </StackPanel>
+
+</Window>

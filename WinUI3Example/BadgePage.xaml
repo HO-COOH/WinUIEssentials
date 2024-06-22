@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WinUI3Example.BadgePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI3Example"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <ComboBox PlaceholderText="Select badge" SelectionChanged="ComboBox_SelectionChanged" Header="Glyph badge:">
+            <x:String>none</x:String>
+            <x:String>activity</x:String>
+            <x:String>alarm</x:String>
+            <x:String>alert</x:String>
+            <x:String>attention</x:String>
+            <x:String>available</x:String>
+            <x:String>away</x:String>
+            <x:String>busy</x:String>
+            <x:String>error</x:String>
+            <x:String>newMessage</x:String>
+            <x:String>paused</x:String>
+            <x:String>playing</x:String>
+            <x:String>unavailable</x:String>
+        </ComboBox>
+
+        <TextBox x:Name="NumberValue" Header="Number badge:" Width="100"/>
+        <Button Click="Button_Click">Set</Button>
+    </StackPanel>
+</Page>

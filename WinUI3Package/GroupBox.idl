@@ -1,0 +1,12 @@
+namespace WinUI3Package
+{
+    [Microsoft.UI.Xaml.Data.Bindable]
+    [default_interface]
+    runtimeclass GroupBox : Microsoft.UI.Xaml.Controls.ContentControl
+    {
+        GroupBox();
+
+        //This really should be String, but it fucked up the compilation, because of https://github.com/microsoft/microsoft-ui-xaml/issues/8994
+        Object Header;
+    }
+}

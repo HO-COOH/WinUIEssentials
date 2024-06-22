@@ -1,0 +1,14 @@
+import "MyDataModel.idl";
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass SettingsExpanderPage : Windows.UI.Xaml.Controls.Page
+    {
+        SettingsExpanderPage();
+
+        Windows.UI.Xaml.Controls.ToggleSwitch IsCardExpanded{ get; };
+        Windows.UI.Xaml.Controls.ToggleSwitch IsCardEnabled{ get; };
+
+        Windows.Foundation.Collections.IVector<Object> MyDataSet{ get; };
+    }
+}

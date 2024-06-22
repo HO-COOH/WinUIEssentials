@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass TriggersPage : Windows.UI.Xaml.Controls.Page
+    {
+        TriggersPage();
+    }
+}

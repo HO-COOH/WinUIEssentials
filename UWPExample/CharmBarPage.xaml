@@ -1,0 +1,21 @@
+﻿<Page
+    x:Class="UWPExample.CharmBarPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPExample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essentials="using:UWPPackage"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="GlobalSettingsButton" Click="GlobalSettingsButton_Click">Open global settings</Button>
+            <Button x:Name="LocalSettingsButton" Click="LocalSettingsButton_Click">Open local settings</Button>
+
+            <essentials:SettingsPaneEx x:Name="LocalSettings">
+                <essentials:SettingsCommandEx Width="800" Label="Local Settings Command"/>
+            </essentials:SettingsPaneEx>
+        </StackPanel>
+    </StackPanel>
+</Page>
