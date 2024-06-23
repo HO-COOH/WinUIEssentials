@@ -227,10 +227,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ReverseConverterBase.hpp" />
-    <ClInclude Include="RoundedAnimatedAcrylicWindowWithShadow.xaml.h">
-      <DependentUpon>RoundedAnimatedAcrylicWindowWithShadow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Segmented.h">
       <DependentUpon>Segmented.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -366,10 +362,6 @@
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="RoundedAnimatedAcrylicWindowWithShadow.xaml.cpp">
-      <DependentUpon>RoundedAnimatedAcrylicWindowWithShadow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="Segmented.cpp">
       <DependentUpon>Segmented.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -485,10 +477,6 @@
     <Midl Include="ReferenceToBoolConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="RoundedAnimatedAcrylicWindowWithShadow.idl">
-      <DependentUpon>RoundedAnimatedAcrylicWindowWithShadow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="Segmented.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -533,9 +521,6 @@
     <Page Include="IconButton_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />
     <Page Include="ProgressBarEx_Resource.xaml" />
-    <Page Include="RoundedAnimatedAcrylicWindowWithShadow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Segmented_Resource.xaml" />
     <Page Include="SettingsCard_Resource.xaml" />
     <Page Include="SettingsExpander_Resource.xaml" />

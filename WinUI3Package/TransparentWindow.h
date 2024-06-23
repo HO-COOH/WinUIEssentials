@@ -4,7 +4,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct TransparentWindow : winrt::Microsoft::UI::Xaml::Markup::ComponentConnectorT<TransparentWindowT<TransparentWindow>>
+    struct TransparentWindow : TransparentWindowT<TransparentWindow>
     {
         TransparentWindow();
 

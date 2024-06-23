@@ -50,10 +50,11 @@ namespace winrt::WinUI3Example::implementation
 	{
 		WinUI3Example::TransparentWindowDemo{}.Activate();
 	}
-}
 
-#include <winrt/Windows.UI.Xaml.Media.h>
-void winrt::WinUI3Example::implementation::BackdropPage::CreateNotifyButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
-{
-	WinUI3Package::RoundedAnimatedAcrylicWindowWithShadow{}.Activate();
+
+	void BackdropPage::CreateNotifyButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		//WinUI3Package::RoundedAnimatedAcrylicWindowWithShadow{}.Activate();
+	}
+
 }

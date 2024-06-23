@@ -368,7 +368,7 @@ namespace winrt::WinUI3Package::implementation
             return;
         }
 
-        //TODO:
+        rootGrid.Children().Append(value);
     }
 
     void WindowEx::Transparent(bool value)

@@ -238,9 +238,6 @@
     <Page Include="HostBackdropVisual_Resource.xaml">
       <Filter>Controls\AcrylicVisual</Filter>
     </Page>
-    <Page Include="RoundedAnimatedAcrylicWindowWithShadow.xaml">
-      <Filter>Windows</Filter>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
