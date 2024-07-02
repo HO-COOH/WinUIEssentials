@@ -29,3 +29,12 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
+
+
+#include "GroupBox.h"
+#include "IconButton.h"
+#include "SettingsCard.h"
+#include "SettingsExpander.h"
+#include "Segmented.h"
+#include "ProgressBarEx.h"
+#include "MarqueeText.h"

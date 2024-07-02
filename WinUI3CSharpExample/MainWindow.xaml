@@ -1,13 +1,13 @@
-﻿<Page
-    x:Class="UWPCSharpExample.MainPage"
+<Window
+    x:Class="WinUI3CSharpExample.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:essential="using:UWPPackage"
-    xmlns:local="using:UWPCSharpExample"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3CSharpExample"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
+
 
     <Grid>
         <essential:GroupBox
@@ -31,4 +31,4 @@
 
         </essential:GroupBox>
     </Grid>
-</Page>
+</Window>

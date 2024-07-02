@@ -64,7 +64,7 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 
         //workaround for m_configuration not able to send inactive state when switching to other window created in the same app package
-        static LRESULT windowActiveStateWorkaroundHanlder(HWND hWnd,
+        static LRESULT CALLBACK windowActiveStateWorkaroundHanlder(HWND hWnd,
             UINT uMsg,
             WPARAM wParam,
             LPARAM lParam,

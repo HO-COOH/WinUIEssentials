@@ -15,7 +15,7 @@ namespace winrt::UWPExample::implementation
         auto const size = dict.Size();
         std::vector<UWPExample::Icon> glyphs;
         glyphs.reserve(size);
-
+        
 
         std::ranges::transform(dict, std::back_inserter(glyphs), [](winrt::Windows::Foundation::Collections::IKeyValuePair<winrt::Windows::Foundation::IInspectable, winrt::Windows::Foundation::IInspectable> p)
         {

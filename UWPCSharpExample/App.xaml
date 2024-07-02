@@ -2,16 +2,7 @@
     x:Class="UWPCSharpExample.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWPCSharpExample"
-    xmlns:controls="using:Microsoft.UI.Xaml.Controls">
-    <Application.Resources>
-        <controls:XamlControlsResources>
-            <controls:XamlControlsResources.MergedDictionaries>
-                
-            </controls:XamlControlsResources.MergedDictionaries>
-            <!--<controls:XamlControlsResources.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///UWPPackage/GroupBox_Resource.xaml"/>
-            </controls:XamlControlsResources.MergedDictionaries>-->
-        </controls:XamlControlsResources>
-    </Application.Resources>
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    xmlns:local="using:UWPCSharpExample">
+    <Application.Resources />
 </Application>

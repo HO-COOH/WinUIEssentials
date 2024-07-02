@@ -231,7 +231,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	LRESULT CustomMicaBackdrop::windowActiveStateWorkaroundHanlder(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+	LRESULT CALLBACK CustomMicaBackdrop::windowActiveStateWorkaroundHanlder(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 	{
 		if (uMsg == WM_SETFOCUS)
 		{

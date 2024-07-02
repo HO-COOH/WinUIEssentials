@@ -419,7 +419,7 @@ namespace winrt::WinUI3Package::implementation
         }
     }
 
-    LRESULT WindowEx::subclassProc(
+    LRESULT CALLBACK WindowEx::subclassProc(
         HWND hwnd,
         UINT msg,
         WPARAM wparam,

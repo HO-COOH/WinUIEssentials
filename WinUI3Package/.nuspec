@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinUIEssential.WinUI3</id>
-        <version>1.2.2</version>
+        <version>1.2.6</version>
         <title>WinUIEssential(WinUI3)</title>
         <authors>Peter</authors>
         <owners></owners>
@@ -22,23 +22,27 @@
         <repository type="git" url="https://github.com/HO-COOH/WinUIEssentials"/>
     </metadata>
     <files>
-        <!--build/native-->
-        <file src="include/**" target="build/native/include"/>
-        <file src="WinUIEssential.WinUI3.targets" target="build/native"/>
-        
-        <!--lib/native(The last item in each group is control resource)-->
-        <file src="..\x64\Debug\WinUI3Package\WinUI3Package.winmd" target="lib/native/Debug/x64"/>
-        <file src="..\x64\Debug\WinUI3Package\WinUI3Package.dll" target="lib/native/Debug/x64"/>
-        <file src="..\x64\Debug\WinUI3Package\WinUI3Package.pri" target="lib/native/Debug/x64"/>
-        <file src="..\x64\Debug\WinUI3Package\WinUI3Package\*.*" target="lib/native/Debug/x64/WinUI3Package"/>
+		<file src="..\x64\Release\WinUI3Package\WinUI3Package.winmd" target="lib\net6.0-windows10.0.22621.0"/>
+		<file src="..\x64\Release\WinUI3Package\**\*.xaml" target="lib\net6.0-windows10.0.22621.0"/>
+		<file src="..\x64\Release\WinUI3Package\WinUI3Package.xml" target="lib\net6.0-windows10.0.22621.0"/>
+		<!--<file src="..\x64\Debug\WinUI3Package\WinUI3Package\*.xbf" target="runtimes\win10\native\x64\Debug\WinUI3Package\"/>-->
 
-        <file src="..\x64\Release\WinUI3Package\WinUI3Package.winmd" target="lib/native/Release/x64"/>
-        <file src="..\x64\Release\WinUI3Package\WinUI3Package.dll" target="lib/native/Release/x64"/>
-        <file src="..\x64\Release\WinUI3Package\WinUI3Package.pri" target="lib/native/Release/x64"/>
-        <file src="..\x64\Release\WinUI3Package\WinUI3Package\*.*" target="lib/native/Release/x64/WinUI3Package"/>
+		<!--build/native-->
+		<file src="include/**" target="build/native/include"/>
+		<file src="WinUIEssential.WinUI3.targets" target="build/native"/>
+
+		<!--lib/native(The last item in each group is control resource)-->
+		<file src="..\x64\Release\WinUI3Package\WinUI3Package.dll" target="runtimes\win10-x64\native"/>
+		<file src="..\x64\Release\WinUI3Package\WinUI3Package.pri" target="runtimes\win10-x64\native"/>
 
 
-        <!-- Meta -->
+		<file src="..\Release\WinUI3Package\WinUI3Package.dll" target="runtimes\win10-x86\native"/>
+		<file src="..\Release\WinUI3Package\WinUI3Package.pri" target="runtimes\win10-x86\native"/>
+
+		<file src="..\Arm64\Release\WinUI3Package\WinUI3Package.dll" target="runtimes\win10-Arm64\native"/>
+		<file src="..\Arm64\Release\WinUI3Package\WinUI3Package.pri" target="runtimes\win10-Arm64\native"/>
+
+		<!-- Meta -->
         <file src="..\MainLogo.png" target="assets\"/>
         <file src="..\LICENSE.txt" target="licenses\"/>
         <file src="..\README.md" target="docs\"/>

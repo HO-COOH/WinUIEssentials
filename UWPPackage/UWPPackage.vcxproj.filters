@@ -37,6 +37,9 @@
     <Filter Include="Controls\Segmented">
       <UniqueIdentifier>{37121013-2205-49ac-aff0-8d7f90a69296}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Themes">
+      <UniqueIdentifier>{26c683d5-4678-45c3-8db4-b72ba0d11fea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -190,6 +193,9 @@
     </Page>
     <Page Include="Segmented_Resource.xaml">
       <Filter>Controls\Segmented</Filter>
+    </Page>
+    <Page Include="Generic.xaml">
+      <Filter>Themes</Filter>
     </Page>
   </ItemGroup>
 </Project>

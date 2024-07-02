@@ -10,3 +10,11 @@
 #include <winrt/Windows.UI.Xaml.Controls.h>
 #include <winrt/Windows.UI.Xaml.Controls.Primitives.h>
 #include <winrt/Windows.UI.Xaml.Media.Animation.h>
+
+#include "GroupBox.h"
+#include "IconButton.h"
+#include "SettingsCard.h"
+#include "SettingsExpander.h"
+#include "Segmented.h"
+#include "ProgressBarEx.h"
+#include "MarqueeText.h"

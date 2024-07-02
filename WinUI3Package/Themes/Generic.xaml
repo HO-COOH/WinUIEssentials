@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/GroupBox_Resource.xaml" />
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsCard_Resource.xaml" />
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsExpander_Resource.xaml" />
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/Glyphs.xaml" />
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/MarqueeText_Resource.xaml" />
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/IconButton_Resource.xaml" />
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/ProgressBarEx_Resource.xaml" />
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/Segmented_Resource.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

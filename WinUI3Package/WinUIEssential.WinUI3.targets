@@ -5,78 +5,20 @@
             <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
         </ClCompile>
     </ItemDefinitionGroup>
-    
-    <!--Add dll and xaml here-->
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package.winmd">
-            <IsWinMDFile>true</IsWinMDFile>
-            <Implementation>WinUI3Package.dll</Implementation>
-        </Reference>
-        
-        <!-- <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package\Glyphs.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/Glyphs.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package\GroupBox_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/GroupBox_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package\SettingsCard_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/SettingsCard_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package\SettingsExpander_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/SettingsExpander_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package\MarqueeText_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/MarqueeText_Resource.xbf</TargetPath>
-        </ContentWithTargetPath> -->
-    </ItemGroup>
+	<PropertyGroup>
+		<WinUI3Package-Platform Condition="'$(Platform)' == 'Win32'">x86</WinUI3Package-Platform>
+		<WinUI3Package-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</WinUI3Package-Platform>
+	</PropertyGroup>
 
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package.winmd">
-            <IsWinMDFile>true</IsWinMDFile>
-            <Implementation>WinUI3Package.dll</Implementation>
-        </Reference>
-
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\Glyphs.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/Glyphs.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\GroupBox_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/GroupBox_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\SettingsCard_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/SettingsCard_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\SettingsExpander_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/SettingsExpander_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\MarqueeText_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/MarqueeText_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\ProgressBarEx_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/ProgressBarEx_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\Segmented_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/Segmented_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\IconButton_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/IconButton_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\HostBackdropVisual_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/HostBackdropVisual_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-    </ItemGroup>
-
+	<!--Add dll and xaml here-->
+	<ItemGroup>
+		<Reference Include="$(MSBuildThisFileDirectory)..\..\lib\net6.0-windows10.0.22621.0\WinUI3Package.winmd">
+			<Implementation>WinUI3Package.dll</Implementation>
+		</Reference>
+		<ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(WinUI3Package-Platform)\native\WinUI3Package.dll" />
+		<ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(WinUI3Package-Platform)\native\WinUI3Package.pri" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(MSBuildThisFileDirectory)..\..\lib\net6.0-windows10.0.22621.0\**\*.xaml" Link="%(RecursiveDir)%(Filename)%(Extension)"  CopyToOutputDirectory="PreserveNewest"></None>
+	</ItemGroup>
 </Project>

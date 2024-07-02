@@ -19,30 +19,28 @@
         <repository type="git" url="https://github.com/HO-COOH/WinUIEssentials"/>
     </metadata>
     <files>
-        <!--build/native-->
+		<file src="..\x64\Release\UWPPackage\UWPPackage.winmd" target="lib\uap10.0.17763"/>
+		<file src="..\x64\Release\UWPPackage\**\*.xaml" target="lib\uap10.0.17763"/>
+		<file src="..\x64\Release\UWPPackage\UWPPackage.xml" target="lib\uap10.0.17763"/>
+		<!--build/native-->
         <file src="include/**" target="build/native/include"/>
         <file src="Export.h" target="build/native/include"/>
         <file src="WinUIEssential.UWP.targets" target="build/native"/>
         
         <!--lib/native(The last item in each group is control resource)-->
-        <file src="..\x64\Debug\UWPPackage\UWPPackage.winmd" target="lib/native/Debug/x64"/>
-        <file src="..\x64\Debug\UWPPackage\UWPPackage.dll" target="lib/native/Debug/x64"/>
-        <file src="..\x64\Debug\UWPPackage\UWPPackage.pri" target="lib/native/Debug/x64"/>
-        <file src="..\x64\Debug\UWPPackage\UWPPackage\*.*" target="lib/native/Debug/x64/UWPPackage"/>
+		<file src="..\x64\Release\UWPPackage\UWPPackage.dll" target="runtimes\win10-x64\native"/>
+		<file src="..\x64\Release\UWPPackage\UWPPackage.pri" target="runtimes\win10-x64\native"/>
 
-        <file src="..\x64\Release\UWPPackage\UWPPackage.winmd" target="lib/native/Release/x64"/>
-        <file src="..\x64\Release\UWPPackage\UWPPackage.dll" target="lib/native/Release/x64"/>
-        <file src="..\x64\Release\UWPPackage\UWPPackage.pri" target="lib/native/Release/x64"/>
-        <file src="..\x64\Release\UWPPackage\UWPPackage\*.*" target="lib/native/Release/x64/UWPPackage"/>
+		<file src="..\Release\UWPPackage\UWPPackage.dll" target="runtimes\win10-x86\native"/>
+		<file src="..\Release\UWPPackage\UWPPackage.pri" target="runtimes\win10-x86\native"/>
 
-        <!--For C#-->
-        <!--<file src="..\x64\Release\UWPPackage\UWPPackage.winmd" target="lib/uap10.0"/>
-        <file src="*.xaml" target="lib/uap10.0/Themes"/>
-        <file src="..\x64\Release\UWPPackage\UWPPackage.pri" target="lib/win10-x64"/>
-        <file src="..\x64\Release\UWPPackage\UWPPackage.dll" target="lib/win10-x64"/>-->
-        <file src="..\x64\Release\UWPPackage\**\*" target="lib\uap10.0.17763\UWPPackage"/>
+		<file src="..\Arm\Release\UWPPackage\UWPPackage.dll" target="runtimes\win10-Arm\native"/>
+		<file src="..\Arm\Release\UWPPackage\UWPPackage.pri" target="runtimes\win10-Arm\native"/>
 
-        <!-- Meta -->
+		<file src="..\Arm64\Release\UWPPackage\UWPPackage.dll" target="runtimes\win10-Arm64\native"/>
+		<file src="..\Arm64\Release\UWPPackage\UWPPackage.pri" target="runtimes\win10-Arm64\native"/>
+
+		<!-- Meta -->
         <file src="..\MainLogo.png" target="assets\"/>
         <file src="..\LICENSE.txt" target="licenses\"/>
         <file src="..\README.md" target="docs\"/>
