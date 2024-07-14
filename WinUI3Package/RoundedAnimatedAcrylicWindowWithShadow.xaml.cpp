@@ -5,6 +5,8 @@
 #endif
 
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
+#include "TransparentWindow.h"
+#include <winrt/Microsoft.UI.Windowing.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -13,6 +15,8 @@ namespace winrt::WinUI3Package::implementation
 {
 	RoundedAnimatedAcrylicWindowWithShadow::RoundedAnimatedAcrylicWindowWithShadow()
 	{
+		WinUI3Package::implementation::TransparentWindow::configureAppWindow(AppWindow());
+		SystemBackdrop(WinUI3Package::TransparentBackdrop{});
 	}
 
 	winrt::Microsoft::UI::Xaml::CornerRadius RoundedAnimatedAcrylicWindowWithShadow::CornerRadius()
@@ -40,11 +44,18 @@ namespace winrt::WinUI3Package::implementation
 		m_exitStoryboard = value;
 	}
 
-	void RoundedAnimatedAcrylicWindowWithShadow::ShadowElement_SizeChanged(
-		winrt::Windows::Foundation::IInspectable const& sender, 
-		winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
+	winrt::Microsoft::UI::Xaml::UIElement RoundedAnimatedAcrylicWindowWithShadow::WindowContent()
 	{
+		return nullptr;
+	}
 
+	void RoundedAnimatedAcrylicWindowWithShadow::WindowContent(winrt::Microsoft::UI::Xaml::UIElement const& value)
+	{
+	}
+
+	winrt::Windows::Foundation::TimeSpan RoundedAnimatedAcrylicWindowWithShadow::DurationToTimeSpan(winrt::Microsoft::UI::Xaml::Duration const& duration)
+	{
+		return duration.TimeSpan;
 	}
 
 }
@@ -60,14 +71,20 @@ void winrt::WinUI3Package::implementation::RoundedAnimatedAcrylicWindowWithShado
 
 	//create shadow visual
 	auto root = sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
-	auto compositor = Compositor();
+	auto compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(root).Compositor();
 	m_shadowVisual = compositor.CreateSpriteVisual();
 
-	auto dropShadow = compositor.CreateDropShadow();
-	dropShadow.BlurRadius(10.f);
+	constexpr static auto Radius = 30.f;
+	constexpr static auto OffsetMultiplier = 0.65;
 
-	m_shadowVisual.Size(root.ActualSize());
-	m_shadowVisual.Shadow(dropShadow);
+	auto dropShadow = compositor.CreateDropShadow();
+	dropShadow.BlurRadius(Radius);
+
+	auto size = root.ActualSize();
+	size.x -= 2*OffsetMultiplier*Radius;
+	size.y -= 2*OffsetMultiplier*Radius;
+	m_shadowVisual.Offset({ OffsetMultiplier *Radius, OffsetMultiplier *Radius, 0 });
+	m_shadowVisual.Size(size);	m_shadowVisual.Shadow(dropShadow);
 	m_shadowVisual.BorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
 	m_shadowVisual.Brush(compositor.CreateColorBrush(winrt::Windows::UI::Colors::Transparent()));
 
@@ -78,4 +95,10 @@ void winrt::WinUI3Package::implementation::RoundedAnimatedAcrylicWindowWithShado
 void winrt::WinUI3Package::implementation::RoundedAnimatedAcrylicWindowWithShadow::Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 {
 	OutputDebugString(L"me\n");
+}
+
+
+void winrt::WinUI3Package::implementation::RoundedAnimatedAcrylicWindowWithShadow::RootGrid_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
+{
+	TranslateAnimation().From(e.NewSize().Width);
 }

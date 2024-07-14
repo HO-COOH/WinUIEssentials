@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass ShimmerPage : Windows.UI.Xaml.Controls.Page
+    {
+        ShimmerPage();
+    }
+}

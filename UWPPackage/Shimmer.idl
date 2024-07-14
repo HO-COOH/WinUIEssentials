@@ -1,0 +1,12 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass Shimmer : Windows.UI.Xaml.Controls.Control
+    {
+        Shimmer();
+        
+        Boolean IsLoading;
+        static Windows.UI.Xaml.DependencyProperty IsLoadingProperty{ get; };
+    }
+}

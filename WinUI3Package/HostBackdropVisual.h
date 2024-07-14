@@ -30,6 +30,11 @@ namespace winrt::WinUI3Package::implementation
             winrt::Microsoft::UI::Xaml::DependencyProperty const& cornerRadiusProperty
         );
 
+        void paddingChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& self,
+            winrt::Microsoft::UI::Xaml::DependencyProperty const& paddingProperty
+        );
+
         void createPlacementVisual(
             winrt::Windows::UI::Composition::Visual const& rootVisual
         );

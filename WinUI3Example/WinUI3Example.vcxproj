@@ -102,7 +102,7 @@
     <AppxBundle>Never</AppxBundle>
     <AppInstallerUri>E:\</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>B6B747BAEDFEF2F2B57A8BCBC88022A9B5A3DECC</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>B083107C2CAC2A303E4C0BD373B5A68007A8A099</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>

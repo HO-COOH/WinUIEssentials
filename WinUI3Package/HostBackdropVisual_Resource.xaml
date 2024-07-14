@@ -11,7 +11,8 @@
                         <Grid x:Name="AcrylicContainer"/>
 
                         <ContentPresenter Content="{TemplateBinding Content}"
-                                          CornerRadius="{TemplateBinding CornerRadius}"/>
+                                          CornerRadius="{TemplateBinding CornerRadius}"
+                                          Padding="{TemplateBinding Padding}"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

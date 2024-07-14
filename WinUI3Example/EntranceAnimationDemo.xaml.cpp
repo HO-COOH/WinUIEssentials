@@ -8,6 +8,7 @@
 #include <winrt/Microsoft.UI.Composition.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <DispatcherQueue.h>
+#include <winrt/Windows.System.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -58,7 +59,7 @@ namespace winrt::WinUI3Example::implementation
 
 	winrt::Windows::UI::Composition::SpriteVisual EntranceAnimationDemo::createVisualW()
 	{
-		if (!s_queue)
+		if (!winrt::Windows::System::DispatcherQueue::GetForCurrentThread())
 			s_queue = createSystemDispatcherQueueController();
 
 		winrt::Windows::UI::Composition::Compositor compositor;

@@ -5,6 +5,7 @@
 #endif
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <DispatcherQueue.h>
+#include <winrt/Windows.System.h>
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -30,6 +31,10 @@ namespace winrt::WinUI3Package::implementation
 			winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
 			{ this, &HostBackdropVisual::cornerRadiusChanged }
 		);
+		RegisterPropertyChangedCallback(
+			winrt::Microsoft::UI::Xaml::FrameworkElement::MarginProperty(),
+			{ this, &HostBackdropVisual::paddingChanged }
+		);
 	}
 
 	void HostBackdropVisual::OnApplyTemplate()
@@ -53,18 +58,21 @@ namespace winrt::WinUI3Package::implementation
 		}
 
 		//create visual
-		if (!s_queue)
+		if (!winrt::Windows::System::DispatcherQueue::GetForCurrentThread())
 			s_queue = createSystemDispatcherQueueController();
 
 		winrt::Windows::UI::Composition::Compositor compositor;
 		auto spriteVisual = compositor.CreateSpriteVisual();
 		spriteVisual.Brush(compositor.CreateHostBackdropBrush());
-		spriteVisual.Size(size);
+
 		spriteVisual.BorderMode(winrt::Windows::UI::Composition::CompositionBorderMode::Soft);
 
 		m_clipGeometry = compositor.CreateRoundedRectangleGeometry();
 		m_clipGeometry.Size(size);
 		cornerRadiusChanged(nullptr, winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty());
+		paddingChanged(nullptr, winrt::Microsoft::UI::Xaml::Controls::Control::PaddingProperty());
+
+		spriteVisual.Size(size);
 		spriteVisual.Clip(compositor.CreateGeometricClip(m_clipGeometry));
 
 		//create placement visual
@@ -93,6 +101,20 @@ namespace winrt::WinUI3Package::implementation
 		});
 	}
 
+	void HostBackdropVisual::paddingChanged(winrt::Microsoft::UI::Xaml::DependencyObject const&, winrt::Microsoft::UI::Xaml::DependencyProperty const& paddingProperty)
+	{
+		if (!m_clipGeometry)
+			return;
+
+		auto const padding = winrt::unbox_value<winrt::Microsoft::UI::Xaml::Thickness>(GetValue(paddingProperty));
+		auto currentSize = ActualSize();
+		m_clipGeometry.Offset({ static_cast<float>(padding.Left), static_cast<float>(padding.Top) });
+		m_clipGeometry.Size({
+			static_cast<float>(currentSize.x - padding.Left - padding.Right),
+			static_cast<float>(currentSize.y - padding.Bottom - padding.Top)
+		});
+	}
+
 	void HostBackdropVisual::createPlacementVisual(winrt::Windows::UI::Composition::Visual const& rootVisual)
 	{
 		auto compositor = winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread();
@@ -100,17 +122,11 @@ namespace winrt::WinUI3Package::implementation
 		
 		auto clipGeometryW = compositor.CreateRoundedRectangleGeometry();
 
-		auto const radius = winrt::unbox_value<winrt::Microsoft::UI::Xaml::CornerRadius>(GetValue(winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty()));
-		clipGeometryW.CornerRadius({
-8.0f, 8.0f
-			});
+		auto const radius = static_cast<float>(winrt::unbox_value<winrt::Microsoft::UI::Xaml::CornerRadius>(GetValue(winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty())).TopLeft);
+		clipGeometryW.CornerRadius({ radius, radius });
 		clipGeometryW.Size(m_clipGeometry.Size());
 
 		m_externalLink.as<winrt::Windows::UI::Composition::CompositionTarget>().Root(rootVisual);
-
-		//m_externalLink.ExternalOutputBorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
-		//m_externalLink.PlacementVisual().BorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
-		//m_externalLink.PlacementVisual().Clip(compositor.CreateGeometricClip(clipGeometryW));
 		m_externalLink.PlacementVisual().Size(rootVisual.Size());
 	}
 

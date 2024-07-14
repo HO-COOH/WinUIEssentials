@@ -37,6 +37,9 @@
     <Filter Include="Controls\Segmented">
       <UniqueIdentifier>{37121013-2205-49ac-aff0-8d7f90a69296}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Shimmer">
+      <UniqueIdentifier>{fe6e81ee-bbd0-44fc-a975-a338112dfa61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -165,6 +168,9 @@
     <Midl Include="SegmentedMarginConverter.idl">
       <Filter>Controls\Segmented</Filter>
     </Midl>
+    <Midl Include="Shimmer.idl">
+      <Filter>Controls\Shimmer</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
@@ -190,6 +196,9 @@
     </Page>
     <Page Include="Segmented_Resource.xaml">
       <Filter>Controls\Segmented</Filter>
+    </Page>
+    <Page Include="Shimmer_Resource.xaml">
+      <Filter>Controls\Shimmer</Filter>
     </Page>
   </ItemGroup>
 </Project>

@@ -284,6 +284,10 @@
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Shimmer.h">
+      <DependentUpon>Shimmer.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="StringToBoolConverter.h">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -402,6 +406,10 @@
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Shimmer.cpp">
+      <DependentUpon>Shimmer.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="StringToBoolConverter.cpp">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -500,6 +508,9 @@
     <Midl Include="SettingsPaneEx.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Shimmer.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="StringToBoolConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -528,6 +539,9 @@
       <DeploymentContent>true</DeploymentContent>
     </Page>
     <Page Include="SettingsExpander_Resource.xaml">
+      <DeploymentContent>true</DeploymentContent>
+    </Page>
+    <Page Include="Shimmer_Resource.xaml">
       <DeploymentContent>true</DeploymentContent>
     </Page>
   </ItemGroup>

@@ -48,7 +48,8 @@ namespace winrt::UWPExample::implementation
             {L"ProgressBarExPage", winrt::xaml_typename<UWPExample::ProgressBarExPage>()},
             {L"UIElementExtensionPage", winrt::xaml_typename<UWPExample::UIElementExtensionsPage>()},
             {L"SegmentedPage", winrt::xaml_typename<UWPExample::SegmentedPage>()},
-            {L"UriPage", winrt::xaml_typename<UWPExample::UriPage>()}
+            {L"UriPage", winrt::xaml_typename<UWPExample::UriPage>()},
+            {L"ShimmerPage", winrt::xaml_typename<UWPExample::ShimmerPage>()}
         };
     };
 }
