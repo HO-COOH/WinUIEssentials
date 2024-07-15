@@ -59,6 +59,8 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |WindowEx | :x: | :white_check_mark: | Window
 |TransparentBackdrop | :x: | :white_check_mark: | SystemBackdrop
 |Segmented | :white_check_mark: | :white_check_mark: | Control
+|CustomMicaBackdrop | :x: | :white_check_mark: | Backdrop
+|CustomAcrylicBackdrop | :x: | :white_check_mark: | Backdrop
 
 *means additional settings required, see the sections for info
 
@@ -703,3 +705,28 @@ Usage:
     </ResourceDictionary>
 </Application.Resources>
 ```
+
+## CustomAcrylicBackdrop
+A customizable acrylic backdrop with bindable properties, and can be set as active when the window is inactive.
+
+|Property| Type | DependencyProperty? |
+|---|---|---|
+|FallbackColor| Color | :white_check_mark:
+|TintColor| Color | :white_check_mark:
+|Kind| DesktopAcrylicKind | :white_check_mark:
+|LuminosityOpacity| Single | :white_check_mark:
+|TintOpacity| Single | :white_check_mark:
+|EnableWhenInactive| Boolean | :white_check_mark:
+
+## CustomMicaBackdrop
+![](./assets/backdrop.gif)
+A customizable mica backdrop with bindable properties, and can be set as active when the window is inactive.
+
+|Property| Type | DependencyProperty? |
+|---|---|---|
+|FallbackColor| Color | :white_check_mark:
+|TintColor| Color | :white_check_mark:
+|Kind| MicaKind | :white_check_mark:
+|LuminosityOpacity| Single | :white_check_mark:
+|TintOpacity| Single | :white_check_mark:
+|EnableWhenInactive| Boolean | :white_check_mark:

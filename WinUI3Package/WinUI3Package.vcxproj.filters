@@ -59,6 +59,9 @@
     <ClInclude Include="WindowsVersion.hpp">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp">
+      <Filter>Backdrop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

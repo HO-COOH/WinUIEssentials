@@ -7,7 +7,7 @@
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Microsoft.UI.Interop.h>
 #include <winrt/Microsoft.UI.Content.h>
-#include <CommCtrl.h>
+
 namespace winrt::WinUI3Package::implementation
 {
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_fallbackColorProperty =
@@ -61,7 +61,7 @@ namespace winrt::WinUI3Package::implementation
 	void CustomAcrylicBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{
 		disposeAcrylicController();
-		RemoveWindowSubclass(m_hwnd, &CustomAcrylicBackdrop::windowActiveStateWorkaroundHanlder, subclassId);
+		BackdropWindowActiveStateWorkaroundHandler<CustomAcrylicBackdrop, subclassId>::Unset(m_hwnd);
 	}
 
 	void CustomAcrylicBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
@@ -71,17 +71,12 @@ namespace winrt::WinUI3Package::implementation
 		//Note: This method will be called before any Property setter get called.
 		//So we do not need to apply the properties in this method
 		makeAcrylicController(connectedTarget);
-		m_hwnd = winrt::Microsoft::UI::GetWindowFromWindowId(
+		m_hwnd = GetParent(winrt::Microsoft::UI::GetWindowFromWindowId(
 			connectedTarget.as<winrt::Microsoft::UI::Xaml::Hosting::DesktopWindowXamlSource>().SiteBridge().WindowId()
-		);
+		));
 
 		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);
-		winrt::check_bool(SetWindowSubclass(
-			m_hwnd,
-			&CustomAcrylicBackdrop::windowActiveStateWorkaroundHanlder,
-			subclassId,
-			reinterpret_cast<DWORD_PTR>(this)
-		));
+		BackdropWindowActiveStateWorkaroundHandler<CustomAcrylicBackdrop, subclassId>::Set(m_hwnd, this);
 
 		xamlRoot.Changed([this, target = winrt::make_weak(connectedTarget)](winrt::Microsoft::UI::Xaml::XamlRoot const& root, winrt::Microsoft::UI::Xaml::XamlRootChangedEventArgs const& arg)
 		{
@@ -233,21 +228,6 @@ namespace winrt::WinUI3Package::implementation
 			case winrt::Microsoft::UI::Xaml::ElementTheme::Dark:
 				return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Dark;
 		}
-	}
-
-	LRESULT CustomAcrylicBackdrop::windowActiveStateWorkaroundHanlder(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
-	{
-		if (uMsg == WM_SETFOCUS)
-		{
-			auto self = reinterpret_cast<CustomAcrylicBackdrop*>(dwRefData);
-			self->m_configuration.IsInputActive(true);
-		}
-		else if (uMsg == WM_KILLFOCUS)
-		{
-			auto self = reinterpret_cast<CustomAcrylicBackdrop*>(dwRefData);
-			self->m_configuration.IsInputActive(self->EnableWhenInactive());
-		}
-		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
 	}
 
 	void CustomAcrylicBackdrop::changeTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)

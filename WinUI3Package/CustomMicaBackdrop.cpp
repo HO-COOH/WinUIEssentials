@@ -7,7 +7,6 @@
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Microsoft.UI.Interop.h>
 #include <winrt/Microsoft.UI.Content.h>
-#include <CommCtrl.h>
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -61,7 +60,7 @@ namespace winrt::WinUI3Package::implementation
 	void CustomMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{
 		disposeMicaController();
-		RemoveWindowSubclass(m_hwnd, &CustomMicaBackdrop::windowActiveStateWorkaroundHanlder, subclassId);
+		BackdropWindowActiveStateWorkaroundHandler<CustomMicaBackdrop, subclassId>::Unset(m_hwnd);
 	}
 
 	void CustomMicaBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
@@ -71,17 +70,13 @@ namespace winrt::WinUI3Package::implementation
 		//Note: This method will be called before any Property setter get called.
 		//So we do not need to apply the properties in this method
 		makeMicaController(connectedTarget);
-		m_hwnd = winrt::Microsoft::UI::GetWindowFromWindowId(
+		m_hwnd = GetParent(winrt::Microsoft::UI::GetWindowFromWindowId(
 			connectedTarget.as<winrt::Microsoft::UI::Xaml::Hosting::DesktopWindowXamlSource>().SiteBridge().WindowId()
-		);
+		));
+		BackdropWindowActiveStateWorkaroundHandler<CustomMicaBackdrop, subclassId>::Set(m_hwnd, this);
 
 		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);
-		winrt::check_bool(SetWindowSubclass(
-			m_hwnd,
-			&CustomMicaBackdrop::windowActiveStateWorkaroundHanlder,
-			subclassId,
-			reinterpret_cast<DWORD_PTR>(this)
-		));
+		
 
 		xamlRoot.Changed([this, target = winrt::make_weak(connectedTarget)](winrt::Microsoft::UI::Xaml::XamlRoot const& root, winrt::Microsoft::UI::Xaml::XamlRootChangedEventArgs const& arg)
 			{
@@ -231,20 +226,6 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	LRESULT CustomMicaBackdrop::windowActiveStateWorkaroundHanlder(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
-	{
-		if (uMsg == WM_SETFOCUS)
-		{
-			auto self = reinterpret_cast<CustomMicaBackdrop*>(dwRefData);
-			self->m_configuration.IsInputActive(true);
-		}
-		else if (uMsg == WM_KILLFOCUS)
-		{
-			auto self = reinterpret_cast<CustomMicaBackdrop*>(dwRefData);
-			self->m_configuration.IsInputActive(self->EnableWhenInactive());
-		}
-		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
-	}
 	void CustomMicaBackdrop::changeTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
 	{
 		m_configuration.Theme(toBackdropTheme(theme));
