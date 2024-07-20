@@ -5,6 +5,17 @@ A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows 
 ![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=UWP)
 ![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=winui3)
 
+Example project build status:
+
+[![Build example Debug_86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml)
+
+[![Build example Debug_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml)
+
+[![Build example Release_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml)
+
+[![Build example Release_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml)
+
+
 ## Usage
 > [!WARNING]
 > Make sure to set your C++ language version to C++20 first!
