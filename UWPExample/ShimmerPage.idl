@@ -4,5 +4,7 @@ namespace UWPExample
     runtimeclass ShimmerPage : Windows.UI.Xaml.Controls.Page
     {
         ShimmerPage();
+
+        Windows.UI.Xaml.Controls.ToggleSwitch IsLoadingSwitch{ get; };
     }
 }

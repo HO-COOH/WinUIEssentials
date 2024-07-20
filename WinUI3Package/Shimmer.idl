@@ -1,0 +1,12 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass Shimmer : Microsoft.UI.Xaml.Controls.Control
+    {
+        Shimmer();
+        
+        Boolean IsLoading;
+        static Microsoft.UI.Xaml.DependencyProperty IsLoadingProperty{ get; };
+    }
+}

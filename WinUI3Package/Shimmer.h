@@ -2,25 +2,23 @@
 
 #include "Shimmer.g.h"
 #include <array>
-#include <vector>
-#include <winrt/Windows.UI.Composition.h>
-#include <span>
 #include <optional>
+#include <span>
 
-namespace winrt::UWPPackage::implementation
+namespace winrt::WinUI3Package::implementation
 {
     struct Shimmer : ShimmerT<Shimmer>
     {
         Shimmer() = default;
-        
+
         bool IsLoading();
         void IsLoading(bool value);
-        static winrt::Windows::UI::Xaml::DependencyProperty IsLoadingProperty();
+        static winrt::Microsoft::UI::Xaml::DependencyProperty IsLoadingProperty();
 
         void OnApplyTemplate();
     private:
-        static winrt::Windows::UI::Xaml::DependencyProperty s_isLoadingProperty;
-        winrt::Windows::UI::Xaml::FrameworkElement m_container{ nullptr };
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isLoadingProperty;
+        winrt::Microsoft::UI::Xaml::FrameworkElement m_container{ nullptr };
         void startAnimation();
 
         constexpr static std::array DarkColors
@@ -49,21 +47,21 @@ namespace winrt::UWPPackage::implementation
 
         class AnimationMember
         {
-            winrt::Windows::UI::Composition::Vector2KeyFrameAnimation m_gradientStartPointAnimation;
-            winrt::Windows::UI::Composition::Vector2KeyFrameAnimation m_gradientStopPointAnimation;
-            winrt::Windows::UI::Composition::CompositionRoundedRectangleGeometry m_rectangleGeometry;
-            winrt::Windows::UI::Composition::CompositionLinearGradientBrush m_shimmerMaskGradient;
+            winrt::Microsoft::UI::Composition::Vector2KeyFrameAnimation m_gradientStartPointAnimation;
+            winrt::Microsoft::UI::Composition::Vector2KeyFrameAnimation m_gradientStopPointAnimation;
+            winrt::Microsoft::UI::Composition::CompositionRoundedRectangleGeometry m_rectangleGeometry;
+            winrt::Microsoft::UI::Composition::CompositionLinearGradientBrush m_shimmerMaskGradient;
 
-            winrt::Windows::UI::Composition::Compositor m_compositor;
+            winrt::Microsoft::UI::Composition::Compositor m_compositor;
 
             //winrt::Windows::Foundation::TimeSpan m_duration;
             void appendGradientStop(winrt::Windows::UI::Color color, float offset);
-            void appendGradientStop(winrt::Windows::UI::Composition::CompositionColorGradientStop const& gradientStop);
+            void appendGradientStop(winrt::Microsoft::UI::Composition::CompositionColorGradientStop const& gradientStop);
 
             constexpr static auto InitialStartPointX = -7.92f;
         public:
             AnimationMember(
-                winrt::Windows::UI::Composition::Compositor const& compositor,
+                winrt::Microsoft::UI::Composition::Compositor const& compositor,
                 winrt::Windows::Foundation::TimeSpan duration
             );
 
@@ -72,7 +70,7 @@ namespace winrt::UWPPackage::implementation
                 std::span<float const> gradientOffsets
             );
 
-            winrt::Windows::UI::Composition::ShapeVisual GetVisual(
+            winrt::Microsoft::UI::Composition::ShapeVisual GetVisual(
                 winrt::Windows::Foundation::Numerics::float2 size,
                 float cornerRadius
             );
@@ -83,11 +81,10 @@ namespace winrt::UWPPackage::implementation
         };
 
         std::optional<AnimationMember> m_animation;
-        bool m_loaded{};
     };
 }
 
-namespace winrt::UWPPackage::factory_implementation
+namespace winrt::WinUI3Package::factory_implementation
 {
     struct Shimmer : ShimmerT<Shimmer, implementation::Shimmer>
     {

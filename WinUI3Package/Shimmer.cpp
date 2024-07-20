@@ -3,17 +3,17 @@
 #if __has_include("Shimmer.g.cpp")
 #include "Shimmer.g.cpp"
 #endif
-#include <winrt/Windows.UI.Xaml.Hosting.h>
-#include <winrt/Windows.UI.Xaml.Markup.h>
+#include <winrt/Microsoft.UI.Composition.h>
+#include <winrt/Microsoft.UI.Xaml.Hosting.h>
 
-namespace winrt::UWPPackage::implementation
+namespace winrt::WinUI3Package::implementation
 {
-	winrt::Windows::UI::Xaml::DependencyProperty Shimmer::s_isLoadingProperty =
-		winrt::Windows::UI::Xaml::DependencyProperty::Register(
+	winrt::Microsoft::UI::Xaml::DependencyProperty Shimmer::s_isLoadingProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"IsLoading",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Windows::UI::Xaml::PropertyMetadata{
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
 				winrt::box_value(false)
 			}
 		);
@@ -29,18 +29,12 @@ namespace winrt::UWPPackage::implementation
 			m_animation.reset();
 			if (m_container)
 			{
-				winrt::Windows::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_container);
+				winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_container);
 				m_container = nullptr;
 			}
 		}
-		else
-		{
-			if (!m_loaded)
-				return;
-			OnApplyTemplate();
-		}
 	}
-	winrt::Windows::UI::Xaml::DependencyProperty Shimmer::IsLoadingProperty()
+	winrt::Microsoft::UI::Xaml::DependencyProperty Shimmer::IsLoadingProperty()
 	{
 		return s_isLoadingProperty;
 	}
@@ -48,20 +42,19 @@ namespace winrt::UWPPackage::implementation
 	void Shimmer::OnApplyTemplate()
 	{
 		base_type::OnApplyTemplate();
-		m_container = GetTemplateChild(L"Container").as<winrt::Windows::UI::Xaml::FrameworkElement>();
+		m_container = GetTemplateChild(L"Container").as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
 		m_container.Loaded([this](auto&&...) {	startAnimation(); });
-		m_loaded = true;
 	}
 
 	void Shimmer::startAnimation()
 	{
 		m_animation.emplace(
-			winrt::Windows::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(m_container).Compositor(),
+			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(m_container).Compositor(),
 			std::chrono::milliseconds{ 1600 }
 		);
 		m_animation->SetGradientStops(DarkColors, GradientStopOffset);
 		auto size = m_container.ActualSize();
-		winrt::Windows::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(m_container, m_animation->GetVisual(size, 8.f));
+		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(m_container, m_animation->GetVisual(size, 8.f));
 	}
 
 	void Shimmer::AnimationMember::appendGradientStop(winrt::Windows::UI::Color color, float offset)
@@ -70,28 +63,28 @@ namespace winrt::UWPPackage::implementation
 	}
 
 	void Shimmer::AnimationMember::appendGradientStop(
-		winrt::Windows::UI::Composition::CompositionColorGradientStop const& gradientStop)
+		winrt::Microsoft::UI::Composition::CompositionColorGradientStop const& gradientStop)
 	{
 		m_shimmerMaskGradient.ColorStops().Append(gradientStop);
 	}
 
 	Shimmer::AnimationMember::AnimationMember(
-		winrt::Windows::UI::Composition::Compositor const& compositor,
+		winrt::Microsoft::UI::Composition::Compositor const& compositor,
 		winrt::Windows::Foundation::TimeSpan duration) :
-		m_gradientStartPointAnimation{compositor.CreateVector2KeyFrameAnimation()},
-		m_gradientStopPointAnimation{compositor.CreateVector2KeyFrameAnimation()},
-		m_rectangleGeometry{compositor.CreateRoundedRectangleGeometry()},
-		m_shimmerMaskGradient{compositor.CreateLinearGradientBrush() },
-		m_compositor{compositor}
+		m_gradientStartPointAnimation{ compositor.CreateVector2KeyFrameAnimation() },
+		m_gradientStopPointAnimation{ compositor.CreateVector2KeyFrameAnimation() },
+		m_rectangleGeometry{ compositor.CreateRoundedRectangleGeometry() },
+		m_shimmerMaskGradient{ compositor.CreateLinearGradientBrush() },
+		m_compositor{ compositor }
 		//m_duration{duration}
 	{
 		m_gradientStartPointAnimation.Duration(duration);
-		m_gradientStartPointAnimation.IterationBehavior(winrt::Windows::UI::Composition::AnimationIterationBehavior::Forever);
+		m_gradientStartPointAnimation.IterationBehavior(winrt::Microsoft::UI::Composition::AnimationIterationBehavior::Forever);
 		m_gradientStartPointAnimation.InsertKeyFrame(0.0f, { InitialStartPointX, 0.0f });
 		m_gradientStartPointAnimation.InsertKeyFrame(1.0f, {});
 
 		m_gradientStopPointAnimation.Duration(duration);
-		m_gradientStopPointAnimation.IterationBehavior(winrt::Windows::UI::Composition::AnimationIterationBehavior::Forever);
+		m_gradientStopPointAnimation.IterationBehavior(winrt::Microsoft::UI::Composition::AnimationIterationBehavior::Forever);
 		m_gradientStopPointAnimation.InsertKeyFrame(0.0f, { 1.0f, 0.0f });
 		m_gradientStopPointAnimation.InsertKeyFrame(1.0f, { -InitialStartPointX, 1.0f });
 
@@ -100,7 +93,7 @@ namespace winrt::UWPPackage::implementation
 	}
 
 	void Shimmer::AnimationMember::SetGradientStops(
-		std::span<winrt::Windows::UI::Color const> gradientStops, 
+		std::span<winrt::Windows::UI::Color const> gradientStops,
 		std::span<float const> gradientOffsets)
 	{
 		assert(gradientStops.size() == gradientOffsets.size());
@@ -108,7 +101,7 @@ namespace winrt::UWPPackage::implementation
 			appendGradientStop(gradientStops[i], gradientOffsets[i]);
 	}
 
-	winrt::Windows::UI::Composition::ShapeVisual Shimmer::AnimationMember::GetVisual(
+	winrt::Microsoft::UI::Composition::ShapeVisual Shimmer::AnimationMember::GetVisual(
 		winrt::Windows::Foundation::Numerics::float2 size,
 		float cornerRadius
 	)
@@ -117,7 +110,7 @@ namespace winrt::UWPPackage::implementation
 		m_rectangleGeometry.CornerRadius({ cornerRadius, cornerRadius });
 		auto spriteShape = m_compositor.CreateSpriteShape(m_rectangleGeometry);
 		spriteShape.FillBrush(m_shimmerMaskGradient);
-		
+
 		auto shapeVisual = m_compositor.CreateShapeVisual();
 		shapeVisual.Shapes().Append(spriteShape);
 
@@ -138,6 +131,5 @@ namespace winrt::UWPPackage::implementation
 	{
 		StopAnimation();
 	}
-
 
 }

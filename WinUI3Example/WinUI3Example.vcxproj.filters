@@ -96,6 +96,9 @@
     <Page Include="EntranceAnimationDemo.xaml">
       <Filter>Windows\Transparent</Filter>
     </Page>
+    <Page Include="ShimmerPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

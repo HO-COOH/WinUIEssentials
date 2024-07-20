@@ -256,6 +256,10 @@
       <DependentUpon>SettingsExpanderPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ShimmerPage.xaml.h">
+      <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TaskbarPage.xaml.h">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -360,6 +364,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SettingsExpanderPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ShimmerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
@@ -498,6 +505,10 @@
     </ClCompile>
     <ClCompile Include="SettingsExpanderPage.xaml.cpp">
       <DependentUpon>SettingsExpanderPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ShimmerPage.xaml.cpp">
+      <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
@@ -640,6 +651,10 @@
     </Midl>
     <Midl Include="SettingsExpanderPage.idl">
       <DependentUpon>SettingsExpanderPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ShimmerPage.idl">
+      <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TaskbarPage.idl">

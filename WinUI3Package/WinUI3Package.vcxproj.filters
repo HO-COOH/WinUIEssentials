@@ -120,6 +120,9 @@
     <Filter Include="Windows">
       <UniqueIdentifier>{f75bc99f-6f1e-4b55-bb3b-051e279439bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Shimmer">
+      <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Placeholder.idl" />
@@ -212,6 +215,12 @@
     <Midl Include="WindowEx.idl">
       <Filter>Windows</Filter>
     </Midl>
+    <Midl Include="Shimmer.idl">
+      <Filter>Controls\Shimmer</Filter>
+    </Midl>
+    <Midl Include="RoundedAnimatedAcrylicWindowWithShadow.idl">
+      <Filter>Controls\AcrylicVisual</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
@@ -239,6 +248,12 @@
       <Filter>Controls\IconButton</Filter>
     </Page>
     <Page Include="HostBackdropVisual_Resource.xaml">
+      <Filter>Controls\AcrylicVisual</Filter>
+    </Page>
+    <Page Include="Shimmer_Resource.xaml">
+      <Filter>Controls\Shimmer</Filter>
+    </Page>
+    <Page Include="RoundedAnimatedAcrylicWindowWithShadow.xaml">
       <Filter>Controls\AcrylicVisual</Filter>
     </Page>
   </ItemGroup>

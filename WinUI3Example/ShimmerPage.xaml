@@ -1,10 +1,11 @@
-﻿<Page
-    x:Class="UWPExample.ShimmerPage"
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.ShimmerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:essential="using:UWPPackage"
-    xmlns:local="using:UWPExample"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
@@ -18,5 +19,4 @@
             Height="500"
             IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}" />
     </StackPanel>
-
 </Page>
