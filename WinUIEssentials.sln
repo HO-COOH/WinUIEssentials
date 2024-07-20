@@ -9,8 +9,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UWPExample", "UWPExample\UW
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{015CEE95-DABC-4E33-8980-8B5103F4FDF5}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\msbuild.yml = .github\workflows\msbuild.yml
+		.github\workflows\msbuild_Debug_x64.yml = .github\workflows\msbuild_Debug_x64.yml
+		.github\workflows\msbuild_Release_x64.yml = .github\workflows\msbuild_Release_x64.yml
+		.github\workflows\msbuild_Release_x86.yml = .github\workflows\msbuild_Release_x86.yml
 		README.md = README.md
+		.github\workflows\msbuild_Debug_x86.yml = .github\workflows\msbuild_Debug_x86.yml
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinUI3Example", "WinUI3Example\WinUI3Example.vcxproj", "{68226A70-C3CD-4205-93AA-95F3EBB8BE34}"
