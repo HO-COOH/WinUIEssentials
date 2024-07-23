@@ -72,6 +72,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |Segmented | :white_check_mark: | :white_check_mark: | Control
 |CustomMicaBackdrop | :x: | :white_check_mark: | Backdrop
 |CustomAcrylicBackdrop | :x: | :white_check_mark: | Backdrop
+|Shimmer | :white_check_mark: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -741,3 +742,14 @@ A customizable mica backdrop with bindable properties, and can be set as active 
 |LuminosityOpacity| Single | :white_check_mark:
 |TintOpacity| Single | :white_check_mark:
 |EnableWhenInactive| Boolean | :white_check_mark:
+
+## Shimmer
+Similar to the `Shimmer` in Community Toolkit, but it's a `ContentControl`, which allows you to directly put content into it, making it easier to use.
+Also, the `ShimmerGradientStops` is a resource of type `Windows.UI.Xaml.Media.GradientStopCollection` which allows to be override.
+
+|Property| Type | DependencyProperty? |
+|---|---|---|
+|IsLoading| Boolean | :white_check_mark:
+
+![](./assets/shimmer-light.gif)
+![](./assets/shimmer-dark.gif)

@@ -2,7 +2,7 @@ namespace UWPPackage
 {
     [bindable]
     [default_interface]
-    runtimeclass Shimmer : Windows.UI.Xaml.Controls.Control
+    runtimeclass Shimmer : Windows.UI.Xaml.Controls.ContentControl
     {
         Shimmer();
         

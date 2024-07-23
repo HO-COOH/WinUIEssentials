@@ -32,12 +32,15 @@ namespace winrt::UWPPackage::implementation
 				winrt::Windows::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_container);
 				m_container = nullptr;
 			}
+			m_presenter = GetTemplateChild(L"ContentPresenter").as<winrt::Windows::UI::Xaml::Controls::ContentPresenter>();
 		}
 		else
 		{
 			if (!m_loaded)
 				return;
+			winrt::Windows::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_presenter);
 			OnApplyTemplate();
+			startAnimation();
 		}
 	}
 	winrt::Windows::UI::Xaml::DependencyProperty Shimmer::IsLoadingProperty()
@@ -49,8 +52,12 @@ namespace winrt::UWPPackage::implementation
 	{
 		base_type::OnApplyTemplate();
 		m_container = GetTemplateChild(L"Container").as<winrt::Windows::UI::Xaml::FrameworkElement>();
-		m_container.Loaded([this](auto&&...) {	startAnimation(); });
+		if (m_container.IsLoaded())
+			startAnimation();
+
+		m_container.SizeChanged([this](auto&&...) {	startAnimation(); });
 		m_loaded = true;
+		ActualThemeChanged([this](auto&&...) {startAnimation(); });
 	}
 
 	void Shimmer::startAnimation()
@@ -59,9 +66,20 @@ namespace winrt::UWPPackage::implementation
 			winrt::Windows::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(m_container).Compositor(),
 			std::chrono::milliseconds{ 1600 }
 		);
-		m_animation->SetGradientStops(DarkColors, GradientStopOffset);
+		
+		winrt::Windows::UI::Xaml::Media::GradientStopCollection stops{ nullptr };
+		if (auto thisResource = Resources().TryLookup(winrt::box_value(ShimmerGradientStopsResourceName)))
+			stops = thisResource.as<decltype(stops)>();
+		else
+		{
+			stops = winrt::Windows::UI::Xaml::Application::Current()
+				.Resources()
+				.Lookup(winrt::box_value(ShimmerGradientStopsResourceName))
+				.as<winrt::Windows::UI::Xaml::Media::GradientStopCollection>();
+		}
+		m_animation->SetGradientStops(stops);
 		auto size = m_container.ActualSize();
-		winrt::Windows::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(m_container, m_animation->GetVisual(size, 8.f));
+		winrt::Windows::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(m_container, m_animation->GetVisual(size,CornerRadius().TopLeft));
 	}
 
 	void Shimmer::AnimationMember::appendGradientStop(winrt::Windows::UI::Color color, float offset)
@@ -108,13 +126,19 @@ namespace winrt::UWPPackage::implementation
 			appendGradientStop(gradientStops[i], gradientOffsets[i]);
 	}
 
+	void Shimmer::AnimationMember::SetGradientStops(winrt::Windows::UI::Xaml::Media::GradientStopCollection gradientStops)
+	{
+		for (auto gradientStop : gradientStops)
+			appendGradientStop(gradientStop.Color(), gradientStop.Offset());
+	}
+
 	winrt::Windows::UI::Composition::ShapeVisual Shimmer::AnimationMember::GetVisual(
 		winrt::Windows::Foundation::Numerics::float2 size,
 		float cornerRadius
 	)
 	{
 		m_rectangleGeometry.Size(size);
-		m_rectangleGeometry.CornerRadius({ cornerRadius, cornerRadius });
+		m_rectangleGeometry.CornerRadius({ cornerRadius / 2, cornerRadius / 2 });
 		auto spriteShape = m_compositor.CreateSpriteShape(m_rectangleGeometry);
 		spriteShape.FillBrush(m_shimmerMaskGradient);
 		

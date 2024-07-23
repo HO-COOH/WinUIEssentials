@@ -301,6 +301,9 @@
     <Image Include="Assets\MainLogo.ico">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\Owl.jpg">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

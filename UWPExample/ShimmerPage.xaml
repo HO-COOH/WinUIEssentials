@@ -6,6 +6,7 @@
     xmlns:essential="using:UWPPackage"
     xmlns:local="using:UWPExample"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Windows.UI.Xaml.Media"
     mc:Ignorable="d">
 
     <StackPanel Spacing="5">
@@ -13,10 +14,41 @@
             x:Name="IsLoadingSwitch"
             Header="IsLoading: "
             IsOn="True" />
-        <essential:Shimmer
-            Width="500"
-            Height="500"
-            IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}" />
+        <StackPanel Width="240" Padding="16"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Spacing="12">
+            <essential:Shimmer Width="96" Height="96" CornerRadius="96" IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+                <Border CornerRadius="96">
+                    <Border.Background>
+                        <ImageBrush ImageSource="ms-appx:///Assets/Owl.jpg"/>
+                    </Border.Background>
+                </Border>
+                <!--<Image Source="ms-appx:///Assets/Owl.jpg"/>-->
+                <!--<essential:Shimmer.Resources>
+                    <media:GradientStopCollection x:Key="ShimmerGradientStops">
+                        <GradientStop Color="#FF0000" Offset="0.273"/>
+                        <GradientStop Color="#00FFFF" Offset="0.436"/>
+                        <GradientStop Color="#FF00FF" Offset="0.482"/>
+                        <GradientStop Color="#10FFFFFF" Offset="0.643"/>
+                    </media:GradientStopCollection>
+                </essential:Shimmer.Resources>-->
+            </essential:Shimmer>
+
+            <essential:Shimmer Width="80" Height="20" IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
+                <TextBlock FontWeight="SemiBold" Text="This is a title"/>
+            </essential:Shimmer>
+
+            <essential:Shimmer Width="120" Height="20" IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
+                <TextBlock Text="This is a description"/>
+            </essential:Shimmer>
+
+            <essential:Shimmer Width="60" Height="32" IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
+                <Button Content="Install" Style="{ThemeResource AccentButtonStyle}"/>
+            </essential:Shimmer>
+        </StackPanel>
     </StackPanel>
 
 </Page>

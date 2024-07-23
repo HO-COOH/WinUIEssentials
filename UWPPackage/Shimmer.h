@@ -23,29 +23,31 @@ namespace winrt::UWPPackage::implementation
         winrt::Windows::UI::Xaml::FrameworkElement m_container{ nullptr };
         void startAnimation();
 
-        constexpr static std::array DarkColors
-        {
-            winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 6.05 * 1 / 100), 255, 255, 255},
-            winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 3.26 * 1 / 100), 255, 255, 255},
-            winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 3.26 * 1 / 100), 255, 255, 255},
-            winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 6.05 * 1 / 100), 255, 255, 255},
-        };
+        constexpr static auto ShimmerGradientStopsResourceName = L"ShimmerGradientStops";
 
-        constexpr static std::array LightColors
-        {
-            winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 5.37 / 100), 0, 0, 0},
-            winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 2.89 / 100), 0, 0, 0},
-            winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 2.89 / 100), 0, 0, 0},
-            winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 5.37 / 100), 0, 0, 0},
-        };
+        //constexpr static std::array DarkColors
+        //{
+        //    winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 6.05 * 1 / 100), 255, 255, 255},
+        //    winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 3.26 * 1 / 100), 255, 255, 255},
+        //    winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 3.26 * 1 / 100), 255, 255, 255},
+        //    winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 6.05 * 1 / 100), 255, 255, 255},
+        //};
 
-        constexpr static std::array GradientStopOffset
-        {
-            0.273f,
-            0.436f,
-            0.482f,
-            0.643f
-        };
+        //constexpr static std::array LightColors
+        //{
+        //    winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 5.37 / 100), 0, 0, 0},
+        //    winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 2.89 / 100), 0, 0, 0},
+        //    winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 2.89 / 100), 0, 0, 0},
+        //    winrt::Windows::UI::Color{ static_cast<unsigned char>(255 * 5.37 / 100), 0, 0, 0},
+        //};
+
+        //constexpr static std::array GradientStopOffset
+        //{
+        //    0.273f,
+        //    0.436f,
+        //    0.482f,
+        //    0.643f
+        //};
 
         class AnimationMember
         {
@@ -60,6 +62,8 @@ namespace winrt::UWPPackage::implementation
             void appendGradientStop(winrt::Windows::UI::Color color, float offset);
             void appendGradientStop(winrt::Windows::UI::Composition::CompositionColorGradientStop const& gradientStop);
 
+
+
             constexpr static auto InitialStartPointX = -7.92f;
         public:
             AnimationMember(
@@ -72,6 +76,8 @@ namespace winrt::UWPPackage::implementation
                 std::span<float const> gradientOffsets
             );
 
+            void SetGradientStops(winrt::Windows::UI::Xaml::Media::GradientStopCollection gradientStops);
+
             winrt::Windows::UI::Composition::ShapeVisual GetVisual(
                 winrt::Windows::Foundation::Numerics::float2 size,
                 float cornerRadius
@@ -83,6 +89,7 @@ namespace winrt::UWPPackage::implementation
         };
 
         std::optional<AnimationMember> m_animation;
+        winrt::Windows::UI::Xaml::Controls::ContentPresenter m_presenter{ nullptr };
         bool m_loaded{};
     };
 }

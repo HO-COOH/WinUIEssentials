@@ -2,7 +2,7 @@ namespace WinUI3Package
 {
     [bindable]
     [default_interface]
-    runtimeclass Shimmer : Microsoft.UI.Xaml.Controls.Control
+    runtimeclass Shimmer : Microsoft.UI.Xaml.Controls.ContentControl
     {
         Shimmer();
         
