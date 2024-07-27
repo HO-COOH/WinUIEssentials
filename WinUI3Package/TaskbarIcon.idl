@@ -1,0 +1,13 @@
+import "GeneratedIconSource.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TaskbarIcon 
+    {
+        TaskbarIcon();
+        
+        GeneratedIconSource IconSource;
+    }
+}

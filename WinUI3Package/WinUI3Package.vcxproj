@@ -319,6 +319,10 @@
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="GeneratedIconSource.h">
+      <DependentUpon>GeneratedIconSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="GroupBox.h">
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -367,6 +371,7 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NotifyIconData.h" />
     <ClInclude Include="OverrideChecker.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Placeholder.h">
@@ -419,6 +424,10 @@
     </ClInclude>
     <ClInclude Include="StringToBoolConverter.h">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TaskbarIcon.h">
+      <DependentUpon>TaskbarIcon.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TransparentBackdrop.h">
@@ -474,6 +483,10 @@
     </ClCompile>
     <ClCompile Include="FontIconExtension.cpp">
       <DependentUpon>FontIconExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="GeneratedIconSource.cpp">
+      <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="GroupBox.cpp">
@@ -563,6 +576,10 @@
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TaskbarIcon.cpp">
+      <DependentUpon>TaskbarIcon.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TransparentBackdrop.cpp">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -611,6 +628,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="FontIconExtension.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="GeneratedIconSource.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="GroupBox.idl">
@@ -672,6 +692,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="StringToBoolConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TaskbarIcon.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TransparentBackdrop.idl">

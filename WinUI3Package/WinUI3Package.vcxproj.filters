@@ -62,6 +62,9 @@
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp">
       <Filter>Backdrop</Filter>
     </ClInclude>
+    <ClInclude Include="NotifyIconData.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -122,6 +125,9 @@
     </Filter>
     <Filter Include="Controls\Shimmer">
       <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon">
+      <UniqueIdentifier>{744593e5-d8a9-422f-9915-59d2f200d660}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +226,12 @@
     </Midl>
     <Midl Include="RoundedAnimatedAcrylicWindowWithShadow.idl">
       <Filter>Controls\AcrylicVisual</Filter>
+    </Midl>
+    <Midl Include="GeneratedIconSource.idl">
+      <Filter>TaskbarIcon</Filter>
+    </Midl>
+    <Midl Include="TaskbarIcon.idl">
+      <Filter>TaskbarIcon</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

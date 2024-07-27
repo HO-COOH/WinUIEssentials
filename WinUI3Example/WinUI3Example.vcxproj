@@ -414,6 +414,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TaskbarIconPage.xaml.h">
+      <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TaskbarPage.xaml.h">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -521,6 +525,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ShimmerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskbarIconPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
@@ -663,6 +670,10 @@
     </ClCompile>
     <ClCompile Include="ShimmerPage.xaml.cpp">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TaskbarIconPage.xaml.cpp">
+      <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
@@ -809,6 +820,10 @@
     </Midl>
     <Midl Include="ShimmerPage.idl">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TaskbarIconPage.idl">
+      <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TaskbarPage.idl">

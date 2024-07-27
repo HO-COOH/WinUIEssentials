@@ -53,7 +53,8 @@ namespace winrt::WinUI3Example::implementation
             {L"UriPage", winrt::xaml_typename<WinUI3Example::UriPage>()},
             //{L"IncrementalLoadingPage", winrt::xaml_typename<WinUI3Example::IncrementalLoadingPage>()},
             {L"BackdropPage", winrt::xaml_typename<WinUI3Example::BackdropPage>()},
-            {L"ShimmerPage", winrt::xaml_typename<WinUI3Example::ShimmerPage>()}
+            {L"ShimmerPage", winrt::xaml_typename<WinUI3Example::ShimmerPage>()},
+            {L"TaskbarIconPage", winrt::xaml_typename<WinUI3Example::TaskbarIconPage>()},
         };
     };
 }

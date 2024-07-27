@@ -7,9 +7,11 @@ name: Build example Release_x64
 
 on:
   push:
-    branches: [ "master", "ci" ]
+    branches:
+      - "**"
   pull_request:
-    branches: [ "master", "ci" ]
+    branches:
+      - "**"
 
 env:
   # Path to the solution file relative to the root of the project.

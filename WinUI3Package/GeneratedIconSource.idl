@@ -1,0 +1,10 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass GeneratedIconSource 
+    {
+        GeneratedIconSource();
+        String Text;
+    }
+}
