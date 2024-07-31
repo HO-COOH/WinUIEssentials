@@ -3,6 +3,8 @@
 #include "ThemeListener.h"
 #include <winuser.h>
 
+#include "AppsUseLightTheme.h"
+
 void ThemeListenerMessageWindow::registerIfNeeded()
 {
 	static bool registered = false;
@@ -23,16 +25,25 @@ LRESULT ThemeListenerMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wpara
 	switch (msg)
 	{
 	case WM_NCCREATE:
-		SetWindowLongPtr(hwnd, GWLP_USERDATA, lparam);
+		SetWindowLongPtr(hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(reinterpret_cast<CREATESTRUCT*>(lparam)->lpCreateParams));
 		return true;
+	case WM_SETTINGCHANGE:
+	{
+		AppsUseLightTheme const value;
+		for (auto& handler : reinterpret_cast<ThemeListener*>(GetWindowLongPtr(hwnd, GWLP_USERDATA))->m_handlers)
+			handler(value);
+		return true;
+	}
 	default:
 		break;
 	}
+	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
-ThemeListenerMessageWindow::ThemeListenerMessageWindow(ThemeListener* listener) : m_hwnd
+ThemeListenerMessageWindow::ThemeListenerMessageWindow(ThemeListener* listener)
 {
-	CreateWindow(
+	registerIfNeeded();
+	winrt::check_pointer(m_hwnd = CreateWindow(
 		ThemeListenerMessageWindowClass,
 		ThemeListenerMessageWindowClass,
 		0,
@@ -44,12 +55,10 @@ ThemeListenerMessageWindow::ThemeListenerMessageWindow(ThemeListener* listener) 
 		NULL,
 		NULL,
 		listener
-	)
-}
-{
+	));
 }
 
 ThemeListenerMessageWindow::~ThemeListenerMessageWindow()
 {
-	winrt::check_bool(CloseWindow(m_hwnd));
+	winrt::check_bool(DestroyWindow(m_hwnd));
 }

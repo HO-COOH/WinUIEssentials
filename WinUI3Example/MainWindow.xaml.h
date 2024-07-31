@@ -55,6 +55,7 @@ namespace winrt::WinUI3Example::implementation
             {L"BackdropPage", winrt::xaml_typename<WinUI3Example::BackdropPage>()},
             {L"ShimmerPage", winrt::xaml_typename<WinUI3Example::ShimmerPage>()},
             {L"TaskbarIconPage", winrt::xaml_typename<WinUI3Example::TaskbarIconPage>()},
+            {L"ThemeListenerPage", winrt::xaml_typename<WinUI3Example::ThemeListenerPage>()}
         };
     };
 }

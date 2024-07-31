@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass ThemeListenerPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ThemeListenerPage();
+    }
+}

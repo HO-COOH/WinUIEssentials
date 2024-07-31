@@ -1,6 +1,7 @@
 #pragma once
+#include "Export.h"
 class ThemeListener;
-class ThemeListenerMessageWindow
+class WinUIEssentialDllApi ThemeListenerMessageWindow
 {
 	constexpr static auto ThemeListenerMessageWindowClass = L"ThemeListenerMessageWindow";
 	static void registerIfNeeded();
@@ -15,7 +16,8 @@ class ThemeListenerMessageWindow
 	HWND m_hwnd;
 public:
 	ThemeListenerMessageWindow(ThemeListener* listener);
-
+	ThemeListenerMessageWindow(ThemeListenerMessageWindow const&) = delete;
+	ThemeListenerMessageWindow(ThemeListenerMessageWindow&&) = delete;
 	~ThemeListenerMessageWindow();
 };
 

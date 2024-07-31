@@ -23,7 +23,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::Windows::Foundation::Uri TaskbarIcon::LightThemeIcon()
 	{
-		return winrt::Windows::Foundation::Uri();
+		return winrt::Windows::Foundation::Uri(nullptr);
 	}
 	void TaskbarIcon::LightThemeIcon(winrt::Windows::Foundation::Uri value)
 	{
@@ -37,7 +37,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::Windows::Foundation::Uri TaskbarIcon::DarkThemeIcon()
 	{
-		return winrt::Windows::Foundation::Uri();
+		return winrt::Windows::Foundation::Uri(nullptr);
 	}
 	void TaskbarIcon::DarkThemeIcon(winrt::Windows::Foundation::Uri value)
 	{
