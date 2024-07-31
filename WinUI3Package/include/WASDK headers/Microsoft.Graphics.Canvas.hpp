@@ -1,5 +1,11 @@
 #pragma once
-
+/*****************************************************************//**
+ * \file   Microsoft.Graphics.Canvas.hpp
+ * \brief  Win2D headers
+ * 
+ * \author szpeter@yeah.net
+ * \date   July 2024
+ *********************************************************************/
 #include <winrt/Microsoft.Graphics.Canvas.h>
 #include <winrt/Microsoft.Graphics.Canvas.Brushes.h>
 #include <winrt/Microsoft.Graphics.Canvas.Effects.h>

@@ -11,6 +11,14 @@ namespace winrt::WinUI3Package::implementation
         winrt::hstring Text();
         void Text(winrt::hstring value);
 
+        winrt::Windows::UI::Color Foreground() { return {}; }
+        void Foreground(winrt::Windows::UI::Color) {}
+        
+        winrt::Windows::UI::Text::FontWeight FontWeight() { return {}; }
+        void FontWeight(winrt::Windows::UI::Text::FontWeight) {}
+
+        winrt::Microsoft::UI::Xaml::Media::FontFamily FontFamily() { return nullptr; }
+        void FontFamily(winrt::Microsoft::UI::Xaml::Media::FontFamily) {}
     private:
         winrt::hstring m_text;
     };

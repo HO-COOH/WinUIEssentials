@@ -3,6 +3,7 @@
 #include <shellapi.h>
 #include <cassert>
 #include <string_view>
+#pragma comment(lib, "shell32.lib")
 
 /**
  * @brief Wrapper for win32 `NOTIFYICONDATAW`
@@ -11,7 +12,8 @@ class NotifyIconData
 {
 	NOTIFYICONDATA m_data
 	{
-		.cbSize = sizeof(m_data)
+		.cbSize = sizeof(m_data),
+		.uVersion = NOTIFYICON_VERSION_4
 	};
 
 	void assertId()
@@ -55,7 +57,7 @@ public:
 	constexpr NotifyIconData& szTip(std::wstring_view value)
 	{
 		assert(value.size() <= std::size(m_data.szTip) - 1);
-		wcscpy_s(m_data.szTip, value.data());
+		std::ranges::copy(value, m_data.szTip);
 		m_data.uFlags |= NIF_TIP;
 		return *this;
 	}
@@ -70,7 +72,7 @@ public:
 	constexpr NotifyIconData& szInfoTitle(std::wstring_view value)
 	{
 		assert(value.size() <= std::size(m_data.szInfoTitle) - 1);
-		wcscpy_s(m_data.szInfoTitle, value.data());
+		std::ranges::copy(value, m_data.szInfoTitle);
 		m_data.uFlags |= NIF_INFO;
 		return *this;
 	}
@@ -86,5 +88,31 @@ public:
 		m_data.hBalloonIcon = value;
 		m_data.dwInfoFlags |= NIIF_USER;
 		return *this;
+	}
+
+	void Add()
+	{
+		auto hr = Shell_NotifyIcon(NIM_ADD, &m_data);
+		winrt::check_bool(hr);
+	}
+
+	void Modify()
+	{
+		winrt::check_bool(Shell_NotifyIcon(NIM_MODIFY, &m_data));
+	}
+
+	void Delete()
+	{
+		winrt::check_bool(Shell_NotifyIcon(NIM_DELETE, &m_data));
+	}
+
+	void SetFocus()
+	{
+		winrt::check_bool(Shell_NotifyIcon(NIM_SETFOCUS, &m_data));
+	}
+
+	void SetVersion()
+	{
+		winrt::check_bool(Shell_NotifyIcon(NIM_SETVERSION, &m_data));
 	}
 };

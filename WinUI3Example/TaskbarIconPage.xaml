@@ -9,17 +9,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Orientation="Horizontal">
-        <StackPanel.Resources>
-            <essential:TaskbarIcon x:Key="Icon">
-                <essential:TaskbarIcon.IconSource>
-                    <essential:GeneratedIconSource Text="me" />
-                </essential:TaskbarIcon.IconSource>
-            </essential:TaskbarIcon>
-        </StackPanel.Resources>
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+
+    <Page.Resources>
+        <essential:TaskbarIcon x:Key="Icon" Icon="ms-appx:///Assets/Owl.jpg">
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Item1" />
+                <MenuFlyoutItem Text="Item2" />
+            </MenuFlyout>
+        </essential:TaskbarIcon>
+    </Page.Resources>
+
+    <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
 </Page>

@@ -3,6 +3,18 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="TaskbarIconMessageWindow.cpp">
+      <Filter>TaskbarIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="GuidWrapper.cpp">
+      <Filter>TaskbarIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeListener.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeListenerMessageWindow.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -64,6 +76,21 @@
     </ClInclude>
     <ClInclude Include="NotifyIconData.h">
       <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconMessageWindow.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="GuidWrapper.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="IconUtils.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeListener.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeListenerMessageWindow.h">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

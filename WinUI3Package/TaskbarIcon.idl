@@ -4,10 +4,26 @@ namespace WinUI3Package
 {
     [bindable]
     [default_interface]
-    runtimeclass TaskbarIcon 
+    [contentproperty("RightClickMenu")]
+    runtimeclass TaskbarIcon /*: Microsoft.UI.Xaml.DependencyObject*/
     {
         TaskbarIcon();
         
+        /*Tooltip*/
+        Microsoft.UI.Xaml.UIElement ToolTip;
+
+        /*Icons*/
         GeneratedIconSource IconSource;
+        Windows.Foundation.Uri Icon;
+
+        /*Theme-adapting icons*/
+        GeneratedIconSource LightThemeIconSource;
+        Windows.Foundation.Uri LightThemeIcon;
+        
+        GeneratedIconSource DarkThemeIconSource;
+        Windows.Foundation.Uri DarkThemeIcon;
+
+        /*Right click*/
+        Microsoft.UI.Xaml.Controls.MenuFlyout RightClickMenu;
     }
 }

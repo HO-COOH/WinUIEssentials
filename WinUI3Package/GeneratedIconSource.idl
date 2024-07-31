@@ -5,6 +5,10 @@ namespace WinUI3Package
     runtimeclass GeneratedIconSource 
     {
         GeneratedIconSource();
+        
         String Text;
+        Windows.UI.Color Foreground;
+        Windows.UI.Text.FontWeight FontWeight;
+        Microsoft.UI.Xaml.Media.FontFamily FontFamily;
     }
 }

@@ -327,6 +327,7 @@
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="GuidWrapper.h" />
     <ClInclude Include="HostBackdropVisual.h">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -336,6 +337,7 @@
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="IconUtils.h" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\DependentValue.h">
@@ -430,6 +432,9 @@
       <DependentUpon>TaskbarIcon.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TaskbarIconMessageWindow.h" />
+    <ClInclude Include="ThemeListener.h" />
+    <ClInclude Include="ThemeListenerMessageWindow.h" />
     <ClInclude Include="TransparentBackdrop.h">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -493,6 +498,7 @@
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="GuidWrapper.cpp" />
     <ClCompile Include="HostBackdropVisual.cpp">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -580,6 +586,9 @@
       <DependentUpon>TaskbarIcon.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TaskbarIconMessageWindow.cpp" />
+    <ClCompile Include="ThemeListener.cpp" />
+    <ClCompile Include="ThemeListenerMessageWindow.cpp" />
     <ClCompile Include="TransparentBackdrop.cpp">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
