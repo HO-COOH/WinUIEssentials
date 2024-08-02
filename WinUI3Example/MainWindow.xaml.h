@@ -27,6 +27,8 @@ namespace winrt::WinUI3Example::implementation
             );
             return winrt::single_threaded_vector(std::move(pages));
         }
+
+        static HWND Hwnd;
     private:
         static inline std::unordered_map<winrt::hstring, winrt::Windows::UI::Xaml::Interop::TypeName> s_page
         {

@@ -9,11 +9,11 @@
     <ClCompile Include="GuidWrapper.cpp">
       <Filter>TaskbarIcon</Filter>
     </ClCompile>
-    <ClCompile Include="ThemeListener.cpp">
-      <Filter>utils</Filter>
-    </ClCompile>
     <ClCompile Include="ThemeListenerMessageWindow.cpp">
       <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeAdaptiveIcon.cpp">
+      <Filter>TaskbarIcon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +65,6 @@
     <ClInclude Include="OverrideChecker.h">
       <Filter>Backdrop</Filter>
     </ClInclude>
-    <ClInclude Include="HwndHelper.hpp">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="WindowsVersion.hpp">
       <Filter>utils</Filter>
     </ClInclude>
@@ -86,11 +83,17 @@
     <ClInclude Include="IconUtils.h">
       <Filter>TaskbarIcon</Filter>
     </ClInclude>
-    <ClInclude Include="ThemeListener.h">
-      <Filter>utils</Filter>
+    <ClInclude Include="include\AppsUseLightTheme.h" />
+    <ClInclude Include="include\ThemeListener.h" />
+    <ClInclude Include="include\ThemeListenerMessageWindow.h" />
+    <ClInclude Include="ThemeAdaptiveIcon.h">
+      <Filter>TaskbarIcon</Filter>
     </ClInclude>
-    <ClInclude Include="ThemeListenerMessageWindow.h">
-      <Filter>utils</Filter>
+    <ClInclude Include="include\HwndHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IInitializeWithWindowHelper.hpp">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

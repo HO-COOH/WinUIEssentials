@@ -99,8 +99,12 @@
     <Page Include="ShimmerPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="ThemeListenerPage.xaml" />
     <Page Include="TaskbarIconPage.xaml">
-      <Filter>Pages</Filter>
+      <Filter>Pages\TaskbarIconPage</Filter>
+    </Page>
+    <Page Include="TaskbarIconSource.xaml">
+      <Filter>Pages\TaskbarIconPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -335,6 +339,9 @@
     </Filter>
     <Filter Include="Windows\Transparent">
       <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\TaskbarIconPage">
+      <UniqueIdentifier>{1876918a-1280-4cc3-ac8b-1f7aedf04f6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

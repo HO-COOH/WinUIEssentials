@@ -6,6 +6,7 @@
 #if __has_include("MainWindow.g.cpp")
 #include "MainWindow.g.cpp"
 #endif
+#include <HwndHelper.hpp>
 
 //#include <dwmapi.h>
 //#pragma comment(lib, "gdi32.lib")
@@ -18,17 +19,12 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-    MainWindow::MainWindow()
-    {
-        //InitializeComponent();
+	HWND MainWindow::Hwnd;
 
-        //auto hwnd = GetHwnd(*this);
-        //DWM_BLURBEHIND param;
-        //param.dwFlags = DWM_BB_ENABLE | DWM_BB_BLURREGION;
-        //param.fEnable = true;
-        //param.hRgnBlur = CreateRectRgn(-2, -2, -1, -1);
-        //DwmEnableBlurBehindWindow(hwnd, &param);
-    }
+	MainWindow::MainWindow()
+	{
+		Hwnd = GetHwnd(*this);
+	}
 
 	void MainWindow::NavigationView_SelectionChanged(
 		winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender,

@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass TaskbarIconSource : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        TaskbarIconSource();
+    }
+}

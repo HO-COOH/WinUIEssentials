@@ -16,7 +16,7 @@ namespace winrt::WinUI3Package::implementation
         TaskbarIcon()
         {
             HICON hicon{};
-            //{
+            {
                 ULONG_PTR gdiPlusToken;
                 Gdiplus::GdiplusStartupInput gdiPlusStartupInput;
                 Gdiplus::GdiplusStartup(&gdiPlusToken, &gdiPlusStartupInput, nullptr);
@@ -36,7 +36,7 @@ namespace winrt::WinUI3Package::implementation
                 graphics->DrawImage(&iconImage, 0, 0, width, height);
 
                 bitmap.GetHICON(&hicon);
-            //}
+            }
             NotifyIconData data;
 
             //data.guidItem({ 0x10cb84cc, 0xaa8f, 0x42ed, { 0xb1, 0x1c, 0x3a, 0x83, 0x9f, 0xb0, 0x74, 0x73 } });
@@ -71,6 +71,9 @@ namespace winrt::WinUI3Package::implementation
 
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout RightClickMenu() { return nullptr; }
         void RightClickMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout) {}
+
+        void Show();
+        void Remove();
 
         //winrt::Windows::Foundation::IInspectable RightClickMenu() { return nullptr; }
         //void RightClickMenu(winrt::Windows::Foundation::IInspectable) {}

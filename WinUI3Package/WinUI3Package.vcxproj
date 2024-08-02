@@ -350,7 +350,6 @@
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="HwndHelper.hpp" />
     <ClInclude Include="IconButton.h">
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -365,6 +364,8 @@
     </ClInclude>
     <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />
+    <ClInclude Include="include\HwndHelper.hpp" />
+    <ClInclude Include="include\IInitializeWithWindowHelper.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
     <ClInclude Include="include\Taskbar.hpp" />
     <ClInclude Include="include\TemplateControlHelper.hpp" />
@@ -454,6 +455,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TaskbarIconMessageWindow.h" />
+    <ClInclude Include="ThemeAdaptiveIcon.h" />
     <ClInclude Include="TransparentBackdrop.h">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -606,6 +608,7 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TaskbarIconMessageWindow.cpp" />
+    <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
     <ClCompile Include="TransparentBackdrop.cpp">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>

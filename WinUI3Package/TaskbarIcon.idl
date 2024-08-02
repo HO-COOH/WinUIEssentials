@@ -12,6 +12,7 @@ namespace WinUI3Package
         /*Tooltip*/
         Microsoft.UI.Xaml.UIElement ToolTip;
 
+
         /*Icons*/
         GeneratedIconSource IconSource;
         Windows.Foundation.Uri Icon;
@@ -25,5 +26,8 @@ namespace WinUI3Package
 
         /*Right click*/
         Microsoft.UI.Xaml.Controls.MenuFlyout RightClickMenu;
+
+        void Show();
+        void Remove();
     }
 }

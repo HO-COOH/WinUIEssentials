@@ -11,13 +11,40 @@
 
 
     <Page.Resources>
-        <essential:TaskbarIcon x:Key="Icon" Icon="ms-appx:///Assets/Owl.jpg">
+        <essential:TaskbarIcon x:Name="TaskbarIcon">
             <MenuFlyout>
                 <MenuFlyoutItem Text="Item1" />
                 <MenuFlyoutItem Text="Item2" />
             </MenuFlyout>
         </essential:TaskbarIcon>
+
+        <Style TargetType="RadioButton" BasedOn="{StaticResource DefaultRadioButtonStyle}">
+            <Setter Property="MinHeight" Value="200"/>
+        </Style>
     </Page.Resources>
 
-    <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+    <RadioButtons>
+        <RadioButton x:Name="NormalIconRadio">
+            <essential:GroupBox Header="NormalIcon">
+                <local:TaskbarIconSource x:Name="NormalIconSource" IsEnabled="{x:Bind NormalIconRadio.IsChecked.Value, Mode=OneWay}"/>
+            </essential:GroupBox>
+        </RadioButton>
+
+        <RadioButton x:Name="ThemeAdaptiveIconRadio">
+            <Grid MinWidth="200" ColumnSpacing="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <essential:GroupBox Header="LightTheme" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
+                    <local:TaskbarIconSource x:Name="LightThemeIconSource"/>
+                </essential:GroupBox>
+
+                <essential:GroupBox Header="DarkTheme" Grid.Column="1" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
+                    <local:TaskbarIconSource x:Name="DarkThemeIconSource"/>
+                </essential:GroupBox>
+            </Grid>
+        </RadioButton>
+    </RadioButtons>
 </Page>

@@ -427,6 +427,10 @@
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TaskbarIconSource.xaml.h">
+      <DependentUpon>TaskbarIconSource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TaskbarPage.xaml.h">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -541,6 +545,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarIconPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskbarIconSource.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
@@ -690,6 +697,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarIconPage.xaml.cpp">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TaskbarIconSource.xaml.cpp">
+      <DependentUpon>TaskbarIconSource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
@@ -844,6 +855,10 @@
     </Midl>
     <Midl Include="TaskbarIconPage.idl">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TaskbarIconSource.idl">
+      <DependentUpon>TaskbarIconSource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TaskbarPage.idl">
