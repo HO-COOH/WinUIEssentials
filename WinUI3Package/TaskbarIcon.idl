@@ -16,13 +16,16 @@ namespace WinUI3Package
         /*Icons*/
         GeneratedIconSource IconSource;
         Windows.Foundation.Uri Icon;
+        String IconFile;
 
         /*Theme-adapting icons*/
         GeneratedIconSource LightThemeIconSource;
         Windows.Foundation.Uri LightThemeIcon;
+        String LightThemeIconFile;
         
         GeneratedIconSource DarkThemeIconSource;
         Windows.Foundation.Uri DarkThemeIcon;
+        String DarkThemeIconFile;
 
         /*Right click*/
         Microsoft.UI.Xaml.Controls.MenuFlyout RightClickMenu;

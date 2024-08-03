@@ -226,13 +226,13 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">"C:\Users\Peter\Desktop\WinUIEssential\x64\Debug\WinUI3Package\WinUI3Package.lib";%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;"C:\Users\Peter\Desktop\WinUIEssential\x64\Debug\WinUI3Package\WinUI3Package.lib";%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Link>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"C:\Users\Peter\Desktop\WinUIEssential\x64\Debug\WinUI3Package\WinUI3Package.lib";%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;"C:\Users\Peter\Desktop\WinUIEssential\x64\Debug\WinUI3Package\WinUI3Package.lib";%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Link>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"C:\Users\Peter\Desktop\WinUIEssential\x64\Debug\WinUI3Package\WinUI3Package.lib";%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
@@ -245,6 +245,15 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI'">
     <ClCompile>
@@ -256,6 +265,15 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
@@ -270,6 +288,9 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
@@ -285,6 +306,9 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI'">
@@ -300,6 +324,9 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup Condition="'$(WindowsPackageType)'!='None' and Exists('Package.appxmanifest')">

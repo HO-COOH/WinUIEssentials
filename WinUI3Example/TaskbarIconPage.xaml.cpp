@@ -15,9 +15,59 @@ namespace winrt::WinUI3Example::implementation
 	{
 		InitializeComponent();
 
-		winrt::get_self<TaskbarIconSource>(NormalIconSource())->onIconSet = [this](winrt::Windows::Foundation::Uri icon)
+		winrt::get_self<TaskbarIconSource>(NormalIconSource())->onIconSet = [this](winrt::hstring const& icon)
 		{
-			TaskbarIcon().Icon(icon);
+			TaskbarIcon().IconFile(icon);
+		};
+
+		winrt::get_self<TaskbarIconSource>(LightThemeIconSource())->onIconSet = [this](winrt::hstring const& icon)
+		{
+			TaskbarIcon().LightThemeIconFile(icon);
+		};
+
+		winrt::get_self<TaskbarIconSource>(DarkThemeIconSource())->onIconSet = [this](winrt::hstring const& icon)
+		{
+			TaskbarIcon().DarkThemeIconFile(icon);
 		};
 	}
+
+	void TaskbarIconPage::NormalIconAdd_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		TaskbarIcon().Show();
+	}
+
+
+	void TaskbarIconPage::NormalIconRemove_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		TaskbarIcon().Remove();
+	}
+
+
+	void TaskbarIconPage::ThemeAdaptiveIconAddButton_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		TaskbarIcon().Show();
+	}
+
+
+	void TaskbarIconPage::ThemeAdaptiveIconRemoveButton_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		TaskbarIcon().Remove();
+	}
+
+	void TaskbarIconPage::RadioButtons_SelectionChanged(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const&)
+	{
+		TaskbarIcon().Remove();
+	}
+
 }
+

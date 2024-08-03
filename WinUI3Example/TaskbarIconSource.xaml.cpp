@@ -30,7 +30,10 @@ namespace winrt::WinUI3Example::implementation
 			PreviewImage().Source(image);
 
 			if (onIconSet)
-				onIconSet(winrt::Windows::Foundation::Uri{ winrt::hstring{std::format(L"ms-appdata:///local/{}", file.Path())} });
+			{
+				onIconSet(file.Path());
+			}
 		}
 	}
+
 }

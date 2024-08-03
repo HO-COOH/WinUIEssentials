@@ -18,33 +18,69 @@
             </MenuFlyout>
         </essential:TaskbarIcon>
 
-        <Style TargetType="RadioButton" BasedOn="{StaticResource DefaultRadioButtonStyle}">
-            <Setter Property="MinHeight" Value="200"/>
+        <Style BasedOn="{StaticResource DefaultRadioButtonStyle}" TargetType="RadioButton">
+            <Setter Property="MinHeight" Value="200" />
         </Style>
     </Page.Resources>
 
-    <RadioButtons>
-        <RadioButton x:Name="NormalIconRadio">
-            <essential:GroupBox Header="NormalIcon">
-                <local:TaskbarIconSource x:Name="NormalIconSource" IsEnabled="{x:Bind NormalIconRadio.IsChecked.Value, Mode=OneWay}"/>
-            </essential:GroupBox>
-        </RadioButton>
+    <ScrollView>
+        <RadioButtons SelectionChanged="RadioButtons_SelectionChanged">
+            <RadioButton x:Name="NormalIconRadio">
+                <essential:GroupBox Header="NormalIcon" IsEnabled="{x:Bind NormalIconRadio.IsChecked.Value, Mode=OneWay}">
+                    <StackPanel Spacing="5">
+                        <local:TaskbarIconSource x:Name="NormalIconSource" />
 
-        <RadioButton x:Name="ThemeAdaptiveIconRadio">
-            <Grid MinWidth="200" ColumnSpacing="50">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Spacing="5">
+                            <Button
+                                x:Name="NormalIconAdd"
+                                Click="NormalIconAdd_Click"
+                                Style="{StaticResource AccentButtonStyle}">
+                                Add
+                            </Button>
+                            <Button x:Name="NormalIconRemove" Click="NormalIconRemove_Click">Remove</Button>
+                        </StackPanel>
 
-                <essential:GroupBox Header="LightTheme" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
-                    <local:TaskbarIconSource x:Name="LightThemeIconSource"/>
+                    </StackPanel>
+
                 </essential:GroupBox>
+            </RadioButton>
 
-                <essential:GroupBox Header="DarkTheme" Grid.Column="1" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
-                    <local:TaskbarIconSource x:Name="DarkThemeIconSource"/>
-                </essential:GroupBox>
-            </Grid>
-        </RadioButton>
-    </RadioButtons>
+            <RadioButton x:Name="ThemeAdaptiveIconRadio">
+                <Grid MinWidth="200" ColumnSpacing="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <essential:GroupBox Header="LightTheme" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
+                        <local:TaskbarIconSource x:Name="LightThemeIconSource" />
+                    </essential:GroupBox>
+                    <Button
+                        x:Name="ThemeAdaptiveIconAddButton"
+                        Grid.Row="1"
+                        Click="ThemeAdaptiveIconAddButton_Click">
+                        Add
+                    </Button>
+
+                    <essential:GroupBox
+                        Grid.Column="1"
+                        Header="DarkTheme"
+                        IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
+                        <local:TaskbarIconSource x:Name="DarkThemeIconSource" />
+                    </essential:GroupBox>
+                    <Button
+                        x:Name="ThemeAdaptiveIconRemoveButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Click="ThemeAdaptiveIconRemoveButton_Click">
+                        Remove
+                    </Button>
+                </Grid>
+            </RadioButton>
+        </RadioButtons>
+    </ScrollView>
 </Page>

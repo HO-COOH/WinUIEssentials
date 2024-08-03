@@ -15,6 +15,18 @@
     <ClCompile Include="ThemeAdaptiveIcon.cpp">
       <Filter>TaskbarIcon</Filter>
     </ClCompile>
+    <ClCompile Include="IconUtils.cpp">
+      <Filter>TaskbarIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="GdiInitializeHelper.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskbarIconBase.cpp">
+      <Filter>TaskbarIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalTaskbarIcon.cpp">
+      <Filter>TaskbarIcon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -95,6 +107,15 @@
     <ClInclude Include="include\IInitializeWithWindowHelper.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="TaskbarIconBase.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="GdiInitializeHelper.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalTaskbarIcon.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -158,6 +179,9 @@
     </Filter>
     <Filter Include="TaskbarIcon">
       <UniqueIdentifier>{744593e5-d8a9-422f-9915-59d2f200d660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\TaskbarIconMenu">
+      <UniqueIdentifier>{b51bc742-3b10-4d0c-9604-b9bb83b57594}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

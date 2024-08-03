@@ -1,7 +1,7 @@
 #pragma once
 class TaskbarIconMessageWindow
 {
-	constexpr static inline auto TaskbarIconWindowClass = L"MiLineNotifyIcon";
+	constexpr static auto TaskbarIconWindowClass = L"MiLineNotifyIcon";
 
 	static void registerIfNeeded();
 	static LRESULT windowProc(

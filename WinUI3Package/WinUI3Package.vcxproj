@@ -337,6 +337,7 @@
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="GdiInitializeHelper.h" />
     <ClInclude Include="GeneratedIconSource.h">
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -395,6 +396,7 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NormalTaskbarIcon.h" />
     <ClInclude Include="NotifyIconData.h" />
     <ClInclude Include="OverrideChecker.h" />
     <ClInclude Include="pch.h" />
@@ -454,6 +456,7 @@
       <DependentUpon>TaskbarIcon.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TaskbarIconBase.h" />
     <ClInclude Include="TaskbarIconMessageWindow.h" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />
     <ClInclude Include="TransparentBackdrop.h">
@@ -511,6 +514,7 @@
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="GdiInitializeHelper.cpp" />
     <ClCompile Include="GeneratedIconSource.cpp">
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -528,6 +532,7 @@
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="IconUtils.cpp" />
     <ClCompile Include="include\DependentValue.cpp">
       <DependentUpon>include\DependentValue.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -548,6 +553,7 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NormalTaskbarIcon.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -607,6 +613,7 @@
       <DependentUpon>TaskbarIcon.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TaskbarIconBase.cpp" />
     <ClCompile Include="TaskbarIconMessageWindow.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />

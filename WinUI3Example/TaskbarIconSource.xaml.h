@@ -2,14 +2,17 @@
 
 #include "TaskbarIconSource.g.h"
 #include <functional>
+#include <PropertyChangeHelper.hpp>
 
 namespace winrt::WinUI3Example::implementation
 {
-    struct TaskbarIconSource : TaskbarIconSourceT<TaskbarIconSource>
+    struct TaskbarIconSource : TaskbarIconSourceT<TaskbarIconSource>, MvvmHelper::PropertyChangeHelper<TaskbarIconSource>
     {
         TaskbarIconSource() = default;
-        winrt::Windows::Foundation::IAsyncAction Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
-        std::function<void(winrt::Windows::Foundation::Uri)> onIconSet;
+        winrt::Windows::Foundation::IAsyncAction Button_Click(
+            winrt::Windows::Foundation::IInspectable const& sender,
+            winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        std::function<void(winrt::hstring const&)> onIconSet;
     };
 }
 
