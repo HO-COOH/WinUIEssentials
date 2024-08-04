@@ -391,6 +391,7 @@
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MenuItemInfo.hpp" />
     <ClInclude Include="Microsoft.UI.hpp" />
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
@@ -404,6 +405,7 @@
       <DependentUpon>Placeholder.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="PopupMenu.h" />
     <ClInclude Include="ProgressBarEx.h">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -562,6 +564,7 @@
       <DependentUpon>Placeholder.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="PopupMenu.cpp" />
     <ClCompile Include="ProgressBarEx.cpp">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>

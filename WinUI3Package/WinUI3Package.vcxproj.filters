@@ -27,6 +27,9 @@
     <ClCompile Include="NormalTaskbarIcon.cpp">
       <Filter>TaskbarIcon</Filter>
     </ClCompile>
+    <ClCompile Include="PopupMenu.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -115,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="NormalTaskbarIcon.h">
       <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItemInfo.hpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupMenu.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
