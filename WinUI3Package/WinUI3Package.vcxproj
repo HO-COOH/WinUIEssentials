@@ -365,9 +365,11 @@
     </ClInclude>
     <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />
+    <ClInclude Include="include\Handler.hpp" />
     <ClInclude Include="include\HwndHelper.hpp" />
     <ClInclude Include="include\IInitializeWithWindowHelper.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
+    <ClInclude Include="include\ScopedButtonDisabler.hpp" />
     <ClInclude Include="include\Taskbar.hpp" />
     <ClInclude Include="include\TemplateControlHelper.hpp" />
     <ClInclude Include="include\ThemeListener.h" />
@@ -391,6 +393,9 @@
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MenuBase.h" />
+    <ClInclude Include="MenuFlyoutItemBaseVisitor.hpp" />
+    <ClInclude Include="MenuFlyoutWrapper.h" />
     <ClInclude Include="MenuItemInfo.hpp" />
     <ClInclude Include="Microsoft.UI.hpp" />
     <ClInclude Include="NegateBoolConverter.h">
@@ -551,6 +556,7 @@
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="MenuFlyoutWrapper.cpp" />
     <ClCompile Include="NegateBoolConverter.cpp">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>

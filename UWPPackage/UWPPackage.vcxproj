@@ -457,6 +457,7 @@
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\Glyphs.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
+    <ClInclude Include="include\ScopedButtonDisabler.hpp" />
     <ClInclude Include="include\TemplateControlHelper.hpp" />
     <ClInclude Include="include\TileBuilder.hpp" />
     <ClInclude Include="include\TileTemplates.hpp" />

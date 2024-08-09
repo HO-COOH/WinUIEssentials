@@ -4,28 +4,46 @@
 #include <optional>
 #include <winrt/Microsoft.UI.Xaml.h>
 #include "ThemeListenerMessageWindow.h"
+#include "Handler.hpp"
 
 class ThemeListener
 {
 	inline static std::optional<ThemeListener>& get();
 	inline static ThemeListener& getOrCreate();
 
-	std::list<std::function<void(winrt::Microsoft::UI::Xaml::ApplicationTheme)>> m_handlers;
+	//std::list<std::function<void(winrt::Microsoft::UI::Xaml::ApplicationTheme)>> m_handlers;
+	Handler<void, winrt::Microsoft::UI::Xaml::ApplicationTheme> m_handlers;
+
 	ThemeListenerMessageWindow m_messageWindow;
 public:
 	inline ThemeListener();
 
+
+	friend class Token;
+
+	template<typename Iter>
+	static void Remove(Iter iter)
+	{
+		auto& handlers = get()->m_handlers;
+		handlers.erase(iter);
+		if (!handlers.size())
+			get().reset();
+	}
+
+
 	class Token
 	{
-		std::optional<std::remove_reference_t<decltype(m_handlers.end())>> m_iter{};
+		std::optional<std::remove_reference_t<decltype(m_handlers.end()) >> m_iter{};
 	public:
 		Token() = default;
 
-		inline Token(decltype(m_handlers.end()) iter);
+		Token(decltype(m_handlers.end()) iter) : m_iter{ iter }
+		{
+		}
 
-		Token(Token&& rhs) noexcept : m_iter{ std::move(rhs.m_iter) } 
-		{ 
-			rhs.m_iter.reset(); 
+		Token(Token&& rhs) noexcept : m_iter{ std::move(rhs.m_iter) }
+		{
+			rhs.m_iter.reset();
 		}
 
 		Token& operator=(Token&& rhs) noexcept
@@ -34,13 +52,17 @@ public:
 			return *this;
 		}
 
-		operator decltype(m_iter)(){ return *m_iter; }
-		inline ~Token();
+		auto get()
+		{
+			return *m_iter;
+		}
 
-		friend class ThemeListener;
+		~Token()
+		{
+			if (m_iter)
+				ThemeListener::Remove(*m_iter);
+		}
 	};
-
-	friend class Token;
 
 	template<typename Func>
 	static Token Add(Func&& f)
@@ -50,15 +72,10 @@ public:
 		return Token{ --handlers.end() };
 	}
 
-	inline static void Remove(Token token);
 
-	template<typename Iter>
-	static void Remove(Iter iter)
+	static void Remove(Token token)
 	{
-		auto& handlers = get()->m_handlers;
-		handlers.erase(iter);
-		if (!handlers.size())
-			get().reset();
+		Remove(token.get());
 	}
 
 	friend class ThemeListenerMessageWindow;
@@ -81,19 +98,4 @@ ThemeListener& ThemeListener::getOrCreate()
 	if (!instance.has_value())
 		instance.emplace();
 	return *instance;
-}
-
-void ThemeListener::Remove(Token token)
-{
-	Remove(*token.m_iter);
-}
-
-ThemeListener::Token::Token(decltype(m_handlers.end()) iter) : m_iter{ iter }
-{
-}
-
-ThemeListener::Token::~Token()
-{
-	if (m_iter)
-		ThemeListener::Remove(*m_iter);
 }

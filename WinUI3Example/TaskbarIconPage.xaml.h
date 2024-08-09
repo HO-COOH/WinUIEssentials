@@ -12,6 +12,8 @@ namespace winrt::WinUI3Example::implementation
         void ThemeAdaptiveIconAddButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void ThemeAdaptiveIconRemoveButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void RadioButtons_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
+        void MenuFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void MenuFlyoutItemCommand_ExecuteRequested(winrt::Microsoft::UI::Xaml::Input::XamlUICommand const& sender, winrt::Microsoft::UI::Xaml::Input::ExecuteRequestedEventArgs const& args);
     };
 }
 

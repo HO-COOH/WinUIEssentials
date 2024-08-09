@@ -46,8 +46,11 @@ namespace winrt::WinUI3Package::implementation
         winrt::hstring DarkThemeIconFile() { return L""; }
         void DarkThemeIconFile(winrt::hstring const& value);
 
-        winrt::Microsoft::UI::Xaml::Controls::MenuFlyout RightClickMenu() { return nullptr; }
-        void RightClickMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout) {}
+        winrt::Microsoft::UI::Xaml::Controls::MenuFlyout RightClickMenu() { return m_xamlMenuFlyout; }
+        void RightClickMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value);
+
+        winrt::Microsoft::UI::Xaml::ElementTheme MenuTheme();
+        void MenuTheme(winrt::Microsoft::UI::Xaml::ElementTheme value);
 
         void Show();
         void Remove();
@@ -60,7 +63,11 @@ namespace winrt::WinUI3Package::implementation
 
         ThemeAdaptiveIcon& getThemeAdaptiveIcon();
         NormalTaskbarIcon& getNormalIcon();
+
+        winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_xamlMenuFlyout{ nullptr };
+
         std::variant<std::monostate, ThemeAdaptiveIcon, NormalTaskbarIcon> m_icon;
+
 
         template<typename F>
         winrt::Windows::Foundation::IAsyncAction setIconFromUri(winrt::Windows::Foundation::Uri uri, F&& f)

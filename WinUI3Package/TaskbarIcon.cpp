@@ -61,14 +61,29 @@ namespace winrt::WinUI3Package::implementation
 		getThemeAdaptiveIcon().IconDark(Utils::GetHIcon(value));
 	}
 
+	void TaskbarIcon::RightClickMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value)
+	{
+		m_xamlMenuFlyout = value;
+	}
+
+	winrt::Microsoft::UI::Xaml::ElementTheme TaskbarIcon::MenuTheme()
+	{
+		return winrt::Microsoft::UI::Xaml::ElementTheme();
+	}
+
+	void TaskbarIcon::MenuTheme(winrt::Microsoft::UI::Xaml::ElementTheme value)
+	{
+	}
+
 	void TaskbarIcon::Show()
 	{
-		std::visit([](auto&& arg)
+		std::visit([this](auto&& icon)
 		{
-			using IconType = std::remove_reference_t<decltype(arg)>;
+			using IconType = std::remove_reference_t<decltype(icon)>;
 			if constexpr (!std::is_same_v<IconType, std::monostate>)
 			{
-				arg.Show();
+				icon.Show();
+				icon.SetMenu(m_xamlMenuFlyout);
 			}
 		}, m_icon);
 	}

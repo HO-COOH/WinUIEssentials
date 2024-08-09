@@ -76,4 +76,9 @@ public:
 		m_data.fMask |= MIIM_BITMAP;
 		return *this;
 	}
+
+	constexpr auto operator&()
+	{
+		return &m_data;
+	}
 };

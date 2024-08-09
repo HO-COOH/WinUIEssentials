@@ -29,6 +29,7 @@ namespace WinUI3Package
 
         /*Right click*/
         Microsoft.UI.Xaml.Controls.MenuFlyout RightClickMenu;
+        Microsoft.UI.Xaml.ElementTheme MenuTheme;
 
         void Show();
         void Remove();

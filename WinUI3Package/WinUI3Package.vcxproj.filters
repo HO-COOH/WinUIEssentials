@@ -12,23 +12,24 @@
     <ClCompile Include="ThemeListenerMessageWindow.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="ThemeAdaptiveIcon.cpp">
-      <Filter>TaskbarIcon</Filter>
-    </ClCompile>
     <ClCompile Include="IconUtils.cpp">
       <Filter>TaskbarIcon</Filter>
     </ClCompile>
     <ClCompile Include="GdiInitializeHelper.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="TaskbarIconBase.cpp">
-      <Filter>TaskbarIcon</Filter>
-    </ClCompile>
-    <ClCompile Include="NormalTaskbarIcon.cpp">
-      <Filter>TaskbarIcon</Filter>
-    </ClCompile>
     <ClCompile Include="PopupMenu.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuFlyoutWrapper.cpp" />
+    <ClCompile Include="TaskbarIconBase.cpp">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeAdaptiveIcon.cpp">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalTaskbarIcon.cpp">
+      <Filter>TaskbarIcon\Icon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,9 +87,6 @@
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp">
       <Filter>Backdrop</Filter>
     </ClInclude>
-    <ClInclude Include="NotifyIconData.h">
-      <Filter>TaskbarIcon</Filter>
-    </ClInclude>
     <ClInclude Include="TaskbarIconMessageWindow.h">
       <Filter>TaskbarIcon</Filter>
     </ClInclude>
@@ -101,29 +99,47 @@
     <ClInclude Include="include\AppsUseLightTheme.h" />
     <ClInclude Include="include\ThemeListener.h" />
     <ClInclude Include="include\ThemeListenerMessageWindow.h" />
-    <ClInclude Include="ThemeAdaptiveIcon.h">
-      <Filter>TaskbarIcon</Filter>
-    </ClInclude>
     <ClInclude Include="include\HwndHelper.hpp">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\IInitializeWithWindowHelper.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="TaskbarIconBase.h">
-      <Filter>TaskbarIcon</Filter>
-    </ClInclude>
     <ClInclude Include="GdiInitializeHelper.h">
       <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalTaskbarIcon.h">
-      <Filter>TaskbarIcon</Filter>
     </ClInclude>
     <ClInclude Include="MenuItemInfo.hpp">
       <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
     </ClInclude>
     <ClInclude Include="PopupMenu.h">
       <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFlyoutWrapper.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBase.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFlyoutItemBaseVisitor.hpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ScopedButtonDisabler.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Handler.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="NotifyIconData.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconBase.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeAdaptiveIcon.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalTaskbarIcon.h">
+      <Filter>TaskbarIcon\Icon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +207,9 @@
     </Filter>
     <Filter Include="TaskbarIcon\TaskbarIconMenu">
       <UniqueIdentifier>{b51bc742-3b10-4d0c-9604-b9bb83b57594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\Icon">
+      <UniqueIdentifier>{8a255438-a7aa-4147-ad98-6fec99f2dbec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

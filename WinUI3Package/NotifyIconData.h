@@ -92,8 +92,8 @@ public:
 
 	void Add()
 	{
-		auto hr = Shell_NotifyIcon(NIM_ADD, &m_data);
-		winrt::check_bool(hr);
+		winrt::check_bool(Shell_NotifyIcon(NIM_ADD, &m_data));
+		winrt::check_bool(Shell_NotifyIcon(NIM_SETVERSION, &m_data));
 	}
 
 	void Modify()

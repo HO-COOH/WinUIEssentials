@@ -9,6 +9,7 @@
 #include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <IInitializeWithWindowHelper.hpp>
+#include <ScopedButtonDisabler.hpp>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -16,9 +17,10 @@
 namespace winrt::WinUI3Example::implementation
 {
 	winrt::Windows::Foundation::IAsyncAction TaskbarIconSource::Button_Click(
-		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Windows::Foundation::IInspectable const& sender, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
+		ScopedButtonDisabler buttonDisabler{ sender };
 		WinUIEssentials::Windows::Storage::Pickers::FileOpenPicker picker{ winrt::WinUI3Example::implementation::MainWindow::Hwnd };
 		
 		picker.FileTypeFilter().Append(L"*");

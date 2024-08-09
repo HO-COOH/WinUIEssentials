@@ -11,10 +11,34 @@
 
 
     <Page.Resources>
+        <XamlUICommand x:Name="MenuFlyoutItemCommand" ExecuteRequested="MenuFlyoutItemCommand_ExecuteRequested" />
         <essential:TaskbarIcon x:Name="TaskbarIcon">
             <MenuFlyout>
-                <MenuFlyoutItem Text="Item1" />
-                <MenuFlyoutItem Text="Item2" />
+                <MenuFlyoutItem
+                    Click="MenuFlyoutItem_Click"
+                    Command="{StaticResource MenuFlyoutItemCommand}"
+                    CommandParameter="{x:Bind}"
+                    Text="Item1" />
+                <MenuFlyoutItem
+                    Click="MenuFlyoutItem_Click"
+                    Command="{StaticResource MenuFlyoutItemCommand}"
+                    CommandParameter="{x:Bind}"
+                    Icon="Copy"
+                    Text="Item with copy icon" />
+                <ToggleMenuFlyoutItem
+                    Click="MenuFlyoutItem_Click"
+                    Command="{StaticResource MenuFlyoutItemCommand}"
+                    CommandParameter="{x:Bind}"
+                    IsChecked="True"
+                    Text="Toggle menu item" />
+                <MenuFlyoutSeparator />
+                <MenuFlyoutSubItem Text="Sub menu">
+                    <MenuFlyoutItem
+                        Click="MenuFlyoutItem_Click"
+                        Command="{StaticResource MenuFlyoutItemCommand}"
+                        CommandParameter="{x:Bind}"
+                        Text="Sub menu item" />
+                </MenuFlyoutSubItem>
             </MenuFlyout>
         </essential:TaskbarIcon>
 
@@ -24,63 +48,72 @@
     </Page.Resources>
 
     <ScrollView>
-        <RadioButtons SelectionChanged="RadioButtons_SelectionChanged">
-            <RadioButton x:Name="NormalIconRadio">
-                <essential:GroupBox Header="NormalIcon" IsEnabled="{x:Bind NormalIconRadio.IsChecked.Value, Mode=OneWay}">
-                    <StackPanel Spacing="5">
-                        <local:TaskbarIconSource x:Name="NormalIconSource" />
+        <StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Spacing="5">
-                            <Button
-                                x:Name="NormalIconAdd"
-                                Click="NormalIconAdd_Click"
-                                Style="{StaticResource AccentButtonStyle}">
-                                Add
-                            </Button>
-                            <Button x:Name="NormalIconRemove" Click="NormalIconRemove_Click">Remove</Button>
+            <RadioButtons SelectionChanged="RadioButtons_SelectionChanged">
+                <RadioButton x:Name="NormalIconRadio">
+                    <essential:GroupBox Header="NormalIcon" IsEnabled="{x:Bind NormalIconRadio.IsChecked.Value, Mode=OneWay}">
+                        <StackPanel Spacing="5">
+                            <local:TaskbarIconSource x:Name="NormalIconSource" />
+
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <Button
+                                    x:Name="NormalIconAdd"
+                                    Click="NormalIconAdd_Click"
+                                    Style="{StaticResource AccentButtonStyle}">
+                                    Add
+                                </Button>
+                                <Button x:Name="NormalIconRemove" Click="NormalIconRemove_Click">Remove</Button>
+                            </StackPanel>
+
                         </StackPanel>
 
-                    </StackPanel>
-
-                </essential:GroupBox>
-            </RadioButton>
-
-            <RadioButton x:Name="ThemeAdaptiveIconRadio">
-                <Grid MinWidth="200" ColumnSpacing="50">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <essential:GroupBox Header="LightTheme" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
-                        <local:TaskbarIconSource x:Name="LightThemeIconSource" />
                     </essential:GroupBox>
-                    <Button
-                        x:Name="ThemeAdaptiveIconAddButton"
-                        Grid.Row="1"
-                        Click="ThemeAdaptiveIconAddButton_Click">
-                        Add
-                    </Button>
+                </RadioButton>
 
-                    <essential:GroupBox
-                        Grid.Column="1"
-                        Header="DarkTheme"
-                        IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
-                        <local:TaskbarIconSource x:Name="DarkThemeIconSource" />
-                    </essential:GroupBox>
-                    <Button
-                        x:Name="ThemeAdaptiveIconRemoveButton"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Click="ThemeAdaptiveIconRemoveButton_Click">
-                        Remove
-                    </Button>
-                </Grid>
-            </RadioButton>
-        </RadioButtons>
+                <RadioButton x:Name="ThemeAdaptiveIconRadio">
+                    <Grid MinWidth="200" ColumnSpacing="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <essential:GroupBox Header="LightTheme" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
+                            <local:TaskbarIconSource x:Name="LightThemeIconSource" />
+                        </essential:GroupBox>
+                        <Button
+                            x:Name="ThemeAdaptiveIconAddButton"
+                            Grid.Row="1"
+                            Click="ThemeAdaptiveIconAddButton_Click">
+                            Add
+                        </Button>
+
+                        <essential:GroupBox
+                            Grid.Column="1"
+                            Header="DarkTheme"
+                            IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
+                            <local:TaskbarIconSource x:Name="DarkThemeIconSource" />
+                        </essential:GroupBox>
+                        <Button
+                            x:Name="ThemeAdaptiveIconRemoveButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Click="ThemeAdaptiveIconRemoveButton_Click">
+                            Remove
+                        </Button>
+                    </Grid>
+                </RadioButton>
+            </RadioButtons>
+
+            <TextBlock>
+                <Run Text="Menu item clicked: " />
+                <Run x:Name="ClickedItemText" />
+            </TextBlock>
+
+        </StackPanel>
     </ScrollView>
 </Page>
