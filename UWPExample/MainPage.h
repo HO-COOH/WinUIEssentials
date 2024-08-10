@@ -49,7 +49,8 @@ namespace winrt::UWPExample::implementation
             {L"UIElementExtensionPage", winrt::xaml_typename<UWPExample::UIElementExtensionsPage>()},
             {L"SegmentedPage", winrt::xaml_typename<UWPExample::SegmentedPage>()},
             {L"UriPage", winrt::xaml_typename<UWPExample::UriPage>()},
-            {L"ShimmerPage", winrt::xaml_typename<UWPExample::ShimmerPage>()}
+            {L"ShimmerPage", winrt::xaml_typename<UWPExample::ShimmerPage>()},
+            {L"ScopedButtonDisablerPage", winrt::xaml_typename<UWPExample::ScopedButtonDisablerPage>()}
         };
     };
 }

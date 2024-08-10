@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass ScopedButtonDisablerPage : Windows.UI.Xaml.Controls.Page
+    {
+        ScopedButtonDisablerPage();
+    }
+}

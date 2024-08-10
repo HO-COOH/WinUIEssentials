@@ -753,3 +753,23 @@ Also, the `ShimmerGradientStops` is a resource of type `Windows.UI.Xaml.Media.Gr
 
 ![](./assets/shimmer-light.gif)
 ![](./assets/shimmer-dark.gif)
+
+## ScopedButtonDisabler
+```cpp
+#include <ScopedButtonDisabler.hpp>
+```
+This is a simple header-only RAII-style class that disable a button in a scope.
+When you attach a `Click` handler of a button and open a `FilePicker`, when user click fast enough, it will have 2 `FilePicker` opened at the same time, which is a source of logical bugs.
+```cpp
+winrt::Windows::Storage::Pickers::FileOpenPicker picker;
+picker.FileTypeFilter().Append(L"*");
+auto file = co_await picker.PickSingleFileAsync();
+```
+
+With `ScopedButtonDisabler`, it will disable the button inside this handler, preventing any logical bugs that might happens.
+```cpp
+ScopedButtonDisabler disabler{ sender };
+winrt::Windows::Storage::Pickers::FileOpenPicker picker;
+picker.FileTypeFilter().Append(L"*");
+auto file = co_await picker.PickSingleFileAsync();
+```

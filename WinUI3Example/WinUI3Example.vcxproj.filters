@@ -106,6 +106,9 @@
     <Page Include="TaskbarIconSource.xaml">
       <Filter>Pages\TaskbarIconPage</Filter>
     </Page>
+    <Page Include="ScopedButtonDisablerPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

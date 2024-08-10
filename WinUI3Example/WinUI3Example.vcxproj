@@ -434,6 +434,10 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ScopedButtonDisablerPage.xaml.h">
+      <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SegmentedPage.h">
       <DependentUpon>SegmentedPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -557,6 +561,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScopedButtonDisablerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SegmentedPage.xaml">
@@ -704,6 +711,10 @@
     </ClCompile>
     <ClCompile Include="ProgressBarExPage.xaml.cpp">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ScopedButtonDisablerPage.xaml.cpp">
+      <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="SegmentedPage.cpp">
@@ -862,6 +873,10 @@
     </Midl>
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ScopedButtonDisablerPage.idl">
+      <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="SegmentedPage.idl">
