@@ -6,6 +6,11 @@
 #endif
 #include "MenuBase.h"
 #include <vector>
+#include <utility>
+
+/**
+ * @brief Win32 style taskbar icon's context menu
+ */
 class PopupMenu : public MenuBase
 {
 	HMENU m_menu = CreatePopupMenu();
@@ -13,7 +18,7 @@ class PopupMenu : public MenuBase
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
 public:
 	PopupMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& xamlMenuFlyout);
-	std::vector<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem::Click_revoker> m_menuItemCommandRevoker;
+	std::vector<std::pair<winrt::Microsoft::UI::Xaml::Input::ICommand, winrt::Windows::Foundation::IInspectable>> m_commands;
 private:
 	void appendMenu(
 		winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItemBase> xamlMenu,
@@ -22,5 +27,6 @@ private:
 public:
 	~PopupMenu();
 
-	void Show(POINT pt);
+	void Show(POINT pt, HWND ownerHwnd);
+	void OnMenuClick(int index);
 };

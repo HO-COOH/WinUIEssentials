@@ -470,6 +470,7 @@
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TransparentMenuFlyoutHost.h" />
     <ClInclude Include="TransparentWindow.h">
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -630,6 +631,7 @@
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TransparentMenuFlyoutHost.cpp" />
     <ClCompile Include="TransparentWindow.cpp">
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>

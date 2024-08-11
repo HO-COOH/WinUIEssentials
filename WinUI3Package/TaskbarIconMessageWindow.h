@@ -1,6 +1,8 @@
 #pragma once
-#include "TaskbarIconBase.h"
+
 #include <vector>
+
+class TaskbarIconBase;
 class TaskbarIconMessageWindow
 {
 	constexpr static auto TaskbarIconWindowClass = L"MiLineNotifyIcon";
@@ -12,9 +14,10 @@ class TaskbarIconMessageWindow
 		WPARAM,
 		LPARAM
 	);
-	static HWND s_instance;
+	HWND m_hwnd;
+	TaskbarIconBase* m_icon;
 public:
-	static HWND Get();
-
-	static inline std::vector<TaskbarIconBase*> s_icons;
+	TaskbarIconMessageWindow(TaskbarIconBase& icon);
+	~TaskbarIconMessageWindow();
+	HWND Get();
 };

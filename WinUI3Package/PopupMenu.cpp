@@ -12,15 +12,16 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 			winrt::check_bool(AppendMenu(
 				menu,
 				NULL,
-				NULL,
+				m_commands.size(),
 				item.Text().data()
 			));
-			if (auto command = item.Command())
-			{
-				m_menuItemCommandRevoker.push_back(item.Click(winrt::auto_revoke, [command, parameter = item.CommandParameter()](auto&&...) {
-					command.Execute(parameter);
-				}));
-			}
+			//if (auto command = item.Command())
+			//{
+			//	m_menuItemCommandRevoker.push_back(item.Click(winrt::auto_revoke, [command, parameter = item.CommandParameter()](auto&&...) {
+			//		command.Execute(parameter);
+			//	}));
+			//}
+			m_commands.push_back({ item.Command(), item.CommandParameter() });
 		},
 		[this, menu](winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutSeparator const& separator)
 		{
@@ -43,16 +44,17 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 			winrt::check_bool(AppendMenu(
 				menu,
 				toggleItem.IsChecked() ? MF_CHECKED : MF_UNCHECKED,
-				NULL,
+				m_commands.size(),
 				toggleItem.Text().data()
 			));
 
-			if (auto command = toggleItem.Command())
-			{
-				m_menuItemCommandRevoker.push_back(toggleItem.Click(winrt::auto_revoke, [command, parameter = toggleItem.CommandParameter()](auto&&...) {
-					command.Execute(parameter);
-					}));
-			}
+			//if (auto command = toggleItem.Command())
+			//{
+			//	m_menuItemCommandRevoker.push_back(toggleItem.Click(winrt::auto_revoke, [command, parameter = toggleItem.CommandParameter()](auto&&...) {
+			//		command.Execute(parameter);
+			//		}));
+			//}
+			m_commands.push_back({ toggleItem.Command(), toggleItem.CommandParameter() });
 		});
 }
 
@@ -67,7 +69,7 @@ PopupMenu::~PopupMenu()
 	winrt::check_bool(DestroyMenu(m_menu));
 }
 
-void PopupMenu::Show(POINT pt)
+void PopupMenu::Show(POINT pt, HWND ownerHwnd)
 {
 
 
@@ -82,8 +84,13 @@ void PopupMenu::Show(POINT pt)
 		TPM_LEFTALIGN,
 		pt.x,
 		pt.y,
-		TaskbarIconMessageWindow::Get(),
+		ownerHwnd,
 		nullptr
 	);
 
+}
+
+void PopupMenu::OnMenuClick(int index)
+{
+	m_commands[index].first.Execute(m_commands[index].second);
 }

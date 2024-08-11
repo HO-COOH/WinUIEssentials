@@ -395,6 +395,10 @@
       <DependentUpon>IncrementalLoadingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="InitializeWithWindowHelperPage.xaml.h">
+      <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="LineGraph.h">
       <DependentUpon>LineGraph.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -550,6 +554,9 @@
     <Page Include="IncrementalLoadingPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="InitializeWithWindowHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LineGraphControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -669,6 +676,10 @@
     </ClCompile>
     <ClCompile Include="IncrementalLoadingPage.xaml.cpp">
       <DependentUpon>IncrementalLoadingPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="InitializeWithWindowHelperPage.xaml.cpp">
+      <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="LineGraph.cpp">
@@ -841,6 +852,10 @@
     </Midl>
     <Midl Include="IncrementalLoadingPage.idl">
       <DependentUpon>IncrementalLoadingPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="InitializeWithWindowHelperPage.idl">
+      <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="LineGraph.idl">

@@ -25,6 +25,7 @@ void TaskbarIconMessageWindow::registerIfNeeded()
 	WNDCLASS windowClass 
 	{
 		.lpfnWndProc = &TaskbarIconMessageWindow::windowProc,
+		.cbWndExtra = sizeof(void*),
 		.lpszClassName = TaskbarIconWindowClass,
 	};
 	RegisterClass(&windowClass);
@@ -34,35 +35,31 @@ void TaskbarIconMessageWindow::registerIfNeeded()
 	fnSetPreferredAppMode(PreferredAppMode::ForceDark);
 }
 
-HWND TaskbarIconMessageWindow::s_instance;
-
-
 
 LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-	if (msg == 0x1001 && LOWORD(lparam) == WM_CONTEXTMENU)
+	switch (msg)
 	{
-		SetForegroundWindow(Get());
-		for (auto icon : s_icons)
+	case TaskbarIconBase::CallbackMessage:
+	{
+		auto thisPtr = reinterpret_cast<TaskbarIconBase*>(GetWindowLongPtr(hwnd, 0));
+		if (LOWORD(lparam) == WM_CONTEXTMENU)
 		{
-			icon->f(wparam, lparam);
+			thisPtr->OnWM_CONTEXTMENU(wparam, lparam);
 		}
 		return 0;
 	}
-	else if (msg == WM_COMMAND)
-	{
-		OutputDebugString(L"Command\n");
+	case WM_COMMAND:
+		reinterpret_cast<TaskbarIconBase*>(GetWindowLongPtr(hwnd, 0))->OnWM_COMMAND(wparam, lparam);
+		return 0;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
-HWND TaskbarIconMessageWindow::Get()
+TaskbarIconMessageWindow::TaskbarIconMessageWindow(TaskbarIconBase& icon) : m_icon{&icon}
 {
-	if (s_instance != HWND{})
-		return s_instance;
-
 	registerIfNeeded();
-	s_instance = CreateWindowEx(
+	winrt::check_pointer(m_hwnd = CreateWindowEx(
 		0,
 		TaskbarIconWindowClass,
 		TaskbarIconWindowClass,
@@ -75,7 +72,16 @@ HWND TaskbarIconMessageWindow::Get()
 		NULL,
 		NULL,
 		NULL
-	);
-	winrt::check_pointer(s_instance);
-	return s_instance;
+	));
+	SetWindowLongPtr(m_hwnd, 0, reinterpret_cast<LONG_PTR>(m_icon));
+}
+
+TaskbarIconMessageWindow::~TaskbarIconMessageWindow()
+{
+	winrt::check_bool(DestroyWindow(m_hwnd));
+}
+
+HWND TaskbarIconMessageWindow::Get()
+{
+	return m_hwnd;
 }

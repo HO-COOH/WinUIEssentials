@@ -83,7 +83,7 @@ namespace winrt::WinUI3Package::implementation
 			if constexpr (!std::is_same_v<IconType, std::monostate>)
 			{
 				icon.Show();
-				icon.SetMenu(m_xamlMenuFlyout);
+				icon.SetMenu<MenuFlyoutWrapper>(m_xamlMenuFlyout);
 			}
 		}, m_icon);
 	}

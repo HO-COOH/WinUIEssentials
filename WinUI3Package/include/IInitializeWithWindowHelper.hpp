@@ -5,6 +5,9 @@
 #include <winrt/Windows.UI.Core.h>
 #include <winrt/Windows.UI.Popups.h>
 #include <winrt/Windows.UI.StartScreen.h>
+#include <winrt/Windows.Graphics.Capture.h>
+#include <winrt/Windows.Media.Casting.h>
+#include <winrt/Windows.Media.DialProtocol.h>
 #include <ShObjIdl.h>
 
 namespace WinUIEssentials::Windows
@@ -39,6 +42,11 @@ namespace WinUIEssentials::Windows
 		}
 	}
 
+	namespace Graphics::Capture
+	{
+		using GraphicsCapturePicker = internal::IInitializeWithWindowConstructorHelper<winrt::Windows::Graphics::Capture::GraphicsCapturePicker>;
+	}
+
 	namespace Storage::Pickers
 	{
 		using FileOpenPicker = internal::IInitializeWithWindowConstructorHelper<winrt::Windows::Storage::Pickers::FileOpenPicker>;
@@ -52,6 +60,21 @@ namespace WinUIEssentials::Windows
 		using FolderLauncherOptions = internal::IInitializeWithWindowConstructorHelper<winrt::Windows::System::FolderLauncherOptions>;
 		using LauncherOptions = internal::IInitializeWithWindowConstructorHelper<winrt::Windows::System::LauncherOptions>;
 	}
+
+	namespace Media
+	{
+		namespace Casting
+		{
+			using CastingDevicePicker = internal::IInitializeWithWindowConstructorHelper<winrt::Windows::Media::Casting::CastingDevicePicker>;
+		}
+
+		namespace DialProtocol
+		{
+			using DialDevicePicker = internal::IInitializeWithWindowConstructorHelper<winrt::Windows::Media::DialProtocol::DialDevicePicker>;
+		}
+	}
+
+
 
 	namespace UI	
 	{

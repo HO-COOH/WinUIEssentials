@@ -109,6 +109,9 @@
     <Page Include="ScopedButtonDisablerPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="InitializeWithWindowHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

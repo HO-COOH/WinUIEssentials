@@ -78,6 +78,7 @@ namespace winrt::WinUI3Example::implementation
 
 	void TaskbarIconPage::MenuFlyoutItemCommand_ExecuteRequested(winrt::Microsoft::UI::Xaml::Input::XamlUICommand const& sender, winrt::Microsoft::UI::Xaml::Input::ExecuteRequestedEventArgs const& args)
 	{
-		ClickedItemText().Text(args.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem>().Text());
+		//ClickedItemText().Text(arg..as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem>().Text());
+		ClickedItemText().Text(L"Clicked");
 	}
 }

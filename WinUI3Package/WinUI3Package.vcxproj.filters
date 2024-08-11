@@ -21,7 +21,6 @@
     <ClCompile Include="PopupMenu.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
     </ClCompile>
-    <ClCompile Include="MenuFlyoutWrapper.cpp" />
     <ClCompile Include="TaskbarIconBase.cpp">
       <Filter>TaskbarIcon\Icon</Filter>
     </ClCompile>
@@ -30,6 +29,12 @@
     </ClCompile>
     <ClCompile Include="NormalTaskbarIcon.cpp">
       <Filter>TaskbarIcon\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuFlyoutWrapper.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparentMenuFlyoutHost.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +73,6 @@
     <ClInclude Include="include\BuiltInUris.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="Microsoft.UI.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.UI.hpp">
       <Filter>include\WASDK headers</Filter>
     </ClInclude>
@@ -114,9 +118,6 @@
     <ClInclude Include="PopupMenu.h">
       <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
     </ClInclude>
-    <ClInclude Include="MenuFlyoutWrapper.h">
-      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
-    </ClInclude>
     <ClInclude Include="MenuBase.h">
       <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
     </ClInclude>
@@ -140,6 +141,15 @@
     </ClInclude>
     <ClInclude Include="NormalTaskbarIcon.h">
       <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="Microsoft.UI.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFlyoutWrapper.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparentMenuFlyoutHost.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +220,9 @@
     </Filter>
     <Filter Include="TaskbarIcon\Icon">
       <UniqueIdentifier>{8a255438-a7aa-4147-ad98-6fec99f2dbec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\TaskbarIconMenu\XamlMenu">
+      <UniqueIdentifier>{b10c2905-1c35-4508-b806-60810386061f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

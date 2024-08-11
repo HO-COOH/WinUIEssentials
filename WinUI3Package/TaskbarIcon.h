@@ -2,7 +2,6 @@
 
 #include "TaskbarIcon.g.h"
 
-#include "TaskbarIconMessageWindow.h"
 #include "GuidWrapper.h"
 #include "ThemeAdaptiveIcon.h"
 #include "NormalTaskbarIcon.h"

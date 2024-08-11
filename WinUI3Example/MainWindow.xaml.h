@@ -58,7 +58,8 @@ namespace winrt::WinUI3Example::implementation
             {L"ShimmerPage", winrt::xaml_typename<WinUI3Example::ShimmerPage>()},
             {L"TaskbarIconPage", winrt::xaml_typename<WinUI3Example::TaskbarIconPage>()},
             {L"ThemeListenerPage", winrt::xaml_typename<WinUI3Example::ThemeListenerPage>()},
-            {L"ScopedButtonDisablerPage", winrt::xaml_typename<WinUI3Example::ScopedButtonDisablerPage>()}
+            {L"ScopedButtonDisablerPage", winrt::xaml_typename<WinUI3Example::ScopedButtonDisablerPage>()},
+            {L"InitializeWithWindowHelperPage", winrt::xaml_typename<WinUI3Example::InitializeWithWindowHelperPage>()}
         };
     };
 }
