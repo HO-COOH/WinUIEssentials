@@ -73,6 +73,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void TaskbarIcon::MenuTheme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 	{
+		m_theme = value;
 	}
 
 	void TaskbarIcon::Show()
@@ -83,14 +84,42 @@ namespace winrt::WinUI3Package::implementation
 			if constexpr (!std::is_same_v<IconType, std::monostate>)
 			{
 				icon.Show();
-				icon.SetMenu<MenuFlyoutWrapper>(m_xamlMenuFlyout);
+				switch (m_menuType)
+				{
+				case winrt::WinUI3Package::MenuType::Xaml:
+					icon.SetMenu<MenuFlyoutWrapper>(m_xamlMenuFlyout);
+					break;
+				case winrt::WinUI3Package::MenuType::Popup:
+					icon.SetMenu<PopupMenu>(m_xamlMenuFlyout);
+					break;
+				default:
+					assert(false);
+					break;
+				}
+
+				icon.SetTheme(m_theme);
 			}
 		}, m_icon);
 	}
 
 	void TaskbarIcon::Remove()
 	{
-		m_icon.emplace<0>();
+		std::visit([this](auto&& icon)
+		{
+			using IconType = std::remove_reference_t<decltype(icon)>;
+			if constexpr (!std::is_same_v<IconType, std::monostate>)
+			{
+				icon.Remove();
+			}
+		}, m_icon);
+	}
+	winrt::WinUI3Package::MenuType TaskbarIcon::MenuType()
+	{
+		return m_menuType;
+	}
+	void TaskbarIcon::MenuType(winrt::WinUI3Package::MenuType value)
+	{
+		m_menuType = value;
 	}
 	ThemeAdaptiveIcon& TaskbarIcon::getThemeAdaptiveIcon()
 	{

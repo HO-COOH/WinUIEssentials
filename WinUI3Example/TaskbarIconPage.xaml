@@ -12,7 +12,7 @@
 
     <Page.Resources>
         <XamlUICommand x:Name="MenuFlyoutItemCommand" ExecuteRequested="MenuFlyoutItemCommand_ExecuteRequested" />
-        <essential:TaskbarIcon x:Name="TaskbarIcon">
+        <essential:TaskbarIcon x:Name="TaskbarIcon" MenuTheme="Default">
             <MenuFlyout>
                 <MenuFlyoutItem
                     Click="MenuFlyoutItem_Click"

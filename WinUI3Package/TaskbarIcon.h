@@ -54,6 +54,9 @@ namespace winrt::WinUI3Package::implementation
         void Show();
         void Remove();
 
+        winrt::WinUI3Package::MenuType MenuType();
+        void MenuType(winrt::WinUI3Package::MenuType value);
+
         //winrt::Windows::Foundation::IInspectable RightClickMenu() { return nullptr; }
         //void RightClickMenu(winrt::Windows::Foundation::IInspectable) {}
 
@@ -64,9 +67,10 @@ namespace winrt::WinUI3Package::implementation
         NormalTaskbarIcon& getNormalIcon();
 
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_xamlMenuFlyout{ nullptr };
+        winrt::WinUI3Package::MenuType m_menuType{ winrt::WinUI3Package::MenuType::Xaml };
 
         std::variant<std::monostate, ThemeAdaptiveIcon, NormalTaskbarIcon> m_icon;
-
+        winrt::Microsoft::UI::Xaml::ElementTheme m_theme{ winrt::Microsoft::UI::Xaml::ElementTheme::Default };
 
         template<typename F>
         winrt::Windows::Foundation::IAsyncAction setIconFromUri(winrt::Windows::Foundation::Uri uri, F&& f)

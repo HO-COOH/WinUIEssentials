@@ -411,6 +411,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="PopupMenu.h" />
+    <ClInclude Include="PreferredAppMode.h" />
     <ClInclude Include="ProgressBarEx.h">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -479,6 +480,7 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="UxThemeWrapper.h" />
     <ClInclude Include="WindowEx.h">
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -640,6 +642,7 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="UxThemeWrapper.cpp" />
     <ClCompile Include="WindowEx.cpp">
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>

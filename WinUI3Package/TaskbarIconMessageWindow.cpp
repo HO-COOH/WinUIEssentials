@@ -1,19 +1,6 @@
 #include "pch.h"
 #include "TaskbarIconMessageWindow.h"
 #include "TaskbarIconBase.h"
-#include <wil/resource.h>
-
-using FnFlushMenuThemes = void(WINAPI*)();
-enum PreferredAppMode
-{
-	Default,
-	AllowDark,
-	ForceDark,
-	ForceLight,
-	Max
-};
-
-using FnSetPreferredAppMode = PreferredAppMode(WINAPI*)(PreferredAppMode);
 
 void TaskbarIconMessageWindow::registerIfNeeded()
 {
@@ -29,10 +16,6 @@ void TaskbarIconMessageWindow::registerIfNeeded()
 		.lpszClassName = TaskbarIconWindowClass,
 	};
 	RegisterClass(&windowClass);
-
-	wil::unique_hmodule hUxTheme{ LoadLibraryEx(L"uxtheme.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32) };
-	auto fnSetPreferredAppMode = reinterpret_cast<FnSetPreferredAppMode>(GetProcAddress(hUxTheme.get(), MAKEINTRESOURCEA(135)));
-	fnSetPreferredAppMode(PreferredAppMode::ForceDark);
 }
 
 

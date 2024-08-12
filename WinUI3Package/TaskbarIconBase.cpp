@@ -4,6 +4,11 @@
 #include "TaskbarIconMessageWindow.h"
 #include <windowsx.h>
 
+PopupMenu& TaskbarIconBase::getPopupMenu()
+{
+	return std::get<2>(m_menu);
+}
+
 TaskbarIconBase::TaskbarIconBase() : m_messageWindow{*this}
 {
 	m_iconData.guidItem(GuidWrapper{});
@@ -29,11 +34,13 @@ void TaskbarIconBase::Remove()
 
 
 
+void TaskbarIconBase::SetTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
+{
+	m_theme = theme;
+}
+
 void TaskbarIconBase::OnWM_CONTEXTMENU(WPARAM wparam, LPARAM lparam)
 {
-	if (m_menu.index() == 0)
-		return;
-
 	std::visit([wparam, lparam, this](auto&& menu) {
 		using MenuType = std::remove_reference_t<decltype(menu)>;
 		if constexpr (std::is_same_v<MenuType, PopupMenu>)
@@ -53,8 +60,7 @@ void TaskbarIconBase::OnWM_COMMAND(WPARAM wparam, LPARAM lparam)
 	auto const highWord = HIWORD(wparam);
 	assert(highWord == 0);
 	auto const id = LOWORD(wparam);
-	std::get<2>(m_menu).OnMenuClick(id);
-	//OutputDebugStri.ng(std::format(L"Hi: {}, lo: {}, lparam: {}\n", highWord, loWord, lparam).data());
+	getPopupMenu().OnMenuClick(id);
 }
 
 TaskbarIconBase::~TaskbarIconBase()

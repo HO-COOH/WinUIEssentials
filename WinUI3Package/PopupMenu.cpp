@@ -15,12 +15,6 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 				m_commands.size(),
 				item.Text().data()
 			));
-			//if (auto command = item.Command())
-			//{
-			//	m_menuItemCommandRevoker.push_back(item.Click(winrt::auto_revoke, [command, parameter = item.CommandParameter()](auto&&...) {
-			//		command.Execute(parameter);
-			//	}));
-			//}
 			m_commands.push_back({ item.Command(), item.CommandParameter() });
 		},
 		[this, menu](winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutSeparator const& separator)
@@ -47,13 +41,6 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 				m_commands.size(),
 				toggleItem.Text().data()
 			));
-
-			//if (auto command = toggleItem.Command())
-			//{
-			//	m_menuItemCommandRevoker.push_back(toggleItem.Click(winrt::auto_revoke, [command, parameter = toggleItem.CommandParameter()](auto&&...) {
-			//		command.Execute(parameter);
-			//		}));
-			//}
 			m_commands.push_back({ toggleItem.Command(), toggleItem.CommandParameter() });
 		});
 }
