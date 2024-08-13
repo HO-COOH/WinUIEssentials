@@ -333,6 +333,10 @@
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="FlyoutWindow.xaml.h">
+      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FontIconExtension.h">
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -466,6 +470,7 @@
     </ClInclude>
     <ClInclude Include="TaskbarIconBase.h" />
     <ClInclude Include="TaskbarIconMessageWindow.h" />
+    <ClInclude Include="TaskbarIconXamlEvents.h" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />
     <ClInclude Include="TransparentBackdrop.h">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
@@ -518,6 +523,10 @@
     </ClCompile>
     <ClCompile Include="EqualPanel.cpp">
       <DependentUpon>EqualPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="FlyoutWindow.xaml.cpp">
+      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="FontIconExtension.cpp">
@@ -678,6 +687,10 @@
     <Midl Include="EqualPanel.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="FlyoutWindow.idl">
+      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="FontIconExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -762,6 +775,9 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="FlyoutWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Glyphs.xaml" />
     <Page Include="GroupBox_Resource.xaml" />
     <Page Include="HostBackdropVisual_Resource.xaml" />

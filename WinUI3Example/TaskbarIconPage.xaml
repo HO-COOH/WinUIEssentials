@@ -15,28 +15,32 @@
         <essential:TaskbarIcon x:Name="TaskbarIcon" MenuTheme="Default">
             <MenuFlyout>
                 <MenuFlyoutItem
+                    x:Name="MenuItem1"
                     Click="MenuFlyoutItem_Click"
                     Command="{StaticResource MenuFlyoutItemCommand}"
-                    CommandParameter="{x:Bind}"
+                    CommandParameter="{x:Bind MenuItem1}"
                     Text="Item1" />
                 <MenuFlyoutItem
+                    x:Name="MenuItem2"
                     Click="MenuFlyoutItem_Click"
                     Command="{StaticResource MenuFlyoutItemCommand}"
-                    CommandParameter="{x:Bind}"
+                    CommandParameter="{x:Bind MenuItem2}"
                     Icon="Copy"
                     Text="Item with copy icon" />
                 <ToggleMenuFlyoutItem
+                    x:Name="MenuItem3"
                     Click="MenuFlyoutItem_Click"
                     Command="{StaticResource MenuFlyoutItemCommand}"
-                    CommandParameter="{x:Bind}"
+                    CommandParameter="{x:Bind MenuItem3}"
                     IsChecked="True"
                     Text="Toggle menu item" />
                 <MenuFlyoutSeparator />
                 <MenuFlyoutSubItem Text="Sub menu">
                     <MenuFlyoutItem
+                        x:Name="MenuItem4"
                         Click="MenuFlyoutItem_Click"
                         Command="{StaticResource MenuFlyoutItemCommand}"
-                        CommandParameter="{x:Bind}"
+                        CommandParameter="{x:Bind MenuItem4}"
                         Text="Sub menu item" />
                 </MenuFlyoutSubItem>
             </MenuFlyout>
@@ -88,7 +92,9 @@
                         <Button
                             x:Name="ThemeAdaptiveIconAddButton"
                             Grid.Row="1"
-                            Click="ThemeAdaptiveIconAddButton_Click">
+                            Click="ThemeAdaptiveIconAddButton_Click" Style="{ThemeResource AccentButtonStyle}"
+                            IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}"
+                            >
                             Add
                         </Button>
 
@@ -102,7 +108,8 @@
                             x:Name="ThemeAdaptiveIconRemoveButton"
                             Grid.Row="1"
                             Grid.Column="1"
-                            Click="ThemeAdaptiveIconRemoveButton_Click">
+                            Click="ThemeAdaptiveIconRemoveButton_Click"
+                            IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
                             Remove
                         </Button>
                     </Grid>

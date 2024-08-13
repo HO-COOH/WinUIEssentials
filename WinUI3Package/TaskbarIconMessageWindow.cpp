@@ -28,6 +28,7 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 		auto thisPtr = reinterpret_cast<TaskbarIconBase*>(GetWindowLongPtr(hwnd, 0));
 		if (LOWORD(lparam) == WM_CONTEXTMENU)
 		{
+			winrt::check_bool(SetForegroundWindow(hwnd));
 			thisPtr->OnWM_CONTEXTMENU(wparam, lparam);
 		}
 		return 0;

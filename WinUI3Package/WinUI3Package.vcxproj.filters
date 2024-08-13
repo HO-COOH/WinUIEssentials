@@ -160,6 +160,9 @@
     <ClInclude Include="UxThemeWrapper.h">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
     </ClInclude>
+    <ClInclude Include="TaskbarIconXamlEvents.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -235,6 +238,9 @@
     </Filter>
     <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu">
       <UniqueIdentifier>{a57a64f7-5943-42d6-96e1-f147b28b7dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\FlyoutContent">
+      <UniqueIdentifier>{a9f9a5fb-d972-4f90-96a8-f5ac13843b97}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -374,6 +380,9 @@
     </Page>
     <Page Include="RoundedAnimatedAcrylicWindowWithShadow.xaml">
       <Filter>Controls\AcrylicVisual</Filter>
+    </Page>
+    <Page Include="FlyoutWindow.xaml">
+      <Filter>TaskbarIcon\FlyoutContent</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

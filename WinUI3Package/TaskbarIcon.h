@@ -57,9 +57,18 @@ namespace winrt::WinUI3Package::implementation
         winrt::WinUI3Package::MenuType MenuType();
         void MenuType(winrt::WinUI3Package::MenuType value);
 
-        //winrt::Windows::Foundation::IInspectable RightClickMenu() { return nullptr; }
-        //void RightClickMenu(winrt::Windows::Foundation::IInspectable) {}
+        winrt::event_token LeftPressed(WinUI3Package::SignalDelegate const& handler);
+        winrt::event_token LeftDoublePressed(WinUI3Package::SignalDelegate const& handler);
+        winrt::event_token RightPressed(WinUI3Package::SignalDelegate const& handler);
+        winrt::event_token RightDoublePressed(WinUI3Package::SignalDelegate const& handler);
 
+        void LeftPressed(winrt::event_token const& token);
+        void LeftDoublePressed(winrt::event_token const& token);
+        void RightPressed(winrt::event_token const& token);
+        void RightDoublePressed(winrt::event_token const& token);
+
+        winrt::Microsoft::UI::Xaml::UIElement PopupContent();
+        void PopupContent(winrt::Microsoft::UI::Xaml::UIElement value);
     private:
         WinUI3Package::GeneratedIconSource m_iconSource{ nullptr };
 
@@ -71,6 +80,11 @@ namespace winrt::WinUI3Package::implementation
 
         std::variant<std::monostate, ThemeAdaptiveIcon, NormalTaskbarIcon> m_icon;
         winrt::Microsoft::UI::Xaml::ElementTheme m_theme{ winrt::Microsoft::UI::Xaml::ElementTheme::Default };
+
+        winrt::event<WinUI3Package::SignalDelegate> m_leftPressed;
+        winrt::event<WinUI3Package::SignalDelegate> m_leftDoublePressed;
+        winrt::event<WinUI3Package::SignalDelegate> m_rightPressed;
+        winrt::event<WinUI3Package::SignalDelegate> m_rightDoublePressed;
 
         template<typename F>
         winrt::Windows::Foundation::IAsyncAction setIconFromUri(winrt::Windows::Foundation::Uri uri, F&& f)

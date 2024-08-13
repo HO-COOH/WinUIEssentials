@@ -30,6 +30,9 @@ public:
 	template<typename MenuType>
 	void SetMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& xamlMenu)
 	{
+		if (m_menu.index() != 0)
+			return;
+
 		auto& menu = m_menu.emplace<MenuType>(xamlMenu);
 		if (m_theme)
 			menu.Theme(*m_theme);

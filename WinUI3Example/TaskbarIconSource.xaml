@@ -10,6 +10,6 @@
 
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Button Click="Button_Click">Select icon file</Button>
-        <Image x:Name="PreviewImage" MinWidth="50" MinHeight="50"/>
+        <Image x:Name="PreviewImage" MinWidth="50" MinHeight="50" MaxWidth="200" MaxHeight="200"/>
     </StackPanel>
 </UserControl>
