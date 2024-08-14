@@ -12,7 +12,13 @@
 
     <Page.Resources>
         <XamlUICommand x:Name="MenuFlyoutItemCommand" ExecuteRequested="MenuFlyoutItemCommand_ExecuteRequested" />
-        <essential:TaskbarIcon x:Name="TaskbarIcon" MenuTheme="Default">
+        <essential:TaskbarIcon
+            x:Name="TaskbarIcon"
+            LeftDoublePressed="TaskbarIcon_LeftDoublePressed"
+            LeftPressed="TaskbarIcon_LeftPressed"
+            MenuTheme="Default"
+            PointerHover="TaskbarIcon_PointerHover"
+            RightPressed="TaskbarIcon_RightPressed">
             <MenuFlyout>
                 <MenuFlyoutItem
                     x:Name="MenuItem1"
@@ -92,9 +98,9 @@
                         <Button
                             x:Name="ThemeAdaptiveIconAddButton"
                             Grid.Row="1"
-                            Click="ThemeAdaptiveIconAddButton_Click" Style="{ThemeResource AccentButtonStyle}"
+                            Click="ThemeAdaptiveIconAddButton_Click"
                             IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}"
-                            >
+                            Style="{ThemeResource AccentButtonStyle}">
                             Add
                         </Button>
 
@@ -120,6 +126,9 @@
                 <Run Text="Menu item clicked: " />
                 <Run x:Name="ClickedItemText" />
             </TextBlock>
+
+            <TextBlock Text="Events:" />
+            <ListView x:Name="EventsList" MaxHeight="300" />
 
         </StackPanel>
     </ScrollView>

@@ -80,4 +80,26 @@ namespace winrt::WinUI3Example::implementation
 	{
 		ClickedItemText().Text(args.Parameter().as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem>().Text());
 	}
+
+	void TaskbarIconPage::TaskbarIcon_LeftPressed()
+	{
+		EventsList().Items().Append(winrt::box_value(L"Left pressed"));
+	}
+
+	void TaskbarIconPage::TaskbarIcon_LeftDoublePressed()
+	{
+		EventsList().Items().Append(winrt::box_value(L"Left double pressed"));
+	}
+
+	void TaskbarIconPage::TaskbarIcon_RightPressed()
+	{
+		EventsList().Items().Append(winrt::box_value(L"Right pressed"));
+	}
+
+	void TaskbarIconPage::TaskbarIcon_PointerHover()
+	{
+		EventsList().Items().Append(winrt::box_value(L"Pointer hovered"));
+	}
+
 }
+ 

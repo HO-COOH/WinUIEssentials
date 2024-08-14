@@ -32,7 +32,10 @@ void TaskbarIconBase::Remove()
 	m_iconData.Delete();
 }
 
-
+void TaskbarIconBase::SetEvents(TaskbarIconXamlEvents& events)
+{
+	m_ptrXamlEvents = &events;
+}
 
 void TaskbarIconBase::SetTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
 {

@@ -43,7 +43,7 @@ namespace WinUI3Package
         event WinUI3Package.SignalDelegate LeftPressed;
         event WinUI3Package.SignalDelegate LeftDoublePressed;
         event WinUI3Package.SignalDelegate RightPressed;
-        event WinUI3Package.SignalDelegate RightDoublePressed;
+        event WinUI3Package.SignalDelegate PointerHover;
 
         Microsoft.UI.Xaml.UIElement PopupContent;
 

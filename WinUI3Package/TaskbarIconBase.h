@@ -9,6 +9,10 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.UI.Xaml.h>
 #include "TaskbarIconMessageWindow.h"
+
+struct TaskbarIconXamlEvents;
+struct TaskbarIconEvents;
+
 class TaskbarIconBase
 {
 protected:
@@ -16,6 +20,8 @@ protected:
 	std::variant<std::monostate, MenuFlyoutWrapper, PopupMenu> m_menu;
 	TaskbarIconMessageWindow m_messageWindow;
 	std::optional<winrt::Microsoft::UI::Xaml::ElementTheme> m_theme;
+	TaskbarIconXamlEvents* m_ptrXamlEvents{ nullptr };
+	TaskbarIconEvents* m_ptrEvents{ nullptr };
 	PopupMenu& getPopupMenu();
 public:
 	TaskbarIconBase();
@@ -38,10 +44,14 @@ public:
 			menu.Theme(*m_theme);
 	}
 
+	void SetEvents(TaskbarIconXamlEvents& events);
+
 	void SetTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 
 	void OnWM_CONTEXTMENU(WPARAM wparam, LPARAM lparam);
 	void OnWM_COMMAND(WPARAM wparam, LPARAM lparam);
 	
 	~TaskbarIconBase();
+
+	friend class TaskbarIconMessageWindow;
 };

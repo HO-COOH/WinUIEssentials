@@ -7,7 +7,7 @@
 #include "NormalTaskbarIcon.h"
 #include <variant>
 #include <winrt/Windows.Storage.h>
-
+#include "TaskbarIconXamlEvents.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -60,12 +60,12 @@ namespace winrt::WinUI3Package::implementation
         winrt::event_token LeftPressed(WinUI3Package::SignalDelegate const& handler);
         winrt::event_token LeftDoublePressed(WinUI3Package::SignalDelegate const& handler);
         winrt::event_token RightPressed(WinUI3Package::SignalDelegate const& handler);
-        winrt::event_token RightDoublePressed(WinUI3Package::SignalDelegate const& handler);
+        winrt::event_token PointerHover(WinUI3Package::SignalDelegate const& handler);
 
         void LeftPressed(winrt::event_token const& token);
         void LeftDoublePressed(winrt::event_token const& token);
         void RightPressed(winrt::event_token const& token);
-        void RightDoublePressed(winrt::event_token const& token);
+        void PointerHover(winrt::event_token const& handler);
 
         winrt::Microsoft::UI::Xaml::UIElement PopupContent();
         void PopupContent(winrt::Microsoft::UI::Xaml::UIElement value);
@@ -77,14 +77,10 @@ namespace winrt::WinUI3Package::implementation
 
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_xamlMenuFlyout{ nullptr };
         winrt::WinUI3Package::MenuType m_menuType{ winrt::WinUI3Package::MenuType::Xaml };
+        TaskbarIconXamlEvents m_events;
 
         std::variant<std::monostate, ThemeAdaptiveIcon, NormalTaskbarIcon> m_icon;
         winrt::Microsoft::UI::Xaml::ElementTheme m_theme{ winrt::Microsoft::UI::Xaml::ElementTheme::Default };
-
-        winrt::event<WinUI3Package::SignalDelegate> m_leftPressed;
-        winrt::event<WinUI3Package::SignalDelegate> m_leftDoublePressed;
-        winrt::event<WinUI3Package::SignalDelegate> m_rightPressed;
-        winrt::event<WinUI3Package::SignalDelegate> m_rightDoublePressed;
 
         template<typename F>
         winrt::Windows::Foundation::IAsyncAction setIconFromUri(winrt::Windows::Foundation::Uri uri, F&& f)

@@ -14,6 +14,10 @@ namespace winrt::WinUI3Example::implementation
         void RadioButtons_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
         void MenuFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void MenuFlyoutItemCommand_ExecuteRequested(winrt::Microsoft::UI::Xaml::Input::XamlUICommand const& sender, winrt::Microsoft::UI::Xaml::Input::ExecuteRequestedEventArgs const& args);
+        void TaskbarIcon_LeftPressed();
+        void TaskbarIcon_LeftDoublePressed();
+        void TaskbarIcon_RightPressed();
+        void TaskbarIcon_PointerHover();
     };
 }
 

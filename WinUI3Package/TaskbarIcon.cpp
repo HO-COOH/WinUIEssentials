@@ -121,16 +121,56 @@ namespace winrt::WinUI3Package::implementation
 	{
 		m_menuType = value;
 	}
+	winrt::event_token TaskbarIcon::LeftPressed(WinUI3Package::SignalDelegate const& handler)
+	{
+		return m_events.m_leftPressed.add(handler);
+	}
+	winrt::event_token TaskbarIcon::LeftDoublePressed(WinUI3Package::SignalDelegate const& handler)
+	{
+		return m_events.m_leftDoublePressed.add(handler);
+	}
+	winrt::event_token TaskbarIcon::RightPressed(WinUI3Package::SignalDelegate const& handler)
+	{
+		return m_events.m_rightPressed.add(handler);
+	}
+
+	winrt::event_token TaskbarIcon::PointerHover(WinUI3Package::SignalDelegate const& handler)
+	{
+		return m_events.m_pointerHover.add(handler);
+	}
+	void TaskbarIcon::LeftPressed(winrt::event_token const& token)
+	{
+		m_events.m_leftPressed.remove(token);
+	}
+	void TaskbarIcon::LeftDoublePressed(winrt::event_token const& token)
+	{
+		m_events.m_leftDoublePressed.remove(token);
+	}
+	void TaskbarIcon::RightPressed(winrt::event_token const& token)
+	{
+		m_events.m_rightPressed.remove(token);
+	}
+	void TaskbarIcon::PointerHover(winrt::event_token const& handler)
+	{
+		m_events.m_pointerHover.remove(handler);
+	}
+	winrt::Microsoft::UI::Xaml::UIElement TaskbarIcon::PopupContent()
+	{
+		return winrt::Microsoft::UI::Xaml::UIElement{ nullptr };
+	}
+	void TaskbarIcon::PopupContent(winrt::Microsoft::UI::Xaml::UIElement value)
+	{
+	}
 	ThemeAdaptiveIcon& TaskbarIcon::getThemeAdaptiveIcon()
 	{
 		if (m_icon.index() == 0)
-			m_icon.emplace<1>();
+			m_icon.emplace<1>().SetEvents(m_events);
 		return std::get<1>(m_icon);
 	}
 	NormalTaskbarIcon& TaskbarIcon::getNormalIcon()
 	{
 		if (m_icon.index() == 0)
-			m_icon.emplace<2>();
+			m_icon.emplace<2>().SetEvents(m_events);
 		return std::get<2>(m_icon);
 	}
 }

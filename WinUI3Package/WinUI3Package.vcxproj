@@ -469,6 +469,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TaskbarIconBase.h" />
+    <ClInclude Include="TaskbarIconEvents.h" />
     <ClInclude Include="TaskbarIconMessageWindow.h" />
     <ClInclude Include="TaskbarIconXamlEvents.h" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />

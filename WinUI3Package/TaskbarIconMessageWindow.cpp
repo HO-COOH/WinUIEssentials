@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "TaskbarIconMessageWindow.h"
 #include "TaskbarIconBase.h"
+#include "TaskbarIconXamlEvents.h"
 
 void TaskbarIconMessageWindow::registerIfNeeded()
 {
@@ -11,6 +12,7 @@ void TaskbarIconMessageWindow::registerIfNeeded()
 
 	WNDCLASS windowClass 
 	{
+		.style = CS_DBLCLKS,
 		.lpfnWndProc = &TaskbarIconMessageWindow::windowProc,
 		.cbWndExtra = sizeof(void*),
 		.lpszClassName = TaskbarIconWindowClass,
@@ -23,13 +25,54 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 {
 	switch (msg)
 	{
+	case WM_TIMER:
+	{
+		auto thisPtr = reinterpret_cast<TaskbarIconMessageWindow*>(GetWindowLongPtr(hwnd, 0));
+		assert(wparam == DoubleClickTimerId);
+		if (thisPtr->doubleClickTimerStarted && !thisPtr->doubleClicked)
+		{
+			thisPtr->doubleClickTimerStarted = false;
+			thisPtr->doubleClicked = false;
+			if (thisPtr->m_icon->m_ptrXamlEvents)
+				thisPtr->m_icon->m_ptrXamlEvents->m_leftPressed();
+			thisPtr->destroyTimer();
+			break;
+		}
+		break;
+	}
 	case TaskbarIconBase::CallbackMessage:
 	{
-		auto thisPtr = reinterpret_cast<TaskbarIconBase*>(GetWindowLongPtr(hwnd, 0));
-		if (LOWORD(lparam) == WM_CONTEXTMENU)
+		auto thisPtr = reinterpret_cast<TaskbarIconMessageWindow*>(GetWindowLongPtr(hwnd, 0));
+		switch(LOWORD(lparam))
 		{
+		case WM_LBUTTONUP:
+			if (!thisPtr->doubleClickTimerStarted)
+			{
+				thisPtr->setTimer();
+				thisPtr->doubleClickTimerStarted = true;
+			}
+			break;
+		case WM_MOUSEHOVER:
+			if (thisPtr->m_icon->m_ptrXamlEvents)
+				thisPtr->m_icon->m_ptrXamlEvents->m_pointerHover();
+			break;
+		case WM_LBUTTONDBLCLK:
+			thisPtr->doubleClicked = true;
+			if (thisPtr->m_icon->m_ptrXamlEvents)
+				thisPtr->m_icon->m_ptrXamlEvents->m_leftDoublePressed();
+			break;
+		case WM_RBUTTONUP:
+			if (thisPtr->m_icon->m_ptrXamlEvents)
+				thisPtr->m_icon->m_ptrXamlEvents->m_rightPressed();
+			break;
+		case NIN_POPUPOPEN:
+			if (thisPtr->m_icon->m_ptrXamlEvents)
+				thisPtr->m_icon->m_ptrXamlEvents->m_pointerHover();
+			break;
+		case WM_CONTEXTMENU:
 			winrt::check_bool(SetForegroundWindow(hwnd));
-			thisPtr->OnWM_CONTEXTMENU(wparam, lparam);
+			thisPtr->m_icon->OnWM_CONTEXTMENU(wparam, lparam);
+			break;
 		}
 		return 0;
 	}
@@ -38,6 +81,16 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 		return 0;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
+}
+
+void TaskbarIconMessageWindow::setTimer()
+{
+	SetTimer(m_hwnd, DoubleClickTimerId, min(GetDoubleClickTime(), 500), nullptr);
+}
+
+void TaskbarIconMessageWindow::destroyTimer()
+{
+	winrt::check_bool(KillTimer(m_hwnd, DoubleClickTimerId));
 }
 
 TaskbarIconMessageWindow::TaskbarIconMessageWindow(TaskbarIconBase& icon) : m_icon{&icon}
@@ -57,7 +110,7 @@ TaskbarIconMessageWindow::TaskbarIconMessageWindow(TaskbarIconBase& icon) : m_ic
 		NULL,
 		NULL
 	));
-	SetWindowLongPtr(m_hwnd, 0, reinterpret_cast<LONG_PTR>(m_icon));
+	SetWindowLongPtr(m_hwnd, 0, reinterpret_cast<LONG_PTR>(this));
 }
 
 TaskbarIconMessageWindow::~TaskbarIconMessageWindow()
