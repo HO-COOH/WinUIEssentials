@@ -35,7 +35,7 @@ namespace WinUI3Package
         String DarkThemeIconFile;
 
         /*Right click*/
-        Microsoft.UI.Xaml.Controls.MenuFlyout RightClickMenu;
+        Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase RightClickMenu;
         Microsoft.UI.Xaml.ElementTheme MenuTheme;
         MenuType MenuType;
 

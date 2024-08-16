@@ -415,9 +415,29 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="PopupMenu.h" />
+    <ClInclude Include="PopupMenuFlyout.h">
+      <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutItem.h">
+      <DependentUpon>PopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutSeparator.h">
+      <DependentUpon>PopupMenuFlyoutSeparator.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutSubItem.h">
+      <DependentUpon>PopupMenuFlyoutSubItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="PreferredAppMode.h" />
     <ClInclude Include="ProgressBarEx.h">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="RadioPopupMenuFlyoutItem.h">
+      <DependentUpon>RadioPopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ReferenceToBoolConverter.h">
@@ -473,6 +493,10 @@
     <ClInclude Include="TaskbarIconMessageWindow.h" />
     <ClInclude Include="TaskbarIconXamlEvents.h" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />
+    <ClInclude Include="TogglePopupMenuFlyoutItem.h">
+      <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TransparentBackdrop.h">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -584,8 +608,28 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="PopupMenu.cpp" />
+    <ClCompile Include="PopupMenuFlyout.cpp">
+      <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="PopupMenuFlyoutItem.cpp">
+      <DependentUpon>PopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="PopupMenuFlyoutSeparator.cpp">
+      <DependentUpon>PopupMenuFlyoutSeparator.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="PopupMenuFlyoutSubItem.cpp">
+      <DependentUpon>PopupMenuFlyoutSubItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ProgressBarEx.cpp">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="RadioPopupMenuFlyoutItem.cpp">
+      <DependentUpon>RadioPopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ReferenceToBoolConverter.cpp">
@@ -639,6 +683,10 @@
     <ClCompile Include="TaskbarIconMessageWindow.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
+    <ClCompile Include="TogglePopupMenuFlyoutItem.cpp">
+      <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TransparentBackdrop.cpp">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -725,7 +773,23 @@
     <Midl Include="Placeholder.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="PopupMenuFlyout.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItemBase.idl" />
+    <Midl Include="PopupMenuFlyoutSeparator.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutSubItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ProgressBarEx.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="RadioPopupMenuFlyoutItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ReferenceToBoolConverter.idl">
@@ -760,6 +824,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TaskbarIcon.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TogglePopupMenuFlyoutItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TransparentBackdrop.idl">

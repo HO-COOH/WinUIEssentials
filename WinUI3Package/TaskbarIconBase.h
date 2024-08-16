@@ -6,7 +6,7 @@
 #include "MenuFlyoutWrapper.h"
 #include <variant>
 #include <optional>
-#include <winrt/Microsoft.UI.Xaml.Controls.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include <winrt/Microsoft.UI.Xaml.h>
 #include "TaskbarIconMessageWindow.h"
 
@@ -34,7 +34,7 @@ public:
 	void Remove();
 
 	template<typename MenuType>
-	void SetMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& xamlMenu)
+	void SetMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenu)
 	{
 		if (m_menu.index() != 0)
 			return;

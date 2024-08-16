@@ -61,7 +61,7 @@ namespace winrt::WinUI3Package::implementation
 		getThemeAdaptiveIcon().IconDark(Utils::GetHIcon(value));
 	}
 
-	void TaskbarIcon::RightClickMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value)
+	void TaskbarIcon::RightClickMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& value)
 	{
 		m_xamlMenuFlyout = value;
 	}

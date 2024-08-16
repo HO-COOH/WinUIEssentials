@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
-#include <winrt/Microsoft.UI.Xaml.Controls.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
 #endif
 #include "MenuBase.h"
@@ -17,7 +17,7 @@ class PopupMenu : public MenuBase
 
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
 public:
-	PopupMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& xamlMenuFlyout);
+	PopupMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenuFlyout);
 	std::vector<std::pair<winrt::Microsoft::UI::Xaml::Input::ICommand, winrt::Windows::Foundation::IInspectable>> m_commands;
 private:
 	void appendMenu(

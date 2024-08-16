@@ -45,9 +45,10 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 		});
 }
 
-PopupMenu::PopupMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& xamlMenuFlyout)
+PopupMenu::PopupMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenuFlyout)
 {
-	appendMenu(xamlMenuFlyout.Items(), m_menu);
+	if (auto menuFlyout = xamlMenuFlyout.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>())
+		appendMenu(menuFlyout.Items(), m_menu);
 }
 #endif
 

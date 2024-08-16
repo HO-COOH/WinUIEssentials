@@ -45,8 +45,8 @@ namespace winrt::WinUI3Package::implementation
         winrt::hstring DarkThemeIconFile() { return L""; }
         void DarkThemeIconFile(winrt::hstring const& value);
 
-        winrt::Microsoft::UI::Xaml::Controls::MenuFlyout RightClickMenu() { return m_xamlMenuFlyout; }
-        void RightClickMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value);
+        winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase RightClickMenu() { return m_xamlMenuFlyout; }
+        void RightClickMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& value);
 
         winrt::Microsoft::UI::Xaml::ElementTheme MenuTheme();
         void MenuTheme(winrt::Microsoft::UI::Xaml::ElementTheme value);
@@ -75,7 +75,7 @@ namespace winrt::WinUI3Package::implementation
         ThemeAdaptiveIcon& getThemeAdaptiveIcon();
         NormalTaskbarIcon& getNormalIcon();
 
-        winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_xamlMenuFlyout{ nullptr };
+        winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase m_xamlMenuFlyout{ nullptr };
         winrt::WinUI3Package::MenuType m_menuType{ winrt::WinUI3Package::MenuType::Xaml };
         TaskbarIconXamlEvents m_events;
 

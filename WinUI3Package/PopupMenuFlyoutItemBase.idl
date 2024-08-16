@@ -1,0 +1,16 @@
+namespace WinUI3Package
+{
+	enum PopupMenuFlyoutItemType
+	{
+		MenuFlyoutItem,
+		MenuFlyoutSeparator,
+		ToggleItem,
+		SubMenu,
+		RadioItem
+	};
+
+	interface PopupMenuFlyoutItemBase
+	{
+		PopupMenuFlyoutItemType Type{ get; };
+	};
+}

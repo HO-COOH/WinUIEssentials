@@ -163,6 +163,7 @@
     <ClInclude Include="TaskbarIconXamlEvents.h">
       <Filter>TaskbarIcon\Icon</Filter>
     </ClInclude>
+    <ClInclude Include="TaskbarIconEvents.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -241,6 +242,9 @@
     </Filter>
     <Filter Include="TaskbarIcon\FlyoutContent">
       <UniqueIdentifier>{a9f9a5fb-d972-4f90-96a8-f5ac13843b97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml">
+      <UniqueIdentifier>{12901af6-4941-4188-bb1b-692d288fcf68}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +349,27 @@
     </Midl>
     <Midl Include="TaskbarIcon.idl">
       <Filter>TaskbarIcon</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyout.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItemBase.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutSeparator.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutSubItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="TogglePopupMenuFlyoutItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="RadioPopupMenuFlyoutItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

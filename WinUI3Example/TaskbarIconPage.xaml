@@ -52,6 +52,10 @@
             </MenuFlyout>
         </essential:TaskbarIcon>
 
+        <essential:TaskbarIcon x:Name="Icon2">
+            <essential:PopupMenuFlyout/>
+        </essential:TaskbarIcon>
+            
         <Style BasedOn="{StaticResource DefaultRadioButtonStyle}" TargetType="RadioButton">
             <Setter Property="MinHeight" Value="200" />
         </Style>

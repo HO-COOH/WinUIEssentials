@@ -6,7 +6,7 @@ void MenuFlyoutWrapper::showImpl()
 	m_menu.ShowAt(m_menuHost.GetFrame());
 }
 
-MenuFlyoutWrapper::MenuFlyoutWrapper(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& flyout) : m_menu{flyout}
+MenuFlyoutWrapper::MenuFlyoutWrapper(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& flyout) : m_menu{flyout}
 {
 	m_menu.ShouldConstrainToRootBounds(false);
 }
