@@ -4,6 +4,7 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
 #endif
+
 #include "MenuBase.h"
 #include <vector>
 #include <utility>
@@ -15,16 +16,12 @@ class PopupMenu : public MenuBase
 {
 	HMENU m_menu = CreatePopupMenu();
 
-#if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
-public:
-	PopupMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenuFlyout);
-	std::vector<std::pair<winrt::Microsoft::UI::Xaml::Input::ICommand, winrt::Windows::Foundation::IInspectable>> m_commands;
 private:
 	void appendMenu(
-		winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItemBase> xamlMenu,
+		winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu,
 		HMENU menu);
-#endif
 public:
+	PopupMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenuFlyout);
 	~PopupMenu();
 
 	void Show(POINT pt, HWND ownerHwnd);

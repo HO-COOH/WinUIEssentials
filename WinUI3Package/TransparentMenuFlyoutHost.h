@@ -16,4 +16,6 @@ public:
 
 	void Move(POINT p);
 	winrt::Microsoft::UI::Xaml::FrameworkElement GetFrame() { return m_dummyFrame; }
+
+	~TransparentMenuFlyoutHost();
 };

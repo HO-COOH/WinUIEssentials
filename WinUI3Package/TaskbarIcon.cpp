@@ -84,19 +84,7 @@ namespace winrt::WinUI3Package::implementation
 			if constexpr (!std::is_same_v<IconType, std::monostate>)
 			{
 				icon.Show();
-				switch (m_menuType)
-				{
-				case winrt::WinUI3Package::MenuType::Xaml:
-					icon.SetMenu<MenuFlyoutWrapper>(m_xamlMenuFlyout);
-					break;
-				case winrt::WinUI3Package::MenuType::Popup:
-					icon.SetMenu<PopupMenu>(m_xamlMenuFlyout);
-					break;
-				default:
-					assert(false);
-					break;
-				}
-
+				icon.SetMenu(m_xamlMenuFlyout);
 				icon.SetTheme(m_theme);
 			}
 		}, m_icon);
@@ -112,14 +100,6 @@ namespace winrt::WinUI3Package::implementation
 				icon.Remove();
 			}
 		}, m_icon);
-	}
-	winrt::WinUI3Package::MenuType TaskbarIcon::MenuType()
-	{
-		return m_menuType;
-	}
-	void TaskbarIcon::MenuType(winrt::WinUI3Package::MenuType value)
-	{
-		m_menuType = value;
 	}
 	winrt::event_token TaskbarIcon::LeftPressed(WinUI3Package::SignalDelegate const& handler)
 	{

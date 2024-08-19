@@ -54,9 +54,6 @@ namespace winrt::WinUI3Package::implementation
         void Show();
         void Remove();
 
-        winrt::WinUI3Package::MenuType MenuType();
-        void MenuType(winrt::WinUI3Package::MenuType value);
-
         winrt::event_token LeftPressed(WinUI3Package::SignalDelegate const& handler);
         winrt::event_token LeftDoublePressed(WinUI3Package::SignalDelegate const& handler);
         winrt::event_token RightPressed(WinUI3Package::SignalDelegate const& handler);
@@ -76,7 +73,6 @@ namespace winrt::WinUI3Package::implementation
         NormalTaskbarIcon& getNormalIcon();
 
         winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase m_xamlMenuFlyout{ nullptr };
-        winrt::WinUI3Package::MenuType m_menuType{ winrt::WinUI3Package::MenuType::Xaml };
         TaskbarIconXamlEvents m_events;
 
         std::variant<std::monostate, ThemeAdaptiveIcon, NormalTaskbarIcon> m_icon;

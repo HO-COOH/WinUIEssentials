@@ -3,6 +3,7 @@
 #include "GuidWrapper.h"
 #include "TaskbarIconMessageWindow.h"
 #include <windowsx.h>
+#include "InvalidXamlMenuFlyoutTypeError.hpp"
 
 PopupMenu& TaskbarIconBase::getPopupMenu()
 {
@@ -30,6 +31,19 @@ void TaskbarIconBase::Show()
 void TaskbarIconBase::Remove()
 {
 	m_iconData.Delete();
+}
+
+void TaskbarIconBase::SetMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenu)
+{
+	if (m_menu.index() != 0)
+		return;
+
+	if (auto xamlMenuFlyout = xamlMenu.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>())
+		m_menu.emplace<MenuFlyoutWrapper>(xamlMenuFlyout).Theme(*m_theme);
+	else if (auto popupMenuFlyout = xamlMenu.try_as<winrt::WinUI3Package::PopupMenuFlyout>())
+		m_menu.emplace<PopupMenu>(popupMenuFlyout).Theme(*m_theme);
+	else
+		throw InvalidXamlMenuFlyoutTypeError{};
 }
 
 void TaskbarIconBase::SetEvents(TaskbarIconXamlEvents& events)

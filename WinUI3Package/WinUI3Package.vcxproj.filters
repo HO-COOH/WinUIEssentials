@@ -164,6 +164,9 @@
       <Filter>TaskbarIcon\Icon</Filter>
     </ClInclude>
     <ClInclude Include="TaskbarIconEvents.h" />
+    <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

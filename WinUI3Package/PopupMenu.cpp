@@ -1,23 +1,28 @@
 #include "pch.h"
 #include "PopupMenu.h"
 #include "TaskbarIconMessageWindow.h"
+
 #include "MenuFlyoutItemBaseVisitor.hpp"
 
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
-void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItemBase> xamlMenu, HMENU menu)
+void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu, HMENU menu)
 {
-	ForEachMenuItem(xamlMenu,
-		[this, menu](winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem const& item)
+	int index{};
+	for (auto item : xamlMenu)
+	{
+		switch (item.Type())
+		{
+		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutItem:
 		{
 			winrt::check_bool(AppendMenu(
 				menu,
 				NULL,
-				m_commands.size(),
-				item.Text().data()
+				index,
+				item.as<winrt::WinUI3Package::PopupMenuFlyoutItem>().Text().data()
 			));
-			m_commands.push_back({ item.Command(), item.CommandParameter() });
-		},
-		[this, menu](winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutSeparator const& separator)
+			break;
+		}
+		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutSeparator:
 		{
 			winrt::check_bool(AppendMenu(
 				menu,
@@ -25,29 +30,47 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 				NULL,
 				NULL
 			));
-		},
-		[this, menu](winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutSubItem const& subItem)
+			break;
+		}
+		case winrt::WinUI3Package::PopupMenuFlyoutItemType::SubMenu:
 		{
+			auto subItem = item.as<winrt::WinUI3Package::PopupMenuFlyoutSubItem>();
 			auto subMenu = CreatePopupMenu();
-			winrt::check_bool(AppendMenu(menu, MF_POPUP, reinterpret_cast<UINT_PTR>(subMenu), subItem.Text().data()));
+			winrt::check_bool(AppendMenu(
+				menu,
+				MF_POPUP,
+				reinterpret_cast<UINT_PTR>(subMenu),
+				subItem.Text().data()));
 			appendMenu(subItem.Items(), subMenu);
-		},
-
-		[this, menu](winrt::Microsoft::UI::Xaml::Controls::ToggleMenuFlyoutItem const& toggleItem)
+			break;
+		}
+		case winrt::WinUI3Package::PopupMenuFlyoutItemType::ToggleItem:
 		{
+			auto toggleItem = item.as<winrt::WinUI3Package::TogglePopupMenuFlyoutItem>();
 			winrt::check_bool(AppendMenu(
 				menu,
 				toggleItem.IsChecked() ? MF_CHECKED : MF_UNCHECKED,
-				m_commands.size(),
+				index,
 				toggleItem.Text().data()
 			));
-			m_commands.push_back({ toggleItem.Command(), toggleItem.CommandParameter() });
-		});
+			break;
+		}
+		case winrt::WinUI3Package::PopupMenuFlyoutItemType::RadioItem:
+		{
+			assert(false);
+			//not yet implemented
+		}
+		default:
+			assert(false);
+			break;
+		}
+		index++;
+	}
 }
 
 PopupMenu::PopupMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenuFlyout)
 {
-	if (auto menuFlyout = xamlMenuFlyout.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>())
+	if (auto menuFlyout = xamlMenuFlyout.try_as<winrt::WinUI3Package::PopupMenuFlyout>())
 		appendMenu(menuFlyout.Items(), m_menu);
 }
 #endif
@@ -59,14 +82,6 @@ PopupMenu::~PopupMenu()
 
 void PopupMenu::Show(POINT pt, HWND ownerHwnd)
 {
-
-
-	/*test*/
-	//MENUITEMINFO info{ .cbSize = sizeof(info), .fMask = MIIM_DATA | MIIM_CHECKMARKS | MIIM_TYPE };
-	//winrt::check_bool(GetMenuItemInfo(m_menu, 1, true, &info));
-	//info.dwItemData = reinterpret_cast<ULONG_PTR>(L"Changed item");
-	//winrt::check_bool(SetMenuItemInfo(m_menu, 1, true, &info));
-
 	TrackPopupMenuEx(
 		m_menu,
 		TPM_LEFTALIGN,
@@ -80,5 +95,5 @@ void PopupMenu::Show(POINT pt, HWND ownerHwnd)
 
 void PopupMenu::OnMenuClick(int index)
 {
-	m_commands[index].first.Execute(m_commands[index].second);
+	//m_commands[index].first.Execute(m_commands[index].second);
 }

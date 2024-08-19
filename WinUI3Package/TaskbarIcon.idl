@@ -3,12 +3,6 @@ import "SettingsExpander.idl";
 
 namespace WinUI3Package
 {
-    enum MenuType
-    {
-        Xaml = 1,
-        Popup = 2
-    };
-
     [bindable]
     [default_interface]
     [contentproperty("RightClickMenu")]
@@ -37,7 +31,6 @@ namespace WinUI3Package
         /*Right click*/
         Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase RightClickMenu;
         Microsoft.UI.Xaml.ElementTheme MenuTheme;
-        MenuType MenuType;
 
         /*events*/
         event WinUI3Package.SignalDelegate LeftPressed;

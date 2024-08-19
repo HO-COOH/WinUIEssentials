@@ -28,3 +28,8 @@ void TransparentMenuFlyoutHost::Move(POINT p)
 {
 	m_appWindow.MoveAndResize({ p.x, p.y, 1, 1 });
 }
+
+TransparentMenuFlyoutHost::~TransparentMenuFlyoutHost()
+{
+	m_dummyWindow.Close();
+}

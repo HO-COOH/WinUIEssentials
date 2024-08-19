@@ -33,16 +33,7 @@ public:
 	void Show();
 	void Remove();
 
-	template<typename MenuType>
-	void SetMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenu)
-	{
-		if (m_menu.index() != 0)
-			return;
-
-		auto& menu = m_menu.emplace<MenuType>(xamlMenu);
-		if (m_theme)
-			menu.Theme(*m_theme);
-	}
+	void SetMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenu);
 
 	void SetEvents(TaskbarIconXamlEvents& events);
 
