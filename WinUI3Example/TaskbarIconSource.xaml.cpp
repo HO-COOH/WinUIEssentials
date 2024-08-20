@@ -30,11 +30,7 @@ namespace winrt::WinUI3Example::implementation
 			winrt::Microsoft::UI::Xaml::Media::Imaging::BitmapImage image;
 			image.SetSourceAsync(stream);
 			PreviewImage().Source(image);
-
-			if (onIconSet)
-			{
-				onIconSet(file.Path());
-			}
+			IconFile = file.Path();
 		}
 	}
 

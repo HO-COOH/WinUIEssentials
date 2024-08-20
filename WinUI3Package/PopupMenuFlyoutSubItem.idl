@@ -4,6 +4,7 @@ namespace WinUI3Package
 {
     [bindable]
     [default_interface]
+    [contentproperty("Items")]
     runtimeclass PopupMenuFlyoutSubItem : Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase, WinUI3Package.PopupMenuFlyoutItemBase
     {
         PopupMenuFlyoutSubItem();

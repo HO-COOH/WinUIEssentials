@@ -12,7 +12,8 @@ namespace winrt::WinUI3Example::implementation
         winrt::Windows::Foundation::IAsyncAction Button_Click(
             winrt::Windows::Foundation::IInspectable const& sender,
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
-        std::function<void(winrt::hstring const&)> onIconSet;
+        
+        winrt::hstring IconFile;
     };
 }
 

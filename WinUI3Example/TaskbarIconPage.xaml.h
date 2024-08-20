@@ -18,6 +18,8 @@ namespace winrt::WinUI3Example::implementation
         void TaskbarIcon_LeftDoublePressed();
         void TaskbarIcon_RightPressed();
         void TaskbarIcon_PointerHover();
+        void PopupMenuFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void NormalIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

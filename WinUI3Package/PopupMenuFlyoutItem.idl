@@ -10,6 +10,8 @@ namespace WinUI3Package
     {
         PopupMenuFlyoutItem();
 
+        //overridable PopupMenuFlyoutItemType Type();
+
         Microsoft.UI.Xaml.Controls.IconElement Icon;
         static Microsoft.UI.Xaml.DependencyProperty IconProperty{ get; };
 
@@ -22,6 +24,6 @@ namespace WinUI3Package
         Object CommandParameter;
         static Microsoft.UI.Xaml.DependencyProperty CommandParameterProperty{ get; };
 
-        event Microsoft.UI.Xaml.RoutedEventHandler Clicked;
+        event Microsoft.UI.Xaml.RoutedEventHandler Click;
     }
 }

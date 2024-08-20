@@ -1,5 +1,30 @@
 #pragma once
 #include <CommCtrl.h>
+
+/**
+ * @brief This is a workaround helper for setting backdrop state to inactive when the window becomes inactive
+ * @example CustomAcrylicBackdrop.cpp
+ * @note `Derived` class needs to have a member: `winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration m_configuration;`
+ *  and declared a friend to this class
+ * @tparam Derived The derived class, usually an implementation class, and because of that, you usually do not need to specify the `implementation` namespace
+ * @code{.cpp}
+ * //Example usage:
+ * struct MyBackdrop
+ * {
+ *		void OnTargetConnected(...)
+ *		{
+ *			//...
+ *			BackdropWindowActiveStateWorkaroundHandler<MyBackdrop, subclassId>::Set(hwnd, this);
+ *		}
+ * 
+ *		void OnTargetDisconnected(...)
+ *		{
+ *			//...
+ *			BackdropWindowActiveStateWorkaroundHandler<MyBackdrop, subclassId>::Unset(hwnd, this);
+ *		}
+ * };
+ * @endcode
+ */
 template<typename Derived, UINT_PTR SubclassId>
 class BackdropWindowActiveStateWorkaroundHandler
 {
@@ -23,6 +48,13 @@ class BackdropWindowActiveStateWorkaroundHandler
 		return DefSubclassProc(hWnd, uMsg, wParam, lParam);
     }
 public:
+
+	/**
+	 * Set window subclass for this workaround
+	 * 
+	 * @param hwnd the window handle
+	 * @param self the backdrop derived class instance pointer
+	 */
 	static void Set(HWND hwnd, Derived* self)
 	{
 		winrt::check_bool(SetWindowSubclass(
@@ -33,6 +65,11 @@ public:
 		));
 	}
 
+	/**
+	 * Unset window subclass for this workaround
+	 * 
+	 * @param hwnd the window handle
+	 */
 	static void Unset(HWND hwnd)
 	{
 		RemoveWindowSubclass(hwnd, &BackdropWindowActiveStateWorkaroundHandler<Derived, SubclassId>::windowActiveStateWorkaroundHanlder, SubclassId);

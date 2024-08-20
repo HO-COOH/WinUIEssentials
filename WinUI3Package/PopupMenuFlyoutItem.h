@@ -28,8 +28,8 @@ namespace winrt::WinUI3Package::implementation
         void CommandParameter(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty CommandParameterProperty();
 
-        winrt::event_token Clicked(winrt::Microsoft::UI::Xaml::RoutedEventHandler const& handler);
-        void Clicked(winrt::event_token const& token);
+        winrt::event_token Click(winrt::Microsoft::UI::Xaml::RoutedEventHandler const& handler);
+        void Click(winrt::event_token const& token);
     private:
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty;

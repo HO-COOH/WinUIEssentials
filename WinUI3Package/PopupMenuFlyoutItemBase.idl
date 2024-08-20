@@ -11,6 +11,6 @@ namespace WinUI3Package
 
 	interface PopupMenuFlyoutItemBase
 	{
-		PopupMenuFlyoutItemType Type{ get; };
+		PopupMenuFlyoutItemType Type();
 	};
 }

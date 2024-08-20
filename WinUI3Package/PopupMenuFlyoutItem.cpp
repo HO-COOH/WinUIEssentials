@@ -96,12 +96,12 @@ namespace winrt::WinUI3Package::implementation
 		return s_commandParameterProperty;
 	}
 
-	winrt::event_token PopupMenuFlyoutItem::Clicked(winrt::Microsoft::UI::Xaml::RoutedEventHandler const& handler)
+	winrt::event_token PopupMenuFlyoutItem::Click(winrt::Microsoft::UI::Xaml::RoutedEventHandler const& handler)
 	{
 		return m_clickEvent.add(handler);
 	}
 
-	void PopupMenuFlyoutItem::Clicked(winrt::event_token const& token)
+	void PopupMenuFlyoutItem::Click(winrt::event_token const& token)
 	{
 		m_clickEvent.remove(token);
 	}

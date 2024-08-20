@@ -39,9 +39,9 @@ void TaskbarIconBase::SetMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::
 		return;
 
 	if (auto xamlMenuFlyout = xamlMenu.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>())
-		m_menu.emplace<MenuFlyoutWrapper>(xamlMenuFlyout).Theme(*m_theme);
+		m_menu.emplace<MenuFlyoutWrapper>(xamlMenuFlyout).Theme(m_theme);
 	else if (auto popupMenuFlyout = xamlMenu.try_as<winrt::WinUI3Package::PopupMenuFlyout>())
-		m_menu.emplace<PopupMenu>(popupMenuFlyout).Theme(*m_theme);
+		m_menu.emplace<PopupMenu>(popupMenuFlyout).Theme(m_theme);
 	else
 		throw InvalidXamlMenuFlyoutTypeError{};
 }

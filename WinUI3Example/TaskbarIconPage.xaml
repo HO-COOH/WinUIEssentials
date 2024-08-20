@@ -23,37 +23,47 @@
                 <MenuFlyoutItem
                     x:Name="MenuItem1"
                     Click="MenuFlyoutItem_Click"
-                    Command="{StaticResource MenuFlyoutItemCommand}"
-                    CommandParameter="{x:Bind MenuItem1}"
                     Text="Item1" />
                 <MenuFlyoutItem
                     x:Name="MenuItem2"
                     Click="MenuFlyoutItem_Click"
-                    Command="{StaticResource MenuFlyoutItemCommand}"
-                    CommandParameter="{x:Bind MenuItem2}"
                     Icon="Copy"
                     Text="Item with copy icon" />
                 <ToggleMenuFlyoutItem
                     x:Name="MenuItem3"
                     Click="MenuFlyoutItem_Click"
-                    Command="{StaticResource MenuFlyoutItemCommand}"
-                    CommandParameter="{x:Bind MenuItem3}"
                     IsChecked="True"
                     Text="Toggle menu item" />
                 <MenuFlyoutSeparator />
+                
+                <RadioMenuFlyoutItem Text="Radio Item1" GroupName="Radios"/>
+                <RadioMenuFlyoutItem Text="Radio Item2" GroupName="Radios"/>
+                
+                <MenuFlyoutSeparator/>
                 <MenuFlyoutSubItem Text="Sub menu">
                     <MenuFlyoutItem
                         x:Name="MenuItem4"
                         Click="MenuFlyoutItem_Click"
-                        Command="{StaticResource MenuFlyoutItemCommand}"
-                        CommandParameter="{x:Bind MenuItem4}"
                         Text="Sub menu item" />
                 </MenuFlyoutSubItem>
             </MenuFlyout>
         </essential:TaskbarIcon>
 
-        <essential:TaskbarIcon x:Name="Icon2">
-            <essential:PopupMenuFlyout/>
+        <essential:TaskbarIcon x:Name="TaskbarIconWithPopupMenu">
+            <essential:PopupMenuFlyout>
+                <essential:PopupMenuFlyoutItem Text="Item1" Click="PopupMenuFlyoutItem_Click"/>
+                <essential:PopupMenuFlyoutItem Icon="Copy" Text="Item with copy icon" Click="PopupMenuFlyoutItem_Click"/>
+                <essential:TogglePopupMenuFlyoutItem Text="Toggle menu item" IsChecked="True" Click="PopupMenuFlyoutItem_Click"/>
+                <essential:PopupMenuFlyoutSeparator/>
+
+                <essential:RadioPopupMenuFlyoutItem Text="Radio Item1" GroupName="Radios"/>
+                <essential:RadioPopupMenuFlyoutItem Text="Radio Item2" GroupName="Radios"/>
+                <essential:PopupMenuFlyoutSeparator/>
+
+                <essential:PopupMenuFlyoutSubItem Text="Sub menu">
+                    <essential:PopupMenuFlyoutItem Text="Sub menu item" Click="PopupMenuFlyoutItem_Click"/>
+                </essential:PopupMenuFlyoutSubItem>
+            </essential:PopupMenuFlyout>
         </essential:TaskbarIcon>
             
         <Style BasedOn="{StaticResource DefaultRadioButtonStyle}" TargetType="RadioButton">
@@ -71,12 +81,15 @@
                             <local:TaskbarIconSource x:Name="NormalIconSource" />
 
                             <StackPanel Orientation="Horizontal" Spacing="5">
-                                <Button
-                                    x:Name="NormalIconAdd"
-                                    Click="NormalIconAdd_Click"
-                                    Style="{StaticResource AccentButtonStyle}">
+                                <DropDownButton x:Name="NormalIconAdd">
                                     Add
-                                </Button>
+                                    <DropDownButton.Flyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="Add icon with xaml menu" Click="NormalIconAdd_Click"/>
+                                            <MenuFlyoutItem x:Name="NormalIconWithPopupMenuAdd" Text="Add icon with popup menu" Click="NormalIconWithPopupMenuAdd_Click"/>
+                                        </MenuFlyout>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
                                 <Button x:Name="NormalIconRemove" Click="NormalIconRemove_Click">Remove</Button>
                             </StackPanel>
 

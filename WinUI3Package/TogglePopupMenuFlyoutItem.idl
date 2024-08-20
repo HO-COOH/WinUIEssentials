@@ -1,10 +1,11 @@
 import "PopupMenuFlyoutItem.idl";
+import "PopupMenuFlyoutItemBase.idl";
 
 namespace WinUI3Package
 {
     [bindable]
     [default_interface]
-    runtimeclass TogglePopupMenuFlyoutItem : WinUI3Package.PopupMenuFlyoutItem
+    runtimeclass TogglePopupMenuFlyoutItem : WinUI3Package.PopupMenuFlyoutItem, WinUI3Package.PopupMenuFlyoutItemBase
     {
         TogglePopupMenuFlyoutItem();
         

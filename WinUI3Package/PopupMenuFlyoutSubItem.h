@@ -14,7 +14,7 @@ namespace winrt::WinUI3Package::implementation
 
         winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> Items()
         {
-            return nullptr;
+            return m_items;
         }
 
         void Items(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> value)
@@ -33,6 +33,7 @@ namespace winrt::WinUI3Package::implementation
     private:
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty;
+        winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> m_items{ winrt::single_threaded_vector<winrt::WinUI3Package::PopupMenuFlyoutItemBase>() };
     };
 }
 

@@ -15,26 +15,27 @@ namespace winrt::WinUI3Example::implementation
 	{
 		InitializeComponent();
 
-		winrt::get_self<TaskbarIconSource>(NormalIconSource())->onIconSet = [this](winrt::hstring const& icon)
-		{
-			TaskbarIcon().IconFile(icon);
-		};
+		//winrt::get_self<TaskbarIconSource>(NormalIconSource())->onIconSet = [this](winrt::hstring const& icon)
+		//{
+		//	TaskbarIcon().IconFile(icon);
+		//};
 
-		winrt::get_self<TaskbarIconSource>(LightThemeIconSource())->onIconSet = [this](winrt::hstring const& icon)
-		{
-			TaskbarIcon().LightThemeIconFile(icon);
-		};
+		//winrt::get_self<TaskbarIconSource>(LightThemeIconSource())->onIconSet = [this](winrt::hstring const& icon)
+		//{
+		//	TaskbarIcon().LightThemeIconFile(icon);
+		//};
 
-		winrt::get_self<TaskbarIconSource>(DarkThemeIconSource())->onIconSet = [this](winrt::hstring const& icon)
-		{
-			TaskbarIcon().DarkThemeIconFile(icon);
-		};
+		//winrt::get_self<TaskbarIconSource>(DarkThemeIconSource())->onIconSet = [this](winrt::hstring const& icon)
+		//{
+		//	TaskbarIcon().DarkThemeIconFile(icon);
+		//};
 	}
 
 	void TaskbarIconPage::NormalIconAdd_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
+		TaskbarIcon().IconFile(winrt::get_self<implementation::TaskbarIconSource>(NormalIconSource())->IconFile);
 		TaskbarIcon().Show();
 	}
 
@@ -101,5 +102,17 @@ namespace winrt::WinUI3Example::implementation
 		EventsList().Items().Append(winrt::box_value(L"Pointer hovered"));
 	}
 
+
+	void TaskbarIconPage::PopupMenuFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		ClickedItemText().Text(winrt::get_class_name(sender));
+	}
+
+	void TaskbarIconPage::NormalIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		TaskbarIconWithPopupMenu().IconFile(winrt::get_self<implementation::TaskbarIconSource>(NormalIconSource())->IconFile);
+		TaskbarIconWithPopupMenu().Show();
+	}
+
 }
- 
+

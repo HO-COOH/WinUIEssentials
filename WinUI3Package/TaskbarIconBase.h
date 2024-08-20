@@ -19,7 +19,7 @@ protected:
 	NotifyIconData m_iconData;
 	std::variant<std::monostate, MenuFlyoutWrapper, PopupMenu> m_menu;
 	TaskbarIconMessageWindow m_messageWindow;
-	std::optional<winrt::Microsoft::UI::Xaml::ElementTheme> m_theme;
+	winrt::Microsoft::UI::Xaml::ElementTheme m_theme{ winrt::Microsoft::UI::Xaml::ElementTheme::Default };
 	TaskbarIconXamlEvents* m_ptrXamlEvents{ nullptr };
 	TaskbarIconEvents* m_ptrEvents{ nullptr };
 	PopupMenu& getPopupMenu();
