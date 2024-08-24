@@ -9,7 +9,7 @@ namespace winrt::WinUI3Package::implementation
         PopupMenuFlyoutItem() = default;
 
 #pragma region Inheirted from PopupMenuFlyoutItemBase
-        winrt::WinUI3Package::PopupMenuFlyoutItemType Type();
+        virtual winrt::WinUI3Package::PopupMenuFlyoutItemType Type();
 #pragma endregion
 
         winrt::Microsoft::UI::Xaml::Controls::IconElement Icon();

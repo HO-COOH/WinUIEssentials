@@ -5,7 +5,7 @@ namespace WinUI3Package
 {
     [bindable]
     [default_interface]
-    runtimeclass TogglePopupMenuFlyoutItem : WinUI3Package.PopupMenuFlyoutItem, WinUI3Package.PopupMenuFlyoutItemBase
+    runtimeclass TogglePopupMenuFlyoutItem : WinUI3Package.PopupMenuFlyoutItem
     {
         TogglePopupMenuFlyoutItem();
         

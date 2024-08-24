@@ -11,7 +11,7 @@ namespace winrt::WinUI3Package::implementation
         TogglePopupMenuFlyoutItem() = default;
 
 #pragma region Inheirted from PopupMenuFlyoutItemBase
-        winrt::WinUI3Package::PopupMenuFlyoutItemType Type();
+        winrt::WinUI3Package::PopupMenuFlyoutItemType Type() override;
 #pragma endregion
 
         bool IsChecked();

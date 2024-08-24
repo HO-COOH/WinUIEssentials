@@ -20,6 +20,9 @@ class TaskbarIconMessageWindow
 
 	void setTimer();
 	void destroyTimer();
+
+	//Return a this pointer from this message window's hwnd
+	static TaskbarIconMessageWindow* getThisPointer(HWND hwnd);
 public:
 	TaskbarIconMessageWindow(TaskbarIconBase& icon);
 	~TaskbarIconMessageWindow();

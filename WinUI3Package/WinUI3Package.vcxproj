@@ -385,6 +385,7 @@
     <ClInclude Include="include\WASDK headers\Microsoft.Graphics.Canvas.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.UI.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
+    <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
     <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp" />
     <ClInclude Include="IsEqualStateTrigger.h">
       <DependentUpon>IsEqualStateTrigger.idl</DependentUpon>

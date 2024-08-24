@@ -164,8 +164,11 @@
       <Filter>TaskbarIcon\Icon</Filter>
     </ClInclude>
     <ClInclude Include="TaskbarIconEvents.h" />
+    <ClInclude Include="InvalidMenuItemIconTypeError.hpp">
+      <Filter>TaskbarIcon\Errors</Filter>
+    </ClInclude>
     <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp">
-      <Filter>TaskbarIcon\Icon</Filter>
+      <Filter>TaskbarIcon\Errors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +251,9 @@
     </Filter>
     <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml">
       <UniqueIdentifier>{12901af6-4941-4188-bb1b-692d288fcf68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\Errors">
+      <UniqueIdentifier>{5286bb85-614b-4b57-a35c-c75dffb90e63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

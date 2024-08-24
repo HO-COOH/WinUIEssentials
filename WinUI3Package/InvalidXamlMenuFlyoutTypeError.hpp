@@ -8,6 +8,7 @@
 #pragma once
 #include <stdexcept>
 
+//This class wraps up a typed exception for wrong MenuFlyout type used in xaml
 class InvalidXamlMenuFlyoutTypeError : public std::invalid_argument
 {
 public:

@@ -1,8 +1,17 @@
 namespace WinUI3Example
 {
     [default_interface]
-    runtimeclass TaskbarIconPage : Microsoft.UI.Xaml.Controls.Page
+    runtimeclass TaskbarIconPage : Microsoft.UI.Xaml.Controls.Page, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         TaskbarIconPage();
+
+        Boolean IsNormalIconWithXamlMenuAdded{ get; };
+        Boolean IsNormalIconWithPopupMenuAdded{ get; };
+
+        Boolean IsThemeAdaptiveIconWithXamlMenuAdded{ get; };
+        Boolean IsThemeAdaptiveIconWithPopupMenuAdded{ get; };
+
+        static Boolean BoolAnd(Boolean v1, Boolean v2);
+        static Boolean NegateBool(Boolean v);
     }
 }

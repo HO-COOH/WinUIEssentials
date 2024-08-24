@@ -42,7 +42,7 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 	}
 	case TaskbarIconBase::CallbackMessage:
 	{
-		auto thisPtr = reinterpret_cast<TaskbarIconMessageWindow*>(GetWindowLongPtr(hwnd, 0));
+		auto thisPtr = getThisPointer(hwnd);
 		switch(LOWORD(lparam))
 		{
 		case WM_LBUTTONUP:
@@ -77,7 +77,7 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 		return 0;
 	}
 	case WM_COMMAND:
-		reinterpret_cast<TaskbarIconBase*>(GetWindowLongPtr(hwnd, 0))->OnWM_COMMAND(wparam, lparam);
+		getThisPointer(hwnd)->m_icon->OnWM_COMMAND(wparam, lparam);
 		return 0;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
@@ -91,6 +91,11 @@ void TaskbarIconMessageWindow::setTimer()
 void TaskbarIconMessageWindow::destroyTimer()
 {
 	winrt::check_bool(KillTimer(m_hwnd, DoubleClickTimerId));
+}
+
+TaskbarIconMessageWindow* TaskbarIconMessageWindow::getThisPointer(HWND hwnd)
+{
+	return reinterpret_cast<TaskbarIconMessageWindow*>(GetWindowLongPtr(hwnd, 0));
 }
 
 TaskbarIconMessageWindow::TaskbarIconMessageWindow(TaskbarIconBase& icon) : m_icon{&icon}

@@ -1,25 +1,42 @@
 #pragma once
 
 #include "TaskbarIconPage.g.h"
+#include <PropertyChangeHelper.hpp>
 
 namespace winrt::WinUI3Example::implementation
 {
-    struct TaskbarIconPage : TaskbarIconPageT<TaskbarIconPage>
+    struct TaskbarIconPage : TaskbarIconPageT<TaskbarIconPage>, MvvmHelper::PropertyChangeHelper<TaskbarIconPage>
     {
         TaskbarIconPage();
         void NormalIconAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
-        void NormalIconRemove_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void ThemeAdaptiveIconAddButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
-        void ThemeAdaptiveIconRemoveButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void RadioButtons_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
         void MenuFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
-        void MenuFlyoutItemCommand_ExecuteRequested(winrt::Microsoft::UI::Xaml::Input::XamlUICommand const& sender, winrt::Microsoft::UI::Xaml::Input::ExecuteRequestedEventArgs const& args);
         void TaskbarIcon_LeftPressed();
         void TaskbarIcon_LeftDoublePressed();
         void TaskbarIcon_RightPressed();
         void TaskbarIcon_PointerHover();
         void PopupMenuFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void NormalIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        bool IsNormalIconWithXamlMenuAdded();
+        bool IsNormalIconWithPopupMenuAdded();
+        bool IsThemeAdaptiveIconWithXamlMenuAdded();
+        bool IsThemeAdaptiveIconWithPopupMenuAdded();
+        static bool BoolAnd(bool v1, bool v2);
+        static bool NegateBool(bool v);
+    private:
+        bool m_isNormalIconWithXamlMenuAdded{};
+        bool m_isNormalIconWithPopupMenuAdded{};
+        bool m_isThemeAdaptiveIconWithXamlMenuAdded{};
+        bool m_isThemeAdaptiveIconWithPopupMenuAdded{};
+
+        void isNormalIconWithXamlMenuAdded(bool value);
+        void isNormalIconWithPopupMenuAdded(bool value);
+        void isThemeAdaptiveIconWithXamlMenuAdded(bool value);
+        void isThemeAdaptiveIconWithPopupMenuAdded(bool value);
+        int m_radioSelection = -1;
+    public:
+        void ThemeAdaptiveIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

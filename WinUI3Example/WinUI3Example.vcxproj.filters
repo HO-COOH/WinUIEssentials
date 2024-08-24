@@ -103,14 +103,14 @@
     <Page Include="TaskbarIconPage.xaml">
       <Filter>Pages\TaskbarIconPage</Filter>
     </Page>
-    <Page Include="TaskbarIconSource.xaml">
-      <Filter>Pages\TaskbarIconPage</Filter>
-    </Page>
     <Page Include="ScopedButtonDisablerPage.xaml">
       <Filter>Pages</Filter>
     </Page>
     <Page Include="InitializeWithWindowHelperPage.xaml">
       <Filter>Pages</Filter>
+    </Page>
+    <Page Include="TaskbarIconSource.xaml">
+      <Filter>Pages\TaskbarIconPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

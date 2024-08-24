@@ -3,23 +3,55 @@
 #include "TaskbarIconMessageWindow.h"
 
 #include "MenuFlyoutItemBaseVisitor.hpp"
+#include "IconUtils.h"
+#include "AppsUseLightTheme.h"
+#include "InvalidMenuItemIconTypeError.hpp"
 
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
 void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu, HMENU menu)
 {
 	int index{};
+	AppsUseLightTheme theme;
+	auto const dpi = Utils::GetPrimaryMonitorDpi();
 	for (auto item : xamlMenu)
 	{
 		switch (item.Type())
 		{
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutItem:
 		{
+			auto flyoutItem = item.as<winrt::WinUI3Package::PopupMenuFlyoutItem>();
 			winrt::check_bool(AppendMenu(
 				menu,
 				NULL,
 				index,
-				item.as<winrt::WinUI3Package::PopupMenuFlyoutItem>().Text().data()
+				flyoutItem.Text().data()
 			));
+
+			if (auto icon = flyoutItem.Icon())
+			{
+				if (auto symbolIcon = icon.try_as<winrt::Microsoft::UI::Xaml::Controls::SymbolIcon>())
+				{
+					auto symbol = symbolIcon.Symbol();
+					MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_FTYPE | MIIM_BITMAP };
+					winrt::check_bool(GetMenuItemInfo(menu, index, true, &itemInfo));
+					wchar_t s[2]{ static_cast<wchar_t>(symbol) };
+					itemInfo.hbmpItem = Utils::DrawGlyph(s, theme, dpi);
+					winrt::check_bool(SetMenuItemInfo(menu, index, true, &itemInfo));
+				}
+				else if (auto fontIcon = icon.try_as<winrt::Microsoft::UI::Xaml::Controls::FontIcon>())
+				{
+					auto fontFamily = fontIcon.FontFamily().Source();
+					auto glyph = fontIcon.Glyph();
+					MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_FTYPE | MIIM_BITMAP };
+					winrt::check_bool(GetMenuItemInfo(menu, index, true, &itemInfo));
+					itemInfo.hbmpItem = Utils::DrawGlyph(fontFamily, glyph, theme, dpi);
+					winrt::check_bool(SetMenuItemInfo(menu, index, true, &itemInfo));
+				}
+				else
+				{
+					throw InvalidMenuItemIconTypeError{};
+				}
+			}
 			break;
 		}
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutSeparator:
@@ -57,8 +89,21 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 		}
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::RadioItem:
 		{
-			assert(false);
-			//not yet implemented
+			auto radioItem = item.as<winrt::WinUI3Package::RadioPopupMenuFlyoutItem>();
+			winrt::check_bool(AppendMenu(
+				menu,
+				NULL,
+				index,
+				radioItem.Text().data()
+			));
+			
+			MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_FTYPE | MIIM_STATE };
+			winrt::check_bool(GetMenuItemInfo(menu, index, true, &itemInfo));
+			itemInfo.fType = MFT_RADIOCHECK;
+			itemInfo.fState = radioItem.IsChecked() ? MFS_CHECKED : MFS_UNCHECKED;
+			SetMenuItemInfo(menu, index, true, &itemInfo);
+			auto err = GetLastError();
+			break;
 		}
 		default:
 			assert(false);

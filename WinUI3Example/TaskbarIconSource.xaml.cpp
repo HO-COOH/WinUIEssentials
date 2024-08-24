@@ -31,7 +31,13 @@ namespace winrt::WinUI3Example::implementation
 			image.SetSourceAsync(stream);
 			PreviewImage().Source(image);
 			IconFile = file.Path();
+			raisePropertyChange(L"IsFileSet");
 		}
+	}
+
+	bool TaskbarIconSource::IsFileSet()
+	{
+		return !IconFile.empty();
 	}
 
 }

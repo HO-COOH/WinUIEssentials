@@ -11,7 +11,6 @@
 
 
     <Page.Resources>
-        <XamlUICommand x:Name="MenuFlyoutItemCommand" ExecuteRequested="MenuFlyoutItemCommand_ExecuteRequested" />
         <essential:TaskbarIcon
             x:Name="TaskbarIcon"
             LeftDoublePressed="TaskbarIcon_LeftDoublePressed"
@@ -20,52 +19,56 @@
             PointerHover="TaskbarIcon_PointerHover"
             RightPressed="TaskbarIcon_RightPressed">
             <MenuFlyout>
+                <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Item1" />
                 <MenuFlyoutItem
-                    x:Name="MenuItem1"
-                    Click="MenuFlyoutItem_Click"
-                    Text="Item1" />
-                <MenuFlyoutItem
-                    x:Name="MenuItem2"
                     Click="MenuFlyoutItem_Click"
                     Icon="Copy"
                     Text="Item with copy icon" />
                 <ToggleMenuFlyoutItem
-                    x:Name="MenuItem3"
                     Click="MenuFlyoutItem_Click"
                     IsChecked="True"
                     Text="Toggle menu item" />
                 <MenuFlyoutSeparator />
-                
-                <RadioMenuFlyoutItem Text="Radio Item1" GroupName="Radios"/>
-                <RadioMenuFlyoutItem Text="Radio Item2" GroupName="Radios"/>
-                
-                <MenuFlyoutSeparator/>
+
+                <RadioMenuFlyoutItem GroupName="Radios" Text="Radio Item1" />
+                <RadioMenuFlyoutItem
+                    GroupName="Radios"
+                    IsChecked="True"
+                    Text="Radio Item2" />
+
+                <MenuFlyoutSeparator />
                 <MenuFlyoutSubItem Text="Sub menu">
-                    <MenuFlyoutItem
-                        x:Name="MenuItem4"
-                        Click="MenuFlyoutItem_Click"
-                        Text="Sub menu item" />
+                    <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Sub menu item" />
                 </MenuFlyoutSubItem>
             </MenuFlyout>
         </essential:TaskbarIcon>
 
         <essential:TaskbarIcon x:Name="TaskbarIconWithPopupMenu">
             <essential:PopupMenuFlyout>
-                <essential:PopupMenuFlyoutItem Text="Item1" Click="PopupMenuFlyoutItem_Click"/>
-                <essential:PopupMenuFlyoutItem Icon="Copy" Text="Item with copy icon" Click="PopupMenuFlyoutItem_Click"/>
-                <essential:TogglePopupMenuFlyoutItem Text="Toggle menu item" IsChecked="True" Click="PopupMenuFlyoutItem_Click"/>
-                <essential:PopupMenuFlyoutSeparator/>
+                <essential:PopupMenuFlyoutItem Click="PopupMenuFlyoutItem_Click" Text="Item1" />
+                <essential:PopupMenuFlyoutItem
+                    Click="PopupMenuFlyoutItem_Click"
+                    Icon="Copy"
+                    Text="Item with copy icon" />
+                <essential:TogglePopupMenuFlyoutItem
+                    Click="PopupMenuFlyoutItem_Click"
+                    IsChecked="True"
+                    Text="Toggle menu item" />
+                <essential:PopupMenuFlyoutSeparator />
 
-                <essential:RadioPopupMenuFlyoutItem Text="Radio Item1" GroupName="Radios"/>
-                <essential:RadioPopupMenuFlyoutItem Text="Radio Item2" GroupName="Radios"/>
-                <essential:PopupMenuFlyoutSeparator/>
+                <essential:RadioPopupMenuFlyoutItem GroupName="Radios" Text="Radio Item1" />
+                <essential:RadioPopupMenuFlyoutItem
+                    GroupName="Radios"
+                    IsChecked="True"
+                    Text="Radio Item2" />
+                <essential:PopupMenuFlyoutSeparator />
 
                 <essential:PopupMenuFlyoutSubItem Text="Sub menu">
-                    <essential:PopupMenuFlyoutItem Text="Sub menu item" Click="PopupMenuFlyoutItem_Click"/>
+                    <essential:PopupMenuFlyoutItem Click="PopupMenuFlyoutItem_Click" Text="Sub menu item" />
                 </essential:PopupMenuFlyoutSubItem>
             </essential:PopupMenuFlyout>
         </essential:TaskbarIcon>
-            
+
         <Style BasedOn="{StaticResource DefaultRadioButtonStyle}" TargetType="RadioButton">
             <Setter Property="MinHeight" Value="200" />
         </Style>
@@ -79,19 +82,22 @@
                     <essential:GroupBox Header="NormalIcon" IsEnabled="{x:Bind NormalIconRadio.IsChecked.Value, Mode=OneWay}">
                         <StackPanel Spacing="5">
                             <local:TaskbarIconSource x:Name="NormalIconSource" />
-
-                            <StackPanel Orientation="Horizontal" Spacing="5">
-                                <DropDownButton x:Name="NormalIconAdd">
-                                    Add
-                                    <DropDownButton.Flyout>
-                                        <MenuFlyout>
-                                            <MenuFlyoutItem Text="Add icon with xaml menu" Click="NormalIconAdd_Click"/>
-                                            <MenuFlyoutItem x:Name="NormalIconWithPopupMenuAdd" Text="Add icon with popup menu" Click="NormalIconWithPopupMenuAdd_Click"/>
-                                        </MenuFlyout>
-                                    </DropDownButton.Flyout>
-                                </DropDownButton>
-                                <Button x:Name="NormalIconRemove" Click="NormalIconRemove_Click">Remove</Button>
-                            </StackPanel>
+                            <DropDownButton x:Name="NormalIconAdd" IsEnabled="{x:Bind NormalIconSource.IsFileSet, Mode=OneWay}">
+                                Add
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout>
+                                        <ToggleMenuFlyoutItem
+                                            Click="NormalIconAdd_Click"
+                                            IsChecked="{x:Bind IsNormalIconWithXamlMenuAdded, Mode=OneWay}"
+                                            Text="Add icon with xaml menu" />
+                                        <ToggleMenuFlyoutItem
+                                            x:Name="NormalIconWithPopupMenuAdd"
+                                            Click="NormalIconWithPopupMenuAdd_Click"
+                                            IsChecked="{x:Bind IsNormalIconWithPopupMenuAdded, Mode=OneWay}"
+                                            Text="Add icon with popup menu" />
+                                    </MenuFlyout>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
 
                         </StackPanel>
 
@@ -112,14 +118,25 @@
                         <essential:GroupBox Header="LightTheme" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
                             <local:TaskbarIconSource x:Name="LightThemeIconSource" />
                         </essential:GroupBox>
-                        <Button
+                        <DropDownButton
                             x:Name="ThemeAdaptiveIconAddButton"
                             Grid.Row="1"
-                            Click="ThemeAdaptiveIconAddButton_Click"
-                            IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}"
-                            Style="{ThemeResource AccentButtonStyle}">
+                            IsEnabled="{x:Bind local:TaskbarIconPage.BoolAnd(LightThemeIconSource.IsFileSet, DarkThemeIconSource.IsFileSet), Mode=OneWay}">
                             Add
-                        </Button>
+                            <DropDownButton.Flyout>
+                                <MenuFlyout>
+                                    <ToggleMenuFlyoutItem
+                                        Click="ThemeAdaptiveIconAddButton_Click"
+                                        IsChecked="{x:Bind IsThemeAdaptiveIconWithXamlMenuAdded, Mode=OneWay}"
+                                        Text="Add icon with xaml menu" />
+                                    <ToggleMenuFlyoutItem
+                                        x:Name="ThemeAdaptiveIconWithPopupMenuAdd"
+                                        Click="ThemeAdaptiveIconWithPopupMenuAdd_Click"
+                                        IsChecked="{x:Bind IsThemeAdaptiveIconWithPopupMenuAdded, Mode=OneWay}"
+                                        Text="Add icon with pop up menu" />
+                                </MenuFlyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
 
                         <essential:GroupBox
                             Grid.Column="1"
@@ -127,14 +144,6 @@
                             IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
                             <local:TaskbarIconSource x:Name="DarkThemeIconSource" />
                         </essential:GroupBox>
-                        <Button
-                            x:Name="ThemeAdaptiveIconRemoveButton"
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Click="ThemeAdaptiveIconRemoveButton_Click"
-                            IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
-                            Remove
-                        </Button>
                     </Grid>
                 </RadioButton>
             </RadioButtons>

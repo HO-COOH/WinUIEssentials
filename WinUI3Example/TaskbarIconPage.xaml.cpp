@@ -14,37 +14,23 @@ namespace winrt::WinUI3Example::implementation
 	TaskbarIconPage::TaskbarIconPage()
 	{
 		InitializeComponent();
-
-		//winrt::get_self<TaskbarIconSource>(NormalIconSource())->onIconSet = [this](winrt::hstring const& icon)
-		//{
-		//	TaskbarIcon().IconFile(icon);
-		//};
-
-		//winrt::get_self<TaskbarIconSource>(LightThemeIconSource())->onIconSet = [this](winrt::hstring const& icon)
-		//{
-		//	TaskbarIcon().LightThemeIconFile(icon);
-		//};
-
-		//winrt::get_self<TaskbarIconSource>(DarkThemeIconSource())->onIconSet = [this](winrt::hstring const& icon)
-		//{
-		//	TaskbarIcon().DarkThemeIconFile(icon);
-		//};
 	}
 
 	void TaskbarIconPage::NormalIconAdd_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		TaskbarIcon().IconFile(winrt::get_self<implementation::TaskbarIconSource>(NormalIconSource())->IconFile);
-		TaskbarIcon().Show();
-	}
-
-
-	void TaskbarIconPage::NormalIconRemove_Click(
-		winrt::Windows::Foundation::IInspectable const&, 
-		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
-	{
-		TaskbarIcon().Remove();
+		if (!m_isNormalIconWithXamlMenuAdded)
+		{
+			TaskbarIcon().IconFile(winrt::get_self<implementation::TaskbarIconSource>(NormalIconSource())->IconFile);
+			TaskbarIcon().Show();
+			isNormalIconWithXamlMenuAdded(true);
+		}
+		else
+		{
+			TaskbarIcon().Remove();
+			isNormalIconWithXamlMenuAdded(false);
+		}
 	}
 
 
@@ -52,34 +38,59 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		TaskbarIcon().Show();
+		if (!m_isThemeAdaptiveIconWithXamlMenuAdded)
+		{
+			TaskbarIcon().LightThemeIconFile(winrt::get_self<implementation::TaskbarIconSource>(LightThemeIconSource())->IconFile);
+			TaskbarIcon().DarkThemeIconFile(winrt::get_self<implementation::TaskbarIconSource>(DarkThemeIconSource())->IconFile);
+			TaskbarIcon().Show();
+			isThemeAdaptiveIconWithXamlMenuAdded(true);
+		}
+		else
+		{
+			TaskbarIcon().Remove();
+			isThemeAdaptiveIconWithXamlMenuAdded(false);
+		}
 	}
 
-
-	void TaskbarIconPage::ThemeAdaptiveIconRemoveButton_Click(
-		winrt::Windows::Foundation::IInspectable const&, 
-		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
-	{
-		TaskbarIcon().Remove();
-	}
 
 	void TaskbarIconPage::RadioButtons_SelectionChanged(
-		winrt::Windows::Foundation::IInspectable const&, 
-		winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const&)
+		winrt::Windows::Foundation::IInspectable const& sender, 
+		winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e)
 	{
-		TaskbarIcon().Remove();
+		auto const index = sender.as<winrt::Microsoft::UI::Xaml::Controls::RadioButtons>().SelectedIndex();
+		
+		//see https://github.com/microsoft/microsoft-ui-xaml/issues/9917, the first trigger will have index == -1, so we return
+		if (index == -1)
+			return;
+
+		if (index != m_radioSelection)
+		{
+			if (IsNormalIconWithXamlMenuAdded() || IsThemeAdaptiveIconWithXamlMenuAdded())
+			{
+				TaskbarIcon().Remove();
+				isNormalIconWithXamlMenuAdded(false);
+				isThemeAdaptiveIconWithXamlMenuAdded(false);
+			}
+			if (IsNormalIconWithPopupMenuAdded() || IsThemeAdaptiveIconWithPopupMenuAdded())
+			{
+				TaskbarIconWithPopupMenu().Remove();
+				isNormalIconWithPopupMenuAdded(false);
+				isThemeAdaptiveIconWithPopupMenuAdded(false);
+			}
+		}
+		m_radioSelection = index;
 	}
 
 	void TaskbarIconPage::MenuFlyoutItem_Click(
 		winrt::Windows::Foundation::IInspectable const& sender, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-
-	}
-
-	void TaskbarIconPage::MenuFlyoutItemCommand_ExecuteRequested(winrt::Microsoft::UI::Xaml::Input::XamlUICommand const& sender, winrt::Microsoft::UI::Xaml::Input::ExecuteRequestedEventArgs const& args)
-	{
-		ClickedItemText().Text(args.Parameter().as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem>().Text());
+		if (auto xamlFlyoutItem = sender.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem>())
+			ClickedItemText().Text(xamlFlyoutItem.Text());
+		else if (auto popupFlyoutItem = sender.try_as<winrt::WinUI3Package::PopupMenuFlyoutItem>())
+			ClickedItemText().Text(popupFlyoutItem.Text());
+		else
+			assert(false);
 	}
 
 	void TaskbarIconPage::TaskbarIcon_LeftPressed()
@@ -110,9 +121,103 @@ namespace winrt::WinUI3Example::implementation
 
 	void TaskbarIconPage::NormalIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		TaskbarIconWithPopupMenu().IconFile(winrt::get_self<implementation::TaskbarIconSource>(NormalIconSource())->IconFile);
-		TaskbarIconWithPopupMenu().Show();
+		if (!m_isNormalIconWithPopupMenuAdded)
+		{
+			TaskbarIconWithPopupMenu().IconFile(winrt::get_self<implementation::TaskbarIconSource>(NormalIconSource())->IconFile);
+			TaskbarIconWithPopupMenu().Show();
+			isNormalIconWithPopupMenuAdded(true);
+		}
+		else
+		{
+			TaskbarIconWithPopupMenu().Remove();
+			isNormalIconWithPopupMenuAdded(false);
+		}
+	}
+
+	bool TaskbarIconPage::IsNormalIconWithXamlMenuAdded()
+	{
+		return m_isNormalIconWithXamlMenuAdded;
+	}
+
+	bool TaskbarIconPage::IsNormalIconWithPopupMenuAdded()
+	{
+		return m_isNormalIconWithPopupMenuAdded;
+	}
+
+	bool TaskbarIconPage::IsThemeAdaptiveIconWithXamlMenuAdded()
+	{
+		return m_isThemeAdaptiveIconWithXamlMenuAdded;
+	}
+
+	bool TaskbarIconPage::IsThemeAdaptiveIconWithPopupMenuAdded()
+	{
+		return m_isThemeAdaptiveIconWithPopupMenuAdded;
+	}
+
+	bool TaskbarIconPage::BoolAnd(bool v1, bool v2)
+	{
+		return v1 && v2;
+	}
+
+	bool TaskbarIconPage::NegateBool(bool v)
+	{
+		return !v;
+	}
+
+	void TaskbarIconPage::isNormalIconWithXamlMenuAdded(bool value)
+	{
+		if (value == m_isNormalIconWithXamlMenuAdded)
+			return;
+
+		m_isNormalIconWithXamlMenuAdded = value;
+		raisePropertyChange(L"IsNormalIconAdded");
+	}
+
+	void TaskbarIconPage::isNormalIconWithPopupMenuAdded(bool value)
+	{
+		if (value == m_isNormalIconWithPopupMenuAdded)
+			return;
+
+		m_isNormalIconWithPopupMenuAdded = value;
+		raisePropertyChange(L"IsNormalIconWithPopupMenuAdded");
+	}
+
+	void TaskbarIconPage::isThemeAdaptiveIconWithXamlMenuAdded(bool value)
+	{
+		if (value == m_isThemeAdaptiveIconWithXamlMenuAdded)
+			return;
+
+		m_isThemeAdaptiveIconWithXamlMenuAdded = value;
+		raisePropertyChange(L"IsThemeAdaptiveIconAdded");
+	}
+
+	void TaskbarIconPage::isThemeAdaptiveIconWithPopupMenuAdded(bool value)
+	{
+		if (value == m_isThemeAdaptiveIconWithPopupMenuAdded)
+			return;
+
+		m_isThemeAdaptiveIconWithPopupMenuAdded = value;
+		raisePropertyChange(L"IsThemeAdaptiveIconWithPopupMenuAdded");
+	}
+
+	void TaskbarIconPage::ThemeAdaptiveIconWithPopupMenuAdd_Click(
+		winrt::Windows::Foundation::IInspectable const& , 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		if (!m_isThemeAdaptiveIconWithPopupMenuAdded)
+		{
+			TaskbarIconWithPopupMenu().LightThemeIconFile(winrt::get_self<implementation::TaskbarIconSource>(LightThemeIconSource())->IconFile);
+			TaskbarIconWithPopupMenu().DarkThemeIconFile(winrt::get_self<implementation::TaskbarIconSource>(DarkThemeIconSource())->IconFile);
+			TaskbarIconWithPopupMenu().Show();
+			isThemeAdaptiveIconWithPopupMenuAdded(true);
+		}
+		else
+		{
+			TaskbarIconWithPopupMenu().Remove();
+			isThemeAdaptiveIconWithPopupMenuAdded(false);
+		}
 	}
 
 }
+
 

@@ -14,6 +14,8 @@ namespace winrt::WinUI3Example::implementation
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         
         winrt::hstring IconFile;
+
+        bool IsFileSet();
     };
 }
 

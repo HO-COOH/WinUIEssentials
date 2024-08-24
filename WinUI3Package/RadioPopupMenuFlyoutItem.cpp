@@ -28,17 +28,19 @@ namespace winrt::WinUI3Package::implementation
 	}
 	bool RadioPopupMenuFlyoutItem::IsChecked()
 	{
-		return false;
+		return winrt::unbox_value<bool>(GetValue(IsCheckedProperty()));
 	}
 	void RadioPopupMenuFlyoutItem::IsChecked(bool value)
 	{
+		SetValue(IsCheckedProperty(), winrt::box_value(value));
 	}
 	winrt::hstring RadioPopupMenuFlyoutItem::GroupName()
 	{
-		return winrt::hstring();
+		return winrt::unbox_value<winrt::hstring>(GetValue(GroupNameProperty()));
 	}
 	void RadioPopupMenuFlyoutItem::GroupName(winrt::hstring const& value)
 	{
+		SetValue(GroupNameProperty(), winrt::box_value(value));
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty RadioPopupMenuFlyoutItem::IsCheckedProperty()

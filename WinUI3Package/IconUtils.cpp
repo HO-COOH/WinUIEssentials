@@ -3,34 +3,85 @@
 #include "GdiInitializeHelper.h"
 #include <filesystem>
 #include <winrt/Windows.Storage.h>
+#include <winrt/Microsoft.UI.Xaml.h>
+#include <ShellScalingApi.h>
+#pragma comment(lib, "shcore.lib") //For GetDpiForMonitor()
 
-namespace Utils
+static inline void checkGdiplusStatus(Gdiplus::Status status)
 {
-    HICON Utils::GetHIcon(std::wstring_view file)
-    {
-        HICON hicon{};
-        GdiInitializeHelper::Initialize();
+	winrt::check_bool(status == Gdiplus::Status::Ok);
+}
 
-        Gdiplus::Image iconImage{ file.data() };
-        INT const width = iconImage.GetWidth();
-        INT const height = iconImage.GetHeight();
+HICON Utils::GetHIcon(std::wstring_view file)
+{
+	GdiInitializeHelper::Initialize();
+	
+	HICON hicon{};
 
-        Gdiplus::Bitmap bitmap{ width, height };
-        auto graphics = Gdiplus::Graphics::FromImage(&bitmap);
+	Gdiplus::Image iconImage{ file.data() };
+	INT const width = iconImage.GetWidth();
+	INT const height = iconImage.GetHeight();
 
-        graphics->Clear(Gdiplus::Color::Transparent);
-        graphics->DrawImage(&iconImage, 0, 0, width, height);
+	Gdiplus::Bitmap bitmap{ width, height };
+	auto graphics = Gdiplus::Graphics::FromImage(&bitmap);
 
-        bitmap.GetHICON(&hicon);
+	graphics->Clear(Gdiplus::Color::Transparent);
+	graphics->DrawImage(&iconImage, 0, 0, width, height);
 
-        winrt::check_pointer(hicon);
-        return hicon;
-    }
+	checkGdiplusStatus(bitmap.GetHICON(&hicon));
 
-    HICON GetHIcon(winrt::Windows::Foundation::Uri uri)
-    {
-        return HICON();
-    }
+	return winrt::check_pointer(hicon);
+}
 
+UINT Utils::GetPrimaryMonitorDpi()
+{
+	UINT x, y;
+	winrt::check_hresult(GetDpiForMonitor(MonitorFromPoint({}, MONITOR_DEFAULTTOPRIMARY), MONITOR_DPI_TYPE::MDT_EFFECTIVE_DPI, &x, &y));
+	return x;
+}
 
+HICON Utils::GetHIcon(winrt::Windows::Foundation::Uri uri)
+{
+	return HICON();
+}
+
+static HBITMAP drawGlyphImpl(std::wstring_view glyphString, Gdiplus::Bitmap&& bitmap, Gdiplus::Font&& font, Gdiplus::SolidBrush&& brush)
+{
+	auto graphics = winrt::check_pointer(Gdiplus::Graphics::FromImage(&bitmap));
+	graphics->DrawString(glyphString.data(), -1, &font, {}, &brush);
+
+	HBITMAP hBitmap{};
+	checkGdiplusStatus(bitmap.GetHBITMAP(Gdiplus::Color::Black, &hBitmap));
+	return winrt::check_pointer(hBitmap);
+}
+
+HBITMAP Utils::DrawGlyph(std::wstring_view glyphString, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, UINT dpi)
+{
+	GdiInitializeHelper::Initialize();
+
+	std::optional<Gdiplus::FontFamily> fontFamily{ PrimaryGlyphFontFamily };
+	if (!fontFamily->IsAvailable())
+	{
+		fontFamily.reset();
+		fontFamily.emplace(FallbackGlyphFontFamily);
+		assert(fontFamily->IsAvailable());
+	}
+	return drawGlyphImpl(
+		glyphString,
+		Gdiplus::Bitmap{ scaledMenuItemBitmapSize(dpi), scaledMenuItemBitmapSize(dpi) },
+		Gdiplus::Font{ &*fontFamily, GlyphSize },
+		Gdiplus::SolidBrush{ theme == winrt::Microsoft::UI::Xaml::ApplicationTheme::Light ? Gdiplus::Color::Black : Gdiplus::Color::White });
+}
+
+HBITMAP Utils::DrawGlyph(std::wstring_view fontFamily, std::wstring_view glyphString, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, UINT dpi)
+{
+	GdiInitializeHelper::Initialize();
+
+	Gdiplus::FontFamily gdiFontFamily{ fontFamily.data() };
+	return drawGlyphImpl(
+		glyphString,
+		Gdiplus::Bitmap{ scaledMenuItemBitmapSize(dpi), scaledMenuItemBitmapSize(dpi) },
+		Gdiplus::Font{ &gdiFontFamily, GlyphSize },
+		Gdiplus::SolidBrush{ theme == winrt::Microsoft::UI::Xaml::ApplicationTheme::Light ? Gdiplus::Color::Black : Gdiplus::Color::White }
+	);
 }
