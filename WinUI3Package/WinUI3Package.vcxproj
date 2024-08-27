@@ -401,6 +401,7 @@
     </ClInclude>
     <ClInclude Include="MenuBase.h" />
     <ClInclude Include="MenuFlyoutItemBaseVisitor.hpp" />
+    <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h" />
     <ClInclude Include="MenuFlyoutWrapper.h" />
     <ClInclude Include="MenuItemInfo.hpp" />
     <ClInclude Include="Microsoft.UI.hpp" />
@@ -595,6 +596,7 @@
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
     <ClCompile Include="MenuFlyoutWrapper.cpp" />
     <ClCompile Include="NegateBoolConverter.cpp">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>

@@ -3,6 +3,10 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include "TransparentWindow.h"
+
+/**
+ * @brief A transparent 1*1 window for hosting a MenuFlyout for the taskbar icon
+ */
 class TransparentMenuFlyoutHost
 {
 	winrt::WinUI3Package::TransparentWindow m_dummyWindow;
@@ -15,7 +19,11 @@ public:
 	TransparentMenuFlyoutHost();
 
 	void Move(POINT p);
-	winrt::Microsoft::UI::Xaml::FrameworkElement GetFrame() { return m_dummyFrame; }
+
+	operator winrt::Microsoft::UI::Xaml::FrameworkElement() const
+	{ 
+		return m_dummyFrame; 
+	}
 
 	~TransparentMenuFlyoutHost();
 };

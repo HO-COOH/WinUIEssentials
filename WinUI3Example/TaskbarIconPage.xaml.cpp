@@ -85,12 +85,8 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::Foundation::IInspectable const& sender, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		if (auto xamlFlyoutItem = sender.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem>())
-			ClickedItemText().Text(xamlFlyoutItem.Text());
-		else if (auto popupFlyoutItem = sender.try_as<winrt::WinUI3Package::PopupMenuFlyoutItem>())
-			ClickedItemText().Text(popupFlyoutItem.Text());
-		else
-			assert(false);
+		if (auto xamlFlyoutItem = sender.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem>())
+			ClickedItemText().Text(std::format(L"Type: {}, item: {}", winrt::get_class_name(xamlFlyoutItem), xamlFlyoutItem.Text()));
 	}
 
 	void TaskbarIconPage::TaskbarIcon_LeftPressed()
@@ -116,7 +112,8 @@ namespace winrt::WinUI3Example::implementation
 
 	void TaskbarIconPage::PopupMenuFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		ClickedItemText().Text(winrt::get_class_name(sender));
+		if(auto popupFlyoutItem = sender.as<winrt::WinUI3Package::PopupMenuFlyoutItem>())
+			ClickedItemText().Text(std::format(L"Type: {}, item: {}", winrt::get_class_name(sender), popupFlyoutItem.Text()));
 	}
 
 	void TaskbarIconPage::NormalIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)

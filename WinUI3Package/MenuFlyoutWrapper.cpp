@@ -1,34 +1,28 @@
 #include "pch.h"
 #include "MenuFlyoutWrapper.h"
+#include <winrt/Microsoft.UI.Xaml.h>
+#include "MenuFlyoutItemPaddingWorkaround.h"
 
-void MenuFlyoutWrapper::showImpl()
-{
-	m_menu.ShowAt(m_menuHost.GetFrame());
-}
 
 MenuFlyoutWrapper::MenuFlyoutWrapper(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& flyout) : m_menu{flyout}
 {
 	m_menu.ShouldConstrainToRootBounds(false);
+
+	//TODO: Fix theme
+	
+	//winrt::Microsoft::UI::Xaml::Style style{ winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutPresenter>() };
+	//winrt::Microsoft::UI::Xaml::Setter setter{ winrt::Microsoft::UI::Xaml::FrameworkElement::RequestedThemeProperty(), winrt::box_value(winrt::Microsoft::UI::Xaml::ElementTheme::Light) };
+	//style.Setters().Append(setter);
+	//m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>().MenuFlyoutPresenterStyle(style);
 }
 
 void MenuFlyoutWrapper::Show(POINT p)
 {
-	//if (!m_dummyWindow)
-	//{
-	//	m_dummyFrame = {};
-	//	m_dummyWindow = {};
-
-	//	m_dummyWindow.Content(m_dummyFrame);
-	//	m_dummyWindow.Activate();
-
-	//	m_dummyFrame.Loaded([this](auto&&...)
-	//		{
-	//			showImpl();
-	//		});
-	//}
-	//else
-	//	showImpl();
-
+	if (m_isFirstShow)
+	{
+		MenuFlyoutItemPaddingWorkaround::Apply(m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>());
+		m_isFirstShow = false;
+	}
 	m_menuHost.Move(p);
-	showImpl();
+	m_menu.ShowAt(m_menuHost);
 }

@@ -6,6 +6,10 @@
 #include "ThemeListenerMessageWindow.h"
 #include "Handler.hpp"
 
+/**
+ * @brief static class for listening to Windows system theme changes that really works
+ * @usage Save an instance of `Token` returned by `ThemeListener::Add(...)`
+ */
 class ThemeListener
 {
 	inline static std::optional<ThemeListener>& get();
@@ -64,6 +68,12 @@ public:
 		}
 	};
 
+	/**
+	 * @brief Add an event handler for theme change
+	 * 
+	 * @param f Should have a signature of `void(winrt::Microsoft::UI::Xaml::ApplicationTheme)`
+	 * @return a `Token` that automatically unregister this handler when it is destructed
+	 */
 	template<typename Func>
 	static Token Add(Func&& f)
 	{

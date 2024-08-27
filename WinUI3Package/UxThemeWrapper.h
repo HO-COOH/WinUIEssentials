@@ -1,6 +1,10 @@
 #pragma once
 #include "PreferredAppMode.h"
 #include <wil/resource.h>
+
+/**
+ * This class wraps up a call to `SetPreferredAppMode` defined in `uxtheme.dll`
+ */
 class UxTheme
 {
 	using FnSetPreferredAppMode = PreferredAppMode(WINAPI*)(PreferredAppMode);

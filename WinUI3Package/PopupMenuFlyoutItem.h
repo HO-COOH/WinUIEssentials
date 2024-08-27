@@ -36,6 +36,8 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_commandProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_commandParameterProperty;
         winrt::event<winrt::Microsoft::UI::Xaml::RoutedEventHandler> m_clickEvent;
+
+        friend class PopupMenu;
     };
 }
 

@@ -5,6 +5,7 @@
 #include "UxThemeWrapper.h"
 class MenuBase
 {
+protected:
 	winrt::Microsoft::UI::Xaml::ElementTheme m_theme{ winrt::Microsoft::UI::Xaml::ElementTheme::Default };
 public:
 #if __has_include("winrt/Microsoft.UI.Xaml.h")

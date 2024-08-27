@@ -39,6 +39,9 @@
     <ClCompile Include="UxThemeWrapper.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
     </ClCompile>
+    <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp">
       <Filter>TaskbarIcon\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@ class TaskbarIconMessageWindow
 {
 	constexpr static auto TaskbarIconWindowClass = L"MiLineNotifyIcon";
 	constexpr static UINT_PTR DoubleClickTimerId = 0x102;
+	constexpr static auto DoubleClickMaxThreshold = 500;
 
 	static void registerIfNeeded();
 	static LRESULT windowProc(

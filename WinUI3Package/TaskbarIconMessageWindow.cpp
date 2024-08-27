@@ -85,7 +85,7 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 
 void TaskbarIconMessageWindow::setTimer()
 {
-	SetTimer(m_hwnd, DoubleClickTimerId, min(GetDoubleClickTime(), 500), nullptr);
+	SetTimer(m_hwnd, DoubleClickTimerId, min(GetDoubleClickTime(), DoubleClickMaxThreshold), nullptr);
 }
 
 void TaskbarIconMessageWindow::destroyTimer()

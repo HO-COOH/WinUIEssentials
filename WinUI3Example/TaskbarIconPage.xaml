@@ -39,6 +39,10 @@
                 <MenuFlyoutSeparator />
                 <MenuFlyoutSubItem Text="Sub menu">
                     <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Sub menu item" />
+                    <MenuFlyoutItem
+                        Click="MenuFlyoutItem_Click"
+                        Icon="Paste"
+                        Text="Sub menu item with paste icon" />
                 </MenuFlyoutSubItem>
             </MenuFlyout>
         </essential:TaskbarIcon>
@@ -65,6 +69,10 @@
 
                 <essential:PopupMenuFlyoutSubItem Text="Sub menu">
                     <essential:PopupMenuFlyoutItem Click="PopupMenuFlyoutItem_Click" Text="Sub menu item" />
+                    <essential:PopupMenuFlyoutItem
+                        Click="PopupMenuFlyoutItem_Click"
+                        Icon="Paste"
+                        Text="Sub menu item with paste icon" />
                 </essential:PopupMenuFlyoutSubItem>
             </essential:PopupMenuFlyout>
         </essential:TaskbarIcon>
