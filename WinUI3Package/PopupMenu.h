@@ -10,6 +10,12 @@
 #include <utility>
 #include <optional>
 #include "ThemeListener.h"
+
+namespace winrt::WinUI3Package::implementation 
+{
+	struct PopupMenuFlyoutItem;
+}
+
 /**
  * @brief Win32 style taskbar icon's context menu
  */
@@ -30,12 +36,18 @@ private:
 	static void redrawMenuIcon(HMENU menu, winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> const& item, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme);
 
 	std::vector<winrt::WinUI3Package::PopupMenuFlyoutItem> m_menuItemCache;
+
+	void onItemTextChanged(winrt::WinUI3Package::PopupMenuFlyoutItem const& item);
+
 public:
 	PopupMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenuFlyout);
 	~PopupMenu();
 
 	void Theme(winrt::Microsoft::UI::Xaml::ElementTheme value);
 
+
 	void Show(POINT pt, HWND ownerHwnd);
 	void OnMenuClick(int index);
+
+	friend struct winrt::WinUI3Package::implementation::PopupMenuFlyoutItem;
 };

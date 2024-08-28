@@ -425,6 +425,7 @@
       <DependentUpon>PopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutItemBase.h" />
     <ClInclude Include="PopupMenuFlyoutSeparator.h">
       <DependentUpon>PopupMenuFlyoutSeparator.idl</DependentUpon>
       <SubType>Code</SubType>

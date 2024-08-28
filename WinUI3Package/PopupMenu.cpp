@@ -19,6 +19,7 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutItem:
 		{
 			auto flyoutItem = item.as<winrt::WinUI3Package::PopupMenuFlyoutItem>();
+			winrt::get_self<winrt::WinUI3Package::implementation::PopupMenuFlyoutItem>(flyoutItem)->m_parent = this;
 			m_menuItemCache.push_back(flyoutItem);
 			winrt::check_bool(AppendMenu(
 				menu,
@@ -185,6 +186,16 @@ void PopupMenu::Theme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 	}
 	else
 		m_themeListenerToken.reset();
+}
+
+void PopupMenu::onItemTextChanged(winrt::WinUI3Package::PopupMenuFlyoutItem const& item)
+{
+	if (auto it = std::find(m_menuItemCache.begin(), m_menuItemCache.end(), item); it != m_menuItemCache.end())
+	{
+		auto index = std::distance(m_menuItemCache.begin(), it);
+		MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_STRING, .dwTypeData = const_cast<LPWSTR>(it->Text().data()) };
+		winrt::check_bool(SetMenuItemInfo(m_menu, index, true, &itemInfo));
+	}
 }
 
 void PopupMenu::Show(POINT pt, HWND ownerHwnd)

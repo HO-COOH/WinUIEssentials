@@ -112,8 +112,11 @@ namespace winrt::WinUI3Example::implementation
 
 	void TaskbarIconPage::PopupMenuFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		if(auto popupFlyoutItem = sender.as<winrt::WinUI3Package::PopupMenuFlyoutItem>())
+		if (auto popupFlyoutItem = sender.as<winrt::WinUI3Package::PopupMenuFlyoutItem>())
+		{
 			ClickedItemText().Text(std::format(L"Type: {}, item: {}", winrt::get_class_name(sender), popupFlyoutItem.Text()));
+			popupFlyoutItem.Text(L"Clicked");
+		}
 	}
 
 	void TaskbarIconPage::NormalIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)

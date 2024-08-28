@@ -1,10 +1,11 @@
 ﻿#pragma once
 
 #include "PopupMenuFlyoutItem.g.h"
+#include "PopupMenuFlyoutItemBase.h"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct PopupMenuFlyoutItem : PopupMenuFlyoutItemT<PopupMenuFlyoutItem>
+    struct PopupMenuFlyoutItem : PopupMenuFlyoutItemT<PopupMenuFlyoutItem>, ::PopupMenuFlyoutItemBase
     {
         PopupMenuFlyoutItem() = default;
 
@@ -28,6 +29,10 @@ namespace winrt::WinUI3Package::implementation
         void CommandParameter(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty CommandParameterProperty();
 
+        winrt::Microsoft::UI::Xaml::Visibility Visibility();
+        void Visibility(winrt::Microsoft::UI::Xaml::Visibility value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty VisibilityProperty();
+
         winrt::event_token Click(winrt::Microsoft::UI::Xaml::RoutedEventHandler const& handler);
         void Click(winrt::event_token const& token);
     private:
@@ -35,6 +40,7 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_commandProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_commandParameterProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_visibilityProperty;
         winrt::event<winrt::Microsoft::UI::Xaml::RoutedEventHandler> m_clickEvent;
 
         friend class PopupMenu;
