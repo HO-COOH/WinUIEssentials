@@ -121,9 +121,6 @@
     <ClInclude Include="MenuBase.h">
       <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
     </ClInclude>
-    <ClInclude Include="MenuFlyoutItemBaseVisitor.hpp">
-      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
-    </ClInclude>
     <ClInclude Include="include\ScopedButtonDisabler.hpp">
       <Filter>include</Filter>
     </ClInclude>

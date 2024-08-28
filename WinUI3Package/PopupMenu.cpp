@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "PopupMenu.h"
 #include "TaskbarIconMessageWindow.h"
-
-#include "MenuFlyoutItemBaseVisitor.hpp"
 #include "IconUtils.h"
 #include "AppsUseLightTheme.h"
 #include "InvalidMenuItemIconTypeError.hpp"
@@ -191,15 +189,14 @@ void PopupMenu::Theme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 
 void PopupMenu::Show(POINT pt, HWND ownerHwnd)
 {
-	TrackPopupMenuEx(
+	winrt::check_bool(TrackPopupMenuEx(
 		m_menu,
 		TPM_LEFTALIGN,
 		pt.x,
 		pt.y,
 		ownerHwnd,
 		nullptr
-	);
-
+	));
 }
 
 void PopupMenu::OnMenuClick(int index)
