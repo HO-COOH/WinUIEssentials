@@ -2,6 +2,9 @@
 
 #include "PopupMenuFlyoutItem.h"
 #include "RadioPopupMenuFlyoutItem.g.h"
+#include "PopupMenuFlyoutItemImplBase.h"
+
+class RadioPopupMenuItemGroup;
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -20,9 +23,12 @@ namespace winrt::WinUI3Package::implementation
         winrt::hstring GroupName();
         void GroupName(winrt::hstring const& value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty GroupNameProperty();
+
+        void SetGroupHelper(RadioPopupMenuItemGroup& groupHelper);
     private:
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_groupNameProperty;
+        RadioPopupMenuItemGroup* m_groupHelper{ nullptr };
     };
 }
 

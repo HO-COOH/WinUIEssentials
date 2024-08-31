@@ -403,7 +403,6 @@
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h" />
     <ClInclude Include="MenuFlyoutWrapper.h" />
     <ClInclude Include="MenuItemInfo.hpp" />
-    <ClInclude Include="Microsoft.UI.hpp" />
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -425,7 +424,11 @@
       <DependentUpon>PopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="PopupMenuFlyoutItemBase.h" />
+    <ClInclude Include="PopupMenuFlyoutItemBase.h">
+      <DependentUpon>PopupMenuFlyoutItemBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutItemImplBase.h" />
     <ClInclude Include="PopupMenuFlyoutSeparator.h">
       <DependentUpon>PopupMenuFlyoutSeparator.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -443,6 +446,7 @@
       <DependentUpon>RadioPopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="RadioPopupMenuItemGroup.h" />
     <ClInclude Include="ReferenceToBoolConverter.h">
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -620,6 +624,10 @@
       <DependentUpon>PopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="PopupMenuFlyoutItemBase.cpp">
+      <DependentUpon>PopupMenuFlyoutItemBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="PopupMenuFlyoutSeparator.cpp">
       <DependentUpon>PopupMenuFlyoutSeparator.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -636,6 +644,7 @@
       <DependentUpon>RadioPopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="RadioPopupMenuItemGroup.cpp" />
     <ClCompile Include="ReferenceToBoolConverter.cpp">
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -783,7 +792,9 @@
     <Midl Include="PopupMenuFlyoutItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="PopupMenuFlyoutItemBase.idl" />
+    <Midl Include="PopupMenuFlyoutItemBase.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="PopupMenuFlyoutSeparator.idl">
       <SubType>Designer</SubType>
     </Midl>

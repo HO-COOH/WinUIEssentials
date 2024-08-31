@@ -45,7 +45,7 @@ HICON Utils::GetHIcon(winrt::Windows::Foundation::Uri uri)
 	return HICON();
 }
 
-static HBITMAP drawGlyphImpl(std::wstring_view glyphString, Gdiplus::Bitmap&& bitmap, Gdiplus::Font&& font, Gdiplus::SolidBrush&& brush)
+static HBITMAP drawGlyphImpl(std::wstring_view glyphString, Gdiplus::Bitmap&& bitmap, Gdiplus::Font&& font, Gdiplus::Brush& brush)
 {
 	auto graphics = winrt::check_pointer(Gdiplus::Graphics::FromImage(&bitmap));
 	graphics->DrawString(glyphString.data(), -1, &font, {}, &brush);
@@ -55,7 +55,7 @@ static HBITMAP drawGlyphImpl(std::wstring_view glyphString, Gdiplus::Bitmap&& bi
 	return winrt::check_pointer(hBitmap);
 }
 
-HBITMAP Utils::DrawGlyph(std::wstring_view glyphString, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, UINT dpi)
+HBITMAP Utils::DrawGlyph(std::wstring_view glyphString, Gdiplus::Brush& brush, UINT dpi)
 {
 	GdiInitializeHelper::Initialize();
 
@@ -70,10 +70,10 @@ HBITMAP Utils::DrawGlyph(std::wstring_view glyphString, winrt::Microsoft::UI::Xa
 		glyphString,
 		Gdiplus::Bitmap{ scaledMenuItemBitmapSize(dpi), scaledMenuItemBitmapSize(dpi) },
 		Gdiplus::Font{ &*fontFamily, GlyphSize },
-		Gdiplus::SolidBrush{ theme == winrt::Microsoft::UI::Xaml::ApplicationTheme::Light ? Gdiplus::Color::Black : Gdiplus::Color::White });
+		brush);
 }
 
-HBITMAP Utils::DrawGlyph(std::wstring_view fontFamily, std::wstring_view glyphString, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, UINT dpi)
+HBITMAP Utils::DrawGlyph(std::wstring_view fontFamily, std::wstring_view glyphString, Gdiplus::Brush& brush, UINT dpi)
 {
 	GdiInitializeHelper::Initialize();
 
@@ -82,6 +82,6 @@ HBITMAP Utils::DrawGlyph(std::wstring_view fontFamily, std::wstring_view glyphSt
 		glyphString,
 		Gdiplus::Bitmap{ scaledMenuItemBitmapSize(dpi), scaledMenuItemBitmapSize(dpi) },
 		Gdiplus::Font{ &gdiFontFamily, GlyphSize },
-		Gdiplus::SolidBrush{ theme == winrt::Microsoft::UI::Xaml::ApplicationTheme::Light ? Gdiplus::Color::Black : Gdiplus::Color::White }
+		brush
 	);
 }

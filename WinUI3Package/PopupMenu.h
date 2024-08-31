@@ -10,11 +10,23 @@
 #include <utility>
 #include <optional>
 #include "ThemeListener.h"
+#include "RadioPopupMenuItemGroup.h"
 
+#pragma region Forward declaration
 namespace winrt::WinUI3Package::implementation 
 {
 	struct PopupMenuFlyoutItem;
+	struct TogglePopupMenuFlyoutItem;
+	struct RadioPopupMenuFlyoutItem;
+	struct PopupMenuFlyoutSubItem;
+	struct PopupMenuFlyoutItemBase;
 }
+namespace Gdiplus
+{
+	class Brush;
+}
+
+#pragma endregion
 
 /**
  * @brief Win32 style taskbar icon's context menu
@@ -25,20 +37,67 @@ class PopupMenu : public MenuBase
 
 	std::optional<ThemeListener::Token> m_themeListenerToken;
 	winrt::WinUI3Package::PopupMenuFlyout m_xamlMenu{ nullptr };
-private:
+	std::optional<RadioPopupMenuItemGroup> m_radioGroup;
+
 	void appendMenu(
 		winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu,
-		HMENU menu);
+		HMENU menu,
+		int& index);
 
-	static HBITMAP drawGlyph(HMENU menu, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, winrt::Microsoft::UI::Xaml::Controls::SymbolIcon const& symbolIcon);
-	static HBITMAP drawGlyph(HMENU menu, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, winrt::Microsoft::UI::Xaml::Controls::FontIcon const& fontIcon);
-	static void setMenuItemGlyph(winrt::Microsoft::UI::Xaml::Controls::IconElement const& icon, HMENU menu, UINT index, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme);
-	static void redrawMenuIcon(HMENU menu, winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> const& item, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme);
+	static HBITMAP drawGlyph(
+		UINT dpi, 
+		winrt::Microsoft::UI::Xaml::ApplicationTheme theme, 
+		winrt::Microsoft::UI::Xaml::Controls::SymbolIcon const& symbolIcon,
+		bool isEnabled = true);
 
-	std::vector<winrt::WinUI3Package::PopupMenuFlyoutItem> m_menuItemCache;
+	static Gdiplus::Brush& getBrush(
+		winrt::Microsoft::UI::Xaml::ApplicationTheme theme,
+		bool isEnabled
+	);
 
-	void onItemTextChanged(winrt::WinUI3Package::PopupMenuFlyoutItem const& item);
+	static HBITMAP drawGlyph(
+		UINT dpi, 
+		winrt::Microsoft::UI::Xaml::ApplicationTheme theme, 
+		winrt::Microsoft::UI::Xaml::Controls::FontIcon const& fontIcon,
+		bool isEnabled = true);
 
+	static void setMenuItemGlyph(
+		winrt::Microsoft::UI::Xaml::Controls::IconElement const& icon, 
+		HMENU menu, 
+		UINT index, 
+		UINT dpi, 
+		winrt::Microsoft::UI::Xaml::ApplicationTheme theme,
+		bool isEnabled);
+
+	static void redrawMenuIcon(
+		HMENU menu, 
+		winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> const& item, 
+		UINT dpi, 
+		winrt::Microsoft::UI::Xaml::ApplicationTheme theme);
+	
+	//wraps up `GetMenuItemInfoW` because we use identifier instead of position here
+	static BOOL getMenuItemInfo(HMENU hmenu, UINT item, LPMENUITEMINFOW info);
+
+	//wraps up `SetMenuItemInfoW` because we use identifier instead of position here
+	static BOOL setMenuItemInfo(HMENU hmenu, UINT item, LPMENUITEMINFOW info);
+
+	//wraps up `DeleteMenu` because we use identifier instead of position here
+	static BOOL deleteMenu(HMENU hemnu, UINT item);
+
+	//wraps up `InsertMenuW` because we use identifier instead of position here
+	static BOOL insertMenu(HMENU hmenu, UINT item, UINT flags, UINT_PTR uIDNewItem, LPCWSTR lpNewItem);
+
+	//to lookup `PopupMenuFlyoutItem` by menu id, used in `OnMenuClick()` 
+	std::vector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> m_menuItemCache;
+
+	//Inject `HMENU m_parentMenu` and `int index` into implementation type that derived from `PopupMenuFlyoutImplBase`
+	void injectPopupMenuFlyoutItemImplBase(auto* implPtr, HMENU parentMenu, int index)
+	{
+		assert(implPtr);
+		implPtr->m_parentMenu = parentMenu;
+		implPtr->index = index;
+		implPtr->m_parentMenuPtr = this;
+	}
 public:
 	PopupMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenuFlyout);
 	~PopupMenu();
@@ -50,4 +109,8 @@ public:
 	void OnMenuClick(int index);
 
 	friend struct winrt::WinUI3Package::implementation::PopupMenuFlyoutItem;
+	friend struct winrt::WinUI3Package::implementation::TogglePopupMenuFlyoutItem;
+	friend struct winrt::WinUI3Package::implementation::RadioPopupMenuFlyoutItem;
+	friend struct winrt::WinUI3Package::implementation::PopupMenuFlyoutSubItem;
+	friend struct winrt::WinUI3Package::implementation::PopupMenuFlyoutItemBase;
 };

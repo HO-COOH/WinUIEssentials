@@ -42,6 +42,9 @@
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClCompile>
+    <ClCompile Include="RadioPopupMenuItemGroup.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -139,9 +142,6 @@
     <ClInclude Include="NormalTaskbarIcon.h">
       <Filter>TaskbarIcon\Icon</Filter>
     </ClInclude>
-    <ClInclude Include="Microsoft.UI.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="MenuFlyoutWrapper.h">
       <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClInclude>
@@ -172,6 +172,12 @@
     </ClInclude>
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h">
       <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutItemImplBase.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="RadioPopupMenuItemGroup.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -365,9 +371,6 @@
     <Midl Include="PopupMenuFlyout.idl">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
-    <Midl Include="PopupMenuFlyoutItemBase.idl">
-      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
-    </Midl>
     <Midl Include="PopupMenuFlyoutItem.idl">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
@@ -381,6 +384,9 @@
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
     <Midl Include="RadioPopupMenuFlyoutItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItemBase.idl">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
   </ItemGroup>

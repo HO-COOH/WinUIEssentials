@@ -5,6 +5,8 @@
 #endif
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include "PopupMenu.h"
+#include "IconUtils.h"
+#include "AppsUseLightTheme.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -36,13 +38,7 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_visibilityProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"Visibility",
-			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Visibility>(),
-			winrt::xaml_typename<class_type>(),
-			nullptr
-		);
+
 
 	winrt::WinUI3Package::PopupMenuFlyoutItemType PopupMenuFlyoutItem::Type()
 	{
@@ -57,6 +53,10 @@ namespace winrt::WinUI3Package::implementation
 	void PopupMenuFlyoutItem::Icon(winrt::Microsoft::UI::Xaml::Controls::IconElement const& value)
 	{
 		SetValue(IconProperty(), value);
+		if (m_parentMenu)
+		{
+			::PopupMenu::setMenuItemGlyph(Icon(), m_parentMenu, index, Utils::GetPrimaryMonitorDpi(), AppsUseLightTheme{}, IsEnabled());
+		}
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::IconProperty()
@@ -71,9 +71,10 @@ namespace winrt::WinUI3Package::implementation
 	void PopupMenuFlyoutItem::Text(winrt::hstring const& value)
 	{
 		SetValue(TextProperty(), winrt::box_value(value));
-		if (m_parent)
+		if (m_parentMenu)
 		{
-			m_parent->onItemTextChanged(*this);
+			MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_STRING, .dwTypeData = const_cast<LPWSTR>(Text().data()) };
+			winrt::check_bool(::PopupMenu::setMenuItemInfo(m_parentMenu, index, &itemInfo));
 		}
 	}
 	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::TextProperty()
@@ -106,21 +107,6 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::CommandParameterProperty()
 	{
 		return s_commandParameterProperty;
-	}
-
-	winrt::Microsoft::UI::Xaml::Visibility PopupMenuFlyoutItem::Visibility()
-	{
-		return winrt::unbox_value<winrt::Microsoft::UI::Xaml::Visibility>(GetValue(VisibilityProperty()));
-	}
-
-	void PopupMenuFlyoutItem::Visibility(winrt::Microsoft::UI::Xaml::Visibility value)
-	{
-		SetValue(VisibilityProperty(), winrt::box_value(value));
-	}
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::VisibilityProperty()
-	{
-		return s_visibilityProperty;
 	}
 
 	winrt::event_token PopupMenuFlyoutItem::Click(winrt::Microsoft::UI::Xaml::RoutedEventHandler const& handler)

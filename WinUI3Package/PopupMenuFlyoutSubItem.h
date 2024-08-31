@@ -1,10 +1,11 @@
 ﻿#pragma once
 
 #include "PopupMenuFlyoutSubItem.g.h"
+#include "PopupMenuFlyoutItemBase.h"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct PopupMenuFlyoutSubItem : PopupMenuFlyoutSubItemT<PopupMenuFlyoutSubItem>
+    struct PopupMenuFlyoutSubItem : PopupMenuFlyoutSubItemT<PopupMenuFlyoutSubItem, PopupMenuFlyoutItemBase>
     {
         PopupMenuFlyoutSubItem() = default;
 

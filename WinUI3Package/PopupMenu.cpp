@@ -4,32 +4,50 @@
 #include "IconUtils.h"
 #include "AppsUseLightTheme.h"
 #include "InvalidMenuItemIconTypeError.hpp"
+#include <gdiplus.h>
+
+#pragma region PopupMenuItem Implementation headers
 #include "PopupMenuFlyoutItem.h"
+#include "PopupMenuFlyoutSubItem.h"
+#include "TogglePopupMenuFlyoutItem.h"
+#include "RadioPopupMenuFlyoutItem.h"
+#pragma endregion
 
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
-void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu, HMENU menu)
+void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu, HMENU menu, int& index)
 {
-	int index{};
 	AppsUseLightTheme theme;
 	auto const dpi = Utils::GetPrimaryMonitorDpi();
 	for (auto item : xamlMenu)
 	{
+		assert(index == m_menuItemCache.size());
+		m_menuItemCache.push_back(item);
+		if (item.Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Collapsed)
+		{
+			++index;
+			continue;
+		}
+
 		switch (item.Type())
 		{
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutItem:
 		{
 			auto flyoutItem = item.as<winrt::WinUI3Package::PopupMenuFlyoutItem>();
-			winrt::get_self<winrt::WinUI3Package::implementation::PopupMenuFlyoutItem>(flyoutItem)->m_parent = this;
-			m_menuItemCache.push_back(flyoutItem);
+			injectPopupMenuFlyoutItemImplBase(
+				winrt::get_self<winrt::WinUI3Package::implementation::PopupMenuFlyoutItem>(flyoutItem),
+				menu,
+				index);
+
+			auto const isEnabled = item.IsEnabled();
 			winrt::check_bool(AppendMenu(
 				menu,
-				NULL,
-				m_menuItemCache.size() - 1,
+				isEnabled? NULL : MF_GRAYED,
+				index,
 				flyoutItem.Text().data()
 			));
 
 			if (auto icon = flyoutItem.Icon())
-				setMenuItemGlyph(icon, menu, index, dpi, theme);
+				setMenuItemGlyph(icon, menu, index, dpi, theme, true);
 			break;
 		}
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutSeparator:
@@ -46,17 +64,27 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 		{
 			auto subItem = item.as<winrt::WinUI3Package::PopupMenuFlyoutSubItem>();
 			auto subMenu = CreatePopupMenu();
+			injectPopupMenuFlyoutItemImplBase(
+				winrt::get_self<winrt::WinUI3Package::implementation::PopupMenuFlyoutSubItem>(subItem),
+				menu,
+				index);
+			
 			winrt::check_bool(AppendMenu(
 				menu,
 				MF_POPUP,
 				reinterpret_cast<UINT_PTR>(subMenu),
 				subItem.Text().data()));
-			appendMenu(subItem.Items(), subMenu);
+			appendMenu(subItem.Items(), subMenu, ++index);
 			break;
 		}
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::ToggleItem:
 		{
 			auto toggleItem = item.as<winrt::WinUI3Package::TogglePopupMenuFlyoutItem>();
+			injectPopupMenuFlyoutItemImplBase(
+				winrt::get_self<winrt::WinUI3Package::implementation::TogglePopupMenuFlyoutItem>(toggleItem),
+				menu,
+				index);
+
 			winrt::check_bool(AppendMenu(
 				menu,
 				toggleItem.IsChecked() ? MF_CHECKED : MF_UNCHECKED,
@@ -68,58 +96,92 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::RadioItem:
 		{
 			auto radioItem = item.as<winrt::WinUI3Package::RadioPopupMenuFlyoutItem>();
+			auto radioItemImpl = winrt::get_self<winrt::WinUI3Package::implementation::RadioPopupMenuFlyoutItem>(radioItem);
+
+			injectPopupMenuFlyoutItemImplBase(
+				winrt::get_self<winrt::WinUI3Package::implementation::RadioPopupMenuFlyoutItem>(radioItem),
+				menu,
+				index);
+
 			winrt::check_bool(AppendMenu(
 				menu,
 				NULL,
 				index,
-				radioItem.Text().data()
+				radioItemImpl->Text().data()
 			));
 			
+
+			auto const isChecked = radioItemImpl->IsChecked();
 			MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_FTYPE | MIIM_STATE };
-			winrt::check_bool(GetMenuItemInfo(menu, index, true, &itemInfo));
 			itemInfo.fType = MFT_RADIOCHECK;
-			itemInfo.fState = radioItem.IsChecked() ? MFS_CHECKED : MFS_UNCHECKED;
-			SetMenuItemInfo(menu, index, true, &itemInfo);
-			auto err = GetLastError();
+			itemInfo.fState = isChecked ? MFS_CHECKED : MFS_UNCHECKED;
+			setMenuItemInfo(menu, index, &itemInfo);
+
+			if (!m_radioGroup)
+				m_radioGroup.emplace();
+			radioItemImpl->SetGroupHelper(*m_radioGroup);
+			if (auto group = radioItemImpl->GroupName(); !group.empty())
+			{
+				if (isChecked)
+					m_radioGroup->SetCheckedItem(radioItem);
+			}
 			break;
 		}
 		default:
 			assert(false);
 			break;
 		}
-		index++;
+		++index;
 	}
 }
 
-HBITMAP PopupMenu::drawGlyph(HMENU menu, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, winrt::Microsoft::UI::Xaml::Controls::SymbolIcon const& symbolIcon)
+HBITMAP PopupMenu::drawGlyph(UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, winrt::Microsoft::UI::Xaml::Controls::SymbolIcon const& symbolIcon, bool isEnabled)
 {
 	auto symbol = symbolIcon.Symbol();
 	wchar_t s[2]{ static_cast<wchar_t>(symbol) };
-	return Utils::DrawGlyph(s, theme, dpi);
+	return Utils::DrawGlyph(s, getBrush(theme, isEnabled), dpi);
 }
 
-HBITMAP PopupMenu::drawGlyph(HMENU menu, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, winrt::Microsoft::UI::Xaml::Controls::FontIcon const& fontIcon)
+Gdiplus::Brush& PopupMenu::getBrush(winrt::Microsoft::UI::Xaml::ApplicationTheme theme, bool isEnabled)
+{
+	if (!isEnabled)
+	{
+		static Gdiplus::SolidBrush s_disabledBrush{ Gdiplus::Color::Gray };
+		return s_disabledBrush;
+	}
+
+	if (theme == winrt::Microsoft::UI::Xaml::ApplicationTheme::Light)
+	{
+		static Gdiplus::SolidBrush s_lightBrush{ Gdiplus::Color::Black };
+		return s_lightBrush;
+	}
+	else
+	{
+		static Gdiplus::SolidBrush s_darkBrush{ Gdiplus::Color::White };
+		return s_darkBrush;
+	}
+}
+
+HBITMAP PopupMenu::drawGlyph(UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, winrt::Microsoft::UI::Xaml::Controls::FontIcon const& fontIcon, bool isEnabled)
 {
 	auto fontFamily = fontIcon.FontFamily().Source();
 	auto glyph = fontIcon.Glyph();
-	return Utils::DrawGlyph(glyph, theme, dpi);
+	return Utils::DrawGlyph(glyph, getBrush(theme, isEnabled), dpi);
 }
 
-void PopupMenu::setMenuItemGlyph(winrt::Microsoft::UI::Xaml::Controls::IconElement const& icon, HMENU menu, UINT index, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme)
+void PopupMenu::setMenuItemGlyph(winrt::Microsoft::UI::Xaml::Controls::IconElement const& icon, HMENU menu, UINT index, UINT dpi, winrt::Microsoft::UI::Xaml::ApplicationTheme theme, bool isEnabled)
 {
 	if (auto symbolIcon = icon.try_as<winrt::Microsoft::UI::Xaml::Controls::SymbolIcon>())
 	{
-		MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_FTYPE | MIIM_BITMAP };
-		winrt::check_bool(GetMenuItemInfo(menu, index, true, &itemInfo));
-		itemInfo.hbmpItem = drawGlyph(menu, dpi, theme, symbolIcon);
-		winrt::check_bool(SetMenuItemInfo(menu, index, true, &itemInfo));
+		MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_BITMAP };
+		itemInfo.hbmpItem = drawGlyph(dpi, theme, symbolIcon, isEnabled);
+		winrt::check_bool(setMenuItemInfo(menu, index, &itemInfo));
 	}
 	else if (auto fontIcon = icon.try_as<winrt::Microsoft::UI::Xaml::Controls::FontIcon>())
 	{
-		MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_FTYPE | MIIM_BITMAP };
-		winrt::check_bool(GetMenuItemInfo(menu, index, true, &itemInfo));
-		itemInfo.hbmpItem = drawGlyph(menu, dpi, theme, fontIcon);
-		winrt::check_bool(SetMenuItemInfo(menu, index, true, &itemInfo));
+		MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_BITMAP };
+		itemInfo.hbmpItem = drawGlyph(dpi, theme, fontIcon, isEnabled);
+		winrt::check_bool(setMenuItemInfo(menu, index, &itemInfo));
 	}
 	else
 	{
@@ -142,7 +204,7 @@ void PopupMenu::redrawMenuIcon(HMENU menu, winrt::Windows::Foundation::Collectio
 			{
 			case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutItem:
 				if (auto icon = itemToRedraw.as<winrt::WinUI3Package::PopupMenuFlyoutItem>().Icon())
-					setMenuItemGlyph(icon, menu, i, dpi, theme);
+					setMenuItemGlyph(icon, menu, i, dpi, theme, itemToRedraw.IsEnabled());
 				break;
 			case winrt::WinUI3Package::PopupMenuFlyoutItemType::SubMenu:
 			{
@@ -162,10 +224,31 @@ void PopupMenu::redrawMenuIcon(HMENU menu, winrt::Windows::Foundation::Collectio
 	}
 }
 
+BOOL PopupMenu::getMenuItemInfo(HMENU hmenu, UINT item, LPMENUITEMINFOW info)
+{
+	return GetMenuItemInfo(hmenu, item, false, info);
+}
+
+BOOL PopupMenu::setMenuItemInfo(HMENU hmenu, UINT item, LPMENUITEMINFOW info)
+{
+	return SetMenuItemInfo(hmenu, item, false, info);
+}
+
+BOOL PopupMenu::deleteMenu(HMENU hmenu, UINT item)
+{
+	return DeleteMenu(hmenu, item, MF_BYCOMMAND);
+}
+
+BOOL PopupMenu::insertMenu(HMENU hmenu, UINT item, UINT flags, UINT_PTR uIDNewItem, LPCWSTR lpNewItem)
+{
+	return InsertMenu(hmenu, item, MF_BYCOMMAND | flags, uIDNewItem, lpNewItem);
+}
+
 PopupMenu::PopupMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenuFlyout)
 {
+	int index{};
 	if (m_xamlMenu = xamlMenuFlyout.try_as<winrt::WinUI3Package::PopupMenuFlyout>())
-		appendMenu(m_xamlMenu.Items(), m_menu);
+		appendMenu(m_xamlMenu.Items(), m_menu, index);
 }
 #endif
 
@@ -188,16 +271,6 @@ void PopupMenu::Theme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 		m_themeListenerToken.reset();
 }
 
-void PopupMenu::onItemTextChanged(winrt::WinUI3Package::PopupMenuFlyoutItem const& item)
-{
-	if (auto it = std::find(m_menuItemCache.begin(), m_menuItemCache.end(), item); it != m_menuItemCache.end())
-	{
-		auto index = std::distance(m_menuItemCache.begin(), it);
-		MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_STRING, .dwTypeData = const_cast<LPWSTR>(it->Text().data()) };
-		winrt::check_bool(SetMenuItemInfo(m_menu, index, true, &itemInfo));
-	}
-}
-
 void PopupMenu::Show(POINT pt, HWND ownerHwnd)
 {
 	winrt::check_bool(TrackPopupMenuEx(
@@ -212,5 +285,5 @@ void PopupMenu::Show(POINT pt, HWND ownerHwnd)
 
 void PopupMenu::OnMenuClick(int index)
 {
-	winrt::get_self<winrt::WinUI3Package::implementation::PopupMenuFlyoutItem>(m_menuItemCache[index])->m_clickEvent(m_menuItemCache[index], nullptr);
+ 	winrt::get_self<winrt::WinUI3Package::implementation::PopupMenuFlyoutItem>(m_menuItemCache[index].as<winrt::WinUI3Package::PopupMenuFlyoutItem>())->m_clickEvent(m_menuItemCache[index], nullptr);
 }

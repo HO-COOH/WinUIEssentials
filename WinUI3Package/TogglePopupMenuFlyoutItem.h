@@ -2,7 +2,7 @@
 
 #include "PopupMenuFlyoutItem.h"
 #include "TogglePopupMenuFlyoutItem.g.h"
-
+#include "PopupMenuFlyoutItemImplBase.h"
 
 namespace winrt::WinUI3Package::implementation
 {

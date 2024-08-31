@@ -28,6 +28,11 @@
                     Click="MenuFlyoutItem_Click"
                     IsChecked="True"
                     Text="Toggle menu item" />
+                <MenuFlyoutItem
+                    Icon="Cancel"
+                    IsEnabled="False"
+                    Text="Disabled item" />
+                <MenuFlyoutItem Text="Invisible item" Visibility="Collapsed" />
                 <MenuFlyoutSeparator />
 
                 <RadioMenuFlyoutItem GroupName="Radios" Text="Radio Item1" />
@@ -58,6 +63,11 @@
                     Click="PopupMenuFlyoutItem_Click"
                     IsChecked="True"
                     Text="Toggle menu item" />
+                <essential:PopupMenuFlyoutItem
+                    Icon="Cancel"
+                    IsEnabled="False"
+                    Text="Disabled item" />
+                <essential:PopupMenuFlyoutItem Text="Invisible item" Visibility="Collapsed" />
                 <essential:PopupMenuFlyoutSeparator />
 
                 <essential:RadioPopupMenuFlyoutItem GroupName="Radios" Text="Radio Item1" />

@@ -3,6 +3,7 @@
 #if __has_include("RadioPopupMenuFlyoutItem.g.cpp")
 #include "RadioPopupMenuFlyoutItem.g.cpp"
 #endif
+#include "PopupMenu.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -33,6 +34,22 @@ namespace winrt::WinUI3Package::implementation
 	void RadioPopupMenuFlyoutItem::IsChecked(bool value)
 	{
 		SetValue(IsCheckedProperty(), winrt::box_value(value));
+
+		if (m_parentMenu)
+		{
+			MENUITEMINFO info
+			{
+				.cbSize = sizeof(info),
+				.fMask = MIIM_STATE,
+				.fState = static_cast<UINT>(value ? MFS_CHECKED : MFS_UNCHECKED)
+			};
+			winrt::check_bool(PopupMenu::setMenuItemInfo(m_parentMenu, index, &info));
+			if (value && !GroupName().empty())
+			{
+				assert(m_groupHelper);
+				m_groupHelper->SetCheckedItem(*this);
+			}
+		}
 	}
 	winrt::hstring RadioPopupMenuFlyoutItem::GroupName()
 	{
@@ -41,6 +58,8 @@ namespace winrt::WinUI3Package::implementation
 	void RadioPopupMenuFlyoutItem::GroupName(winrt::hstring const& value)
 	{
 		SetValue(GroupNameProperty(), winrt::box_value(value));
+		if (!value.empty() && IsChecked())
+			m_groupHelper->SetCheckedItem(*this);
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty RadioPopupMenuFlyoutItem::IsCheckedProperty()
@@ -51,5 +70,9 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Microsoft::UI::Xaml::DependencyProperty RadioPopupMenuFlyoutItem::GroupNameProperty()
 	{
 		return s_groupNameProperty;
+	}
+	void RadioPopupMenuFlyoutItem::SetGroupHelper(RadioPopupMenuItemGroup& groupHelper)
+	{
+		m_groupHelper = &groupHelper;
 	}
 }

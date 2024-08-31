@@ -3,7 +3,7 @@
  * \file   Microsoft.Windows.Widgets.hpp
  * \brief  Widgets headers
  * 
- * \author wenhao.li
+ * \author szpeter@yeah.net
  * \date   July 2024
  *********************************************************************/
 #include <winrt/Microsoft.Windows.Widgets.h>
