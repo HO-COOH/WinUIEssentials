@@ -3,7 +3,7 @@
 template<typename Derived, UINT_PTR SubclassId>
 class BackdropWindowActiveStateWorkaroundHandler
 {
-    static LRESULT windowActiveStateWorkaroundHanlder(HWND hWnd,
+    static LRESULT CALLBACK windowActiveStateWorkaroundHandler(HWND hWnd,
         UINT uMsg,
         WPARAM wParam,
         LPARAM lParam,
@@ -27,7 +27,7 @@ public:
 	{
 		winrt::check_bool(SetWindowSubclass(
 			hwnd,
-			&BackdropWindowActiveStateWorkaroundHandler<Derived, SubclassId>::windowActiveStateWorkaroundHanlder,
+			&BackdropWindowActiveStateWorkaroundHandler<Derived, SubclassId>::windowActiveStateWorkaroundHandler,
 			SubclassId,
 			reinterpret_cast<DWORD_PTR>(self)
 		));
@@ -35,6 +35,6 @@ public:
 
 	static void Unset(HWND hwnd)
 	{
-		RemoveWindowSubclass(hwnd, &BackdropWindowActiveStateWorkaroundHandler<Derived, SubclassId>::windowActiveStateWorkaroundHanlder, SubclassId);
+		RemoveWindowSubclass(hwnd, &BackdropWindowActiveStateWorkaroundHandler<Derived, SubclassId>::windowActiveStateWorkaroundHandler, SubclassId);
 	}
 };
