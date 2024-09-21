@@ -40,6 +40,9 @@
     <Filter Include="Controls\Shimmer">
       <UniqueIdentifier>{fe6e81ee-bbd0-44fc-a975-a338112dfa61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\ImageExtension">
+      <UniqueIdentifier>{71beeb28-f6d1-4c22-b38e-760d83045a30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -83,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="include\BuiltInUris.hpp">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="UnsupportedImageTypeError.hpp">
+      <Filter>Controls\ImageExtension</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +176,9 @@
     </Midl>
     <Midl Include="Shimmer.idl">
       <Filter>Controls\Shimmer</Filter>
+    </Midl>
+    <Midl Include="ImageExtension.idl">
+      <Filter>Controls\ImageExtension</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

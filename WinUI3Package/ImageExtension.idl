@@ -1,0 +1,13 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ImageExtension : Microsoft.UI.Xaml.DependencyObject
+    {
+        ImageExtension();
+        
+        static Microsoft.UI.Xaml.DependencyProperty FallbackSourceProperty{ get; };
+        static void SetFallbackSource(Microsoft.UI.Xaml.DependencyObject image, Microsoft.UI.Xaml.Media.ImageSource source);
+        static Microsoft.UI.Xaml.Media.ImageSource GetFallbackSource(Microsoft.UI.Xaml.DependencyObject image);
+    }
+}

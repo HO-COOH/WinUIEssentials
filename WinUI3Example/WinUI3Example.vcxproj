@@ -355,6 +355,10 @@
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ImageExtensionPage.xaml.h">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="IncrementalLoadingPage.xaml.h">
       <DependentUpon>IncrementalLoadingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -495,6 +499,9 @@
     <Page Include="IconButtonPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ImageExtensionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="IncrementalLoadingPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -601,6 +608,10 @@
     </ClCompile>
     <ClCompile Include="IconButtonPage.xaml.cpp">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ImageExtensionPage.xaml.cpp">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="IncrementalLoadingPage.xaml.cpp">
@@ -757,6 +768,10 @@
     </Midl>
     <Midl Include="IconButtonPage.idl">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ImageExtensionPage.idl">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="IncrementalLoadingPage.idl">

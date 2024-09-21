@@ -73,6 +73,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |CustomMicaBackdrop | :x: | :white_check_mark: | Backdrop
 |CustomAcrylicBackdrop | :x: | :white_check_mark: | Backdrop
 |Shimmer | :white_check_mark: | :white_check_mark: | Control
+|ImageExtension | :white_check_mark: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -753,3 +754,13 @@ Also, the `ShimmerGradientStops` is a resource of type `Windows.UI.Xaml.Media.Gr
 
 ![](./assets/shimmer-light.gif)
 ![](./assets/shimmer-dark.gif)
+
+## ImageExtension
+Automatically display a fallback image when `Image` failed to load.
+Usage:
+
+```xml
+<Image
+    essential:ImageExtension.FallbackSource="ms-appx:///Assets/Owl.jpg"
+    Source="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg" />
+```

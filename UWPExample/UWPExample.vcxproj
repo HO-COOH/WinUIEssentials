@@ -303,6 +303,10 @@
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ImageExtensionPage.h">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MarqueeContainerPage.h">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -401,6 +405,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="IconButtonPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ImageExtensionPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
@@ -535,6 +542,10 @@
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ImageExtensionPage.cpp">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MarqueeContainerPage.cpp">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -644,6 +655,10 @@
     </Midl>
     <Midl Include="IconButtonPage.idl">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ImageExtensionPage.idl">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MainPage.idl">

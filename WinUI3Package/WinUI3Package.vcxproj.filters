@@ -62,6 +62,9 @@
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp">
       <Filter>Backdrop</Filter>
     </ClInclude>
+    <ClInclude Include="UnsupportedImageTypeError.hpp">
+      <Filter>Controls\ImageExtension</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -122,6 +125,9 @@
     </Filter>
     <Filter Include="Controls\Shimmer">
       <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ImageExtension">
+      <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +226,9 @@
     </Midl>
     <Midl Include="RoundedAnimatedAcrylicWindowWithShadow.idl">
       <Filter>Controls\AcrylicVisual</Filter>
+    </Midl>
+    <Midl Include="ImageExtension.idl">
+      <Filter>Controls\ImageExtension</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

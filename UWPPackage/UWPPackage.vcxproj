@@ -453,6 +453,10 @@
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ImageExtension.h">
+      <DependentUpon>ImageExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\Glyphs.hpp" />
@@ -542,6 +546,7 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="UnsupportedImageTypeError.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoolToVisibilityConverter.cpp">
@@ -582,6 +587,10 @@
     </ClCompile>
     <ClCompile Include="IconButton.cpp">
       <DependentUpon>IconButton.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ImageExtension.cpp">
+      <DependentUpon>ImageExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MarqueeText.cpp">
@@ -702,6 +711,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="IconButton.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ImageExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MarqueeText.idl">
