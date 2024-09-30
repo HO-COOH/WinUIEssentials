@@ -180,6 +180,9 @@
     <Midl Include="ImageExtension.idl">
       <Filter>Controls\ImageExtension</Filter>
     </Midl>
+    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

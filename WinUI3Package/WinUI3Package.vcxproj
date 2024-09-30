@@ -417,6 +417,10 @@
       <DependentUpon>SettingsExpanderItemStyleSelector.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SettingsExpanderLastItemConrnerRadiusConverter.h">
+      <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Shimmer.h">
       <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -564,6 +568,10 @@
       <DependentUpon>SettingsExpanderItemStyleSelector.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SettingsExpanderLastItemConrnerRadiusConverter.cpp">
+      <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Shimmer.cpp">
       <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -678,6 +686,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="SettingsExpanderItemStyleSelector.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Shimmer.idl">
