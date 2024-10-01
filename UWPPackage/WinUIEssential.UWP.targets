@@ -7,7 +7,8 @@
     </ItemDefinitionGroup>
     
     <!--Add dll and xaml here-->
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <!--Release x64-->
+    <ItemGroup Condition="'$(UseDebugLibraries)'=='False' And '$(Platform)'=='x64'">
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\UWPPackage.winmd">
             <IsWinMDFile>true</IsWinMDFile>
             <Implementation>UWPPackage.dll</Implementation>
@@ -38,7 +39,9 @@
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\Segmented_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
     </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+
+    <!--Debug x64-->
+    <ItemGroup Condition="'$(UseDebugLibraries)'=='True' And '$(Platform)'=='x64'">
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\UWPPackage.winmd">
             <IsWinMDFile>true</IsWinMDFile>
             <Implementation>UWPPackage.dll</Implementation>

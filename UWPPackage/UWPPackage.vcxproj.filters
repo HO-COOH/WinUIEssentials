@@ -95,6 +95,7 @@
     <None Include="UWPPackage.def" />
     <None Include="packages.config" />
     <None Include=".nuspec" />
+    <None Include="WinUIEssential.UWP.targets" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />

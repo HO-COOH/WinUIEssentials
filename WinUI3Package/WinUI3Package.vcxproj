@@ -601,6 +601,7 @@
     <None Include=".nuspec" />
     <None Include="packages.config" />
     <None Include="WinUI3Package.def" />
+    <None Include="WinUIEssential.WinUI3.targets" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="BoolToVisibilityConverter.idl">
