@@ -1,11 +1,11 @@
-<!-- Copyright (c) Microsoft Corporation and Contributors. -->
-<!-- Licensed under the MIT License. -->
+<!--  Copyright (c) Microsoft Corporation and Contributors.  -->
+<!--  Licensed under the MIT License.  -->
 
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:local="using:WinUI3Package">
+    xmlns:local="using:WinUI3Package"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 
     <Style TargetType="local:MarqueeText">
         <Setter Property="IsTabStop" Value="False" />
@@ -13,13 +13,42 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:MarqueeText">
-                    <Grid x:Name="RootGrid" Padding="{TemplateBinding Padding}"
+                    <Grid
+                        x:Name="RootGrid"
+                        Padding="{TemplateBinding Padding}"
                         HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="{TemplateBinding CornerRadius}">
+                        <Grid x:Name="MarqueeContainer">
+                            <StackPanel x:Name="MarqueePanel" Orientation="Horizontal">
+                                <StackPanel.RenderTransform>
+                                    <TranslateTransform x:Name="MarqueeTransform" />
+                                </StackPanel.RenderTransform>
+                                <TextBlock
+                                    x:Name="Segment1"
+                                    win:FontStretch="{TemplateBinding FontStretch}"
+                                    CharacterSpacing="{TemplateBinding CharacterSpacing}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontStyle="{TemplateBinding FontStyle}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Text="{TemplateBinding Text}" />
+                                <TextBlock
+                                    x:Name="Segment2"
+                                    win:FontStretch="{TemplateBinding FontStretch}"
+                                    CharacterSpacing="{TemplateBinding CharacterSpacing}"
+                                    FontFamily="{TemplateBinding FontFamily}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontStyle="{TemplateBinding FontStyle}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Text="{TemplateBinding Text}" />
+                            </StackPanel>
+                        </Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="MarqueeStateGroup">
                                 <VisualState x:Name="MarqueeActive" />
@@ -53,7 +82,7 @@
                                 </VisualState>
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="BehaviorStateGroup">
-                                <VisualState x:Name="EmptyBehaviorState"/>
+                                <VisualState x:Name="EmptyBehaviorState" />
                                 <VisualState x:Name="Ticker">
                                     <VisualState.Setters>
                                         <Setter Target="Segment1.Padding" Value="0" />
@@ -71,32 +100,6 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-
-                        <Grid x:Name="MarqueeContainer">
-                            <StackPanel x:Name="MarqueePanel" Orientation="Horizontal">
-                                <StackPanel.RenderTransform>
-                                    <TranslateTransform x:Name="MarqueeTransform" />
-                                </StackPanel.RenderTransform>
-                                <TextBlock x:Name="Segment1"
-                             win:FontStretch="{TemplateBinding FontStretch}"
-                             CharacterSpacing="{TemplateBinding CharacterSpacing}"
-                             FontFamily="{TemplateBinding FontFamily}"
-                             FontSize="{TemplateBinding FontSize}"
-                             FontStyle="{TemplateBinding FontStyle}"
-                             FontWeight="{TemplateBinding FontWeight}"
-                             Foreground="{TemplateBinding Foreground}"
-                             Text="{TemplateBinding Text}" />
-                                <TextBlock x:Name="Segment2"
-                             win:FontStretch="{TemplateBinding FontStretch}"
-                             CharacterSpacing="{TemplateBinding CharacterSpacing}"
-                             FontFamily="{TemplateBinding FontFamily}"
-                             FontSize="{TemplateBinding FontSize}"
-                             FontStyle="{TemplateBinding FontStyle}"
-                             FontWeight="{TemplateBinding FontWeight}"
-                             Foreground="{TemplateBinding Foreground}"
-                             Text="{TemplateBinding Text}" />
-                            </StackPanel>
-                        </Grid>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

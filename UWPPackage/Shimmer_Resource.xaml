@@ -7,42 +7,45 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <media:GradientStopCollection x:Key="ShimmerGradientStops">
-                <GradientStop Color="#10000000" Offset="0.273"/>
-                <GradientStop Color="#08000000" Offset="0.436"/>
-                <GradientStop Color="#08000000" Offset="0.482"/>
-                <GradientStop Color="#10000000" Offset="0.643"/>
+                <GradientStop Offset="0.273" Color="#10000000" />
+                <GradientStop Offset="0.436" Color="#08000000" />
+                <GradientStop Offset="0.482" Color="#08000000" />
+                <GradientStop Offset="0.643" Color="#10000000" />
             </media:GradientStopCollection>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
             <media:GradientStopCollection x:Key="ShimmerGradientStops">
-                <GradientStop Color="#0DFFFFFF" Offset="0.273"/>
-                <GradientStop Color="#08FFFFFF" Offset="0.436"/>
-                <GradientStop Color="#08FFFFFF" Offset="0.482"/>
-                <GradientStop Color="#0DFFFFFF" Offset="0.643"/>
+                <GradientStop Offset="0.273" Color="#0DFFFFFF" />
+                <GradientStop Offset="0.436" Color="#08FFFFFF" />
+                <GradientStop Offset="0.482" Color="#08FFFFFF" />
+                <GradientStop Offset="0.643" Color="#0DFFFFFF" />
             </media:GradientStopCollection>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
     <Style TargetType="local:Shimmer">
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="CornerRadius" Value="4" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:Shimmer">
                     <Grid x:Name="RootGrid">
-                        <Border x:Name="Container" x:Load="False" CornerRadius="{TemplateBinding CornerRadius}"/>
+                        <Border
+                            x:Name="Container"
+                            x:Load="False"
+                            CornerRadius="{TemplateBinding CornerRadius}" />
 
-                        <ContentPresenter 
+                        <ContentPresenter
                             x:Name="ContentPresenter"
-                            Content="{TemplateBinding Content}" 
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            x:Load="False"/>
+                            x:Load="False"
+                            Content="{TemplateBinding Content}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
