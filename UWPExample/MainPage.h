@@ -7,11 +7,7 @@ namespace winrt::UWPExample::implementation
 {
     struct MainPage : MainPageT<MainPage>
     {
-        MainPage()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        MainPage() = default;
 
         void NavigationView_SelectionChanged(
             winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender,
@@ -34,7 +30,6 @@ namespace winrt::UWPExample::implementation
             {L"CursorControllerPage", winrt::xaml_typename<UWPExample::CursorControllerPage>()},
             {L"ConvertersPage", winrt::xaml_typename<UWPExample::ConvertersPage>()},
             {L"BadgePage", winrt::xaml_typename<UWPExample::BadgePage>()},
-            {L"TaskbarPage", winrt::xaml_typename<UWPExample::TaskbarPage>()},
             {L"TriggersPage", winrt::xaml_typename<UWPExample::TriggersPage>()},
             {L"GroupBoxPage", winrt::xaml_typename<UWPExample::GroupBoxPage>()},
             {L"CharmBarPage", winrt::xaml_typename<UWPExample::CharmBarPage>()},

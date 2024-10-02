@@ -1,8 +1,0 @@
-namespace UWPExample
-{
-    [default_interface]
-    runtimeclass TaskbarPage : Windows.UI.Xaml.Controls.Page
-    {
-        TaskbarPage();
-    }
-}

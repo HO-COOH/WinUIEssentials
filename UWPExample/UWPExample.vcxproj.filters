@@ -11,9 +11,6 @@
     <Page Include="BadgePage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="TaskbarPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="TriggersPage.xaml">
       <Filter>Pages</Filter>
     </Page>

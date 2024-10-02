@@ -346,10 +346,6 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TaskbarPage.h">
-      <DependentUpon>TaskbarPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="TilesPage.h">
       <DependentUpon>TilesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -429,9 +425,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ShimmerPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TaskbarPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TilesPage.xaml">
@@ -588,10 +581,6 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TaskbarPage.cpp">
-      <DependentUpon>TaskbarPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="TilesPage.cpp">
       <DependentUpon>TilesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -692,10 +681,6 @@
     </Midl>
     <Midl Include="ShimmerPage.idl">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="TaskbarPage.idl">
-      <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TilesPage.idl">
