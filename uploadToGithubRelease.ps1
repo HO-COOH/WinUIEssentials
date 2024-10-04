@@ -1,0 +1,1 @@
+msbuild -m -p:Configuration=Release -p:Platform=x64 -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:UapAppxPackageBuildMode=SideloadOnly -p:PackageCertificateKeyFile="$PSScriptRoot\UWPExample\UWPExample_TemporaryKey.pfx" -p:PackageCertificatePassword=""

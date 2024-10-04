@@ -204,7 +204,7 @@
     <AppxBundle>Never</AppxBundle>
     <AppInstallerUri>E:\</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
-    <PackageCertificateThumbprint>B083107C2CAC2A303E4C0BD373B5A68007A8A099</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>D:\WinUIEssentials\UWPExample\UWPExample_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -934,7 +934,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="WinUI3Example_TemporaryKey.pfx" />
   </ItemGroup>
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
