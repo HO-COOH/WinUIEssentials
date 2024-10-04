@@ -7,7 +7,7 @@ name: Build example Release_x64
 
 on:
   push:
-    branches: [ "master", "ci" ]
+    branches: [ "master", "ci", "ci/auto-upload-to-relase" ]
   pull_request:
     branches: [ "master", "ci" ]
 
