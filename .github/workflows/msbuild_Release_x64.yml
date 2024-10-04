@@ -15,9 +15,6 @@ env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: .
 
-permissions:
-  contents: read
-
 jobs:
   build_Release_x64:
     runs-on: windows-latest
