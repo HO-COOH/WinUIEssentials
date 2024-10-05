@@ -468,6 +468,7 @@
     <ClInclude Include="include\ToastTemplates.hpp" />
     <ClInclude Include="include\WindowHelper.hpp" />
     <ClInclude Include="include\WinUIIncludes.hpp" />
+    <ClInclude Include="ListViewBaseWorkaround.hpp" />
     <ClInclude Include="MarqueeText.h">
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>

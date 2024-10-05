@@ -362,6 +362,7 @@
       <DependentUpon>IsNullOrEmptyStateTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ListViewBaseWorkaround.hpp" />
     <ClInclude Include="MarqueeText.h">
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>

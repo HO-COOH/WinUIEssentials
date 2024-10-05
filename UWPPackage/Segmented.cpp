@@ -49,6 +49,8 @@ namespace winrt::UWPPackage::implementation
 
 		if (m_isMultiSelect = (SelectionMode() == winrt::Windows::UI::Xaml::Controls::ListViewSelectionMode::Multiple))
 			setMultiSelectStyle(m_isMultiSelect);
+
+		TemplateApplied();
 	}
 
 	winrt::Windows::Foundation::Numerics::float2 Segmented::SelectedItemActualWidth()
@@ -70,6 +72,7 @@ namespace winrt::UWPPackage::implementation
 
 	void Segmented::onSelectedIndexChanged(winrt::Windows::UI::Xaml::DependencyObject const& sender, winrt::Windows::UI::Xaml::DependencyProperty const& indexProperty)
 	{
+		ListViewBaseWorkaround::onSelectedIndexChanged();
 		if (!m_knob)
 			return;
 

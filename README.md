@@ -2,12 +2,12 @@
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
-![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=UWP)
-![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=winui3)
+[![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=WinUIEssential.UWP)](https://www.nuget.org/packages/WinUIEssential.UWP)
+[![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=WinUIEssential.WinUI3)](https://www.nuget.org/packages/WinUIEssential.WinUI3)
 
 Example project build status:
 
-[![Build example Debug_86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml)
+[![Build example Debug_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml)
 
 [![Build example Debug_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml)
 

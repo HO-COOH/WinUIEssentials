@@ -90,6 +90,9 @@
     <ClInclude Include="UnsupportedImageTypeError.hpp">
       <Filter>Controls\ImageExtension</Filter>
     </ClInclude>
+    <ClInclude Include="ListViewBaseWorkaround.hpp">
+      <Filter>Controls\Segmented</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="UWPPackage.def" />
