@@ -6,9 +6,8 @@
 #if __has_include("GlyphsPage.g.cpp")
 #include "GlyphsPage.g.cpp"
 #endif
+#include <FluentIconFontDownloader.hpp>
 
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -40,5 +39,20 @@ namespace winrt::WinUI3Example::implementation
         boxed.reserve(size);
         std::ranges::transform(glyphs, std::back_inserter(boxed), [](auto const& icon) { return winrt::box_value(icon); });
         return winrt::single_threaded_vector(std::move(boxed));
+    }
+
+    winrt::fire_and_forget GlyphsPage::Page_Loaded(
+        winrt::Windows::Foundation::IInspectable const&, 
+        winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+    {
+        co_await FluentIconFontDownloader::DownloadAsync(winrt::Windows::Storage::ApplicationData::Current().LocalFolder(), [](auto&&...) {});
+        m_hasFontDownloaded = true;
+    }
+
+    winrt::Windows::Foundation::Uri GlyphsPage::GlyphFont()
+    {
+        return m_hasFontDownloaded ? nullptr : winrt::Windows::Foundation::Uri{
+            L"ms-appdata:///local/Segoe%20Fluent%20Icons.ttf#Segoe Fluent Icons"
+        };
     }
 }

@@ -68,6 +68,9 @@
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
     </ClInclude>
+    <ClInclude Include="include\FluentIconFontDownloader.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -236,6 +239,9 @@
     </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="AncestorSource.idl">
+      <Filter>MarkupExtensions</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

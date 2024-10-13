@@ -282,6 +282,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AncestorSource.h">
+      <DependentUpon>AncestorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp" />
     <ClInclude Include="BoolToVisibilityConverter.h">
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
@@ -343,6 +347,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="include\Export.h" />
+    <ClInclude Include="include\FluentIconFontDownloader.hpp" />
     <ClInclude Include="include\Glyphs.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
     <ClInclude Include="include\Taskbar.hpp" />
@@ -450,6 +455,10 @@
     <ClInclude Include="WindowsVersion.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AncestorSource.cpp">
+      <DependentUpon>AncestorSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="BoolToVisibilityConverter.cpp">
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -605,6 +614,9 @@
     <None Include="WinUIEssential.WinUI3.targets" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="AncestorSource.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="BoolToVisibilityConverter.idl">
       <SubType>Designer</SubType>
     </Midl>

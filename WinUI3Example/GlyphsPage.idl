@@ -10,9 +10,11 @@ namespace WinUI3Example
     };
 
     [default_interface]
-    runtimeclass GlyphsPage : Microsoft.UI.Xaml.Controls.Page
+    runtimeclass GlyphsPage : Microsoft.UI.Xaml.Controls.Page, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         GlyphsPage();
         Windows.Foundation.Collections.IVector<Object> Glyphs{ get; };
+
+        Windows.Foundation.Uri GlyphFont{ get; };
     }
 }

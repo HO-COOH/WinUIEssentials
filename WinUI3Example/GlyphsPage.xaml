@@ -1,25 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="WinUI3Example.GlyphsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WinUI3Example"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="RootPage"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
-    <GridView ItemsSource="{x:Bind Glyphs}" Margin="10" CornerRadius="0">
+    <GridView
+        x:Name="GlyphsGridView"
+        Margin="10"
+        CornerRadius="0"
+        ItemsSource="{x:Bind Glyphs}">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="local:Icon">
-                <Border Width="143" Height="121" BorderBrush="Gray" BorderThickness="1" CornerRadius="0">
+                <Border
+                    Width="143"
+                    Height="121"
+                    BorderBrush="Gray"
+                    BorderThickness="1"
+                    CornerRadius="0">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <FontIcon Glyph="{x:Bind Glyph}" FontSize="32"/>
-                        <TextBlock Text="{x:Bind Name}" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap"/>
+                        <FontIcon
+                            essential:AncestorSource.AncestorType="Page"
+                            FontFamily="{Binding Path=GlyphFont, ElementName=RootPage, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                            FontSize="32"
+                            Glyph="{x:Bind Glyph}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            HorizontalAlignment="Center"
+                            Text="{x:Bind Name}"
+                            TextWrapping="Wrap" />
                     </Grid>
                 </Border>
             </DataTemplate>
@@ -27,9 +47,9 @@
 
         <GridView.ItemContainerStyle>
             <Style TargetType="GridViewItem">
-                <Setter Property="CornerRadius" Value="0"/>
-                <Setter Property="Padding" Value="0"/>
-                <Setter Property="Margin" Value="0"/>
+                <Setter Property="CornerRadius" Value="0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
             </Style>
         </GridView.ItemContainerStyle>
     </GridView>
