@@ -15,7 +15,7 @@ namespace winrt::WinUI3Example::implementation
         winrt::fire_and_forget Page_Loaded(
             winrt::Windows::Foundation::IInspectable const& sender,
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args);
-        winrt::Windows::Foundation::Uri GlyphFont();
+        winrt::Microsoft::UI::Xaml::Media::FontFamily GlyphFont();
 
     private:
         bool m_hasFontDownloaded{};

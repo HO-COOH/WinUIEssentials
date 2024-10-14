@@ -11,46 +11,71 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
-    <GridView
-        x:Name="GlyphsGridView"
-        Margin="10"
-        CornerRadius="0"
-        ItemsSource="{x:Bind Glyphs}">
-        <GridView.ItemTemplate>
-            <DataTemplate x:DataType="local:Icon">
-                <Border
-                    Width="143"
-                    Height="121"
-                    BorderBrush="Gray"
-                    BorderThickness="1"
-                    CornerRadius="0">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+    <Grid>
+        <TextBlock x:Name="FontSourceText" Text="{x:Bind Proxy.FontFamily.Source, Mode=OneWay}" />
+        <TextBlock
+            x:Name="Proxy"
+            FontFamily="{x:Bind GlyphFont, Mode=OneWay}"
+            Visibility="Visible" />
 
-                        <FontIcon
-                            essential:AncestorSource.AncestorType="Page"
-                            FontFamily="{Binding Path=GlyphFont, ElementName=RootPage, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                            FontSize="32"
-                            Glyph="{x:Bind Glyph}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            HorizontalAlignment="Center"
-                            Text="{x:Bind Name}"
-                            TextWrapping="Wrap" />
-                    </Grid>
-                </Border>
-            </DataTemplate>
-        </GridView.ItemTemplate>
+        <FontIcon
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            essential:AncestorSource.AncestorType="Proxy"
+            FontFamily="{Binding (essential:AncestorSource.Ancestor).FontFamily, RelativeSource={RelativeSource Mode=Self}, FallbackValue={ThemeResource SymbolThemeFontFamily}, TargetNullValue={ThemeResource SymbolThemeFontFamily}}"
+            FontSize="20"
+            Glyph="&#xE701;" />
 
-        <GridView.ItemContainerStyle>
-            <Style TargetType="GridViewItem">
-                <Setter Property="CornerRadius" Value="0" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="Margin" Value="0" />
-            </Style>
-        </GridView.ItemContainerStyle>
-    </GridView>
+        <GridView
+            x:Name="GlyphsGridView"
+            Margin="10"
+            CornerRadius="0"
+            ItemsSource="{x:Bind Glyphs}">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="local:Icon">
+                    <Border
+                        Width="143"
+                        Height="121"
+                        BorderBrush="Gray"
+                        BorderThickness="1"
+                        CornerRadius="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <FontIcon
+                                essential:AncestorSource.AncestorType="Proxy"
+                                FontFamily="{Binding (essential:AncestorSource.Ancestor).FontFamily, RelativeSource={RelativeSource Mode=Self}, FallbackValue={ThemeResource SymbolThemeFontFamily}, TargetNullValue={ThemeResource SymbolThemeFontFamily}}"
+                                FontSize="32"
+                                Glyph="{x:Bind Glyph}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                Text="{x:Bind Name}"
+                                TextWrapping="Wrap" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="CornerRadius" Value="0" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Margin" Value="0" />
+                </Style>
+            </GridView.ItemContainerStyle>
+        </GridView>
+        <!--<VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="CustomFont">
+                    <VisualState.Setters>
+                        <Setter Target="FontSourceText.Text" Value="Custom" />
+                        <Setter Target="Proxy.FontFamily" Value="ms-appdata:///local/segmdl2.ttf#Segoe MDL2 Assets" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>-->
+    </Grid>
 </Page>

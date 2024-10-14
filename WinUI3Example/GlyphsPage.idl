@@ -15,6 +15,6 @@ namespace WinUI3Example
         GlyphsPage();
         Windows.Foundation.Collections.IVector<Object> Glyphs{ get; };
 
-        Windows.Foundation.Uri GlyphFont{ get; };
+        Microsoft.UI.Xaml.Media.FontFamily GlyphFont{ get; };
     }
 }

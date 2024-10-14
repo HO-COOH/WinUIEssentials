@@ -15,30 +15,58 @@ namespace winrt::WinUI3Package::implementation
 
         static void SetAncestorType(
             winrt::Microsoft::UI::Xaml::FrameworkElement const& element,
-            winrt::Windows::UI::Xaml::Interop::TypeName const& value
+            winrt::hstring const& value
         )
         {
             element.SetValue(AncestorTypeProperty(), winrt::box_value(value));
         }
 
-        static winrt::Windows::UI::Xaml::Interop::TypeName GetAncestorType(
+        static winrt::hstring GetAncestorType(
             winrt::Microsoft::UI::Xaml::FrameworkElement const& element
         )
         {
-            return winrt::unbox_value<winrt::Windows::UI::Xaml::Interop::TypeName>(element.GetValue(AncestorTypeProperty()));
+            return winrt::unbox_value<winrt::hstring>(element.GetValue(AncestorTypeProperty()));
         }
+
+
+#pragma region Ancestor
+        static winrt::Microsoft::UI::Xaml::DependencyProperty AncestorProperty()
+        {
+            return s_ancestorProperty;
+        }
+
+        static void SetAncestor(
+            winrt::Microsoft::UI::Xaml::FrameworkElement const& element,
+            winrt::Windows::Foundation::IInspectable const& value
+        )
+        {
+            element.SetValue(AncestorProperty(), value);
+        }
+
+        static winrt::Windows::Foundation::IInspectable GetAncestor(
+            winrt::Microsoft::UI::Xaml::FrameworkElement const& element
+        )
+        {
+            return element.GetValue(AncestorProperty());
+        }
+#pragma endregion
 
     private:
         static winrt::Windows::Foundation::IInspectable findParent(
             winrt::Microsoft::UI::Xaml::DependencyObject const& obj,
-            winrt::Windows::UI::Xaml::Interop::TypeName const& typeName
+            winrt::hstring const& name
         )
         {
             if (auto parent = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetParent(obj); parent)
             {
-                if (typeName.Name == winrt::get_class_name(parent)) //this returns a fully-qualified value, so does not work in C++winrt
-                    return parent;
-                return findParent(parent, typeName);
+                for (auto i = 0; i < winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChildrenCount(parent); ++i)
+                {
+               
+                    if (auto child = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(parent, i); child.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Name() == name)
+                        return child;
+                }
+
+                return findParent(parent, name);
             }
 
             return nullptr;
@@ -52,24 +80,35 @@ namespace winrt::WinUI3Package::implementation
         {
             auto target = d.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
             auto targetType = GetAncestorType(target);
-            if (!targetType.Name.empty())
+            if (!targetType.empty())
             {
-                target.Loaded([target, targetType](winrt::Windows::Foundation::IInspectable const& sender, auto&&)
-                    {
-                        target.DataContext(findParent(target, targetType));
-                    });
+                if (target.IsLoaded())
+                    SetAncestor(target, findParent(target, targetType));
+                else
+                    target.Loaded([target, targetType](winrt::Windows::Foundation::IInspectable const& sender, auto&&)
+                        {
+                           SetAncestor(target, findParent(target, targetType));
+                        });
                 
             }
         }
         inline static winrt::Microsoft::UI::Xaml::DependencyProperty s_ancestorTypeProperty =
             winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
                 L"AncestorType",
-                winrt::xaml_typename<winrt::Windows::UI::Xaml::Interop::TypeName>(),
+                winrt::xaml_typename<winrt::hstring>(),
                 winrt::xaml_typename<class_type>(),
                 winrt::Microsoft::UI::Xaml::PropertyMetadata{
                     nullptr,
                     &AncestorSource::onAncestorTypeChanged
                 }
+            );
+
+        inline static winrt::Microsoft::UI::Xaml::DependencyProperty s_ancestorProperty =
+            winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+                L"Ancestor",
+                winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+                winrt::xaml_typename<class_type>(),
+                nullptr
             );
     };
 }

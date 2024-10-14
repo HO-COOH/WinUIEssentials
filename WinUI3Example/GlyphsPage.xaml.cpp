@@ -47,12 +47,20 @@ namespace winrt::WinUI3Example::implementation
     {
         co_await FluentIconFontDownloader::DownloadAsync(winrt::Windows::Storage::ApplicationData::Current().LocalFolder(), [](auto&&...) {});
         m_hasFontDownloaded = true;
+        raisePropertyChange(L"GlyphFont");
     }
 
-    winrt::Windows::Foundation::Uri GlyphsPage::GlyphFont()
+    winrt::Microsoft::UI::Xaml::Media::FontFamily GlyphsPage::GlyphFont()
     {
-        return m_hasFontDownloaded ? nullptr : winrt::Windows::Foundation::Uri{
-            L"ms-appdata:///local/Segoe%20Fluent%20Icons.ttf#Segoe Fluent Icons"
+        auto downloadedFont = std::format(L"{}\\Segoe Fluent Icons.ttf", winrt::Windows::Storage::ApplicationData::Current().LocalFolder().Path());
+        if (std::filesystem::exists(downloadedFont))
+        {
+            return winrt::Microsoft::UI::Xaml::Media::FontFamily{
+                std::format(L"{}#Segoe Fluent Icons", downloadedFont)
+            };
+        }
+        return !m_hasFontDownloaded ? winrt::Microsoft::UI::Xaml::Media::FontFamily{ L"Segoe MDL2 Assets" } : winrt::Microsoft::UI::Xaml::Media::FontFamily{
+            std::format(L"{}\\Segoe Fluent Icons.ttf#Segoe Fluent Icons", winrt::Windows::Storage::ApplicationData::Current().LocalFolder().Path())
         };
     }
 }
