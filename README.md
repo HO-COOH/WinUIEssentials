@@ -395,7 +395,10 @@ Add this to `App.xaml` (WinUI3)
 > For WinUI3, add `#include #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>` to your `pch.h`
 
 ## CharmBar
-Installing this nuget will automatically add `Desktop Extension` to your UWP project, so  you can use the good-ol Windows 8 style charm bar. This package further simplifies it's usage by allowing you to directly define local and global settings, directly in XAML containing UI element.
+Installing this nuget ~~will automatically add `Desktop Extension` to your UWP project~~ 
+**then add a `      <WinUIEssentialAddDesktopExtension>true</WinUIEssentialAddDesktopExtension>` under `PropertyGroup` node in your `vcxproj` file**
+
+so  you can use the good-ol Windows 8 style charm bar. This package further simplifies it's usage by allowing you to directly define local and global settings, directly in XAML containing UI element.
 
 - Define a global setting in resource section, with `SettingsPaneEx.Settings`
 ```xml

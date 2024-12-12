@@ -222,7 +222,7 @@ if(modified)
         </Task>
     </UsingTask>
 
-    <Target Name="AddDesktopExtension">
+    <Target Name="AddDesktopExtension" Condition="'$(WinUIEssentialAddDesktopExtension)' == 'true'">
         <Message Importance="high" Text="Checking $(MSBuildProjectFullPath) for [DesktopExtensions]"/>
         <AddDesktopExtension FilePath="$(MSBuildProjectFullPath)"/>
     </Target>
