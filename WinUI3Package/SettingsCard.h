@@ -78,7 +78,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::event_token m_previewKeyDown;
         winrt::event_token m_previewKeyUp;
 
-
+        bool m_isPointerOver{};
 
         void pointerEntered(
             winrt::Windows::Foundation::IInspectable sender,

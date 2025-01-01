@@ -247,7 +247,10 @@ namespace winrt::WinUI3Package::implementation
         if (IsClickEnabled())
         {
             base_type::OnPointerReleased(e);
-            winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
+            winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(
+                *this,
+                m_isPointerOver ? PointerOverState : NormalState,
+                true);
         }
     }
 
@@ -362,6 +365,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerEntered(e);
+        m_isPointerOver = true;
         winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, PointerOverState, true);
     }
 
@@ -370,6 +374,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerExited(e);
+        m_isPointerOver = false;
         winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
     }
 
