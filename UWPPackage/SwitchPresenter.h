@@ -6,7 +6,7 @@ namespace winrt::UWPPackage::implementation
 {
     struct SwitchPresenter : SwitchPresenterT<SwitchPresenter>
     {
-        SwitchPresenter() = default;
+        SwitchPresenter();
 
         UWPPackage::Case CurrentCase();
         void CurrentCase(UWPPackage::Case const& value);
@@ -30,6 +30,12 @@ namespace winrt::UWPPackage::implementation
             winrt::Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
+        static void onValueChanged(
+            winrt::Windows::UI::Xaml::DependencyObject const& d,
+            winrt::Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+
+        void evaluateCases();
     };
 }
 

@@ -25,23 +25,6 @@ namespace winrt::UWPPackage::implementation
             winrt::Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
         void updateTrigger();
-
-        static bool isStringComparable(
-            winrt::Windows::Foundation::PropertyType type1,
-            winrt::Windows::Foundation::PropertyType type2
-        );
-
-		static bool isStringCompareEqual(
-			winrt::Windows::Foundation::IInspectable object1,
-			winrt::Windows::Foundation::IInspectable object2,
-			winrt::Windows::Foundation::PropertyType type1,
-			winrt::Windows::Foundation::PropertyType type2
-		);
-
-        static bool convertTypeEquals(
-            winrt::Windows::Foundation::IInspectable value1,
-            winrt::Windows::Foundation::IInspectable value2
-        );
     };
 }
 

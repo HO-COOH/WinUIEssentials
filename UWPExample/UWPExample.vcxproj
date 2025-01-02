@@ -346,6 +346,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SwitchPresenterPage.h">
+      <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TilesPage.h">
       <DependentUpon>TilesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -425,6 +429,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ShimmerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SwitchPresenterPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TilesPage.xaml">
@@ -581,6 +588,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SwitchPresenterPage.cpp">
+      <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TilesPage.cpp">
       <DependentUpon>TilesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -681,6 +692,10 @@
     </Midl>
     <Midl Include="ShimmerPage.idl">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SwitchPresenterPage.idl">
+      <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TilesPage.idl">

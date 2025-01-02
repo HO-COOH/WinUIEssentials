@@ -2,6 +2,7 @@ namespace UWPPackage
 {
     [bindable]
     [default_interface]
+	[contentproperty("Content")]
     runtimeclass Case : Windows.UI.Xaml.DependencyObject
     {
         Case();

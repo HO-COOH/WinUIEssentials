@@ -3,6 +3,8 @@
 #if __has_include("SwitchPresenter.g.cpp")
 #include "SwitchPresenter.g.cpp"
 #endif
+#include "ObjectCompare.h"
+#include "CaseCollection.h"
 
 namespace winrt::UWPPackage::implementation
 {
@@ -19,7 +21,7 @@ namespace winrt::UWPPackage::implementation
 			L"SwitchCases",
 			winrt::xaml_typename<UWPPackage::CaseCollection>(),
 			winrt::xaml_typename<class_type>(),
-			nullptr
+			winrt::Windows::UI::Xaml::PropertyMetadata{nullptr, &SwitchPresenter::onSwitchCasesChanged}
 		);
 
 	winrt::Windows::UI::Xaml::DependencyProperty SwitchPresenter::s_valueProperty =
@@ -27,8 +29,13 @@ namespace winrt::UWPPackage::implementation
 			L"Value",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
-			nullptr
+			winrt::Windows::UI::Xaml::PropertyMetadata{nullptr, &SwitchPresenter::onValueChanged}
 		);
+
+	SwitchPresenter::SwitchPresenter()
+	{
+		SwitchCases({});
+	}
 
 	UWPPackage::Case SwitchPresenter::CurrentCase()
 	{
@@ -80,6 +87,31 @@ namespace winrt::UWPPackage::implementation
 		winrt::Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 	)
 	{
+		winrt::get_self<SwitchPresenter>(d.as<UWPPackage::SwitchPresenter>())->evaluateCases();
+	}
 
+	void SwitchPresenter::onValueChanged(
+		winrt::Windows::UI::Xaml::DependencyObject const& d, 
+		winrt::Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		winrt::get_self<SwitchPresenter>(d.as<UWPPackage::SwitchPresenter>())->evaluateCases();
+	}
+
+	void SwitchPresenter::evaluateCases()
+	{
+		if (auto const& currentCase = CurrentCase(); currentCase && internal::ConvertTypeEquals(currentCase, Value()))
+			return;
+
+		auto cases = SwitchCases();
+		if (cases.Size() == 0)
+			return;
+		if (auto const& matchCase = winrt::get_self<implementation::CaseCollection>(cases)->EvaluateCases(Value());
+			matchCase != CurrentCase())
+		{
+			//match case can be null
+			if (matchCase)
+				Content(matchCase.Content());
+			CurrentCase(matchCase);
+		}
 	}
 }

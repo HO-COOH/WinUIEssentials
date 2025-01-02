@@ -7,6 +7,8 @@ namespace winrt::UWPPackage::implementation
     struct CaseCollection : CaseCollectionT<CaseCollection>
     {
         CaseCollection() = default;
+
+		UWPPackage::Case EvaluateCases(winrt::Windows::Foundation::IInspectable const& value);
     };
 }
 
