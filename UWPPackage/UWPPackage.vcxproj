@@ -416,6 +416,14 @@
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Case.h">
+      <DependentUpon>Case.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="CaseCollection.h">
+      <DependentUpon>CaseCollection.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ContainerToBoolConverter.h">
       <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -539,6 +547,10 @@
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SwitchPresenter.h">
+      <DependentUpon>SwitchPresenter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Triggers\IsEqualStateTrigger.h">
       <DependentUpon>Triggers\IsEqualStateTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -556,6 +568,14 @@
   <ItemGroup>
     <ClCompile Include="BoolToVisibilityConverter.cpp">
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Case.cpp">
+      <DependentUpon>Case.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CaseCollection.cpp">
+      <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ContainerToBoolConverter.cpp">
@@ -670,6 +690,10 @@
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SwitchPresenter.cpp">
+      <DependentUpon>SwitchPresenter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Triggers\IsEqualStateTrigger.cpp">
       <DependentUpon>Triggers\IsEqualStateTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -694,6 +718,12 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="BoolToVisibilityConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Case.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="CaseCollection.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ContainerToBoolConverter.idl">
@@ -775,6 +805,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="StringToBoolConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="SwitchPresenter.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Triggers\IsEqualStateTrigger.idl">
