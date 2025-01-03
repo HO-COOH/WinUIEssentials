@@ -1,0 +1,13 @@
+namespace UWPExample
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TemplateInformation 
+    {
+        TemplateInformation();
+
+        String Header1;
+        String Regex1;
+        String PlaceholderText1;
+    }
+}

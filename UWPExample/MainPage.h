@@ -45,7 +45,8 @@ namespace winrt::UWPExample::implementation
             {L"SegmentedPage", winrt::xaml_typename<UWPExample::SegmentedPage>()},
             {L"UriPage", winrt::xaml_typename<UWPExample::UriPage>()},
             {L"ShimmerPage", winrt::xaml_typename<UWPExample::ShimmerPage>()},
-            {L"ImageExtensionPage", winrt::xaml_typename<UWPExample::ImageExtensionPage>()}
+            {L"ImageExtensionPage", winrt::xaml_typename<UWPExample::ImageExtensionPage>()},
+			{L"SwitchPresenterPage", winrt::xaml_typename<UWPExample::SwitchPresenterPage>()},
         };
     };
 }

@@ -102,6 +102,9 @@
     <Page Include="ImageExtensionPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="SwitchPresenterPage.xaml">
+      <Filter>Pages\SwitchPresenterPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -133,6 +136,9 @@
     </Midl>
     <Midl Include="CustomMicaWindow.idl">
       <Filter>Windows\Mica</Filter>
+    </Midl>
+    <Midl Include="TemplateInformation.idl">
+      <Filter>Pages\SwitchPresenterPage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -335,6 +341,9 @@
     </Filter>
     <Filter Include="Windows\Transparent">
       <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\SwitchPresenterPage">
+      <UniqueIdentifier>{4294cce6-a971-4ba9-aec0-eaf915100848}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
