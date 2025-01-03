@@ -3,6 +3,9 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="ObjectCompare.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -68,6 +71,9 @@
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectCompare.h">
+      <Filter>internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -132,6 +138,12 @@
     </Filter>
     <Filter Include="Controls\ImageExtension">
       <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SwitchPresenter">
+      <UniqueIdentifier>{68605443-f197-4fb3-b27c-1de2fb958f55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal">
+      <UniqueIdentifier>{7249024f-ebd8-419d-8c91-235bb32e1b45}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +248,15 @@
     </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="SwitchPresenter.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="Case.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="CaseCollection.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

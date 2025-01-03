@@ -43,10 +43,19 @@
     <Filter Include="Controls\ImageExtension">
       <UniqueIdentifier>{71beeb28-f6d1-4c22-b38e-760d83045a30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\SwitchPresenter">
+      <UniqueIdentifier>{8805dcd9-e3ce-4055-a631-7799eb34defc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal">
+      <UniqueIdentifier>{ec564620-58dd-4f36-923a-e71ffee9a97f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="ObjectCompare.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -92,6 +101,9 @@
     </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectCompare.h">
+      <Filter>internal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +198,15 @@
     </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="SwitchPresenter.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="Case.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="CaseCollection.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

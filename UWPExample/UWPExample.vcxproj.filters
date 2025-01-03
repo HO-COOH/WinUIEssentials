@@ -63,7 +63,7 @@
       <Filter>Pages</Filter>
     </Page>
     <Page Include="SwitchPresenterPage.xaml">
-      <Filter>Pages</Filter>
+      <Filter>Pages\SwitchPresenterPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +80,9 @@
     </Midl>
     <Midl Include="UriModel.idl">
       <Filter>Pages\UriPage</Filter>
+    </Midl>
+    <Midl Include="TemplateInformation.idl">
+      <Filter>Pages\SwitchPresenterPage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +267,9 @@
     </Filter>
     <Filter Include="Pages\UriPage">
       <UniqueIdentifier>{b4be7c7d-c2f3-4cbf-8dee-06dcdc772a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\SwitchPresenterPage">
+      <UniqueIdentifier>{21ade632-28cb-4aa3-9d32-771e35d9a0be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

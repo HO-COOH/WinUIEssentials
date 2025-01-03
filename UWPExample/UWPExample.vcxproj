@@ -350,6 +350,10 @@
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TemplateInformation.h">
+      <DependentUpon>TemplateInformation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TilesPage.h">
       <DependentUpon>TilesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -592,6 +596,10 @@
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TemplateInformation.cpp">
+      <DependentUpon>TemplateInformation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TilesPage.cpp">
       <DependentUpon>TilesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -697,6 +705,9 @@
     <Midl Include="SwitchPresenterPage.idl">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TemplateInformation.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TilesPage.idl">
       <DependentUpon>TilesPage.xaml</DependentUpon>

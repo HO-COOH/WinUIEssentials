@@ -122,7 +122,7 @@ namespace internal
 		if (type1 == winrt::Windows::Foundation::PropertyType::OtherType || type2 == winrt::Windows::Foundation::PropertyType::OtherType)
 		{
 			//unsupported type maybe a enum, and can be unboxed to int32
-			if (type1 == winrt::Windows::Foundation::PropertyType::OtherType && 
+			if (type1 == winrt::Windows::Foundation::PropertyType::OtherType &&
 				type2 == winrt::Windows::Foundation::PropertyType::OtherType)
 			{
 				auto tryEnumValue1 = object1.try_as<int32_t>();
@@ -134,7 +134,7 @@ namespace internal
 		}
 
 		//check if both are string
-		if (type1 == winrt::Windows::Foundation::PropertyType::String && 
+		if (type1 == winrt::Windows::Foundation::PropertyType::String &&
 			type2 == winrt::Windows::Foundation::PropertyType::String)
 			return winrt::unbox_value<winrt::hstring>(object1) == winrt::unbox_value<winrt::hstring>(object2);
 

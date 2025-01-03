@@ -99,8 +99,15 @@ namespace winrt::UWPPackage::implementation
 
 	void SwitchPresenter::evaluateCases()
 	{
-		if (auto const& currentCase = CurrentCase(); currentCase && internal::ConvertTypeEquals(currentCase, Value()))
-			return;
+		// If the current case we're on already matches our current value,
+		// then we don't have any work to do.
+		if (auto const& currentCase = CurrentCase(); currentCase)
+		{
+			// currentCase might be a default case, not having a value
+			auto currentCaseValue = currentCase.Value();
+			if(currentCaseValue && internal::ConvertTypeEquals(currentCaseValue, Value()))
+				return;
+		}
 
 		auto cases = SwitchCases();
 		if (cases.Size() == 0)
