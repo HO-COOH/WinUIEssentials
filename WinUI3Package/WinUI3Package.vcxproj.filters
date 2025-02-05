@@ -240,9 +240,6 @@
     <Midl Include="Shimmer.idl">
       <Filter>Controls\Shimmer</Filter>
     </Midl>
-    <Midl Include="RoundedAnimatedAcrylicWindowWithShadow.idl">
-      <Filter>Controls\AcrylicVisual</Filter>
-    </Midl>
     <Midl Include="ImageExtension.idl">
       <Filter>Controls\ImageExtension</Filter>
     </Midl>
@@ -289,9 +286,6 @@
     </Page>
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
-    </Page>
-    <Page Include="RoundedAnimatedAcrylicWindowWithShadow.xaml">
-      <Filter>Controls\AcrylicVisual</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

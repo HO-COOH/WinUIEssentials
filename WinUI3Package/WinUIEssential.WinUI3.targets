@@ -80,10 +80,6 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/HostBackdropVisual_Resource.xbf</TargetPath>
         </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\RoundedAnimatedAcrylicWindowWithShadow_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/RoundedAnimatedAcrylicWindowWithShadow_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
         <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\Shimmer_Resource.xbf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/Shimmer_Resource.xbf</TargetPath>
