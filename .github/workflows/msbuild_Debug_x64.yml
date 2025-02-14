@@ -32,10 +32,10 @@ jobs:
     - name: Install bun
       uses: oven-sh/setup-bun@v2
     - name: Install highlight dependencies
-      working-directory: ${{env.GITHUB_WORKSPACE}}/Highlight
+      working-directory: Highlight
       run: bun install
     - name: Build highlight
-      working-directory: ${{env.GITHUB_WORKSPACE}}/Highlight
+      working-directory: Highlight
       run: bun run build-only
     - name: Copy to project directory
       run: copy Highlight\dist\index.html WinUI3Example\Monaco.html
