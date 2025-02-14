@@ -65,6 +65,9 @@
     <Page Include="SwitchPresenterPage.xaml">
       <Filter>Pages\SwitchPresenterPage</Filter>
     </Page>
+    <Page Include="MonacoEditor.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -271,11 +274,17 @@
     <Filter Include="Pages\SwitchPresenterPage">
       <UniqueIdentifier>{21ade632-28cb-4aa3-9d32-771e35d9a0be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{991ea252-e95f-4a62-a036-a09606998058}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
     <None Include="packages.config" />
     <None Include="UWPExample_TemporaryKey.pfx" />
+    <None Include="Monaco.html">
+      <Filter>Helper</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />

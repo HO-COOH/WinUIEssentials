@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass SampleThemeListener : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        SampleThemeListener();
+    }
+}

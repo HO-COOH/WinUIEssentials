@@ -1,0 +1,37 @@
+import "ControlExampleSubstitution.idl";
+import "CodeSource.idl";
+
+namespace WinUI3Example
+{
+    // We support source code of string / packaged file / web url
+    [default_interface]
+    [contentproperty("Example")]
+    runtimeclass ControlExample : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        ControlExample();
+        
+        String HeaderText;
+        static Microsoft.UI.Xaml.DependencyProperty HeaderTextProperty{ get; };
+
+        Object Example;
+		static Microsoft.UI.Xaml.DependencyProperty ExampleProperty{ get; };
+
+        Object Options;
+		static Microsoft.UI.Xaml.DependencyProperty OptionsProperty{ get; };
+
+        Object Output;
+		static Microsoft.UI.Xaml.DependencyProperty OutputProperty{ get; };
+
+        CodeSource Xaml;
+		static Microsoft.UI.Xaml.DependencyProperty XamlProperty{ get; };
+
+        CodeSource Header;
+		static Microsoft.UI.Xaml.DependencyProperty HeaderProperty{ get; };
+
+        CodeSource Cpp;
+		static Microsoft.UI.Xaml.DependencyProperty CppProperty{ get; };
+
+		Windows.Foundation.Collections.IVector<WinUI3Example.ControlExampleSubstitution> Substitutions;
+		static Microsoft.UI.Xaml.DependencyProperty SubstitutionsProperty{ get; };
+    }
+}

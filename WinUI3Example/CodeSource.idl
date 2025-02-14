@@ -1,0 +1,17 @@
+import "ControlExampleSubstitution.idl";
+
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass CodeSource
+    {
+        CodeSource();
+        
+        String Code;
+        Windows.Foundation.Uri CodeUrl;
+        Windows.Foundation.Uri FileUri;
+
+        Windows.Foundation.Collections.IVector<WinUI3Example.ControlExampleSubstitution> Substitutions{ get; };
+    }
+}

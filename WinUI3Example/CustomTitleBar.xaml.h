@@ -1,17 +1,12 @@
 #pragma once
 #include "CustomTitleBar.g.h"
 
-
 namespace winrt::WinUI3Example::implementation
 {
     //If WindowEx is used within the same project you need winrt::Microsoft::UI::Xaml::Markup::ComponentConnectorT<CustomTitleBarT<CustomTitleBar>>
     struct CustomTitleBar : CustomTitleBarT<CustomTitleBar>
     {
-        CustomTitleBar()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        CustomTitleBar();
 
         int32_t MyProperty();
         void MyProperty(int32_t value);
