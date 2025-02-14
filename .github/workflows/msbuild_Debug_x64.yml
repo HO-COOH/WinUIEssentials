@@ -7,7 +7,7 @@ name: Build example Debug_x64
 
 on:
   push:
-    branches: [ "master", "ci" ]
+    branches: [ "master", "ci", "feat/code-presenter" ]
   pull_request:
     branches: [ "master", "ci" ]
 
