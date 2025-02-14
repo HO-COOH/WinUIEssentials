@@ -16,7 +16,7 @@ env:
   SOLUTION_FILE_PATH: .
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build_Release_x86:
@@ -66,6 +66,6 @@ jobs:
         tag: ${{steps.set-tag.outputs.tag}}
       uses: softprops/action-gh-release@v2
       with:
-        files: WinUIEssential.Example.zip
+        files: WinUIEssential.Example(x86).zip
         tag_name: ${{steps.set-tag.outputs.tag}}
       

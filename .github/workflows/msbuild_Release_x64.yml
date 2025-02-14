@@ -15,6 +15,9 @@ env:
   # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: .
 
+permissions:
+  contents: write
+
 jobs:
   build_Release_x64:
     runs-on: windows-latest
@@ -63,5 +66,5 @@ jobs:
         tag: ${{steps.set-tag.outputs.tag}}
       uses: softprops/action-gh-release@v2
       with:
-        files: WinUIEssential.Example.zip
+        files: WinUIEssential.Example(x64).zip
         tag_name: ${{steps.set-tag.outputs.tag}}
