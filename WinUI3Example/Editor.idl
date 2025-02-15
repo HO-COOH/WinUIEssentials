@@ -1,0 +1,20 @@
+namespace WinUI3Example
+{
+    enum Language
+    {
+        Xaml,
+        Cpp,
+        H,
+        Idl
+    };
+
+    [bindable]
+    [default_interface]
+    runtimeclass Editor : Microsoft.UI.Xaml.Controls.WebView2
+    {
+        Editor();
+        Editor(String code, Language language);
+
+        String Code;
+    }
+}

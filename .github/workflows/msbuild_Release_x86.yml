@@ -7,7 +7,7 @@ name: Build example Release_x86
 
 on:
   push:
-    branches: [ "master", "ci" ]
+    branches: [ "master", "ci", "feat/code-presenter" ]
   pull_request:
     branches: [ "master", "ci" ]
 
@@ -16,7 +16,7 @@ env:
   SOLUTION_FILE_PATH: .
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build_Release_x86:
@@ -28,6 +28,18 @@ jobs:
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.0.2
 
+    # Build highlight
+    - name: Install bun
+      uses: oven-sh/setup-bun@v2
+    - name: Install highlight dependencies
+      working-directory: Highlight
+      run: bun install
+    - name: Build highlight
+      working-directory: Highlight
+      run: bun run build-only
+    - name: Copy to project directory
+      run: copy Highlight\dist\index.html WinUI3Example\Monaco.html
+
     - name: Restore NuGet packages
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
@@ -36,5 +48,24 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=Release_CI2 /p:Platform=x86 ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild /m /p:Configuration=Release_CI2 /p:Platform=x86 ${{env.SOLUTION_FILE_PATH}} -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:UapAppxPackageBuildMode=SideloadOnly -p:PackageCertificateKeyFile="${{github.workspace}}\UWPExample\UWPExample_TemporaryKey.pfx" -p:PackageCertificatePassword=""
+
+    - name: Zip Archive
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: Compress-Archive -Path "AppPackages" -DestinationPath "WinUIEssential.Example(x86).zip"
+      shell: pwsh
+
+    - name: Set tag
+      id: set-tag
+      run: |
+        $out = Get-Date -format "yyyy.MM.dd.HH"
+        echo tag=$out >> $env:GITHUB_OUTPUT
+
+    - name: Release
+      env:
+        tag: ${{steps.set-tag.outputs.tag}}
+      uses: softprops/action-gh-release@v2
+      with:
+        files: WinUIEssential.Example(x86).zip
+        tag_name: ${{steps.set-tag.outputs.tag}}
       

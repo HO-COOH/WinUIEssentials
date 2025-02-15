@@ -311,6 +311,10 @@
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MonacoEditor.h">
+      <DependentUpon>MonacoEditor.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MyDataModel.h">
       <DependentUpon>MyDataModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -418,6 +422,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MarqueeContainerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MonacoEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
@@ -554,6 +561,10 @@
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="MonacoEditor.cpp">
+      <DependentUpon>MonacoEditor.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MyDataModel.cpp">
       <DependentUpon>MyDataModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -676,6 +687,10 @@
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="MonacoEditor.idl">
+      <DependentUpon>MonacoEditor.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="MyDataModel.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -737,6 +752,12 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Monaco.html">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </None>
     <None Include="packages.config" />
     <None Include="PropertySheet.props" />
     <None Include="UWPExample_TemporaryKey.pfx" />

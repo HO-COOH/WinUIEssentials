@@ -1,0 +1,13 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ControlExampleSubstitution : Microsoft.UI.Xaml.DependencyObject
+    {
+        ControlExampleSubstitution();
+        
+        String Key;
+        String Value;
+        Boolean IsEnabled;
+    }
+}
