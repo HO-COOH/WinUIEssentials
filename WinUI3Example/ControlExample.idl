@@ -33,5 +33,7 @@ namespace WinUI3Example
 
 		Windows.Foundation.Collections.IVector<WinUI3Example.ControlExampleSubstitution> Substitutions;
 		static Microsoft.UI.Xaml.DependencyProperty SubstitutionsProperty{ get; };
+
+        static String GetStringFromComboBoxItem(Object value);
     }
 }

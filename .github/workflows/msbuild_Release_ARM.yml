@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Build example Debug_x86
+name: Build example Release_ARM
 
 on:
   push:
@@ -16,10 +16,10 @@ env:
   SOLUTION_FILE_PATH: .
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  build_Debug_x86:
+  build_Release_x86:
     runs-on: windows-latest
 
     steps:
@@ -48,5 +48,24 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=Debug_CI2 /p:Platform=x86 ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild /m /p:Configuration=Release_CI2 /p:Platform=ARM ${{env.SOLUTION_FILE_PATH}} -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:UapAppxPackageBuildMode=SideloadOnly -p:PackageCertificateKeyFile="${{github.workspace}}\UWPExample\UWPExample_TemporaryKey.pfx" -p:PackageCertificatePassword=""
+
+    - name: Zip Archive
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: Compress-Archive -Path "AppPackages" -DestinationPath "WinUIEssential.Example(ARM).zip"
+      shell: pwsh
+
+    - name: Set tag
+      id: set-tag
+      run: |
+        $out = Get-Date -format "yyyy.MM.dd.HH"
+        echo tag=$out >> $env:GITHUB_OUTPUT
+
+    - name: Release
+      env:
+        tag: ${{steps.set-tag.outputs.tag}}
+      uses: softprops/action-gh-release@v2
+      with:
+        files: WinUIEssential.Example(ARM).zip
+        tag_name: ${{steps.set-tag.outputs.tag}}
       

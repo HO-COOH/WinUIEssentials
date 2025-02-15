@@ -47,6 +47,8 @@
         IsSettingsVisible="False"
         MenuItemsSource="{x:Bind Pages}"
         SelectionChanged="NavigationView_SelectionChanged">
-        <Frame x:Name="ContentFrame" />
+        <ScrollViewer>
+            <Frame x:Name="ContentFrame" Margin="10,10,20,10" />
+        </ScrollViewer>
     </NavigationView>
 </essential:WindowEx>

@@ -10,8 +10,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{015CEE95-DABC-4E33-8980-8B5103F4FDF5}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		.github\workflows\msbuild_Debug_ARM.yml = .github\workflows\msbuild_Debug_ARM.yml
+		.github\workflows\msbuild_Debug_ARM64.yml = .github\workflows\msbuild_Debug_ARM64.yml
 		.github\workflows\msbuild_Debug_x64.yml = .github\workflows\msbuild_Debug_x64.yml
 		.github\workflows\msbuild_Debug_x86.yml = .github\workflows\msbuild_Debug_x86.yml
+		.github\workflows\msbuild_Release_ARM.yml = .github\workflows\msbuild_Release_ARM.yml
+		.github\workflows\msbuild_Release_ARM64.yml = .github\workflows\msbuild_Release_ARM64.yml
 		.github\workflows\msbuild_Release_x64.yml = .github\workflows\msbuild_Release_x64.yml
 		.github\workflows\msbuild_Release_x86.yml = .github\workflows\msbuild_Release_x86.yml
 		README.md = README.md

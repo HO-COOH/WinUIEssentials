@@ -38,8 +38,10 @@
 
         <local:ControlExample HeaderText="Badge Glyph">
             <ComboBox
+                x:Name="BadgeGlyphComboBox"
                 Header="Glyph badge:"
                 PlaceholderText="Select badge"
+                SelectedIndex="0"
                 SelectionChanged="ComboBox_SelectionChanged">
                 <x:String>none</x:String>
                 <x:String>activity</x:String>
@@ -59,25 +61,13 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-&lt;StackPanel&gt;
-    &lt;TextBlock Text="The following buttons' content may get clipped if we don't pay careful attention to their layout containers." Margin="0,0,0,8" TextWrapping="Wrap"/&gt;
-    &lt;TextBlock Text="One option to mitigate clipped content is to place Buttons underneath each other, allowing for more space to grow horizontally:" Margin="0,0,0,8" TextWrapping="Wrap"/&gt;
-    &lt;Button HorizontalAlignment="Stretch" Margin="0,0,0,5"&gt;This is some text that is too long and will get cut off&lt;/Button&gt;
-    &lt;Button HorizontalAlignment="Stretch"&gt;This is another text that would result in being cut off&lt;/Button&gt;
-
-    &lt;TextBlock Text="Another option is to explicitly wrap the Button's content" Margin="0,8,0,8"/&gt;
-    &lt;StackPanel Orientation="Horizontal" HorizontalAlignment="Center"&gt;
-        &lt;Button MaxWidth="240" Margin="0,0,8,0"&gt;
-            &lt;TextBlock Text="This is some text that is too long and will get cut off" TextWrapping="WrapWholeWords"/&gt;
-        &lt;/Button&gt;
-        &lt;Button MaxWidth="240"&gt;
-            &lt;TextBlock Text="This is another text that would result in being cut off" TextWrapping="WrapWholeWords"/&gt;
-        &lt;/Button&gt;
-    &lt;/StackPanel&gt;
-&lt;/StackPanel&gt;
+                        <x:String xml:space="preserve">winrt::Windows::UI::Notifications::BadgeUpdateManager::CreateBadgeUpdaterForApplication()
+.Update(BadgeGlyphs::MakeBadgeNotification("{0}"));
                 </x:String>
                     </local:CodeSource.Code>
+                    <local:CodeSource.Substitutions>
+                        <local:ControlExampleSubstitution Value="{x:Bind local:ControlExample.GetStringFromComboBoxItem(BadgeGlyphComboBox.SelectedItem), Mode=OneWay}" />
+                    </local:CodeSource.Substitutions>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
         </local:ControlExample>
