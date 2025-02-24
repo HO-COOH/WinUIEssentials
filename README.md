@@ -12,7 +12,7 @@ Example project build status:
 |x86| [![Build example Debug_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml) | [![Build example Release_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml)
 |x64| [![Build example Debug_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml) | [![Build example Release_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml)
 |ARM| [![Build example Debug_ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM.yml) | [![Build example Release_ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM.yml)
-|ARM64| [![Build example Debug_ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM64.yml) | [![Build example Release_ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM64.yml)
+|ARM64| [![Build example Debug_ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM64.yml) | [![Build example Release_ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM64.yml)
 
 
 ## Usage
@@ -73,6 +73,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |CustomAcrylicBackdrop | :x: | :white_check_mark: | Backdrop
 |Shimmer | :white_check_mark: | :white_check_mark: | Control
 |ImageExtension | :white_check_mark: | :white_check_mark: | WinRT component
+|SwitchPresenter | :x: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -765,4 +766,19 @@ Usage:
 <Image
     essential:ImageExtension.FallbackSource="ms-appx:///Assets/Owl.jpg"
     Source="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg" />
+```
+
+## SwitchPresenter
+Almost the same as community's `SwitchPresenter`. But lacking reflection in C++ means you need to explicitly write out the value type in xaml in `Case.Value` property.
+
+For example, if you binding the `SwitchPresenter.Value` to a `Boolean`, you need to write the `Case.Value` to `<x:Boolean>True</x:String>`:
+```xml
+<essential:SwitchPresenter Value="{Binding IsOn, ElementName=LoadingState, Mode=OneWay}">
+    <essential:Case>
+        <essential:Case.Value>
+            <x:Boolean>True</x:Boolean>
+        </essential:Case.Value>
+        <TextBlock Text="True value content">
+    </essential:Case>
+</essential:SwitchPresenter>
 ```

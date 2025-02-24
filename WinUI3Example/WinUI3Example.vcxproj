@@ -281,6 +281,10 @@
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ExperimentPage.xaml.h">
+      <DependentUpon>ExperimentPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Global.h" />
     <ClInclude Include="GlyphsPage.xaml.h">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
@@ -448,6 +452,9 @@
     <Page Include="EntranceAnimationDemo.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ExperimentPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GlyphsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -575,6 +582,10 @@
     </ClCompile>
     <ClCompile Include="EntranceAnimationDemo.xaml.cpp">
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ExperimentPage.xaml.cpp">
+      <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Global.cpp" />
@@ -765,6 +776,10 @@
     </Midl>
     <Midl Include="EntranceAnimationDemo.idl">
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ExperimentPage.idl">
+      <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="GlyphsPage.idl">

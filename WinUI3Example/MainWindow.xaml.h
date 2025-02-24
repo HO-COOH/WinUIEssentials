@@ -55,7 +55,8 @@ namespace winrt::WinUI3Example::implementation
             {L"BackdropPage", winrt::xaml_typename<WinUI3Example::BackdropPage>()},
             {L"ShimmerPage", winrt::xaml_typename<WinUI3Example::ShimmerPage>()},
             {L"ImageExtensionPage", winrt::xaml_typename<WinUI3Example::ImageExtensionPage>()},
-            {L"SwitchPresenterPage", winrt::xaml_typename<WinUI3Example::SwitchPresenterPage>()}
+            {L"SwitchPresenterPage", winrt::xaml_typename<WinUI3Example::SwitchPresenterPage>()},
+            {L"ExperimentPage", winrt::xaml_typename<WinUI3Example::ExperimentPage>()}
         };
     };
 }

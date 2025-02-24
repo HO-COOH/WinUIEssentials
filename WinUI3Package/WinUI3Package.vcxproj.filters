@@ -74,6 +74,9 @@
     <ClInclude Include="ObjectCompare.h">
       <Filter>internal</Filter>
     </ClInclude>
+    <ClInclude Include="include\WebView2Helper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

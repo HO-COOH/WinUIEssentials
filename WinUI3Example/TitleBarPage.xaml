@@ -77,10 +77,19 @@
                     VerticalAlignment=&quot;Center&quot;
                     MaxWidth=&quot;600&quot;
                     essential:WindowEx.IsInteractive=&quot;True&quot;/&gt;
-            &lt;PersonPicture x:Name=&quot;PersonPic&quot; 
-                    Grid.Column=&quot;6&quot; 
-                    Height=&quot;32&quot; Margin=&quot;0,0,16,0&quot;
-                    essential:WindowEx.IsInteractive=&quot;True&quot;/&gt;
+            &lt;PersonPicture
+                x:Name=&quot;PersonPic&quot;
+                Grid.Column=&quot;6&quot;
+                Height=&quot;32&quot;
+                Margin=&quot;0,0,16,0&quot;
+                essential:WindowEx.IsInteractive=&quot;True&quot;
+                PointerPressed=&quot;PersonPic_PointerPressed&quot;&gt;
+                &lt;PersonPicture.ContextFlyout&gt;
+                    &lt;MenuFlyout x:Name=&quot;PersonPicMenu&quot;&gt;
+                        &lt;MenuFlyoutItem Text=&quot;Settings&quot; /&gt;
+                    &lt;/MenuFlyout&gt;
+                &lt;/PersonPicture.ContextFlyout&gt;
+            &lt;/PersonPicture&gt;
         &lt;/Grid&gt;
     &lt;/essential:WindowEx.TitleBar&gt;
 

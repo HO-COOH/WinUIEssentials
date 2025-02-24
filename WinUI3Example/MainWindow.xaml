@@ -43,15 +43,31 @@
     <!--
     </local:WindowEx.TitleBar>-->
 
-    <NavigationView
-        IsSettingsVisible="False"
-        MenuItemsSource="{x:Bind Pages}"
-        SelectionChanged="NavigationView_SelectionChanged">
-        <ScrollViewer>
-            <Frame
-                x:Name="ContentFrame"
-                Margin="10,10,20,10"
-                VerticalAlignment="Top" />
-        </ScrollViewer>
-    </NavigationView>
+    <Grid>
+        <NavigationView
+            IsSettingsVisible="False"
+            MenuItemsSource="{x:Bind Pages}"
+            SelectionChanged="NavigationView_SelectionChanged">
+            <ScrollViewer>
+                <Frame
+                    x:Name="ContentFrame"
+                    Margin="10,10,20,10"
+                    VerticalAlignment="Top" />
+            </ScrollViewer>
+        </NavigationView>
+
+        <ContentDialog
+            x:Name="InstallWebView2Dialog"
+            Title="You do not have WebView2 Runtime installed"
+            DefaultButton="Primary"
+            PrimaryButtonText="OK">
+            <RichTextBlock>
+                <Paragraph>
+                    The code presenter depends on WebView2 Runtime, and it will crash without it. <Hyperlink NavigateUri="https://developer.microsoft.com/microsoft-edge/webview2/consumer/">Download and install the runtime now.</Hyperlink>
+                </Paragraph>
+            </RichTextBlock>
+        </ContentDialog>
+
+    </Grid>
+
 </essential:WindowEx>

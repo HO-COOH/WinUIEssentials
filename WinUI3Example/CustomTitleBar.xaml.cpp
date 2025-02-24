@@ -42,4 +42,11 @@ namespace winrt::WinUI3Example::implementation
             .GridUnitType = winrt::Microsoft::UI::Xaml::GridUnitType::Pixel
         });
     }
+
+    void CustomTitleBar::PersonPic_PointerPressed(
+        winrt::Windows::Foundation::IInspectable const& sender, 
+        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const&)
+    {
+        PersonPicMenu().ShowAt(sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>());
+    }
 }

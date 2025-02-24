@@ -6,6 +6,7 @@
 #if __has_include("MainWindow.g.cpp")
 #include "MainWindow.g.cpp"
 #endif
+#include <WebView2Helper.hpp>
 
 //#include <dwmapi.h>
 //#pragma comment(lib, "gdi32.lib")
@@ -20,7 +21,9 @@ namespace winrt::WinUI3Example::implementation
 {
     MainWindow::MainWindow()
     {
-        //InitializeComponent();
+        InitializeComponent();
+        if (!WebView2Helper::IsWebView2Installed())
+            InstallWebView2Dialog().ShowAsync();
 
         //auto hwnd = GetHwnd(*this);
         //DWM_BLURBEHIND param;
