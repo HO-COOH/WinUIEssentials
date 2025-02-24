@@ -25,6 +25,9 @@ namespace WinUI3Example
         CodeSource Xaml;
 		static Microsoft.UI.Xaml.DependencyProperty XamlProperty{ get; };
 
+        CodeSource Idl;
+        static Microsoft.UI.Xaml.DependencyProperty IdlProperty{ get; };
+
         CodeSource Header;
 		static Microsoft.UI.Xaml.DependencyProperty HeaderProperty{ get; };
 
@@ -35,5 +38,6 @@ namespace WinUI3Example
 		static Microsoft.UI.Xaml.DependencyProperty SubstitutionsProperty{ get; };
 
         static String GetStringFromComboBoxItem(Object value);
+        static String BooleanToString(Boolean value);
     }
 }

@@ -11,40 +11,22 @@
 
 
     <StackPanel Spacing="10">
-        <TextBlock Text="SwitchPresenter can make it easier to follow complex layout changes or layouts with varying logic that are based on a property, for instance the type of ticketing mode for an airline." />
-        <StackPanel>
-            <ComboBox
-                x:Name="Lookup"
-                Margin="0,0,0,8"
-                Header="Look up reservation"
-                SelectedIndex="0">
-                <x:String>Select an option</x:String>
-                <x:String>Confirmation Code</x:String>
-                <x:String>E-ticket number</x:String>
-                <x:String>Mileage Plan number</x:String>
-            </ComboBox>
+        <local:ControlExample HeaderText="SwitchPresenter can make it easier to follow complex layout changes or layouts with varying logic that are based on a property, for instance the type of ticketing mode for an airline.">
+            <local:ControlExample.Options>
+                <ComboBox
+                    x:Name="Lookup"
+                    Margin="0,0,0,8"
+                    Header="Look up reservation"
+                    SelectedIndex="0">
+                    <x:String>Select an option</x:String>
+                    <x:String>Confirmation Code</x:String>
+                    <x:String>E-ticket number</x:String>
+                    <x:String>Mileage Plan number</x:String>
+                </ComboBox>
+            </local:ControlExample.Options>
 
             <essential:SwitchPresenter Value="{Binding SelectedItem, ElementName=Lookup}">
-                <!--<essential:SwitchPresenter.ContentTemplate>
-                    <DataTemplate x:DataType="local:TemplateInformation">
-                        <StackPanel>
-                            <TextBox
-                                x:Name="CodeValidator"
-                                Header="{x:Bind Header1}"
-                                PlaceholderText="{x:Bind PlaceholderText1}" />
-                            <TextBlock Text="Thanks for entering a valid code!" />
-                        </StackPanel>
-                    </DataTemplate>
-
-                </essential:SwitchPresenter.ContentTemplate>-->
-
                 <essential:Case Value="Confirmation Code">
-
-                    <!--<local:TemplateInformation
-                        Header1="Confirmation code"
-                        PlaceholderText1="6 letters"
-                        Regex1="^[a-zA-Z]{6}$" />-->
-
                     <StackPanel>
                         <TextBox
                             Name="ConfirmationCodeValidator"
@@ -73,24 +55,65 @@
                     <TextBlock Text="Please select a way to lookup your reservation above..." />
                 </essential:Case>
             </essential:SwitchPresenter>
-        </StackPanel>
 
-        <TextBlock Text="Or it can simply be used to clearly display different outcomes based on some state which can be useful for a NavigationView or with a simple enum as in the following example:" />
-        <StackPanel>
-            <ComboBox
-                x:Name="AnimalPicker"
-                Header="Pick an Animal"
-                SelectedIndex="0">
-                <x:String>Bunny</x:String>
-                <x:String>Cat</x:String>
-                <x:String>Dog</x:String>
-                <x:String>Giraffe</x:String>
-                <x:String>Llama</x:String>
-                <x:String>Otter</x:String>
-                <x:String>Owl</x:String>
-                <x:String>Parrot</x:String>
-                <x:String>Squirrel</x:String>
-            </ComboBox>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">
+&lt;essential:SwitchPresenter Value=&quot;{Binding SelectedItem, ElementName=Lookup}&quot;&gt;
+    &lt;essential:Case Value=&quot;Confirmation Code&quot;&gt;
+        &lt;StackPanel&gt;
+            &lt;TextBox
+                Name=&quot;ConfirmationCodeValidator&quot;
+                Header=&quot;Confirmation code&quot;
+                PlaceholderText=&quot;6 letters&quot; /&gt;
+            &lt;TextBlock Text=&quot;Thanks for entering a valid code!&quot; /&gt;
+        &lt;/StackPanel&gt;
+
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;E-ticket number&quot;&gt;
+        &lt;StackPanel&gt;
+            &lt;TextBox
+                Name=&quot;TicketValidator&quot;
+                Header=&quot;E-ticket number&quot;
+                PlaceholderText=&quot;10 or 13 numbers&quot; /&gt;
+            &lt;TextBlock Text=&quot;Thanks for entering a valid code!&quot; /&gt;
+        &lt;/StackPanel&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Mileage Plan number&quot;&gt;
+        &lt;TextBox
+            Name=&quot;PlanValidator&quot;
+            Header=&quot;Mileage Plan #&quot;
+            PlaceholderText=&quot;Mileage Plan #&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case IsDefault=&quot;True&quot;&gt;
+        &lt;TextBlock Text=&quot;Please select a way to lookup your reservation above...&quot; /&gt;
+    &lt;/essential:Case&gt;
+&lt;/essential:SwitchPresenter&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+
+        <local:ControlExample HeaderText="Or it can simply be used to clearly display different outcomes based on some state which can be useful for a NavigationView or with a simple enum as in the following example:">
+            <local:ControlExample.Options>
+                <ComboBox
+                    x:Name="AnimalPicker"
+                    Header="Pick an Animal"
+                    SelectedIndex="0">
+                    <x:String>Bunny</x:String>
+                    <x:String>Cat</x:String>
+                    <x:String>Dog</x:String>
+                    <x:String>Giraffe</x:String>
+                    <x:String>Llama</x:String>
+                    <x:String>Otter</x:String>
+                    <x:String>Owl</x:String>
+                    <x:String>Parrot</x:String>
+                    <x:String>Squirrel</x:String>
+                </ComboBox>
+            </local:ControlExample.Options>
+
             <essential:SwitchPresenter Padding="16" Value="{Binding SelectedItem, ElementName=AnimalPicker}">
                 <essential:Case Value="Bunny">
                     <TextBlock FontSize="32" Text="🐇" />
@@ -120,16 +143,49 @@
                     <TextBlock FontSize="32" Text="🐿" />
                 </essential:Case>
             </essential:SwitchPresenter>
-        </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">
+&lt;essential:SwitchPresenter Padding=&quot;16&quot; Value=&quot;{Binding SelectedItem, ElementName=AnimalPicker}&quot;&gt;
+    &lt;essential:Case Value=&quot;Bunny&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🐇&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Cat&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🐈&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Dog&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🐕&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Giraffe&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🦒&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Llama&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🦙&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Otter&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🦦&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Owl&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🦉&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Parrot&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🦜&quot; /&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case Value=&quot;Squirrel&quot;&gt;
+        &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🐿&quot; /&gt;
+    &lt;/essential:Case&gt;
+&lt;/essential:SwitchPresenter&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
 
 
-        <TextBlock Text="SwitchPresenter can also be used as a replacement for the deprecated Loading control. This provides more fine-grained control over animations and contents within each state." />
 
-        <Grid Padding="16">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <local:ControlExample HeaderText="SwitchPresenter can also be used as a replacement for the deprecated Loading control. This provides more fine-grained control over animations and contents within each state.">
             <essential:SwitchPresenter
                 Grid.Column="0"
                 HorizontalAlignment="Center"
@@ -144,11 +200,12 @@
                             HorizontalAlignment="Center"
                             Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="Fetching data.." />
+                            Text="Fetching data..." />
                     </StackPanel>
                 </essential:Case>
                 <essential:Case>
                     <essential:Case.Value>
+                        <!--  Note: We must use this syntax, because we don't have reflection in C++  -->
                         <x:Boolean>False</x:Boolean>
                     </essential:Case.Value>
                     <TextBlock
@@ -162,11 +219,53 @@
                 </essential:Case>
             </essential:SwitchPresenter>
 
+            <local:ControlExample.Options>
+                <ToggleSwitch
+                    x:Name="LoadingState"
+                    Grid.Column="1"
+                    Header="IsLoading" />
+            </local:ControlExample.Options>
 
-            <ToggleSwitch
-                x:Name="LoadingState"
-                Grid.Column="1"
-                Header="IsLoading" />
-        </Grid>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">
+&lt;essential:SwitchPresenter
+    Grid.Column=&quot;0&quot;
+    HorizontalAlignment=&quot;Center&quot;
+    Value=&quot;{Binding IsOn, ElementName=LoadingState, Mode=OneWay}&quot;&gt;
+    &lt;essential:Case&gt;
+        &lt;essential:Case.Value&gt;
+            &lt;x:Boolean&gt;True&lt;/x:Boolean&gt;
+        &lt;/essential:Case.Value&gt;
+        &lt;StackPanel HorizontalAlignment=&quot;Center&quot;&gt;
+            &lt;ProgressRing IsActive=&quot;{x:Bind LoadingState.IsOn, Mode=OneWay}&quot; /&gt;
+            &lt;TextBlock
+                HorizontalAlignment=&quot;Center&quot;
+                Foreground=&quot;{ThemeResource TextFillColorSecondaryBrush}&quot;
+                Style=&quot;{StaticResource CaptionTextBlockStyle}&quot;
+                Text=&quot;Fetching data...&quot; /&gt;
+        &lt;/StackPanel&gt;
+    &lt;/essential:Case&gt;
+    &lt;essential:Case&gt;
+        &lt;essential:Case.Value&gt;
+            &lt;!--  Note: We must use this syntax, because we don&apos;t have reflection in C++  --&gt;
+            &lt;x:Boolean&gt;False&lt;/x:Boolean&gt;
+        &lt;/essential:Case.Value&gt;
+        &lt;TextBlock
+            HorizontalAlignment=&quot;Center&quot;
+            TextAlignment=&quot;Center&quot;
+            TextWrapping=&quot;WrapWholeWords&quot;&gt;
+            &lt;Run FontWeight=&quot;SemiBold&quot; Text=&quot;Content has loaded&quot; /&gt;
+            &lt;LineBreak /&gt;
+            &lt;Run Text=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot; /&gt;
+        &lt;/TextBlock&gt;
+    &lt;/essential:Case&gt;
+&lt;/essential:SwitchPresenter&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
     </StackPanel>
 </Page>

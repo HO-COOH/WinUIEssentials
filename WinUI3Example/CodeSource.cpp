@@ -79,7 +79,27 @@ namespace winrt::WinUI3Example::implementation
                 m_substitutions.GetAt(2).Value(),
                 m_substitutions.GetAt(3).Value()
             );
+        case 5:
+            return vFormat(
+                m_code,
+                m_substitutions.GetAt(0).Value(),
+                m_substitutions.GetAt(1).Value(),
+                m_substitutions.GetAt(2).Value(),
+                m_substitutions.GetAt(3).Value(),
+                m_substitutions.GetAt(4).Value()
+            );
+        case 6:
+            return vFormat(
+                m_code,
+                m_substitutions.GetAt(0).Value(),
+                m_substitutions.GetAt(1).Value(),
+                m_substitutions.GetAt(2).Value(),
+                m_substitutions.GetAt(3).Value(),
+                m_substitutions.GetAt(4).Value(),
+                m_substitutions.GetAt(5).Value()
+            );
         default:
+            //Too many substitutions?
             assert(false);
         }
     }

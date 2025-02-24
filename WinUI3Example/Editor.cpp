@@ -48,7 +48,6 @@ namespace winrt::WinUI3Example::implementation
             L"",
             winrt::Microsoft::Web::WebView2::Core::CoreWebView2HostResourceAccessKind::Allow
         );
-        coreWebView.OpenDevToolsWindow();
         Source(winrt::Windows::Foundation::Uri{ L"https://local/Monaco.html" });
 		NavigationCompleted([this](auto&&...)
 		{
@@ -78,7 +77,7 @@ namespace winrt::WinUI3Example::implementation
 
     double Editor::measureHeight(winrt::hstring const& value)
     {
-        return max(10, 18.0 * (std::count(value.begin(), value.end(), L'\n') + 1));
+        return max(10, 20.0 * (std::count(value.begin(), value.end(), L'\n') + 1));
     }
 
     std::wstring_view Editor::ltrim(std::wstring_view str)

@@ -50,6 +50,9 @@ jobs:
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=Release_CI2 /p:Platform=x86 ${{env.SOLUTION_FILE_PATH}} -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:UapAppxPackageBuildMode=SideloadOnly -p:PackageCertificateKeyFile="${{github.workspace}}\UWPExample\UWPExample_TemporaryKey.pfx" -p:PackageCertificatePassword=""
 
+    - name: Copy SideloadReadme
+      run: copy SideloadReadme.md AppPackages\SideloadReadme.md
+
     - name: Zip Archive
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: Compress-Archive -Path "AppPackages" -DestinationPath "WinUIEssential.Example(x86).zip"

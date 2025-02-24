@@ -48,7 +48,10 @@
         MenuItemsSource="{x:Bind Pages}"
         SelectionChanged="NavigationView_SelectionChanged">
         <ScrollViewer>
-            <Frame x:Name="ContentFrame" Margin="10,10,20,10" />
+            <Frame
+                x:Name="ContentFrame"
+                Margin="10,10,20,10"
+                VerticalAlignment="Top" />
         </ScrollViewer>
     </NavigationView>
 </essential:WindowEx>

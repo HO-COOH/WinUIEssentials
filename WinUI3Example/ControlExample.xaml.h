@@ -28,6 +28,10 @@ namespace winrt::WinUI3Example::implementation
 		void Xaml(winrt::WinUI3Example::CodeSource const& value);
 		static winrt::Microsoft::UI::Xaml::DependencyProperty XamlProperty();
 
+		winrt::WinUI3Example::CodeSource Idl();
+		void Idl(winrt::WinUI3Example::CodeSource const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty IdlProperty();
+
 		winrt::WinUI3Example::CodeSource Header();
 		void Header(winrt::WinUI3Example::CodeSource const& value);
 		static winrt::Microsoft::UI::Xaml::DependencyProperty HeaderProperty();
@@ -40,13 +44,15 @@ namespace winrt::WinUI3Example::implementation
 		void Substitutions(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Example::ControlExampleSubstitution> const& value);
 		static winrt::Microsoft::UI::Xaml::DependencyProperty SubstitutionsProperty();
 
-		static winrt::hstring GetStringFromComboBoxItem(winrt::Windows::Foundation::IInspectable const& value) { return winrt::unbox_value_or(value, L""); }
+		static winrt::hstring GetStringFromComboBoxItem(winrt::Windows::Foundation::IInspectable const& value);
+		static winrt::hstring BooleanToString(bool value);
 	private:
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerTextProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_exampleProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_optionsProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_outputProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_xamlProperty;
+		static winrt::Microsoft::UI::Xaml::DependencyProperty m_idlProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_cppProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_substitutionsProperty;
@@ -54,11 +60,15 @@ namespace winrt::WinUI3Example::implementation
 		winrt::WinUI3Example::Editor makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language);
 
 		winrt::WinUI3Example::Editor m_xamlEditor{ nullptr };
+		winrt::WinUI3Example::Editor m_idlEditor{ nullptr };
 		winrt::WinUI3Example::Editor m_headerEditor{ nullptr };
 		winrt::WinUI3Example::Editor m_cppEditor{ nullptr };
 
 		static void onXamlChanged(
 			winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
+			winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+		static void onIdlChanged(
+			winrt::Microsoft::UI::Xaml::DependencyObject const& d,
 			winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 		static void onHeaderChanged(
 			winrt::Microsoft::UI::Xaml::DependencyObject const& d, 

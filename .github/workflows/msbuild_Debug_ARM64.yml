@@ -19,7 +19,7 @@ permissions:
   contents: read
 
 jobs:
-  build_Debug_x86:
+  build_Debug_ARM64:
     runs-on: windows-latest
 
     steps:

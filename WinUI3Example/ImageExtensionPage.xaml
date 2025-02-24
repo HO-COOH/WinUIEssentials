@@ -9,19 +9,33 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Orientation="Horizontal">
-        <StackPanel Orientation="Horizontal" Spacing="10">
-            <Button x:Name="SuccessLoadButton" Click="SuccessLoadButton_Click">Load correct url</Button>
-            <Button x:Name="FailedLoadButton" Click="FailedLoadButton_Click">Load incorrect url</Button>
-        </StackPanel>
+    <local:ControlExample HeaderText="ImageExtension (a convenient fallback for loading images)">
         <Image
             x:Name="Image"
             Width="50"
             Height="50"
             essential:ImageExtension.FallbackSource="ms-appx:///Assets/Owl.jpg"
             Source="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg" />
-    </StackPanel>
+        <local:ControlExample.Options>
+            <StackPanel Spacing="5">
+                <Button x:Name="SuccessLoadButton" Click="SuccessLoadButton_Click">Load correct url</Button>
+                <Button x:Name="FailedLoadButton" Click="FailedLoadButton_Click">Load incorrect url</Button>
+            </StackPanel>
+        </local:ControlExample.Options>
+
+        <local:ControlExample.Xaml>
+            <local:CodeSource>
+                <local:CodeSource.Code>
+                    <x:String xml:space="preserve">
+&lt;Image
+    x:Name=&quot;Image&quot;
+    Width=&quot;50&quot;
+    Height=&quot;50&quot;
+    essential:ImageExtension.FallbackSource=&quot;ms-appx:///Assets/Owl.jpg&quot;
+    Source=&quot;https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg&quot; /&gt;
+                    </x:String>
+                </local:CodeSource.Code>
+            </local:CodeSource>
+        </local:ControlExample.Xaml>
+    </local:ControlExample>
 </Page>

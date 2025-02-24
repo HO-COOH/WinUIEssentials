@@ -53,6 +53,14 @@ namespace winrt::WinUI3Example::implementation
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &ControlExample::onXamlChanged }
 		);
 
+	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_idlProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Idl",
+			winrt::xaml_typename<winrt::WinUI3Example::CodeSource>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &ControlExample::onIdlChanged }
+		);
+
 	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_cppProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Cpp",
@@ -158,6 +166,21 @@ namespace winrt::WinUI3Example::implementation
 		return m_xamlProperty;
 	}
 
+	winrt::WinUI3Example::CodeSource ControlExample::Idl()
+	{
+		return winrt::unbox_value<winrt::WinUI3Example::CodeSource>(GetValue(m_idlProperty));
+	}
+
+	void ControlExample::Idl(winrt::WinUI3Example::CodeSource const& value)
+	{
+		SetValue(m_idlProperty, value);
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::IdlProperty()
+	{
+		return m_idlProperty;
+	}
+
 	winrt::WinUI3Example::CodeSource ControlExample::Header()
 	{
 		return winrt::unbox_value<winrt::WinUI3Example::CodeSource>(GetValue(m_headerProperty));
@@ -251,6 +274,17 @@ namespace winrt::WinUI3Example::implementation
 			self->m_xamlEditor = self->makePivotItem(self->Xaml(), winrt::WinUI3Example::Language::Xaml);
 	}
 
+	void ControlExample::onIdlChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = getSelf(d);
+		if (self->m_idlEditor)
+		{
+			//change code
+		}
+		else
+			self->m_idlEditor = self->makePivotItem(self->Idl(), winrt::WinUI3Example::Language::Idl);
+	}
+
 	void ControlExample::onHeaderChanged(
 		winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
 		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -286,6 +320,16 @@ namespace winrt::WinUI3Example::implementation
 	ControlExample* ControlExample::getSelf(winrt::Microsoft::UI::Xaml::DependencyObject const& d)
 	{
 		return winrt::get_self<ControlExample>(d.as<class_type>());
+	}
+
+	winrt::hstring ControlExample::GetStringFromComboBoxItem(winrt::Windows::Foundation::IInspectable const& value) 
+	{ 
+		return winrt::unbox_value_or(value, L""); 
+	}
+
+	winrt::hstring ControlExample::BooleanToString(bool value)
+	{
+		return value ? L"True" : L"False";
 	}
 }
 

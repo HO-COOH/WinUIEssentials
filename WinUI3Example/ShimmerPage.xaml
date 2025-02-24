@@ -10,44 +10,135 @@
     mc:Ignorable="d">
 
     <StackPanel Spacing="5">
-        <ToggleSwitch
-            x:Name="IsLoadingSwitch"
-            Header="IsLoading: "
-            IsOn="True" />
-        <StackPanel Width="240" Padding="16"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Spacing="12">
-            <essential:Shimmer Width="96" Height="96" CornerRadius="96" IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
-                <Border CornerRadius="96">
-                    <Border.Background>
-                        <ImageBrush ImageSource="ms-appx:///Assets/Owl.jpg"/>
-                    </Border.Background>
-                </Border>
-                <!--<Image Source="ms-appx:///Assets/Owl.jpg"/>-->
-                <!--<essential:Shimmer.Resources>
-                    <media:GradientStopCollection x:Key="ShimmerGradientStops">
-                        <GradientStop Color="#FF0000" Offset="0.273"/>
-                        <GradientStop Color="#00FFFF" Offset="0.436"/>
-                        <GradientStop Color="#FF00FF" Offset="0.482"/>
-                        <GradientStop Color="#10FFFFFF" Offset="0.643"/>
-                    </media:GradientStopCollection>
-                </essential:Shimmer.Resources>-->
+        <local:ControlExample HeaderText="Simple Shimmer">
+            <essential:Shimmer
+                Width="150"
+                Height="20"
+                IsLoading="{x:Bind IsLoadingSwitch1.IsOn, Mode=OneWay}">
+                <TextBlock FontWeight="SemiBold" Text="This is some data" />
             </essential:Shimmer>
 
-            <essential:Shimmer Width="80" Height="20" IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
-                <TextBlock FontWeight="SemiBold" Text="This is a title"/>
-            </essential:Shimmer>
+            <local:ControlExample.Options>
+                <ToggleSwitch
+                    x:Name="IsLoadingSwitch1"
+                    Header="IsLoading: "
+                    IsOn="True" />
+            </local:ControlExample.Options>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:Shimmer
+    Width=&quot;150&quot;
+    Height=&quot;20&quot;
+    IsLoading=&quot;{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}&quot;&gt;
+    &lt;TextBlock FontWeight=&quot;SemiBold&quot; Text=&quot;This is a some data&quot; /&gt;
+&lt;/essential:Shimmer&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
 
-            <essential:Shimmer Width="120" Height="20" IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
-                <TextBlock Text="This is a description"/>
-            </essential:Shimmer>
+        <local:ControlExample HeaderText="Shimmer card">
+            <StackPanel
+                Width="240"
+                Padding="16"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="4"
+                Spacing="12">
+                <essential:Shimmer
+                    Width="96"
+                    Height="96"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    CornerRadius="96"
+                    IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
+                    <Border CornerRadius="96">
+                        <Border.Background>
+                            <ImageBrush ImageSource="ms-appx:///Assets/Owl.jpg" />
+                        </Border.Background>
+                    </Border>
+                </essential:Shimmer>
 
-            <essential:Shimmer Width="60" Height="32" IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
-                <Button Content="Install" Style="{ThemeResource AccentButtonStyle}"/>
-            </essential:Shimmer>
-        </StackPanel>
+                <essential:Shimmer
+                    Width="80"
+                    Height="20"
+                    IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
+                    <TextBlock FontWeight="SemiBold" Text="This is a title" />
+                </essential:Shimmer>
+
+                <essential:Shimmer
+                    Width="120"
+                    Height="20"
+                    IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
+                    <TextBlock Text="This is a description" />
+                </essential:Shimmer>
+
+                <essential:Shimmer
+                    Width="60"
+                    Height="32"
+                    IsLoading="{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}">
+                    <Button Content="Install" Style="{ThemeResource AccentButtonStyle}" />
+                </essential:Shimmer>
+            </StackPanel>
+            <local:ControlExample.Options>
+                <ToggleSwitch
+                    x:Name="IsLoadingSwitch"
+                    Header="IsLoading: "
+                    IsOn="True" />
+            </local:ControlExample.Options>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;StackPanel
+    Width=&quot;240&quot;
+    Padding=&quot;16&quot;
+    Background=&quot;{ThemeResource CardBackgroundFillColorDefaultBrush}&quot;
+    BorderBrush=&quot;{ThemeResource CardStrokeColorDefaultBrush}&quot;
+    BorderThickness=&quot;1&quot;
+    CornerRadius=&quot;4&quot;
+    Spacing=&quot;12&quot;&gt;
+    &lt;essential:Shimmer
+        Width=&quot;96&quot;
+        Height=&quot;96&quot;
+        HorizontalContentAlignment=&quot;Stretch&quot;
+        VerticalContentAlignment=&quot;Stretch&quot;
+        CornerRadius=&quot;96&quot;
+        IsLoading=&quot;{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}&quot;&gt;
+        &lt;Border CornerRadius=&quot;96&quot;&gt;
+            &lt;Border.Background&gt;
+                &lt;ImageBrush ImageSource=&quot;ms-appx:///Assets/Owl.jpg&quot; /&gt;
+            &lt;/Border.Background&gt;
+        &lt;/Border&gt;
+    &lt;/essential:Shimmer&gt;
+
+    &lt;essential:Shimmer
+        Width=&quot;80&quot;
+        Height=&quot;20&quot;
+        IsLoading=&quot;{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}&quot;&gt;
+        &lt;TextBlock FontWeight=&quot;SemiBold&quot; Text=&quot;This is a title&quot; /&gt;
+    &lt;/essential:Shimmer&gt;
+
+    &lt;essential:Shimmer
+        Width=&quot;120&quot;
+        Height=&quot;20&quot;
+        IsLoading=&quot;{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}&quot;&gt;
+        &lt;TextBlock Text=&quot;This is a description&quot; /&gt;
+    &lt;/essential:Shimmer&gt;
+
+    &lt;essential:Shimmer
+        Width=&quot;60&quot;
+        Height=&quot;32&quot;
+        IsLoading=&quot;{x:Bind IsLoadingSwitch.IsOn, Mode=OneWay}&quot;&gt;
+        &lt;Button Content=&quot;Install&quot; Style=&quot;{ThemeResource AccentButtonStyle}&quot; /&gt;
+    &lt;/essential:Shimmer&gt;
+&lt;/StackPanel&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
     </StackPanel>
 </Page>
