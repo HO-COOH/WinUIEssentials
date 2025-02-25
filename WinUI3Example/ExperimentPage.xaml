@@ -8,7 +8,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <Page.Resources>
+        <local:ExpViewModel x:Name="MyViewModel">
+            <local:ExpViewModel.MyProperty>
+                <local:MyEnum>MyValue2</local:MyEnum>
+            </local:ExpViewModel.MyProperty>
+        </local:ExpViewModel>
+    </Page.Resources>
+    <StackPanel Loaded="StackPanel_Loaded">
         <TextBlock Text="Experiment functionalities go here!" />
     </StackPanel>
 </Page>

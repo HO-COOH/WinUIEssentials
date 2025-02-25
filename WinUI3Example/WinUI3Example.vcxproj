@@ -285,6 +285,10 @@
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ExpViewModel.h">
+      <DependentUpon>ExpViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Global.h" />
     <ClInclude Include="GlyphsPage.xaml.h">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
@@ -588,6 +592,10 @@
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ExpViewModel.cpp">
+      <DependentUpon>ExpViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="GlyphsPage.xaml.cpp">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
@@ -781,6 +789,9 @@
     <Midl Include="ExperimentPage.idl">
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ExpViewModel.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="GlyphsPage.idl">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>

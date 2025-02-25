@@ -125,10 +125,17 @@ namespace internal
 			if (type1 == winrt::Windows::Foundation::PropertyType::OtherType &&
 				type2 == winrt::Windows::Foundation::PropertyType::OtherType)
 			{
-				auto tryEnumValue1 = object1.try_as<int32_t>();
-				auto tryEnumValue2 = object2.try_as<int32_t>();
-				if (tryEnumValue1 && tryEnumValue2)
-					return *tryEnumValue1 == *tryEnumValue2;
+				//if the type is not enum, GetInt32() will throw
+				try 
+				{
+					auto const tryEnumValue1 = object1AsPropertyValue.GetInt32();
+					auto const tryEnumValue2 = object2AsPropertyValue.GetInt32();
+					return tryEnumValue1 == tryEnumValue2;
+				}
+				catch (winrt::hresult_not_implemented const&)
+				{
+					return false;
+				}
 			}
 			return false;
 		}

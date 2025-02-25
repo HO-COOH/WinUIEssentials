@@ -161,6 +161,9 @@
     <Midl Include="CodeSource.idl">
       <Filter>Helper</Filter>
     </Midl>
+    <Midl Include="ExpViewModel.idl">
+      <Filter>Pages\Experimental</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

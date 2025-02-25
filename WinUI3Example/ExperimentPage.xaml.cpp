@@ -14,3 +14,21 @@ namespace winrt::WinUI3Example::implementation
 {
 
 }
+
+
+void winrt::WinUI3Example::implementation::ExperimentPage::StackPanel_Loaded(
+	winrt::Windows::Foundation::IInspectable const& sender, 
+	winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+{
+	auto pro = MyViewModel().MyProperty();
+	auto proValue = pro.as<winrt::Windows::Foundation::IPropertyValue>();
+	auto value1 = proValue.GetInt32();
+	try
+	{
+		proValue.GetDouble();
+	}
+	catch (winrt::hresult_not_implemented const&)
+	{
+		OutputDebugString(L"Catch\n");
+	}
+}

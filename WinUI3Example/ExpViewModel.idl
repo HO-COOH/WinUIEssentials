@@ -1,0 +1,10 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ExpViewModel 
+    {
+        ExpViewModel();
+        Object MyProperty;
+    }
+}
