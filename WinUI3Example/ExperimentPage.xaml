@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.ExperimentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <local:ExpViewModel x:Name="MyViewModel">
+            <local:ExpViewModel.MyProperty>
+                <local:MyEnum>MyValue2</local:MyEnum>
+            </local:ExpViewModel.MyProperty>
+        </local:ExpViewModel>
+    </Page.Resources>
+    <StackPanel Loaded="StackPanel_Loaded">
+        <TextBlock Text="Experiment functionalities go here!" />
+    </StackPanel>
+</Page>

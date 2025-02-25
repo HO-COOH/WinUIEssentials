@@ -25,10 +25,6 @@ namespace winrt::WinUI3Package::implementation
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
         void updateTrigger();
-        static bool convertTypeEquals(
-            winrt::Windows::Foundation::IInspectable value1,
-            winrt::Windows::Foundation::IInspectable value2
-        );
     };
 }
 

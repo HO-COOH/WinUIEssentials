@@ -7,7 +7,8 @@
     </ItemDefinitionGroup>
     
     <!--Add dll and xaml here-->
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <!--Release x64-->
+    <ItemGroup Condition="'$(UseDebugLibraries)'=='False' And '$(Platform)'=='x64'">
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package.winmd">
             <IsWinMDFile>true</IsWinMDFile>
             <Implementation>WinUI3Package.dll</Implementation>
@@ -35,7 +36,9 @@
         </ContentWithTargetPath> -->
     </ItemGroup>
 
-    <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+
+    <!--Debug x64-->
+    <ItemGroup Condition="'$(UseDebugLibraries)'=='True' And '$(Platform)'=='x64'">
         <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package.winmd">
             <IsWinMDFile>true</IsWinMDFile>
             <Implementation>WinUI3Package.dll</Implementation>
@@ -76,10 +79,6 @@
         <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\HostBackdropVisual_Resource.xbf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/HostBackdropVisual_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\RoundedAnimatedAcrylicWindowWithShadow_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/RoundedAnimatedAcrylicWindowWithShadow_Resource.xbf</TargetPath>
         </ContentWithTargetPath>
         <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\Shimmer_Resource.xbf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

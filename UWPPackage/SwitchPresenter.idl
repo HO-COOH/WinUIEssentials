@@ -1,0 +1,22 @@
+import "Case.idl";
+import "CaseCollection.idl";
+
+namespace UWPPackage
+{
+    [bindable]
+    [contentproperty("SwitchCases")]
+    [default_interface]
+    runtimeclass SwitchPresenter : Windows.UI.Xaml.Controls.ContentPresenter
+    {
+        SwitchPresenter();
+        
+        Case CurrentCase;
+        static Windows.UI.Xaml.DependencyProperty CurrentCaseProperty{ get; };
+
+        CaseCollection SwitchCases;
+        static Windows.UI.Xaml.DependencyProperty SwitchCasesProperty{ get; };
+
+        Object Value;
+        static Windows.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

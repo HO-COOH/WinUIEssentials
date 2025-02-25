@@ -1,0 +1,52 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build example Debug_ARM64
+
+on:
+  push:
+    branches: [ "master", "ci", "feat/code-presenter" ]
+  pull_request:
+    branches: [ "master", "ci" ]
+
+env:
+  # Path to the solution file relative to the root of the project.
+  SOLUTION_FILE_PATH: .
+
+permissions:
+  contents: read
+
+jobs:
+  build_Debug_ARM64:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # Build highlight
+    - name: Install bun
+      uses: oven-sh/setup-bun@v2
+    - name: Install highlight dependencies
+      working-directory: Highlight
+      run: bun install
+    - name: Build highlight
+      working-directory: Highlight
+      run: bun run build-only
+    - name: Copy to project directory
+      run: copy Highlight\dist\index.html WinUI3Example\Monaco.html
+
+    - name: Restore NuGet packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=Debug_CI2 /p:Platform=ARM64 ${{env.SOLUTION_FILE_PATH}}
+      

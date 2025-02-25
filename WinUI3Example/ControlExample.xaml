@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<UserControl
+    x:Class="WinUI3Example.ControlExample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:NullToVisibilityConverter x:Key="nullToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid x:Name="rootGrid">
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.ThemeDictionaries>
+                    <ResourceDictionary x:Key="Light">
+                        <StaticResource x:Key="ControlExampleDisplayBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
+                        <Thickness x:Key="ControlExampleDisplayBorderThickness">0</Thickness>
+                        <StaticResource x:Key="GalleryBackgroundBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
+                        <StaticResource x:Key="GalleryBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="Dark">
+                        <StaticResource x:Key="ControlExampleDisplayBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
+                        <Thickness x:Key="ControlExampleDisplayBorderThickness">0</Thickness>
+                        <StaticResource x:Key="GalleryBackgroundBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
+                        <StaticResource x:Key="GalleryBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
+                    </ResourceDictionary>
+                    <ResourceDictionary x:Key="HighContrast">
+                        <SolidColorBrush x:Key="ControlExampleDisplayBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                        <Thickness x:Key="ControlExampleDisplayBorderThickness">1</Thickness>
+                        <SolidColorBrush x:Key="GalleryBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                        <SolidColorBrush x:Key="GalleryBorderBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                    </ResourceDictionary>
+                </ResourceDictionary.ThemeDictionaries>
+
+                <Thickness x:Key="ControlElementScreenshotModePadding">67</Thickness>
+
+                <Style x:Key="GalleryTileGridStyle" TargetType="Grid">
+                    <Setter Property="Background" Value="{ThemeResource GalleryBackgroundBrush}" />
+                    <Setter Property="BorderBrush" Value="{ThemeResource GalleryBorderBrush}" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
+                </Style>
+            </ResourceDictionary>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            x:Name="HeaderTextPresenter"
+            Margin="0,12"
+            AutomationProperties.HeadingLevel="Level3"
+            Style="{ThemeResource BodyStrongTextBlockStyle}"
+            Text="{x:Bind HeaderText}" />
+
+        <RichTextBlock
+            x:Name="ErrorTextBlock"
+            Grid.Row="1"
+            Margin="0,0,0,12"
+            Foreground="{ThemeResource SystemFillColorCriticalBrush}"
+            IsTextSelectionEnabled="True"
+            Visibility="Collapsed">
+            <Paragraph>
+                This sample requires a later version of Windows to be fully functional.
+            </Paragraph>
+        </RichTextBlock>
+
+        <Grid Grid.Row="2" CornerRadius="8">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <local:SampleThemeListener>
+                <Grid
+                    x:Name="ExampleContainer"
+                    x:FieldModifier="Public"
+                    CornerRadius="8,8,0,0"
+                    Style="{ThemeResource GalleryTileGridStyle}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" MaxWidth="320" />
+                        <ColumnDefinition Width="Auto" MaxWidth="320" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Example Display  -->
+                    <ContentPresenter
+                        x:Name="ControlPresenter"
+                        Padding="12"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        HorizontalContentAlignment="{x:Bind HorizontalContentAlignment}"
+                        Background="{ThemeResource ControlExampleDisplayBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="{ThemeResource ControlExampleDisplayBorderThickness}"
+                        Content="{x:Bind Example}"
+                        CornerRadius="8,8,0,0" />
+
+                    <!--  Output Display  -->
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="0,12,12,12"
+                        Padding="16"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch"
+                        Background="{ThemeResource ControlExampleDisplayBrush}"
+                        CornerRadius="8"
+                        Orientation="Vertical"
+                        Visibility="{x:Bind Output, Converter={StaticResource nullToVisibilityConverter}}">
+                        <TextBlock Text="Output:" />
+                        <ContentPresenter x:Name="OutputPresenter" Content="{x:Bind Output}" />
+                    </StackPanel>
+
+                    <!--  Options Display  -->
+                    <ContentPresenter
+                        x:Name="OptionsPresenter"
+                        Grid.Column="2"
+                        Padding="16"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                        BorderThickness="1,0,0,0"
+                        Content="{x:Bind Options}"
+                        Visibility="{x:Bind Options, Converter={StaticResource nullToVisibilityConverter}}" />
+                </Grid>
+            </local:SampleThemeListener>
+
+            <!--  Sample code display  -->
+            <Expander
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Stretch"
+                Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
+                CornerRadius="0,0,8,8"
+                IsExpanded="True"
+                Loaded="Expander_Loaded">
+
+                <Expander.Header>
+                    <TextBlock Text="Source code" />
+                </Expander.Header>
+
+                <Pivot x:Name="CodePivot" />
+            </Expander>
+        </Grid>
+    </Grid>
+</UserControl>

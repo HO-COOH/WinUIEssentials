@@ -2,10 +2,11 @@
 
 #include "Segmented.g.h"
 #include "include/TemplateControlHelper.hpp"
+#include "ListViewBaseWorkaround.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct Segmented : SegmentedT<Segmented>, TemplateControlHelper<Segmented>
+    struct Segmented : ListViewBaseWorkaround<SegmentedT<Segmented>>, TemplateControlHelper<Segmented>
     {
         Segmented();
 
@@ -15,8 +16,8 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::Numerics::float2 SelectedItemOffset();
     private:
         void onSelectedIndexChanged(
-            winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
-            winrt::Microsoft::UI::Xaml::DependencyProperty const& indexProperty
+            winrt::Windows::Foundation::IInspectable const& sender, 
+            winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& arg
         );
         void onSelectionModeChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& sender,

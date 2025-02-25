@@ -124,7 +124,6 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUri>E:\</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
@@ -304,8 +303,16 @@
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ImageExtensionPage.h">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MarqueeContainerPage.h">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="MonacoEditor.h">
+      <DependentUpon>MonacoEditor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="MyDataModel.h">
@@ -347,8 +354,12 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TaskbarPage.h">
-      <DependentUpon>TaskbarPage.xaml</DependentUpon>
+    <ClInclude Include="SwitchPresenterPage.h">
+      <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TemplateInformation.h">
+      <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TilesPage.h">
@@ -408,10 +419,16 @@
     <Page Include="IconButtonPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ImageExtensionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MarqueeContainerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MonacoEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
@@ -432,7 +449,7 @@
     <Page Include="ShimmerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TaskbarPage.xaml">
+    <Page Include="SwitchPresenterPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TilesPage.xaml">
@@ -543,8 +560,16 @@
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ImageExtensionPage.cpp">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MarqueeContainerPage.cpp">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="MonacoEditor.cpp">
+      <DependentUpon>MonacoEditor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MyDataModel.cpp">
@@ -589,8 +614,12 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TaskbarPage.cpp">
-      <DependentUpon>TaskbarPage.xaml</DependentUpon>
+    <ClCompile Include="SwitchPresenterPage.cpp">
+      <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TemplateInformation.cpp">
+      <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TilesPage.cpp">
@@ -658,11 +687,19 @@
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ImageExtensionPage.idl">
+      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="MainPage.idl">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Midl>
     <Midl Include="MarqueeContainerPage.idl">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="MonacoEditor.idl">
+      <DependentUpon>MonacoEditor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MyDataModel.idl">
@@ -695,9 +732,12 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="TaskbarPage.idl">
-      <DependentUpon>TaskbarPage.xaml</DependentUpon>
+    <Midl Include="SwitchPresenterPage.idl">
+      <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TemplateInformation.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TilesPage.idl">
       <DependentUpon>TilesPage.xaml</DependentUpon>
@@ -727,8 +767,15 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Monaco.html">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </None>
     <None Include="packages.config" />
     <None Include="PropertySheet.props" />
+    <None Include="UWPExample_TemporaryKey.pfx" />
     <Text Include="readme.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>

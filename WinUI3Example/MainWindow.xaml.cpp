@@ -6,6 +6,7 @@
 #if __has_include("MainWindow.g.cpp")
 #include "MainWindow.g.cpp"
 #endif
+#include <WebView2Helper.hpp>
 #include <HwndHelper.hpp>
 
 //#include <dwmapi.h>
@@ -24,6 +25,9 @@ namespace winrt::WinUI3Example::implementation
 	MainWindow::MainWindow()
 	{
 		Hwnd = GetHwnd(*this);
+		InitializeComponent();
+		if (!WebView2Helper::IsWebView2Installed())
+			InstallWebView2Dialog().ShowAsync();
 	}
 
 	void MainWindow::NavigationView_SelectionChanged(

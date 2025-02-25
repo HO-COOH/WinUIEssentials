@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="UWPExample.ImageExtensionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:UWPPackage"
+    xmlns:local="using:UWPExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+            <Button x:Name="SuccessLoadButton" Click="SuccessLoadButton_Click">Load correct url</Button>
+            <Button x:Name="FailedLoadButton" Click="FailedLoadButton_Click">Load incorrect url</Button>
+        </StackPanel>
+        <Image
+            x:Name="Image"
+            Width="50"
+            Height="50"
+            essential:ImageExtension.FallbackSource="ms-appx:///Assets/Owl.jpg"
+            Source="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg" />
+    </StackPanel>
+</Page>

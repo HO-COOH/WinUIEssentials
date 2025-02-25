@@ -8,10 +8,7 @@ namespace winrt::WinUI3Package::implementation
 {
 	Segmented::Segmented()
 	{
-		RegisterPropertyChangedCallback(
-			winrt::Microsoft::UI::Xaml::Controls::Primitives::Selector::SelectedIndexProperty(),
-			{ this, &Segmented::onSelectedIndexChanged }
-		);
+		SelectionChanged({ this, &Segmented::onSelectedIndexChanged });
 		RegisterPropertyChangedCallback(
 			winrt::Microsoft::UI::Xaml::Controls::ListViewBase::SelectionModeProperty(),
 			{ this, &Segmented::onSelectionModeChanged }
@@ -28,9 +25,6 @@ namespace winrt::WinUI3Package::implementation
 
 	void Segmented::OnApplyTemplate()
 	{
-		base_type::OnApplyTemplate();
-
-
 		auto knob = GetTemplateChild(L"Knob");
 		if (!knob)
 			return;
@@ -45,10 +39,10 @@ namespace winrt::WinUI3Package::implementation
 
 		m_knobAnimation = GetTemplateChild(L"KnobAnimation").as<winrt::Microsoft::UI::Xaml::Media::Animation::Storyboard>();
 
-		winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"MultiSelectionState", false);
-
 		if (m_isMultiSelect = (SelectionMode() == winrt::Microsoft::UI::Xaml::Controls::ListViewSelectionMode::Multiple))
 			setMultiSelectStyle(m_isMultiSelect);
+
+		TemplateApplied();
 	}
 
 	winrt::Windows::Foundation::Numerics::float2 Segmented::SelectedItemActualWidth()
@@ -68,8 +62,9 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::Windows::Foundation::Numerics::float2(relative.X - actualWidth / 2, relative.Y - ActualHeight() / 2);
 	}
 
-	void Segmented::onSelectedIndexChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& sender, winrt::Microsoft::UI::Xaml::DependencyProperty const& indexProperty)
+	void Segmented::onSelectedIndexChanged(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const&)
 	{
+		ListViewBaseWorkaround::onSelectedIndexChanged();
 		if (!m_knob)
 			return;
 

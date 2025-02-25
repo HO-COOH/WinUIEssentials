@@ -11,7 +11,7 @@
 
   <Identity
     Name="b5d41281-1d63-4d42-8904-8c0f79d9d7fe"
-    Publisher="CN=&quot;miHoYo Co.,Ltd.&quot;, O=&quot;miHoYo Co.,Ltd.&quot;, S=Shanghai, C=CN"
+    Publisher="CN=Peter"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="b5d41281-1d63-4d42-8904-8c0f79d9d7fe" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

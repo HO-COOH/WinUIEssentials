@@ -11,6 +11,8 @@ namespace winrt::WinUI3Package::implementation
     TransparentWindow::TransparentWindow()
     {
         configureAppWindow(AppWindow());
+        auto const hwnd = GetHwnd(*this);
+        SetWindowLongPtr(hwnd, GWL_EXSTYLE, GetWindowLongPtr(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED);
         SystemBackdrop(WinUI3Package::TransparentBackdrop{});
     }
     void TransparentWindow::configureAppWindow(winrt::Microsoft::UI::Windowing::AppWindow const& appWindow)
@@ -18,6 +20,5 @@ namespace winrt::WinUI3Package::implementation
         auto presenter = appWindow.Presenter().as<winrt::Microsoft::UI::Windowing::OverlappedPresenter>();
         presenter.SetBorderAndTitleBar(false, false);
         presenter.IsResizable(false);
-
     }
 }

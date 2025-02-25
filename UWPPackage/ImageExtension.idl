@@ -1,0 +1,13 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ImageExtension : Windows.UI.Xaml.DependencyObject
+    {
+        ImageExtension();
+
+        static Windows.UI.Xaml.DependencyProperty FallbackSourceProperty{ get; };
+        static void SetFallbackSource(Windows.UI.Xaml.DependencyObject image, Windows.UI.Xaml.Media.ImageSource source);
+        static Windows.UI.Xaml.Media.ImageSource GetFallbackSource(Windows.UI.Xaml.DependencyObject image);
+    }
+}

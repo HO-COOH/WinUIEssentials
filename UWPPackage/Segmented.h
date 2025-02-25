@@ -2,11 +2,11 @@
 
 #include "Segmented.g.h"
 #include "include/TemplateControlHelper.hpp"
-
+#include "ListViewBaseWorkaround.hpp"
 
 namespace winrt::UWPPackage::implementation
 {
-    struct Segmented : SegmentedT<Segmented>, TemplateControlHelper<Segmented>
+    struct Segmented : ListViewBaseWorkaround<SegmentedT<Segmented>>, TemplateControlHelper<Segmented>
     {
         Segmented();
 

@@ -1,0 +1,19 @@
+namespace UWPPackage
+{
+    [bindable]
+    [default_interface]
+	[contentproperty("Content")]
+    runtimeclass Case : Windows.UI.Xaml.DependencyObject
+    {
+        Case();
+        
+        Object Content;
+        static Windows.UI.Xaml.DependencyProperty ContentProperty{ get; };
+
+        Boolean IsDefault;
+        static Windows.UI.Xaml.DependencyProperty IsDefaultProperty{ get; };
+
+        Object Value;
+        static Windows.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

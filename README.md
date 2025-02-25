@@ -2,18 +2,17 @@
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
-![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=UWP)
-![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=winui3)
+[![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=WinUIEssential.UWP)](https://www.nuget.org/packages/WinUIEssential.UWP)
+[![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=WinUIEssential.WinUI3)](https://www.nuget.org/packages/WinUIEssential.WinUI3)
 
 Example project build status:
 
-[![Build example Debug_86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml)
-
-[![Build example Debug_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml)
-
-[![Build example Release_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml)
-
-[![Build example Release_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml)
+|Platform|Debug|Release|
+|---|---|---|
+|x86| [![Build example Debug_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml) | [![Build example Release_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml)
+|x64| [![Build example Debug_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml) | [![Build example Release_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml)
+|ARM| [![Build example Debug_ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM.yml) | [![Build example Release_ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM.yml)
+|ARM64| [![Build example Debug_ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM64.yml) | [![Build example Release_ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM64.yml)
 
 
 ## Usage
@@ -73,6 +72,8 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |CustomMicaBackdrop | :x: | :white_check_mark: | Backdrop
 |CustomAcrylicBackdrop | :x: | :white_check_mark: | Backdrop
 |Shimmer | :white_check_mark: | :white_check_mark: | Control
+|ImageExtension | :white_check_mark: | :white_check_mark: | WinRT component
+|SwitchPresenter | :x: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -394,7 +395,10 @@ Add this to `App.xaml` (WinUI3)
 > For WinUI3, add `#include #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>` to your `pch.h`
 
 ## CharmBar
-Installing this nuget will automatically add `Desktop Extension` to your UWP project, so  you can use the good-ol Windows 8 style charm bar. This package further simplifies it's usage by allowing you to directly define local and global settings, directly in XAML containing UI element.
+Installing this nuget ~~will automatically add `Desktop Extension` to your UWP project~~ 
+**then add a `      <WinUIEssentialAddDesktopExtension>true</WinUIEssentialAddDesktopExtension>` under `PropertyGroup` node in your `vcxproj` file**
+
+so  you can use the good-ol Windows 8 style charm bar. This package further simplifies it's usage by allowing you to directly define local and global settings, directly in XAML containing UI element.
 
 - Define a global setting in resource section, with `SettingsPaneEx.Settings`
 ```xml
@@ -772,4 +776,30 @@ ScopedButtonDisabler disabler{ sender };
 winrt::Windows::Storage::Pickers::FileOpenPicker picker;
 picker.FileTypeFilter().Append(L"*");
 auto file = co_await picker.PickSingleFileAsync();
+```
+![](./assets/shimmer-dark.gif)
+
+## ImageExtension
+Automatically display a fallback image when `Image` failed to load.
+Usage:
+
+```xml
+<Image
+    essential:ImageExtension.FallbackSource="ms-appx:///Assets/Owl.jpg"
+    Source="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg" />
+```
+
+## SwitchPresenter
+Almost the same as community's `SwitchPresenter`. But lacking reflection in C++ means you need to explicitly write out the value type in xaml in `Case.Value` property.
+
+For example, if you binding the `SwitchPresenter.Value` to a `Boolean`, you need to write the `Case.Value` to `<x:Boolean>True</x:String>`:
+```xml
+<essential:SwitchPresenter Value="{Binding IsOn, ElementName=LoadingState, Mode=OneWay}">
+    <essential:Case>
+        <essential:Case.Value>
+            <x:Boolean>True</x:Boolean>
+        </essential:Case.Value>
+        <TextBlock Text="True value content">
+    </essential:Case>
+</essential:SwitchPresenter>
 ```

@@ -181,7 +181,7 @@ namespace winrt::WinUI3Package::implementation
 
         void setSubClassIfNeeded();
 
-        static LRESULT subclassProc(
+        static LRESULT CALLBACK subclassProc(
             HWND hwnd,
             UINT msg,
             WPARAM wparam,

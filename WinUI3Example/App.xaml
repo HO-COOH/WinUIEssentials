@@ -27,7 +27,6 @@
                     <SolidColorBrush x:Key="FillColor">#ff0000</SolidColorBrush>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

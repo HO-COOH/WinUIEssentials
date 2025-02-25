@@ -1,0 +1,12 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass MonacoEditor : Windows.UI.Xaml.Controls.UserControl
+    {
+        MonacoEditor();
+        
+        String XamlCode;
+        String HeaderCode;
+		String CppCode;
+    }
+}

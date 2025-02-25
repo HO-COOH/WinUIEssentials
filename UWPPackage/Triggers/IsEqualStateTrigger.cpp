@@ -3,6 +3,7 @@
 #if __has_include("IsEqualStateTrigger.g.cpp")
 #include "IsEqualStateTrigger.g.cpp"
 #endif
+#include "ObjectCompare.h"
 
 namespace winrt::UWPPackage::implementation
 {
@@ -71,7 +72,7 @@ namespace winrt::UWPPackage::implementation
 
 		if (value && to)
 		{
-			isActive = convertTypeEquals(value, to);
+			isActive = internal::ConvertTypeEquals(value, to);
 		}
 		else if (!value && !to)
 		{
@@ -81,36 +82,4 @@ namespace winrt::UWPPackage::implementation
 		SetActive(isActive);
 	}
 
-	bool IsEqualStateTrigger::convertTypeEquals(
-		winrt::Windows::Foundation::IInspectable object1,
-		winrt::Windows::Foundation::IInspectable object2
-	)
-	{
-		//try string
-		{
-			auto object1Converted = object1.try_as<winrt::hstring>();
-			auto object2Converted = object2.try_as<winrt::hstring>();
-			if (object1Converted && object2Converted)
-				return object1Converted == object2Converted;
-		}
-		{
-			auto object1Converted = winrt::unbox_value<ContentAlignment>(object1);
-			auto object2Converted = object2.try_as<winrt::hstring>();
-			switch (object1Converted)
-			{
-			case winrt::UWPPackage::ContentAlignment::Right:
-				return object2Converted == L"Right";
-			case winrt::UWPPackage::ContentAlignment::Left:
-				return object2Converted == L"Left";
-			case winrt::UWPPackage::ContentAlignment::Vertical:
-				return object2Converted == L"Vertical";
-			default:
-				false;
-			}
-		}
-		//try object comparison
-		{
-			return object1 == object2;
-		}
-	}
 }

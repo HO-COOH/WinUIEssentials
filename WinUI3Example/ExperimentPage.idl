@@ -1,0 +1,14 @@
+namespace WinUI3Example
+{
+    enum MyEnum
+    {
+        MyValue1,
+        MyValue2,
+    };
+
+    [default_interface]
+    runtimeclass ExperimentPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ExperimentPage();
+    }
+}

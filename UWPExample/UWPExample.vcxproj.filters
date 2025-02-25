@@ -11,9 +11,6 @@
     <Page Include="BadgePage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="TaskbarPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="TriggersPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -62,6 +59,15 @@
     <Page Include="ShimmerPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="ImageExtensionPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="SwitchPresenterPage.xaml">
+      <Filter>Pages\SwitchPresenterPage</Filter>
+    </Page>
+    <Page Include="MonacoEditor.xaml">
+      <Filter>Helper</Filter>
+    </Page>
     <Page Include="ScopedButtonDisablerPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -80,6 +86,9 @@
     </Midl>
     <Midl Include="UriModel.idl">
       <Filter>Pages\UriPage</Filter>
+    </Midl>
+    <Midl Include="TemplateInformation.idl">
+      <Filter>Pages\SwitchPresenterPage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -265,10 +274,20 @@
     <Filter Include="Pages\UriPage">
       <UniqueIdentifier>{b4be7c7d-c2f3-4cbf-8dee-06dcdc772a72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pages\SwitchPresenterPage">
+      <UniqueIdentifier>{21ade632-28cb-4aa3-9d32-771e35d9a0be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{991ea252-e95f-4a62-a036-a09606998058}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
     <None Include="packages.config" />
+    <None Include="UWPExample_TemporaryKey.pfx" />
+    <None Include="Monaco.html">
+      <Filter>Helper</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />

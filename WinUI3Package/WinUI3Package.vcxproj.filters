@@ -45,6 +45,9 @@
     <ClCompile Include="RadioPopupMenuItemGroup.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectCompare.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -99,6 +102,18 @@
     </ClInclude>
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp">
       <Filter>Backdrop</Filter>
+    </ClInclude>
+    <ClInclude Include="UnsupportedImageTypeError.hpp">
+      <Filter>Controls\ImageExtension</Filter>
+    </ClInclude>
+    <ClInclude Include="ListViewBaseWorkaround.hpp">
+      <Filter>Controls\Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectCompare.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WebView2Helper.hpp">
+      <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="TaskbarIconMessageWindow.h">
       <Filter>TaskbarIcon</Filter>
@@ -184,6 +199,7 @@
     <None Include="WinUI3Package.def" />
     <None Include="packages.config" />
     <None Include=".nuspec" />
+    <None Include="WinUIEssential.WinUI3.targets" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -239,6 +255,15 @@
     </Filter>
     <Filter Include="Controls\Shimmer">
       <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ImageExtension">
+      <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SwitchPresenter">
+      <UniqueIdentifier>{68605443-f197-4fb3-b27c-1de2fb958f55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal">
+      <UniqueIdentifier>{7249024f-ebd8-419d-8c91-235bb32e1b45}</UniqueIdentifier>
     </Filter>
     <Filter Include="TaskbarIcon">
       <UniqueIdentifier>{744593e5-d8a9-422f-9915-59d2f200d660}</UniqueIdentifier>
@@ -359,8 +384,20 @@
     <Midl Include="Shimmer.idl">
       <Filter>Controls\Shimmer</Filter>
     </Midl>
-    <Midl Include="RoundedAnimatedAcrylicWindowWithShadow.idl">
-      <Filter>Controls\AcrylicVisual</Filter>
+    <Midl Include="ImageExtension.idl">
+      <Filter>Controls\ImageExtension</Filter>
+    </Midl>
+    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="SwitchPresenter.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="Case.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="CaseCollection.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
     </Midl>
     <Midl Include="GeneratedIconSource.idl">
       <Filter>TaskbarIcon</Filter>
@@ -420,9 +457,6 @@
     </Page>
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
-    </Page>
-    <Page Include="RoundedAnimatedAcrylicWindowWithShadow.xaml">
-      <Filter>Controls\AcrylicVisual</Filter>
     </Page>
     <Page Include="FlyoutWindow.xaml">
       <Filter>TaskbarIcon\FlyoutContent</Filter>

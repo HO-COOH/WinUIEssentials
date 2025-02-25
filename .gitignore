@@ -18,9 +18,11 @@ mono_crash.*
 
 # Build results
 [Dd]ebug/
+[Dd]ebug_*/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+[Rr]elease_*/
 x64/
 x86/
 [Ww][Ii][Nn]32/
@@ -397,3 +399,35 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /.vscode
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+*.local
+
+/cypress/videos/
+/cypress/screenshots/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo

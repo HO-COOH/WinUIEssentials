@@ -41,7 +41,7 @@
             <VisualStateGroup>
                 <VisualState x:Name="sliderstate">
                     <VisualState.StateTriggers>
-                        <essential:IsEqualStateTrigger Value="{Binding Value.ToString(), ElementName=slider2, Mode=OneWay}"
+                        <essential:IsEqualStateTrigger Value="{Binding Value, ElementName=slider2, Mode=OneWay}"
                                                       To="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>

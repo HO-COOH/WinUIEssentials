@@ -416,6 +416,14 @@
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Case.h">
+      <DependentUpon>Case.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="CaseCollection.h">
+      <DependentUpon>CaseCollection.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ContainerToBoolConverter.h">
       <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -453,6 +461,10 @@
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ImageExtension.h">
+      <DependentUpon>ImageExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\Glyphs.hpp" />
@@ -465,6 +477,7 @@
     <ClInclude Include="include\ToastTemplates.hpp" />
     <ClInclude Include="include\WindowHelper.hpp" />
     <ClInclude Include="include\WinUIIncludes.hpp" />
+    <ClInclude Include="ListViewBaseWorkaround.hpp" />
     <ClInclude Include="MarqueeText.h">
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -473,6 +486,7 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ObjectCompare.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Placeholder.h">
       <DependentUpon>Placeholder.idl</DependentUpon>
@@ -519,6 +533,10 @@
       <DependentUpon>SettingsExpanderItemStyleSelector.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SettingsExpanderLastItemConrnerRadiusConverter.h">
+      <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SettingsPaneEx.h">
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -529,6 +547,10 @@
     </ClInclude>
     <ClInclude Include="StringToBoolConverter.h">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="SwitchPresenter.h">
+      <DependentUpon>SwitchPresenter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Triggers\IsEqualStateTrigger.h">
@@ -543,10 +565,19 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="UnsupportedImageTypeError.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoolToVisibilityConverter.cpp">
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Case.cpp">
+      <DependentUpon>Case.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CaseCollection.cpp">
+      <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ContainerToBoolConverter.cpp">
@@ -585,6 +616,10 @@
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ImageExtension.cpp">
+      <DependentUpon>ImageExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MarqueeText.cpp">
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -593,6 +628,7 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ObjectCompare.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -641,6 +677,10 @@
       <DependentUpon>SettingsExpanderItemStyleSelector.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SettingsExpanderLastItemConrnerRadiusConverter.cpp">
+      <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SettingsPaneEx.cpp">
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -651,6 +691,10 @@
     </ClCompile>
     <ClCompile Include="StringToBoolConverter.cpp">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SwitchPresenter.cpp">
+      <DependentUpon>SwitchPresenter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Triggers\IsEqualStateTrigger.cpp">
@@ -670,12 +714,19 @@
     <None Include=".nuspec" />
     <None Include="packages.config" />
     <None Include="UWPPackage.def" />
+    <None Include="WinUIEssential.UWP.targets" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="BoolToVisibilityConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Case.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="CaseCollection.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ContainerToBoolConverter.idl">
@@ -703,6 +754,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="IconButton.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ImageExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MarqueeText.idl">
@@ -744,6 +798,9 @@
     <Midl Include="SettingsExpanderItemStyleSelector.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="SettingsPaneEx.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -751,6 +808,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="StringToBoolConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="SwitchPresenter.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Triggers\IsEqualStateTrigger.idl">
