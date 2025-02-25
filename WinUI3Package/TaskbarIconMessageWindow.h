@@ -8,7 +8,7 @@ class TaskbarIconMessageWindow
 	constexpr static auto DoubleClickMaxThreshold = 500;
 
 	static void registerIfNeeded();
-	static LRESULT windowProc(
+	static LRESULT CALLBACK windowProc(
 		HWND,
 		UINT,
 		WPARAM,
