@@ -62,5 +62,6 @@
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
       <rescap:Capability Name="unvirtualizedResources"/>
+    <uap:Capability Name="contacts"/>
   </Capabilities>
 </Package>

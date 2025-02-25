@@ -1,7 +1,7 @@
 #pragma once
 
 #if BuildWinUIEssential
-#define DLLEXPORT __declspec(dllexport)
+#define WinUIEssentialDllApi __declspec(dllexport)
 #else
-#define DLLEXPORT __declspec(dllimport)
+#define WinUIEssentialDllApi __declspec(dllimport)
 #endif

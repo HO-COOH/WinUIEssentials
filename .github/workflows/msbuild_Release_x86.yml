@@ -9,7 +9,8 @@ on:
   push:
     branches: [ "master", "ci", "feat/code-presenter" ]
   pull_request:
-    branches: [ "master", "ci" ]
+    branches:
+      - "**"
 
 env:
   # Path to the solution file relative to the root of the project.

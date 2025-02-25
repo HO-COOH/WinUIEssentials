@@ -105,6 +105,9 @@
     <ClInclude Include="ObjectCompare.h">
       <Filter>internal</Filter>
     </ClInclude>
+    <ClInclude Include="include\ScopedButtonDisabler.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="UWPPackage.def" />

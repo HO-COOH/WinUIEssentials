@@ -1,0 +1,20 @@
+﻿<Page
+    x:Class="UWPExample.ScopedButtonDisablerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPExample"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+        <Button x:Name="Button" Click="ClickHandler">Click this button fast enough will trigger twice</Button>
+
+        <Button x:Name="ButtonWithScopeDisabler" Click="ButtonWithScopeDisabler_Click">This button will not triggered twice</Button>
+
+        <TextBlock>
+            <Run Text="File picked: "/>
+            <Run x:Name="FilePathText"/>
+        </TextBlock>
+    </StackPanel>
+</Page>

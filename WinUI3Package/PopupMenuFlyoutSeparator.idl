@@ -1,0 +1,11 @@
+import "PopupMenuFlyoutItemBase.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass PopupMenuFlyoutSeparator : WinUI3Package.PopupMenuFlyoutItemBase
+    {
+        PopupMenuFlyoutSeparator();
+    }
+}

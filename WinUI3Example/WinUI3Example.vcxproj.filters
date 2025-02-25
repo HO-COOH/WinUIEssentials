@@ -114,6 +114,19 @@
     <Page Include="ExperimentPage.xaml">
       <Filter>Pages\Experimental</Filter>
     </Page>
+    <Page Include="ThemeListenerPage.xaml" />
+    <Page Include="TaskbarIconPage.xaml">
+      <Filter>Pages\TaskbarIconPage</Filter>
+    </Page>
+    <Page Include="ScopedButtonDisablerPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="InitializeWithWindowHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="TaskbarIconSource.xaml">
+      <Filter>Pages\TaskbarIconPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -374,6 +387,9 @@
     </Filter>
     <Filter Include="Pages\Experimental">
       <UniqueIdentifier>{f2cc48d2-a1da-4b1e-b1dd-07f8a7705345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\TaskbarIconPage">
+      <UniqueIdentifier>{1876918a-1280-4cc3-ac8b-1f7aedf04f6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,17 @@
+import "TogglePopupMenuFlyoutItem.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass RadioPopupMenuFlyoutItem : WinUI3Package.PopupMenuFlyoutItem
+    {
+        RadioPopupMenuFlyoutItem();
+        
+        Boolean IsChecked;
+        static Microsoft.UI.Xaml.DependencyProperty IsCheckedProperty{ get; };
+
+        String GroupName;
+        static Microsoft.UI.Xaml.DependencyProperty GroupNameProperty{ get; };
+    }
+}

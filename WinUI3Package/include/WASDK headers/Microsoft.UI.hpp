@@ -1,5 +1,11 @@
 #pragma once
-
+/*****************************************************************//**
+ * \file   Microsoft.UI.hpp
+ * \brief  WinUI headers
+ * 
+ * \author szpeter@yeah.net
+ * \date   July 2024
+ *********************************************************************/
 #include <winrt/Microsoft.UI.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <winrt/Microsoft.UI.Input.h>
@@ -17,6 +23,7 @@
 #include <winrt/Microsoft.UI.Xaml.Automation.Text.h>
 #pragma endregion
 
+#pragma region Xaml
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>
@@ -39,6 +46,7 @@
 #include <winrt/Microsoft.UI.Xaml.Resources.h>
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Xaml.XamlTypeInfo.h>
+#pragma endregion
 
 #pragma region Composition
 #include <winrt/Microsoft.UI.Composition.h>

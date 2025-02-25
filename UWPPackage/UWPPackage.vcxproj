@@ -39,22 +39,6 @@
       <Configuration>Debug_CI2</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug_CI|ARM">
-      <Configuration>Debug_CI</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug_CI|ARM64">
-      <Configuration>Debug_CI</Configuration>
-      <Platform>ARM64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug_CI|Win32">
-      <Configuration>Debug_CI</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug_CI|x64">
-      <Configuration>Debug_CI</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|ARM">
       <Configuration>Debug</Configuration>
       <Platform>ARM</Platform>
@@ -469,6 +453,7 @@
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\Glyphs.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
+    <ClInclude Include="include\ScopedButtonDisabler.hpp" />
     <ClInclude Include="include\TemplateControlHelper.hpp" />
     <ClInclude Include="include\TileBuilder.hpp" />
     <ClInclude Include="include\TileTemplates.hpp" />

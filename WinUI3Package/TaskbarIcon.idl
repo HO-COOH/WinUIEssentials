@@ -1,0 +1,46 @@
+import "GeneratedIconSource.idl";
+import "SettingsExpander.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    [contentproperty("RightClickMenu")]
+    runtimeclass TaskbarIcon /*: Microsoft.UI.Xaml.DependencyObject*/
+    {
+        TaskbarIcon();
+        
+        /*Tooltip*/
+        Microsoft.UI.Xaml.UIElement ToolTip;
+
+
+        /*Icons*/
+        GeneratedIconSource IconSource;
+        Windows.Foundation.Uri Icon;
+        String IconFile;
+
+        /*Theme-adapting icons*/
+        GeneratedIconSource LightThemeIconSource;
+        Windows.Foundation.Uri LightThemeIcon;
+        String LightThemeIconFile;
+        
+        GeneratedIconSource DarkThemeIconSource;
+        Windows.Foundation.Uri DarkThemeIcon;
+        String DarkThemeIconFile;
+
+        /*Right click*/
+        Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase RightClickMenu;
+        Microsoft.UI.Xaml.ElementTheme MenuTheme;
+
+        /*events*/
+        event WinUI3Package.SignalDelegate LeftPressed;
+        event WinUI3Package.SignalDelegate LeftDoublePressed;
+        event WinUI3Package.SignalDelegate RightPressed;
+        event WinUI3Package.SignalDelegate PointerHover;
+
+        Microsoft.UI.Xaml.UIElement PopupContent;
+
+        void Show();
+        void Remove();
+    }
+}

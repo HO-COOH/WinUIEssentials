@@ -128,6 +128,9 @@
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">nuget.exe pack</Command>
@@ -145,6 +148,9 @@
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">
@@ -165,6 +171,9 @@
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -186,6 +195,9 @@
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -246,19 +258,28 @@
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="FlyoutWindow.xaml.h">
+      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FontIconExtension.h">
       <DependentUpon>FontIconExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="GdiInitializeHelper.h" />
+    <ClInclude Include="GeneratedIconSource.h">
+      <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="GroupBox.h">
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="GuidWrapper.h" />
     <ClInclude Include="HostBackdropVisual.h">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="HwndHelper.hpp" />
     <ClInclude Include="IconButton.h">
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -267,6 +288,8 @@
       <DependentUpon>ImageExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="IconUtils.h" />
+    <ClInclude Include="include\AppsUseLightTheme.h" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\DependentValue.h">
@@ -275,9 +298,15 @@
     </ClInclude>
     <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />
+    <ClInclude Include="include\Handler.hpp" />
+    <ClInclude Include="include\HwndHelper.hpp" />
+    <ClInclude Include="include\IInitializeWithWindowHelper.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
+    <ClInclude Include="include\ScopedButtonDisabler.hpp" />
     <ClInclude Include="include\Taskbar.hpp" />
     <ClInclude Include="include\TemplateControlHelper.hpp" />
+    <ClInclude Include="include\ThemeListener.h" />
+    <ClInclude Include="include\ThemeListenerMessageWindow.h" />
     <ClInclude Include="include\TileBuilder.hpp" />
     <ClInclude Include="include\TileTemplates.hpp" />
     <ClInclude Include="include\ToastBuilder.hpp" />
@@ -286,6 +315,8 @@
     <ClInclude Include="include\WASDK headers\Microsoft.UI.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
     <ClInclude Include="include\WebView2Helper.hpp" />
+    <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
+    <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp" />
     <ClInclude Include="IsEqualStateTrigger.h">
       <DependentUpon>IsEqualStateTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -299,22 +330,55 @@
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Microsoft.UI.hpp" />
+    <ClInclude Include="MenuBase.h" />
+    <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h" />
+    <ClInclude Include="MenuFlyoutWrapper.h" />
+    <ClInclude Include="MenuItemInfo.hpp" />
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ObjectCompare.h" />
+    <ClInclude Include="NormalTaskbarIcon.h" />
+    <ClInclude Include="NotifyIconData.h" />
     <ClInclude Include="OverrideChecker.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Placeholder.h">
       <DependentUpon>Placeholder.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="PopupMenu.h" />
+    <ClInclude Include="PopupMenuFlyout.h">
+      <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutItem.h">
+      <DependentUpon>PopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutItemBase.h">
+      <DependentUpon>PopupMenuFlyoutItemBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutItemImplBase.h" />
+    <ClInclude Include="PopupMenuFlyoutSeparator.h">
+      <DependentUpon>PopupMenuFlyoutSeparator.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutSubItem.h">
+      <DependentUpon>PopupMenuFlyoutSubItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PreferredAppMode.h" />
     <ClInclude Include="ProgressBarEx.h">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="RadioPopupMenuFlyoutItem.h">
+      <DependentUpon>RadioPopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="RadioPopupMenuItemGroup.h" />
     <ClInclude Include="ReferenceToBoolConverter.h">
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -360,6 +424,19 @@
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TaskbarIcon.h">
+      <DependentUpon>TaskbarIcon.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconBase.h" />
+    <ClInclude Include="TaskbarIconEvents.h" />
+    <ClInclude Include="TaskbarIconMessageWindow.h" />
+    <ClInclude Include="TaskbarIconXamlEvents.h" />
+    <ClInclude Include="ThemeAdaptiveIcon.h" />
+    <ClInclude Include="TogglePopupMenuFlyoutItem.h">
+      <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SwitchPresenter.h">
       <DependentUpon>SwitchPresenter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -368,6 +445,7 @@
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TransparentMenuFlyoutHost.h" />
     <ClInclude Include="TransparentWindow.h">
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -377,6 +455,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="UnsupportedImageTypeError.hpp" />
+    <ClInclude Include="UxThemeWrapper.h" />
     <ClInclude Include="WindowEx.h">
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -424,14 +503,24 @@
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="FlyoutWindow.xaml.cpp">
+      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="FontIconExtension.cpp">
       <DependentUpon>FontIconExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="GdiInitializeHelper.cpp" />
+    <ClCompile Include="GeneratedIconSource.cpp">
+      <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="GroupBox.cpp">
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="GuidWrapper.cpp" />
     <ClCompile Include="HostBackdropVisual.cpp">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -444,6 +533,7 @@
       <DependentUpon>ImageExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="IconUtils.cpp" />
     <ClCompile Include="include\DependentValue.cpp">
       <DependentUpon>include\DependentValue.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -460,11 +550,14 @@
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
+    <ClCompile Include="MenuFlyoutWrapper.cpp" />
     <ClCompile Include="NegateBoolConverter.cpp">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ObjectCompare.cpp" />
+    <ClCompile Include="NormalTaskbarIcon.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -473,10 +566,36 @@
       <DependentUpon>Placeholder.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="PopupMenu.cpp" />
+    <ClCompile Include="PopupMenuFlyout.cpp">
+      <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="PopupMenuFlyoutItem.cpp">
+      <DependentUpon>PopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="PopupMenuFlyoutItemBase.cpp">
+      <DependentUpon>PopupMenuFlyoutItemBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="PopupMenuFlyoutSeparator.cpp">
+      <DependentUpon>PopupMenuFlyoutSeparator.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="PopupMenuFlyoutSubItem.cpp">
+      <DependentUpon>PopupMenuFlyoutSubItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ProgressBarEx.cpp">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="RadioPopupMenuFlyoutItem.cpp">
+      <DependentUpon>RadioPopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="RadioPopupMenuItemGroup.cpp" />
     <ClCompile Include="ReferenceToBoolConverter.cpp">
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -525,10 +644,23 @@
       <DependentUpon>SwitchPresenter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TaskbarIcon.cpp">
+      <DependentUpon>TaskbarIcon.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TaskbarIconBase.cpp" />
+    <ClCompile Include="TaskbarIconMessageWindow.cpp" />
+    <ClCompile Include="ThemeAdaptiveIcon.cpp" />
+    <ClCompile Include="ThemeListenerMessageWindow.cpp" />
+    <ClCompile Include="TogglePopupMenuFlyoutItem.cpp">
+      <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TransparentBackdrop.cpp">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TransparentMenuFlyoutHost.cpp" />
     <ClCompile Include="TransparentWindow.cpp">
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -537,6 +669,7 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="UxThemeWrapper.cpp" />
     <ClCompile Include="WindowEx.cpp">
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -579,7 +712,14 @@
     <Midl Include="EqualPanel.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="FlyoutWindow.idl">
+      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="FontIconExtension.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="GeneratedIconSource.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="GroupBox.idl">
@@ -612,7 +752,25 @@
     <Midl Include="Placeholder.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="PopupMenuFlyout.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItemBase.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutSeparator.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutSubItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ProgressBarEx.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="RadioPopupMenuFlyoutItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ReferenceToBoolConverter.idl">
@@ -651,6 +809,12 @@
     <Midl Include="SwitchPresenter.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="TaskbarIcon.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TogglePopupMenuFlyoutItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="TransparentBackdrop.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -665,6 +829,9 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="FlyoutWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Glyphs.xaml" />
     <Page Include="GroupBox_Resource.xaml" />
     <Page Include="HostBackdropVisual_Resource.xaml" />

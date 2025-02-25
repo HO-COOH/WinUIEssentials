@@ -3,6 +3,48 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="TaskbarIconMessageWindow.cpp">
+      <Filter>TaskbarIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="GuidWrapper.cpp">
+      <Filter>TaskbarIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeListenerMessageWindow.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="IconUtils.cpp">
+      <Filter>TaskbarIcon</Filter>
+    </ClCompile>
+    <ClCompile Include="GdiInitializeHelper.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="TaskbarIconBase.cpp">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="ThemeAdaptiveIcon.cpp">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalTaskbarIcon.cpp">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuFlyoutWrapper.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparentMenuFlyoutHost.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="PopupMenu.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="UxThemeWrapper.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="RadioPopupMenuItemGroup.cpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </ClCompile>
     <ClCompile Include="ObjectCompare.cpp">
       <Filter>internal</Filter>
     </ClCompile>
@@ -43,7 +85,6 @@
     <ClInclude Include="include\BuiltInUris.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="Microsoft.UI.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.UI.hpp">
       <Filter>include\WASDK headers</Filter>
     </ClInclude>
@@ -55,9 +96,6 @@
     </ClInclude>
     <ClInclude Include="OverrideChecker.h">
       <Filter>Backdrop</Filter>
-    </ClInclude>
-    <ClInclude Include="HwndHelper.hpp">
-      <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="WindowsVersion.hpp">
       <Filter>utils</Filter>
@@ -76,6 +114,85 @@
     </ClInclude>
     <ClInclude Include="include\WebView2Helper.hpp">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconMessageWindow.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="GuidWrapper.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="IconUtils.h">
+      <Filter>TaskbarIcon</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AppsUseLightTheme.h" />
+    <ClInclude Include="include\ThemeListener.h" />
+    <ClInclude Include="include\ThemeListenerMessageWindow.h" />
+    <ClInclude Include="include\HwndHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IInitializeWithWindowHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="GdiInitializeHelper.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuBase.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ScopedButtonDisabler.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Handler.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="NotifyIconData.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconBase.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeAdaptiveIcon.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalTaskbarIcon.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFlyoutWrapper.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparentMenuFlyoutHost.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupMenu.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuItemInfo.hpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="PreferredAppMode.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="UxThemeWrapper.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconXamlEvents.h">
+      <Filter>TaskbarIcon\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconEvents.h" />
+    <ClInclude Include="InvalidMenuItemIconTypeError.hpp">
+      <Filter>TaskbarIcon\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp">
+      <Filter>TaskbarIcon\Errors</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupMenuFlyoutItemImplBase.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="RadioPopupMenuItemGroup.h">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +264,30 @@
     </Filter>
     <Filter Include="internal">
       <UniqueIdentifier>{7249024f-ebd8-419d-8c91-235bb32e1b45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon">
+      <UniqueIdentifier>{744593e5-d8a9-422f-9915-59d2f200d660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\TaskbarIconMenu">
+      <UniqueIdentifier>{b51bc742-3b10-4d0c-9604-b9bb83b57594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\Icon">
+      <UniqueIdentifier>{8a255438-a7aa-4147-ad98-6fec99f2dbec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\TaskbarIconMenu\XamlMenu">
+      <UniqueIdentifier>{b10c2905-1c35-4508-b806-60810386061f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu">
+      <UniqueIdentifier>{a57a64f7-5943-42d6-96e1-f147b28b7dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\FlyoutContent">
+      <UniqueIdentifier>{a9f9a5fb-d972-4f90-96a8-f5ac13843b97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml">
+      <UniqueIdentifier>{12901af6-4941-4188-bb1b-692d288fcf68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TaskbarIcon\Errors">
+      <UniqueIdentifier>{5286bb85-614b-4b57-a35c-c75dffb90e63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +399,33 @@
     <Midl Include="CaseCollection.idl">
       <Filter>Controls\SwitchPresenter</Filter>
     </Midl>
+    <Midl Include="GeneratedIconSource.idl">
+      <Filter>TaskbarIcon</Filter>
+    </Midl>
+    <Midl Include="TaskbarIcon.idl">
+      <Filter>TaskbarIcon</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyout.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutSeparator.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutSubItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="TogglePopupMenuFlyoutItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="RadioPopupMenuFlyoutItem.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
+    <Midl Include="PopupMenuFlyoutItemBase.idl">
+      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
@@ -289,6 +457,9 @@
     </Page>
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
+    </Page>
+    <Page Include="FlyoutWindow.xaml">
+      <Filter>TaskbarIcon\FlyoutContent</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

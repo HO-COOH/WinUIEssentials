@@ -1,0 +1,15 @@
+import "PopupMenuFlyoutItem.idl";
+import "PopupMenuFlyoutItemBase.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TogglePopupMenuFlyoutItem : WinUI3Package.PopupMenuFlyoutItem
+    {
+        TogglePopupMenuFlyoutItem();
+        
+        Boolean IsChecked;
+        static Microsoft.UI.Xaml.DependencyProperty IsCheckedProperty{ get; };
+    }
+}

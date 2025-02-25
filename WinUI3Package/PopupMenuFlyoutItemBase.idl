@@ -1,0 +1,26 @@
+namespace WinUI3Package
+{
+
+	enum PopupMenuFlyoutItemType
+	{
+		MenuFlyoutItem,
+		MenuFlyoutSeparator,
+		ToggleItem,
+		SubMenu,
+		RadioItem
+	};
+
+	unsealed runtimeclass PopupMenuFlyoutItemBase : Microsoft.UI.Xaml.DependencyObject
+	{
+		PopupMenuFlyoutItemBase();
+
+		overridable PopupMenuFlyoutItemType Type();
+
+		Microsoft.UI.Xaml.Visibility Visibility;
+		static Microsoft.UI.Xaml.DependencyProperty VisibilityProperty{ get; };
+
+		Boolean IsEnabled;
+		static Microsoft.UI.Xaml.DependencyProperty IsEnabledProperty{ get; };
+	};
+
+}

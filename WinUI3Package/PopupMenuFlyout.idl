@@ -1,0 +1,14 @@
+import "PopupMenuFlyoutItemBase.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    [contentproperty("Items")]
+    runtimeclass PopupMenuFlyout : Microsoft.UI.Xaml.Controls.Primitives.FlyoutBase
+    {
+        PopupMenuFlyout();
+        
+        Windows.Foundation.Collections.IVector<WinUI3Package.PopupMenuFlyoutItemBase> Items;
+    }
+}

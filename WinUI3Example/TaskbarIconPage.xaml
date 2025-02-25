@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.TaskbarIconPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+
+    <Page.Resources>
+        <essential:TaskbarIcon
+            x:Name="TaskbarIcon"
+            LeftDoublePressed="TaskbarIcon_LeftDoublePressed"
+            LeftPressed="TaskbarIcon_LeftPressed"
+            MenuTheme="Default"
+            PointerHover="TaskbarIcon_PointerHover"
+            RightPressed="TaskbarIcon_RightPressed">
+            <MenuFlyout>
+                <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Item1" />
+                <MenuFlyoutItem
+                    Click="MenuFlyoutItem_Click"
+                    Icon="Copy"
+                    Text="Item with copy icon" />
+                <ToggleMenuFlyoutItem
+                    Click="MenuFlyoutItem_Click"
+                    IsChecked="True"
+                    Text="Toggle menu item" />
+                <MenuFlyoutItem
+                    Icon="Cancel"
+                    IsEnabled="False"
+                    Text="Disabled item" />
+                <MenuFlyoutItem Text="Invisible item" Visibility="Collapsed" />
+                <MenuFlyoutSeparator />
+
+                <RadioMenuFlyoutItem GroupName="Radios" Text="Radio Item1" />
+                <RadioMenuFlyoutItem
+                    GroupName="Radios"
+                    IsChecked="True"
+                    Text="Radio Item2" />
+
+                <MenuFlyoutSeparator />
+                <MenuFlyoutSubItem Text="Sub menu">
+                    <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Sub menu item" />
+                    <MenuFlyoutItem
+                        Click="MenuFlyoutItem_Click"
+                        Icon="Paste"
+                        Text="Sub menu item with paste icon" />
+                </MenuFlyoutSubItem>
+            </MenuFlyout>
+        </essential:TaskbarIcon>
+
+        <essential:TaskbarIcon x:Name="TaskbarIconWithPopupMenu">
+            <essential:PopupMenuFlyout>
+                <essential:PopupMenuFlyoutItem Click="PopupMenuFlyoutItem_Click" Text="Item1" />
+                <essential:PopupMenuFlyoutItem
+                    Click="PopupMenuFlyoutItem_Click"
+                    Icon="Copy"
+                    Text="Item with copy icon" />
+                <essential:TogglePopupMenuFlyoutItem
+                    Click="PopupMenuFlyoutItem_Click"
+                    IsChecked="True"
+                    Text="Toggle menu item" />
+                <essential:PopupMenuFlyoutItem
+                    Icon="Cancel"
+                    IsEnabled="False"
+                    Text="Disabled item" />
+                <essential:PopupMenuFlyoutItem Text="Invisible item" Visibility="Collapsed" />
+                <essential:PopupMenuFlyoutSeparator />
+
+                <essential:RadioPopupMenuFlyoutItem GroupName="Radios" Text="Radio Item1" />
+                <essential:RadioPopupMenuFlyoutItem
+                    GroupName="Radios"
+                    IsChecked="True"
+                    Text="Radio Item2" />
+                <essential:PopupMenuFlyoutSeparator />
+
+                <essential:PopupMenuFlyoutSubItem Text="Sub menu">
+                    <essential:PopupMenuFlyoutItem Click="PopupMenuFlyoutItem_Click" Text="Sub menu item" />
+                    <essential:PopupMenuFlyoutItem
+                        Click="PopupMenuFlyoutItem_Click"
+                        Icon="Paste"
+                        Text="Sub menu item with paste icon" />
+                </essential:PopupMenuFlyoutSubItem>
+            </essential:PopupMenuFlyout>
+        </essential:TaskbarIcon>
+
+        <Style BasedOn="{StaticResource DefaultRadioButtonStyle}" TargetType="RadioButton">
+            <Setter Property="MinHeight" Value="200" />
+        </Style>
+    </Page.Resources>
+
+    <ScrollView>
+        <StackPanel>
+
+            <RadioButtons SelectionChanged="RadioButtons_SelectionChanged">
+                <RadioButton x:Name="NormalIconRadio">
+                    <essential:GroupBox Header="NormalIcon" IsEnabled="{x:Bind NormalIconRadio.IsChecked.Value, Mode=OneWay}">
+                        <StackPanel Spacing="5">
+                            <local:TaskbarIconSource x:Name="NormalIconSource" />
+                            <DropDownButton x:Name="NormalIconAdd" IsEnabled="{x:Bind NormalIconSource.IsFileSet, Mode=OneWay}">
+                                Add
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout>
+                                        <ToggleMenuFlyoutItem
+                                            Click="NormalIconAdd_Click"
+                                            IsChecked="{x:Bind IsNormalIconWithXamlMenuAdded, Mode=OneWay}"
+                                            Text="Add icon with xaml menu" />
+                                        <ToggleMenuFlyoutItem
+                                            x:Name="NormalIconWithPopupMenuAdd"
+                                            Click="NormalIconWithPopupMenuAdd_Click"
+                                            IsChecked="{x:Bind IsNormalIconWithPopupMenuAdded, Mode=OneWay}"
+                                            Text="Add icon with popup menu" />
+                                    </MenuFlyout>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
+
+                        </StackPanel>
+
+                    </essential:GroupBox>
+                </RadioButton>
+
+                <RadioButton x:Name="ThemeAdaptiveIconRadio">
+                    <Grid MinWidth="200" ColumnSpacing="50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <essential:GroupBox Header="LightTheme" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
+                            <local:TaskbarIconSource x:Name="LightThemeIconSource" />
+                        </essential:GroupBox>
+                        <DropDownButton
+                            x:Name="ThemeAdaptiveIconAddButton"
+                            Grid.Row="1"
+                            IsEnabled="{x:Bind local:TaskbarIconPage.BoolAnd(LightThemeIconSource.IsFileSet, DarkThemeIconSource.IsFileSet), Mode=OneWay}">
+                            Add
+                            <DropDownButton.Flyout>
+                                <MenuFlyout>
+                                    <ToggleMenuFlyoutItem
+                                        Click="ThemeAdaptiveIconAddButton_Click"
+                                        IsChecked="{x:Bind IsThemeAdaptiveIconWithXamlMenuAdded, Mode=OneWay}"
+                                        Text="Add icon with xaml menu" />
+                                    <ToggleMenuFlyoutItem
+                                        x:Name="ThemeAdaptiveIconWithPopupMenuAdd"
+                                        Click="ThemeAdaptiveIconWithPopupMenuAdd_Click"
+                                        IsChecked="{x:Bind IsThemeAdaptiveIconWithPopupMenuAdded, Mode=OneWay}"
+                                        Text="Add icon with pop up menu" />
+                                </MenuFlyout>
+                            </DropDownButton.Flyout>
+                        </DropDownButton>
+
+                        <essential:GroupBox
+                            Grid.Column="1"
+                            Header="DarkTheme"
+                            IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
+                            <local:TaskbarIconSource x:Name="DarkThemeIconSource" />
+                        </essential:GroupBox>
+                    </Grid>
+                </RadioButton>
+            </RadioButtons>
+
+            <TextBlock>
+                <Run Text="Menu item clicked: " />
+                <Run x:Name="ClickedItemText" />
+            </TextBlock>
+
+            <TextBlock Text="Events:" />
+            <ListView x:Name="EventsList" MaxHeight="300" />
+
+        </StackPanel>
+    </ScrollView>
+</Page>

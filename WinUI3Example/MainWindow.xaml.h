@@ -27,6 +27,8 @@ namespace winrt::WinUI3Example::implementation
             );
             return winrt::single_threaded_vector(std::move(pages));
         }
+
+        static HWND Hwnd;
     private:
         static inline std::unordered_map<winrt::hstring, winrt::Windows::UI::Xaml::Interop::TypeName> s_page
         {
@@ -56,7 +58,11 @@ namespace winrt::WinUI3Example::implementation
             {L"ShimmerPage", winrt::xaml_typename<WinUI3Example::ShimmerPage>()},
             {L"ImageExtensionPage", winrt::xaml_typename<WinUI3Example::ImageExtensionPage>()},
             {L"SwitchPresenterPage", winrt::xaml_typename<WinUI3Example::SwitchPresenterPage>()},
-            {L"ExperimentPage", winrt::xaml_typename<WinUI3Example::ExperimentPage>()}
+            {L"ExperimentPage", winrt::xaml_typename<WinUI3Example::ExperimentPage>()},
+            {L"TaskbarIconPage", winrt::xaml_typename<WinUI3Example::TaskbarIconPage>()},
+            {L"ThemeListenerPage", winrt::xaml_typename<WinUI3Example::ThemeListenerPage>()},
+            {L"ScopedButtonDisablerPage", winrt::xaml_typename<WinUI3Example::ScopedButtonDisablerPage>()},
+            {L"InitializeWithWindowHelperPage", winrt::xaml_typename<WinUI3Example::InitializeWithWindowHelperPage>()}
         };
     };
 }

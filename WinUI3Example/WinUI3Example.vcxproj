@@ -174,6 +174,15 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;"C:\Users\Peter\Desktop\WinUIEssential\x64\Debug\WinUI3Package\WinUI3Package.lib";%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\$(Configuration)\WinUI3Package\WinUI3Package.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
@@ -185,6 +194,15 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(SolutionDir)$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
@@ -199,6 +217,9 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
@@ -210,6 +231,24 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(SolutionDir)$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|x64'">stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -310,6 +349,10 @@
       <DependentUpon>IncrementalLoadingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="InitializeWithWindowHelperPage.xaml.h">
+      <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="LineGraph.h">
       <DependentUpon>LineGraph.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -357,6 +400,10 @@
       <DependentUpon>SampleThemeListener.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ScopedButtonDisablerPage.xaml.h">
+      <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SegmentedPage.h">
       <DependentUpon>SegmentedPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -373,6 +420,14 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TaskbarIconPage.xaml.h">
+      <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconSource.xaml.h">
+      <DependentUpon>TaskbarIconSource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SwitchPresenterPage.xaml.h">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -383,6 +438,10 @@
     </ClInclude>
     <ClInclude Include="TemplateInformation.h">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ThemeListenerPage.xaml.h">
+      <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TitleBarPage.xaml.h">
@@ -474,6 +533,9 @@
     <Page Include="IncrementalLoadingPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="InitializeWithWindowHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LineGraphControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -485,6 +547,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ScopedButtonDisablerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SampleThemeListener.xaml">
@@ -502,10 +567,19 @@
     <Page Include="ShimmerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="TaskbarIconPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TaskbarIconSource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SwitchPresenterPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemeListenerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TitleBarPage.xaml">
@@ -617,6 +691,10 @@
       <DependentUpon>IncrementalLoadingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="InitializeWithWindowHelperPage.xaml.cpp">
+      <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="LineGraph.cpp">
       <DependentUpon>LineGraph.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -663,6 +741,10 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ScopedButtonDisablerPage.xaml.cpp">
+      <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SampleThemeListener.xaml.cpp">
       <DependentUpon>SampleThemeListener.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -687,8 +769,20 @@
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TaskbarIconPage.xaml.cpp">
+      <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TaskbarIconSource.xaml.cpp">
+      <DependentUpon>TaskbarIconSource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ThemeListenerPage.xaml.cpp">
+      <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TemplateInformation.cpp">
@@ -813,6 +907,10 @@
       <DependentUpon>IncrementalLoadingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="InitializeWithWindowHelperPage.idl">
+      <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="LineGraph.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -852,6 +950,10 @@
       <DependentUpon>SampleThemeListener.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ScopedButtonDisablerPage.idl">
+      <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="SegmentedPage.idl">
       <DependentUpon>SegmentedPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -872,12 +974,24 @@
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="TaskbarIconPage.idl">
+      <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TaskbarIconSource.idl">
+      <DependentUpon>TaskbarIconSource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="TaskbarPage.idl">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ThemeListenerPage.idl">
+      <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="TitleBarPage.idl">
       <DependentUpon>TitleBarPage.xaml</DependentUpon>

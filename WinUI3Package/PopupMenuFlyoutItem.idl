@@ -1,0 +1,26 @@
+import "PopupMenuFlyoutItemBase.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    unsealed runtimeclass PopupMenuFlyoutItem : 
+        WinUI3Package.PopupMenuFlyoutItemBase
+    {
+        PopupMenuFlyoutItem();
+
+        Microsoft.UI.Xaml.Controls.IconElement Icon;
+        static Microsoft.UI.Xaml.DependencyProperty IconProperty{ get; };
+
+        String Text;
+        static Microsoft.UI.Xaml.DependencyProperty TextProperty{ get; };
+
+        Microsoft.UI.Xaml.Input.ICommand Command;
+        static Microsoft.UI.Xaml.DependencyProperty CommandProperty{ get; };
+
+        Object CommandParameter;
+        static Microsoft.UI.Xaml.DependencyProperty CommandParameterProperty{ get; };
+
+        event Microsoft.UI.Xaml.RoutedEventHandler Click;
+    }
+}
