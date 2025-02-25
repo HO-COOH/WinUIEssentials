@@ -198,7 +198,7 @@
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Link>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(SolutionDir)$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
@@ -236,7 +236,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(SolutionDir)$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
