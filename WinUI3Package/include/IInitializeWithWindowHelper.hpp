@@ -78,6 +78,7 @@ namespace WinUIEssentials::Windows
 
 	namespace UI	
 	{
+#if __has_include("winrt/impl/Windows.UI.Core.2.h")
 		namespace Core
 		{
 			struct CoreWindowDialog : internal::IInitializeWithWindowConstructorHelperWithArg<winrt::Windows::UI::Core::CoreWindowDialog>
@@ -103,6 +104,7 @@ namespace WinUIEssentials::Windows
 				}
 			};
 		}
+#endif
 
 		namespace Popups
 		{
