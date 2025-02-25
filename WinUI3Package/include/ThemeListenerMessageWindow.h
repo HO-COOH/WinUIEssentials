@@ -6,7 +6,7 @@ class WinUIEssentialDllApi ThemeListenerMessageWindow
 	constexpr static auto ThemeListenerMessageWindowClass = L"ThemeListenerMessageWindow";
 	static void registerIfNeeded();
 
-	static LRESULT windowProc(
+	static LRESULT CALLBACK windowProc(
 		HWND,
 		UINT,
 		WPARAM,
