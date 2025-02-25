@@ -113,13 +113,17 @@ namespace winrt::WinUI3Example::implementation
 
 	void InitializeWithWindowHelperPage::CoreWindowDialogButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
+#ifdef HasCoreWindow
 		WinUIEssentials::Windows::UI::Core::CoreWindowDialog{ MainWindow::Hwnd, L"CoreMessageDialogTitle" }.ShowAsync();
+#endif
 	}
 
 
 	void InitializeWithWindowHelperPage::CoreWindowFlyoutButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
+#ifdef HasCoreWindow
 		WinUIEssentials::Windows::UI::Core::CoreWindowFlyout{ MainWindow::Hwnd, {} }.ShowAsync();
+#endif
 	}
 
 
