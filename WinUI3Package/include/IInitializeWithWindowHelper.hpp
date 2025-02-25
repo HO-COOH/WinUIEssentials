@@ -78,7 +78,7 @@ namespace WinUIEssentials::Windows
 
 	namespace UI	
 	{
-#if __has_include("winrt/impl/Windows.UI.Core.2.h")
+#ifdef HasCoreWindow
 		namespace Core
 		{
 			struct CoreWindowDialog : internal::IInitializeWithWindowConstructorHelperWithArg<winrt::Windows::UI::Core::CoreWindowDialog>
