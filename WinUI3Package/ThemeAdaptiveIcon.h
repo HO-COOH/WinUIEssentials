@@ -15,7 +15,7 @@ class ThemeAdaptiveIcon : public TaskbarIconBase
 	HICON m_iconDark{};
 	ThemeListener::Token m_themeListenerToken;
 
-	void onThemeChanged(winrt::Microsoft::UI::Xaml::ApplicationTheme theme);
+	void onThemeChanged();
 	
 	void addOnThemeChangedIfSet();
 public:

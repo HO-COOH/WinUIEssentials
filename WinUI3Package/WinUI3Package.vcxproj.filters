@@ -124,7 +124,6 @@
     <ClInclude Include="IconUtils.h">
       <Filter>TaskbarIcon</Filter>
     </ClInclude>
-    <ClInclude Include="include\AppsUseLightTheme.h" />
     <ClInclude Include="include\ThemeListener.h" />
     <ClInclude Include="include\ThemeListenerMessageWindow.h" />
     <ClInclude Include="include\HwndHelper.hpp">
@@ -193,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="RadioPopupMenuItemGroup.h">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ThemeSettingsImpl.hpp">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -426,6 +428,7 @@
     <Midl Include="PopupMenuFlyoutItemBase.idl">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
+    <Midl Include="ThemeSettings.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

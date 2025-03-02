@@ -12,16 +12,17 @@ public:
 	void Theme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 	{
 		m_theme = value;
+		static UxTheme s_uxTheme;
 		switch (value)
 		{
 		case winrt::Microsoft::UI::Xaml::ElementTheme::Default:
-			UxTheme{}.SetPreferredAppMode(PreferredAppMode::AllowDark);
+			s_uxTheme.SetPreferredAppMode(PreferredAppMode::AllowDark);
 			break;
 		case winrt::Microsoft::UI::Xaml::ElementTheme::Light:
-			UxTheme{}.SetPreferredAppMode(PreferredAppMode::ForceLight);
+			s_uxTheme.SetPreferredAppMode(PreferredAppMode::ForceLight);
 			break;
 		case winrt::Microsoft::UI::Xaml::ElementTheme::Dark:
-			UxTheme{}.SetPreferredAppMode(PreferredAppMode::ForceDark);
+			s_uxTheme.SetPreferredAppMode(PreferredAppMode::ForceDark);
 			break;
 		default:
 			break;

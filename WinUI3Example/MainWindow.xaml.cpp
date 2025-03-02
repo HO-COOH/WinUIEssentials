@@ -28,7 +28,10 @@ namespace winrt::WinUI3Example::implementation
 		InitializeComponent();
 		if (!WebView2Helper::IsWebView2Installed())
 			InstallWebView2Dialog().ShowAsync();
+		MainIcon().Show();
 	}
+
+
 
 	void MainWindow::NavigationView_SelectionChanged(
 		winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender,

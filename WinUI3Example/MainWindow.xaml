@@ -44,6 +44,13 @@
     </local:WindowEx.TitleBar>-->
 
     <Grid>
+        <Grid.Resources>
+            <essential:TaskbarIcon x:Name="MainIcon" Icon="ms-appx:///Assets/MainLogo.ico">
+                <MenuFlyout>
+                    <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Item1" />
+                </MenuFlyout>
+            </essential:TaskbarIcon>
+        </Grid.Resources>
         <NavigationView
             IsSettingsVisible="False"
             MenuItemsSource="{x:Bind Pages}"
@@ -63,7 +70,7 @@
             PrimaryButtonText="OK">
             <RichTextBlock>
                 <Paragraph>
-                    The code presenter depends on WebView2 Runtime, and it will crash without it. <Hyperlink NavigateUri="https://developer.microsoft.com/microsoft-edge/webview2/consumer/">Download and install the runtime now.</Hyperlink>
+                    The code presenter depends on WebView2 Runtime, and it will crash without it.<Hyperlink NavigateUri="https://developer.microsoft.com/microsoft-edge/webview2/consumer/">Download and install the runtime now.</Hyperlink>
                 </Paragraph>
             </RichTextBlock>
         </ContentDialog>

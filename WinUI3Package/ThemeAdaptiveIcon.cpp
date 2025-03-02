@@ -1,17 +1,17 @@
 #include "pch.h"
 #include "ThemeAdaptiveIcon.h"
-#include "AppsUseLightTheme.h"
+#include "ThemeSettingsImpl.hpp"
 
-void ThemeAdaptiveIcon::onThemeChanged(winrt::Microsoft::UI::Xaml::ApplicationTheme theme)
+void ThemeAdaptiveIcon::onThemeChanged()
 {
-	m_iconData.hIcon(theme == winrt::Microsoft::UI::Xaml::ApplicationTheme::Light ? m_iconLight : m_iconDark);
+	m_iconData.hIcon(ThemeSettingsImpl::AppsUseLightTheme() ? m_iconLight : m_iconDark);
 	m_iconData.Modify();
 }
 
 ThemeAdaptiveIcon::ThemeAdaptiveIcon(HICON iconLight, HICON iconDark) :
 	m_iconLight{iconLight},
 	m_iconDark{iconDark},
-	m_themeListenerToken{ThemeListener::Add(std::bind(&ThemeAdaptiveIcon::onThemeChanged, this, std::placeholders::_1))}
+	m_themeListenerToken{ThemeListener::Add(std::bind(&ThemeAdaptiveIcon::onThemeChanged, this))}
 {
 	Show();
 }
@@ -19,7 +19,7 @@ ThemeAdaptiveIcon::ThemeAdaptiveIcon(HICON iconLight, HICON iconDark) :
 void ThemeAdaptiveIcon::addOnThemeChangedIfSet()
 {
 	if (m_iconLight && m_iconDark)
-		m_themeListenerToken = ThemeListener::Add(std::bind(&ThemeAdaptiveIcon::onThemeChanged, this, std::placeholders::_1));
+		m_themeListenerToken = ThemeListener::Add(std::bind(&ThemeAdaptiveIcon::onThemeChanged, this));
 }
 
 ThemeAdaptiveIcon& ThemeAdaptiveIcon::IconLight(HICON value)
@@ -36,7 +36,7 @@ ThemeAdaptiveIcon& ThemeAdaptiveIcon::IconDark(HICON value)
 
 void ThemeAdaptiveIcon::Show()
 {
-	m_iconData.hIcon(AppsUseLightTheme{} == winrt::Microsoft::UI::Xaml::ApplicationTheme::Light ? m_iconLight : m_iconDark);
+	m_iconData.hIcon(ThemeSettingsImpl::AppsUseLightTheme() ? m_iconLight : m_iconDark);
 	addOnThemeChangedIfSet();
 	TaskbarIconBase::Show();
 }

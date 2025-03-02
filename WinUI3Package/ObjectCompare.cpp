@@ -104,7 +104,7 @@ namespace internal
 			case winrt::Windows::Foundation::PropertyType::Boolean: //14
 				return winrt::to_hstring(winrt::unbox_value<bool>(object1)) == winrt::unbox_value<winrt::hstring>(object2);
 			default:
-				assert(false);
+				throw winrt::hresult_invalid_argument{ L"Unsupported winrt::to_hstring() type, this should not happens by logic. Please report an issue!" };
 		}
 	}
 

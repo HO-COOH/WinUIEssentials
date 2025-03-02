@@ -92,88 +92,75 @@
         </Style>
     </Page.Resources>
 
-    <ScrollView>
-        <StackPanel>
+    <StackPanel>
+        <local:ControlExample HeaderText="Create a single taskbar icon">
+            <local:TaskbarIconSource x:Name="NormalIconSource" />
+            <local:ControlExample.Options>
+                <DropDownButton x:Name="NormalIconAdd" IsEnabled="{x:Bind NormalIconSource.IsFileSet, Mode=OneWay}">
+                    Add
+                    <DropDownButton.Flyout>
+                        <MenuFlyout>
+                            <ToggleMenuFlyoutItem
+                                Click="NormalIconAdd_Click"
+                                IsChecked="{x:Bind IsNormalIconWithXamlMenuAdded, Mode=OneWay}"
+                                Text="Add icon with xaml menu" />
+                            <ToggleMenuFlyoutItem
+                                x:Name="NormalIconWithPopupMenuAdd"
+                                Click="NormalIconWithPopupMenuAdd_Click"
+                                IsChecked="{x:Bind IsNormalIconWithPopupMenuAdded, Mode=OneWay}"
+                                Text="Add icon with popup menu" />
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </local:ControlExample.Options>
+        </local:ControlExample>
 
-            <RadioButtons SelectionChanged="RadioButtons_SelectionChanged">
-                <RadioButton x:Name="NormalIconRadio">
-                    <essential:GroupBox Header="NormalIcon" IsEnabled="{x:Bind NormalIconRadio.IsChecked.Value, Mode=OneWay}">
-                        <StackPanel Spacing="5">
-                            <local:TaskbarIconSource x:Name="NormalIconSource" />
-                            <DropDownButton x:Name="NormalIconAdd" IsEnabled="{x:Bind NormalIconSource.IsFileSet, Mode=OneWay}">
-                                Add
-                                <DropDownButton.Flyout>
-                                    <MenuFlyout>
-                                        <ToggleMenuFlyoutItem
-                                            Click="NormalIconAdd_Click"
-                                            IsChecked="{x:Bind IsNormalIconWithXamlMenuAdded, Mode=OneWay}"
-                                            Text="Add icon with xaml menu" />
-                                        <ToggleMenuFlyoutItem
-                                            x:Name="NormalIconWithPopupMenuAdd"
-                                            Click="NormalIconWithPopupMenuAdd_Click"
-                                            IsChecked="{x:Bind IsNormalIconWithPopupMenuAdded, Mode=OneWay}"
-                                            Text="Add icon with popup menu" />
-                                    </MenuFlyout>
-                                </DropDownButton.Flyout>
-                            </DropDownButton>
+        <local:ControlExample HeaderText="Create a taskbar icon that adapts to Windows light/dark theme">
+            <Grid MinWidth="200" ColumnSpacing="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                        </StackPanel>
+                <essential:GroupBox Header="LightTheme">
+                    <local:TaskbarIconSource x:Name="LightThemeIconSource" />
+                </essential:GroupBox>
 
-                    </essential:GroupBox>
-                </RadioButton>
+                <essential:GroupBox Grid.Column="1" Header="DarkTheme">
+                    <local:TaskbarIconSource x:Name="DarkThemeIconSource" />
+                </essential:GroupBox>
+            </Grid>
 
-                <RadioButton x:Name="ThemeAdaptiveIconRadio">
-                    <Grid MinWidth="200" ColumnSpacing="50">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
+            <local:ControlExample.Options>
+                <DropDownButton
+                    x:Name="ThemeAdaptiveIconAddButton"
+                    Grid.Row="1"
+                    IsEnabled="{x:Bind local:TaskbarIconPage.BoolAnd(LightThemeIconSource.IsFileSet, DarkThemeIconSource.IsFileSet), Mode=OneWay}">
+                    Add
+                    <DropDownButton.Flyout>
+                        <MenuFlyout>
+                            <ToggleMenuFlyoutItem
+                                Click="ThemeAdaptiveIconAddButton_Click"
+                                IsChecked="{x:Bind IsThemeAdaptiveIconWithXamlMenuAdded, Mode=OneWay}"
+                                Text="Add icon with xaml menu" />
+                            <ToggleMenuFlyoutItem
+                                x:Name="ThemeAdaptiveIconWithPopupMenuAdd"
+                                Click="ThemeAdaptiveIconWithPopupMenuAdd_Click"
+                                IsChecked="{x:Bind IsThemeAdaptiveIconWithPopupMenuAdded, Mode=OneWay}"
+                                Text="Add icon with pop up menu" />
+                        </MenuFlyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </local:ControlExample.Options>
+        </local:ControlExample>
 
-                        <essential:GroupBox Header="LightTheme" IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
-                            <local:TaskbarIconSource x:Name="LightThemeIconSource" />
-                        </essential:GroupBox>
-                        <DropDownButton
-                            x:Name="ThemeAdaptiveIconAddButton"
-                            Grid.Row="1"
-                            IsEnabled="{x:Bind local:TaskbarIconPage.BoolAnd(LightThemeIconSource.IsFileSet, DarkThemeIconSource.IsFileSet), Mode=OneWay}">
-                            Add
-                            <DropDownButton.Flyout>
-                                <MenuFlyout>
-                                    <ToggleMenuFlyoutItem
-                                        Click="ThemeAdaptiveIconAddButton_Click"
-                                        IsChecked="{x:Bind IsThemeAdaptiveIconWithXamlMenuAdded, Mode=OneWay}"
-                                        Text="Add icon with xaml menu" />
-                                    <ToggleMenuFlyoutItem
-                                        x:Name="ThemeAdaptiveIconWithPopupMenuAdd"
-                                        Click="ThemeAdaptiveIconWithPopupMenuAdd_Click"
-                                        IsChecked="{x:Bind IsThemeAdaptiveIconWithPopupMenuAdded, Mode=OneWay}"
-                                        Text="Add icon with pop up menu" />
-                                </MenuFlyout>
-                            </DropDownButton.Flyout>
-                        </DropDownButton>
+        <TextBlock>
+            <Run Text="Menu item clicked: " />
+            <Run x:Name="ClickedItemText" />
+        </TextBlock>
 
-                        <essential:GroupBox
-                            Grid.Column="1"
-                            Header="DarkTheme"
-                            IsEnabled="{x:Bind ThemeAdaptiveIconRadio.IsChecked.Value, Mode=OneWay}">
-                            <local:TaskbarIconSource x:Name="DarkThemeIconSource" />
-                        </essential:GroupBox>
-                    </Grid>
-                </RadioButton>
-            </RadioButtons>
+        <TextBlock Text="Events:" />
+        <ListView x:Name="EventsList" MaxHeight="300" />
 
-            <TextBlock>
-                <Run Text="Menu item clicked: " />
-                <Run x:Name="ClickedItemText" />
-            </TextBlock>
-
-            <TextBlock Text="Events:" />
-            <ListView x:Name="EventsList" MaxHeight="300" />
-
-        </StackPanel>
-    </ScrollView>
+    </StackPanel>
 </Page>

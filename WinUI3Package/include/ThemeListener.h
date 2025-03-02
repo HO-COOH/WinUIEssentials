@@ -16,7 +16,7 @@ class ThemeListener
 	inline static ThemeListener& getOrCreate();
 
 	//std::list<std::function<void(winrt::Microsoft::UI::Xaml::ApplicationTheme)>> m_handlers;
-	Handler<void, winrt::Microsoft::UI::Xaml::ApplicationTheme> m_handlers;
+	Signal<void> m_handlers;
 
 	ThemeListenerMessageWindow m_messageWindow;
 public:
@@ -75,7 +75,7 @@ public:
 	 * @return a `Token` that automatically unregister this handler when it is destructed
 	 */
 	template<typename Func>
-	static Token Add(Func&& f)
+	[[nodiscard]] static Token Add(Func&& f)
 	{
 		auto& handlers = getOrCreate().m_handlers;
 		handlers.emplace_back(std::forward<Func>(f));

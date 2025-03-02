@@ -17,7 +17,11 @@ namespace winrt::WinUI3Package::implementation
 	}
 	void TaskbarIcon::Icon(winrt::Windows::Foundation::Uri value)
 	{
-		setIconFromUri(value, [this](std::wstring_view path) {getNormalIcon().Icon(Utils::GetHIcon(path)); });
+		setIconFromUri(value, [this](std::wstring_view path) {getNormalIcon().Icon(Utils::GetHIcon(path));  });
+	}
+	winrt::hstring TaskbarIcon::IconFile()
+	{
+		throw GetterNotImplemented();
 	}
 	void TaskbarIcon::IconFile(winrt::hstring const& value)
 	{
@@ -32,10 +36,15 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::Windows::Foundation::Uri TaskbarIcon::LightThemeIcon()
 	{
-		return winrt::Windows::Foundation::Uri(nullptr);
+		throw GetterNotImplemented();
 	}
 	void TaskbarIcon::LightThemeIcon(winrt::Windows::Foundation::Uri value)
 	{
+		setIconFromUri(value, [this](std::wstring_view path) {getThemeAdaptiveIcon().IconLight(Utils::GetHIcon(path)); });
+	}
+	winrt::hstring TaskbarIcon::LightThemeIconFile()
+	{
+		throw GetterNotImplemented();
 	}
 	void TaskbarIcon::LightThemeIconFile(winrt::hstring const& value)
 	{
@@ -50,10 +59,16 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::Windows::Foundation::Uri TaskbarIcon::DarkThemeIcon()
 	{
-		return winrt::Windows::Foundation::Uri(nullptr);
+		throw GetterNotImplemented();
 	}
 	void TaskbarIcon::DarkThemeIcon(winrt::Windows::Foundation::Uri value)
 	{
+		setIconFromUri(value, [this](std::wstring_view path) {getThemeAdaptiveIcon().IconDark(Utils::GetHIcon(path)); });
+	}
+
+	winrt::hstring TaskbarIcon::DarkThemeIconFile()
+	{
+		throw GetterNotImplemented();
 	}
 
 	void TaskbarIcon::DarkThemeIconFile(winrt::hstring const& value)

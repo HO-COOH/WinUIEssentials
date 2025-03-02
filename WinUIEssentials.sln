@@ -30,6 +30,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{14
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{A89EF308-E098-4300-A6A8-5E3D9BF7A9BF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PullRequest_CI", "PullRequest_CI", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\msbuild_Debug_ARM64_PR.yml = .github\workflows\msbuild_Debug_ARM64_PR.yml
+		.github\workflows\msbuild_Debug_ARM_PR.yml = .github\workflows\msbuild_Debug_ARM_PR.yml
+		.github\workflows\msbuild_Debug_x64_PR.yml = .github\workflows\msbuild_Debug_x64_PR.yml
+		.github\workflows\msbuild_Debug_x86_PR.yml = .github\workflows\msbuild_Debug_x86_PR.yml
+		.github\workflows\msbuild_Release_ARM64_PR.yml = .github\workflows\msbuild_Release_ARM64_PR.yml
+		.github\workflows\msbuild_Release_ARM_PR.yml = .github\workflows\msbuild_Release_ARM_PR.yml
+		.github\workflows\msbuild_Release_x64_PR.yml = .github\workflows\msbuild_Release_x64_PR.yml
+		.github\workflows\msbuild_Release_x86_PR.yml = .github\workflows\msbuild_Release_x86_PR.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_CI2|ARM = Debug_CI2|ARM
@@ -220,6 +232,7 @@ Global
 		{68226A70-C3CD-4205-93AA-95F3EBB8BE34} = {A89EF308-E098-4300-A6A8-5E3D9BF7A9BF}
 		{E006BDA6-4CC1-4EC4-A1CF-807E16BCBF58} = {148D80C3-02AE-4AB5-8D25-739612D033BE}
 		{A89EF308-E098-4300-A6A8-5E3D9BF7A9BF} = {148D80C3-02AE-4AB5-8D25-739612D033BE}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {015CEE95-DABC-4E33-8980-8B5103F4FDF5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC8F22E0-09E5-4965-B6EC-E23350D9A02E}

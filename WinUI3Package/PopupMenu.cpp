@@ -2,7 +2,7 @@
 #include "PopupMenu.h"
 #include "TaskbarIconMessageWindow.h"
 #include "IconUtils.h"
-#include "AppsUseLightTheme.h"
+#include "ThemeSettingsImpl.hpp"
 #include "InvalidMenuItemIconTypeError.hpp"
 #include <gdiplus.h>
 
@@ -16,7 +16,6 @@
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
 void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu, HMENU menu, int& index)
 {
-	AppsUseLightTheme theme;
 	auto const dpi = Utils::GetPrimaryMonitorDpi();
 	for (auto item : xamlMenu)
 	{
@@ -47,7 +46,16 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 			));
 
 			if (auto icon = flyoutItem.Icon())
-				setMenuItemGlyph(icon, menu, index, dpi, theme, true);
+			{
+				setMenuItemGlyph(
+					icon, 
+					menu, 
+					index, 
+					dpi, 
+					ThemeSettingsImpl::AppsUseLightTheme()? winrt::Microsoft::UI::Xaml::ApplicationTheme::Light : winrt::Microsoft::UI::Xaml::ApplicationTheme::Dark,
+					true
+				);
+			}
 			break;
 		}
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutSeparator:
@@ -262,9 +270,14 @@ void PopupMenu::Theme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 	MenuBase::Theme(value);
 	if (value == winrt::Microsoft::UI::Xaml::ElementTheme::Default)
 	{
-		m_themeListenerToken = ThemeListener::Add([this](winrt::Microsoft::UI::Xaml::ApplicationTheme value) {
+		m_themeListenerToken = ThemeListener::Add([this]() {
 			auto const dpi = Utils::GetPrimaryMonitorDpi();
-			redrawMenuIcon(m_menu, m_xamlMenu.Items(),  dpi, value);
+			redrawMenuIcon(
+				m_menu,
+				m_xamlMenu.Items(),
+				dpi,
+				ThemeSettingsImpl::AppsUseLightTheme() ? winrt::Microsoft::UI::Xaml::ApplicationTheme::Light : winrt::Microsoft::UI::Xaml::ApplicationTheme::Dark
+			);
 		});
 	}
 	else

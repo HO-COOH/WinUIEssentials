@@ -53,34 +53,6 @@ namespace winrt::WinUI3Example::implementation
 	}
 
 
-	void TaskbarIconPage::RadioButtons_SelectionChanged(
-		winrt::Windows::Foundation::IInspectable const& sender, 
-		winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e)
-	{
-		auto const index = sender.as<winrt::Microsoft::UI::Xaml::Controls::RadioButtons>().SelectedIndex();
-		
-		//see https://github.com/microsoft/microsoft-ui-xaml/issues/9917, the first trigger will have index == -1, so we return
-		if (index == -1)
-			return;
-
-		if (index != m_radioSelection)
-		{
-			if (IsNormalIconWithXamlMenuAdded() || IsThemeAdaptiveIconWithXamlMenuAdded())
-			{
-				TaskbarIcon().Remove();
-				isNormalIconWithXamlMenuAdded(false);
-				isThemeAdaptiveIconWithXamlMenuAdded(false);
-			}
-			if (IsNormalIconWithPopupMenuAdded() || IsThemeAdaptiveIconWithPopupMenuAdded())
-			{
-				TaskbarIconWithPopupMenu().Remove();
-				isNormalIconWithPopupMenuAdded(false);
-				isThemeAdaptiveIconWithPopupMenuAdded(false);
-			}
-		}
-		m_radioSelection = index;
-	}
-
 	void TaskbarIconPage::MenuFlyoutItem_Click(
 		winrt::Windows::Foundation::IInspectable const& sender, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

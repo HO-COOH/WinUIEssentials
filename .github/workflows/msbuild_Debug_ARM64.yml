@@ -7,8 +7,6 @@ name: Build example Debug_ARM64
 
 on:
   push:
-    branches: [ "master", "ci", "feat/code-presenter" ]
-  pull_request:
     branches: [ "master", "ci" ]
 
 env:

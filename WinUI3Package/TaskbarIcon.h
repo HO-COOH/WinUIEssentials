@@ -24,7 +24,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::Uri Icon() { return nullptr; }
         void Icon(winrt::Windows::Foundation::Uri value);
 
-        winrt::hstring IconFile() { return L""; }
+        winrt::hstring IconFile();
         void IconFile(winrt::hstring const& value);
 
         WinUI3Package::GeneratedIconSource LightThemeIconSource();
@@ -33,7 +33,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::Uri LightThemeIcon();
         void LightThemeIcon(winrt::Windows::Foundation::Uri value);
 
-        winrt::hstring LightThemeIconFile() { return L""; }
+        winrt::hstring LightThemeIconFile();
         void LightThemeIconFile(winrt::hstring const& value);
 
         WinUI3Package::GeneratedIconSource DarkThemeIconSource();
@@ -42,7 +42,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::Uri DarkThemeIcon();
         void DarkThemeIcon(winrt::Windows::Foundation::Uri value);
 
-        winrt::hstring DarkThemeIconFile() { return L""; }
+        winrt::hstring DarkThemeIconFile();
         void DarkThemeIconFile(winrt::hstring const& value);
 
         winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase RightClickMenu() { return m_xamlMenuFlyout; }
@@ -79,11 +79,19 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::ElementTheme m_theme{ winrt::Microsoft::UI::Xaml::ElementTheme::Default };
 
         template<typename F>
-        winrt::Windows::Foundation::IAsyncAction setIconFromUri(winrt::Windows::Foundation::Uri uri, F&& f)
+        static winrt::Windows::Foundation::IAsyncAction setIconFromUri(winrt::Windows::Foundation::Uri uri, F f)
         {
             if (auto file = co_await winrt::Windows::Storage::StorageFile::GetFileFromApplicationUriAsync(uri))
                 f(file.Path());
         }
+
+        struct GetterNotImplemented : winrt::hresult_not_implemented
+        {
+			GetterNotImplemented() : 
+                hresult_not_implemented{ L"Getter of TaskbarIcon is not implemented. You should save the property you set in a member variable." } 
+            {
+            }
+        };
     };
 }
 

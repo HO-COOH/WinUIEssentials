@@ -6,7 +6,10 @@ namespace winrt::WinUI3Package::implementation
 {
     struct GeneratedIconSource : GeneratedIconSourceT<GeneratedIconSource>
     {
-        GeneratedIconSource() = default;
+        GeneratedIconSource()
+        {
+            throw winrt::hresult_not_implemented{ L"GeneratedIconSource is not implemented" };
+        }
         
         winrt::hstring Text();
         void Text(winrt::hstring value);

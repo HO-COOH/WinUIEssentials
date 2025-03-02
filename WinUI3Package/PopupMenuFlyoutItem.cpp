@@ -6,7 +6,7 @@
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include "PopupMenu.h"
 #include "IconUtils.h"
-#include "AppsUseLightTheme.h"
+#include "ThemeSettingsImpl.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -55,7 +55,14 @@ namespace winrt::WinUI3Package::implementation
 		SetValue(IconProperty(), value);
 		if (m_parentMenu)
 		{
-			::PopupMenu::setMenuItemGlyph(Icon(), m_parentMenu, index, Utils::GetPrimaryMonitorDpi(), AppsUseLightTheme{}, IsEnabled());
+			::PopupMenu::setMenuItemGlyph(
+				Icon(), 
+				m_parentMenu, 
+				index, 
+				Utils::GetPrimaryMonitorDpi(), 
+				ThemeSettingsImpl::AppsUseLightTheme()? winrt::Microsoft::UI::Xaml::ApplicationTheme::Light:winrt::Microsoft::UI::Xaml::ApplicationTheme::Dark, 
+				IsEnabled()
+			);
 		}
 	}
 

@@ -15,8 +15,8 @@ namespace winrt::WinUI3Example::implementation
 
 	Editor::Editor(winrt::hstring const& code, winrt::WinUI3Example::Language language) : m_code{ code }, m_language{ language }
     {
-        DefaultBackgroundColor(winrt::Windows::UI::Colors::Transparent());
-        Loaded([this](auto&&...) { loadHtml(); });
+        //DefaultBackgroundColor(winrt::Windows::UI::Colors::Transparent());
+        //Loaded([this](auto&&...) { loadHtml(); });
     }
 
     winrt::hstring Editor::Code()

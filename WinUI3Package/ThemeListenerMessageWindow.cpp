@@ -3,7 +3,7 @@
 #include "ThemeListener.h"
 #include <winuser.h>
 
-#include "AppsUseLightTheme.h"
+#include "ThemeSettingsImpl.hpp"
 
 void ThemeListenerMessageWindow::registerIfNeeded()
 {
@@ -18,6 +18,7 @@ void ThemeListenerMessageWindow::registerIfNeeded()
 		.lpszClassName = ThemeListenerMessageWindowClass,
 	};
 	RegisterClass(&windowClass);
+	registered = true;
 }
 
 LRESULT ThemeListenerMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -29,9 +30,11 @@ LRESULT ThemeListenerMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wpara
 		return true;
 	case WM_SETTINGCHANGE:
 	{
-		AppsUseLightTheme const value;
-		for (auto& handler : reinterpret_cast<ThemeListener*>(GetWindowLongPtr(hwnd, GWLP_USERDATA))->m_handlers)
-			handler(value);
+		if (lparam && std::wstring_view{ reinterpret_cast<wchar_t const*>(lparam) } == L"ImmersiveColorSet")
+		{
+			for (auto& handler : reinterpret_cast<ThemeListener*>(GetWindowLongPtr(hwnd, GWLP_USERDATA))->m_handlers)
+				handler();
+		}
 		return true;
 	}
 	default:

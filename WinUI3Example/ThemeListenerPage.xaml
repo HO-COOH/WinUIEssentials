@@ -1,24 +1,156 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="WinUI3Example.ThemeListenerPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WinUI3Example"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    ActualThemeChanged="Page_ActualThemeChanged">
+    mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-        <TextBlock Loaded="TextBlock_Loaded">
-            <Run FontWeight="SemiBold" Text="System theme: "/>
-            <Run x:Name="SystemTheme"/>
-        </TextBlock>
+    <StackPanel>
+        <InfoBar
+            Title="This example has issues(1)"
+            IsOpen="True"
+            Message="Essential:ThemeListener.Instance.AppsUseLightTheme is working as intended, but the Control theme in the example below is bugged by WinUI"
+            Severity="Error" />
+        <InfoBar
+            Title="This example has issues(2)"
+            IsOpen="True"
+            Message="Essential:ThemeListener.Instance.AccentColor is not working as for https://github.com/microsoft/WindowsAppSDK/issues/5199"
+            Severity="Error" />
 
-        <TextBlock>
-            <Run FontWeight="SemiBold" Text="Sample theme: "/>
-            <Run x:Name="CurrentTheme"/>
-        </TextBlock>
+
+        <local:ControlExample x:Name="ThemeListenerExample" HeaderText="ThemeListener">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock>
+                    <Run FontWeight="SemiBold" Text="AppsUseLightTheme: " />
+                    <Run Text="{x:Bind essential:ThemeSettings.Instance.AppsUseLightTheme, Mode=OneWay}" />
+                </TextBlock>
+
+                <TextBlock>
+                    <Run FontWeight="SemiBold" Text="Control theme: " />
+                    <Run Text="{x:Bind local:ThemeListenerPage.ElementThemeToString(ThemeListenerExample.ActualTheme), Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">
+&lt;TextBlock&gt;
+    &lt;Run FontWeight=&quot;SemiBold&quot; Text=&quot;AppsUseLightTheme: &quot; /&gt;
+    &lt;Run Text=&quot;{x:Bind essential:ThemeSettings.Instance.AppsUseLightTheme, Mode=OneWay}&quot; /&gt;
+&lt;/TextBlock&gt;
+
+&lt;TextBlock&gt;
+    &lt;Run FontWeight=&quot;SemiBold&quot; Text=&quot;Control theme: &quot; /&gt;
+    &lt;Run Text=&quot;{x:Bind local:ThemeListenerPage.ElementThemeToString(ThemeListenerExample.ActualTheme), Mode=OneWay}&quot; /&gt;
+&lt;/TextBlock&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+
+            <local:ControlExample.Idl>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">[default_interface]
+runtimeclass ThemeListenerPage : Microsoft.UI.Xaml.Controls.Page
+{
+    ThemeListenerPage();
+    
+    static String ElementThemeToString(Microsoft.UI.Xaml.ElementTheme theme);
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Idl>
+            <local:ControlExample.Header>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">struct ThemeListenerPage : ThemeListenerPageT&lt;ThemeListenerPage&gt;
+{
+    ThemeListenerPage() = default;
+    static winrt::hstring ElementThemeToString(winrt::Microsoft::UI::Xaml::ElementTheme theme);
+};
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Header>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">winrt::hstring ThemeListenerPage::ElementThemeToString(winrt::Microsoft::UI::Xaml::ElementTheme theme)
+{
+	switch (theme)
+	{
+		case winrt::Microsoft::UI::Xaml::ElementTheme::Dark: return L&quot;Dark&quot;;
+		case winrt::Microsoft::UI::Xaml::ElementTheme::Light: return L&quot;Light&quot;;
+		default: return L&quot;Default&quot;;
+	}
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Other ThemeSettings">
+            <StackPanel>
+                <TextBlock>
+                    <Run FontWeight="Bold" Text="AppsUseLightTheme: " />
+                    <Run Text="{x:Bind essential:ThemeSettings.Instance.AppsUseLightTheme, Mode=OneWay}" />
+                </TextBlock>
+
+                <TextBlock>
+                    <Run FontWeight="Bold" Text="ColorPrevalence: " />
+                    <Run Text="{x:Bind essential:ThemeSettings.Instance.ColorPrevalence, Mode=OneWay}" />
+                </TextBlock>
+
+                <TextBlock>
+                    <Run FontWeight="Bold" Text="EnableTransparency: " />
+                    <Run Text="{x:Bind essential:ThemeSettings.Instance.EnableTransparency, Mode=OneWay}" />
+                </TextBlock>
+
+                <TextBlock>
+                    <Run FontWeight="Bold" Text="SystemUsesLightTheme: " />
+                    <Run Text="{x:Bind essential:ThemeSettings.Instance.SystemUsesLightTheme, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="ThemeSettings colors">
+            <StackPanel>
+                <GridView>
+                    <GridView.Resources>
+                        <Style TargetType="local:ColorTile">
+                            <Setter Property="Width" Value="200" />
+                            <Setter Property="Height" Value="100" />
+                            <Setter Property="CornerRadius" Value="4" />
+                        </Style>
+                    </GridView.Resources>
+                    <local:ColorTile Background="{x:Bind essential:ThemeSettings.Instance.AccentColorBrush, Mode=OneWay}" ColorName="AccentColor" />
+                    <local:ColorTile Background="{x:Bind essential:ThemeSettings.Instance.ColorizationColorBrush, Mode=OneWay}" ColorName="ColorizationColor" />
+                </GridView>
+
+                <GridView ItemsSource="{x:Bind essential:ThemeSettings.Instance.ColorHistory, Mode=OneWay}">
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="Color">
+                            <local:ColorTile
+                                Width="200"
+                                Height="100"
+                                ColorName="ColorHistory"
+                                CornerRadius="4">
+                                <local:ColorTile.Background>
+                                    <SolidColorBrush Color="{x:Bind}" />
+                                </local:ColorTile.Background>
+                            </local:ColorTile>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </StackPanel>
+
+        </local:ControlExample>
     </StackPanel>
+
 
 </Page>

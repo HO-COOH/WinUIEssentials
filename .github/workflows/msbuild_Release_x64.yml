@@ -7,10 +7,7 @@ name: Build example Release_x64
 
 on:
   push:
-    branches: [ "master", "ci", "ci/auto-upload-to-relase", "feat/code-presenter" ]
-  pull_request:
-    branches:
-      - "**"
+    branches: [ "master", "ci" ]
 
 env:
   # Path to the solution file relative to the root of the project.

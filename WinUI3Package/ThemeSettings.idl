@@ -1,0 +1,21 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+	runtimeclass ThemeSettings : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+	{
+		static ThemeSettings Instance{ get; };
+
+		Boolean AppsUseLightTheme{get; };
+		Boolean ColorPrevalence{ get; };
+		Boolean EnableTransparency{ get; };
+		Boolean SystemUsesLightTheme{ get; };
+
+		Windows.UI.Color AccentColor{ get; };
+		Microsoft.UI.Xaml.Media.SolidColorBrush AccentColorBrush{ get; };
+		Windows.UI.Color ColorizationColor{ get; };
+		Microsoft.UI.Xaml.Media.SolidColorBrush ColorizationColorBrush{ get; };
+
+		Windows.Foundation.Collections.IVector<Object> ColorHistory{ get; };
+    }
+}

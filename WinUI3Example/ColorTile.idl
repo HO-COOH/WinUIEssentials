@@ -1,0 +1,13 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass ColorTile : Microsoft.UI.Xaml.Controls.UserControl, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        ColorTile();
+        
+        String ColorName;
+        String ColorValue{ get; };
+
+		static String FromColor(Windows.UI.Color color);
+    }
+}

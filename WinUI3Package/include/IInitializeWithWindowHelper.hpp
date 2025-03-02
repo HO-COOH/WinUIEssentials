@@ -9,6 +9,9 @@
 #include <winrt/Windows.Media.Casting.h>
 #include <winrt/Windows.Media.DialProtocol.h>
 #include <ShObjIdl.h>
+#if __has_include("HwndHelper.hpp")
+#include "HwndHelper.hpp"
+#endif
 
 namespace WinUIEssentials::Windows
 {
@@ -21,6 +24,14 @@ namespace WinUIEssentials::Windows
 			{
 				T::template as<IInitializeWithWindow>()->Initialize(hwnd);
 			}
+
+#if __has_include("HwndHelper.hpp")
+			IInitializeWithWindowConstructorHelper(winrt::Microsoft::UI::Xaml::Window window) :
+				IInitializeWithWindowConstructorHelper{ GetHwnd(window) }
+			{
+
+			}
+#endif
 		};
 
 		template<typename T>
@@ -31,6 +42,14 @@ namespace WinUIEssentials::Windows
 			{
 				T::template as<IInitializeWithWindow>()->Initialize(hwnd);
 			}
+
+#if __has_include("HwndHelper.hpp")
+			template<typename... Args>
+			IInitializeWithWindowConstructorHelperWithArg(winrt::Microsoft::UI::Xaml::Window window, Args&&... args) :
+				IInitializeWithWindowConstructorHelperWithArg{ GetHwnd(window), std::forward<Args>(args)... }
+			{
+			}
+#endif
 		};
 	}
 

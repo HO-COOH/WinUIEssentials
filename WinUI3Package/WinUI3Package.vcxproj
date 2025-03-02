@@ -289,7 +289,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="IconUtils.h" />
-    <ClInclude Include="include\AppsUseLightTheme.h" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\DependentValue.h">
@@ -307,6 +306,7 @@
     <ClInclude Include="include\TemplateControlHelper.hpp" />
     <ClInclude Include="include\ThemeListener.h" />
     <ClInclude Include="include\ThemeListenerMessageWindow.h" />
+    <ClInclude Include="include\ThemeSettingsImpl.hpp" />
     <ClInclude Include="include\TileBuilder.hpp" />
     <ClInclude Include="include\TileTemplates.hpp" />
     <ClInclude Include="include\ToastBuilder.hpp" />
@@ -433,6 +433,10 @@
     <ClInclude Include="TaskbarIconMessageWindow.h" />
     <ClInclude Include="TaskbarIconXamlEvents.h" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />
+    <ClInclude Include="ThemeSettings.h">
+      <DependentUpon>ThemeSettings.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TogglePopupMenuFlyoutItem.h">
       <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -652,6 +656,10 @@
     <ClCompile Include="TaskbarIconMessageWindow.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
+    <ClCompile Include="ThemeSettings.cpp">
+      <DependentUpon>ThemeSettings.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TogglePopupMenuFlyoutItem.cpp">
       <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -810,6 +818,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TaskbarIcon.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ThemeSettings.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TogglePopupMenuFlyoutItem.idl">

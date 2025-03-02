@@ -3,6 +3,7 @@ import "SettingsExpander.idl";
 
 namespace WinUI3Package
 {
+    //TODO: GeneratedIconSource
     [bindable]
     [default_interface]
     [contentproperty("RightClickMenu")]
@@ -15,16 +16,16 @@ namespace WinUI3Package
 
 
         /*Icons*/
-        GeneratedIconSource IconSource;
+        //GeneratedIconSource IconSource;
         Windows.Foundation.Uri Icon;
         String IconFile;
 
         /*Theme-adapting icons*/
-        GeneratedIconSource LightThemeIconSource;
+        //GeneratedIconSource LightThemeIconSource;
         Windows.Foundation.Uri LightThemeIcon;
         String LightThemeIconFile;
         
-        GeneratedIconSource DarkThemeIconSource;
+        //GeneratedIconSource DarkThemeIconSource;
         Windows.Foundation.Uri DarkThemeIcon;
         String DarkThemeIconFile;
 

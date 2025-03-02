@@ -275,6 +275,10 @@
       <DependentUpon>CodeSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ColorTile.xaml.h">
+      <DependentUpon>ColorTile.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ControlExample.xaml.h">
       <DependentUpon>ControlExample.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -491,6 +495,9 @@
     <Page Include="BadgePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ColorTile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ControlExample.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -617,6 +624,10 @@
     </ClCompile>
     <ClCompile Include="CodeSource.cpp">
       <DependentUpon>CodeSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorTile.xaml.cpp">
+      <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ControlExample.xaml.cpp">
@@ -842,6 +853,10 @@
     </Midl>
     <Midl Include="CodeSource.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorTile.idl">
+      <DependentUpon>ColorTile.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="ControlExample.idl">
       <DependentUpon>ControlExample.xaml</DependentUpon>

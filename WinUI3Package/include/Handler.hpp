@@ -44,3 +44,43 @@ public:
 
 };
 
+template<
+	typename HandlerReturnType,
+	typename HandlerContainerType = std::list<std::function<HandlerReturnType()>>
+>
+class Signal : public HandlerContainerType
+{
+public:
+
+	class AutoRevokeToken
+	{
+		std::optional < std::remove_reference_t<decltype(Signal{}.end()) >> m_iter{};
+		Signal* m_container;
+	public:
+		AutoRevokeToken() = default;
+
+		AutoRevokeToken(decltype(Signal{}.end()) iter, Signal& handler) : m_iter{ iter }, m_container{ &handler }
+		{
+		}
+
+		AutoRevokeToken(AutoRevokeToken&& rhs) noexcept : m_iter{ std::move(rhs.m_iter) }, m_container{ rhs.m_container }
+		{
+			rhs.m_iter.reset();
+		}
+
+		AutoRevokeToken& operator=(AutoRevokeToken&& rhs) noexcept
+		{
+			m_iter.swap(rhs.m_iter);
+			return *this;
+		}
+
+		operator decltype(m_iter)(){ return *m_iter; }
+
+			~AutoRevokeToken()
+		{
+			if (m_iter)
+				m_container.erase(*m_iter);
+		}
+	};
+
+};

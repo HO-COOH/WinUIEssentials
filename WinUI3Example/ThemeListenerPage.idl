@@ -4,5 +4,7 @@ namespace WinUI3Example
     runtimeclass ThemeListenerPage : Microsoft.UI.Xaml.Controls.Page
     {
         ThemeListenerPage();
+        
+	    static String ElementThemeToString(Microsoft.UI.Xaml.ElementTheme theme);
     }
 }

@@ -7,10 +7,7 @@ name: Build example Debug_x64
 
 on:
   push:
-    branches: [ "master", "ci", "feat/code-presenter" ]
-  pull_request:
-    branches:
-      - "**"
+    branches: [ "master", "ci" ]
 
 env:
   # Path to the solution file relative to the root of the project.

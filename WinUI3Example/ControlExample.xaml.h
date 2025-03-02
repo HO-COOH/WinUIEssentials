@@ -2,6 +2,46 @@
 
 #include "ControlExample.g.h"
 
+namespace Impl
+{
+	/*TODO:
+		This is a workaroun for the Editor runtimeclass I created
+		I used that class in `ControlExample::makePivotItem()`, and it crashed when switching from `ThemeListenerPage` to any other pages
+		It seems like creating two `Editor` will cause the crash, but I may have fucked up object life time, but I tried by removing 
+		all the event handlers, and it still crashes, so I'm not sure what's the problem.
+		You can help to investigate by changing the `Impl::Editor` to `winrt::WinUI3Example::Editor`.
+	*/
+	struct Editor : winrt::Microsoft::UI::Xaml::Controls::WebView2
+	{
+		Editor(std::nullptr_t) : WebView2{ nullptr } {}
+		Editor(
+			winrt::hstring const& code, 
+			winrt::WinUI3Example::Language language, 
+			winrt::Microsoft::UI::Xaml::Controls::ProgressBar const& progressBar,
+			winrt::WinUI3Example::CodeSource const& codeSource);
+
+		void Load();
+
+		winrt::hstring Code();
+		void Code(winrt::hstring const& value);
+
+		winrt::fire_and_forget loadHtml();
+
+		winrt::hstring m_code;
+		winrt::WinUI3Example::Language m_language;
+		winrt::Microsoft::Web::WebView2::Core::CoreWebView2 m_coreWebView{ nullptr };
+
+	private:
+		winrt::weak_ref<winrt::Microsoft::UI::Xaml::Controls::ProgressBar> m_progressBarRef;
+		winrt::weak_ref<winrt::WinUI3Example::CodeSource> m_codeRef;
+		void createEditor();
+		static double measureHeight(winrt::hstring const& value);
+		static std::wstring_view ltrim(std::wstring_view str);
+		static std::wstring_view rtrim(std::wstring_view str);
+		static winrt::hstring stripEmptyLine(winrt::hstring const& value);
+		wchar_t const* languageString() const;
+	};
+}
 namespace winrt::WinUI3Example::implementation
 {
     struct ControlExample : ControlExampleT<ControlExample>
@@ -57,12 +97,12 @@ namespace winrt::WinUI3Example::implementation
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_cppProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_substitutionsProperty;
 
-		winrt::WinUI3Example::Editor makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language);
+		Impl::Editor makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language);
 
-		winrt::WinUI3Example::Editor m_xamlEditor{ nullptr };
-		winrt::WinUI3Example::Editor m_idlEditor{ nullptr };
-		winrt::WinUI3Example::Editor m_headerEditor{ nullptr };
-		winrt::WinUI3Example::Editor m_cppEditor{ nullptr };
+		Impl::Editor m_xamlEditor{ nullptr };
+		Impl::Editor m_idlEditor{ nullptr };
+		Impl::Editor m_headerEditor{ nullptr };
+		Impl::Editor m_cppEditor{ nullptr };
 
 		static void onXamlChanged(
 			winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
