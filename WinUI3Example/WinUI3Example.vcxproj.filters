@@ -93,9 +93,6 @@
     <Page Include="TransparentWindowDemo.xaml">
       <Filter>Windows\Transparent</Filter>
     </Page>
-    <Page Include="EntranceAnimationDemo.xaml">
-      <Filter>Windows\Transparent</Filter>
-    </Page>
     <Page Include="ShimmerPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -131,6 +128,9 @@
     </Page>
     <Page Include="ColorTile.xaml">
       <Filter>Pages\ThemeListenerPage</Filter>
+    </Page>
+    <Page Include="EntranceAnimationDemo.xaml">
+      <Filter>Pages\Experimental</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,12 @@
             </local:ExpViewModel.MyProperty>
         </local:ExpViewModel>
     </Page.Resources>
-    <StackPanel Loaded="StackPanel_Loaded">
+
+    <StackPanel>
         <TextBlock Text="Experiment functionalities go here!" />
+
+        <local:ControlExample HeaderText="Fully self-drawn transparent window demo">
+            <Button x:Name="SelfDrawnWindowButton" Click="SelfDrawnWindowButton_Click">Click to show window</Button>
+        </local:ControlExample>
     </StackPanel>
 </Page>
