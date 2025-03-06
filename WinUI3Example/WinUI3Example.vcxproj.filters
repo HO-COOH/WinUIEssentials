@@ -132,6 +132,9 @@
     <Page Include="ColorTile.xaml">
       <Filter>Pages\ThemeListenerPage</Filter>
     </Page>
+    <Page Include="TestWindow.xaml">
+      <Filter>Pages\Experimental</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

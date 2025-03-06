@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="ms-appx:///WinUI3Package/IconButton_Resource.xaml" />
                 <ResourceDictionary Source="ms-appx:///WinUI3Package/HostbackdropVisual_Resource.xaml" />
                 <ResourceDictionary Source="ms-appx:///WinUI3Package/Shimmer_Resource.xaml" />
+                <ResourceDictionary Source="ms-appx:///WinUI3Package/ModernStandardWindowContextMenu_Resource.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ResourceDictionary.ThemeDictionaries>

@@ -16,6 +16,10 @@ namespace WinUI3Package
 		Windows.UI.Color ColorizationColor{ get; };
 		Microsoft.UI.Xaml.Media.SolidColorBrush ColorizationColorBrush{ get; };
 
+		//Object is actually Windows.UI.Color
 		Windows.Foundation.Collections.IVector<Object> ColorHistory{ get; };
+
+		//Object is actually Microsoft.UI.Xaml.Media.SolidColorBrush
+		Windows.Foundation.Collections.IVector<Object> ColorHistoryBrushes{ get; };
     }
 }

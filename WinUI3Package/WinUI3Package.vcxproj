@@ -105,7 +105,42 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -334,6 +369,10 @@
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h" />
     <ClInclude Include="MenuFlyoutWrapper.h" />
     <ClInclude Include="MenuItemInfo.hpp" />
+    <ClInclude Include="ModernStandardWindowContextMenu.xaml.h">
+      <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -556,6 +595,10 @@
     </ClCompile>
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
     <ClCompile Include="MenuFlyoutWrapper.cpp" />
+    <ClCompile Include="ModernStandardWindowContextMenu.xaml.cpp">
+      <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="NegateBoolConverter.cpp">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -677,7 +720,6 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="UxThemeWrapper.cpp" />
     <ClCompile Include="WindowEx.cpp">
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -753,6 +795,10 @@
     </Midl>
     <Midl Include="MarqueeText.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ModernStandardWindowContextMenu.idl">
+      <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="NegateBoolConverter.idl">
       <SubType>Designer</SubType>
@@ -848,6 +894,10 @@
     <Page Include="HostBackdropVisual_Resource.xaml" />
     <Page Include="IconButton_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />
+    <Page Include="ModernStandardWindowContextMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ModernStandardWindowContextMenu_Resource.xaml" />
     <Page Include="ProgressBarEx_Resource.xaml" />
     <Page Include="Segmented_Resource.xaml" />
     <Page Include="SettingsCard_Resource.xaml" />

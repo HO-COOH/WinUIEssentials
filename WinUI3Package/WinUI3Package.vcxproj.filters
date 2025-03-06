@@ -36,9 +36,6 @@
     <ClCompile Include="PopupMenu.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
     </ClCompile>
-    <ClCompile Include="UxThemeWrapper.cpp">
-      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
-    </ClCompile>
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClCompile>
@@ -463,6 +460,12 @@
     </Page>
     <Page Include="FlyoutWindow.xaml">
       <Filter>TaskbarIcon\FlyoutContent</Filter>
+    </Page>
+    <Page Include="ModernStandardWindowContextMenu.xaml">
+      <Filter>Windows</Filter>
+    </Page>
+    <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
+      <Filter>Windows</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass TestWindow : Microsoft.UI.Xaml.Window
+    {
+        TestWindow();
+    }
+}

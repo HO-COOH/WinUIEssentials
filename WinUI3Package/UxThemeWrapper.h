@@ -11,5 +11,10 @@ class UxTheme
 	using FnFlushMenuThemes = void(WINAPI*)();
 	wil::unique_hmodule hUxTheme{ LoadLibraryEx(L"uxtheme.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32) };
 public:
-	void SetPreferredAppMode(PreferredAppMode value);
+	void SetPreferredAppMode(PreferredAppMode value)
+	{
+		auto fnSetPreferredAppMode = reinterpret_cast<FnSetPreferredAppMode>(GetProcAddress(hUxTheme.get(), MAKEINTRESOURCEA(135)));
+		if (fnSetPreferredAppMode)
+			fnSetPreferredAppMode(value);
+	}
 };

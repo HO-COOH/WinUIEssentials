@@ -4,6 +4,7 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 #include <unordered_map>
+#include "TransparentMenuFlyoutHost.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -93,6 +94,9 @@ namespace winrt::WinUI3Package::implementation
 
         winrt::hstring Icon();
         void Icon(winrt::hstring value);
+
+		winrt::Microsoft::UI::Xaml::Controls::MenuFlyout ContextMenu();
+		void ContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout value);
 #pragma endregion
 
         winrt::Microsoft::UI::Xaml::UIElement TitleBar();
@@ -169,7 +173,8 @@ namespace winrt::WinUI3Package::implementation
         winrt::hstring m_icon;
 
         winrt::Microsoft::UI::Xaml::Controls::Grid rootGrid{ nullptr };
-
+        winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_contextMenu{ nullptr };
+		TransparentMenuFlyoutHost m_contextMenuHost{ nullptr };
 
         winrt::Microsoft::UI::Windowing::AppWindow m_appWindow{ nullptr };
         winrt::Microsoft::UI::Windowing::OverlappedPresenter m_overlappedPresenter{ nullptr };

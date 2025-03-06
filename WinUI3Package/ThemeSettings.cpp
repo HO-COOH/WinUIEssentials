@@ -61,9 +61,27 @@ namespace winrt::WinUI3Package::implementation
 			colors.begin(),
 			colors.end(),
 			colors.begin(),
-			[i = 0](auto)mutable
+			[i = 0](auto const&)mutable
 			{
 				return winrt::box_value(fromDWORD(ThemeSettingsImpl::ColorHistory()[i++]));
+			}
+		);
+		return winrt::single_threaded_vector(std::move(colors));
+	}
+
+	winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> ThemeSettings::ColorHistoryBrushes()
+	{
+		std::vector<winrt::Windows::Foundation::IInspectable> colors(ThemeSettingsImpl::ColorHistory().size());
+		std::transform(
+			colors.begin(),
+			colors.end(),
+			colors.begin(),
+			[i = 0](auto const&)mutable
+			{
+				return winrt::Microsoft::UI::Xaml::Media::SolidColorBrush
+				{ 
+					fromDWORD(ThemeSettingsImpl::ColorHistory()[i++]) 
+				};
 			}
 		);
 		return winrt::single_threaded_vector(std::move(colors));

@@ -14,6 +14,10 @@
         <MicaBackdrop />
     </essential:WindowEx.SystemBackdrop>
 
+    <!--<essential:WindowEx.ContextMenu>
+        <essential:StandardWindowContextMenu Window="{x:Bind}" />
+    </essential:WindowEx.ContextMenu>-->
+
     <!--<local:WindowEx.TitleBar>
         <Grid>
             <TextBlock Text="Title string"/>
@@ -45,9 +49,10 @@
 
     <Grid>
         <Grid.Resources>
+            <essential:ModernStandardWindowContextMenu x:Name="WindowMenu" Window="{x:Bind}" />
             <essential:TaskbarIcon x:Name="MainIcon" Icon="ms-appx:///Assets/MainLogo.ico">
                 <MenuFlyout>
-                    <MenuFlyoutItem Click="MenuFlyoutItem_Click" Text="Item1" />
+                    <MenuFlyoutItem Text="Item1" />
                 </MenuFlyout>
             </essential:TaskbarIcon>
         </Grid.Resources>
@@ -78,3 +83,4 @@
     </Grid>
 
 </essential:WindowEx>
+

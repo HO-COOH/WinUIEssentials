@@ -444,6 +444,10 @@
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TestWindow.xaml.h">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ThemeListenerPage.xaml.h">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -584,6 +588,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ThemeListenerPage.xaml">
@@ -790,6 +797,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TestWindow.xaml.cpp">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ThemeListenerPage.xaml.cpp">
@@ -1004,6 +1015,10 @@
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="TestWindow.idl">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ThemeListenerPage.idl">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1134,6 +1149,42 @@
   -->
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

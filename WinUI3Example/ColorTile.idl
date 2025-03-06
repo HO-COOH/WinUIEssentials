@@ -6,7 +6,6 @@ namespace WinUI3Example
         ColorTile();
         
         String ColorName;
-        String ColorValue{ get; };
 
 		static String FromColor(Windows.UI.Color color);
     }

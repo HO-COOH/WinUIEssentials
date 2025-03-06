@@ -18,11 +18,18 @@ public:
 
 	TransparentMenuFlyoutHost();
 
+	TransparentMenuFlyoutHost& operator=(TransparentMenuFlyoutHost&&) noexcept = default;
+
 	void Move(POINT p);
 
 	operator winrt::Microsoft::UI::Xaml::FrameworkElement() const
 	{ 
 		return m_dummyFrame; 
+	}
+
+	operator bool() const
+	{
+		return m_dummyWindow != nullptr;
 	}
 
 	~TransparentMenuFlyoutHost();

@@ -1,0 +1,10 @@
+namespace WinUI3Package
+{
+    [default_interface]
+    runtimeclass ModernStandardWindowContextMenu : Microsoft.UI.Xaml.Controls.MenuFlyout
+    {
+        ModernStandardWindowContextMenu();
+
+        Microsoft.UI.Xaml.Window Window;
+    }
+}
