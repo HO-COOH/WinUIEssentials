@@ -4,11 +4,7 @@
 #include "EntranceAnimationDemo.g.cpp"
 #endif
 
-#include <winrt/Microsoft.UI.Content.h>
-#include <winrt/Microsoft.UI.Composition.h>
-#include <winrt/Microsoft.UI.Xaml.Hosting.h>
-#include <DispatcherQueue.h>
-#include <winrt/Windows.System.h>
+
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -16,7 +12,7 @@
 namespace winrt::WinUI3Example::implementation
 {
 
-	static winrt::Windows::System::DispatcherQueueController createSystemDispatcherQueueController()
+	winrt::Windows::System::DispatcherQueueController createSystemDispatcherQueueController()
 	{
 		DispatcherQueueOptions options
 		{
@@ -36,9 +32,11 @@ namespace winrt::WinUI3Example::implementation
 	{
 		InitializeComponent();
 
+		constexpr static auto Width = 500;
+		constexpr static auto Height = 200;
 		AppWindow().MoveAndResize({
-			.X = 1000,
-			.Y = 1000,
+			.X = 500,
+			.Y = 500,
 			.Width = Width,
 			.Height = Height
 		});
@@ -46,40 +44,17 @@ namespace winrt::WinUI3Example::implementation
 		TranslateAnimation().From(-Width);
 	}
 
-	void EntranceAnimationDemo::CreateVisual()
+	void EntranceAnimationDemo::RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		auto compositor = winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread();
-		externalOutputLink = winrt::Microsoft::UI::Content::ContentExternalOutputLink::Create(compositor);
-		
-		externalOutputLink.as<winrt::Windows::UI::Composition::CompositionTarget>().Root(createVisualW());
-		auto placementVisual = externalOutputLink.PlacementVisual();
-		placementVisual.Size({ static_cast<float>(Width), static_cast<float>(Height) });
-		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(AcrylicGrid(), placementVisual);
-	}
-
-	winrt::Windows::UI::Composition::SpriteVisual EntranceAnimationDemo::createVisualW()
-	{
-		if (!winrt::Windows::System::DispatcherQueue::GetForCurrentThread())
-			s_queue = createSystemDispatcherQueueController();
-
-		winrt::Windows::UI::Composition::Compositor compositor;
-		auto spriteVisual = compositor.CreateSpriteVisual();
-		spriteVisual.Brush(compositor.CreateHostBackdropBrush());
-		spriteVisual.Size({ static_cast<float>(Width), static_cast<float>(Height) });
-		spriteVisual.BorderMode(winrt::Windows::UI::Composition::CompositionBorderMode::Soft);
-
-		auto clip = compositor.CreateRoundedRectangleGeometry();
-		clip.CornerRadius({ Radius, Radius });
-		clip.Size(spriteVisual.Size());
-
-		spriteVisual.Clip(compositor.CreateGeometricClip(clip));
-
-		return spriteVisual;
+		if constexpr (std::string_view{ WINDOWSAPPSDK_RELEASE_CHANNEL } != "experimental")
+		{
+			CreateVisual(sender.as<winrt::Microsoft::UI::Xaml::Controls::Grid>());
+		}
+		else
+		{
+			ContentButton().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+			APINotAvailableText().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+		}
 	}
 }
 
-
-void winrt::WinUI3Example::implementation::EntranceAnimationDemo::RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
-{
-	CreateVisual();
-}
