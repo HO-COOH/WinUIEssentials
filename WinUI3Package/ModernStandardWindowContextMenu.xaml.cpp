@@ -56,17 +56,20 @@ namespace winrt::WinUI3Package::implementation
 
 
     void ModernStandardWindowContextMenu::MoveItem_Click(
-        winrt::Windows::Foundation::IInspectable const& sender, 
-        winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	winrt::Windows::Foundation::IInspectable const& sender,
+	winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
     {
-		SendMessage(m_parent, WM_SYSCOMMAND, SC_MOVE, 0);
+
+	Hide();
+	SendMessage(m_parent, WM_SYSCOMMAND, SC_MOVE, 0);
     }
 
     void ModernStandardWindowContextMenu::SizeItem_Click(
-        winrt::Windows::Foundation::IInspectable const& sender, 
-        winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+		winrt::Windows::Foundation::IInspectable const& sender,
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
     {
-		SendMessage(m_parent, WM_SYSCOMMAND, SC_SIZE, 0);
+	Hide();
+	SendMessage(m_parent, WM_SYSCOMMAND, SC_SIZE, 0);
     }
 
     void ModernStandardWindowContextMenu::MinimizeItem_Click(
