@@ -314,6 +314,8 @@ namespace winrt::WinUI3Package::implementation
     void WindowEx::ContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout value)
     {
 		m_contextMenu = value;
+        if (auto modernStandardMenu = m_contextMenu.try_as<WinUI3Package::ModernStandardWindowContextMenu>())
+            modernStandardMenu.Window(*this);
     }
 
     winrt::Microsoft::UI::Xaml::UIElement WindowEx::TitleBar()

@@ -18,6 +18,7 @@
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <Color x:Key="SubtleFillColorTransparent">#00FFFFFF</Color>
+            <CornerRadius x:Key="ControlCornerRadius">4,4,4,4</CornerRadius>
             <SolidColorBrush x:Key="SubtleFillColorTransparentBrush" Color="{StaticResource SubtleFillColorTransparent}" />
             <StaticResource x:Key="MenuFlyoutItemBackground" ResourceKey="SubtleFillColorTransparentBrush" />
             <StaticResource x:Key="MenuFlyoutItemBackgroundPointerOver" ResourceKey="SubtleFillColorSecondaryBrush" />
@@ -28,6 +29,7 @@
         </ResourceDictionary>
         <ResourceDictionary x:Key="HighContrast">
             <Color x:Key="SubtleFillColorTransparent">#FF0000</Color>
+            <CornerRadius x:Key="ControlCornerRadius">4,4,4,4</CornerRadius>
             <SolidColorBrush x:Key="SubtleFillColorTransparentBrush" Color="{StaticResource SubtleFillColorTransparent}" />
             <StaticResource x:Key="MenuFlyoutItemBackground" ResourceKey="SubtleFillColorTransparentBrush" />
             <StaticResource x:Key="MenuFlyoutItemBackgroundPointerOver" ResourceKey="SubtleFillColorSecondaryBrush" />

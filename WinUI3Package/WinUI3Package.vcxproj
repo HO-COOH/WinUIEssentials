@@ -367,6 +367,7 @@
     </ClInclude>
     <ClInclude Include="MenuBase.h" />
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h" />
+    <ClInclude Include="MenuFlyoutItemPaddingWorkaroundWrapper.hpp" />
     <ClInclude Include="MenuFlyoutWrapper.h" />
     <ClInclude Include="MenuItemInfo.hpp" />
     <ClInclude Include="ModernStandardWindowContextMenu.xaml.h">
@@ -504,6 +505,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="WindowsVersion.hpp" />
+    <ClInclude Include="WinUIEssentialError.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoolToVisibilityConverter.cpp">

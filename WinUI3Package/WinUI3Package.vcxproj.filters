@@ -193,6 +193,12 @@
     <ClInclude Include="include\ThemeSettingsImpl.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="MenuFlyoutItemPaddingWorkaroundWrapper.hpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="WinUIEssentialError.hpp">
+      <Filter>internal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

@@ -135,6 +135,18 @@
     <Page Include="TestWindow.xaml">
       <Filter>Pages\Experimental</Filter>
     </Page>
+    <Page Include="ModernStandardWindowContextMenuPage.xaml">
+      <Filter>Pages\ModernStandardWindowContextMenuPage</Filter>
+    </Page>
+    <Page Include="StandardWindowWithMenu.xaml">
+      <Filter>Pages\ModernStandardWindowContextMenuPage</Filter>
+    </Page>
+    <Page Include="NonResizableWindowWithMenu.xaml">
+      <Filter>Pages\ModernStandardWindowContextMenuPage</Filter>
+    </Page>
+    <Page Include="EssentialWindowWithMenu.xaml">
+      <Filter>Pages\ModernStandardWindowContextMenuPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -401,6 +413,9 @@
     </Filter>
     <Filter Include="Pages\ThemeListenerPage">
       <UniqueIdentifier>{06ef6c53-e058-48f6-94f5-aa8ad97eae73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\ModernStandardWindowContextMenuPage">
+      <UniqueIdentifier>{cccb3a92-5f5a-4914-b81c-4c743bd9ee93}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

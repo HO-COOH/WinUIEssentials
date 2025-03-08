@@ -18,35 +18,6 @@
         <essential:StandardWindowContextMenu Window="{x:Bind}" />
     </essential:WindowEx.ContextMenu>-->
 
-    <!--<local:WindowEx.TitleBar>
-        <Grid>
-            <TextBlock Text="Title string"/>
-            <AutoSuggestBox Margin="100,0,0,0" Width="300" local:WindowEx.IsInteractive="True"/>
-        </Grid>
-
-    -->
-    <!--<TabView>
-            <TabView.TabItems>
-                <TabViewItem Header="Document 0">
-                    <TabViewItem.IconSource>
-                        <SymbolIconSource Symbol="Placeholder" />
-                    </TabViewItem.IconSource>
-                </TabViewItem>
-                <TabViewItem Header="Document 1">
-                    <TabViewItem.IconSource>
-                        <SymbolIconSource Symbol="Placeholder" />
-                    </TabViewItem.IconSource>
-                </TabViewItem>
-                <TabViewItem Header="Document 2">
-                    <TabViewItem.IconSource>
-                        <SymbolIconSource Symbol="Placeholder" />
-                    </TabViewItem.IconSource>
-                </TabViewItem>
-            </TabView.TabItems>
-        </TabView>-->
-    <!--
-    </local:WindowEx.TitleBar>-->
-
     <Grid>
         <Grid.Resources>
             <essential:ModernStandardWindowContextMenu x:Name="WindowMenu" Window="{x:Bind}" />

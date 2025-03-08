@@ -18,11 +18,6 @@ MenuFlyoutWrapper::MenuFlyoutWrapper(winrt::Microsoft::UI::Xaml::Controls::Primi
 
 void MenuFlyoutWrapper::Show(POINT p)
 {
-	if (m_isFirstShow)
-	{
-		MenuFlyoutItemPaddingWorkaround::Apply(m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>());
-		m_isFirstShow = false;
-	}
 	m_menuHost.Move(p);
-	m_menu.ShowAt(m_menuHost);
+	ShowAt(m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>(), m_menuHost);
 }
