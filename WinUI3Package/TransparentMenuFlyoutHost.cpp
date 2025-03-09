@@ -31,5 +31,6 @@ void TransparentMenuFlyoutHost::Move(POINT p)
 
 TransparentMenuFlyoutHost::~TransparentMenuFlyoutHost()
 {
-	m_dummyWindow.Close();
+	if (m_dummyWindow)
+		m_dummyWindow.Close();
 }

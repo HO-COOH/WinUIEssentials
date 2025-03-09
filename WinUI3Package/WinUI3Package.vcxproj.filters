@@ -36,9 +36,6 @@
     <ClCompile Include="PopupMenu.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
     </ClCompile>
-    <ClCompile Include="UxThemeWrapper.cpp">
-      <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu</Filter>
-    </ClCompile>
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClCompile>
@@ -47,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="ObjectCompare.cpp">
       <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowContextMenuUtils.cpp">
+      <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +195,15 @@
     </ClInclude>
     <ClInclude Include="include\ThemeSettingsImpl.hpp">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFlyoutItemPaddingWorkaroundWrapper.hpp">
+      <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="WinUIEssentialError.hpp">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowContextMenuUtils.h">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -429,6 +438,9 @@
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
     <Midl Include="ThemeSettings.idl" />
+    <Midl Include="WindowContextMenu.idl">
+      <Filter>Windows</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
@@ -463,6 +475,12 @@
     </Page>
     <Page Include="FlyoutWindow.xaml">
       <Filter>TaskbarIcon\FlyoutContent</Filter>
+    </Page>
+    <Page Include="ModernStandardWindowContextMenu.xaml">
+      <Filter>Windows</Filter>
+    </Page>
+    <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
+      <Filter>Windows</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

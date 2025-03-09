@@ -7,7 +7,13 @@ namespace winrt::WinUI3Example::implementation
     struct ExperimentPage : ExperimentPageT<ExperimentPage>
     {
         ExperimentPage() = default;
-        void SelfDrawnWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void SelfDrawnWindowButton_Click(
+            winrt::Windows::Foundation::IInspectable const&, 
+            winrt::Microsoft::UI::Xaml::RoutedEventArgs const&);
+
+        void TestWindowBtn_Click(
+            winrt::Windows::Foundation::IInspectable const& sender, 
+            winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

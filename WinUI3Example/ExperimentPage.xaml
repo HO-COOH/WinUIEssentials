@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
     xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -15,9 +16,17 @@
             </local:ExpViewModel.MyProperty>
         </local:ExpViewModel>
     </Page.Resources>
-
     <StackPanel>
         <TextBlock Text="Experiment functionalities go here!" />
+
+        <local:ControlExample HeaderText="Create a window with xaml caption context menu">
+            <Button x:Name="TestWindowBtn" Click="TestWindowBtn_Click">
+                Create a window
+                <Button.ContextFlyout>
+                    <essential:ModernStandardWindowContextMenu />
+                </Button.ContextFlyout>
+            </Button>
+        </local:ControlExample>
 
         <local:ControlExample HeaderText="Fully self-drawn transparent window demo">
             <Button x:Name="SelfDrawnWindowButton" Click="SelfDrawnWindowButton_Click">Click to show window</Button>

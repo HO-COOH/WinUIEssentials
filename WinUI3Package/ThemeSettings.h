@@ -22,6 +22,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::Media::SolidColorBrush ColorizationColorBrush();
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> ColorHistory();
+		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> ColorHistoryBrushes();
     private:
         constexpr static winrt::Windows::UI::Color fromDWORD(DWORD value)
         {

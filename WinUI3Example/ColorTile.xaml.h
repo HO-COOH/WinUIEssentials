@@ -12,7 +12,6 @@ namespace winrt::WinUI3Example::implementation
 		winrt::hstring ColorName();
 		void ColorName(winrt::hstring const& value);
 
-		winrt::hstring ColorValue();
 		static winrt::hstring FromColor(winrt::Windows::UI::Color color);
 	private:
 		winrt::hstring m_colorName;

@@ -9,6 +9,7 @@
 #include <winrt/Microsoft.UI.Input.h>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 #include "WindowsVersion.hpp"
+#include <windowsx.h> //For GET_X_LPARAM and GET_Y_LPARAM
 
 #pragma comment(lib, "user32.lib")
 #pragma comment(lib, "gdi32.lib")
@@ -305,6 +306,18 @@ namespace winrt::WinUI3Package::implementation
         m_icon = value;
     }
 
+    winrt::Microsoft::UI::Xaml::Controls::MenuFlyout WindowEx::ContextMenu()
+    {
+        return m_contextMenu;
+    }
+
+    void WindowEx::ContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout value)
+    {
+		m_contextMenu = value;
+        if (auto modernStandardMenu = m_contextMenu.try_as<WinUI3Package::ModernStandardWindowContextMenu>())
+            modernStandardMenu.Window(*this);
+    }
+
     winrt::Microsoft::UI::Xaml::UIElement WindowEx::TitleBar()
     {
         return nullptr;
@@ -440,6 +453,18 @@ namespace winrt::WinUI3Package::implementation
         case WM_SETTINGCHANGE:
             ptr->onSettingChange();
             break;
+        case WM_CONTEXTMENU:
+        {
+            if (ptr->m_contextMenu)
+            {
+                if (!ptr->m_contextMenuHost)
+                    ptr->m_contextMenuHost = {};
+                ptr->m_contextMenuHost.Move({ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) });
+				ptr->m_contextMenu.ShowAt(ptr->m_contextMenuHost);
+                return 0;
+            }
+            break;
+        }
         case WM_GETMINMAXINFO:
             return ptr->onGetMinMaxInfo(wparam, lparam);
         }

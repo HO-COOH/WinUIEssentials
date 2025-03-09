@@ -38,6 +38,7 @@ namespace WinUI3Package
         Boolean TitleBarDarkMode;
         Boolean TitleBarAutoDarkMode;
         Microsoft.UI.Xaml.UIElement TitleBar;
+        Microsoft.UI.Xaml.Controls.MenuFlyout ContextMenu;
         String Icon;
 
         //Microsoft.UI.Windowing.AppWindow AppWindow{ get; };

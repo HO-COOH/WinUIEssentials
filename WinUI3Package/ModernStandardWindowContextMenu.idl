@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    //{x:Bind} is not supported in this class, we need to set UI in code-behind!
+    [default_interface]
+	runtimeclass ModernStandardWindowContextMenu : Microsoft.UI.Xaml.Controls.MenuFlyout
+    {
+        ModernStandardWindowContextMenu();
+
+        Microsoft.UI.Xaml.Window Window;
+    }
+}

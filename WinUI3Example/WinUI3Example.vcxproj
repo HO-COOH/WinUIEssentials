@@ -324,6 +324,10 @@
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="EssentialWindowWithMenu.xaml.h">
+      <DependentUpon>EssentialWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ExperimentPage.xaml.h">
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -373,12 +377,20 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ModernStandardWindowContextMenuPage.xaml.h">
+      <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MyDataModel.h">
       <DependentUpon>MyDataModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="MyDataModelTemplateSelector.h">
       <DependentUpon>MyDataModelTemplateSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="NonResizableWindowWithMenu.xaml.h">
+      <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="NullToVisibilityConverter.h">
@@ -424,6 +436,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="StandardWindowWithMenu.xaml.h">
+      <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TaskbarIconPage.xaml.h">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -442,6 +458,10 @@
     </ClInclude>
     <ClInclude Include="TemplateInformation.h">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TestWindow.xaml.h">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ThemeListenerPage.xaml.h">
@@ -488,6 +508,10 @@
       <DependentUpon>WindowExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WindowWithCustomMenu.xaml.h">
+      <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -522,6 +546,9 @@
     <Page Include="EntranceAnimationDemo.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="EssentialWindowWithMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExperimentPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -553,6 +580,12 @@
     <Page Include="MarqueeTextPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ModernStandardWindowContextMenuPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NonResizableWindowWithMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ProgressBarExPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -574,6 +607,9 @@
     <Page Include="ShimmerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="StandardWindowWithMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TaskbarIconPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -584,6 +620,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ThemeListenerPage.xaml">
@@ -611,6 +650,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="WindowExPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WindowWithCustomMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -673,6 +715,10 @@
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="EssentialWindowWithMenu.xaml.cpp">
+      <DependentUpon>EssentialWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ExperimentPage.xaml.cpp">
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -722,12 +768,20 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ModernStandardWindowContextMenuPage.xaml.cpp">
+      <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MyDataModel.cpp">
       <DependentUpon>MyDataModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MyDataModelTemplateSelector.cpp">
       <DependentUpon>MyDataModelTemplateSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="NonResizableWindowWithMenu.xaml.cpp">
+      <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="NullToVisibilityConverter.cpp">
@@ -776,6 +830,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="StandardWindowWithMenu.xaml.cpp">
+      <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SwitchPresenterPage.xaml.cpp">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -790,6 +848,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TestWindow.xaml.cpp">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ThemeListenerPage.xaml.cpp">
@@ -838,6 +900,10 @@
     </ClCompile>
     <ClCompile Include="WindowExPage.xaml.cpp">
       <DependentUpon>WindowExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="WindowWithCustomMenu.xaml.cpp">
+      <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
   </ItemGroup>
@@ -895,6 +961,10 @@
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="EssentialWindowWithMenu.idl">
+      <DependentUpon>EssentialWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ExperimentPage.idl">
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -945,11 +1015,19 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ModernStandardWindowContextMenuPage.idl">
+      <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="MyDataModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MyDataModelTemplateSelector.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="NonResizableWindowWithMenu.idl">
+      <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="NullToVisibilityConverter.idl">
       <SubType>Designer</SubType>
@@ -985,6 +1063,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="StandardWindowWithMenu.idl">
+      <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="SwitchPresenterPage.idl">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1003,6 +1085,10 @@
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TestWindow.idl">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="ThemeListenerPage.idl">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
@@ -1044,6 +1130,10 @@
     </Midl>
     <Midl Include="WindowExPage.idl">
       <DependentUpon>WindowExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WindowWithCustomMenu.idl">
+      <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>
@@ -1134,6 +1224,42 @@
   -->
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

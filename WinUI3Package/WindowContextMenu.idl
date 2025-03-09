@@ -1,0 +1,14 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    [contentproperty("Menu")]
+    runtimeclass WindowContextMenu
+    {
+        WindowContextMenu();
+
+
+        Microsoft.UI.Xaml.Controls.MenuFlyout Menu;
+        Microsoft.UI.Xaml.Window Window;
+    }
+}

@@ -10,14 +10,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{015CEE95-DABC-4E33-8980-8B5103F4FDF5}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		.github\workflows\msbuild_Debug_ARM.yml = .github\workflows\msbuild_Debug_ARM.yml
-		.github\workflows\msbuild_Debug_ARM64.yml = .github\workflows\msbuild_Debug_ARM64.yml
-		.github\workflows\msbuild_Debug_x64.yml = .github\workflows\msbuild_Debug_x64.yml
-		.github\workflows\msbuild_Debug_x86.yml = .github\workflows\msbuild_Debug_x86.yml
-		.github\workflows\msbuild_Release_ARM.yml = .github\workflows\msbuild_Release_ARM.yml
-		.github\workflows\msbuild_Release_ARM64.yml = .github\workflows\msbuild_Release_ARM64.yml
-		.github\workflows\msbuild_Release_x64.yml = .github\workflows\msbuild_Release_x64.yml
-		.github\workflows\msbuild_Release_x86.yml = .github\workflows\msbuild_Release_x86.yml
 		README.md = README.md
 		SideloadReadme.md = SideloadReadme.md
 	EndProjectSection
@@ -40,6 +32,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PullRequest_CI", "PullReque
 		.github\workflows\msbuild_Release_ARM_PR.yml = .github\workflows\msbuild_Release_ARM_PR.yml
 		.github\workflows\msbuild_Release_x64_PR.yml = .github\workflows\msbuild_Release_x64_PR.yml
 		.github\workflows\msbuild_Release_x86_PR.yml = .github\workflows\msbuild_Release_x86_PR.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{F52D6092-0DF8-4037-9C11-7EBBDF860112}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\msbuild_Debug_ARM.yml = .github\workflows\msbuild_Debug_ARM.yml
+		.github\workflows\msbuild_Debug_ARM64.yml = .github\workflows\msbuild_Debug_ARM64.yml
+		.github\workflows\msbuild_Debug_x64.yml = .github\workflows\msbuild_Debug_x64.yml
+		.github\workflows\msbuild_Debug_x86.yml = .github\workflows\msbuild_Debug_x86.yml
+		.github\workflows\msbuild_Release_ARM.yml = .github\workflows\msbuild_Release_ARM.yml
+		.github\workflows\msbuild_Release_ARM64.yml = .github\workflows\msbuild_Release_ARM64.yml
+		.github\workflows\msbuild_Release_x64.yml = .github\workflows\msbuild_Release_x64.yml
+		.github\workflows\msbuild_Release_x86.yml = .github\workflows\msbuild_Release_x86.yml
 	EndProjectSection
 EndProject
 Global
@@ -233,6 +237,7 @@ Global
 		{E006BDA6-4CC1-4EC4-A1CF-807E16BCBF58} = {148D80C3-02AE-4AB5-8D25-739612D033BE}
 		{A89EF308-E098-4300-A6A8-5E3D9BF7A9BF} = {148D80C3-02AE-4AB5-8D25-739612D033BE}
 		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {015CEE95-DABC-4E33-8980-8B5103F4FDF5}
+		{F52D6092-0DF8-4037-9C11-7EBBDF860112} = {015CEE95-DABC-4E33-8980-8B5103F4FDF5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC8F22E0-09E5-4965-B6EC-E23350D9A02E}

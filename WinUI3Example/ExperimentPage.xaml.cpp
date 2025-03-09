@@ -6,10 +6,19 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+
+	void ExperimentPage::TestWindowBtn_Click(
+		winrt::Windows::Foundation::IInspectable const&,
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		winrt::WinUI3Example::TestWindow{}.Activate();
+	}
+
 	void ExperimentPage::SelfDrawnWindowButton_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		winrt::WinUI3Example::EntranceAnimationDemo{}.Activate();
 	}
+
 }

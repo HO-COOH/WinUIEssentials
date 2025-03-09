@@ -20,11 +20,6 @@ namespace winrt::WinUI3Example::implementation
 		m_colorName = value;
 	}
 
-	winrt::hstring ColorTile::ColorValue()
-	{
-		return {};
-	}
-
 	winrt::hstring ColorTile::FromColor(winrt::Windows::UI::Color color)
 	{
 		return winrt::hstring{ std::format(L"#{:02X}{:02X}{:02X}", color.R, color.G, color.B) };
