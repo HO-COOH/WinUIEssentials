@@ -508,6 +508,10 @@
       <DependentUpon>WindowExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WindowWithCustomMenu.xaml.h">
+      <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -646,6 +650,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="WindowExPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WindowWithCustomMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -895,6 +902,10 @@
       <DependentUpon>WindowExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WindowWithCustomMenu.xaml.cpp">
+      <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">
@@ -1119,6 +1130,10 @@
     </Midl>
     <Midl Include="WindowExPage.idl">
       <DependentUpon>WindowExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WindowWithCustomMenu.idl">
+      <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>

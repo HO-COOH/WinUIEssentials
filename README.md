@@ -75,6 +75,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |ImageExtension | :white_check_mark: | :white_check_mark: | WinRT component
 |SwitchPresenter | :x: | * :white_check_mark: | Control
 |ModernStandardWindowContextMenu| :x: | * :white_check_mark: | WinRT component
+|WindowContextMenu | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -807,8 +808,10 @@ For example, if you binding the `SwitchPresenter.Value` to a `Boolean`, you need
 You should most likely use `Binding` instead of `x:Bind`, because when `{x:Bind}` is evaluated the controls are not finished loading, causing a crash
 
 ## ModernStandardWindowContextMenu
-A modern XAML-based window context menu to replace the traditional win32 menu when you right-click the window titlebar. It supports uses on both
-`Essential:WindowEx` and a normal `Microsoft.UI.Xaml.Window`
+A modern XAML-based window context menu to replace the traditional win32 menu when you right-click the window titlebar. 
+It supports uses on both `Essential:WindowEx` and a normal `Microsoft.UI.Xaml.Window`. 
+The icons are hard-coded glyphs so you get the same appearance on both Windows 10 & Windows 11.
+It also listens to window style changes, so it shows the correct menu item in whatever window styles your window have.
 To use it, first put a resource in your `App.xaml` `ResourceDictionary.MergedDictionary`
 ```xml
 <Application>
@@ -842,4 +845,26 @@ To use it, first put a resource in your `App.xaml` `ResourceDictionary.MergedDic
         </StackPanel.Resources>
     </StackPanel>
 </Window>
+```
+
+![](assets/window-context-menu.gif)
+
+## WindowContextMenu
+A customized version of `ModernStandardWindowContextMenu` that allows you to use a custom `MenuFlyout` with any items you'd like.
+Usage are largely the same to `ModernStandardWindowContextMenu`, that you still bind a `Window` with `{x:Bind}`,
+but you do not need to add a resource to `Application.Resources`
+```xml
+<Window ...>
+    <StackPanel>
+        <StackPanel.Resources>
+            <essential:WindowContextMenu x:Name="Menu" Window="{x:Bind}">
+                <MenuFlyout>
+                    <MenuFlyoutItem Text="Item1" />
+                    <MenuFlyoutItem Text="Item2" />
+                </MenuFlyout>
+            </essential:WindowContextMenu>
+        </StackPanel.Resources>
+    </StackPanel>
+</Window>
+
 ```

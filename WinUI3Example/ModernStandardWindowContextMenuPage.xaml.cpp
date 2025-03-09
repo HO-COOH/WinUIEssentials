@@ -34,4 +34,12 @@ namespace winrt::WinUI3Example::implementation
 		winrt::WinUI3Example::EssentialWindowWithMenu{}.Activate();
 	}
 
+
+	void ModernStandardWindowContextMenuPage::CustomWindowMenuButton_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		winrt::WinUI3Example::WindowWithCustomMenu{}.Activate();
+	}
+
 }

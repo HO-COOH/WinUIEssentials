@@ -6,7 +6,7 @@
 #include <CommCtrl.h>
 #include "HwndHelper.hpp"
 #include <winrt/Microsoft.UI.Windowing.h>
-#include <windowsx.h>
+#include "WindowContextMenuUtils.h"
 #include <wil/resource.h>
 #include "WinUIEssentialError.hpp"
 
@@ -20,7 +20,7 @@ namespace winrt::WinUI3Package::implementation
 {
     winrt::Microsoft::UI::Xaml::Window ModernStandardWindowContextMenu::Window()
     {
-        return winrt::Microsoft::UI::Xaml::Window();
+        return m_xamlRoot;
     }
     void ModernStandardWindowContextMenu::Window(winrt::Microsoft::UI::Xaml::Window const& value)
     {
@@ -57,15 +57,15 @@ namespace winrt::WinUI3Package::implementation
             case WM_NCRBUTTONDOWN:
             case WM_NCRBUTTONUP:
             {
-                auto ptr = reinterpret_cast<ModernStandardWindowContextMenu*>(dwRefData);
-                winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutShowOptions options;
-                options.ShowMode(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutShowMode::Standard);
-                winrt::Windows::Graphics::PointInt32 screenPoint{ static_cast<int>(GET_X_LPARAM(lparam)),  static_cast<int>(GET_Y_LPARAM(lparam)) };
-                auto localPoint = ptr->m_converter.ConvertScreenToLocal(screenPoint);
-                auto const dpiScale = GetDpiForWindow(ptr->m_parent) / 96.0f;
-                options.Position(winrt::Windows::Foundation::Point{ localPoint.X / dpiScale,  localPoint.Y / dpiScale });
-                ptr->XamlRoot(ptr->m_xamlRoot.Content().XamlRoot());
-                static_cast<MenuFlyoutItemPaddingWorkaroundWrapper*>(ptr)->ShowAt(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout{*ptr}, nullptr, options);
+                auto self = reinterpret_cast<ModernStandardWindowContextMenu*>(dwRefData);
+                auto wrapperBase = static_cast<MenuFlyoutItemPaddingWorkaroundWrapper*>(self);
+                if (wrapperBase->IsFirstShow())
+                    self->XamlRoot(self->m_xamlRoot.Content().XamlRoot());
+                wrapperBase->ShowAtImpl(
+                    winrt::Microsoft::UI::Xaml::Controls::MenuFlyout{ *self }, 
+                    nullptr, 
+                    WindowContextMenuUtils::GetFlyoutShowOptions(self->m_parent, lparam, self->m_converter)
+                );
                 return 0;
             }
             case WM_SIZE:
@@ -104,6 +104,7 @@ namespace winrt::WinUI3Package::implementation
                 MinimizeItem().Text(getMenuItemText(systemMenu.get(), 3).data());
                 MaximizeItem().Text(getMenuItemText(systemMenu.get(), 4).data());
                 // we don't repeat ourself, so no break here
+                [[fallthrough]];
             case nonResizableWindowContextMenuItemCount:
             {
                 RestoreItem().Text(getMenuItemText(systemMenu.get(), 0).data());

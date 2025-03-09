@@ -12,7 +12,7 @@ class MenuFlyoutItemPaddingWorkaroundWrapper
 	bool m_isFirstShow = true;
 public:
 	template<typename Menu, typename...ShowArgs>
-	void ShowAt(Menu&& menu, ShowArgs&&... args)
+	void ShowAtImpl(Menu&& menu, ShowArgs&&... args)
 	{
 		if (m_isFirstShow)
 		{
@@ -20,5 +20,10 @@ public:
 			m_isFirstShow = false;
 		}
 		menu.ShowAt(std::forward<ShowArgs>(args)...);
+	}
+
+	constexpr bool IsFirstShow() const
+	{
+		return m_isFirstShow;
 	}
 };

@@ -121,6 +121,9 @@
                 </local:CodeSource>
             </local:ControlExample.Xaml>
         </local:ControlExample>
-        
+
+        <local:ControlExample HeaderText="Custom window context menu">
+            <Button x:Name="CustomWindowMenuButton" Click="CustomWindowMenuButton_Click">Click to create window</Button>
+        </local:ControlExample>
     </StackPanel>
 </Page>

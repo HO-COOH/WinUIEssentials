@@ -45,6 +45,9 @@
     <ClCompile Include="ObjectCompare.cpp">
       <Filter>internal</Filter>
     </ClCompile>
+    <ClCompile Include="WindowContextMenuUtils.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -198,6 +201,9 @@
     </ClInclude>
     <ClInclude Include="WinUIEssentialError.hpp">
       <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowContextMenuUtils.h">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +438,9 @@
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
     <Midl Include="ThemeSettings.idl" />
+    <Midl Include="WindowContextMenu.idl">
+      <Filter>Windows</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

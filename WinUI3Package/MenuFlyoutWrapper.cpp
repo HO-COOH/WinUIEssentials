@@ -19,5 +19,5 @@ MenuFlyoutWrapper::MenuFlyoutWrapper(winrt::Microsoft::UI::Xaml::Controls::Primi
 void MenuFlyoutWrapper::Show(POINT p)
 {
 	m_menuHost.Move(p);
-	ShowAt(m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>(), m_menuHost);
+	ShowAtImpl(m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>(), m_menuHost);
 }

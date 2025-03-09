@@ -147,6 +147,9 @@
     <Page Include="EssentialWindowWithMenu.xaml">
       <Filter>Pages\ModernStandardWindowContextMenuPage</Filter>
     </Page>
+    <Page Include="WindowWithCustomMenu.xaml">
+      <Filter>Pages\ModernStandardWindowContextMenuPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
