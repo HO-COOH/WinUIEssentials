@@ -67,7 +67,8 @@
                 FontWeight="Bold"
                 Foreground="Red"
                 Text="ContentExternalOutputLink API is only avilable in WASDK Preview/Experimental releases!"
-                TextWrapping="WrapWholeWords" />
+                TextWrapping="WrapWholeWords"
+                Visibility="Collapsed" />
         </Grid>
 
     </Grid>

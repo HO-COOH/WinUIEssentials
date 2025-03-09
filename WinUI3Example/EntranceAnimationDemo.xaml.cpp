@@ -46,7 +46,7 @@ namespace winrt::WinUI3Example::implementation
 
 	void EntranceAnimationDemo::RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		if constexpr (std::string_view{ WINDOWSAPPSDK_RELEASE_CHANNEL } != "experimental")
+		if constexpr (std::string_view{ WINDOWSAPPSDK_RELEASE_CHANNEL } == "experimental")
 		{
 			CreateVisual(sender.as<winrt::Microsoft::UI::Xaml::Controls::Grid>());
 		}
