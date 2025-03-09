@@ -13,13 +13,15 @@ namespace winrt::WinUI3Package::implementation
 {
     void TransparentBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot xamlRoot)
     {
-        HWND hwnd = (HWND)connectedTarget
-            .as<winrt::Microsoft::UI::Xaml::Hosting::DesktopWindowXamlSource>()
-            .SiteBridge()
-            .SiteView()
-            .EnvironmentView()
-            .AppWindowId()
-            .Value;
+        //On 1.7.250208002-preview1 this no longer works
+        //HWND hwnd = (HWND)connectedTarget
+        //    .as<winrt::Microsoft::UI::Xaml::Hosting::DesktopWindowXamlSource>()
+        //    .SiteBridge()
+        //    .SiteView()
+        //    .EnvironmentView()
+        //    .AppWindowId()
+        //    .Value;
+        HWND hwnd = (HWND)xamlRoot.ContentIslandEnvironment().AppWindowId().Value;
         configureDwm(hwnd);
         base_type::OnTargetConnected(connectedTarget, xamlRoot);
     }
