@@ -12,7 +12,7 @@ namespace winrt::WinUI3Package::implementation
     {
         configureAppWindow(AppWindow());
         auto const hwnd = GetHwnd(*this);
-        SetWindowLongPtr(hwnd, GWL_EXSTYLE, GetWindowLongPtr(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED | WS_EX_TRANSPARENT);
+        SetWindowLongPtr(hwnd, GWL_EXSTYLE, GetWindowLongPtr(hwnd, GWL_EXSTYLE) | WS_EX_LAYERED);
         SystemBackdrop(WinUI3Package::TransparentBackdrop{});
     }
     void TransparentWindow::configureAppWindow(winrt::Microsoft::UI::Windowing::AppWindow const& appWindow)

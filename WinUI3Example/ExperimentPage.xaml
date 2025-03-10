@@ -27,5 +27,9 @@
                 </Button.ContextFlyout>
             </Button>
         </local:ControlExample>
+
+        <local:ControlExample HeaderText="Fully self-drawn transparent window demo">
+            <Button x:Name="SelfDrawnWindowButton" Click="SelfDrawnWindowButton_Click">Click to show window</Button>
+        </local:ControlExample>
     </StackPanel>
 </Page>
