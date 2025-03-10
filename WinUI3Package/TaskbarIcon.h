@@ -84,14 +84,6 @@ namespace winrt::WinUI3Package::implementation
             if (auto file = co_await winrt::Windows::Storage::StorageFile::GetFileFromApplicationUriAsync(uri))
                 f(file.Path());
         }
-
-        struct GetterNotImplemented : winrt::hresult_not_implemented
-        {
-			GetterNotImplemented() : 
-                hresult_not_implemented{ L"Getter of TaskbarIcon is not implemented. You should save the property you set in a member variable." } 
-            {
-            }
-        };
     };
 }
 

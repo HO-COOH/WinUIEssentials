@@ -177,7 +177,6 @@
     <ClInclude Include="TaskbarIconXamlEvents.h">
       <Filter>TaskbarIcon\Icon</Filter>
     </ClInclude>
-    <ClInclude Include="TaskbarIconEvents.h" />
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp">
       <Filter>TaskbarIcon\Errors</Filter>
     </ClInclude>
@@ -204,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="WindowContextMenuUtils.h">
       <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TaskbarIconEvents.h">
+      <Filter>TaskbarIcon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

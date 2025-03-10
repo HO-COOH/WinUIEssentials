@@ -49,21 +49,20 @@ namespace winrt::WinUI3Example::implementation
             {L"ProgressBarExPage", winrt::xaml_typename<WinUI3Example::ProgressBarExPage>()},
             {L"LineGraphPage", winrt::xaml_typename<WinUI3Example::LineGraphPage>()},
             {L"WindowExPage", winrt::xaml_typename<WinUI3Example::WindowExPage>()},
-            {L"UIElementExtensionPage", winrt::xaml_typename<WinUI3Example::UIElementExtensionPage>()},
             {L"SegmentedPage", winrt::xaml_typename<WinUI3Example::SegmentedPage>()},
             {L"IconButtonPage", winrt::xaml_typename<WinUI3Example::IconButtonPage>()},
             {L"UriPage", winrt::xaml_typename<WinUI3Example::UriPage>()},
             //{L"IncrementalLoadingPage", winrt::xaml_typename<WinUI3Example::IncrementalLoadingPage>()},
             {L"BackdropPage", winrt::xaml_typename<WinUI3Example::BackdropPage>()},
             {L"ShimmerPage", winrt::xaml_typename<WinUI3Example::ShimmerPage>()},
-            {L"ImageExtensionPage", winrt::xaml_typename<WinUI3Example::ImageExtensionPage>()},
             {L"SwitchPresenterPage", winrt::xaml_typename<WinUI3Example::SwitchPresenterPage>()},
             {L"ExperimentPage", winrt::xaml_typename<WinUI3Example::ExperimentPage>()},
             {L"TaskbarIconPage", winrt::xaml_typename<WinUI3Example::TaskbarIconPage>()},
             {L"ThemeListenerPage", winrt::xaml_typename<WinUI3Example::ThemeListenerPage>()},
             {L"ScopedButtonDisablerPage", winrt::xaml_typename<WinUI3Example::ScopedButtonDisablerPage>()},
             {L"InitializeWithWindowHelperPage", winrt::xaml_typename<WinUI3Example::InitializeWithWindowHelperPage>()},
-            {L"ModernStandardWindowMenu", winrt::xaml_typename<WinUI3Example::ModernStandardWindowContextMenuPage>()}
+            {L"ModernStandardWindowMenu", winrt::xaml_typename<WinUI3Example::ModernStandardWindowContextMenuPage>()},
+            {L"ExtensionsPage", winrt::xaml_typename<WinUI3Example::ExtensionsPage>()}
         };
     };
 }

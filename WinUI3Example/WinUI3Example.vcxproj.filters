@@ -60,9 +60,6 @@
     <Page Include="WindowExPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="UIElementExtensionPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="SegmentedPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -94,9 +91,6 @@
       <Filter>Windows\Transparent</Filter>
     </Page>
     <Page Include="ShimmerPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
-    <Page Include="ImageExtensionPage.xaml">
       <Filter>Pages</Filter>
     </Page>
     <Page Include="SwitchPresenterPage.xaml">
@@ -149,6 +143,9 @@
     </Page>
     <Page Include="EntranceAnimationDemo.xaml">
       <Filter>Pages\Experimental</Filter>
+    </Page>
+    <Page Include="ExtensionsPage.xaml">
+      <Filter>Pages</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

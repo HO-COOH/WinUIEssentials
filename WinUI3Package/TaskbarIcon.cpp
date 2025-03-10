@@ -4,6 +4,7 @@
 #include "TaskbarIcon.g.cpp"
 #endif
 #include "IconUtils.h"
+#include "WinUIEssentialError.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -21,7 +22,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::hstring TaskbarIcon::IconFile()
 	{
-		throw GetterNotImplemented();
+		throw GetterNotImplemented{ L"TaskbarIcon.IconFile" };
 	}
 	void TaskbarIcon::IconFile(winrt::hstring const& value)
 	{
@@ -36,7 +37,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::Windows::Foundation::Uri TaskbarIcon::LightThemeIcon()
 	{
-		throw GetterNotImplemented();
+		throw GetterNotImplemented{ L"TaskbarIcon.LightThemeIcon" };
 	}
 	void TaskbarIcon::LightThemeIcon(winrt::Windows::Foundation::Uri value)
 	{
@@ -44,7 +45,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::hstring TaskbarIcon::LightThemeIconFile()
 	{
-		throw GetterNotImplemented();
+		throw GetterNotImplemented{ L"TaskbarIcon.LightThemeIconFile" };
 	}
 	void TaskbarIcon::LightThemeIconFile(winrt::hstring const& value)
 	{
@@ -59,7 +60,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::Windows::Foundation::Uri TaskbarIcon::DarkThemeIcon()
 	{
-		throw GetterNotImplemented();
+		throw GetterNotImplemented{ L"TaskbarIcon.DarkThemeIcon" };
 	}
 	void TaskbarIcon::DarkThemeIcon(winrt::Windows::Foundation::Uri value)
 	{
@@ -68,7 +69,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::hstring TaskbarIcon::DarkThemeIconFile()
 	{
-		throw GetterNotImplemented();
+		throw GetterNotImplemented{ L"TaskbarIcon.DarkThemeIconFile" };
 	}
 
 	void TaskbarIcon::DarkThemeIconFile(winrt::hstring const& value)

@@ -336,6 +336,10 @@
       <DependentUpon>ExpViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ExtensionsPage.xaml.h">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Global.h" />
     <ClInclude Include="GlyphsPage.xaml.h">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
@@ -347,10 +351,6 @@
     </ClInclude>
     <ClInclude Include="IconButtonPage.xaml.h">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ImageExtensionPage.xaml.h">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="IncrementalLoadingPage.xaml.h">
@@ -484,10 +484,6 @@
       <DependentUpon>TriggersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="UIElementExtensionPage.xaml.h">
-      <DependentUpon>UIElementExtensionPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="UriGroup.h">
       <DependentUpon>UriGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -552,6 +548,9 @@
     <Page Include="ExperimentPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ExtensionsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GlyphsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -559,9 +558,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="IconButtonPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ImageExtensionPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="IncrementalLoadingPage.xaml">
@@ -638,9 +634,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TriggersPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UIElementExtensionPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UriPage.xaml">
@@ -727,6 +720,10 @@
       <DependentUpon>ExpViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ExtensionsPage.xaml.cpp">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="GlyphsPage.xaml.cpp">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
@@ -738,10 +735,6 @@
     </ClCompile>
     <ClCompile Include="IconButtonPage.xaml.cpp">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ImageExtensionPage.xaml.cpp">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="IncrementalLoadingPage.xaml.cpp">
@@ -878,10 +871,6 @@
       <DependentUpon>TriggersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="UIElementExtensionPage.xaml.cpp">
-      <DependentUpon>UIElementExtensionPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="UriGroup.cpp">
       <DependentUpon>UriGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -972,6 +961,10 @@
     <Midl Include="ExpViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="ExtensionsPage.idl">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="GlyphsPage.idl">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -982,10 +975,6 @@
     </Midl>
     <Midl Include="IconButtonPage.idl">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="ImageExtensionPage.idl">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="IncrementalLoadingPage.idl">
@@ -1108,10 +1097,6 @@
     </Midl>
     <Midl Include="TriggersPage.idl">
       <DependentUpon>TriggersPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="UIElementExtensionPage.idl">
-      <DependentUpon>UIElementExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="UriGroup.idl">

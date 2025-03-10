@@ -1,7 +1,7 @@
 #include "pch.h"
-#include "ImageExtensionPage.xaml.h"
-#if __has_include("ImageExtensionPage.g.cpp")
-#include "ImageExtensionPage.g.cpp"
+#include "ExtensionsPage.xaml.h"
+#if __has_include("ExtensionsPage.g.cpp")
+#include "ExtensionsPage.g.cpp"
 #endif
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 
@@ -13,25 +13,22 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-	void ImageExtensionPage::SuccessLoadButton_Click(
-		winrt::Windows::Foundation::IInspectable const&, 
+	void ExtensionsPage::SuccessLoadButton_Click(
+		winrt::Windows::Foundation::IInspectable const&,
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		Image().Source(winrt::Microsoft::UI::Xaml::Media::Imaging::SvgImageSource{ 
-			winrt::Windows::Foundation::Uri{L"https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg"} 
+		Image().Source(winrt::Microsoft::UI::Xaml::Media::Imaging::SvgImageSource{
+			winrt::Windows::Foundation::Uri{L"https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg"}
 		});
 	}
 
 
-	void ImageExtensionPage::FailedLoadButton_Click(
-		winrt::Windows::Foundation::IInspectable const&, 
+	void ExtensionsPage::FailedLoadButton_Click(
+		winrt::Windows::Foundation::IInspectable const&,
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		Image().Source(winrt::Microsoft::UI::Xaml::Media::Imaging::SvgImageSource{
 			winrt::Windows::Foundation::Uri{L"https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_20.svg"}
 		});
 	}
-
 }
-
-

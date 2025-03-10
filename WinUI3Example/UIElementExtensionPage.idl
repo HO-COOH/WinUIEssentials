@@ -1,9 +1,0 @@
-namespace WinUI3Example
-{
-    [default_interface]
-    runtimeclass UIElementExtensionPage : Microsoft.UI.Xaml.Controls.Page
-    {
-        UIElementExtensionPage();
-        Microsoft.UI.Xaml.Controls.ToggleSwitch ClipSwitch{ get; };
-    }
-}

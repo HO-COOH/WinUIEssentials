@@ -1,8 +1,0 @@
-namespace WinUI3Example
-{
-    [default_interface]
-    runtimeclass ImageExtensionPage : Microsoft.UI.Xaml.Controls.Page
-    {
-        ImageExtensionPage();
-    }
-}
