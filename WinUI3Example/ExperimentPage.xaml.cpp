@@ -21,4 +21,18 @@ namespace winrt::WinUI3Example::implementation
 		winrt::WinUI3Example::EntranceAnimationDemo{}.Activate();
 	}
 
+	void ExperimentPage::CreateNonResizableBtn_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		winrt::WinUI3Example::NormalNonResizableWindow{}.Activate();
+	}
+
+	void ExperimentPage::CreateNonResizableWithWorkaroundBtn_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		winrt::WinUI3Example::NonResizableWindowWithWorkaround{}.Activate();
+	}
+
 }

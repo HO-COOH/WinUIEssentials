@@ -4,6 +4,7 @@
 #include "ThemeSettings.g.cpp"
 #endif
 #include "ThemeSettingsImpl.hpp"
+#include <winrt/Windows.UI.ViewManagement.h>
 
 
 namespace winrt::WinUI3Package::implementation
@@ -36,7 +37,8 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Windows::UI::Color ThemeSettings::AccentColor()
 	{
-		return fromDWORD(ThemeSettingsImpl::AccentColor());
+		//return fromDWORD(ThemeSettingsImpl::AccentColor());
+		return winrt::Windows::UI::ViewManagement::UISettings{}.GetColorValue(winrt::Windows::UI::ViewManagement::UIColorType::Accent);
 	}
 
 	winrt::Microsoft::UI::Xaml::Media::SolidColorBrush ThemeSettings::AccentColorBrush()

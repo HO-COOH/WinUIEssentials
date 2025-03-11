@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass NonResizableWindowWhiteBorderWorkaround 
+    {
+        NonResizableWindowWhiteBorderWorkaround();
+        
+        Microsoft.UI.Xaml.Window Window;
+    }
+}

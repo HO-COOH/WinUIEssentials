@@ -76,6 +76,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |SwitchPresenter | :x: | * :white_check_mark: | Control
 |ModernStandardWindowContextMenu| :x: | * :white_check_mark: | WinRT component
 |WindowContextMenu | :x: | :white_check_mark: | WinRT component
+|NonResizableWindowWhiteBorderWorkaround | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -866,5 +867,26 @@ but you do not need to add a resource to `Application.Resources`
         </StackPanel.Resources>
     </StackPanel>
 </Window>
-
 ```
+
+## NonResizableWindowWhiteBorderWorkaround
+WASDK 1.6 has [this issue](https://github.com/microsoft/microsoft-ui-xaml/issues/9978) that window has a white border when you `SetBorderAndTitleBar(false, false)`.
+This controls helps to workaround it by providing a simple syntax you declare right in your window's first element's `Resource`
+```xml
+<Window ...>
+
+    <StackPanel>
+        <StackPanel.Resources>
+            <essential:NonResizableWindowWhiteBorderWorkaround x:Name="Workaround" Window="{x:Bind}" />
+        </StackPanel.Resources>
+    </StackPanel>
+</Window>
+```
+
+Before:
+
+![](assets/non-resizable-window-white-border.png)
+
+After:
+
+![](assets/non-resizable-window-white-border-workaround.png)

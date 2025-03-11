@@ -393,6 +393,14 @@
       <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NonResizableWindowWithWorkaround.xaml.h">
+      <DependentUpon>NonResizableWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="NormalNonResizableWindow.xaml.h">
+      <DependentUpon>NormalNonResizableWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NullToVisibilityConverter.h">
       <DependentUpon>NullToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -580,6 +588,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="NonResizableWindowWithMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NonResizableWindowWithWorkaround.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NormalNonResizableWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
@@ -775,6 +789,14 @@
     </ClCompile>
     <ClCompile Include="NonResizableWindowWithMenu.xaml.cpp">
       <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="NonResizableWindowWithWorkaround.xaml.cpp">
+      <DependentUpon>NonResizableWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="NormalNonResizableWindow.xaml.cpp">
+      <DependentUpon>NormalNonResizableWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="NullToVisibilityConverter.cpp">
@@ -1016,6 +1038,14 @@
     </Midl>
     <Midl Include="NonResizableWindowWithMenu.idl">
       <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="NonResizableWindowWithWorkaround.idl">
+      <DependentUpon>NonResizableWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="NormalNonResizableWindow.idl">
+      <DependentUpon>NormalNonResizableWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="NullToVisibilityConverter.idl">

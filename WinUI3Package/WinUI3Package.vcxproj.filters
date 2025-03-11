@@ -443,6 +443,9 @@
     <Midl Include="WindowContextMenu.idl">
       <Filter>Windows</Filter>
     </Midl>
+    <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">
+      <Filter>Windows</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

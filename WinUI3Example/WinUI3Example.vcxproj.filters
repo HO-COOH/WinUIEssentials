@@ -147,6 +147,12 @@
     <Page Include="ExtensionsPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="NormalNonResizableWindow.xaml">
+      <Filter>Pages\Experimental</Filter>
+    </Page>
+    <Page Include="NonResizableWindowWithWorkaround.xaml">
+      <Filter>Pages\Experimental</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

@@ -378,6 +378,10 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NonResizableWindowWhiteBorderWorkaround.h">
+      <DependentUpon>NonResizableWindowWhiteBorderWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ObjectCompare.h" />
     <ClInclude Include="NormalTaskbarIcon.h" />
     <ClInclude Include="NotifyIconData.h" />
@@ -610,6 +614,10 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NonResizableWindowWhiteBorderWorkaround.cpp">
+      <DependentUpon>NonResizableWindowWhiteBorderWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ObjectCompare.cpp" />
     <ClCompile Include="NormalTaskbarIcon.cpp" />
     <ClCompile Include="pch.cpp">
@@ -813,6 +821,9 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="NegateBoolConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Placeholder.idl">
