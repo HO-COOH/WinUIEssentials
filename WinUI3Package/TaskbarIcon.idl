@@ -12,8 +12,9 @@ namespace WinUI3Package
         TaskbarIcon();
         
         /*Tooltip*/
-        Microsoft.UI.Xaml.UIElement ToolTip;
+        String ToolTip;
 
+        Guid Guid;
 
         /*Icons*/
         //GeneratedIconSource IconSource;

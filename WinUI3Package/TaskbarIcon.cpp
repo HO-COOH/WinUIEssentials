@@ -8,6 +8,43 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::hstring TaskbarIcon::ToolTip()
+	{
+		throw GetterNotImplemented{ L"TaskbarIcon.ToolTip" };
+	}
+	void TaskbarIcon::ToolTip(winrt::hstring const& value)
+	{
+		std::visit([value, this](auto&& icon) {
+			using IconType = std::remove_reference_t<decltype(icon)>;
+			if constexpr (!std::is_same_v<IconType, std::monostate>)
+			{
+				icon.ToolTip(value);
+			}
+			else
+			{
+				m_tooltip = value;
+			}
+		}, m_icon);
+	}
+
+	winrt::guid TaskbarIcon::Guid()
+	{
+		return m_guid;
+	}
+	void TaskbarIcon::Guid(winrt::guid value)
+	{
+		std::visit([value, this](auto&& icon) {
+			using IconType = std::remove_reference_t<decltype(icon)>;
+			if constexpr (!std::is_same_v<IconType, std::monostate>)
+			{
+				icon.Guid(value);
+			}
+			else
+			{
+				m_guid = value;
+			}
+			}, m_icon);
+	}
 	WinUI3Package::GeneratedIconSource TaskbarIcon::IconSource()
 	{
 		return m_iconSource;
@@ -94,11 +131,15 @@ namespace winrt::WinUI3Package::implementation
 
 	void TaskbarIcon::Show()
 	{
+		m_showCalled = true;
 		std::visit([this](auto&& icon)
 		{
 			using IconType = std::remove_reference_t<decltype(icon)>;
 			if constexpr (!std::is_same_v<IconType, std::monostate>)
 			{
+				icon.ToolTip(m_tooltip);
+				if (m_guid != winrt::guid{})
+					icon.Guid(m_guid);
 				icon.Show();
 				icon.SetMenu(m_xamlMenuFlyout);
 				icon.SetTheme(m_theme);
@@ -108,6 +149,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void TaskbarIcon::Remove()
 	{
+		m_showCalled = false;
 		std::visit([this](auto&& icon)
 		{
 			using IconType = std::remove_reference_t<decltype(icon)>;

@@ -15,8 +15,11 @@ namespace winrt::WinUI3Package::implementation
     {
         TaskbarIcon() = default;
 
-        winrt::Microsoft::UI::Xaml::UIElement ToolTip() { return nullptr; }
-        void ToolTip(winrt::Microsoft::UI::Xaml::UIElement value) {}
+        winrt::hstring ToolTip();
+        void ToolTip(winrt::hstring const& value);
+
+        winrt::guid Guid();
+        void Guid(winrt::guid value);
 
         WinUI3Package::GeneratedIconSource IconSource();
         void IconSource(WinUI3Package::GeneratedIconSource value);
@@ -76,13 +79,19 @@ namespace winrt::WinUI3Package::implementation
         TaskbarIconXamlEvents m_events;
 
         std::variant<std::monostate, ThemeAdaptiveIcon, NormalTaskbarIcon> m_icon;
+        winrt::hstring m_tooltip;
         winrt::Microsoft::UI::Xaml::ElementTheme m_theme{ winrt::Microsoft::UI::Xaml::ElementTheme::Default };
 
+        winrt::guid m_guid{};
+        bool m_showCalled{};
+
         template<typename F>
-        static winrt::Windows::Foundation::IAsyncAction setIconFromUri(winrt::Windows::Foundation::Uri uri, F f)
+        winrt::Windows::Foundation::IAsyncAction setIconFromUri(winrt::Windows::Foundation::Uri uri, F f)
         {
             if (auto file = co_await winrt::Windows::Storage::StorageFile::GetFileFromApplicationUriAsync(uri))
                 f(file.Path());
+            if (m_showCalled)
+                Show();
         }
     };
 }

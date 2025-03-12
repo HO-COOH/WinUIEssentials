@@ -64,6 +64,10 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 		case WM_RBUTTONUP:
 			if (thisPtr->m_icon->m_ptrXamlEvents)
 				thisPtr->m_icon->m_ptrXamlEvents->m_rightPressed();
+			POINT p;
+			GetCursorPos(&p);
+			winrt::check_bool(SetForegroundWindow(hwnd));
+			thisPtr->m_icon->OnWM_CONTEXTMENU(MAKELPARAM(p.x, p.y), lparam);
 			break;
 		case NIN_POPUPOPEN:
 			if (thisPtr->m_icon->m_ptrXamlEvents)
@@ -74,7 +78,7 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 			thisPtr->m_icon->OnWM_CONTEXTMENU(wparam, lparam);
 			break;
 		}
-		return 0;
+		break;
 	}
 	case WM_COMMAND:
 		getThisPointer(hwnd)->m_icon->OnWM_COMMAND(wparam, lparam);

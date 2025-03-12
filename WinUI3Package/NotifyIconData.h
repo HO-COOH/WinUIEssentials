@@ -13,7 +13,7 @@ class NotifyIconData
 	NOTIFYICONDATA m_data
 	{
 		.cbSize = sizeof(m_data),
-		.uVersion = NOTIFYICON_VERSION_4
+		.uVersion = NOTIFYICON_VERSION
 	};
 
 	void assertId()
@@ -93,7 +93,6 @@ public:
 	void Add()
 	{
 		winrt::check_bool(Shell_NotifyIcon(NIM_ADD, &m_data));
-		winrt::check_bool(Shell_NotifyIcon(NIM_SETVERSION, &m_data));
 	}
 
 	void Modify()

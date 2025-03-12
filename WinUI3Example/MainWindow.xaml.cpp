@@ -40,4 +40,11 @@ namespace winrt::WinUI3Example::implementation
 		auto tag = args.SelectedItem().as<winrt::hstring>();
 		ContentFrame().Navigate(s_page[tag]);
 	}
+
+	winrt::guid MainWindow::IconGuid()
+	{
+		// {733204C1-9F66-4E4E-A24C-CEA34294DA39}
+		return
+		{ 0x733204c1, 0x9f66, 0x4e4e, { 0xa2, 0x4c, 0xce, 0xa3, 0x42, 0x94, 0xda, 0x39 } };
+	}
 }

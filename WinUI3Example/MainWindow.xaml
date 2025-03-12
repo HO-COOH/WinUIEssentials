@@ -21,7 +21,11 @@
     <Grid>
         <Grid.Resources>
             <essential:ModernStandardWindowContextMenu x:Name="WindowMenu" Window="{x:Bind}" />
-            <essential:TaskbarIcon x:Name="MainIcon" Icon="ms-appx:///Assets/MainLogo.ico">
+            <essential:TaskbarIcon
+                x:Name="MainIcon"
+                Guid="{x:Bind local:MainWindow.IconGuid}"
+                Icon="ms-appx:///Assets/MainLogo.ico"
+                ToolTip="WinUI3Example's icon tooltip">
                 <MenuFlyout>
                     <MenuFlyoutItem Text="Item1" />
                 </MenuFlyout>

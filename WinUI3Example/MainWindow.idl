@@ -7,5 +7,7 @@ namespace WinUI3Example
     {
         MainWindow();
         Windows.Foundation.Collections.IVector<Object> Pages{ get; };
+
+        static Guid IconGuid{ get; };
     }
 }

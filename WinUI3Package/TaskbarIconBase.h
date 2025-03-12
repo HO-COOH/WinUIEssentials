@@ -45,6 +45,7 @@ public:
 	constexpr static UINT CallbackMessage = 0x1001;
 
 	TaskbarIconBase& ToolTip(std::wstring_view value);
+	TaskbarIconBase& Guid(winrt::guid value);
 	
 	void Show();
 	void Remove();

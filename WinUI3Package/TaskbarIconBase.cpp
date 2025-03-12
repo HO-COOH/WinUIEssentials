@@ -22,6 +22,12 @@ TaskbarIconBase& TaskbarIconBase::ToolTip(std::wstring_view value)
 	return *this;
 }
 
+TaskbarIconBase& TaskbarIconBase::Guid(winrt::guid value)
+{
+	m_iconData.guidItem(value);
+	return *this;
+}
+
 void TaskbarIconBase::Show()
 {
 	m_iconData.uCallbackMessage(CallbackMessage);
