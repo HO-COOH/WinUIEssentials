@@ -88,6 +88,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/ModernStandardWindowContextMenu_Resource.xbf</TargetPath>
         </ContentWithTargetPath>
+        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\ModernStandardWindowContextMenu.xbf">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>WinUI3Package/ModernStandardWindowContextMenu.xbf</TargetPath>
+        </ContentWithTargetPath>
     </ItemGroup>
 
 </Project>

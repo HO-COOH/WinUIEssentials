@@ -69,6 +69,11 @@ public:
 		return *this;
 	}
 
+	constexpr GUID guidItem() const
+	{
+		return m_data.guidItem;
+	}
+
 	constexpr NotifyIconData& szInfoTitle(std::wstring_view value)
 	{
 		assert(value.size() <= std::size(m_data.szInfoTitle) - 1);

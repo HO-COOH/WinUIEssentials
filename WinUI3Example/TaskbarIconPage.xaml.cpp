@@ -63,22 +63,26 @@ namespace winrt::WinUI3Example::implementation
 
 	void TaskbarIconPage::TaskbarIcon_LeftPressed()
 	{
-		EventsList().Items().Append(winrt::box_value(L"Left pressed"));
+		++m_leftPressedCount;
+		raisePropertyChange(L"LeftPressedCount");
 	}
 
 	void TaskbarIconPage::TaskbarIcon_LeftDoublePressed()
 	{
-		EventsList().Items().Append(winrt::box_value(L"Left double pressed"));
+		++m_leftDoublePressedCount;
+		raisePropertyChange(L"LeftDoublePressedCount");
 	}
 
 	void TaskbarIconPage::TaskbarIcon_RightPressed()
 	{
-		EventsList().Items().Append(winrt::box_value(L"Right pressed"));
+		++m_rightPressedCount;
+		raisePropertyChange(L"RightPressedCount");
 	}
 
 	void TaskbarIconPage::TaskbarIcon_PointerHover()
 	{
-		EventsList().Items().Append(winrt::box_value(L"Pointer hovered"));
+		++m_hoverCount;
+		raisePropertyChange(L"HoverCount");
 	}
 
 
@@ -134,6 +138,26 @@ namespace winrt::WinUI3Example::implementation
 	bool TaskbarIconPage::NegateBool(bool v)
 	{
 		return !v;
+	}
+
+	int TaskbarIconPage::LeftPressedCount()
+	{
+		return m_leftPressedCount;
+	}
+
+	int TaskbarIconPage::LeftDoublePressedCount()
+	{
+		return m_leftDoublePressedCount;
+	}
+
+	int TaskbarIconPage::HoverCount()
+	{
+		return m_hoverCount;;
+	}
+
+	int TaskbarIconPage::RightPressedCount()
+	{
+		return m_rightPressedCount;
 	}
 
 	void TaskbarIconPage::isNormalIconWithXamlMenuAdded(bool value)

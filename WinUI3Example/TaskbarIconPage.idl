@@ -13,5 +13,10 @@ namespace WinUI3Example
 
         static Boolean BoolAnd(Boolean v1, Boolean v2);
         static Boolean NegateBool(Boolean v);
+
+        Int32 LeftPressedCount{ get; };
+        Int32 LeftDoublePressedCount{ get; };
+        Int32 HoverCount{ get; };
+        Int32 RightPressedCount{ get; };
     }
 }

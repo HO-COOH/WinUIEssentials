@@ -24,6 +24,11 @@ namespace winrt::WinUI3Example::implementation
         bool IsThemeAdaptiveIconWithPopupMenuAdded();
         static bool BoolAnd(bool v1, bool v2);
         static bool NegateBool(bool v);
+
+        int LeftPressedCount();
+        int LeftDoublePressedCount();
+        int HoverCount();
+        int RightPressedCount();
     private:
         bool m_isNormalIconWithXamlMenuAdded{};
         bool m_isNormalIconWithPopupMenuAdded{};
@@ -34,7 +39,12 @@ namespace winrt::WinUI3Example::implementation
         void isNormalIconWithPopupMenuAdded(bool value);
         void isThemeAdaptiveIconWithXamlMenuAdded(bool value);
         void isThemeAdaptiveIconWithPopupMenuAdded(bool value);
+
         int m_radioSelection = -1;
+        int m_leftPressedCount{};
+        int m_leftDoublePressedCount{};
+        int m_hoverCount{};
+        int m_rightPressedCount{};
     public:
         void ThemeAdaptiveIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };

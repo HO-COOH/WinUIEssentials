@@ -160,7 +160,42 @@
         </TextBlock>
 
         <TextBlock Text="Events:" />
-        <ListView x:Name="EventsList" MaxHeight="300" />
+        <Grid ColumnSpacing="20" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!--  Events Name  -->
+            <TextBlock Grid.Row="0" Text="Left pressed: " />
+            <TextBlock Grid.Row="1" Text="Left double pressed: " />
+            <TextBlock Grid.Row="2" Text="Pointer hovered: " />
+            <TextBlock Grid.Row="3" Text="Right pressed:" />
+
+            <!--  count  -->
+            <InfoBadge
+                Grid.Row="0"
+                Grid.Column="1"
+                Value="{x:Bind LeftPressedCount, Mode=OneWay}" />
+            <InfoBadge
+                Grid.Row="1"
+                Grid.Column="1"
+                Value="{x:Bind LeftDoublePressedCount, Mode=OneWay}" />
+            <InfoBadge
+                Grid.Row="2"
+                Grid.Column="1"
+                Value="{x:Bind HoverCount, Mode=OneWay}" />
+            <InfoBadge
+                Grid.Row="3"
+                Grid.Column="1"
+                Value="{x:Bind RightPressedCount, Mode=OneWay}" />
+        </Grid>
 
     </StackPanel>
 </Page>

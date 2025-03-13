@@ -2,7 +2,8 @@
 #include "MenuFlyoutWrapper.h"
 #include <winrt/Microsoft.UI.Xaml.h>
 #include "MenuFlyoutItemPaddingWorkaround.h"
-
+#include <shellscalingapi.h>
+#include <IconUtils.h>
 
 MenuFlyoutWrapper::MenuFlyoutWrapper(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& flyout) : m_menu{flyout}
 {
@@ -18,6 +19,11 @@ MenuFlyoutWrapper::MenuFlyoutWrapper(winrt::Microsoft::UI::Xaml::Controls::Primi
 
 void MenuFlyoutWrapper::Show(POINT p)
 {
+	auto const monitor = MonitorFromPoint(p, MONITOR_DEFAULTTONEAREST);
+	UINT dpiX, dpiY{};
+	GetDpiForMonitor(monitor, MDT_EFFECTIVE_DPI, &dpiX, &dpiY);
+	auto offset = Utils::ScaleForDpi(24, dpiX);
+	p.x = max(0, p.x - offset);
 	m_menuHost.Move(p);
 	ShowAtImpl(m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>(), m_menuHost);
 }

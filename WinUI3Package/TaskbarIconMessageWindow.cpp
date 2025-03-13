@@ -25,81 +25,131 @@ LRESULT TaskbarIconMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wparam,
 {
 	switch (msg)
 	{
-	case WM_TIMER:
-	{
-		auto thisPtr = reinterpret_cast<TaskbarIconMessageWindow*>(GetWindowLongPtr(hwnd, 0));
-		assert(wparam == DoubleClickTimerId);
-		if (thisPtr->doubleClickTimerStarted && !thisPtr->doubleClicked)
+		case WM_TIMER:
 		{
-			thisPtr->doubleClickTimerStarted = false;
-			thisPtr->doubleClicked = false;
-			if (thisPtr->m_icon->m_ptrXamlEvents)
-				thisPtr->m_icon->m_ptrXamlEvents->m_leftPressed();
-			thisPtr->destroyTimer();
+			auto self = getThisPointer(hwnd);
+			switch (wparam)
+			{
+				case DoubleClickTimerId:
+					if (self->doubleClickTimerStarted)
+					{
+						self->doubleClickTimerStarted = false;
+						if (!self->doubleClicked)
+						{
+							if (self->m_icon->m_ptrXamlEvents)
+								self->m_icon->m_ptrXamlEvents->m_leftPressed();
+						}
+					}
+					killDoubleClickTimer(hwnd);
+					self->doubleClicked = false;
+					break;
+				case MouseMoveTimerId:
+				{
+					auto const identifier = self->getIdentifier();
+					RECT iconRect;
+					Shell_NotifyIconGetRect(&identifier, &iconRect);
+					POINT cursorPoint;
+					GetCursorPos(&cursorPoint);
+					if (!PtInRect(&iconRect, cursorPoint))
+					{
+						killMouseMoveTimer(hwnd);
+						self->mouseInIcon = false;
+					}
+					break;
+				}
+				default:
+					break;
+			}
+
 			break;
 		}
-		break;
-	}
-	case TaskbarIconBase::CallbackMessage:
-	{
-		auto thisPtr = getThisPointer(hwnd);
-		switch(LOWORD(lparam))
+		case TaskbarIconBase::CallbackMessage:
 		{
-		case WM_LBUTTONUP:
-			if (!thisPtr->doubleClickTimerStarted)
+			auto self = getThisPointer(hwnd);
+
+			switch(LOWORD(lparam))
 			{
-				thisPtr->setTimer();
-				thisPtr->doubleClickTimerStarted = true;
+				case WM_LBUTTONUP:
+					if (!self->doubleClickTimerStarted)
+					{
+						setDoubleClickTimer(hwnd);
+						self->doubleClickTimerStarted = true;
+					}
+					break;
+				case WM_MOUSEMOVE:
+					if (!self->mouseInIcon)
+					{
+						if (self->m_icon->m_ptrXamlEvents)
+							self->m_icon->m_ptrXamlEvents->m_pointerHover();
+						self->mouseInIcon = true;
+						setMouseMoveTimer(hwnd);
+					}
+					break;
+				case WM_LBUTTONDBLCLK:
+					self->doubleClicked = true;
+					self->doubleClickTimerStarted = false;
+					if (self->m_icon->m_ptrXamlEvents)
+						self->m_icon->m_ptrXamlEvents->m_leftDoublePressed();
+					break;
+				case WM_RBUTTONUP:
+					if (self->m_icon->m_ptrXamlEvents)
+						self->m_icon->m_ptrXamlEvents->m_rightPressed();
+					POINT p;
+					GetCursorPos(&p);
+					winrt::check_bool(SetForegroundWindow(hwnd));
+					self->m_icon->OnWM_CONTEXTMENU(MAKELPARAM(p.x, p.y), lparam);
+					break;
+				case NIN_POPUPOPEN:
+					if (self->m_icon->m_ptrXamlEvents)
+						self->m_icon->m_ptrXamlEvents->m_pointerHover();
+					break;
+				case WM_CONTEXTMENU:
+					winrt::check_bool(SetForegroundWindow(hwnd));
+					self->m_icon->OnWM_CONTEXTMENU(wparam, lparam);
+					break;
 			}
 			break;
-		case WM_MOUSEHOVER:
-			if (thisPtr->m_icon->m_ptrXamlEvents)
-				thisPtr->m_icon->m_ptrXamlEvents->m_pointerHover();
-			break;
-		case WM_LBUTTONDBLCLK:
-			thisPtr->doubleClicked = true;
-			if (thisPtr->m_icon->m_ptrXamlEvents)
-				thisPtr->m_icon->m_ptrXamlEvents->m_leftDoublePressed();
-			break;
-		case WM_RBUTTONUP:
-			if (thisPtr->m_icon->m_ptrXamlEvents)
-				thisPtr->m_icon->m_ptrXamlEvents->m_rightPressed();
-			POINT p;
-			GetCursorPos(&p);
-			winrt::check_bool(SetForegroundWindow(hwnd));
-			thisPtr->m_icon->OnWM_CONTEXTMENU(MAKELPARAM(p.x, p.y), lparam);
-			break;
-		case NIN_POPUPOPEN:
-			if (thisPtr->m_icon->m_ptrXamlEvents)
-				thisPtr->m_icon->m_ptrXamlEvents->m_pointerHover();
-			break;
-		case WM_CONTEXTMENU:
-			winrt::check_bool(SetForegroundWindow(hwnd));
-			thisPtr->m_icon->OnWM_CONTEXTMENU(wparam, lparam);
-			break;
 		}
-		break;
-	}
-	case WM_COMMAND:
-		getThisPointer(hwnd)->m_icon->OnWM_COMMAND(wparam, lparam);
-		return 0;
+		case WM_COMMAND:
+			getThisPointer(hwnd)->m_icon->OnWM_COMMAND(wparam, lparam);
+			return 0;
 	}
 	return DefWindowProc(hwnd, msg, wparam, lparam);
 }
 
-void TaskbarIconMessageWindow::setTimer()
+void TaskbarIconMessageWindow::setDoubleClickTimer(HWND hwnd)
 {
-	SetTimer(m_hwnd, DoubleClickTimerId, min(GetDoubleClickTime(), DoubleClickMaxThreshold), nullptr);
+	winrt::check_bool(SetTimer(hwnd, DoubleClickTimerId, min(GetDoubleClickTime(), DoubleClickMaxThreshold), nullptr));
 }
 
-void TaskbarIconMessageWindow::destroyTimer()
+void TaskbarIconMessageWindow::killDoubleClickTimer(HWND hwnd)
 {
-	winrt::check_bool(KillTimer(m_hwnd, DoubleClickTimerId));
+	winrt::check_bool(KillTimer(hwnd, DoubleClickTimerId));
+}
+
+void TaskbarIconMessageWindow::setMouseMoveTimer(HWND hwnd)
+{
+	winrt::check_bool(SetTimer(hwnd, MouseMoveTimerId, MouseMoveTimerInterval, nullptr));
+}
+
+void TaskbarIconMessageWindow::killMouseMoveTimer(HWND hwnd)
+{
+	winrt::check_bool(KillTimer(hwnd, MouseMoveTimerId));
 }
 
 TaskbarIconMessageWindow* TaskbarIconMessageWindow::getThisPointer(HWND hwnd)
 {
 	return reinterpret_cast<TaskbarIconMessageWindow*>(GetWindowLongPtr(hwnd, 0));
+}
+
+NOTIFYICONIDENTIFIER TaskbarIconMessageWindow::getIdentifier() const
+{
+	return NOTIFYICONIDENTIFIER
+	{
+		.cbSize = sizeof(NOTIFYICONIDENTIFIER),
+		.hWnd = m_hwnd,
+		.guidItem = m_icon->m_iconData.guidItem(),
+	};
 }
 
 TaskbarIconMessageWindow::TaskbarIconMessageWindow(TaskbarIconBase& icon) : m_icon{&icon}
@@ -127,7 +177,7 @@ TaskbarIconMessageWindow::~TaskbarIconMessageWindow()
 	winrt::check_bool(DestroyWindow(m_hwnd));
 }
 
-HWND TaskbarIconMessageWindow::Get()
+HWND TaskbarIconMessageWindow::Get() const
 {
 	return m_hwnd;
 }

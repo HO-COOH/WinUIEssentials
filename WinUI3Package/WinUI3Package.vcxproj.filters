@@ -204,9 +204,6 @@
     <ClInclude Include="WindowContextMenuUtils.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="TaskbarIconEvents.h">
-      <Filter>TaskbarIcon</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
