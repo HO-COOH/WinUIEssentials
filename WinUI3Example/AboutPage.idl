@@ -1,0 +1,19 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass AboutPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        AboutPage();
+
+        static String WASDKReleaseVersion{ get; };
+        static String WASDKRuntimeVersion{ get; };
+
+        static String FormatVersion(
+            UInt32 major,
+            UInt32 minor,
+            UInt32 patch,
+            UInt32 majorMinor,
+            String channel
+        );
+    }
+}

@@ -37,6 +37,12 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender,
 		winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args)
 	{
+		if (args.IsSettingsSelected())
+		{
+			ContentFrame().Navigate(winrt::xaml_typename<WinUI3Example::AboutPage>());
+			return;
+		}
+
 		auto tag = args.SelectedItem().as<winrt::hstring>();
 		ContentFrame().Navigate(s_page[tag]);
 	}

@@ -443,6 +443,7 @@
     <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">
       <Filter>Windows</Filter>
     </Midl>
+    <Midl Include="VersionInfo.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

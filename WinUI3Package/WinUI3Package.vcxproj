@@ -503,6 +503,10 @@
     </ClInclude>
     <ClInclude Include="UnsupportedImageTypeError.hpp" />
     <ClInclude Include="UxThemeWrapper.h" />
+    <ClInclude Include="VersionInfo.h">
+      <DependentUpon>VersionInfo.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WindowContextMenu.h">
       <DependentUpon>WindowContextMenu.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -734,6 +738,10 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="VersionInfo.cpp">
+      <DependentUpon>VersionInfo.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="WindowContextMenu.cpp">
       <DependentUpon>WindowContextMenu.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -901,6 +909,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="UIElementExtension.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="VersionInfo.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowContextMenu.idl">

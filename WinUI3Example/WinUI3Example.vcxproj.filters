@@ -153,6 +153,9 @@
     <Page Include="NonResizableWindowWithWorkaround.xaml">
       <Filter>Pages\Experimental</Filter>
     </Page>
+    <Page Include="AboutPage.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

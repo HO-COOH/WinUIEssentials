@@ -31,10 +31,7 @@
                 </MenuFlyout>
             </essential:TaskbarIcon>
         </Grid.Resources>
-        <NavigationView
-            IsSettingsVisible="False"
-            MenuItemsSource="{x:Bind Pages}"
-            SelectionChanged="NavigationView_SelectionChanged">
+        <NavigationView MenuItemsSource="{x:Bind Pages}" SelectionChanged="NavigationView_SelectionChanged">
             <ScrollViewer>
                 <Frame
                     x:Name="ContentFrame"

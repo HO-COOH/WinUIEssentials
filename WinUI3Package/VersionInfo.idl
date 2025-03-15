@@ -1,0 +1,13 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass VersionInfo
+    {
+        static UInt32 WASDKReleaseMajor{ get; };
+        static UInt32 WASDKReleaseMinor{ get; };
+        static UInt32 WASDKReleasePatch{ get; };
+        static UInt32 WASDKReleaseMajorMinor{ get; };
+        static String WASDKReleaseChannel{ get; };
+    }
+}

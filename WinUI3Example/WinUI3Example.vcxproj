@@ -264,6 +264,10 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutPage.xaml.h">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="BackdropPage.xaml.h">
       <DependentUpon>BackdropPage.xaml</DependentUpon>
     </ClInclude>
@@ -519,6 +523,9 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
+    <Page Include="AboutPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BackdropPage.xaml" />
     <Page Include="BadgePage.xaml">
       <SubType>Designer</SubType>
@@ -664,6 +671,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AboutPage.xaml.cpp">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="BackdropPage.xaml.cpp">
       <DependentUpon>BackdropPage.xaml</DependentUpon>
     </ClCompile>
@@ -919,6 +930,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="AboutPage.idl">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="App.idl">
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
