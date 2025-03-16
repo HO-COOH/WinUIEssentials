@@ -4,6 +4,7 @@
 #include "AboutPage.g.cpp"
 #endif
 #include <WindowsAppSDK-VersionInfo.h>
+#include <winrt/Windows.System.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -43,4 +44,12 @@ namespace winrt::WinUI3Example::implementation
 			channel
 		) };
 	}
+
+	void AboutPage::SettingsCard_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri{ L"https://github.com/HO-COOH/WinUIEssentials" });
+	}
+
 }

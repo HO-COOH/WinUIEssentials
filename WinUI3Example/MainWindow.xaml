@@ -27,7 +27,10 @@
                 Icon="ms-appx:///Assets/MainLogo.ico"
                 ToolTip="WinUI3Example's icon tooltip">
                 <MenuFlyout>
-                    <MenuFlyoutItem Text="Item1" />
+                    <MenuFlyoutItem
+                        x:Name="ExitItem"
+                        Click="ExitItem_Click"
+                        Text="Exit" />
                 </MenuFlyout>
             </essential:TaskbarIcon>
         </Grid.Resources>

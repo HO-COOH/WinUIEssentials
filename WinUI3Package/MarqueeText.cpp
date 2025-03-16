@@ -522,8 +522,8 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::Media::Animation::DoubleAnimationUsingKeyFrames animation;
         winrt::Microsoft::UI::Xaml::Duration const d = winrt::Microsoft::UI::Xaml::DurationHelper::FromTimeSpan(duration);
         animation.Duration(d);
-        animation.RepeatBehavior(RepeatBehavior());
-        animation.AutoReverse(Behavior() == MarqueeBehavior::Bouncing);
+        //animation.RepeatBehavior(RepeatBehavior());
+        //animation.AutoReverse(Behavior() == MarqueeBehavior::Bouncing);
         winrt::Microsoft::UI::Xaml::Media::Animation::LinearDoubleKeyFrame frame[2];
         frame[0].Value(start);
         frame[1].Value(end);
@@ -533,6 +533,7 @@ namespace winrt::WinUI3Package::implementation
         storyboard.Children().Append(animation);
         storyboard.Duration(d);
         storyboard.RepeatBehavior(RepeatBehavior());
+        storyboard.AutoReverse(Behavior() == MarqueeBehavior::Bouncing);
 
         winrt::Microsoft::UI::Xaml::Media::Animation::Storyboard::SetTarget(animation, marqueeTransform);
         winrt::Microsoft::UI::Xaml::Media::Animation::Storyboard::SetTargetProperty(animation, targetProperty);

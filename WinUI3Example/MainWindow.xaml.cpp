@@ -53,4 +53,12 @@ namespace winrt::WinUI3Example::implementation
 		return
 		{ 0x733204c1, 0x9f66, 0x4e4e, { 0xa2, 0x4c, 0xce, 0xa3, 0x42, 0x94, 0xda, 0x39 } };
 	}
+
+	void winrt::WinUI3Example::implementation::MainWindow::ExitItem_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		ExitProcess(0);
+	}
+
 }

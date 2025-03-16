@@ -124,6 +124,38 @@
 
         <local:ControlExample HeaderText="Custom window context menu">
             <Button x:Name="CustomWindowMenuButton" Click="CustomWindowMenuButton_Click">Click to create window</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window
+    x:Class=&quot;WinUI3Example.WindowWithCustomMenu&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    Title=&quot;WindowWithCustomMenu&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+
+    &lt;StackPanel
+        HorizontalAlignment=&quot;Center&quot;
+        VerticalAlignment=&quot;Center&quot;
+        Orientation=&quot;Horizontal&quot;&gt;
+        &lt;StackPanel.Resources&gt;
+            &lt;essential:WindowContextMenu x:Name=&quot;Menu&quot; Window=&quot;{x:Bind}&quot;&gt;
+                &lt;MenuFlyout&gt;
+                    &lt;MenuFlyoutItem Text=&quot;Item1&quot; /&gt;
+                    &lt;MenuFlyoutItem Text=&quot;Item2&quot; /&gt;
+                &lt;/MenuFlyout&gt;
+            &lt;/essential:WindowContextMenu&gt;
+        &lt;/StackPanel.Resources&gt;
+        &lt;Button x:Name=&quot;myButton&quot; Click=&quot;myButton_Click&quot;&gt;Click Me&lt;/Button&gt;
+    &lt;/StackPanel&gt;
+&lt;/Window&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
     </StackPanel>
 </Page>

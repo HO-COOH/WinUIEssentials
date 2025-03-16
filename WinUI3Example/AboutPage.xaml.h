@@ -17,6 +17,7 @@ namespace winrt::WinUI3Example::implementation
             uint32_t majorMinor,
             winrt::hstring const& channel
         );
+        void SettingsCard_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

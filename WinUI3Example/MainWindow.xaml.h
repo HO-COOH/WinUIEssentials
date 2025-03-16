@@ -33,38 +33,40 @@ namespace winrt::WinUI3Example::implementation
     private:
         static inline std::unordered_map<winrt::hstring, winrt::Windows::UI::Xaml::Interop::TypeName> s_page
         {
-            {L"ToastPage", winrt::xaml_typename<WinUI3Example::ToastPage>()},
-            {L"CursorControllerPage", winrt::xaml_typename<WinUI3Example::CursorControllerPage>()},
-            {L"ConvertersPage", winrt::xaml_typename<WinUI3Example::ConvertersPage>()},
-            {L"BadgePage", winrt::xaml_typename<WinUI3Example::BadgePage>()},
-            {L"TaskbarPage", winrt::xaml_typename<WinUI3Example::TaskbarPage>()},
-            {L"TriggersPage", winrt::xaml_typename<WinUI3Example::TriggersPage>()},
-            {L"GroupBoxPage", winrt::xaml_typename<WinUI3Example::GroupBoxPage>()},
+            {L"Toast", winrt::xaml_typename<WinUI3Example::ToastPage>()},
+            {L"CursorController", winrt::xaml_typename<WinUI3Example::CursorControllerPage>()},
+            {L"Converters", winrt::xaml_typename<WinUI3Example::ConvertersPage>()},
+            {L"Badge", winrt::xaml_typename<WinUI3Example::BadgePage>()},
+            {L"Taskbar", winrt::xaml_typename<WinUI3Example::TaskbarPage>()},
+            {L"Triggers", winrt::xaml_typename<WinUI3Example::TriggersPage>()},
+            {L"GroupBox", winrt::xaml_typename<WinUI3Example::GroupBoxPage>()},
             /*{L"CharmBarPage", winrt::xaml_typename<WinUI3Example::CharmBarPage>()},*/
-            {L"SettingsCardPage", winrt::xaml_typename<WinUI3Example::SettingsCardPage>()},
-            {L"SettingsExpanderPage", winrt::xaml_typename<WinUI3Example::SettingsExpanderPage>()},
-            {L"DependentValuePage", winrt::xaml_typename<WinUI3Example::DependentValuePage>()},
-            {L"MarqueeTextPage", winrt::xaml_typename<WinUI3Example::MarqueeTextPage>()},
-            {L"GlphysPage", winrt::xaml_typename<WinUI3Example::GlyphsPage>()},
-            {L"TitleBarPage", winrt::xaml_typename<WinUI3Example::TitleBarPage>()},
-            {L"ProgressBarExPage", winrt::xaml_typename<WinUI3Example::ProgressBarExPage>()},
-            {L"LineGraphPage", winrt::xaml_typename<WinUI3Example::LineGraphPage>()},
-            {L"WindowExPage", winrt::xaml_typename<WinUI3Example::WindowExPage>()},
-            {L"SegmentedPage", winrt::xaml_typename<WinUI3Example::SegmentedPage>()},
-            {L"IconButtonPage", winrt::xaml_typename<WinUI3Example::IconButtonPage>()},
-            {L"UriPage", winrt::xaml_typename<WinUI3Example::UriPage>()},
+            {L"SettingsCard", winrt::xaml_typename<WinUI3Example::SettingsCardPage>()},
+            {L"SettingsExpander", winrt::xaml_typename<WinUI3Example::SettingsExpanderPage>()},
+            {L"DependentValue", winrt::xaml_typename<WinUI3Example::DependentValuePage>()},
+            {L"MarqueeText", winrt::xaml_typename<WinUI3Example::MarqueeTextPage>()},
+            {L"Glphys", winrt::xaml_typename<WinUI3Example::GlyphsPage>()},
+            {L"TitleBar", winrt::xaml_typename<WinUI3Example::TitleBarPage>()},
+            {L"ProgressBarEx", winrt::xaml_typename<WinUI3Example::ProgressBarExPage>()},
+            {L"LineGraph", winrt::xaml_typename<WinUI3Example::LineGraphPage>()},
+            {L"WindowEx", winrt::xaml_typename<WinUI3Example::WindowExPage>()},
+            {L"Segmented", winrt::xaml_typename<WinUI3Example::SegmentedPage>()},
+            {L"IconButton", winrt::xaml_typename<WinUI3Example::IconButtonPage>()},
+            {L"Uris", winrt::xaml_typename<WinUI3Example::UriPage>()},
             //{L"IncrementalLoadingPage", winrt::xaml_typename<WinUI3Example::IncrementalLoadingPage>()},
-            {L"BackdropPage", winrt::xaml_typename<WinUI3Example::BackdropPage>()},
-            {L"ShimmerPage", winrt::xaml_typename<WinUI3Example::ShimmerPage>()},
-            {L"SwitchPresenterPage", winrt::xaml_typename<WinUI3Example::SwitchPresenterPage>()},
-            {L"ExperimentPage", winrt::xaml_typename<WinUI3Example::ExperimentPage>()},
-            {L"TaskbarIconPage", winrt::xaml_typename<WinUI3Example::TaskbarIconPage>()},
-            {L"ThemeListenerPage", winrt::xaml_typename<WinUI3Example::ThemeListenerPage>()},
-            {L"ScopedButtonDisablerPage", winrt::xaml_typename<WinUI3Example::ScopedButtonDisablerPage>()},
-            {L"InitializeWithWindowHelperPage", winrt::xaml_typename<WinUI3Example::InitializeWithWindowHelperPage>()},
+            {L"Backdrop", winrt::xaml_typename<WinUI3Example::BackdropPage>()},
+            {L"Shimmer", winrt::xaml_typename<WinUI3Example::ShimmerPage>()},
+            {L"SwitchPresenter", winrt::xaml_typename<WinUI3Example::SwitchPresenterPage>()},
+            {L"*Experiments*", winrt::xaml_typename<WinUI3Example::ExperimentPage>()},
+            {L"TaskbarIcon", winrt::xaml_typename<WinUI3Example::TaskbarIconPage>()},
+            {L"ThemeListener", winrt::xaml_typename<WinUI3Example::ThemeListenerPage>()},
+            {L"ScopedButtonDisabler", winrt::xaml_typename<WinUI3Example::ScopedButtonDisablerPage>()},
+            {L"InitializeWithWindowHelper", winrt::xaml_typename<WinUI3Example::InitializeWithWindowHelperPage>()},
             {L"ModernStandardWindowMenu", winrt::xaml_typename<WinUI3Example::ModernStandardWindowContextMenuPage>()},
-            {L"ExtensionsPage", winrt::xaml_typename<WinUI3Example::ExtensionsPage>()}
+            {L"Extensions", winrt::xaml_typename<WinUI3Example::ExtensionsPage>()}
         };
+    public:
+        void ExitItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 
