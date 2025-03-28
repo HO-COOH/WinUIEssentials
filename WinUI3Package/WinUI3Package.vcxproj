@@ -265,6 +265,7 @@
       <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ComboBoxHelper.h" />
     <ClInclude Include="ContainerToBoolConverter.h">
       <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -346,6 +347,7 @@
     <ClInclude Include="include\TileTemplates.hpp" />
     <ClInclude Include="include\ToastBuilder.hpp" />
     <ClInclude Include="include\ToastTemplates.hpp" />
+    <ClInclude Include="include\VisualTreeHelper.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.Graphics.Canvas.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.UI.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
@@ -532,6 +534,7 @@
       <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ComboBoxHelper.cpp" />
     <ClCompile Include="ContainerToBoolConverter.cpp">
       <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -768,6 +771,7 @@
     <Midl Include="CaseCollection.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="ComboBoxHelper.idl" />
     <Midl Include="ContainerToBoolConverter.idl">
       <SubType>Designer</SubType>
     </Midl>

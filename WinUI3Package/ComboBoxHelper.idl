@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ComboBoxHelper
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.ComboBox comboBox);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.ComboBox comboBox, Boolean value);
+    }
+}

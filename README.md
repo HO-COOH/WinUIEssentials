@@ -77,6 +77,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |ModernStandardWindowContextMenu| :x: | * :white_check_mark: | WinRT component
 |WindowContextMenu | :x: | :white_check_mark: | WinRT component
 |NonResizableWindowWhiteBorderWorkaround | :x: | :white_check_mark: | WinRT component
+|ComboBoxHelper | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -890,3 +891,22 @@ Before:
 After:
 
 ![](assets/non-resizable-window-white-border-workaround.png)
+
+## ComboBoxHelper
+The WinUI3's built-in `ComboBox` does not have [Acrylic background](https://github.com/microsoft/microsoft-ui-xaml/issues/9523). We fixed it for you. To use it, simply add `ComboBoxHelper.AcrylicWorkaround="True"` as an attached property on your `ComboBox`.
+
+```xml
+<ComboBox
+    Width="200"
+    essential:ComboBoxHelper.AcrylicWorkaround="True"
+    Header="Colors"
+    PlaceholderText="Pick a color">
+    <x:String>Blue</x:String>
+    <x:String>Green</x:String>
+    <x:String>Red</x:String>
+    <x:String>Yellow</x:String>
+</ComboBox>
+```
+|Before|After|
+|------|-----|
+|![](assets/combobox-original.png)|![](assets/combobox-fixed.png)|

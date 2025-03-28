@@ -156,6 +156,9 @@
     <Page Include="AboutPage.xaml">
       <Filter>Helper</Filter>
     </Page>
+    <Page Include="ComboBoxHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

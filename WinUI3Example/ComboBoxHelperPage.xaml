@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.ComboBoxHelperPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <local:ControlExample HeaderText="Original ComboBox, you don't have Acrylic">
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <ComboBox
+                    Width="200"
+                    Header="Colors"
+                    PlaceholderText="Pick a color">
+                    <x:String>Blue</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                </ComboBox>
+
+                <ComboBox
+                    Width="200"
+                    Header="Font Size"
+                    IsEditable="True">
+                    <x:Int32>8</x:Int32>
+                    <x:Int32>9</x:Int32>
+                    <x:Int32>10</x:Int32>
+                    <x:Int32>11</x:Int32>
+                    <x:Int32>12</x:Int32>
+                    <x:Int32>14</x:Int32>
+                    <x:Int32>16</x:Int32>
+                    <x:Int32>18</x:Int32>
+                    <x:Int32>20</x:Int32>
+                    <x:Int32>24</x:Int32>
+                    <x:Int32>28</x:Int32>
+                    <x:Int32>36</x:Int32>
+                    <x:Int32>48</x:Int32>
+                    <x:Int32>72</x:Int32>
+                </ComboBox>
+            </StackPanel>
+
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Using ComboBoxHelper.AcrylicWorkaround, you got Acrylic">
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <ComboBox
+                    Width="200"
+                    essential:ComboBoxHelper.AcrylicWorkaround="True"
+                    Header="Colors"
+                    PlaceholderText="Pick a color">
+                    <x:String>Blue</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                </ComboBox>
+
+                <ComboBox
+                    Width="200"
+                    essential:ComboBoxHelper.AcrylicWorkaround="True"
+                    Header="Font Size"
+                    IsEditable="True">
+                    <x:Int32>8</x:Int32>
+                    <x:Int32>9</x:Int32>
+                    <x:Int32>10</x:Int32>
+                    <x:Int32>11</x:Int32>
+                    <x:Int32>12</x:Int32>
+                    <x:Int32>14</x:Int32>
+                    <x:Int32>16</x:Int32>
+                    <x:Int32>18</x:Int32>
+                    <x:Int32>20</x:Int32>
+                    <x:Int32>24</x:Int32>
+                    <x:Int32>28</x:Int32>
+                    <x:Int32>36</x:Int32>
+                    <x:Int32>48</x:Int32>
+                    <x:Int32>72</x:Int32>
+                </ComboBox>
+            </StackPanel>
+        </local:ControlExample>
+    </StackPanel>
+</Page>
