@@ -70,9 +70,7 @@ namespace winrt::WinUI3Package::implementation
 		//Note: This method will be called before any Property setter get called.
 		//So we do not need to apply the properties in this method
 		makeMicaController(connectedTarget);
-		m_hwnd = GetParent(winrt::Microsoft::UI::GetWindowFromWindowId(
-			connectedTarget.as<winrt::Microsoft::UI::Xaml::Hosting::DesktopWindowXamlSource>().SiteBridge().WindowId()
-		));
+		m_hwnd = reinterpret_cast<HWND>(xamlRoot.ContentIslandEnvironment().AppWindowId().Value);
 		BackdropWindowActiveStateWorkaroundHandler<CustomMicaBackdrop, subclassId>::Set(m_hwnd, this);
 
 		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);

@@ -440,6 +440,9 @@
     <Midl Include="WindowContextMenu.idl">
       <Filter>Windows</Filter>
     </Midl>
+    <Midl Include="ComboBoxHelper.idl">
+      <Filter>Controls</Filter>
+    </Midl>
     <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">
       <Filter>Windows</Filter>
     </Midl>

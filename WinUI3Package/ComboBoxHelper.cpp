@@ -56,7 +56,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicController controller{ nullptr };
 	};
 
-	//TODO: release the keys when objects are destroied
 	std::unordered_map<winrt::Microsoft::UI::Xaml::Controls::ComboBox, AcrylicInfo> s_maps;
 
 	void ComboBoxHelper::acrylicWorkaroundChanged(
@@ -140,6 +139,12 @@ namespace winrt::WinUI3Package::implementation
 			//IsEditable=True is an exception, it will open if we programatically open it
 			if (!comboBox.IsEditable())
 				comboBox.IsDropDownOpen(true);
+		});
+
+		//clean up the dictionary
+		comboBox.Unloaded([](winrt::Windows::Foundation::IInspectable const& comboBoxRef, auto&&...)
+		{
+			s_maps.erase(comboBoxRef.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>());
 		});
 	}
 }

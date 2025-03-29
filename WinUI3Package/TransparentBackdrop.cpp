@@ -21,7 +21,7 @@ namespace winrt::WinUI3Package::implementation
         //    .EnvironmentView()
         //    .AppWindowId()
         //    .Value;
-        HWND hwnd = (HWND)xamlRoot.ContentIslandEnvironment().AppWindowId().Value;
+        HWND hwnd = reinterpret_cast<HWND>(xamlRoot.ContentIslandEnvironment().AppWindowId().Value);
         configureDwm(hwnd);
         base_type::OnTargetConnected(connectedTarget, xamlRoot);
     }

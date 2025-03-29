@@ -12,72 +12,138 @@
     <StackPanel>
         <local:ControlExample HeaderText="Original ComboBox, you don't have Acrylic">
             <StackPanel Orientation="Horizontal" Spacing="20">
-                <ComboBox
-                    Width="200"
-                    Header="Colors"
-                    PlaceholderText="Pick a color">
-                    <x:String>Blue</x:String>
-                    <x:String>Green</x:String>
-                    <x:String>Red</x:String>
-                    <x:String>Yellow</x:String>
-                </ComboBox>
+                <StackPanel Spacing="8">
+                    <ComboBox
+                        x:Name="Combo1"
+                        Width="200"
+                        Header="Colors"
+                        PlaceholderText="Pick a color"
+                        SelectionChanged="Combo1_SelectionChanged">
+                        <x:String>Blue</x:String>
+                        <x:String>Green</x:String>
+                        <x:String>Red</x:String>
+                        <x:String>Yellow</x:String>
+                    </ComboBox>
+                    <Rectangle
+                        x:Name="Control1Output"
+                        Width="100"
+                        Height="30"
+                        Margin="0,8,0,0" />
+                </StackPanel>
 
-                <ComboBox
-                    Width="200"
-                    Header="Font Size"
-                    IsEditable="True">
-                    <x:Int32>8</x:Int32>
-                    <x:Int32>9</x:Int32>
-                    <x:Int32>10</x:Int32>
-                    <x:Int32>11</x:Int32>
-                    <x:Int32>12</x:Int32>
-                    <x:Int32>14</x:Int32>
-                    <x:Int32>16</x:Int32>
-                    <x:Int32>18</x:Int32>
-                    <x:Int32>20</x:Int32>
-                    <x:Int32>24</x:Int32>
-                    <x:Int32>28</x:Int32>
-                    <x:Int32>36</x:Int32>
-                    <x:Int32>48</x:Int32>
-                    <x:Int32>72</x:Int32>
-                </ComboBox>
+                <StackPanel>
+                    <ComboBox
+                        x:Name="Combo2"
+                        MinWidth="200"
+                        DisplayMemberPath="Name"
+                        Header="Font"
+                        ItemsSource="{x:Bind Fonts}"
+                        SelectedIndex="2"
+                        SelectedValuePath="Font" />
+                    <TextBlock
+                        x:Name="Control2Output"
+                        FontFamily="{x:Bind local:ComboBoxHelperPage.GetFontFamilyFromComboBox(Combo2.SelectedValue), Mode=OneWay}"
+                        Text="You can set the font used for this text." />
+                </StackPanel>
+
+                <StackPanel>
+                    <ComboBox
+                        x:Name="Combo3"
+                        Width="200"
+                        Header="Font Size"
+                        IsEditable="True"
+                        SelectedIndex="2">
+                        <x:Int32>8</x:Int32>
+                        <x:Int32>9</x:Int32>
+                        <x:Int32>10</x:Int32>
+                        <x:Int32>11</x:Int32>
+                        <x:Int32>12</x:Int32>
+                        <x:Int32>14</x:Int32>
+                        <x:Int32>16</x:Int32>
+                        <x:Int32>18</x:Int32>
+                        <x:Int32>20</x:Int32>
+                        <x:Int32>24</x:Int32>
+                        <x:Int32>28</x:Int32>
+                        <x:Int32>36</x:Int32>
+                        <x:Int32>48</x:Int32>
+                        <x:Int32>72</x:Int32>
+                    </ComboBox>
+                    <TextBlock
+                        x:Name="Control3Output"
+                        FontSize="{x:Bind local:ComboBoxHelperPage.GetDoubleFromComboBox(Combo3.SelectedValue), Mode=OneWay}"
+                        Text="You can set the font size used for this text." />
+                </StackPanel>
+
             </StackPanel>
 
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Using ComboBoxHelper.AcrylicWorkaround, you got Acrylic">
             <StackPanel Orientation="Horizontal" Spacing="20">
-                <ComboBox
-                    Width="200"
-                    essential:ComboBoxHelper.AcrylicWorkaround="True"
-                    Header="Colors"
-                    PlaceholderText="Pick a color">
-                    <x:String>Blue</x:String>
-                    <x:String>Green</x:String>
-                    <x:String>Red</x:String>
-                    <x:String>Yellow</x:String>
-                </ComboBox>
+                <StackPanel Spacing="8">
+                    <ComboBox
+                        x:Name="Combo4"
+                        Width="200"
+                        essential:ComboBoxHelper.AcrylicWorkaround="True"
+                        Header="Colors"
+                        PlaceholderText="Pick a color"
+                        SelectionChanged="Combo1_SelectionChanged">
+                        <x:String>Blue</x:String>
+                        <x:String>Green</x:String>
+                        <x:String>Red</x:String>
+                        <x:String>Yellow</x:String>
+                    </ComboBox>
+                    <Rectangle
+                        x:Name="Control4Output"
+                        Width="100"
+                        Height="30"
+                        Margin="0,8,0,0" />
+                </StackPanel>
 
-                <ComboBox
-                    Width="200"
-                    essential:ComboBoxHelper.AcrylicWorkaround="True"
-                    Header="Font Size"
-                    IsEditable="True">
-                    <x:Int32>8</x:Int32>
-                    <x:Int32>9</x:Int32>
-                    <x:Int32>10</x:Int32>
-                    <x:Int32>11</x:Int32>
-                    <x:Int32>12</x:Int32>
-                    <x:Int32>14</x:Int32>
-                    <x:Int32>16</x:Int32>
-                    <x:Int32>18</x:Int32>
-                    <x:Int32>20</x:Int32>
-                    <x:Int32>24</x:Int32>
-                    <x:Int32>28</x:Int32>
-                    <x:Int32>36</x:Int32>
-                    <x:Int32>48</x:Int32>
-                    <x:Int32>72</x:Int32>
-                </ComboBox>
+                <StackPanel>
+                    <ComboBox
+                        x:Name="Combo5"
+                        MinWidth="200"
+                        essential:ComboBoxHelper.AcrylicWorkaround="True"
+                        DisplayMemberPath="Name"
+                        Header="Font"
+                        ItemsSource="{x:Bind Fonts}"
+                        SelectedIndex="2"
+                        SelectedValuePath="Font" />
+                    <TextBlock
+                        x:Name="Control5Output"
+                        FontFamily="{x:Bind local:ComboBoxHelperPage.GetFontFamilyFromComboBox(Combo5.SelectedValue), Mode=OneWay}"
+                        Text="You can set the font used for this text." />
+                </StackPanel>
+
+                <StackPanel>
+                    <ComboBox
+                        x:Name="Combo6"
+                        Width="200"
+                        essential:ComboBoxHelper.AcrylicWorkaround="True"
+                        Header="Font Size"
+                        IsEditable="True"
+                        SelectedIndex="2">
+                        <x:Int32>8</x:Int32>
+                        <x:Int32>9</x:Int32>
+                        <x:Int32>10</x:Int32>
+                        <x:Int32>11</x:Int32>
+                        <x:Int32>12</x:Int32>
+                        <x:Int32>14</x:Int32>
+                        <x:Int32>16</x:Int32>
+                        <x:Int32>18</x:Int32>
+                        <x:Int32>20</x:Int32>
+                        <x:Int32>24</x:Int32>
+                        <x:Int32>28</x:Int32>
+                        <x:Int32>36</x:Int32>
+                        <x:Int32>48</x:Int32>
+                        <x:Int32>72</x:Int32>
+                    </ComboBox>
+                    <TextBlock
+                        x:Name="Control6Output"
+                        FontSize="{x:Bind local:ComboBoxHelperPage.GetDoubleFromComboBox(Combo6.SelectedValue), Mode=OneWay}"
+                        Text="You can set the font size used for this text." />
+                </StackPanel>
             </StackPanel>
         </local:ControlExample>
     </StackPanel>

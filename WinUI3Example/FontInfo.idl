@@ -1,0 +1,12 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass FontInfo
+    {
+        FontInfo(String name, Microsoft.UI.Xaml.Media.FontFamily font);
+
+        String Name{ get; };
+        Microsoft.UI.Xaml.Media.FontFamily Font{ get; };
+    }
+}

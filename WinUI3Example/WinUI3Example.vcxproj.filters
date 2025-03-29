@@ -157,7 +157,7 @@
       <Filter>Helper</Filter>
     </Page>
     <Page Include="ComboBoxHelperPage.xaml">
-      <Filter>Pages</Filter>
+      <Filter>Pages\ComboBoxHelperPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +208,9 @@
     </Midl>
     <Midl Include="ExpViewModel.idl">
       <Filter>Pages\Experimental</Filter>
+    </Midl>
+    <Midl Include="FontInfo.idl">
+      <Filter>Pages\ComboBoxHelperPage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -428,6 +431,9 @@
     </Filter>
     <Filter Include="Pages\ModernStandardWindowContextMenuPage">
       <UniqueIdentifier>{cccb3a92-5f5a-4914-b81c-4c743bd9ee93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\ComboBoxHelperPage">
+      <UniqueIdentifier>{38acb7f6-3082-4879-ac2a-70895963e514}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

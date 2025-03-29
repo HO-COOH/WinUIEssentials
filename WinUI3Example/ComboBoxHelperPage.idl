@@ -4,5 +4,12 @@ namespace WinUI3Example
     runtimeclass ComboBoxHelperPage : Microsoft.UI.Xaml.Controls.Page
     {
         ComboBoxHelperPage();
+
+        Windows.Foundation.Collections.IVector<Object> Fonts{ get; };
+
+        // C++ gets compile error if we use cast in {x:Bind}
+        // https://github.com/microsoft/microsoft-ui-xaml/issues/10360
+        static Double GetDoubleFromComboBox(Object selectedValue);
+        static Microsoft.UI.Xaml.Media.FontFamily GetFontFamilyFromComboBox(Object selectedValue);
     }
 }

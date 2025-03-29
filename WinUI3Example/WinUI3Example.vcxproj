@@ -348,6 +348,10 @@
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="FontInfo.h">
+      <DependentUpon>FontInfo.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Global.h" />
     <ClInclude Include="GlyphsPage.xaml.h">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
@@ -760,6 +764,10 @@
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="FontInfo.cpp">
+      <DependentUpon>FontInfo.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="GlyphsPage.xaml.cpp">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
@@ -1016,6 +1024,9 @@
     <Midl Include="ExtensionsPage.idl">
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="FontInfo.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="GlyphsPage.idl">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>

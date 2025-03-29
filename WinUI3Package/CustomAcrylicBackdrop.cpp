@@ -71,9 +71,7 @@ namespace winrt::WinUI3Package::implementation
 		//Note: This method will be called before any Property setter get called.
 		//So we do not need to apply the properties in this method
 		makeAcrylicController(connectedTarget);
-		m_hwnd = GetParent(winrt::Microsoft::UI::GetWindowFromWindowId(
-			connectedTarget.as<winrt::Microsoft::UI::Xaml::Hosting::DesktopWindowXamlSource>().SiteBridge().WindowId()
-		));
+		m_hwnd = reinterpret_cast<HWND>(xamlRoot.ContentIslandEnvironment().AppWindowId().Value);
 
 		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);
 		BackdropWindowActiveStateWorkaroundHandler<CustomAcrylicBackdrop, subclassId>::Set(m_hwnd, this);
