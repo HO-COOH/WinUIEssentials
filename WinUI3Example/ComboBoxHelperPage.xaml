@@ -52,22 +52,9 @@
                         Width="200"
                         Header="Font Size"
                         IsEditable="True"
-                        SelectedIndex="2">
-                        <x:Int32>8</x:Int32>
-                        <x:Int32>9</x:Int32>
-                        <x:Int32>10</x:Int32>
-                        <x:Int32>11</x:Int32>
-                        <x:Int32>12</x:Int32>
-                        <x:Int32>14</x:Int32>
-                        <x:Int32>16</x:Int32>
-                        <x:Int32>18</x:Int32>
-                        <x:Int32>20</x:Int32>
-                        <x:Int32>24</x:Int32>
-                        <x:Int32>28</x:Int32>
-                        <x:Int32>36</x:Int32>
-                        <x:Int32>48</x:Int32>
-                        <x:Int32>72</x:Int32>
-                    </ComboBox>
+                        ItemsSource="{x:Bind FontSizes}"
+                        SelectedIndex="2"
+                        TextSubmitted="Combo3_TextSubmitted" />
                     <TextBlock
                         x:Name="Control3Output"
                         FontSize="{x:Bind local:ComboBoxHelperPage.GetDoubleFromComboBox(Combo3.SelectedValue), Mode=OneWay}"
@@ -87,7 +74,7 @@
                         essential:ComboBoxHelper.AcrylicWorkaround="True"
                         Header="Colors"
                         PlaceholderText="Pick a color"
-                        SelectionChanged="Combo1_SelectionChanged">
+                        SelectionChanged="Combo4_SelectionChanged">
                         <x:String>Blue</x:String>
                         <x:String>Green</x:String>
                         <x:String>Red</x:String>
@@ -123,28 +110,55 @@
                         essential:ComboBoxHelper.AcrylicWorkaround="True"
                         Header="Font Size"
                         IsEditable="True"
-                        SelectedIndex="2">
-                        <x:Int32>8</x:Int32>
-                        <x:Int32>9</x:Int32>
-                        <x:Int32>10</x:Int32>
-                        <x:Int32>11</x:Int32>
-                        <x:Int32>12</x:Int32>
-                        <x:Int32>14</x:Int32>
-                        <x:Int32>16</x:Int32>
-                        <x:Int32>18</x:Int32>
-                        <x:Int32>20</x:Int32>
-                        <x:Int32>24</x:Int32>
-                        <x:Int32>28</x:Int32>
-                        <x:Int32>36</x:Int32>
-                        <x:Int32>48</x:Int32>
-                        <x:Int32>72</x:Int32>
-                    </ComboBox>
+                        ItemsSource="{x:Bind FontSizes}"
+                        SelectedIndex="2"
+                        TextSubmitted="Combo3_TextSubmitted" />
                     <TextBlock
                         x:Name="Control6Output"
                         FontSize="{x:Bind local:ComboBoxHelperPage.GetDoubleFromComboBox(Combo6.SelectedValue), Mode=OneWay}"
                         Text="You can set the font size used for this text." />
                 </StackPanel>
             </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;ComboBox
+    x:Name=&quot;Combo4&quot;
+    Width=&quot;200&quot;
+    essential:ComboBoxHelper.AcrylicWorkaround=&quot;True&quot;
+    Header=&quot;Colors&quot;
+    PlaceholderText=&quot;Pick a color&quot;
+    SelectionChanged=&quot;Combo1_SelectionChanged&quot;&gt;
+    &lt;x:String&gt;Blue&lt;/x:String&gt;
+    &lt;x:String&gt;Green&lt;/x:String&gt;
+    &lt;x:String&gt;Red&lt;/x:String&gt;
+    &lt;x:String&gt;Yellow&lt;/x:String&gt;
+&lt;/ComboBox&gt;
+                            
+&lt;ComboBox
+    x:Name=&quot;Combo5&quot;
+    MinWidth=&quot;200&quot;
+    essential:ComboBoxHelper.AcrylicWorkaround=&quot;True&quot;
+    DisplayMemberPath=&quot;Name&quot;
+    Header=&quot;Font&quot;
+    ItemsSource=&quot;{x:Bind Fonts}&quot;
+    SelectedIndex=&quot;2&quot;
+    SelectedValuePath=&quot;Font&quot; /&gt;
+                            
+&lt;ComboBox
+    x:Name=&quot;Combo6&quot;
+    Width=&quot;200&quot;
+    essential:ComboBoxHelper.AcrylicWorkaround=&quot;True&quot;
+    Header=&quot;Font Size&quot;
+    IsEditable=&quot;True&quot;
+    ItemsSource=&quot;{x:Bind FontSizes}&quot;
+    SelectedIndex=&quot;2&quot;
+    TextSubmitted=&quot;Combo3_TextSubmitted&quot; /&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
     </StackPanel>
 </Page>

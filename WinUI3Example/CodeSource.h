@@ -21,12 +21,12 @@ namespace winrt::WinUI3Example::implementation
         winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Example::ControlExampleSubstitution> Substitutions();
 
         std::function<void(std::wstring const& value)> ValueChanged;
+        std::wstring FormatCode();
     private:
         winrt::hstring m_code;
         winrt::Windows::Foundation::Uri m_codeUrl{ nullptr };
         winrt::Windows::Foundation::Uri m_fileUri{ nullptr };
         winrt::Windows::Foundation::Collections::IObservableVector<winrt::WinUI3Example::ControlExampleSubstitution> m_substitutions = winrt::single_threaded_observable_vector<winrt::WinUI3Example::ControlExampleSubstitution>();
-        std::wstring formatCode();
 
         template<typename String, typename... Args>
         static auto vFormat(String&& code, Args&&... args)

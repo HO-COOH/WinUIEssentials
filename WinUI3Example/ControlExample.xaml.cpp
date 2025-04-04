@@ -74,7 +74,9 @@ namespace Impl
 					progressBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
 				if (auto code = m_codeRef.get())
 				{
-					winrt::get_self<winrt::WinUI3Example::implementation::CodeSource>(code)->ValueChanged = [this](std::wstring const& code) {
+					auto codeImpl = winrt::get_self<winrt::WinUI3Example::implementation::CodeSource>(code);
+					Code(winrt::hstring{ codeImpl->FormatCode() });
+					codeImpl->ValueChanged = [this](std::wstring const& code) {
 						Code(winrt::hstring{ code });
 					};
 				}

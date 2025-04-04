@@ -17,7 +17,7 @@ namespace winrt::WinUI3Example::implementation
             {
                 winrt::get_self<ControlExampleSubstitution>(sender.GetAt(arg.Index()))->ValueChanged = [this]() {
                     if (ValueChanged)
-                        ValueChanged(formatCode());
+                        ValueChanged(FormatCode());
                 };
             }
         });
@@ -50,7 +50,7 @@ namespace winrt::WinUI3Example::implementation
     {
         return m_substitutions;
     }
-    std::wstring CodeSource::formatCode()
+    std::wstring CodeSource::FormatCode()
     {
         auto const numSubstitutions = Substitutions().Size();
         switch (numSubstitutions)

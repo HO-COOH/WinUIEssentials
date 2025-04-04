@@ -6,7 +6,7 @@ namespace WinUI3Example
         ComboBoxHelperPage();
 
         Windows.Foundation.Collections.IVector<Object> Fonts{ get; };
-
+		Windows.Foundation.Collections.IVector<Object> FontSizes{ get; };
         // C++ gets compile error if we use cast in {x:Bind}
         // https://github.com/microsoft/microsoft-ui-xaml/issues/10360
         static Double GetDoubleFromComboBox(Object selectedValue);
