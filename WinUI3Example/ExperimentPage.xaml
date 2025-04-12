@@ -66,5 +66,9 @@
                 </local:CodeSource>
             </local:ControlExample.Xaml>
         </local:ControlExample>
+
+        <local:ControlExample HeaderText="3D Flipping window">
+            <Button x:Name="FlipWindowButton" Click="FlipWindowButton_Click">Click to create window</Button>
+        </local:ControlExample>
     </StackPanel>
 </Page>

@@ -1,0 +1,15 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass FlipWindow : WinUI3Package.TransparentWindow
+    {
+        FlipWindow();
+
+        static Double GetCanvasLeftOffset(Double controlWidth, Double canvasWidth);
+        Double ContentWidth{ get; };
+        Double ContentHeight{ get; };
+
+        Double WindowWidth{ get; };
+        Double WindowHeight{ get; };
+    }
+}

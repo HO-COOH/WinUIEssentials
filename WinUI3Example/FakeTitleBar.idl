@@ -1,0 +1,12 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass FakeTitleBar : Microsoft.UI.Xaml.Controls.Control
+    {
+        FakeTitleBar();
+        
+        String Title{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };
+    }
+}

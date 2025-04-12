@@ -35,4 +35,11 @@ namespace winrt::WinUI3Example::implementation
 		winrt::WinUI3Example::NonResizableWindowWithWorkaround{}.Activate();
 	}
 
+	void ExperimentPage::FlipWindowButton_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		winrt::WinUI3Example::FlipWindow{}.Activate();
+	}
+
 }

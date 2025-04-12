@@ -348,6 +348,14 @@
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="FakeTitleBar.h">
+      <DependentUpon>FakeTitleBar.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="FlipWindow.xaml.h">
+      <DependentUpon>FlipWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FontInfo.h">
       <DependentUpon>FontInfo.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -577,6 +585,10 @@
     <Page Include="ExtensionsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FakeTitleBar_Resource.xaml" />
+    <Page Include="FlipWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GlyphsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -762,6 +774,14 @@
     </ClCompile>
     <ClCompile Include="ExtensionsPage.xaml.cpp">
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="FakeTitleBar.cpp">
+      <DependentUpon>FakeTitleBar.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="FlipWindow.xaml.cpp">
+      <DependentUpon>FlipWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="FontInfo.cpp">
@@ -1023,6 +1043,13 @@
     </Midl>
     <Midl Include="ExtensionsPage.idl">
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="FakeTitleBar.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="FlipWindow.idl">
+      <DependentUpon>FlipWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="FontInfo.idl">

@@ -159,6 +159,12 @@
     <Page Include="ComboBoxHelperPage.xaml">
       <Filter>Pages\ComboBoxHelperPage</Filter>
     </Page>
+    <Page Include="FlipWindow.xaml">
+      <Filter>Pages\Experimental</Filter>
+    </Page>
+    <Page Include="FakeTitleBar_Resource.xaml">
+      <Filter>Pages\Experimental\FakeWin32</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -211,6 +217,9 @@
     </Midl>
     <Midl Include="FontInfo.idl">
       <Filter>Pages\ComboBoxHelperPage</Filter>
+    </Midl>
+    <Midl Include="FakeTitleBar.idl">
+      <Filter>Pages\Experimental\FakeWin32</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -434,6 +443,9 @@
     </Filter>
     <Filter Include="Pages\ComboBoxHelperPage">
       <UniqueIdentifier>{38acb7f6-3082-4879-ac2a-70895963e514}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\Experimental\FakeWin32">
+      <UniqueIdentifier>{19670fbe-3617-4110-81fe-75e53d8ef75e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

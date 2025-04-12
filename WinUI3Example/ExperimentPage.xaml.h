@@ -16,6 +16,7 @@ namespace winrt::WinUI3Example::implementation
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void CreateNonResizableBtn_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void CreateNonResizableWithWorkaroundBtn_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void FlipWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 
