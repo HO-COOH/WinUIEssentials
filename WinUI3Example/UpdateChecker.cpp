@@ -157,7 +157,8 @@ void UpdateChecker::DownloadRelease()
                     &info,
                     &pi
                 ));
-                WaitForSingleObject(pi.hProcess, INFINITY);
+                
+                winrt::check_bool(wil::handle_wait(pi.hProcess));
             }
 
             //Execute powershell
