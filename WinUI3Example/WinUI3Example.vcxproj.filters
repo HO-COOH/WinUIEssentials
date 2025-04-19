@@ -229,10 +229,16 @@
     <ClCompile Include="DefaultAcrylicWindow.cpp">
       <Filter>Windows\Acrylic</Filter>
     </ClCompile>
+    <ClCompile Include="UpdateChecker.cpp">
+      <Filter>Helper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="UpdateChecker.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

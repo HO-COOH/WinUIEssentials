@@ -7,6 +7,7 @@
 #include "MainWindow.xaml.h"
 #include <winrt/Microsoft.Windows.AppNotifications.h>
 #include <microsoft.ui.xaml.window.h>
+#include "UpdateChecker.h"
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -54,10 +55,12 @@ namespace winrt::WinUI3Example::implementation
     /// </summary>
     /// <param name="e">Details about the launch request and process.</param>
     /// 
-    void App::OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&)
+    winrt::fire_and_forget App::OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&)
     {
         window = make<MainWindow>();
         window.Activate();
         MainHwnd() = GetHWNDFromWindow(window);
+        if (co_await UpdateChecker::HasUpdate())
+            UpdateChecker::DownloadRelease();
     }
 }

@@ -512,6 +512,7 @@
       <DependentUpon>TriggersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="UpdateChecker.h" />
     <ClInclude Include="UriGroup.h">
       <DependentUpon>UriGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -943,6 +944,7 @@
       <DependentUpon>TriggersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="UpdateChecker.cpp" />
     <ClCompile Include="UriGroup.cpp">
       <DependentUpon>UriGroup.idl</DependentUpon>
       <SubType>Code</SubType>
