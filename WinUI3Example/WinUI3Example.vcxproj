@@ -340,10 +340,6 @@
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ExpViewModel.h">
-      <DependentUpon>ExpViewModel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ExtensionsPage.xaml.h">
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -401,6 +397,7 @@
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MorphAnimationHelper.h" />
     <ClInclude Include="MyDataModel.h">
       <DependentUpon>MyDataModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -769,10 +766,6 @@
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ExpViewModel.cpp">
-      <DependentUpon>ExpViewModel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ExtensionsPage.xaml.cpp">
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -830,6 +823,7 @@
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="MorphAnimationHelper.cpp" />
     <ClCompile Include="MyDataModel.cpp">
       <DependentUpon>MyDataModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1039,9 +1033,6 @@
     <Midl Include="ExperimentPage.idl">
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="ExpViewModel.idl">
-      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ExtensionsPage.idl">
       <DependentUpon>ExtensionsPage.xaml</DependentUpon>

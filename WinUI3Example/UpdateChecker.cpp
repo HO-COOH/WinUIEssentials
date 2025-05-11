@@ -35,6 +35,7 @@ std::wstring UpdateChecker::getUnzipFolderPath()
 
 winrt::Windows::Foundation::IAsyncOperation<bool> UpdateChecker::HasUpdate()
 {
+    co_return false;
     try
     {
         client = {};

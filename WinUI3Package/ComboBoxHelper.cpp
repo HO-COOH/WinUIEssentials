@@ -69,7 +69,7 @@ namespace winrt::WinUI3Package::implementation
 		auto comboBox = object.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
 		comboBox.Loaded([](winrt::Windows::Foundation::IInspectable const& comboBoxRef, auto&&...) {
 			auto comboBox = comboBoxRef.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
-			auto popup = FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(comboBox, L"Popup");
+			auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(comboBox, L"Popup");
 			if (!popup) return;
 
 			popup.Opened(

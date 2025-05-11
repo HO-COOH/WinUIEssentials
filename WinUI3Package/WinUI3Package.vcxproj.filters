@@ -204,6 +204,9 @@
     <ClInclude Include="WindowContextMenuUtils.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="include\VisualTreeHelper.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

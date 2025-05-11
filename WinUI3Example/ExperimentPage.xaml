@@ -9,22 +9,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Page.Resources>
-        <local:ExpViewModel x:Name="MyViewModel">
-            <local:ExpViewModel.MyProperty>
-                <local:MyEnum>MyValue2</local:MyEnum>
-            </local:ExpViewModel.MyProperty>
-        </local:ExpViewModel>
-    </Page.Resources>
     <StackPanel>
-        <TextBlock Text="Experiment functionalities go here!" />
+        <TextBlock Text="Experimental functionalities and application-specific functionalities that are not really applicable for every applications go here!" />
 
         <local:ControlExample HeaderText="Create a window with xaml caption context menu">
             <Button x:Name="TestWindowBtn" Click="TestWindowBtn_Click">
                 Create a window
-                <Button.ContextFlyout>
-                    <essential:ModernStandardWindowContextMenu />
-                </Button.ContextFlyout>
             </Button>
         </local:ControlExample>
 
@@ -69,6 +59,19 @@
 
         <local:ControlExample HeaderText="3D Flipping window">
             <Button x:Name="FlipWindowButton" Click="FlipWindowButton_Click">Click to create window</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="A Smooth morph animation that morph a Button to a ProgressBar">
+            <Grid MinWidth="500">
+                <Button x:Name="ButtonMorph" Style="{StaticResource AccentButtonStyle}">Click to morph</Button>
+                <ProgressBar x:Name="ProgressBarMorph" Width="300" Height="50" Value="50" Visibility="Collapsed"/>
+            </Grid>
+            <local:ControlExample.Options>
+                <StackPanel Spacing="5">
+                    <Button Click="ButtonMorph_Click">Play animation at normal speed</Button>
+                    <Button x:Name="SlowButtonMorph" Click="SlowButtonMorph_Click">Play animation 5x slower</Button>
+                </StackPanel>
+            </local:ControlExample.Options>
         </local:ControlExample>
     </StackPanel>
 </Page>

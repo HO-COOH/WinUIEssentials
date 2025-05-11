@@ -212,9 +212,6 @@
     <Midl Include="CodeSource.idl">
       <Filter>Helper</Filter>
     </Midl>
-    <Midl Include="ExpViewModel.idl">
-      <Filter>Pages\Experimental</Filter>
-    </Midl>
     <Midl Include="FontInfo.idl">
       <Filter>Pages\ComboBoxHelperPage</Filter>
     </Midl>
@@ -232,12 +229,18 @@
     <ClCompile Include="UpdateChecker.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
+    <ClCompile Include="MorphAnimationHelper.cpp">
+      <Filter>Pages\Experimental</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="UpdateChecker.h">
       <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="MorphAnimationHelper.h">
+      <Filter>Pages\Experimental</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
