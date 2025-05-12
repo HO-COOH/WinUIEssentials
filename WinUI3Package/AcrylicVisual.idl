@@ -1,0 +1,9 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AcrylicVisual : Microsoft.UI.Xaml.Controls.Control
+    {
+        AcrylicVisual();
+    }
+}

@@ -10,6 +10,7 @@
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Microsoft.UI.Content.h>
 #include <unordered_map>
+#include "AcrylicVisual.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -23,14 +24,6 @@ namespace winrt::WinUI3Package::implementation
 				&ComboBoxHelper::acrylicWorkaroundChanged
 			}
 		);
-
-	winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration ComboBoxHelper::m_configuration = 
-		[]() 
-		{
-			winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration configuration;
-			configuration.IsInputActive(true);
-			return configuration;
-		}();
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty ComboBoxHelper::AcrylicWorkaroundProperty()
 	{
@@ -49,14 +42,6 @@ namespace winrt::WinUI3Package::implementation
 	{
 		comboBox.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
 	}
-
-	struct AcrylicInfo
-	{
-		winrt::Microsoft::UI::Content::ContentExternalBackdropLink backdropLink{ nullptr };
-		winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicController controller{ nullptr };
-	};
-
-	std::unordered_map<winrt::Microsoft::UI::Xaml::Controls::ComboBox, AcrylicInfo> s_maps;
 
 	void ComboBoxHelper::acrylicWorkaroundChanged(
 		winrt::Microsoft::UI::Xaml::DependencyObject const& object, 
@@ -85,66 +70,24 @@ namespace winrt::WinUI3Package::implementation
 
 					called = true;
 					auto size = border.ActualSize();
-
+					border.Translation({ -1.f, 0, 0 });
 					auto originalChild = border.Child();
 					winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
-					scrollGrid.Width(size.x);
+					scrollGrid.Width(size.x - 1);
 					scrollGrid.Height(size.y);
 					border.Child(scrollGrid);
 
-
-					winrt::Microsoft::UI::Xaml::Controls::Grid visualGrid;
-					scrollGrid.Children().Append(visualGrid);
-					scrollGrid.Children().Append(originalChild);
-
-					auto compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(border).Compositor();
-
-					AcrylicInfo info
-					{
-						.backdropLink = winrt::Microsoft::UI::Content::ContentExternalBackdropLink::Create(compositor),
-						.controller = {}
-					};
-
-					info.backdropLink.ExternalBackdropBorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
-					
-					auto placementVisual = info.backdropLink.PlacementVisual();
-					placementVisual.Size(size);
-					placementVisual.Clip(compositor.CreateRectangleClip(
-						0.f,
-						0.f,
-						size.x,
-						size.y - 2,
-						{ ComboBoxCornerRadius, ComboBoxCornerRadius },
-						{ ComboBoxCornerRadius, ComboBoxCornerRadius },
-						{ ComboBoxCornerRadius, ComboBoxCornerRadius },
-						{ ComboBoxCornerRadius, ComboBoxCornerRadius }
-					));
-					placementVisual.BorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
-
-					//Add this placementVisual to Grid's ContainerVisual
-					winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(visualGrid)
-						.as<winrt::Microsoft::UI::Composition::ContainerVisual>()
-						.Children()
-						.InsertAtTop(placementVisual);
-
-					info.controller.AddSystemBackdropTarget(
-						info.backdropLink.as<winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop>()
-					);
-					info.controller.SetSystemBackdropConfiguration(m_configuration);
-
-					s_maps[comboBoxWeak.get()] = info;
+					winrt::WinUI3Package::AcrylicVisual visual;
+					winrt::get_self<AcrylicVisual>(visual)->ClipOffset.w = -2.f;
+	
+					visual.CornerRadius({ ComboBoxCornerRadius, ComboBoxCornerRadius, ComboBoxCornerRadius, ComboBoxCornerRadius });
+					scrollGrid.Children().ReplaceAll({ visual, originalChild });
 				});
 
 			//We need to programmatically open it once, otherwise it will close when we first set its visual, not sure why
 			//IsEditable=True is an exception, it will open if we programatically open it
 			if (!comboBox.IsEditable())
 				comboBox.IsDropDownOpen(true);
-		});
-
-		//clean up the dictionary
-		comboBox.Unloaded([](winrt::Windows::Foundation::IInspectable const& comboBoxRef, auto&&...)
-		{
-			s_maps.erase(comboBoxRef.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>());
 		});
 	}
 }

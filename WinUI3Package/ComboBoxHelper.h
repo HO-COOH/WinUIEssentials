@@ -23,9 +23,6 @@ namespace winrt::WinUI3Package::implementation
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg
         );
 
-        static winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicController acrylicController;
-        static winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration m_configuration;
-
         constexpr static float ComboBoxCornerRadius = 8.f;
     };
 }

@@ -450,6 +450,9 @@
       <Filter>Windows</Filter>
     </Midl>
     <Midl Include="VersionInfo.idl" />
+    <Midl Include="AcrylicVisual.idl">
+      <Filter>Controls\AcrylicVisual</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
