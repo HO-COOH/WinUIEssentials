@@ -165,6 +165,12 @@
     <Page Include="FakeTitleBar_Resource.xaml">
       <Filter>Pages\Experimental\FakeWin32</Filter>
     </Page>
+    <Page Include="AnimatedNumber_Resource.xaml">
+      <Filter>Pages\Experimental\AnimatedNumber</Filter>
+    </Page>
+    <Page Include="WrapPanelPage.xaml">
+      <Filter>Pages\WrapPanelPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -217,6 +223,12 @@
     </Midl>
     <Midl Include="FakeTitleBar.idl">
       <Filter>Pages\Experimental\FakeWin32</Filter>
+    </Midl>
+    <Midl Include="AnimatedNumber.idl">
+      <Filter>Pages\Experimental\AnimatedNumber</Filter>
+    </Midl>
+    <Midl Include="PhotoDataItemWithDimension.idl">
+      <Filter>Pages\WrapPanelPage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +415,9 @@
     <Image Include="Assets\Owl.jpg">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\BigFourSummerHeat.jpg">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -455,6 +470,12 @@
     </Filter>
     <Filter Include="Pages\Experimental\FakeWin32">
       <UniqueIdentifier>{19670fbe-3617-4110-81fe-75e53d8ef75e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\Experimental\AnimatedNumber">
+      <UniqueIdentifier>{4969a3f7-1a3e-4fa3-b177-fd66e714ea1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\WrapPanelPage">
+      <UniqueIdentifier>{9d98eb43-78b4-4207-a31b-dfaa6f2e6d43}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,12 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AnimatedNumber : Microsoft.UI.Xaml.Controls.Control
+    {
+        AnimatedNumber();
+        Int32 Value;
+
+        Windows.Foundation.Collections.IObservableVector<Int32> Digits{ get; };
+    }
+}

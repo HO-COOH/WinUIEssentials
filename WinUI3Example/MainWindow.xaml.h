@@ -64,7 +64,8 @@ namespace winrt::WinUI3Example::implementation
             {L"InitializeWithWindowHelper", winrt::xaml_typename<WinUI3Example::InitializeWithWindowHelperPage>()},
             {L"ModernStandardWindowMenu", winrt::xaml_typename<WinUI3Example::ModernStandardWindowContextMenuPage>()},
             {L"Extensions", winrt::xaml_typename<WinUI3Example::ExtensionsPage>()},
-            {L"ComboBoxHelper", winrt::xaml_typename<WinUI3Example::ComboBoxHelperPage>()}
+            {L"ComboBoxHelper", winrt::xaml_typename<WinUI3Example::ComboBoxHelperPage>()},
+			{L"WrapPanel", winrt::xaml_typename<WinUI3Example::WrapPanelPage>()}
         };
     public:
         void ExitItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

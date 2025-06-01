@@ -453,6 +453,9 @@
     <Midl Include="AcrylicVisual.idl">
       <Filter>Controls\AcrylicVisual</Filter>
     </Midl>
+    <Midl Include="WrapPanel.idl">
+      <Filter>Controls</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

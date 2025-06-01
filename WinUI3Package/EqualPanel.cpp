@@ -4,6 +4,7 @@
 #include "EqualPanel.g.cpp"
 #endif
 #include <winrt/Windows.UI.Xaml.Interop.h>
+#include "WrapPanel.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -136,6 +137,7 @@ namespace winrt::WinUI3Package::implementation
         else
             return {};
     }
+
     winrt::Windows::Foundation::Size EqualPanel::ArrangeOverride(winrt::Windows::Foundation::Size finalSize)
     {
         if (hasMoreSpaceAvailable(finalSize))

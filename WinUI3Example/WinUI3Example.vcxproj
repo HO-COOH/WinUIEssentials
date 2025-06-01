@@ -268,6 +268,10 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="AnimatedNumber.h">
+      <DependentUpon>AnimatedNumber.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="BackdropPage.xaml.h">
       <DependentUpon>BackdropPage.xaml</DependentUpon>
     </ClInclude>
@@ -433,6 +437,10 @@
       <DependentUpon>Person.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="PhotoDataItemWithDimension.h">
+      <DependentUpon>PhotoDataItemWithDimension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ProgressBarExPage.xaml.h">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -534,12 +542,17 @@
       <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WrapPanelPage.xaml.h">
+      <DependentUpon>WrapPanelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
     <Page Include="AboutPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="AnimatedNumber_Resource.xaml" />
     <Page Include="BackdropPage.xaml" />
     <Page Include="BadgePage.xaml">
       <SubType>Designer</SubType>
@@ -690,10 +703,17 @@
     <Page Include="WindowWithCustomMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WrapPanelPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutPage.xaml.cpp">
       <DependentUpon>AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="AnimatedNumber.cpp">
+      <DependentUpon>AnimatedNumber.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="BackdropPage.xaml.cpp">
@@ -862,6 +882,10 @@
       <DependentUpon>Person.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="PhotoDataItemWithDimension.cpp">
+      <DependentUpon>PhotoDataItemWithDimension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ProgressBarExPage.xaml.cpp">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -963,11 +987,18 @@
       <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WrapPanelPage.xaml.cpp">
+      <DependentUpon>WrapPanelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="AboutPage.idl">
       <DependentUpon>AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="AnimatedNumber.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="App.idl">
       <SubType>Code</SubType>
@@ -1115,6 +1146,9 @@
     <Midl Include="Person.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="PhotoDataItemWithDimension.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1212,8 +1246,13 @@
       <DependentUpon>WindowWithCustomMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="WrapPanelPage.idl">
+      <DependentUpon>WrapPanelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\BigFourSummerHeat.jpg" />
     <Image Include="Assets\LargeTile.scale-100.png" />
     <Image Include="Assets\LargeTile.scale-125.png" />
     <Image Include="Assets\LargeTile.scale-150.png" />

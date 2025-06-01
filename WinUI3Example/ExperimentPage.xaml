@@ -73,5 +73,13 @@
                 </StackPanel>
             </local:ControlExample.Options>
         </local:ControlExample>
+
+        <local:ControlExample HeaderText="Animated digit">
+            <local:AnimatedNumber Value="100"/>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="AcrylicVisual">
+            <essential:AcrylicVisual MinWidth="100" MinHeight =" 100" CornerRadius="4"/>
+        </local:ControlExample>
     </StackPanel>
 </Page>

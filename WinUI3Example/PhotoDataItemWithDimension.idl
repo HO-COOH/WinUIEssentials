@@ -1,0 +1,16 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass PhotoDataItemWithDimension 
+    {
+        PhotoDataItemWithDimension();
+    
+	    Double Width;
+		Double Height;
+
+        String Title;
+        String Category;
+        String Thumbnail;
+    }
+}

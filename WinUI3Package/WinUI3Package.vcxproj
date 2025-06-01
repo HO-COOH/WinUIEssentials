@@ -527,6 +527,10 @@
     </ClInclude>
     <ClInclude Include="WindowsVersion.hpp" />
     <ClInclude Include="WinUIEssentialError.hpp" />
+    <ClInclude Include="WrapPanel.h">
+      <DependentUpon>WrapPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AcrylicVisual.cpp">
@@ -768,6 +772,10 @@
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WrapPanel.cpp">
+      <DependentUpon>WrapPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".nuspec" />
@@ -941,6 +949,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowEx.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="WrapPanel.idl">
       <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>

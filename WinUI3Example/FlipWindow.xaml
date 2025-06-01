@@ -18,7 +18,7 @@
             <Storyboard x:Name="ZIndexAnimation">
                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackGrid" Storyboard.TargetProperty="(Canvas.ZIndex)">
                     <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="2" />
-                    <DiscreteObjectKeyFrame KeyTime="0:0:4.2" Value="0" />
+                    <DiscreteObjectKeyFrame KeyTime="0:0:3.9" Value="0" />
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
         </Canvas.Resources>
@@ -64,21 +64,23 @@
             Canvas.ZIndex="1"
             CornerRadius="8,8,8,8">
 
+
+            <essential:HostBackdropVisual>
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ColorPicker />
+                    <Button
+                    x:Name="myButton"
+                    HorizontalAlignment="Center"
+                    Click="myButton_Click">
+                        Click Me
+                    </Button>
+                </StackPanel>
+            </essential:HostBackdropVisual>
+
             <local:FakeTitleBar
                 Width="{x:Bind ContentWidth}"
                 Height="32"
                 VerticalAlignment="Top" />
-            <!--<essential:HostBackdropVisual />-->
-            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <ColorPicker />
-                <Button
-                    x:Name="myButton"
-                    HorizontalAlignment="Center"
-                    Click="myButton_Click">
-                    Click Me
-                </Button>
-            </StackPanel>
-
         </Grid>
     </Canvas>
 

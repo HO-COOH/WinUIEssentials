@@ -1,0 +1,18 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass WrapPanel : Microsoft.UI.Xaml.Controls.Panel
+    {
+        WrapPanel();
+        
+        Double HorizontalSpacing;
+        static Microsoft.UI.Xaml.DependencyProperty HorizontalSpacingProperty{ get; };
+
+        Double VerticalSpacing;
+        static Microsoft.UI.Xaml.DependencyProperty VerticalSpacingProperty{ get; };
+
+        Microsoft.UI.Xaml.Controls.Orientation Orientation;
+        static Microsoft.UI.Xaml.DependencyProperty OrientationProperty{ get; };
+    }
+}
