@@ -78,6 +78,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |WindowContextMenu | :x: | :white_check_mark: | WinRT component
 |NonResizableWindowWhiteBorderWorkaround | :x: | :white_check_mark: | WinRT component
 |ComboBoxHelper | :x: | :white_check_mark: | WinRT component
+|WrapPanel | :x: | :white_check_mark: | WinRT | Panel
 
 *means additional settings required, see the sections for info
 
@@ -910,3 +911,20 @@ The WinUI3's built-in `ComboBox` does not have [Acrylic background](https://gith
 |Before|After|
 |------|-----|
 |![](assets/combobox-original.png)|![](assets/combobox-fixed.png)|
+
+## WrapPanel
+A panel that position child elements from left to right first then wrap to new row when the width is not enough.
+Switching orientation to position child elements from top to bottom first then wrap to new column when the height is not enough.
+
+A better implementation to community toolkit that does NOT crash!
+
+Usage:
+```xml
+ <ListView ItemsSource="{x:Bind WrapPanelCollection, Mode=OneWay}">
+    <ListView.ItemsPanel>
+        <ItemsPanelTemplate>
+            <essential:WrapPanel x:Name="sampleWrapPanel" />
+        </ItemsPanelTemplate>
+    </ListView.ItemsPanel>
+</ListView>
+```

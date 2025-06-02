@@ -1,0 +1,16 @@
+import "NamedUrl.idl";
+
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass PageHeader : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        PageHeader();
+        
+        String Header;
+        String Description;
+        
+        Windows.Foundation.Uri SampleUrl;
+        Windows.Foundation.Collections.IVector<Object> Urls{ get; };
+    }
+}

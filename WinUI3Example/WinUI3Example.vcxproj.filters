@@ -171,6 +171,9 @@
     <Page Include="WrapPanelPage.xaml">
       <Filter>Pages\WrapPanelPage</Filter>
     </Page>
+    <Page Include="PageHeader.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -229,6 +232,9 @@
     </Midl>
     <Midl Include="PhotoDataItemWithDimension.idl">
       <Filter>Pages\WrapPanelPage</Filter>
+    </Midl>
+    <Midl Include="NamedUrl.idl">
+      <Filter>Helper</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

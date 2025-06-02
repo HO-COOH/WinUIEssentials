@@ -72,13 +72,13 @@
                       ItemClick="ItemControl_ItemClick"
                       ItemTemplate="{StaticResource PhotoTemplate}"
                       ItemsSource="{x:Bind WrapPanelCollection, Mode=OneWay}">
-                    <ItemsControl.ItemsPanel>
+                    <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <essential:WrapPanel x:Name="sampleWrapPanel"
                                 HorizontalSpacing="{Binding Value, ElementName=HorizontalSpacing, Mode=OneWay}"
                                 VerticalSpacing="{Binding Value, ElementName=VerticalSpacing, Mode=OneWay}" />
                         </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                    </ListView.ItemsPanel>
                 </ListView>
             </Grid>
 
