@@ -43,6 +43,8 @@ namespace winrt::WinUI3Package::implementation
 			setMultiSelectStyle(m_isMultiSelect);
 
 		TemplateApplied();
+
+		onSelectedIndexChanged(nullptr,nullptr);
 	}
 
 	winrt::Windows::Foundation::Numerics::float2 Segmented::SelectedItemActualWidth()
