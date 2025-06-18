@@ -4,12 +4,6 @@
 #include "ComboBoxHelper.g.cpp"
 #endif
 #include "VisualTreeHelper.hpp"
-#include <winrt/Microsoft.UI.Composition.h>
-#include <winrt/Microsoft.UI.Composition.SystemBackdrops.h>
-#include <winrt/Windows.UI.Composition.h>
-#include <winrt/Microsoft.UI.Xaml.Hosting.h>
-#include <winrt/Microsoft.UI.Content.h>
-#include <unordered_map>
 #include "AcrylicVisual.h"
 
 namespace winrt::WinUI3Package::implementation
@@ -52,42 +46,42 @@ namespace winrt::WinUI3Package::implementation
 			return;
 
 		auto comboBox = object.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
-		comboBox.Loaded([](winrt::Windows::Foundation::IInspectable const& comboBoxRef, auto&&...) {
-			auto comboBox = comboBoxRef.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
-			auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(comboBox, L"Popup");
+		comboBox.LayoutUpdated([comboxBoxRef = winrt::make_weak(comboBox), called = false](auto&&...) mutable 
+		{
+			if (called) return;
+
+			auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(
+				comboxBoxRef.get().as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>(), 
+				L"Popup"
+			);
 			if (!popup) return;
 
-			popup.Opened(
-				[
-					border = popup.FindName(L"PopupBorder").as<winrt::Microsoft::UI::Xaml::Controls::Border>(), 
-					comboBoxWeak = winrt::make_weak(comboBox), 
-					called = false
-				](auto&...) mutable
+			called = true;
+			auto border = popup.FindName(L"PopupBorder").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
+			border.SizeChanged([called = false, visualRef = winrt::weak_ref<winrt::WinUI3Package::AcrylicVisual>{}](auto const& borderRef, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) mutable
+			{
+				if (called)
 				{
-					//only set the visual once
-					if (called)
-						return;
+					if (auto visual = visualRef.get())
+						visual.CornerRadius(borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>().CornerRadius());
+					return;
+				}
 
-					called = true;
-					auto size = border.ActualSize();
-					border.Translation({ -1.f, 0, 0 });
-					auto originalChild = border.Child();
-					winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
-					scrollGrid.Width(size.x - 1);
-					scrollGrid.Height(size.y);
-					border.Child(scrollGrid);
+				// The border might still be not fully loaded, which might return a size of 0, rule out this situation here
+				auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
+				if (auto const newSize = args.NewSize(); newSize.Width == 0 || newSize.Height == 0)
+					return;
+				called = true;
+				auto originalChild = border.Child();
 
-					winrt::WinUI3Package::AcrylicVisual visual;
-					winrt::get_self<AcrylicVisual>(visual)->ClipOffset.w = -2.f;
-	
-					visual.CornerRadius({ ComboBoxCornerRadius, ComboBoxCornerRadius, ComboBoxCornerRadius, ComboBoxCornerRadius });
-					scrollGrid.Children().ReplaceAll({ visual, originalChild });
-				});
+				winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
+				border.Child(scrollGrid);
 
-			//We need to programmatically open it once, otherwise it will close when we first set its visual, not sure why
-			//IsEditable=True is an exception, it will open if we programatically open it
-			if (!comboBox.IsEditable())
-				comboBox.IsDropDownOpen(true);
+				winrt::WinUI3Package::AcrylicVisual visual;
+				visual.CornerRadius(border.CornerRadius());
+				scrollGrid.Children().ReplaceAll({ visual, originalChild });
+				visualRef = visual;
+			});
 		});
 	}
 }

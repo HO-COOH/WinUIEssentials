@@ -256,6 +256,10 @@
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="AutoSuggestBoxHelper.h">
+      <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp" />
     <ClInclude Include="BoolToVisibilityConverter.h">
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
@@ -537,6 +541,10 @@
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="AutoSuggestBoxHelper.cpp">
+      <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="BoolToVisibilityConverter.cpp">
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -785,6 +793,9 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="AcrylicVisual.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="AutoSuggestBoxHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="BoolToVisibilityConverter.idl">

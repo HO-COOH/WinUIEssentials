@@ -272,6 +272,10 @@
       <DependentUpon>AnimatedNumber.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="AutoSuggestBoxHelperPage.xaml.h">
+      <DependentUpon>AutoSuggestBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="BackdropPage.xaml.h">
       <DependentUpon>BackdropPage.xaml</DependentUpon>
     </ClInclude>
@@ -561,6 +565,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AnimatedNumber_Resource.xaml" />
+    <Page Include="AutoSuggestBoxHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BackdropPage.xaml" />
     <Page Include="BadgePage.xaml">
       <SubType>Designer</SubType>
@@ -725,6 +732,10 @@
     </ClCompile>
     <ClCompile Include="AnimatedNumber.cpp">
       <DependentUpon>AnimatedNumber.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="AutoSuggestBoxHelperPage.xaml.cpp">
+      <DependentUpon>AutoSuggestBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="BackdropPage.xaml.cpp">
@@ -1022,6 +1033,10 @@
     <Midl Include="App.idl">
       <SubType>Code</SubType>
       <DependentUpon>App.xaml</DependentUpon>
+    </Midl>
+    <Midl Include="AutoSuggestBoxHelperPage.idl">
+      <DependentUpon>AutoSuggestBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="BackdropPage.idl" />
     <Midl Include="BadgePage.idl">
@@ -1357,6 +1372,8 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </None>
     <None Include="packages.config" />
+    <None Include="vcpkg-configuration.json" />
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <!--
     Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
@@ -1401,6 +1418,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
     <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

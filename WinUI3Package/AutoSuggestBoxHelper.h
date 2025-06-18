@@ -1,17 +1,17 @@
 ﻿#pragma once
 
-#include "ComboBoxHelper.g.h"
+#include "AutoSuggestBoxHelper.g.h"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ComboBoxHelper : ComboBoxHelperT<ComboBoxHelper>
+    struct AutoSuggestBoxHelper : AutoSuggestBoxHelperT<AutoSuggestBoxHelper>
     {
-        ComboBoxHelper() = default;
+        AutoSuggestBoxHelper() = default;
 
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
-        static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::ComboBox const& comboBox);
+        static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& autoSuggestBox);
         static void SetAcrylicWorkaround(
-            winrt::Microsoft::UI::Xaml::Controls::ComboBox const& comboBox,
+            winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& autoSuggestBox,
             bool value
         );
 
@@ -27,7 +27,7 @@ namespace winrt::WinUI3Package::implementation
 
 namespace winrt::WinUI3Package::factory_implementation
 {
-    struct ComboBoxHelper : ComboBoxHelperT<ComboBoxHelper, implementation::ComboBoxHelper>
+    struct AutoSuggestBoxHelper : AutoSuggestBoxHelperT<AutoSuggestBoxHelper, implementation::AutoSuggestBoxHelper>
     {
     };
 }

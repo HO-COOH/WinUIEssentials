@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <StackPanel>
-        <local:ControlExample HeaderText="Original ComboBox, you don't have Acrylic">
+        <local:ControlExample HeaderText="Original ComboBox (from WinUI3 Gallery), you don't have Acrylic">
             <StackPanel Orientation="Horizontal" Spacing="20">
                 <StackPanel Spacing="8">
                     <ComboBox
@@ -159,6 +159,25 @@
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Visibility">
+            <ComboBox x:Name="CollapsedControl" Visibility="Collapsed" essential:ComboBoxHelper.AcrylicWorkaround="True">
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+                <x:String>1</x:String>
+            </ComboBox>
+
+            <local:ControlExample.Options>
+                <Button Click="Button_Click" Content="Toggle Visibility"/>
+            </local:ControlExample.Options>
         </local:ControlExample>
     </StackPanel>
 </Page>

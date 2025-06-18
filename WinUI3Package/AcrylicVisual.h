@@ -20,11 +20,6 @@ namespace winrt::WinUI3Package::implementation
             winrt::Microsoft::UI::Xaml::DependencyProperty const& cornerRadiusProperty
         );
 
-        void paddingChanged(
-            winrt::Microsoft::UI::Xaml::DependencyObject const& self,
-            winrt::Microsoft::UI::Xaml::DependencyProperty const& paddingProperty
-        );
-
         winrt::Microsoft::UI::Content::ContentExternalBackdropLink m_backdropLink{ nullptr };
         winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicController m_controller{ nullptr };
 

@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AutoSuggestBoxHelper 
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.AutoSuggestBox autoSuggestBox);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.AutoSuggestBox autoSuggestBox, Boolean value);
+    }
+}

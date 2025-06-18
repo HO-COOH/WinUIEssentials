@@ -78,6 +78,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 |WindowContextMenu | :x: | :white_check_mark: | WinRT component
 |NonResizableWindowWhiteBorderWorkaround | :x: | :white_check_mark: | WinRT component
 |ComboBoxHelper | :x: | :white_check_mark: | WinRT component
+|AutoSuggestBoxHelper | :x: | :white_check_mark: | WinRT component
 |WrapPanel | :x: | :white_check_mark: | WinRT | Panel
 
 *means additional settings required, see the sections for info
@@ -911,6 +912,17 @@ The WinUI3's built-in `ComboBox` does not have [Acrylic background](https://gith
 |Before|After|
 |------|-----|
 |![](assets/combobox-original.png)|![](assets/combobox-fixed.png)|
+
+## AutoSuggestBoxHelper
+The WinUI3's built-in `AutoSuggestBox` does not have [Acrylic background](https://github.com/microsoft/microsoft-ui-xaml/issues/10590). We fixed it for you. To use it, simply add `AutoSuggestBoxHelper.AcrylicWorkaround="True"` as an attached property on your `AutoSuggestBox`.
+
+```xml
+<AutoSuggestBox x:Name="Control2" Width="300"
+    essential:AutoSuggestBoxHelper.AcrylicWorkaround="True"/>
+```
+|Before|After|
+|------|-----|
+|![](assets/autosuggestbox-original.png)|![](assets/autosuggestbox-fixed.png)|
 
 ## WrapPanel
 A panel that position child elements from left to right first then wrap to new row when the width is not enough.

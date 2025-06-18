@@ -95,4 +95,15 @@ namespace winrt::WinUI3Example::implementation
 		args.Handled(true);
 	}
 
+	void ComboBoxHelperPage::Button_Click(
+		winrt::Windows::Foundation::IInspectable const& sender, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		CollapsedControl().Visibility(
+			CollapsedControl().Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Visible ? 
+			winrt::Microsoft::UI::Xaml::Visibility::Collapsed : 
+			winrt::Microsoft::UI::Xaml::Visibility::Visible
+		);
+	}
+
 }

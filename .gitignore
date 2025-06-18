@@ -431,3 +431,4 @@ coverage
 *.sw?
 
 *.tsbuildinfo
+vcpkg_installed

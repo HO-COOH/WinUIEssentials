@@ -15,6 +15,9 @@ namespace winrt::WinUI3Example::implementation
         void Combo3_TextSubmitted(
             winrt::Microsoft::UI::Xaml::Controls::ComboBox const& sender, 
             winrt::Microsoft::UI::Xaml::Controls::ComboBoxTextSubmittedEventArgs const& args);
+        void Button_Click(
+            winrt::Windows::Foundation::IInspectable const& sender, 
+            winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Fonts();
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> FontSizes();

@@ -174,6 +174,9 @@
     <Page Include="PageHeader.xaml">
       <Filter>Helper</Filter>
     </Page>
+    <Page Include="AutoSuggestBoxHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -495,6 +498,8 @@
     <None Include="Monaco.html">
       <Filter>Helper</Filter>
     </None>
+    <None Include="vcpkg.json" />
+    <None Include="vcpkg-configuration.json" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
