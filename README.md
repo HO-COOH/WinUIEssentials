@@ -34,6 +34,22 @@ To build the `*Example` project, do the same thing. They did not reference `*Pac
 
 It should be useful until the [community toolkit](https://github.com/CommunityToolkit/WindowsCommunityToolkit) provides C++.
 
+-----
+## Build and contribute
+### Build requirements
+- You need to have [vcpkg](https://vcpkg.io/en/) installed and integrate setup for msbuild. See [this documentation for guide](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started-msbuild?pivots=shell-powershell).
+- You need to have Visual Studio with `Desktop development with C++` and `WinUI Application development` workload installed.
+- You need to build both `Debug` and `Release` build to successfully build and debug the example project (this is intentional for not missing debug version of the package)
+
+You can reference Github Action for detailed build steps.
+
+
+### Contribute a new templated control
+1. Create a control under the `Controls` folder, with the `ViewModel` file template, then you edit the `idl` as needed
+2. If the control has a `ResourceDictionary` xaml, add an entry in the `WinUIEssential.WinU3.targets` so that the `.xbf` file is properly copied (see the file for example) 
+3. Please also consider adding a demo page for the control, and add it to `MainWindow.xaml.h` `MainWindow::s_page` (see the file for example)
+
+-----
 ## Content
 |Component|UWP|WinUI3|Type
 |--|--|--|--|
@@ -940,3 +956,5 @@ Usage:
     </ListView.ItemsPanel>
 </ListView>
 ```
+
+![](assets/wrappanel.gif)
