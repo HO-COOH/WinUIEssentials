@@ -141,9 +141,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
     <MultiProcMIDL>true</MultiProcMIDL>
   </PropertyGroup>
-  <PropertyGroup Label="Vcpkg">
-    <VcpkgEnableManifest>true</VcpkgEnableManifest>
-  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
