@@ -21,7 +21,7 @@ namespace winrt::WinUI3Package::implementation
 			L"SwitchCases",
 			winrt::xaml_typename<WinUI3Package::CaseCollection>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &SwitchPresenter::onSwitchCasesChanged }
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::WinUI3Package::CaseCollection{}, &SwitchPresenter::onSwitchCasesChanged }
 		);
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty SwitchPresenter::s_valueProperty =
@@ -34,12 +34,16 @@ namespace winrt::WinUI3Package::implementation
 
 	SwitchPresenter::SwitchPresenter()
 	{
-		SwitchCases({});
+		Loaded([this](auto&&...)
+		{
+			evaluateCases();
+			SwitchCases().VectorChanged([this](auto&&...) { evaluateCases(); });
+		});
 	}
 
 	WinUI3Package::Case SwitchPresenter::CurrentCase()
 	{
-		return GetValue(CurrentCaseProperty()).as<WinUI3Package::Case>();
+		return GetValue(CurrentCaseProperty()).try_as<WinUI3Package::Case>();
 	}
 
 	void SwitchPresenter::CurrentCase(WinUI3Package::Case const& value)
