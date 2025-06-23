@@ -114,8 +114,13 @@ namespace winrt::WinUI3Package::implementation
 		}
 
 		auto cases = SwitchCases();
-		if (cases.Size() == 0)
+		if (cases.Size() == 0 )
 			return;
+		
+		auto value = Value();
+		if (!value)
+			return;
+
 		if (auto const& matchCase = winrt::get_self<implementation::CaseCollection>(cases)->EvaluateCases(Value());
 			matchCase != CurrentCase())
 		{

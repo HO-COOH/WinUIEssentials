@@ -28,7 +28,7 @@
 
         <local:PageHeader Header="Segmented" SampleUrl="https://github.com/HO-COOH/WinUIEssentials/blob/master/WinUI3Example/SegmentedPage.xaml">
             <local:PageHeader.Urls>
-                <local:NamedUrl Name="Segmented.idl" Url="https://github.com/HO-COOH/WinUIEssentials/blob/master/WinUI3Package/Segmented.idl"/>
+                <local:NamedUrl Name="Segmented.idl" Url="https://github.com/HO-COOH/WinUIEssentials/blob/master/WinUI3Package/Segmented.idl" />
             </local:PageHeader.Urls>
         </local:PageHeader>
 

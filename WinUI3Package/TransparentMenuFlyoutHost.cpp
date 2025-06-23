@@ -12,6 +12,7 @@ TransparentMenuFlyoutHost::TransparentMenuFlyoutHost() : m_appWindow{m_dummyWind
 {
 	try 
 	{
+		m_appWindow.Presenter().as<winrt::Microsoft::UI::Windowing::OverlappedPresenter>().IsAlwaysOnTop(true);
 		m_appWindow.IsShownInSwitchers(false);
 	}
 	catch (...)

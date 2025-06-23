@@ -29,6 +29,8 @@ public:
         //This is the workaround
         if (!m_templateApplied)
         {
+            //See https://github.com/CommunityToolkit/Windows/pull/699
+            DerivedT::SelectedIndex(-1);
             DerivedT::SelectedIndex(m_internalSelectedIndex);
         }
         m_templateApplied = true;

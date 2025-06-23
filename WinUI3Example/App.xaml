@@ -22,7 +22,7 @@
                 <ResourceDictionary Source="ms-appx:///WinUI3Package/Shimmer_Resource.xaml" />
                 <ResourceDictionary Source="ms-appx:///WinUI3Package/ModernStandardWindowContextMenu_Resource.xaml" />
                 <ResourceDictionary Source="/FakeTitleBar_Resource.xaml" />
-                <ResourceDictionary Source="/AnimatedNumber_Resource.xaml"/>
+                <ResourceDictionary Source="/AnimatedNumber_Resource.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ResourceDictionary.ThemeDictionaries>
@@ -30,7 +30,6 @@
                     <SolidColorBrush x:Key="FillColor">#ff0000</SolidColorBrush>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
-
 
         </ResourceDictionary>
     </Application.Resources>

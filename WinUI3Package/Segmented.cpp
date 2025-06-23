@@ -25,6 +25,9 @@ namespace winrt::WinUI3Package::implementation
 
 	void Segmented::OnApplyTemplate()
 	{
+		// This is for when knob is null (like using other templates)
+		TemplateApplied();
+
 		auto knob = GetTemplateChild(L"Knob");
 		if (!knob)
 			return;
@@ -41,8 +44,6 @@ namespace winrt::WinUI3Package::implementation
 
 		if (m_isMultiSelect = (SelectionMode() == winrt::Microsoft::UI::Xaml::Controls::ListViewSelectionMode::Multiple))
 			setMultiSelectStyle(m_isMultiSelect);
-
-		TemplateApplied();
 
 		onSelectedIndexChanged(nullptr,nullptr);
 	}
