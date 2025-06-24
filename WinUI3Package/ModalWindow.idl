@@ -1,0 +1,10 @@
+namespace WinUI3Package
+{
+    [Microsoft.UI.Xaml.Data.Bindable]
+    [default_interface]
+    unsealed runtimeclass ModalWindow : Microsoft.UI.Xaml.Window
+    {
+		ModalWindow();
+        ModalWindow(Microsoft.UI.Xaml.Window parent);
+    }
+}

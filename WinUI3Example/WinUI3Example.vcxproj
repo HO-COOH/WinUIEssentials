@@ -401,6 +401,10 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ModalWindowPage.xaml.h">
+      <DependentUpon>ModalWindowPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ModernStandardWindowContextMenuPage.xaml.h">
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -455,6 +459,10 @@
     </ClInclude>
     <ClInclude Include="ProgressBarExPage.xaml.h">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="SampleModalWindow.xaml.h">
+      <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="SampleThemeListener.xaml.h">
@@ -640,6 +648,9 @@
     <Page Include="MarqueeTextPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ModalWindowPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ModernStandardWindowContextMenuPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -656,6 +667,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SampleModalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ScopedButtonDisablerPage.xaml">
@@ -861,6 +875,10 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ModalWindowPage.xaml.cpp">
+      <DependentUpon>ModalWindowPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ModernStandardWindowContextMenuPage.xaml.cpp">
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -918,6 +936,10 @@
     </ClCompile>
     <ClCompile Include="ProgressBarExPage.xaml.cpp">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SampleModalWindow.xaml.cpp">
+      <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ScopedButtonDisablerPage.xaml.cpp">
@@ -1152,6 +1174,10 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ModalWindowPage.idl">
+      <DependentUpon>ModalWindowPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ModernStandardWindowContextMenuPage.idl">
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1192,6 +1218,10 @@
     </Midl>
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SampleModalWindow.idl">
+      <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="SampleThemeListener.idl">

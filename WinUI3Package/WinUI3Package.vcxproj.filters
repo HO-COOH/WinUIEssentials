@@ -459,6 +459,9 @@
     <Midl Include="AutoSuggestBoxHelper.idl">
       <Filter>Controls</Filter>
     </Midl>
+    <Midl Include="ModalWindow.idl">
+      <Filter>Windows</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
@@ -500,5 +503,8 @@
     <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
       <Filter>Windows</Filter>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

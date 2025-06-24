@@ -383,6 +383,10 @@
     <ClInclude Include="MenuFlyoutItemPaddingWorkaroundWrapper.hpp" />
     <ClInclude Include="MenuFlyoutWrapper.h" />
     <ClInclude Include="MenuItemInfo.hpp" />
+    <ClInclude Include="ModalWindow.h">
+      <DependentUpon>ModalWindow.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ModernStandardWindowContextMenu.xaml.h">
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -638,6 +642,10 @@
     </ClCompile>
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
     <ClCompile Include="MenuFlyoutWrapper.cpp" />
+    <ClCompile Include="ModalWindow.cpp">
+      <DependentUpon>ModalWindow.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ModernStandardWindowContextMenu.xaml.cpp">
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -863,6 +871,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MarqueeText.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ModalWindow.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ModernStandardWindowContextMenu.idl">

@@ -31,7 +31,7 @@ namespace winrt::WinUI3Example::implementation
         static winrt::guid IconGuid();
         static HWND Hwnd;
     private:
-        static inline std::unordered_map<winrt::hstring, winrt::Windows::UI::Xaml::Interop::TypeName> s_page
+        static inline std::map<winrt::hstring, winrt::Windows::UI::Xaml::Interop::TypeName> s_page
         {
             {L"Toast", winrt::xaml_typename<WinUI3Example::ToastPage>()},
             {L"CursorController", winrt::xaml_typename<WinUI3Example::CursorControllerPage>()},
@@ -66,7 +66,8 @@ namespace winrt::WinUI3Example::implementation
             {L"Extensions", winrt::xaml_typename<WinUI3Example::ExtensionsPage>()},
             {L"ComboBoxHelper", winrt::xaml_typename<WinUI3Example::ComboBoxHelperPage>()},
 			{L"WrapPanel", winrt::xaml_typename<WinUI3Example::WrapPanelPage>()},
-            {L"AutoSuggestBoxHelper", winrt::xaml_typename<WinUI3Example::AutoSuggestBoxHelperPage>()}
+            {L"AutoSuggestBoxHelper", winrt::xaml_typename<WinUI3Example::AutoSuggestBoxHelperPage>()},
+			{L"ModalWindow", winrt::xaml_typename<WinUI3Example::ModalWindowPage>()},
         };
     public:
         void ExitItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

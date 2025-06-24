@@ -177,6 +177,12 @@
     <Page Include="AutoSuggestBoxHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="ModalWindowPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="SampleModalWindow.xaml">
+      <Filter>Windows</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

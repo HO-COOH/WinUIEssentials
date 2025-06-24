@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass SampleModalWindow : WinUI3Package.ModalWindow
+    {
+        SampleModalWindow(Microsoft.UI.Xaml.Window parent);
+    }
+}
