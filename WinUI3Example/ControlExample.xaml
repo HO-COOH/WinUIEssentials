@@ -120,7 +120,7 @@
                         Orientation="Vertical"
                         Visibility="{x:Bind Output, Converter={StaticResource nullToVisibilityConverter}}">
                         <TextBlock Text="Output:" />
-                        <ContentPresenter x:Name="OutputPresenter" Content="{x:Bind Output}" />
+                        <ContentPresenter x:Name="OutputPresenter" Content="{x:Bind Output, Mode=OneWay}" />
                     </StackPanel>
 
                     <!--  Options Display  -->
