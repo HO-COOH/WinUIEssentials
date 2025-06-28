@@ -405,6 +405,10 @@
       <DependentUpon>ModalWindowPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ModernMessageBoxPage.xaml.h">
+      <DependentUpon>ModernMessageBoxPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ModernStandardWindowContextMenuPage.xaml.h">
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -651,6 +655,9 @@
     <Page Include="ModalWindowPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ModernMessageBoxPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ModernStandardWindowContextMenuPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -877,6 +884,10 @@
     </ClCompile>
     <ClCompile Include="ModalWindowPage.xaml.cpp">
       <DependentUpon>ModalWindowPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ModernMessageBoxPage.xaml.cpp">
+      <DependentUpon>ModernMessageBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ModernStandardWindowContextMenuPage.xaml.cpp">
@@ -1176,6 +1187,10 @@
     </Midl>
     <Midl Include="ModalWindowPage.idl">
       <DependentUpon>ModalWindowPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ModernMessageBoxPage.idl">
+      <DependentUpon>ModernMessageBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ModernStandardWindowContextMenuPage.idl">

@@ -1,0 +1,10 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass ModernMessageBoxPage : Microsoft.UI.Xaml.Controls.Page, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        ModernMessageBoxPage();
+
+        String ClassicMessageBoxOutput{ get; };
+    }
+}

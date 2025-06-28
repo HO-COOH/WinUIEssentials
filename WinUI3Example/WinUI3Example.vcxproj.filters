@@ -183,6 +183,9 @@
     <Page Include="SampleModalWindow.xaml">
       <Filter>Windows</Filter>
     </Page>
+    <Page Include="ModernMessageBoxPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

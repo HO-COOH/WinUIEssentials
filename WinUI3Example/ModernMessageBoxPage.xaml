@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.ModernMessageBoxPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Spacing="10">
+        <local:ControlExample HeaderText="MessageBox modernized" Output="{x:Bind ClassicMessageBoxOutput, Mode=OneWay}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <essential:GroupBox HorizontalAlignment="Stretch" Header="Classic Win32 MessageBox">
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <ComboBox
+                            x:Name="ClassicMessageBoxButtonsSelction"
+                            Header="Buttons"
+                            SelectedIndex="3">
+                            <x:String>MB_ABORTRETRYIGNORE</x:String>
+                            <x:String>MB_CANCELTRYCONTINUE</x:String>
+                            <x:String>MB_HELP</x:String>
+                            <x:String>MB_OK</x:String>
+                            <x:String>MB_OKCANCEL</x:String>
+                            <x:String>MB_RETRYCANCEL</x:String>
+                            <x:String>MB_YESNO</x:String>
+                            <x:String>MB_YESNOCANCEL</x:String>
+                        </ComboBox>
+                        <ComboBox
+                            x:Name="ClassicMessageBoxIconSelection"
+                            Grid.Column="1"
+                            Header="Icons">
+                            <x:String>MB_ICONEXCLAMATION</x:String>
+                            <x:String>MB_ICONWARNING</x:String>
+                            <x:String>MB_ICONINFORMATION</x:String>
+                            <x:String>MB_ICONASTERISK</x:String>
+                            <x:String>MB_ICONQUESTION</x:String>
+                            <x:String>MB_ICONSTOP</x:String>
+                            <x:String>MB_ICONERROR</x:String>
+                            <x:String>MB_ICONHAND</x:String>
+                        </ComboBox>
+                        <ComboBox
+                            x:Name="ClassicMessageBoxDefaultButtonSelection"
+                            Grid.Column="2"
+                            Header="Default Button"
+                            SelectedIndex="0">
+                            <x:String>MB_DEFBUTTON1</x:String>
+                            <x:String>MB_DEFBUTTON2</x:String>
+                            <x:String>MB_DEFBUTTON3</x:String>
+                            <x:String>MB_DEFBUTTON4</x:String>
+                        </ComboBox>
+                        <StackPanel Grid.Column="3" Spacing="5">
+                            <Button Click="Button_Click">Create classic MesssageBox</Button>
+                            <Button Click="Button_Click_1">Create modern MessageBox</Button>
+                        </StackPanel>
+
+                    </Grid>
+                </essential:GroupBox>
+            </Grid>
+        </local:ControlExample>
+
+    </StackPanel>
+
+</Page>

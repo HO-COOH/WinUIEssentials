@@ -387,6 +387,10 @@
       <DependentUpon>ModalWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ModernMessageBox.xaml.h">
+      <DependentUpon>ModernMessageBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ModernStandardWindowContextMenu.xaml.h">
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -646,6 +650,10 @@
       <DependentUpon>ModalWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ModernMessageBox.xaml.cpp">
+      <DependentUpon>ModernMessageBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ModernStandardWindowContextMenu.xaml.cpp">
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -876,6 +884,10 @@
     <Midl Include="ModalWindow.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="ModernMessageBox.idl">
+      <DependentUpon>ModernMessageBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ModernStandardWindowContextMenu.idl">
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -986,6 +998,9 @@
     <Page Include="HostBackdropVisual_Resource.xaml" />
     <Page Include="IconButton_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />
+    <Page Include="ModernMessageBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ModernStandardWindowContextMenu.xaml">
       <SubType>Designer</SubType>
     </Page>

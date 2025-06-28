@@ -503,6 +503,9 @@
     <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
       <Filter>Windows</Filter>
     </Page>
+    <Page Include="ModernMessageBox.xaml">
+      <Filter>Controls</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />

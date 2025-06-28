@@ -1,0 +1,17 @@
+import "ModalWindow.idl";
+
+namespace WinUI3Package
+{
+    [default_interface]
+    runtimeclass ModernMessageBox : WinUI3Package.ModalWindow
+    {
+        ModernMessageBox();
+        
+        static Windows.Foundation.IAsyncOperation<Int32> ShowAsync(
+            Microsoft.UI.Xaml.Window owner,
+            String text,
+            String caption,
+            UInt16 type
+        );
+    }
+}

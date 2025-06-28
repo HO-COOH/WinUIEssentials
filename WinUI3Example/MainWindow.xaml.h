@@ -68,6 +68,7 @@ namespace winrt::WinUI3Example::implementation
 			{L"WrapPanel", winrt::xaml_typename<WinUI3Example::WrapPanelPage>()},
             {L"AutoSuggestBoxHelper", winrt::xaml_typename<WinUI3Example::AutoSuggestBoxHelperPage>()},
 			{L"ModalWindow", winrt::xaml_typename<WinUI3Example::ModalWindowPage>()},
+            {L"ModernMessageBox", winrt::xaml_typename<WinUI3Example::ModernMessageBoxPage>()}
         };
     public:
         void ExitItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

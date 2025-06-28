@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,18 +13,14 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Grid x:Name="RootGrid">
-                                    
-
-                                <TextBlock x:Name="Text" Text="{Binding}">
-                                  
-                                </TextBlock>
+                                    <TextBlock x:Name="Text" Text="{Binding}" />
                                     <VisualStateManager.VisualStateGroups>
                                         <VisualStateGroup x:Name="ValueStates">
                                             <VisualState x:Name="IncreaseState">
                                                 <VisualState.Setters>
                                                     <Setter Target="RootGrid.Background">
                                                         <Setter.Value>
-                                                            <SolidColorBrush Color="Red"/>
+                                                            <SolidColorBrush Color="Red" />
                                                         </Setter.Value>
                                                     </Setter>
                                                 </VisualState.Setters>
