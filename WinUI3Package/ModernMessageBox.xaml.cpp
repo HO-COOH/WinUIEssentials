@@ -26,5 +26,7 @@ namespace winrt::WinUI3Package::implementation
 
 void winrt::WinUI3Package::implementation::ModernMessageBox::Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 {
+    //This event handler will not be called as: https://github.com/microsoft/microsoft-ui-xaml/issues/9031
+    //This is still an issue as 2025/6/28
 	winrt::check_bool(SetEvent(h.get()));
 }
