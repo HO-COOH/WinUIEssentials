@@ -529,6 +529,10 @@
       <DependentUpon>ToastPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ToolTipHelperPage.xaml.h">
+      <DependentUpon>ToolTipHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TransparentWindowDemo.xaml.h">
       <DependentUpon>TransparentWindowDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -715,6 +719,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToastPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ToolTipHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TransparentWindowDemo.xaml">
@@ -1006,6 +1013,10 @@
       <DependentUpon>ToastPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ToolTipHelperPage.xaml.cpp">
+      <DependentUpon>ToolTipHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TransparentWindowDemo.xaml.cpp">
       <DependentUpon>TransparentWindowDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1287,6 +1298,10 @@
       <DependentUpon>ToastPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ToolTipHelperPage.idl">
+      <DependentUpon>ToolTipHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="TransparentWindowDemo.idl">
       <DependentUpon>TransparentWindowDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1324,6 +1339,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\BigFourSummerHeat.jpg" />
+    <Image Include="Assets\cliff.jpg" />
     <Image Include="Assets\LargeTile.scale-100.png" />
     <Image Include="Assets\LargeTile.scale-125.png" />
     <Image Include="Assets\LargeTile.scale-150.png" />

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.ToolTipHelperPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <local:ControlExample HeaderText="Original ToolTip (from WinUI3 Gallery), you don't have acrylic">
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/Assets/cliff.jpg" />
+                </StackPanel.Background>
+
+                <Button Content="Button with a simple ToolTip." ToolTipService.ToolTip="Simple ToolTip" />
+
+                <TextBlock Text="TextBlock with an offset ToolTip.">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Offset ToolTip." VerticalOffset="-80" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
+
+                <Image
+                    Width="400"
+                    Height="266"
+                    Source="/Assets/cliff.jpg">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Non-occluding ToolTip." PlacementRect="0,0,400,266" />
+                    </ToolTipService.ToolTip>
+                </Image>
+            </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Button Content=&quot;Button with a simple ToolTip.&quot; ToolTipService.ToolTip=&quot;Simple ToolTip&quot; /&gt;
+
+&lt;TextBlock Text=&quot;TextBlock with an offset ToolTip.&quot;&gt;
+    &lt;ToolTipService.ToolTip&gt;
+        &lt;ToolTip Content=&quot;Offset ToolTip.&quot; VerticalOffset=&quot;-80&quot; /&gt;
+    &lt;/ToolTipService.ToolTip&gt;
+&lt;/TextBlock&gt;
+
+&lt;Image
+    Width=&quot;400&quot;
+    Height=&quot;266&quot;
+    Source=&quot;/Assets/cliff.jpg&quot;&gt;
+    &lt;ToolTipService.ToolTip&gt;
+        &lt;ToolTip Content=&quot;Non-occluding ToolTip.&quot; PlacementRect=&quot;0,0,400,266&quot; /&gt;
+    &lt;/ToolTipService.ToolTip&gt;
+&lt;/Image&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Using ToolTipHelper.AcrylicWorkaround, you got Acrylic">
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/Assets/cliff.jpg" />
+                </StackPanel.Background>
+
+                <Button Content="Button with a simple ToolTip.">
+                    <ToolTipService.ToolTip>
+                        <ToolTip essential:ToolTipHelper.AcrylicWorkaround="True" Content="Simple ToolTip" />
+                    </ToolTipService.ToolTip>
+                </Button>
+
+                <TextBlock Text="TextBlock with an offset ToolTip.">
+                    <ToolTipService.ToolTip>
+                        <ToolTip
+                            essential:ToolTipHelper.AcrylicWorkaround="True"
+                            Content="Offset ToolTip."
+                            VerticalOffset="-80" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
+
+                <Image
+                    Width="400"
+                    Height="266"
+                    Source="/Assets/cliff.jpg">
+                    <ToolTipService.ToolTip>
+                        <ToolTip
+                            essential:ToolTipHelper.AcrylicWorkaround="True"
+                            Content="Non-occluding ToolTip."
+                            PlacementRect="0,0,400,266" />
+                    </ToolTipService.ToolTip>
+                </Image>
+            </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Button Content=&quot;Button with a simple ToolTip.&quot;&gt;
+    &lt;ToolTipService.ToolTip&gt;
+        &lt;ToolTip essential:ToolTipHelper.AcrylicWorkaround=&quot;True&quot; Content=&quot;Simple ToolTip&quot; /&gt;
+    &lt;/ToolTipService.ToolTip&gt;
+&lt;/Button&gt;
+
+&lt;TextBlock Text=&quot;TextBlock with an offset ToolTip.&quot;&gt;
+    &lt;ToolTipService.ToolTip&gt;
+        &lt;ToolTip
+            essential:ToolTipHelper.AcrylicWorkaround=&quot;True&quot;
+            Content=&quot;Offset ToolTip.&quot;
+            VerticalOffset=&quot;-80&quot; /&gt;
+    &lt;/ToolTipService.ToolTip&gt;
+&lt;/TextBlock&gt;
+
+&lt;Image
+    Width=&quot;400&quot;
+    Height=&quot;266&quot;
+    Source=&quot;/Assets/cliff.jpg&quot;&gt;
+    &lt;ToolTipService.ToolTip&gt;
+        &lt;ToolTip
+            essential:ToolTipHelper.AcrylicWorkaround=&quot;True&quot;
+            Content=&quot;Non-occluding ToolTip.&quot;
+            PlacementRect=&quot;0,0,400,266&quot; /&gt;
+    &lt;/ToolTipService.ToolTip&gt;
+&lt;/Image&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+    </StackPanel>
+</Page>

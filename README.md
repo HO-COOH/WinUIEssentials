@@ -96,6 +96,7 @@ You can reference Github Action for detailed build steps.
 |ComboBoxHelper | :x: | :white_check_mark: | WinRT component
 |AutoSuggestBoxHelper | :x: | :white_check_mark: | WinRT component
 |WrapPanel | :x: | :white_check_mark: | WinRT | Panel
+|ToolTipHelper | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -958,3 +959,16 @@ Usage:
 ```
 
 ![](assets/wrappanel.gif)
+
+## ToolTipHelper
+The WinUI3's built-in `ToolTip` does not have Acrylic background. We fixed it for you. To use it, simply add `ToolTipHelper.AcrylicWorkaround="True"` as an attached property on your `ToolTip`.
+```xml
+<Button Content="Button with a simple ToolTip.">
+    <ToolTipService.ToolTip>
+        <ToolTip essential:ToolTipHelper.AcrylicWorkaround="True" Content="Simple ToolTip" />
+    </ToolTipService.ToolTip>
+</Button>
+```
+|Before|After|
+|------|-----|
+|![](assets/tooltip-original.png)|![](assets/tooltip-fixed.png)|

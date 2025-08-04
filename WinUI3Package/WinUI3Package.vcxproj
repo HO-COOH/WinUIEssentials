@@ -505,6 +505,10 @@
       <DependentUpon>SwitchPresenter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ToolTipHelper.h">
+      <DependentUpon>ToolTipHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TransparentBackdrop.h">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -762,6 +766,10 @@
       <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ToolTipHelper.cpp">
+      <DependentUpon>ToolTipHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TransparentBackdrop.cpp">
       <DependentUpon>TransparentBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -953,6 +961,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TogglePopupMenuFlyoutItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ToolTipHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TransparentBackdrop.idl">

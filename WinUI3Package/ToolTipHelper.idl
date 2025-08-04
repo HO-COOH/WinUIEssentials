@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ToolTipHelper 
+    {
+		static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+	    static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.ToolTip toolTip);
+		static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.ToolTip toolTip, Boolean value);
+    }
+}
