@@ -66,7 +66,7 @@ namespace winrt::WinUI3Package::implementation
 			auto border = popup.FindName(L"SuggestionsContainer").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
 			border.Padding({});
 			border.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
-			border.SizeChanged([called = false, popup = winrt::make_weak(popup), visualRef = winrt::weak_ref<winrt::WinUI3Package::AcrylicVisual>{}](auto const& borderRef, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) mutable
+			border.SizeChanged([autoSuggestBoxRef, called = false, popup = winrt::make_weak(popup), visualRef = winrt::weak_ref<winrt::WinUI3Package::AcrylicVisual>{}](auto const& borderRef, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) mutable
 			{
 				if (called)
 				{
@@ -85,6 +85,11 @@ namespace winrt::WinUI3Package::implementation
 				border.Child(scrollGrid);
 
 				winrt::WinUI3Package::AcrylicVisual visual;
+				autoSuggestBoxRef.get().ActualThemeChanged([visualRef = winrt::make_weak(visual)](auto&& element...) {
+					if (auto visual = visualRef.get())
+						visual.RequestedTheme(element.ActualTheme());
+					});
+
 				adjustVisual(visual, border.CornerRadius());
 				visualRef = visual;
 				scrollGrid.Children().ReplaceAll({ visual, originalChild });

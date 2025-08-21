@@ -70,8 +70,11 @@ namespace winrt::WinUI3Example::implementation
 			{L"ModalWindow", winrt::xaml_typename<WinUI3Example::ModalWindowPage>()},
 			{L"ToolTipHelper", winrt::xaml_typename<WinUI3Example::ToolTipHelperPage>()},
         };
+
+        int m_themeIndex{};
     public:
         void ExitItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void ThemeButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

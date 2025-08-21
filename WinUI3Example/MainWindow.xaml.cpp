@@ -43,8 +43,8 @@ namespace winrt::WinUI3Example::implementation
 			return;
 		}
 
-		auto tag = args.SelectedItem().as<winrt::hstring>();
-		ContentFrame().Navigate(s_page[tag]);
+		if (auto tag = args.SelectedItem().try_as<winrt::hstring>())
+			ContentFrame().Navigate(s_page[*tag]);
 	}
 
 	winrt::guid MainWindow::IconGuid()
@@ -59,6 +59,15 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		ExitProcess(0);
+	}
+
+
+	void MainWindow::ThemeButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		m_themeIndex = (m_themeIndex + 1) % 3;
+		auto boxedValue = ThemeSwitcher().SwitchCases().GetAt(m_themeIndex).as<winrt::WinUI3Package::Case>().Value();
+		RootGrid().RequestedTheme(winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(boxedValue));
+		ThemeSwitcher().Value(boxedValue);
 	}
 
 }

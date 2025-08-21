@@ -9,12 +9,33 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	constexpr static inline winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme elementThemeToBackdropTheme(
+		winrt::Microsoft::UI::Xaml::ElementTheme const& theme)
+	{
+		switch (theme)
+		{
+			case winrt::Microsoft::UI::Xaml::ElementTheme::Light:
+				return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Light;
+			case winrt::Microsoft::UI::Xaml::ElementTheme::Dark:
+				return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Dark;
+			default:
+				return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Default;
+		}
+	};
+
 	AcrylicVisual::AcrylicVisual()
 	{
 		RegisterPropertyChangedCallback(
 			winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
 			{ this, &AcrylicVisual::cornerRadiusChanged }
 		);
+
+		RegisterPropertyChangedCallback(
+			winrt::Microsoft::UI::Xaml::FrameworkElement::RequestedThemeProperty(),
+			[](auto&& self, winrt::Microsoft::UI::Xaml::DependencyProperty const& requestThemeProperty)
+			{ 
+				m_configuration.Theme(elementThemeToBackdropTheme(winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(self.GetValue(requestThemeProperty))));
+			});
 
 		auto compositor = winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread();
 		m_backdropLink = winrt::Microsoft::UI::Content::ContentExternalBackdropLink::Create(compositor);

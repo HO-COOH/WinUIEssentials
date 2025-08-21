@@ -58,7 +58,7 @@ namespace winrt::WinUI3Package::implementation
 
 			called = true;
 			auto border = popup.FindName(L"PopupBorder").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
-			border.SizeChanged([called = false, visualRef = winrt::weak_ref<winrt::WinUI3Package::AcrylicVisual>{}](auto const& borderRef, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) mutable
+			border.SizeChanged([comboxBoxRef, called = false, visualRef = winrt::weak_ref<winrt::WinUI3Package::AcrylicVisual>{}](auto const& borderRef, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) mutable
 			{
 				if (called)
 				{
@@ -78,6 +78,11 @@ namespace winrt::WinUI3Package::implementation
 				border.Child(scrollGrid);
 
 				winrt::WinUI3Package::AcrylicVisual visual;
+				comboxBoxRef.get().ActualThemeChanged([visualRef = winrt::make_weak(visual)](auto&& element...) {
+					if(auto visual = visualRef.get())
+						visual.RequestedTheme(element.ActualTheme());
+				});
+
 				visual.CornerRadius(border.CornerRadius());
 				scrollGrid.Children().ReplaceAll({ visual, originalChild });
 				visualRef = visual;
