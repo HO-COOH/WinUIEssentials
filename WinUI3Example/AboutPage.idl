@@ -1,7 +1,9 @@
+import "ContributorItem.idl";
+
 namespace WinUI3Example
 {
     [default_interface]
-    runtimeclass AboutPage : Microsoft.UI.Xaml.Controls.Page
+	runtimeclass AboutPage : Microsoft.UI.Xaml.Controls.Page, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         AboutPage();
 
@@ -15,5 +17,7 @@ namespace WinUI3Example
             UInt32 majorMinor,
             String channel
         );
+
+		Windows.Foundation.Collections.IVector<Object> Contributors{ get; };
     }
 }

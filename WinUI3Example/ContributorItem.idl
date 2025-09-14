@@ -1,0 +1,23 @@
+namespace WinUI3Example
+{
+    //idl struct cannot contain non-value type
+    //So we must make a runtimeclass
+    [bindable]
+    [default_interface]
+    runtimeclass ContributorItem 
+    {
+		ContributorItem(
+			String name,
+			Windows.Foundation.Uri avator,
+			Windows.Foundation.Uri profile
+        );
+
+        ContributorItem(
+			Windows.Data.Json.JsonObject json
+		);
+
+        String Name{ get; };
+        Windows.Foundation.Uri Avator{ get; };
+        Windows.Foundation.Uri Profile{ get; };
+    }
+}

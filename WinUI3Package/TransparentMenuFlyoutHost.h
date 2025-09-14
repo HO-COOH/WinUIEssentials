@@ -9,7 +9,8 @@
  */
 class TransparentMenuFlyoutHost
 {
-	winrt::WinUI3Package::TransparentWindow m_dummyWindow;
+	//winrt::WinUI3Package::TransparentWindow m_dummyWindow;
+	winrt::Microsoft::UI::Xaml::Window m_dummyWindow;
 	winrt::Microsoft::UI::Windowing::AppWindow m_appWindow;
 	winrt::Microsoft::UI::Xaml::Controls::Frame m_dummyFrame;
 

@@ -5,12 +5,20 @@
 #endif
 #include <WindowsAppSDK-VersionInfo.h>
 #include <winrt/Windows.System.h>
+#include <winrt/Windows.Web.Http.h>
+#include <winrt/Windows.Web.Http.Headers.h>
+#include <winrt/Windows.Data.Json.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace winrt::WinUI3Example::implementation
 {
+	AboutPage::AboutPage()
+	{
+		loadContributors();
+	}
+
 	winrt::hstring AboutPage::WASDKReleaseVersion()
 	{
 		return winrt::hstring{ std::format(
@@ -50,6 +58,34 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri{ L"https://github.com/HO-COOH/WinUIEssentials" });
+	}
+
+	winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> AboutPage::Contributors()
+	{
+		return m_contributors;
+	}
+
+	winrt::fire_and_forget AboutPage::loadContributors()
+	{
+		winrt::Windows::Web::Http::HttpClient client;
+		winrt::Windows::Web::Http::HttpRequestMessage message
+		{
+			winrt::Windows::Web::Http::HttpMethod::Get(),
+			winrt::Windows::Foundation::Uri{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials/contributors" }
+		};
+		message.Headers().Append(L"User-Agent", L"WinUI3ExampleApp");
+		auto result = co_await client.SendRequestAsync(message);
+		auto resultStr = co_await result.Content().ReadAsStringAsync();
+
+		auto contributorsJsonArray = winrt::Windows::Data::Json::JsonArray::Parse(resultStr);
+		std::vector<winrt::Windows::Foundation::IInspectable> contributors;
+		std::ranges::transform(
+			contributorsJsonArray,
+			std::back_inserter(contributors),
+			[](auto&& jsonObj) {return winrt::WinUI3Example::ContributorItem{ jsonObj.GetObjectW()}; }
+		);
+		m_contributors = winrt::single_threaded_vector(std::move(contributors));
+		raisePropertyChange(L"Contributors");
 	}
 
 }

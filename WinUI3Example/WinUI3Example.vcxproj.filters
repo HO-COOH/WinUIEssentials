@@ -183,6 +183,7 @@
     <Page Include="SampleModalWindow.xaml">
       <Filter>Windows</Filter>
     </Page>
+    <Page Include="ToolTipHelperPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -243,6 +244,9 @@
       <Filter>Pages\WrapPanelPage</Filter>
     </Midl>
     <Midl Include="NamedUrl.idl">
+      <Filter>Helper</Filter>
+    </Midl>
+    <Midl Include="ContributorItem.idl">
       <Filter>Helper</Filter>
     </Midl>
   </ItemGroup>
@@ -433,6 +437,7 @@
     <Image Include="Assets\BigFourSummerHeat.jpg">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\cliff.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
