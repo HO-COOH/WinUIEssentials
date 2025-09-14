@@ -72,6 +72,6 @@
             </essential:SettingsExpander.Items>
 
 
-        </essential:SettingsExpander>`
+        </essential:SettingsExpander>
     </StackPanel>
 </Page>
