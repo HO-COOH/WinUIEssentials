@@ -440,7 +440,9 @@
     <Image Include="Assets\BigFourSummerHeat.jpg">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\cliff.jpg" />
+    <Image Include="Assets\cliff.jpg">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

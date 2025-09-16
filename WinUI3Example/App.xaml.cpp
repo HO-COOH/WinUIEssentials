@@ -38,6 +38,12 @@ namespace winrt::WinUI3Example::implementation
                     __debugbreak();
                 }
             });
+#else
+        UnhandledException([](IInspectable const&, UnhandledExceptionEventArgs const& e)
+            {
+                MessageBox(nullptr, e.Message().data(), L"Unhandled exception", 0);
+                e.Handled(true);
+            });
 #endif
     }
 
@@ -61,7 +67,9 @@ namespace winrt::WinUI3Example::implementation
         window = make<MainWindow>();
         window.Activate();
         MainHwnd() = GetHWNDFromWindow(window);
-        if (co_await UpdateChecker::HasUpdate())
-            UpdateChecker::DownloadRelease();
+
+        //We don't need this, as we publish to Microsoft Store
+        //if (co_await UpdateChecker::HasUpdate())
+        //    UpdateChecker::DownloadRelease();
     }
 }

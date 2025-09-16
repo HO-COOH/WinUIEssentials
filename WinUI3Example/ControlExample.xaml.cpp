@@ -51,6 +51,7 @@ namespace Impl
 
 	winrt::fire_and_forget Editor::loadHtml()
 	{
+		auto sharedThis = shared_from_this();
 		co_await EnsureCoreWebView2Async();
 		auto coreWebView = CoreWebView2();
 		//We don't assign it to the member yet, because we need to wait until the navigation finished 
@@ -62,25 +63,29 @@ namespace Impl
 			winrt::Microsoft::Web::WebView2::Core::CoreWebView2HostResourceAccessKind::Allow
 		);
 		Source(winrt::Windows::Foundation::Uri{ L"https://local/Monaco.html" });
-		NavigationCompleted([this](auto&&...)
+		m_navigationCompletedRevoker = NavigationCompleted(winrt::auto_revoke, [weakThis = weak_from_this()](auto&&...)
 			{
-				m_coreWebView = CoreWebView2();
-				if (!m_code.empty())
+				if (auto strongThis = weakThis.lock())
 				{
-					createEditor();
-					Height(measureHeight(m_code));
+					strongThis->m_coreWebView = strongThis->CoreWebView2();
+					if (!strongThis->m_code.empty())
+					{
+						strongThis->createEditor();
+						strongThis->Height(measureHeight(strongThis->m_code));
+					}
+					if (auto progressBar = strongThis->m_progressBarRef.get())
+						progressBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+					if (auto code = strongThis->m_codeRef.get())
+					{
+						auto codeImpl = winrt::get_self<winrt::WinUI3Example::implementation::CodeSource>(code);
+						strongThis->Code(winrt::hstring{ codeImpl->FormatCode() });
+						codeImpl->ValueChanged = [weakThis](std::wstring const& code) {
+							if(auto strongThis = weakThis.lock())
+								strongThis->Code(winrt::hstring{ code });
+							};
+					}
+					strongThis->Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
 				}
-				if (auto progressBar = m_progressBarRef.get())
-					progressBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
-				if (auto code = m_codeRef.get())
-				{
-					auto codeImpl = winrt::get_self<winrt::WinUI3Example::implementation::CodeSource>(code);
-					Code(winrt::hstring{ codeImpl->FormatCode() });
-					codeImpl->ValueChanged = [this](std::wstring const& code) {
-						Code(winrt::hstring{ code });
-					};
-				}
-				Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
 			});
 	}
 
@@ -356,7 +361,7 @@ namespace winrt::WinUI3Example::implementation
 		return m_substitutionsProperty;
 	}
 
-	Impl::Editor ControlExample::makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language)
+	std::shared_ptr<Impl::Editor> ControlExample::makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language)
 	{
 		winrt::Microsoft::UI::Xaml::Controls::Grid grid;
 		auto child = grid.Children();
@@ -366,12 +371,12 @@ namespace winrt::WinUI3Example::implementation
 		loadingProgressBar.Width(200);
 
 		auto codeImpl = winrt::get_self<CodeSource>(code);
-		Impl::Editor editor{ codeImpl->Code(), language, loadingProgressBar, code};
-		editor.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+		auto editor = std::make_shared<Impl::Editor>(codeImpl->Code(), language, loadingProgressBar, code);
+		editor->Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
 
 
 
-		child.Append(editor);
+		child.Append(*editor);
 		child.Append(loadingProgressBar);
 
 		//codeImpl->ValueChanged = [editorRef = winrt::make_weak(editor)](std::wstring const& code) {
@@ -396,7 +401,7 @@ namespace winrt::WinUI3Example::implementation
 			//change code
 		}
 		else
-			(self->m_xamlEditor = self->makePivotItem(self->Xaml(), winrt::WinUI3Example::Language::Xaml)).Load();
+			(self->m_xamlEditor = self->makePivotItem(self->Xaml(), winrt::WinUI3Example::Language::Xaml))->Load();
 	}
 
 	void ControlExample::onIdlChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -407,7 +412,7 @@ namespace winrt::WinUI3Example::implementation
 			//change code
 		}
 		else
-			(self->m_idlEditor = self->makePivotItem(self->Idl(), winrt::WinUI3Example::Language::Idl)).Load();
+			(self->m_idlEditor = self->makePivotItem(self->Idl(), winrt::WinUI3Example::Language::Idl))->Load();
 	}
 
 	void ControlExample::onHeaderChanged(
@@ -420,7 +425,7 @@ namespace winrt::WinUI3Example::implementation
 			//change code
 		}
 		else
-			(self->m_headerEditor = self->makePivotItem(self->Header(), winrt::WinUI3Example::Language::H)).Load();
+			(self->m_headerEditor = self->makePivotItem(self->Header(), winrt::WinUI3Example::Language::H))->Load();
 	}
 
 	void ControlExample::onCppChanged(
@@ -433,7 +438,7 @@ namespace winrt::WinUI3Example::implementation
 			//change code
 		}
 		else
-			(self->m_cppEditor = self->makePivotItem(self->Cpp(), winrt::WinUI3Example::Language::Cpp)).Load();
+			(self->m_cppEditor = self->makePivotItem(self->Cpp(), winrt::WinUI3Example::Language::Cpp))->Load();
 	}
 
 	void ControlExample::onSubstitutionsChanged(
@@ -456,10 +461,10 @@ namespace winrt::WinUI3Example::implementation
 	{
 		return value ? L"True" : L"False";
 	}
-}
 
+	void ControlExample::Expander_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		sender.as<winrt::Microsoft::UI::Xaml::Controls::Expander>().IsExpanded(false);
+	}
 
-void winrt::WinUI3Example::implementation::ControlExample::Expander_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
-{
-	sender.as<winrt::Microsoft::UI::Xaml::Controls::Expander>().IsExpanded(false);
 }

@@ -20,7 +20,7 @@
         </Style>
     </Page.Resources>
 
-    <local:ControlExample HeaderText="CursorController">
+    <local:ControlExample HeaderText="CursorController(Hover cursor on top of those red rectangles to see effect)">
         <StackPanel HorizontalAlignment="Center" Spacing="10">
 
             <StackPanel>
@@ -103,79 +103,79 @@
             <local:CodeSource>
                 <local:CodeSource.Code>
                     <x:String xml:space="preserve">&lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.Arrow&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;Arrow&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.Cross&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;Cross&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.Hand&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;Hand&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.Help&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;Help&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.IBeam&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;IBeam&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.Person&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;Person&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.Pin&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;Pin&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.SizeAll&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;SizeAll&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.SizeNortheastSouthwest&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;SizeNortheastSouthwest&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.SizeNorthSouth&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;SizeNorthSouth&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.SizeNorthwestSoutheast&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;SizeNorthwestSoutheast&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.SizeWestEast&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;SizeWestEast&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.UniversalNo&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;UniversalNo&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.UpArrow&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;UpArrow&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;
-    
-    &lt;StackPanel&gt;
-        &lt;TextBlock Text=&quot;CoreCursorType.Wait&quot; /&gt;
-        &lt;Rectangle essential:CursorController.Type=&quot;Wait&quot; Fill=&quot;Red&quot; /&gt;
-    &lt;/StackPanel&gt;   
+    &lt;TextBlock Text=&quot;CoreCursorType.Arrow&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;Arrow&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.Cross&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;Cross&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.Hand&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;Hand&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.Help&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;Help&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.IBeam&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;IBeam&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.Person&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;Person&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.Pin&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;Pin&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.SizeAll&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;SizeAll&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.SizeNortheastSouthwest&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;SizeNortheastSouthwest&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.SizeNorthSouth&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;SizeNorthSouth&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.SizeNorthwestSoutheast&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;SizeNorthwestSoutheast&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.SizeWestEast&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;SizeWestEast&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.UniversalNo&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;UniversalNo&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.UpArrow&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;UpArrow&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;
+
+&lt;StackPanel&gt;
+    &lt;TextBlock Text=&quot;CoreCursorType.Wait&quot; /&gt;
+    &lt;Rectangle essential:CursorController.Type=&quot;Wait&quot; Fill=&quot;Red&quot; /&gt;
+&lt;/StackPanel&gt;   
                     </x:String>
                 </local:CodeSource.Code>
             </local:CodeSource>

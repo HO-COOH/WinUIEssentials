@@ -60,9 +60,45 @@
                         FontSize="{x:Bind local:ComboBoxHelperPage.GetDoubleFromComboBox(Combo3.SelectedValue), Mode=OneWay}"
                         Text="You can set the font size used for this text." />
                 </StackPanel>
-
             </StackPanel>
 
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">
+&lt;ComboBox
+    x:Name=&quot;Combo1&quot;
+    Width=&quot;200&quot;
+    Header=&quot;Colors&quot;
+    PlaceholderText=&quot;Pick a color&quot;
+    SelectionChanged=&quot;Combo1_SelectionChanged&quot;&gt;
+    &lt;x:String&gt;Blue&lt;/x:String&gt;
+    &lt;x:String&gt;Green&lt;/x:String&gt;
+    &lt;x:String&gt;Red&lt;/x:String&gt;
+    &lt;x:String&gt;Yellow&lt;/x:String&gt;
+&lt;/ComboBox&gt;
+
+&lt;ComboBox
+    x:Name=&quot;Combo2&quot;
+    MinWidth=&quot;200&quot;
+    DisplayMemberPath=&quot;Name&quot;
+    Header=&quot;Font&quot;
+    ItemsSource=&quot;{x:Bind Fonts}&quot;
+    SelectedIndex=&quot;2&quot;
+    SelectedValuePath=&quot;Font&quot; /&gt;
+                            
+ &lt;ComboBox
+     x:Name=&quot;Combo3&quot;
+     Width=&quot;200&quot;
+     Header=&quot;Font Size&quot;
+     IsEditable=&quot;True&quot;
+     ItemsSource=&quot;{x:Bind FontSizes}&quot;
+     SelectedIndex=&quot;2&quot;
+     TextSubmitted=&quot;Combo3_TextSubmitted&quot; /&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Using ComboBoxHelper.AcrylicWorkaround, you got Acrylic">

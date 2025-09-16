@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <local:ControlExample HeaderText="ScopedButtonDisabler">
-        <StackPanel>
+        <StackPanel Spacing="5">
             <Button x:Name="Button" Click="ClickHandler">Click this button fast enough will trigger twice</Button>
             <Button x:Name="ButtonWithScopeDisabler" Click="ButtonWithScopeDisabler_Click">This button will not triggered twice</Button>
         </StackPanel>
@@ -23,7 +23,8 @@
         <local:ControlExample.Cpp>
             <local:CodeSource>
                 <local:CodeSource.Code>
-                    <x:String xml:space="preserve">    winrt::Windows::Foundation::IAsyncAction ScopedButtonDisablerPage::ButtonWithScopeDisabler_Click(
+                    <x:String xml:space="preserve">#include &lt;include/ScopedButtonDisabler.hpp&gt;
+winrt::Windows::Foundation::IAsyncAction ScopedButtonDisablerPage::ButtonWithScopeDisabler_Click(
     winrt::Windows::Foundation::IInspectable const&amp; sender,
     winrt::Microsoft::UI::Xaml::RoutedEventArgs const&amp;)
 {
