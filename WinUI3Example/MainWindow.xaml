@@ -717,8 +717,11 @@
                     Margin="10,10,20,10"
                     VerticalAlignment="Top" />
             </ScrollViewer>
+            <NavigationView.Resources>
+                <local:ElementThemeToStringConverter x:Name="ElementThemeToStringConverter" />
+            </NavigationView.Resources>
             <NavigationView.FooterMenuItems>
-                <Button Click="ThemeButton_Click">
+                <Button Click="ThemeButton_Click" ToolTipService.ToolTip="{Binding RequestedTheme, ElementName=RootGrid, Converter={StaticResource ElementThemeToStringConverter}}">
                     <essential:SwitchPresenter
                         xmlns:theme="using:Microsoft.UI.Xaml"
                         x:Name="ThemeSwitcher"

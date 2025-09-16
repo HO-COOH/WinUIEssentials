@@ -10,15 +10,15 @@
   IgnorableNamespaces="uap rescap com desktop">
 
   <Identity
-    Name="b5d41281-1d63-4d42-8904-8c0f79d9d7fe"
-    Publisher="CN=Peter"
+    Name="HO-COOH.WinUIEssentials.WinUI3Example"
+    Publisher="CN=0000973C-93A8-4716-8C14-5EC442A69DBE"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="b5d41281-1d63-4d42-8904-8c0f79d9d7fe" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="da2832d2-3b87-4df0-b457-3f73b25de76c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>WinUI3Example</DisplayName>
-    <PublisherDisplayName>Peter</PublisherDisplayName>
+    <DisplayName>WinUIEssentials.WinUI3Example</DisplayName>
+    <PublisherDisplayName>HO-COOH</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -36,7 +36,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="WinUI3Example"
+        DisplayName="WinUIEssentials.WinUI3Example"
         Description="WinUI3Example"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
@@ -62,6 +62,5 @@
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
       <rescap:Capability Name="unvirtualizedResources"/>
-    <uap:Capability Name="contacts"/>
   </Capabilities>
 </Package>

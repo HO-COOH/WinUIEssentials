@@ -249,6 +249,9 @@
     <Midl Include="ContributorItem.idl">
       <Filter>Helper</Filter>
     </Midl>
+    <Midl Include="ElementThemeToStringConverter.idl">
+      <Filter>Helper</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -511,6 +514,7 @@
     </None>
     <None Include="vcpkg.json" />
     <None Include="vcpkg-configuration.json" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
