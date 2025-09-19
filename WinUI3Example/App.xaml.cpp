@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 #include "pch.h"
-#include "Global.h"
 #include "App.xaml.h"
 #include "MainWindow.xaml.h"
 #include <winrt/Microsoft.Windows.AppNotifications.h>
@@ -11,8 +10,6 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-	winrt::Microsoft::UI::Xaml::Window App::window{ nullptr };
-
     // To learn more about WinUI, the WinUI project structure,
     // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -48,25 +45,15 @@ namespace winrt::WinUI3Example::implementation
     }
 
 
-
-
-    static HWND GetHWNDFromWindow(winrt::Microsoft::UI::Xaml::Window const& window)
-    {
-        HWND nativeWindow{ nullptr };
-        winrt::check_hresult(window.as<::IWindowNative>()->get_WindowHandle(&nativeWindow));
-        return nativeWindow;
-    }
-
     /// <summary>
     /// Invoked when the application is launched.
     /// </summary>
     /// <param name="e">Details about the launch request and process.</param>
     /// 
-    winrt::fire_and_forget App::OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&)
+    void App::OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&)
     {
         window = make<MainWindow>();
         window.Activate();
-        MainHwnd() = GetHWNDFromWindow(window);
 
         //We don't need this, as we publish to Microsoft Store
         //if (co_await UpdateChecker::HasUpdate())

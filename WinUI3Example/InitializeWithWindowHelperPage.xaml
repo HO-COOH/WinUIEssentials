@@ -1,33 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="WinUI3Example.InitializeWithWindowHelperPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WinUI3Example"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <!--https://learn.microsoft.com/en-us/windows/apps/develop/ui-input/display-ui-objects#winui-3-with-c-->
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="5">
+    <!--  https://learn.microsoft.com/en-us/windows/apps/develop/ui-input/display-ui-objects#winui-3-with-c  -->
+    <StackPanel>
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::Devices::Enumeration::DevicePicker">
+            <Button x:Name="DevicePickerButton" Click="DevicePickerButton_Click">DevicePicker</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::Graphics::Capture::GraphicsCapturePicker">
+            <Button x:Name="GraphicsCapturePickerButton" Click="GraphicsCapturePicker_Click">GraphicsCapturePicker</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::Media::Casting::CastingDevicePicker">
+            <Button x:Name="CastingDevicePickerButton" Click="CastingDevicePickerButton_Click">CastingDevicePicker</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::Media::DialProtocol::DialDevicePicker">
+            <Button x:Name="DialDevicePickerButton" Click="DialDevicePickerButton_Click">DialDevicePicker</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::Storage::Pickers">
+            <StackPanel Spacing="5">
+                <Button x:Name="FileOpenPickerButton" Click="FileOpenPickerButton_Click">FileOpenPicker</Button>
+                <Button x:Name="FileSavePicker" Click="FileSavePicker_Click">FileSavePicker</Button>
+                <Button x:Name="FolderPickerButton" Click="FolderPickerButton_Click">FolderPicker</Button>
+            </StackPanel>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::System">
+            <StackPanel Spacing="5">
+                <Button x:Name="FolderLauncherOptionsButton" Click="FolderLauncherOptionsButton_Click">FolderLauncherOptions</Button>
+                <Button x:Name="LauncherOptionsButton" Click="LauncherOptionsButton_Click">LauncherOptions</Button>
+            </StackPanel>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::UI::Core">
+            <StackPanel Spacing="5">
+                <Button x:Name="CoreWindowDialogButton" Click="CoreWindowDialogButton_Click">CoreWindowDialog</Button>
+                <Button x:Name="CoreWindowFlyoutButton" Click="CoreWindowFlyoutButton_Click">CoreWindowFlyout</Button>
+            </StackPanel>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::UI::Popups">
+            <StackPanel Spacing="5">
+                <Button x:Name="MessageDialogButton" Click="MessageDialogButton_Click">MessageDialog</Button>
+                <Button x:Name="PopupMenuButton" Click="PopupMenuButton_Click">PopupMenu</Button>
+            </StackPanel>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUIEssentials::Windows::UI::StartScreen">
+            <Button x:Name="SecondaryTileButton" Click="SecondaryTileButton_Click">SecondaryTile</Button>
+        </local:ControlExample>
+
+        <!--<local:ControlExample HeaderText="WinUIEssentials::InitializeWithWindow">
+
+        </local:ControlExample>
+        <InfoBar
+            IsOpen="True"
+            Message="PinnedContactManager is not working because of #1157 on WASDK repo"
+            Severity="Error" />
         <Button x:Name="PinnedContactManagerButton" Click="PinnedContactManagerButton_Click">PinnedContactManager</Button>
         <Button x:Name="PaymentMediatorButton" Click="PaymentMediatorButton_Click">PaymentMediator</Button>
-        <Button x:Name="DevicePickerButton" Click="DevicePickerButton_Click">DevicePicker</Button>
-        <Button x:Name="GraphicsCapturePickerButton" Click="GraphicsCapturePicker_Click">GraphicsCapturePicker</Button>
-        <Button x:Name="CastingDevicePickerButton" Click="CastingDevicePickerButton_Click">CastingDevicePicker</Button>
-        <Button x:Name="DialDevicePickerButton" Click="DialDevicePickerButton_Click">DialDevicePicker</Button>
+
+
         <Button x:Name="ProvisioningAgentButton" Click="ProvisioningAgentButton_Click">ProvisiioningAgent</Button>
         <Button x:Name="OnlineIdAuthenticatorButton" Click="OnlineIdAuthenticatorButton_Click">OnlineIdAuthenticator</Button>
-        <Button x:Name="StoreContextButton" Click="StoreContextButton_Click">StoreContext</Button>
-        <Button x:Name="FileOpenPickerButton" Click="FileOpenPickerButton_Click">FileOpenPicker</Button>
-        <Button x:Name="FileSavePicker" Click="FileSavePicker_Click">FileSavePicker</Button>
-        <Button x:Name="FolderPickerButton" Click="FolderPickerButton_Click">FolderPicker</Button>
-        <Button x:Name="FolderLauncherOptionsButton" Click="FolderLauncherOptionsButton_Click">FolderLauncherOptions</Button>
-        <Button x:Name="LauncherOptionsButton" Click="LauncherOptionsButton_Click">LauncherOptions</Button>
-        <Button x:Name="CoreWindowDialogButton" Click="CoreWindowDialogButton_Click">CoreWindowDialog</Button>
-        <Button x:Name="CoreWindowFlyoutButton" Click="CoreWindowFlyoutButton_Click" >CoreWindowFlyout</Button>
-        <Button x:Name="MessageDialogButton" Click="MessageDialogButton_Click">MessageDialog</Button>
-        <Button x:Name="PopupMenuButton" Click="PopupMenuButton_Click">PopupMenu</Button>
-        <Button x:Name="SecondaryTileButton" Click="SecondaryTileButton_Click">SecondaryTile</Button>
+        <Button x:Name="StoreContextButton" Click="StoreContextButton_Click">StoreContext</Button>-->
+
+
+
+
+
     </StackPanel>
 </Page>

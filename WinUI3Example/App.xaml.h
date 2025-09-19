@@ -11,8 +11,8 @@ namespace winrt::WinUI3Example::implementation
     {
         App();
 
-        winrt::fire_and_forget OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
+        void OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
 
-        static winrt::Microsoft::UI::Xaml::Window window;
+		winrt::Microsoft::UI::Xaml::Window window{ nullptr };
     };
 }

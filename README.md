@@ -97,6 +97,7 @@ You can reference Github Action for detailed build steps.
 |AutoSuggestBoxHelper | :x: | :white_check_mark: | WinRT component
 |WrapPanel | :x: | :white_check_mark: | WinRT | Panel
 |ToolTipHelper | :x: | :white_check_mark: | WinRT component
+|IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only
 
 *means additional settings required, see the sections for info
 
@@ -972,3 +973,20 @@ The WinUI3's built-in `ToolTip` does not have Acrylic background. We fixed it fo
 |Before|After|
 |------|-----|
 |![](assets/tooltip-original.png)|![](assets/tooltip-fixed.png)|
+
+## IInitializeWithWindowHelper
+A header-only helper for [initializing](https://learn.microsoft.com/en-us/windows/apps/develop/ui-input/display-ui-objects) WinRT objects that requires a `hwnd`.
+
+To use, simply change the namespace `winrt` to `WinUIEssentials` of your objects that needs to be initialized, and pass either a `HWND` or a `Microsoft.UI.Xaml.Window` to the constructor.
+
+Take `FileOpenPicker` as an example:
+```cpp
+#include <include/IInitializeWithWindowHelper.hpp>
+
+WinUIEssentials::Windows::Storage::Pickers::FileOpenPicker picker{ MainWindow::Hwnd };
+//or
+WinUIEssentials::Windows::Storage::Pickers::FileOpenPicker picker{ MainWindow::Instance };
+
+//...
+picker.PickSingleFileAsync();
+```

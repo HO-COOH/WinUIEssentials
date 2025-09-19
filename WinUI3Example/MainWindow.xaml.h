@@ -30,6 +30,7 @@ namespace winrt::WinUI3Example::implementation
 
         static winrt::guid IconGuid();
         static HWND Hwnd;
+		static winrt::Microsoft::UI::Xaml::Window Window;
     private:
         static inline std::map<winrt::hstring, winrt::Windows::UI::Xaml::Interop::TypeName> s_page
         {

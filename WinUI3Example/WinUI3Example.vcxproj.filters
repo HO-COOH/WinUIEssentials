@@ -53,10 +53,6 @@
     <Page Include="ProgressBarExPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="LineGraphPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
-    <Page Include="LineGraphControl.xaml" />
     <Page Include="WindowExPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -184,6 +180,12 @@
       <Filter>Windows</Filter>
     </Page>
     <Page Include="ToolTipHelperPage.xaml" />
+    <Page Include="LineGraphPage.xaml">
+      <Filter>Pages\LineGraphPage</Filter>
+    </Page>
+    <Page Include="LineGraphControl.xaml">
+      <Filter>Pages\LineGraphPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -194,7 +196,6 @@
     <Midl Include="MyDataModelTemplateSelector.idl">
       <Filter>Pages\SettingsExpanderPage</Filter>
     </Midl>
-    <Midl Include="LineGraph.idl" />
     <Midl Include="UriGroup.idl">
       <Filter>Pages\UriPage</Filter>
     </Midl>
@@ -252,11 +253,13 @@
     <Midl Include="ElementThemeToStringConverter.idl">
       <Filter>Helper</Filter>
     </Midl>
+    <Midl Include="LineGraph.idl">
+      <Filter>Pages\LineGraphPage</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Global.cpp" />
     <ClCompile Include="DefaultAcrylicWindow.cpp">
       <Filter>Windows\Acrylic</Filter>
     </ClCompile>
@@ -266,16 +269,17 @@
     <ClCompile Include="MorphAnimationHelper.cpp">
       <Filter>Pages\Experimental</Filter>
     </ClCompile>
+    <ClCompile Include="ExceptionDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Global.h" />
     <ClInclude Include="UpdateChecker.h">
       <Filter>Helper</Filter>
     </ClInclude>
     <ClInclude Include="MorphAnimationHelper.h">
       <Filter>Pages\Experimental</Filter>
     </ClInclude>
+    <ClInclude Include="ExceptionDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -501,6 +505,9 @@
     </Filter>
     <Filter Include="Pages\WrapPanelPage">
       <UniqueIdentifier>{9d98eb43-78b4-4207-a31b-dfaa6f2e6d43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\LineGraphPage">
+      <UniqueIdentifier>{32793b0e-d121-453c-bcc7-148ac0e29cbe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -69,15 +69,15 @@ void winrt::WinUI3Example::implementation::LineGraphControl::Shape_PointerMoved(
 
 void winrt::WinUI3Example::implementation::LineGraphControl::Shape_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
 {
-	LineX().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
-	LineY().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+	//LineX().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+	//LineY().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
 	OutputDebugString(L"Exited\n");
 }
 
 
 void winrt::WinUI3Example::implementation::LineGraphControl::Shape_PointerEntered(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
 {
-	LineX().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
-	LineY().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+	//LineX().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+	//LineY().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
 	OutputDebugString(L"Entered\n");
 }

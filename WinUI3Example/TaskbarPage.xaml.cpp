@@ -7,8 +7,7 @@
 #include "TaskbarPage.g.cpp"
 #endif
 #include <Taskbar.hpp>
-#include "Global.h"
-
+#include "MainWindow.xaml.h"
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
@@ -37,13 +36,13 @@ namespace winrt::WinUI3Example::implementation
 		case 3: state = Taskbar::ProgressState::Error; break;
 		default: state = Taskbar::ProgressState::Paused; break;
 		}
-		Taskbar::SetProgressState(MainHwnd(), state);
+		Taskbar::SetProgressState(MainWindow::Hwnd, state);
 		
 	}
 
 
 	void TaskbarPage::Slider_ValueChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e)
 	{
-		Taskbar::SetProgressValue(MainHwnd(), ProgressSlider().Value());
+		Taskbar::SetProgressValue(MainWindow::Hwnd, ProgressSlider().Value());
 	}
 }
