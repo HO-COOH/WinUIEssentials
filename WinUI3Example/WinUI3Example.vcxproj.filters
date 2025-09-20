@@ -186,6 +186,9 @@
     <Page Include="LineGraphControl.xaml">
       <Filter>Pages\LineGraphPage</Filter>
     </Page>
+    <Page Include="CommandBarHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

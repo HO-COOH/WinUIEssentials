@@ -97,6 +97,7 @@ You can reference Github Action for detailed build steps.
 |AutoSuggestBoxHelper | :x: | :white_check_mark: | WinRT component
 |WrapPanel | :x: | :white_check_mark: | WinRT | Panel
 |ToolTipHelper | :x: | :white_check_mark: | WinRT component
+|CommandBarHelper | :x: | :white_check_mark: | WinRT component
 |IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only
 
 *means additional settings required, see the sections for info
@@ -973,6 +974,19 @@ The WinUI3's built-in `ToolTip` does not have Acrylic background. We fixed it fo
 |Before|After|
 |------|-----|
 |![](assets/tooltip-original.png)|![](assets/tooltip-fixed.png)|
+
+## CommandBarHelper
+The WinUI3's built-in `CommandBar` does not have Acrylic background. We fixed it for you. To use it, simply add `CommandBarHelper.AcrylicWorkaround="True"` as an attached property on your `CommandBar`.
+```xml
+<CommandBar essential:CommandBarHelper.AcrylicWorkaround="True">
+    <AppBarButton Icon="Add" Label="Add"/>
+    <AppBarButton Icon="Edit" Label="Edit"/>
+    <AppBarButton Icon="Delete" Label="Delete"/>
+</CommandBar>
+```
+|Before|After|
+|------|-----|
+|![](assets/commandbar-original.png)|![](assets/commandbar-fixed.png)|
 
 ## IInitializeWithWindowHelper
 A header-only helper for [initializing](https://learn.microsoft.com/en-us/windows/apps/develop/ui-input/display-ui-objects) WinRT objects that requires a `hwnd`.

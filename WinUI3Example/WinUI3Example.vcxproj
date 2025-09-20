@@ -294,6 +294,10 @@
       <DependentUpon>ComboBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CommandBarHelperPage.xaml.h">
+      <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ContributorItem.h">
       <DependentUpon>ContributorItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -597,6 +601,9 @@
     <Page Include="ComboBoxHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CommandBarHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ControlExample.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -783,6 +790,10 @@
     </ClCompile>
     <ClCompile Include="ComboBoxHelperPage.xaml.cpp">
       <DependentUpon>ComboBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CommandBarHelperPage.xaml.cpp">
+      <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ContributorItem.cpp">
@@ -1100,6 +1111,10 @@
     </Midl>
     <Midl Include="ComboBoxHelperPage.idl">
       <DependentUpon>ComboBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="CommandBarHelperPage.idl">
+      <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ContributorItem.idl">

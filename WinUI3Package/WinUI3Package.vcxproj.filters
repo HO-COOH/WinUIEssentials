@@ -465,6 +465,9 @@
     <Midl Include="ToolTipHelper.idl">
       <Filter>Controls</Filter>
     </Midl>
+    <Midl Include="CommandBarHelper.idl">
+      <Filter>Controls</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

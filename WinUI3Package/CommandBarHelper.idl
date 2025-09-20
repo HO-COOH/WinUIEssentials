@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass CommandBarHelper 
+    {
+		static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.CommandBar commandBar);
+		static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.CommandBar commandBar, Boolean value);
+    }
+}

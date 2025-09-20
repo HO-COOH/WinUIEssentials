@@ -1,0 +1,9 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass CommandBarHelperPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        CommandBarHelperPage();
+        Int32 MyProperty;
+    }
+}

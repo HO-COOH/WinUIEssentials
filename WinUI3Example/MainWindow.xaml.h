@@ -70,6 +70,7 @@ namespace winrt::WinUI3Example::implementation
             {L"AutoSuggestBoxHelper", winrt::xaml_typename<WinUI3Example::AutoSuggestBoxHelperPage>()},
 			{L"ModalWindow", winrt::xaml_typename<WinUI3Example::ModalWindowPage>()},
 			{L"ToolTipHelper", winrt::xaml_typename<WinUI3Example::ToolTipHelperPage>()},
+			{L"CommandBarHelper", winrt::xaml_typename<WinUI3Example::CommandBarHelperPage>()},
         };
 
         int m_themeIndex{};

@@ -277,6 +277,10 @@
       <DependentUpon>ComboBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CommandBarHelper.h">
+      <DependentUpon>CommandBarHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ContainerToBoolConverter.h">
       <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -569,6 +573,10 @@
       <DependentUpon>ComboBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="CommandBarHelper.cpp">
+      <DependentUpon>CommandBarHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ContainerToBoolConverter.cpp">
       <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -824,6 +832,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ComboBoxHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="CommandBarHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ContainerToBoolConverter.idl">
