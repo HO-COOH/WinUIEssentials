@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass DataGrid : Microsoft.UI.Xaml.Controls.UserControl
+    {
+        DataGrid();
+    }
+}

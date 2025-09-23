@@ -1,0 +1,13 @@
+import "IDataGridData.idl";
+
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+	runtimeclass MyGridData : IDataGridData
+    {
+        MyGridData();
+
+        Windows.Foundation.Collections.IVector<String> Headers{ get; };
+    }
+}

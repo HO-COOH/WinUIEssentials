@@ -64,7 +64,12 @@
         <local:ControlExample HeaderText="A Smooth morph animation that morph a Button to a ProgressBar">
             <Grid MinWidth="500">
                 <Button x:Name="ButtonMorph" Style="{StaticResource AccentButtonStyle}">Click to morph</Button>
-                <ProgressBar x:Name="ProgressBarMorph" Width="300" Height="50" Value="50" Visibility="Collapsed"/>
+                <ProgressBar
+                    x:Name="ProgressBarMorph"
+                    Width="300"
+                    Height="50"
+                    Visibility="Collapsed"
+                    Value="50" />
             </Grid>
             <local:ControlExample.Options>
                 <StackPanel Spacing="5">
@@ -75,11 +80,18 @@
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Animated digit">
-            <local:AnimatedNumber Value="100"/>
+            <local:AnimatedNumber Value="100" />
         </local:ControlExample>
 
         <local:ControlExample HeaderText="AcrylicVisual">
-            <essential:AcrylicVisual MinWidth="100" MinHeight =" 100" CornerRadius="4"/>
+            <essential:AcrylicVisual
+                MinWidth="100"
+                MinHeight=" 100"
+                CornerRadius="4" />
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="DataGrid Demo">
+            <local:DataGrid Width="500" Height="500" />
         </local:ControlExample>
     </StackPanel>
 </Page>

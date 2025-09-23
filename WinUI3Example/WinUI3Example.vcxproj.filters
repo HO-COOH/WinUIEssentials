@@ -189,6 +189,9 @@
     <Page Include="CommandBarHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="DataGrid.xaml">
+      <Filter>Pages\Experimental\DataGrid</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -258,6 +261,12 @@
     </Midl>
     <Midl Include="LineGraph.idl">
       <Filter>Pages\LineGraphPage</Filter>
+    </Midl>
+    <Midl Include="IDataGridData.idl">
+      <Filter>Pages\Experimental\DataGrid</Filter>
+    </Midl>
+    <Midl Include="MyGridData.idl">
+      <Filter>Pages\Experimental\DataGrid</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -512,6 +521,12 @@
     <Filter Include="Pages\LineGraphPage">
       <UniqueIdentifier>{32793b0e-d121-453c-bcc7-148ac0e29cbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pages\Experimental\DataGrid">
+      <UniqueIdentifier>{623fb8b2-8843-4bd9-a7d3-90c4d9c1c06c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\Experimental\Shaders">
+      <UniqueIdentifier>{14b6b5b0-f8ac-45c2-a356-ecedd7875f3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
@@ -530,5 +545,10 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="DisplacementMapGenerator.hlsl">
+      <Filter>Pages\Experimental\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
