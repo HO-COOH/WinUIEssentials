@@ -52,17 +52,16 @@ namespace winrt::WinUI3Package::implementation
 			return;
 
 		auto autoSuggestBox = object.as<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox>();
-		autoSuggestBox.LayoutUpdated([autoSuggestBoxRef = winrt::make_weak(autoSuggestBox), called = false](auto&&...) mutable
+		auto layoutUpdatedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox::LayoutUpdated_revoker>();
+		*layoutUpdatedRevoker = autoSuggestBox.LayoutUpdated(winrt::auto_revoke, [autoSuggestBoxRef = winrt::make_weak(autoSuggestBox), layoutUpdatedRevoker](auto&&...)
 		{
-			if (called) return;
-
 			auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(
 				autoSuggestBoxRef.get().as<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox>(), 
 				L"SuggestionsPopup"
 			);
 			if (!popup) return;
 
-			called = true;
+			layoutUpdatedRevoker->revoke();
 			auto border = popup.FindName(L"SuggestionsContainer").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
 			border.Padding({});
 			border.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });

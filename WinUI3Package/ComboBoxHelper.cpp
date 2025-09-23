@@ -46,17 +46,16 @@ namespace winrt::WinUI3Package::implementation
 			return;
 
 		auto comboBox = object.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
-		comboBox.LayoutUpdated([comboxBoxRef = winrt::make_weak(comboBox), called = false](auto&&...) mutable 
+		auto layoutUpdatedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::LayoutUpdated_revoker>();
+		comboBox.LayoutUpdated([comboxBoxRef = winrt::make_weak(comboBox), layoutUpdatedRevoker](auto&&...) mutable 
 		{
-			if (called) return;
-
 			auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(
 				comboxBoxRef.get().as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>(), 
 				L"Popup"
 			);
 			if (!popup) return;
 
-			called = true;
+			layoutUpdatedRevoker->revoke();
 			auto border = popup.FindName(L"PopupBorder").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
 			border.SizeChanged([comboxBoxRef, called = false, visualRef = winrt::weak_ref<winrt::WinUI3Package::AcrylicVisual>{}](auto const& borderRef, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) mutable
 			{
