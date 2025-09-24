@@ -22,17 +22,17 @@ namespace winrt::WinUI3Example::implementation
 {
 	HWND MainWindow::Hwnd;
 	winrt::Microsoft::UI::Xaml::Window MainWindow::Window{ nullptr };
+	WinUI3Example::MainWindow MainWindow::MainWindowInstance{ nullptr };
 
 	MainWindow::MainWindow()
 	{
 		Hwnd = GetHwnd(*this);
 		Window = *this;
+		MainWindowInstance = *this;
 		InitializeComponent();
 		if (!WebView2Helper::IsWebView2Installed())
 			InstallWebView2Dialog().ShowAsync();
-		MainIcon().Show();
 	}
-
 
 
 	void MainWindow::NavigationView_SelectionChanged(

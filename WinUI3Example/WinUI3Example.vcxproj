@@ -408,10 +408,6 @@
       <DependentUpon>LineGraphControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="LineGraphPage.xaml.h">
-      <DependentUpon>LineGraphPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="MarqueeTextPage.xaml.h">
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -670,9 +666,6 @@
     <Page Include="LineGraphControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LineGraphPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="MainWindow.xaml" />
     <Page Include="MarqueeTextPage.xaml">
       <SubType>Designer</SubType>
@@ -913,10 +906,6 @@
     </ClCompile>
     <ClCompile Include="LineGraphControl.xaml.cpp">
       <DependentUpon>LineGraphControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="LineGraphPage.xaml.cpp">
-      <DependentUpon>LineGraphPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MarqueeTextPage.xaml.cpp">
@@ -1231,10 +1220,6 @@
     </Midl>
     <Midl Include="LineGraphControl.idl">
       <DependentUpon>LineGraphControl.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="LineGraphPage.idl">
-      <DependentUpon>LineGraphPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MainWindow.idl">

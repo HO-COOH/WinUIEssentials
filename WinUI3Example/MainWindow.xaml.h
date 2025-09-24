@@ -31,6 +31,7 @@ namespace winrt::WinUI3Example::implementation
         static winrt::guid IconGuid();
         static HWND Hwnd;
 		static winrt::Microsoft::UI::Xaml::Window Window;
+        static WinUI3Example::MainWindow MainWindowInstance;
     private:
         static inline std::map<winrt::hstring, winrt::Windows::UI::Xaml::Interop::TypeName> s_page
         {
@@ -49,7 +50,6 @@ namespace winrt::WinUI3Example::implementation
             {L"Glphys", winrt::xaml_typename<WinUI3Example::GlyphsPage>()},
             {L"TitleBar", winrt::xaml_typename<WinUI3Example::TitleBarPage>()},
             {L"ProgressBarEx", winrt::xaml_typename<WinUI3Example::ProgressBarExPage>()},
-            {L"LineGraph", winrt::xaml_typename<WinUI3Example::LineGraphPage>()},
             {L"WindowEx", winrt::xaml_typename<WinUI3Example::WindowExPage>()},
             {L"Segmented", winrt::xaml_typename<WinUI3Example::SegmentedPage>()},
             {L"IconButton", winrt::xaml_typename<WinUI3Example::IconButtonPage>()},
@@ -73,7 +73,7 @@ namespace winrt::WinUI3Example::implementation
 			{L"CommandBarHelper", winrt::xaml_typename<WinUI3Example::CommandBarHelperPage>()},
         };
 
-        int m_themeIndex{};
+        int m_themeIndex = 2; //default theme index
     public:
         void ExitItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void ThemeButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

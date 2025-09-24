@@ -6,10 +6,11 @@
 #include <format>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
+#include "ThemeListener.h"
 
 namespace winrt::WinUI3Package::implementation
 {
-	constexpr static inline winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme elementThemeToBackdropTheme(
+	static inline winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme elementThemeToBackdropTheme(
 		winrt::Microsoft::UI::Xaml::ElementTheme const& theme)
 	{
 		switch (theme)
@@ -19,7 +20,9 @@ namespace winrt::WinUI3Package::implementation
 			case winrt::Microsoft::UI::Xaml::ElementTheme::Dark:
 				return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Dark;
 			default:
-				return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Default;
+				return ThemeSettings::Instance().AppsUseLightTheme() ? 
+					winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Light : 
+					winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Dark;
 		}
 	};
 
@@ -32,11 +35,11 @@ namespace winrt::WinUI3Package::implementation
 
 		RegisterPropertyChangedCallback(
 			winrt::Microsoft::UI::Xaml::FrameworkElement::RequestedThemeProperty(),
-			[](auto&& self, winrt::Microsoft::UI::Xaml::DependencyProperty const& requestThemeProperty)
+			[this](auto&&...)
 			{ 
-				m_configuration.Theme(elementThemeToBackdropTheme(winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(self.GetValue(requestThemeProperty))));
+				m_configuration.Theme(elementThemeToBackdropTheme(RequestedTheme()));
+				m_controller.SetSystemBackdropConfiguration(m_configuration);
 			});
-
 		auto compositor = winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread();
 		m_backdropLink = winrt::Microsoft::UI::Content::ContentExternalBackdropLink::Create(compositor);
 		m_backdropLink.ExternalBackdropBorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
@@ -65,7 +68,7 @@ namespace winrt::WinUI3Package::implementation
 			return configuration;
 		}();
 
-	void AcrylicVisual::cornerRadiusChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& self, winrt::Microsoft::UI::Xaml::DependencyProperty const& cornerRadiusProperty)
+	void AcrylicVisual::cornerRadiusChanged(winrt::Microsoft::UI::Xaml::DependencyObject const&, winrt::Microsoft::UI::Xaml::DependencyProperty const&)
 	{
 		updateVisual();
 		auto const radius = CornerRadius();
@@ -95,6 +98,15 @@ namespace winrt::WinUI3Package::implementation
 
 	void AcrylicVisual::updateVisual()
 	{
+		if (auto parent = Parent())
+		{
+			if (auto parentElement = parent.try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>())
+			{
+				auto theme = parentElement.ActualTheme();
+				m_configuration.Theme(elementThemeToBackdropTheme(theme));
+			}
+		}
+
 		if (!m_placementVisual)
 		{
 			m_controller.AddSystemBackdropTarget(m_backdropLink.as<winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop>());

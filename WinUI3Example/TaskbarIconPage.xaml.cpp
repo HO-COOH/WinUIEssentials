@@ -5,6 +5,7 @@
 #endif
 
 #include "TaskbarIconSource.xaml.h"
+#include "MainWindow.xaml.h"
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -214,6 +215,16 @@ namespace winrt::WinUI3Example::implementation
 		}
 	}
 
-}
+	void TaskbarIconPage::ToggleSwitch_Toggled(
+		winrt::Windows::Foundation::IInspectable const& sender, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		auto toggleSwitch = sender.as<winrt::Microsoft::UI::Xaml::Controls::ToggleSwitch>();
+		if (toggleSwitch.IsOn())
+			winrt::get_self<MainWindow>(MainWindow::MainWindowInstance)->MainIcon().Show();
+		else
+			winrt::get_self<MainWindow>(MainWindow::MainWindowInstance)->MainIcon().Remove();
+	}
 
+}
 

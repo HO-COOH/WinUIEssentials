@@ -93,6 +93,12 @@
     </Page.Resources>
 
     <StackPanel>
+        <local:ControlExample HeaderText="Create app default tray icon">
+            <ToggleSwitch
+                Header="Show tray icon"
+                IsOn="False"
+                Toggled="ToggleSwitch_Toggled" />
+        </local:ControlExample>
         <local:ControlExample HeaderText="Create a single taskbar icon">
             <local:TaskbarIconSource x:Name="NormalIconSource" />
             <local:ControlExample.Options>

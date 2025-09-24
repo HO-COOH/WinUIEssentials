@@ -90,6 +90,36 @@
                 CornerRadius="4" />
         </local:ControlExample>
 
+        <local:ControlExample HeaderText="LineGraph Demo">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <local:LineGraphControl x:Name="Graph">
+                    <local:LineGraphControl.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.ThemeDictionaries>
+                                <ResourceDictionary x:Key="Light">
+                                    <SolidColorBrush x:Key="FillColor">#00ff00</SolidColorBrush>
+                                </ResourceDictionary>
+                            </ResourceDictionary.ThemeDictionaries>
+
+                        </ResourceDictionary>
+
+                    </local:LineGraphControl.Resources>
+                </local:LineGraphControl>
+
+                <StackPanel Grid.Row="1">
+                    <Slider x:Name="ValueSlider" Maximum="500" />
+                    <Button Click="AddValueButton_Click">Add</Button>
+                </StackPanel>
+
+            </Grid>
+        </local:ControlExample>
+
         <local:ControlExample HeaderText="DataGrid Demo">
             <local:DataGrid Width="500" Height="500" />
         </local:ControlExample>

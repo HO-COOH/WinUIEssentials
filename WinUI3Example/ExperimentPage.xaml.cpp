@@ -140,4 +140,14 @@ namespace winrt::WinUI3Example::implementation
 			CreateOpacityAnimation(compositor, false, duration));
 		progressBarVisual.StartAnimationGroup(progressBarAnimationGroup);
 	}
+
+	void ExperimentPage::AddValueButton_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		static float x = 0.01;
+		x += 0.01;
+		Graph().AddPoint(x, ValueSlider().Value());
+	}
+
 }

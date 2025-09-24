@@ -20,7 +20,7 @@ namespace winrt::WinUI3Example::implementation
         void FlipWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void ButtonMorph_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void SlowButtonMorph_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
-
+        void AddValueButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         winrt::fire_and_forget morphButtonToProgressBar(
             winrt::Microsoft::UI::Xaml::Controls::Button button,
             winrt::Microsoft::UI::Xaml::Controls::ProgressBar progressBar,

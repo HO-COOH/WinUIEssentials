@@ -725,7 +725,7 @@
                     <essential:SwitchPresenter
                         xmlns:theme="using:Microsoft.UI.Xaml"
                         x:Name="ThemeSwitcher"
-                        Value="{Binding ActualTheme, ElementName=RootGrid, Mode=OneWay}">
+                        Value="{Binding RequestedTheme, ElementName=RootGrid, Mode=OneWay}">
                         <essential:Case>
                             <TextBlock Text="🌙" />
                             <essential:Case.Value>
