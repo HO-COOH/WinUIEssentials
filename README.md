@@ -9,16 +9,9 @@ A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows 
 [Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9?hl=en-us&gl=US&ocid=pdpshare)
 
 
-<script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
-<ms-store-badge
-	productid="9pcc690bcmt9"
-	productname="WinUIEssentials.WinUI3Example"
-	window-mode="direct"
-	theme="auto"
-	size="large"
-	language="en-us"
-	animation="on">
-</ms-store-badge>
+<a href="https://apps.microsoft.com/detail/9pcc690bcmt9?referrer=appbadge&mode=direct">
+	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
+</a>
 
 ---
 Example project build status:
