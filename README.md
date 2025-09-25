@@ -5,6 +5,22 @@ A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows 
 [![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=WinUIEssential.UWP)](https://www.nuget.org/packages/WinUIEssential.UWP)
 [![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=WinUIEssential.WinUI3)](https://www.nuget.org/packages/WinUIEssential.WinUI3)
 
+
+[Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9?hl=en-us&gl=US&ocid=pdpshare)
+
+
+<script type="module" src="https://get.microsoft.com/badge/ms-store-badge.bundled.js"></script>
+<ms-store-badge
+	productid="9pcc690bcmt9"
+	productname="WinUIEssentials.WinUI3Example"
+	window-mode="direct"
+	theme="auto"
+	size="large"
+	language="en-us"
+	animation="on">
+</ms-store-badge>
+
+---
 Example project build status:
 
 |Platform|Debug|Release|
