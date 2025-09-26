@@ -46,45 +46,32 @@ namespace winrt::WinUI3Package::implementation
 			return;
 
 		auto comboBox = object.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
-		auto layoutUpdatedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::LayoutUpdated_revoker>();
-		comboBox.LayoutUpdated([comboxBoxRef = winrt::make_weak(comboBox), layoutUpdatedRevoker](auto&&...) mutable 
+		auto comboBoxLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::Loaded_revoker>();
+		*comboBoxLoadedRevoker = comboBox.Loaded(winrt::auto_revoke, [comboBoxLoadedRevoker](auto&& comboBoxRef, auto&&) 
 		{
+			auto comboBox = comboBoxRef.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
 			auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(
-				comboxBoxRef.get().as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>(), 
+				comboBox, 
 				L"Popup"
 			);
-			if (!popup) return;
 
-			layoutUpdatedRevoker->revoke();
+			comboBoxLoadedRevoker->revoke();
 			auto border = popup.FindName(L"PopupBorder").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
-			border.SizeChanged([comboxBoxRef, called = false, visualRef = winrt::weak_ref<winrt::WinUI3Package::AcrylicVisual>{}](auto const& borderRef, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) mutable
+
+			auto borderLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::Border::Loaded_revoker>();
+			*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [comboBoxRef = winrt::make_weak(comboBox), borderLoadedRevoker](auto const& borderRef, auto&&)
 			{
-				if (called)
-				{
-					if (auto visual = visualRef.get())
-						visual.CornerRadius(borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>().CornerRadius());
-					return;
-				}
-
-				// The border might still be not fully loaded, which might return a size of 0, rule out this situation here
+				borderLoadedRevoker->revoke();
 				auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
-				if (auto const newSize = args.NewSize(); newSize.Width == 0 || newSize.Height == 0)
-					return;
-				called = true;
-				auto originalChild = border.Child();
-
-				winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
-				border.Child(scrollGrid);
-
+			
 				winrt::WinUI3Package::AcrylicVisual visual;
-				comboxBoxRef.get().ActualThemeChanged([visualRef = winrt::make_weak(visual)](auto&& element...) {
-					if(auto visual = visualRef.get())
-						visual.RequestedTheme(element.ActualTheme());
-				});
-
 				visual.CornerRadius(border.CornerRadius());
-				scrollGrid.Children().ReplaceAll({ visual, originalChild });
-				visualRef = visual;
+				VisualTreeHelper::FindVisualChildByType<winrt::Microsoft::UI::Xaml::Controls::Grid>(border).Children().InsertAt(0, visual);
+
+				if (auto comboBox = comboBoxRef.get(); !comboBox.IsEditable())
+				{
+					comboBox.IsDropDownOpen(true);
+				}
 			});
 		});
 	}

@@ -37,12 +37,6 @@ namespace winrt::WinUI3Package::implementation
 		autoSuggestBox.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
 	}
 
-	static void adjustVisual(winrt::WinUI3Package::AcrylicVisual const& visual, winrt::Microsoft::UI::Xaml::CornerRadius cornerRadius)
-	{
-		visual.CornerRadius(cornerRadius);
-		//OutputDebugString(std::format(L"CornerRadius: {}, {}, {}, {}\n", cornerRadius.TopLeft, cornerRadius.TopRight, cornerRadius.BottomRight, cornerRadius.BottomLeft).data());
-	}
-
 	void AutoSuggestBoxHelper::acrylicWorkaroundChanged(
 		winrt::Microsoft::UI::Xaml::DependencyObject const& object,
 		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg)
@@ -50,7 +44,7 @@ namespace winrt::WinUI3Package::implementation
 		auto const acrylicWorkaround = winrt::unbox_value<bool>(arg.NewValue());
 		if (!acrylicWorkaround)
 			return;
-
+		
 		auto autoSuggestBox = object.as<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox>();
 		auto layoutUpdatedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox::LayoutUpdated_revoker>();
 		*layoutUpdatedRevoker = autoSuggestBox.LayoutUpdated(winrt::auto_revoke, [autoSuggestBoxRef = winrt::make_weak(autoSuggestBox), layoutUpdatedRevoker](auto&&...)
@@ -65,32 +59,27 @@ namespace winrt::WinUI3Package::implementation
 			auto border = popup.FindName(L"SuggestionsContainer").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
 			border.Padding({});
 			border.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
-			border.SizeChanged([autoSuggestBoxRef, called = false, popup = winrt::make_weak(popup), visualRef = winrt::weak_ref<winrt::WinUI3Package::AcrylicVisual>{}](auto const& borderRef, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) mutable
+
+			
+			auto borderLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::Border::Loaded_revoker>();
+			*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [borderLoadedRevoker](auto const& borderRef, auto&&)
 			{
-				if (called)
-				{
-					if (auto visual = visualRef.get())
-						adjustVisual(visual, borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>().CornerRadius());
-					return;
-				}
-
+				borderLoadedRevoker->revoke();
+				
 				auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
-				if (auto const newSize = args.NewSize(); newSize.Width == 0 || newSize.Height == 0)
-					return;
-				called = true;
-
 				auto originalChild = border.Child();
 				winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
 				border.Child(scrollGrid);
 
 				winrt::WinUI3Package::AcrylicVisual visual;
-				autoSuggestBoxRef.get().ActualThemeChanged([visualRef = winrt::make_weak(visual)](auto&& element...) {
-					if (auto visual = visualRef.get())
-						visual.RequestedTheme(element.ActualTheme());
-					});
 
-				adjustVisual(visual, border.CornerRadius());
-				visualRef = visual;
+				winrt::Microsoft::UI::Xaml::Data::Binding cornerRadiusBinding;
+				cornerRadiusBinding.Source(border);
+				cornerRadiusBinding.Path(winrt::Microsoft::UI::Xaml::PropertyPath{ L"CornerRadius" });
+				visual.SetBinding(
+					winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
+					cornerRadiusBinding
+				);
 				scrollGrid.Children().ReplaceAll({ visual, originalChild });
 			});
 		});

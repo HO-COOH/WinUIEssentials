@@ -12,18 +12,46 @@
     <StackPanel>
         <local:ControlExample HeaderText="WinUIEssentials::Windows::Devices::Enumeration::DevicePicker">
             <Button x:Name="DevicePickerButton" Click="DevicePickerButton_Click">DevicePicker</Button>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::Devices::Enumeration::DevicePicker{ MainWindow::Hwnd }.PickSingleDeviceAsync({});</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="WinUIEssentials::Windows::Graphics::Capture::GraphicsCapturePicker">
             <Button x:Name="GraphicsCapturePickerButton" Click="GraphicsCapturePicker_Click">GraphicsCapturePicker</Button>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::Graphics::Capture::GraphicsCapturePicker{ MainWindow::Hwnd }.PickSingleItemAsync();</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="WinUIEssentials::Windows::Media::Casting::CastingDevicePicker">
             <Button x:Name="CastingDevicePickerButton" Click="CastingDevicePickerButton_Click">CastingDevicePicker</Button>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::Media::Casting::CastingDevicePicker{ MainWindow::Hwnd }.Show({});</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="WinUIEssentials::Windows::Media::DialProtocol::DialDevicePicker">
             <Button x:Name="DialDevicePickerButton" Click="DialDevicePickerButton_Click">DialDevicePicker</Button>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::Media::Casting::CastingDevicePicker{ MainWindow::Hwnd }.Show({});</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="WinUIEssentials::Windows::Storage::Pickers">
@@ -32,6 +60,22 @@
                 <Button x:Name="FileSavePicker" Click="FileSavePicker_Click">FileSavePicker</Button>
                 <Button x:Name="FolderPickerButton" Click="FolderPickerButton_Click">FolderPicker</Button>
             </StackPanel>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::Storage::Pickers::FileOpenPicker picker{ MainWindow::Hwnd };
+picker.FileTypeFilter().Append(L&quot;*&quot;);
+picker.PickSingleFileAsync();
+
+WinUIEssentials::Windows::Storage::Pickers::FileSavePicker picker{ MainWindow::Hwnd };
+picker.FileTypeChoices().Insert(L&quot;Anything&quot;, winrt::single_threaded_vector(std::vector&lt;winrt::hstring&gt;{ L&quot;.txt&quot; }));
+picker.PickSaveFileAsync();
+                            
+WinUIEssentials::Windows::Storage::Pickers::FolderPicker{ MainWindow::Hwnd }.PickSingleFolderAsync();
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="WinUIEssentials::Windows::System">
@@ -39,6 +83,16 @@
                 <Button x:Name="FolderLauncherOptionsButton" Click="FolderLauncherOptionsButton_Click">FolderLauncherOptions</Button>
                 <Button x:Name="LauncherOptionsButton" Click="LauncherOptionsButton_Click">LauncherOptions</Button>
             </StackPanel>
+
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::System::FolderLauncherOptions options{ MainWindow::Hwnd };
+options.DesiredRemainingView(winrt::Windows::UI::ViewManagement::ViewSizePreference::UseMinimum);
+winrt::Windows::System::Launcher::LaunchFolderAsync(winrt::Windows::Storage::KnownFolders::DocumentsLibrary(), options);</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="WinUIEssentials::Windows::UI::Core">
@@ -46,6 +100,17 @@
                 <Button x:Name="CoreWindowDialogButton" Click="CoreWindowDialogButton_Click">CoreWindowDialog</Button>
                 <Button x:Name="CoreWindowFlyoutButton" Click="CoreWindowFlyoutButton_Click">CoreWindowFlyout</Button>
             </StackPanel>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::UI::Core::CoreWindowDialog{ MainWindow::Hwnd, L&quot;CoreMessageDialogTitle&quot; }.ShowAsync();
+
+WinUIEssentials::Windows::UI::Core::CoreWindowFlyout flyout{ MainWindow::Hwnd, winrt::Windows::Foundation::Point{}, L&quot;CoreWindowFlyout&quot;};
+flyout.Commands().ReplaceAll({ winrt::Windows::UI::Popups::UICommand{L&quot;Command1&quot;}, winrt::Windows::UI::Popups::UICommand{L&quot;Command2&quot;} });
+flyout.ShowAsync();</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="WinUIEssentials::Windows::UI::Popups">
@@ -53,10 +118,38 @@
                 <Button x:Name="MessageDialogButton" Click="MessageDialogButton_Click">MessageDialog</Button>
                 <Button x:Name="PopupMenuButton" Click="PopupMenuButton_Click">PopupMenu</Button>
             </StackPanel>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::UI::Popups::MessageDialog{ MainWindow::Hwnd, L&quot;MessageDialogContent&quot;, L&quot;MessageDialogTitle&quot; }.ShowAsync();
+
+WinUIEssentials::Windows::UI::Popups::PopupMenu menu{ MainWindow::Hwnd };
+menu.Commands().ReplaceAll({ winrt::Windows::UI::Popups::UICommand{L&quot;Command1&quot;}, winrt::Windows::UI::Popups::UICommand{L&quot;Command2&quot;} });
+menu.ShowAsync({});                            
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="WinUIEssentials::Windows::UI::StartScreen">
             <Button x:Name="SecondaryTileButton" Click="SecondaryTileButton_Click">SecondaryTile</Button>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">WinUIEssentials::Windows::UI::StartScreen::SecondaryTile tile
+{ 
+	MainWindow::Hwnd, 
+	L&quot;Tile&quot;,
+	L&quot;Tile&quot;, 
+	L&quot;me&quot;, 
+	winrt::Windows::Foundation::Uri{L&quot;ms-appx:///Assets/LargeTile.scale-100.png&quot;}, 
+	winrt::Windows::UI::StartScreen::TileSize::Default
+};
+co_await tile.RequestCreateAsync();</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <!--<local:ControlExample HeaderText="WinUIEssentials::InitializeWithWindow">

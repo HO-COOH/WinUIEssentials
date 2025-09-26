@@ -37,9 +37,6 @@ namespace winrt::WinUI3Example::implementation
 
 	void InitializeWithWindowHelperPage::PaymentMediatorButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		winrt::Windows::ApplicationModel::Payments::PaymentMediator mediator;
-		//mediator.
-		//winrt::Windows::UI::Core::CoreWindow
 	}
 
 
