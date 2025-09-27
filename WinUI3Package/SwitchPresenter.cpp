@@ -21,7 +21,7 @@ namespace winrt::WinUI3Package::implementation
 			L"SwitchCases",
 			winrt::xaml_typename<WinUI3Package::CaseCollection>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::WinUI3Package::CaseCollection{}, &SwitchPresenter::onSwitchCasesChanged }
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &SwitchPresenter::onSwitchCasesChanged }
 		);
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty SwitchPresenter::s_valueProperty =
@@ -34,6 +34,7 @@ namespace winrt::WinUI3Package::implementation
 
 	SwitchPresenter::SwitchPresenter()
 	{
+		SwitchCases({});
 		Loaded([this](auto&&...)
 		{
 			evaluateCases();
@@ -103,25 +104,25 @@ namespace winrt::WinUI3Package::implementation
 
 	void SwitchPresenter::evaluateCases()
 	{
+		auto value = Value();
+		if (!value)
+			return;
+
 		// If the current case we're on already matches our current value,
 		// then we don't have any work to do.
 		if (auto const& currentCase = CurrentCase(); currentCase)
 		{
 			// currentCase might be a default case, not having a value
 			auto currentCaseValue = currentCase.Value();
-			if (currentCaseValue && internal::ConvertTypeEquals(currentCaseValue, Value()))
+			if (currentCaseValue && internal::ConvertTypeEquals(currentCaseValue, value))
 				return;
 		}
 
 		auto cases = SwitchCases();
 		if (cases.Size() == 0 )
 			return;
-		
-		auto value = Value();
-		if (!value)
-			return;
 
-		if (auto const& matchCase = winrt::get_self<implementation::CaseCollection>(cases)->EvaluateCases(Value());
+		if (auto const& matchCase = winrt::get_self<implementation::CaseCollection>(cases)->EvaluateCases(value);
 			matchCase != CurrentCase())
 		{
 			//match case can be null
