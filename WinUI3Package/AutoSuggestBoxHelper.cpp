@@ -53,10 +53,16 @@ namespace winrt::WinUI3Package::implementation
 				autoSuggestBoxRef.get().as<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox>(), 
 				L"SuggestionsPopup"
 			);
-			if (!popup) return;
+			if (!popup) 
+				return;
+
+
+			auto borderRef = popup.FindName(L"SuggestionsContainer");
+			if (!borderRef)
+				return;
 
 			layoutUpdatedRevoker->revoke();
-			auto border = popup.FindName(L"SuggestionsContainer").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
+			auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
 			border.Padding({});
 			border.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
 

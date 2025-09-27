@@ -46,18 +46,25 @@ namespace winrt::WinUI3Package::implementation
 			return;
 
 		auto comboBox = object.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
-		auto comboBoxLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::Loaded_revoker>();
-		*comboBoxLoadedRevoker = comboBox.Loaded(winrt::auto_revoke, [comboBoxLoadedRevoker](auto&& comboBoxRef, auto&&) 
+		
+		//Can't use Loaded here, because when Visibility = Collapsed, we can't find popup in the handler, and it will not fire again when Visibility = Visible
+		//auto comboBoxLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::Loaded_revoker>();
+		auto comboBoxLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::LayoutUpdated_revoker>();
+		*comboBoxLoadedRevoker = comboBox.LayoutUpdated(winrt::auto_revoke, [comboBoxLoadedRevoker, comboBoxRef = winrt::make_weak(comboBox)](auto&&, auto&&)
 		{
-			auto comboBox = comboBoxRef.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
+			auto comboBox = comboBoxRef.get()/*.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>()*/;
 			auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(
 				comboBox, 
 				L"Popup"
 			);
+			if (!popup)
+				return;
+
+			auto border = popup.FindName(L"PopupBorder").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
+			if (!border)
+				return;
 
 			comboBoxLoadedRevoker->revoke();
-			auto border = popup.FindName(L"PopupBorder").as<winrt::Microsoft::UI::Xaml::Controls::Border>();
-
 			auto borderLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::Border::Loaded_revoker>();
 			*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [comboBoxRef = winrt::make_weak(comboBox), borderLoadedRevoker](auto const& borderRef, auto&&)
 			{
