@@ -67,25 +67,37 @@ namespace winrt::WinUI3Example::implementation
 
 	winrt::fire_and_forget AboutPage::loadContributors()
 	{
-		winrt::Windows::Web::Http::HttpClient client;
-		winrt::Windows::Web::Http::HttpRequestMessage message
+		try
 		{
-			winrt::Windows::Web::Http::HttpMethod::Get(),
-			winrt::Windows::Foundation::Uri{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials/contributors" }
-		};
-		message.Headers().Append(L"User-Agent", L"WinUI3ExampleApp");
-		auto result = co_await client.SendRequestAsync(message);
-		auto resultStr = co_await result.Content().ReadAsStringAsync();
+			winrt::Windows::Web::Http::HttpClient client;
+			winrt::Windows::Web::Http::HttpRequestMessage message
+			{
+				winrt::Windows::Web::Http::HttpMethod::Get(),
+				winrt::Windows::Foundation::Uri{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials/contributors" }
+			};
+			message.Headers().Append(L"User-Agent", L"WinUI3ExampleApp");
+			auto result = co_await client.SendRequestAsync(message);
+			auto resultStr = co_await result.Content().ReadAsStringAsync();
 
-		auto contributorsJsonArray = winrt::Windows::Data::Json::JsonArray::Parse(resultStr);
-		std::vector<winrt::Windows::Foundation::IInspectable> contributors;
-		std::ranges::transform(
-			contributorsJsonArray,
-			std::back_inserter(contributors),
-			[](auto&& jsonObj) {return winrt::WinUI3Example::ContributorItem{ jsonObj.GetObjectW()}; }
-		);
-		m_contributors = winrt::single_threaded_vector(std::move(contributors));
-		raisePropertyChange(L"Contributors");
+			auto contributorsJsonArray = winrt::Windows::Data::Json::JsonArray::Parse(resultStr);
+			std::vector<winrt::Windows::Foundation::IInspectable> contributors;
+			std::ranges::transform(
+				contributorsJsonArray,
+				std::back_inserter(contributors),
+				[](auto&& jsonObj) {return winrt::WinUI3Example::ContributorItem{ jsonObj.GetObjectW() }; }
+			);
+			m_contributors = winrt::single_threaded_vector(std::move(contributors));
+			raisePropertyChange(L"Contributors");
+			co_return;
+		}
+		catch (winrt::hresult_error const& e)
+		{
+			GetContributorFailedBar().Message(GetContributorFailedBar().Message() + e.message());
+		}
+		catch (...)
+		{
+		}
+		winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"GetContributorFailed", false);
 	}
 
 }

@@ -98,7 +98,66 @@
                 Header="Show tray icon"
                 IsOn="False"
                 Toggled="ToggleSwitch_Toggled" />
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:TaskbarIcon
+    x:Name=&quot;MainIcon&quot;
+    Guid=&quot;{x:Bind local:MainWindow.IconGuid}&quot;
+    Icon=&quot;ms-appx:///Assets/MainLogo.ico&quot;
+    ToolTip=&quot;WinUI3Example&apos;s icon tooltip&quot;&gt;
+    &lt;MenuFlyout&gt;
+        &lt;MenuFlyoutItem
+            x:Name=&quot;ExitItem&quot;
+            Click=&quot;ExitItem_Click&quot;
+            Text=&quot;Exit&quot; /&gt;
+    &lt;/MenuFlyout&gt;
+&lt;/essential:TaskbarIcon&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+            <local:ControlExample.Idl>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">[default_interface]
+runtimeclass MainWindow : WinUI3Package.WindowEx
+{
+    MainWindow();
+    static Guid IconGuid{ get; };
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Idl>
+            <local:ControlExample.Header>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve"> struct MainWindow : MainWindowT&lt;MainWindow&gt;
+{
+    static winrt::guid IconGuid();
+};</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Header>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">winrt::guid MainWindow::IconGuid()
+{
+	// {733204C1-9F66-4E4E-A24C-CEA34294DA39}
+	return
+	{ 0x733204c1, 0x9f66, 0x4e4e, { 0xa2, 0x4c, 0xce, 0xa3, 0x42, 0x94, 0xda, 0x39 } };
+}
+
+//Showing the icon
+MainIcon().Show();
+                            
+//Removing the icon
+MainIcon().Remove();</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
+
         <local:ControlExample HeaderText="Create a single taskbar icon">
             <local:TaskbarIconSource x:Name="NormalIconSource" />
             <local:ControlExample.Options>

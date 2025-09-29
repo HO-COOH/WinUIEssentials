@@ -1,27 +1,135 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="WinUI3Example.BackdropPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WinUI3Example"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
-        <!--Acrylic-->
-        <Button x:Name="CreateDefaultAcrylicButton" Click="CreateDefaultAcrylicButton_Click">Create Window with default Acrylic</Button>
-        <Button x:Name="CreateStandardAcrylicButton" Click="CreateStandardAcrylicButton_Click">Create Window with standard WinUI Acrylic</Button>
-        <Button x:Name="CreateAcrylicButton" Click="CreateAcrylicButton_Click">Create Window with customizable Acrylic</Button>
-        
-        <!--Mica-->
-        <Button x:Name="CreateDefaultMicaButton" Click="CreateDefaultMicaButton_Click">Create Window with default Mica</Button>
-        <Button x:Name="CreateStandardMicaButton" Click="CreateStandardMicaButton_Click">Create Window with standard WinUI Mica</Button>
-        <Button x:Name="CreateMicaButton" Click="CreateMicaButton_Click">Create Window with customizable Mica</Button>
-        
-        <!--Transparent-->
-        <Button x:Name="CreateTransparentButton" Click="CreateTransparentButton_Click">Create transparent window</Button>
-        <Button x:Name="CreateNotifyButton" Click="CreateNotifyButton_Click">Create Notify window</Button>
+    <StackPanel
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Spacing="10">
+
+        <!--  Acrylic  -->
+        <local:ControlExample HeaderText="Create Window with WinUI3 Built-in Acrylic">
+            <Button x:Name="CreateDefaultAcrylicButton" Click="CreateDefaultAcrylicButton_Click">Create</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window
+    x:Class=&quot;WinUI3Example.DefaultAcrylicWindow&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+    &lt;Window.SystemBackdrop&gt;
+        &lt;essential:CustomAcrylicBackdrop EnableWhenInactive=&quot;{x:Bind EnableSwitch.IsOn, Mode=OneWay}&quot; Kind=&quot;{x:Bind local:DefaultAcrylicWindow.ToAcrylicKind(KindComboBox.SelectedItem), Mode=OneWay}&quot; /&gt;
+    &lt;/Window.SystemBackdrop&gt;
+
+    &lt;StackPanel
+        HorizontalAlignment=&quot;Center&quot;
+        VerticalAlignment=&quot;Center&quot;
+        Spacing=&quot;10&quot;&gt;
+        &lt;ToggleSwitch x:Name=&quot;EnableSwitch&quot; Header=&quot;Enable acrylic when window is inactive&quot; /&gt;
+        &lt;ComboBox x:Name=&quot;KindComboBox&quot; Header=&quot;Kind&quot;&gt;
+            &lt;x:String&gt;Default&lt;/x:String&gt;
+            &lt;x:String&gt;Base&lt;/x:String&gt;
+            &lt;x:String&gt;Thin&lt;/x:String&gt;
+        &lt;/ComboBox&gt;
+    &lt;/StackPanel&gt;
+
+&lt;/Window&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+            <local:ControlExample.Idl>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">[default_interface]
+runtimeclass DefaultAcrylicWindow : Microsoft.UI.Xaml.Window
+{
+    DefaultAcrylicWindow();
+    static Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicKind ToAcrylicKind(Object selection);
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Idl>
+            <local:ControlExample.Header>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">struct DefaultAcrylicWindow : DefaultAcrylicWindowT&lt;DefaultAcrylicWindow&gt;
+{
+    DefaultAcrylicWindow() = default;
+
+    static winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind ToAcrylicKind(winrt::Windows::Foundation::IInspectable const&amp; selection);
+};</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Header>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind DefaultAcrylicWindow::ToAcrylicKind(winrt::Windows::Foundation::IInspectable const&amp; selection)
+{
+	if (!selection)
+		return {};
+
+	auto str = winrt::unbox_value&lt;winrt::hstring&gt;(selection);
+	if (str == L&quot;Default&quot;) return winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind::Default;
+	else if (str == L&quot;Base&quot;) return winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind::Base;
+	else if (str == L&quot;Thin&quot;) return winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind::Thin;
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Create Window with standard WinUI Acrylic">
+            <Button x:Name="CreateStandardAcrylicButton" Click="CreateStandardAcrylicButton_Click">Create</Button>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">winrt::Microsoft::UI::Xaml::Window window;
+window.SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{});
+window.Activate();</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Create Window with customizable Acrylic">
+            <Button x:Name="CreateAcrylicButton" Click="CreateAcrylicButton_Click">Create</Button>
+            <local:ControlExample.Xaml />
+        </local:ControlExample>
+
+
+        <!--  Mica  -->
+        <local:ControlExample HeaderText="Create Window with default Mica">
+            <Button x:Name="CreateDefaultMicaButton" Click="CreateDefaultMicaButton_Click">Create</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Create Window with standard WinUI Mica">
+            <Button x:Name="CreateStandardMicaButton" Click="CreateStandardMicaButton_Click">Create</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Create Window with customizable Mica">
+            <Button x:Name="CreateMicaButton" Click="CreateMicaButton_Click">Create</Button>
+        </local:ControlExample>
+
+        <!--  Transparent  -->
+        <local:ControlExample HeaderText="Create Window with customizable Transparent">
+            <Button x:Name="CreateTransparentButton" Click="CreateTransparentButton_Click">Create</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Create Notify window">
+            <Button x:Name="CreateNotifyButton" Click="CreateNotifyButton_Click">Create</Button>
+        </local:ControlExample>
     </StackPanel>
 </Page>

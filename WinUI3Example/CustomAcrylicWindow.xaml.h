@@ -12,7 +12,6 @@ namespace winrt::WinUI3Example::implementation
             // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
         }
 
-        static winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind ToAcrylicKind(winrt::Windows::Foundation::IInspectable const& selection);
         static float DoubleToSingle(double value);
     };
 }

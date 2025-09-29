@@ -51,27 +51,48 @@
                 </essential:SettingsCard>
 
                 <essential:SettingsCard
-                    HorizontalContentAlignment="Left"
+                    HorizontalContentAlignment="Stretch"
                     ContentAlignment="Vertical"
                     Header="Contributors">
-                    <GridView ItemsSource="{x:Bind Contributors, Mode=OneWay}">
-                        <GridView.ItemTemplate>
-                            <DataTemplate x:DataType="local:ContributorItem">
-                                <StackPanel>
-                                    <Image Width="100" Height="100">
-                                        <Image.Source>
-                                            <BitmapImage UriSource="{x:Bind Avator}" />
-                                        </Image.Source>
-                                    </Image>
-                                    <TextBlock HorizontalAlignment="Center" Text="{x:Bind Name}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridView.ItemTemplate>
-                    </GridView>
+                    <Grid>
+                        <GridView x:Name="ContributorsGridView" ItemsSource="{x:Bind Contributors, Mode=OneWay}">
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="local:ContributorItem">
+                                    <StackPanel>
+                                        <Image Width="100" Height="100">
+                                            <Image.Source>
+                                                <BitmapImage UriSource="{x:Bind Avator}" />
+                                            </Image.Source>
+                                        </Image>
+                                        <TextBlock HorizontalAlignment="Center" Text="{x:Bind Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+
+                        <InfoBar
+                            x:Name="GetContributorFailedBar"
+                            Title="Error"
+                            IsOpen="False"
+                            Message="Failed to retrieve contributors: "
+                            Severity="Error" />
+                    </Grid>
+
                 </essential:SettingsCard>
             </essential:SettingsExpander.Items>
 
 
         </essential:SettingsExpander>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="GetContributorFailed">
+                    <VisualState.Setters>
+                        <Setter Target="ContributorsGridView.Visibility" Value="Collapsed" />
+                        <Setter Target="GetContributorFailedBar.IsOpen" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </StackPanel>
 </Page>

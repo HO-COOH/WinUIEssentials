@@ -5,7 +5,7 @@ namespace WinUI3Example
     {
         CustomAcrylicWindow();
 
-        static Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicKind ToAcrylicKind(Object selection);
+
         static Single DoubleToSingle(Double value);
     }
 }
