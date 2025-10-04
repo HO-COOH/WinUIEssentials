@@ -48,6 +48,9 @@
     <ClCompile Include="WindowContextMenuUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="AcrylicVisualWithBoundedCornerRadius.cpp">
+      <Filter>Controls\AcrylicVisual</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -206,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="include\VisualTreeHelper.hpp">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="AcrylicVisualWithBoundedCornerRadius.h">
+      <Filter>Controls\AcrylicVisual</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -467,6 +473,9 @@
     </Midl>
     <Midl Include="CommandBarHelper.idl">
       <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
+      <Filter>Windows</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

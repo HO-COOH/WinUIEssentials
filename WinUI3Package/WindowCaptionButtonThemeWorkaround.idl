@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass WindowCaptionButtonThemeWorkaround : Microsoft.UI.Xaml.Controls.Control
+    {
+        WindowCaptionButtonThemeWorkaround();
+        
+        Microsoft.UI.Xaml.Window Window;
+    }
+}

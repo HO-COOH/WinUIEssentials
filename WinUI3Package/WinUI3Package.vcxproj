@@ -256,6 +256,7 @@
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="AcrylicVisualWithBoundedCornerRadius.h" />
     <ClInclude Include="AutoSuggestBoxHelper.h">
       <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -532,6 +533,10 @@
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WindowCaptionButtonThemeWorkaround.h">
+      <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WindowContextMenu.h">
       <DependentUpon>WindowContextMenu.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -553,6 +558,7 @@
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="AcrylicVisualWithBoundedCornerRadius.cpp" />
     <ClCompile Include="AutoSuggestBoxHelper.cpp">
       <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -795,6 +801,10 @@
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WindowCaptionButtonThemeWorkaround.cpp">
+      <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="WindowContextMenu.cpp">
       <DependentUpon>WindowContextMenu.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -987,6 +997,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="VersionInfo.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowContextMenu.idl">

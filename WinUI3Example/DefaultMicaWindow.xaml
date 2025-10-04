@@ -1,21 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Window
     x:Class="WinUI3Example.DefaultMicaWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WinUI3Example"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Window.SystemBackdrop>
-        <essential:CustomMicaBackdrop EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}"
-                                      Kind="{x:Bind local:DefaultMicaWindow.ToMicaKind(KindComboBox.SelectedItem), Mode=OneWay}"/>
+        <essential:CustomMicaBackdrop EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}" Kind="{x:Bind local:DefaultMicaWindow.ToMicaKind(KindComboBox.SelectedItem), Mode=OneWay}" />
     </Window.SystemBackdrop>
 
-    <StackPanel Spacing="10" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <ToggleSwitch Header="Enable Mica when window is inactive" x:Name="EnableSwitch"/>
-        <ComboBox Header="Kind" x:Name="KindComboBox">
+    <StackPanel
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Spacing="10">
+        <ToggleSwitch x:Name="EnableSwitch" Header="Enable Mica when window is inactive" />
+        <ComboBox
+            x:Name="KindComboBox"
+            Header="Kind"
+            SelectedIndex="0">
             <x:String>Base</x:String>
             <x:String>BaseAlt</x:String>
         </ComboBox>

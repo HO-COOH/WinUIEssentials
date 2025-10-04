@@ -29,6 +29,7 @@ namespace winrt::WinUI3Example::implementation
 		Hwnd = GetHwnd(*this);
 		Window = *this;
 		MainWindowInstance = *this;
+		ExtendsContentIntoTitleBar(true);
 		InitializeComponent();
 		if (!WebView2Helper::IsWebView2Installed())
 			InstallWebView2Dialog().ShowAsync();
@@ -70,6 +71,11 @@ namespace winrt::WinUI3Example::implementation
 		auto boxedValue = ThemeSwitcher().SwitchCases().GetAt(m_themeIndex).as<winrt::WinUI3Package::Case>().Value();
 		RootGrid().RequestedTheme(winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(boxedValue));
 		ThemeSwitcher().Value(boxedValue);
+	}
+
+	void MainWindow::WindowEx_Activated(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args)
+	{
+		TitleBarTextBlock().Opacity(args.WindowActivationState() == winrt::Microsoft::UI::Xaml::WindowActivationState::Deactivated ? 0.5f : 1.0f);
 	}
 
 }

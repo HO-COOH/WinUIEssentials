@@ -7,6 +7,7 @@
     xmlns:essential="using:WinUI3Package"
     xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Activated="WindowEx_Activated"
     Icon="Assets/MainLogo.ico"
     TitleBarAutoDarkMode="True"
     mc:Ignorable="d">
@@ -14,11 +15,11 @@
         <MicaBackdrop />
     </essential:WindowEx.SystemBackdrop>
 
-    <!--<essential:WindowEx.ContextMenu>
-        <essential:StandardWindowContextMenu Window="{x:Bind}" />
-    </essential:WindowEx.ContextMenu>-->
-
     <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.Resources>
             <essential:ModernStandardWindowContextMenu x:Name="WindowMenu" Window="{x:Bind}" />
             <essential:TaskbarIcon
@@ -707,7 +708,50 @@
                 </Setter>
             </Style>
         </Grid.Resources>
+        <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind}" />
+
+        <Grid x:Name="AppTitleBar" Height="32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="10" />
+                <ColumnDefinition x:Name="IconColumn" Width="Auto" />
+                <ColumnDefinition x:Name="TitleColumn" Width="Auto" />
+                <ColumnDefinition x:Name="LeftDragColumn" Width="*" />
+                <!--<ColumnDefinition
+                    x:Name="SearchColumn"
+                    Width="4*"
+                    MinWidth="220" />-->
+
+                <ColumnDefinition
+                    x:Name="RightDragColumn"
+                    Width="*"
+                    MinWidth="32" />
+            </Grid.ColumnDefinitions>
+            <Image
+                x:Name="TitleBarIcon"
+                Grid.Column="1"
+                Width="16"
+                Height="16"
+                Margin="8,0,16,0"
+                Source="ms-appx:///Assets/StoreLogo.png" />
+            <TextBlock
+                x:Name="TitleBarTextBlock"
+                Grid.Column="2"
+                VerticalAlignment="Center"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="App title" />
+
+            <!--<AutoSuggestBox
+                x:Name="TitleBarSearchBox"
+                Grid.Column="4"
+                MaxWidth="600"
+                VerticalAlignment="Center"
+                essential:WindowEx.IsInteractive="True"
+                PlaceholderText="Search"
+                QueryIcon="Find" />-->
+
+        </Grid>
         <NavigationView
+            Grid.Row="1"
             MenuItemsSource="{x:Bind Pages}"
             SelectionChanged="NavigationView_SelectionChanged"
             Style="{StaticResource ModifiedNavigationViewStyle}">

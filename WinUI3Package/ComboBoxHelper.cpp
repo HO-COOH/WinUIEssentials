@@ -5,6 +5,7 @@
 #endif
 #include "VisualTreeHelper.hpp"
 #include "AcrylicVisual.h"
+#include "AcrylicVisualWithBoundedCornerRadius.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -46,7 +47,6 @@ namespace winrt::WinUI3Package::implementation
 			return;
 
 		auto comboBox = object.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>();
-		
 		//Can't use Loaded here, because when Visibility = Collapsed, we can't find popup in the handler, and it will not fire again when Visibility = Visible
 		//auto comboBoxLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::Loaded_revoker>();
 		auto comboBoxLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::LayoutUpdated_revoker>();
@@ -70,14 +70,26 @@ namespace winrt::WinUI3Package::implementation
 			{
 				borderLoadedRevoker->revoke();
 				auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
-			
-				winrt::WinUI3Package::AcrylicVisual visual;
-				visual.CornerRadius(border.CornerRadius());
-				VisualTreeHelper::FindVisualChildByType<winrt::Microsoft::UI::Xaml::Controls::Grid>(border).Children().InsertAt(0, visual);
 
-				if (auto comboBox = comboBoxRef.get(); !comboBox.IsEditable())
+				auto oldBorderChild = border.Child();
+				border.Child(nullptr);
+
+				winrt::Microsoft::UI::Xaml::Controls::Grid newChild;
+				newChild.Children().ReplaceAll({ AcrylicVisualWithBoundedCornerRadius{border}, oldBorderChild });
+				
+				border.Child(newChild);
+
+				//This is a necessary workaround, because we reset child when border is loaded, the dropdown will not open when first clicked
+				if (auto comboBox = comboBoxRef.get(); 
+					!comboBox.IsEditable() && 
+					VisualTreeHelper::FindVisualChildByType<winrt::Microsoft::UI::Xaml::Controls::ScrollViewer>(border).ComputedVerticalScrollBarVisibility() == winrt::Microsoft::UI::Xaml::Visibility::Collapsed
+				)
 				{
-					comboBox.IsDropDownOpen(true);
+					auto dropdownClosedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ComboBox::DropDownClosed_revoker>();
+					*dropdownClosedRevoker = comboBox.DropDownClosed(winrt::auto_revoke, [dropdownClosedRevoker](auto&& sender, auto&&) {
+						sender.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>().IsDropDownOpen(true);
+						dropdownClosedRevoker->revoke();
+					});
 				}
 			});
 		});

@@ -9,10 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Spacing="10">
+    <StackPanel Spacing="10">
 
         <!--  Acrylic  -->
         <local:ControlExample HeaderText="Create Window with WinUI3 Built-in Acrylic">
@@ -106,26 +103,220 @@ window.Activate();</x:String>
 
         <local:ControlExample HeaderText="Create Window with customizable Acrylic">
             <Button x:Name="CreateAcrylicButton" Click="CreateAcrylicButton_Click">Create</Button>
-            <local:ControlExample.Xaml />
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window
+    x:Class=&quot;WinUI3Example.CustomAcrylicWindow&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+    &lt;Window.SystemBackdrop&gt;
+        &lt;essential:CustomAcrylicBackdrop
+            EnableWhenInactive=&quot;{x:Bind EnableSwitch.IsOn, Mode=OneWay}&quot;
+            FallbackColor=&quot;{x:Bind FallbackColorPicker.Color, Mode=OneWay}&quot;
+            LuminosityOpacity=&quot;{x:Bind local:CustomAcrylicWindow.DoubleToSingle(LuminosityOpacitySlider.Value), Mode=OneWay}&quot;
+            TintColor=&quot;{x:Bind TintColorPicker.Color, Mode=OneWay}&quot;
+            TintOpacity=&quot;{x:Bind local:CustomAcrylicWindow.DoubleToSingle(TintOpacitySlider.Value), Mode=OneWay}&quot; /&gt;
+    &lt;/Window.SystemBackdrop&gt;
+
+    &lt;ScrollViewer&gt;
+        &lt;StackPanel
+            HorizontalAlignment=&quot;Center&quot;
+            VerticalAlignment=&quot;Center&quot;
+            Orientation=&quot;Vertical&quot;
+            Spacing=&quot;5&quot;&gt;
+            &lt;StackPanel.Resources&gt;
+                &lt;Style BasedOn=&quot;{StaticResource DefaultSliderStyle}&quot; TargetType=&quot;Slider&quot;&gt;
+                    &lt;Setter Property=&quot;StepFrequency&quot; Value=&quot;0.01&quot; /&gt;
+                    &lt;Setter Property=&quot;Minimum&quot; Value=&quot;0&quot; /&gt;
+                    &lt;Setter Property=&quot;Maximum&quot; Value=&quot;1&quot; /&gt;
+                &lt;/Style&gt;
+            &lt;/StackPanel.Resources&gt;
+            &lt;TextBlock Text=&quot;FallbackColor:&quot; /&gt;
+            &lt;ColorPicker x:Name=&quot;FallbackColorPicker&quot; /&gt;
+
+            &lt;Slider x:Name=&quot;LuminosityOpacitySlider&quot; Header=&quot;LuminosityOpacity&quot; /&gt;
+
+            &lt;TextBlock Text=&quot;TintColor:&quot; /&gt;
+            &lt;ColorPicker x:Name=&quot;TintColorPicker&quot; /&gt;
+
+            &lt;Slider x:Name=&quot;TintOpacitySlider&quot; Header=&quot;TintOpacity&quot; /&gt;
+
+            &lt;ToggleSwitch x:Name=&quot;EnableSwitch&quot; Header=&quot;Enable acrylic when window is inactive&quot; /&gt;
+        &lt;/StackPanel&gt;
+    &lt;/ScrollViewer&gt;
+
+&lt;/Window&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
 
         <!--  Mica  -->
-        <local:ControlExample HeaderText="Create Window with default Mica">
+        <local:ControlExample HeaderText="Create Window with WinUI3 built-in Mica">
             <Button x:Name="CreateDefaultMicaButton" Click="CreateDefaultMicaButton_Click">Create</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window
+    x:Class=&quot;WinUI3Example.DefaultMicaWindow&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+    &lt;Window.SystemBackdrop&gt;
+        &lt;essential:CustomMicaBackdrop EnableWhenInactive=&quot;{x:Bind EnableSwitch.IsOn, Mode=OneWay}&quot;
+                                      Kind=&quot;{x:Bind local:DefaultMicaWindow.ToMicaKind(KindComboBox.SelectedItem), Mode=OneWay}&quot;/&gt;
+    &lt;/Window.SystemBackdrop&gt;
+
+    &lt;StackPanel Spacing=&quot;10&quot; HorizontalAlignment=&quot;Center&quot; VerticalAlignment=&quot;Center&quot;&gt;
+        &lt;ToggleSwitch Header=&quot;Enable Mica when window is inactive&quot; x:Name=&quot;EnableSwitch&quot;/&gt;
+        &lt;ComboBox Header=&quot;Kind&quot; x:Name=&quot;KindComboBox&quot;&gt;
+            &lt;x:String&gt;Base&lt;/x:String&gt;
+            &lt;x:String&gt;BaseAlt&lt;/x:String&gt;
+        &lt;/ComboBox&gt;
+    &lt;/StackPanel&gt;
+&lt;/Window&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+            <local:ControlExample.Idl>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">[default_interface]
+runtimeclass DefaultMicaWindow : Microsoft.UI.Xaml.Window
+{
+    DefaultMicaWindow();
+
+    static Microsoft.UI.Composition.SystemBackdrops.MicaKind ToMicaKind(Object selection);
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Idl>
+            <local:ControlExample.Header>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">struct DefaultMicaWindow : DefaultMicaWindowT&lt;DefaultMicaWindow&gt;
+{
+    DefaultMicaWindow() = default;
+
+    static winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind ToMicaKind(winrt::Windows::Foundation::IInspectable const&amp; selection);
+};</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Header>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind DefaultMicaWindow::ToMicaKind(winrt::Windows::Foundation::IInspectable const&amp; selection)
+{
+	if (!selection)
+		return{};
+
+	auto str = winrt::unbox_value&lt;winrt::hstring&gt;(selection);
+	if (str == L&quot;Base&quot;) return winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind::Base;
+	return winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind::BaseAlt;
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Create Window with standard WinUI Mica">
             <Button x:Name="CreateStandardMicaButton" Click="CreateStandardMicaButton_Click">Create</Button>
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">winrt::Microsoft::UI::Xaml::Window window;
+window.SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::MicaBackdrop{});
+window.Activate();</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Create Window with customizable Mica">
             <Button x:Name="CreateMicaButton" Click="CreateMicaButton_Click">Create</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window
+    x:Class=&quot;WinUI3Example.CustomMicaWindow&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+    &lt;Window.SystemBackdrop&gt;
+        &lt;essential:CustomMicaBackdrop FallbackColor=&quot;{x:Bind FallbackColorPicker.Color, Mode=OneWay}&quot;
+                                      LuminosityOpacity=&quot;{x:Bind local:CustomAcrylicWindow.DoubleToSingle(LuminosityOpacitySlider.Value), Mode=OneWay}&quot;
+                                      TintColor=&quot;{x:Bind TintColorPicker.Color, Mode=OneWay}&quot;
+                                      TintOpacity=&quot;{x:Bind local:CustomAcrylicWindow.DoubleToSingle(TintOpacitySlider.Value), Mode=OneWay}&quot;
+                                      EnableWhenInactive=&quot;{x:Bind EnableSwitch.IsOn, Mode=OneWay}&quot;/&gt;
+    &lt;/Window.SystemBackdrop&gt;
+    &lt;ScrollViewer&gt;
+        &lt;StackPanel Orientation=&quot;Vertical&quot; HorizontalAlignment=&quot;Center&quot; VerticalAlignment=&quot;Center&quot; Spacing=&quot;5&quot;&gt;
+            &lt;StackPanel.Resources&gt;
+                &lt;Style TargetType=&quot;Slider&quot; BasedOn=&quot;{StaticResource DefaultSliderStyle}&quot;&gt;
+                    &lt;Setter Property=&quot;StepFrequency&quot; Value=&quot;0.01&quot;/&gt;
+                    &lt;Setter Property=&quot;Minimum&quot; Value=&quot;0&quot;/&gt;
+                    &lt;Setter Property=&quot;Maximum&quot; Value=&quot;1&quot;/&gt;
+                &lt;/Style&gt;
+            &lt;/StackPanel.Resources&gt;
+            &lt;TextBlock Text=&quot;FallbackColor:&quot;/&gt;
+            &lt;ColorPicker x:Name=&quot;FallbackColorPicker&quot;/&gt;
+
+            &lt;Slider Header=&quot;LuminosityOpacity&quot; x:Name=&quot;LuminosityOpacitySlider&quot;/&gt;
+
+            &lt;TextBlock Text=&quot;TintColor:&quot;/&gt;
+            &lt;ColorPicker x:Name=&quot;TintColorPicker&quot;/&gt;
+
+            &lt;Slider Header=&quot;TintOpacity&quot; x:Name=&quot;TintOpacitySlider&quot;/&gt;
+
+            &lt;ToggleSwitch Header=&quot;Enable acrylic when window is inactive&quot; x:Name=&quot;EnableSwitch&quot;/&gt;
+        &lt;/StackPanel&gt;
+    &lt;/ScrollViewer&gt;
+
+&lt;/Window&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
         <!--  Transparent  -->
         <local:ControlExample HeaderText="Create Window with customizable Transparent">
             <Button x:Name="CreateTransparentButton" Click="CreateTransparentButton_Click">Create</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:TransparentWindow
+    x:Class=&quot;WinUI3Example.TransparentWindowDemo&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+
+    &lt;Border BorderBrush=&quot;Blue&quot; BorderThickness=&quot;5&quot; CornerRadius=&quot;20&quot;&gt;
+        &lt;Button Background=&quot;Red&quot; HorizontalAlignment=&quot;Center&quot; VerticalAlignment=&quot;Center&quot;&gt;Button inside transparent window&lt;/Button&gt;
+    &lt;/Border&gt;
+&lt;/essential:TransparentWindow&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Create Notify window">

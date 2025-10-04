@@ -17,7 +17,10 @@
         VerticalAlignment="Center"
         Spacing="10">
         <ToggleSwitch x:Name="EnableSwitch" Header="Enable acrylic when window is inactive" />
-        <ComboBox x:Name="KindComboBox" Header="Kind">
+        <ComboBox
+            x:Name="KindComboBox"
+            Header="Kind"
+            SelectedIndex="0">
             <x:String>Default</x:String>
             <x:String>Base</x:String>
             <x:String>Thin</x:String>

@@ -6,11 +6,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct DefaultMicaWindow : DefaultMicaWindowT<DefaultMicaWindow>
     {
-        DefaultMicaWindow()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        DefaultMicaWindow() = default;
 
         static winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind ToMicaKind(winrt::Windows::Foundation::IInspectable const& selection);
     };

@@ -15,6 +15,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::Window Window();
         void Window(winrt::Microsoft::UI::Xaml::Window const& value);
 
+    private:
         static LRESULT CALLBACK subclassProc(
             HWND hwnd,
             UINT msg,
@@ -23,7 +24,7 @@ namespace winrt::WinUI3Package::implementation
             UINT_PTR uIdSubclass,
             DWORD_PTR dwRefData
         );
-    private:
+
         winrt::Microsoft::UI::Xaml::Window m_xamlRoot{ nullptr };
         HWND m_parent{};
         winrt::Microsoft::UI::Content::ContentCoordinateConverter m_converter{ nullptr };

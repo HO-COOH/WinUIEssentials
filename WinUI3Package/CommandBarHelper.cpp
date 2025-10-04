@@ -5,6 +5,7 @@
 #endif
 #include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include "VisualTreeHelper.hpp"
+#include "AcrylicVisualWithBoundedCornerRadius.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -58,11 +59,9 @@ namespace winrt::WinUI3Package::implementation
 				openedRevoker->revoke();
 
 				auto popup = self.as<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>();
-				auto OverflowContentRoot = popup.FindName(L"SecondaryItemsControlShadowWrapper").as<winrt::Microsoft::UI::Xaml::Controls::Grid>();
-				winrt::WinUI3Package::AcrylicVisual acrylic;
-				OverflowContentRoot.Children().InsertAt(0, acrylic);
 				auto secondaryItemsControl = popup.FindName(L"SecondaryItemsControl").as<winrt::Microsoft::UI::Xaml::Controls::CommandBarOverflowPresenter>();
-				acrylic.CornerRadius(secondaryItemsControl.CornerRadius());
+				auto OverflowContentRoot = popup.FindName(L"SecondaryItemsControlShadowWrapper").as<winrt::Microsoft::UI::Xaml::Controls::Grid>();
+				OverflowContentRoot.Children().InsertAt(0, AcrylicVisualWithBoundedCornerRadius{secondaryItemsControl});
 				secondaryItemsControl.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
 			});
 		});

@@ -123,6 +123,39 @@
                         Margin="0,8,0,0" />
                 </StackPanel>
 
+                <!--  Reserved tests for long comboBox when a scrollbar is visible  -->
+                <!--<ComboBox
+                    x:Name="Combo19"
+                    Width="200"
+                    essential:ComboBoxHelper.AcrylicWorkaround="True"
+                    Header="Colors"
+                    PlaceholderText="Pick a color">
+                    <x:String>Blue</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                    <x:String>Blue</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                    <x:String>Blue</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                    <x:String>Blue</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                    <x:String>Blue</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                    <x:String>Blue</x:String>
+                    <x:String>Green</x:String>
+                    <x:String>Red</x:String>
+                    <x:String>Yellow</x:String>
+                </ComboBox>-->
+
                 <StackPanel>
                     <ComboBox
                         x:Name="Combo5"

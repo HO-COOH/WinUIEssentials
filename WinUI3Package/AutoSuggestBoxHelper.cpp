@@ -4,7 +4,7 @@
 #include "AutoSuggestBoxHelper.g.cpp"
 #endif
 #include "VisualTreeHelper.hpp"
-#include "AcrylicVisual.h"
+#include "AcrylicVisualWithBoundedCornerRadius.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -76,17 +76,7 @@ namespace winrt::WinUI3Package::implementation
 				auto originalChild = border.Child();
 				winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
 				border.Child(scrollGrid);
-
-				winrt::WinUI3Package::AcrylicVisual visual;
-
-				winrt::Microsoft::UI::Xaml::Data::Binding cornerRadiusBinding;
-				cornerRadiusBinding.Source(border);
-				cornerRadiusBinding.Path(winrt::Microsoft::UI::Xaml::PropertyPath{ L"CornerRadius" });
-				visual.SetBinding(
-					winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
-					cornerRadiusBinding
-				);
-				scrollGrid.Children().ReplaceAll({ visual, originalChild });
+				scrollGrid.Children().ReplaceAll({ AcrylicVisualWithBoundedCornerRadius{border}, originalChild});
 			});
 		});
 
