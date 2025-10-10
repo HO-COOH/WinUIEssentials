@@ -65,14 +65,6 @@ namespace winrt::WinUI3Example::implementation
 	}
 
 
-	void MainWindow::ThemeButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
-	{
-		m_themeIndex = (m_themeIndex + 1) % 3;
-		auto boxedValue = ThemeSwitcher().SwitchCases().GetAt(m_themeIndex).as<winrt::WinUI3Package::Case>().Value();
-		RootGrid().RequestedTheme(winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(boxedValue));
-		ThemeSwitcher().Value(boxedValue);
-	}
-
 	void MainWindow::WindowEx_Activated(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args)
 	{
 		TitleBarTextBlock().Opacity(args.WindowActivationState() == winrt::Microsoft::UI::Xaml::WindowActivationState::Deactivated ? 0.5f : 1.0f);

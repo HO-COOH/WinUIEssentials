@@ -738,7 +738,7 @@
                 Grid.Column="2"
                 VerticalAlignment="Center"
                 Style="{StaticResource CaptionTextBlockStyle}"
-                Text="App title" />
+                Text="WinUIEssentials.WinUI3Example" />
 
             <!--<AutoSuggestBox
                 x:Name="TitleBarSearchBox"
@@ -761,9 +761,6 @@
                     Margin="10,10,20,10"
                     VerticalAlignment="Top" />
             </ScrollViewer>
-            <NavigationView.Resources>
-                <local:ElementThemeToStringConverter x:Name="ElementThemeToStringConverter" />
-            </NavigationView.Resources>
             <NavigationView.FooterMenuItems>
                 <Button Click="ThemeButton_Click" ToolTipService.ToolTip="{Binding RequestedTheme, ElementName=RootGrid, Converter={StaticResource ElementThemeToStringConverter}}">
                     <essential:SwitchPresenter

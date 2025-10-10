@@ -18,7 +18,7 @@ namespace winrt::WinUI3Example::implementation
 
         void myButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
         {
-            myButton().Content(winrt::box_value(L"Clicked"));
+            Close();
         }
     };
 }

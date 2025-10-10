@@ -6,10 +6,11 @@
 #include "MainWindow.g.h"
 #include <ranges>
 #include <winrt/Microsoft.UI.Xaml.Markup.h>
+#include "SupportThemeToggle.h"
 
 namespace winrt::WinUI3Example::implementation
 {
-    struct MainWindow : MainWindowT<MainWindow>
+    struct MainWindow : MainWindowT<MainWindow>, public SupportThemeToggle<MainWindow>
     {
         MainWindow();
 
@@ -71,12 +72,11 @@ namespace winrt::WinUI3Example::implementation
 			{L"ModalWindow", winrt::xaml_typename<WinUI3Example::ModalWindowPage>()},
 			{L"ToolTipHelper", winrt::xaml_typename<WinUI3Example::ToolTipHelperPage>()},
 			{L"CommandBarHelper", winrt::xaml_typename<WinUI3Example::CommandBarHelperPage>()},
+            {L"WindowCaptionButtonThemeWorkaround", winrt::xaml_typename<WinUI3Example::CaptionButtonThemeWorkaroundPage>()},
         };
 
-        int m_themeIndex = 2; //default theme index
     public:
         void ExitItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
-        void ThemeButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void WindowEx_Activated(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args);
     };
 }

@@ -17,6 +17,6 @@
         <StackPanel.Resources>
             <essential:NonResizableWindowWhiteBorderWorkaround x:Name="Workaround" Window="{x:Bind}" />
         </StackPanel.Resources>
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+        <Button x:Name="myButton" Click="myButton_Click">Close</Button>
     </StackPanel>
 </Window>

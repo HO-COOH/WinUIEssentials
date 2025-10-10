@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--  This is broken  -->
+<Window
+    x:Class="WinUI3Example.DefaultWindowBrokenCaptionButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="DefaultWindowBrokenCaptionButton"
+    mc:Ignorable="d">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    <Grid x:Name="RootGrid">
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="This is a default WinUI3 Window" />
+
+        <Button
+            VerticalAlignment="Bottom"
+            Click="ThemeButton_Click"
+            ToolTipService.ToolTip="{Binding RequestedTheme, ElementName=RootGrid, Converter={StaticResource ElementThemeToStringConverter}}">
+            <essential:SwitchPresenter
+                xmlns:theme="using:Microsoft.UI.Xaml"
+                x:Name="ThemeSwitcher"
+                Value="{Binding RequestedTheme, ElementName=RootGrid, Mode=OneWay}">
+                <essential:Case>
+                    <TextBlock Text="🌙" />
+                    <essential:Case.Value>
+                        <theme:ElementTheme>Dark</theme:ElementTheme>
+                    </essential:Case.Value>
+                </essential:Case>
+                <essential:Case>
+                    <TextBlock Text="☀️" />
+                    <essential:Case.Value>
+                        <theme:ElementTheme>Light</theme:ElementTheme>
+                    </essential:Case.Value>
+                </essential:Case>
+                <essential:Case>
+                    <TextBlock Text="💻" />
+                    <essential:Case.Value>
+                        <theme:ElementTheme>Default</theme:ElementTheme>
+                    </essential:Case.Value>
+                </essential:Case>
+            </essential:SwitchPresenter>
+        </Button>
+    </Grid>
+</Window>

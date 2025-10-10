@@ -108,6 +108,7 @@ You can reference Github Action for detailed build steps.
 |ToolTipHelper | :x: | :white_check_mark: | WinRT component
 |CommandBarHelper | :x: | :white_check_mark: | WinRT component
 |IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only
+|WindowCaptionButtonThemeWorkaround | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1013,3 +1014,23 @@ WinUIEssentials::Windows::Storage::Pickers::FileOpenPicker picker{ MainWindow::I
 //...
 picker.PickSingleFileAsync();
 ```
+
+## WindowCaptionButtonThemeWorkaround
+When you have `Window.ExtendsContentIntoTitleBar(true)`, the caption buttons often comes out with broken color regarding to theme. 
+This helper fixed it by working as a hidden control and listens to theme change message, and make corresponding changes to caption buttons.
+
+To use, simply put it under a Xaml control (such as `Grid`) that can accept child contents.
+
+```xml
+<Window>
+    ...
+    <Grid x:Name="RootGrid">
+        <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind}" />
+        <-- Other contents -->
+    </Grid>
+</Window>
+```
+
+|Before|After|
+|------|-----|
+|![](assets/window-broken.gif)|![](assets/window-fixed.gif)|

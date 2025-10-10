@@ -23,7 +23,7 @@
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Workaround for non-resizable no titlebar and border window having a white border in WASDK 1.6">
-            <StackPanel>
+            <StackPanel Spacing="5">
                 <Button x:Name="CreateNonResizableBtn" Click="CreateNonResizableBtn_Click">Click to create window</Button>
                 <Button x:Name="CreateNonResizableWithWorkaroundBtn" Click="CreateNonResizableWithWorkaroundBtn_Click">Click to create window with workaound</Button>
             </StackPanel>

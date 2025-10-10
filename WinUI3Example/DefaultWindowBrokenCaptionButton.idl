@@ -1,0 +1,9 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass DefaultWindowBrokenCaptionButton : Microsoft.UI.Xaml.Window
+    {
+        DefaultWindowBrokenCaptionButton();
+        Int32 MyProperty;
+    }
+}

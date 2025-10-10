@@ -28,7 +28,10 @@ namespace winrt::WinUI3Package::implementation
     void WindowCaptionButtonThemeWorkaround::setCaptionButtonTheme(winrt::Microsoft::UI::Xaml::ElementTheme const& theme)
     {
         auto const foreground = theme == winrt::Microsoft::UI::Xaml::ElementTheme::Dark ? winrt::Windows::UI::Colors::White() : winrt::Windows::UI::Colors::Black();
+        auto pressedForeground = foreground;
+        pressedForeground.A = foreground.A * 0.2;
         m_titleBar.ButtonForegroundColor(foreground);
         m_titleBar.ButtonHoverForegroundColor(foreground);
+        m_titleBar.ButtonPressedForegroundColor(pressedForeground);
     }
 }

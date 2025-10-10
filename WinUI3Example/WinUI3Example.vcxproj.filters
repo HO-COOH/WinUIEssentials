@@ -179,7 +179,6 @@
     <Page Include="SampleModalWindow.xaml">
       <Filter>Windows</Filter>
     </Page>
-    <Page Include="ToolTipHelperPage.xaml" />
     <Page Include="CommandBarHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -188,6 +187,18 @@
     </Page>
     <Page Include="LineGraphControl.xaml">
       <Filter>Pages\Experimental\LineGraph</Filter>
+    </Page>
+    <Page Include="CaptionButtonThemeWorkaroundPage.xaml">
+      <Filter>Pages\CaptionButtonThemeWorkaroundPage</Filter>
+    </Page>
+    <Page Include="DefaultWindowBrokenCaptionButton.xaml">
+      <Filter>Pages\CaptionButtonThemeWorkaroundPage</Filter>
+    </Page>
+    <Page Include="DefaultWindowCaptionButtonWorkaround.xaml">
+      <Filter>Pages\CaptionButtonThemeWorkaroundPage</Filter>
+    </Page>
+    <Page Include="ToolTipHelperPage.xaml">
+      <Filter>Pages</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -289,6 +300,10 @@
       <Filter>Pages\Experimental</Filter>
     </ClInclude>
     <ClInclude Include="ExceptionDialog.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SupportThemeToggle.h">
+      <Filter>Pages\CaptionButtonThemeWorkaroundPage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -456,6 +471,8 @@
     <Image Include="Assets\cliff.jpg">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="..\MainLogo.png" />
+    <Image Include="..\MainLogo.ico" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -524,6 +541,9 @@
     <Filter Include="Pages\Experimental\LineGraph">
       <UniqueIdentifier>{a74b251b-6170-40c0-a62e-d99c3c5c2093}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pages\CaptionButtonThemeWorkaroundPage">
+      <UniqueIdentifier>{575b8090-63bc-41a8-ade3-f274106c59a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
@@ -547,5 +567,8 @@
     <FxCompile Include="DisplacementMapGenerator.hlsl">
       <Filter>Pages\Experimental\Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
 </Project>
