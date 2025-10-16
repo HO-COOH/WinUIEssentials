@@ -7,6 +7,5 @@ namespace WinUI3Example
     runtimeclass SettingsCardPage : Microsoft.UI.Xaml.Controls.Page
     {
         SettingsCardPage();
-        Microsoft.UI.Xaml.Controls.ToggleSwitch IsCardEnabled{ get; };
     }
 }

@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <TextBlock Text="Experimental functionalities and application-specific functionalities that are not really applicable for every applications go here!" />
 
         <local:ControlExample HeaderText="Create a window with xaml caption context menu">

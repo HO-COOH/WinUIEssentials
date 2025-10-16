@@ -159,12 +159,15 @@ namespace winrt::WinUI3Package::implementation
     {
         if (m_compositor && m_spriteVisual)
         {
-            auto animation = m_compositor.CreateVector2KeyFrameAnimation();
+            m_spriteVisual.StopAnimation(L"Size");
+
+            auto m_valueAnimation = m_compositor.CreateVector2KeyFrameAnimation();
+            m_valueAnimation.StopBehavior(winrt::Microsoft::UI::Composition::AnimationStopBehavior::SetToFinalValue);
             auto easing = winrt::Microsoft::UI::Composition::CompositionEasingFunction::CreateCircleEasingFunction(m_compositor, winrt::Microsoft::UI::Composition::CompositionEasingFunctionMode::InOut);
-            animation.InsertKeyFrame(1.0, { static_cast<float>(ActualWidth() * Value()), static_cast<float>(ActualHeight()) }, easing);
+            m_valueAnimation.InsertKeyFrame(1.0, { static_cast<float>(ActualWidth() * Value()), static_cast<float>(ActualHeight()) }, easing);
             //the default duration already looks good
             //animation.Duration(std::chrono::seconds{ 1 });
-            m_spriteVisual.StartAnimation(L"Size", animation);
+            m_spriteVisual.StartAnimation(L"Size", m_valueAnimation);
         }
     }
 }

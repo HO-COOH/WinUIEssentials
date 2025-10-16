@@ -36,6 +36,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Composition::Compositor m_compositor{ nullptr };
         winrt::Microsoft::UI::Composition::CompositionColorGradientStop m_gradients[4]{ nullptr, nullptr, nullptr, nullptr };
         winrt::Microsoft::UI::Composition::SpriteVisual m_spriteVisual{ nullptr };
+        //winrt::Microsoft::UI::Composition::Vector2KeyFrameAnimation m_valueAnimation{ nullptr };
 
         void setSpriteSize();
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_highColorProperty;

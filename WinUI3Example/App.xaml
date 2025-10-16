@@ -32,6 +32,18 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <local:ElementThemeToStringConverter x:Name="ElementThemeToStringConverter" />
+
+            <Style x:Key="ControlExamplesStackPanelStyle" TargetType="StackPanel">
+                <Setter Property="Spacing" Value="5" />
+                <Setter Property="ChildrenTransitions">
+                    <Setter.Value>
+                        <TransitionCollection>
+                            <EntranceThemeTransition FromVerticalOffset="50" />
+                            <RepositionThemeTransition IsStaggeringEnabled="False" />
+                        </TransitionCollection>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -324,7 +324,8 @@
                                     <VisualState x:Name="Right" />
 
                                     <!--  Whenever the control width is less than SettingsCardWrapThreshold, the Content is below the Header/Description  -->
-                                    <VisualState x:Name="RightWrapped">
+                                    <!--  This causes layout cycle detected, a hard crash. We disable it for now.  -->
+                                    <!--<VisualState x:Name="RightWrapped">
                                         <VisualState.StateTriggers>
                                             <local:ControlSizeTrigger
                                                 MinWidth="{ThemeResource SettingsCardWrapNoIconThreshold}"
@@ -339,10 +340,11 @@
                                             <Setter Target="PART_ContentPresenter.Margin" Value="{ThemeResource SettingsCardVerticalHeaderContentSpacing}" />
                                             <Setter Target="HeaderPanel.Margin" Value="0" />
                                         </VisualState.Setters>
-                                    </VisualState>
+                                    </VisualState>-->
 
                                     <!--  For even smaller widths: the HeaderIcon is collapsed.  -->
-                                    <VisualState x:Name="RightWrappedNoIcon">
+                                    <!--  This causes layout cycle detected, a hard crash. We disable it for now.  -->
+                                    <!--<VisualState x:Name="RightWrappedNoIcon">
                                         <VisualState.StateTriggers>
                                             <local:ControlSizeTrigger MaxWidth="{ThemeResource SettingsCardWrapNoIconThreshold}" TargetElement="{Binding ElementName=PART_RootGrid}" />
                                         </VisualState.StateTriggers>
@@ -355,7 +357,7 @@
                                             <Setter Target="PART_ContentPresenter.Margin" Value="{ThemeResource SettingsCardVerticalHeaderContentSpacing}" />
                                             <Setter Target="HeaderPanel.Margin" Value="0" />
                                         </VisualState.Setters>
-                                    </VisualState>
+                                    </VisualState>-->
 
                                     <!--  Header/Description/Icon collapsed, content is to the left. Great for e.g. Checkboxes  -->
                                     <VisualState x:Name="Left">
