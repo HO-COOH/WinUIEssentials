@@ -37,7 +37,7 @@ namespace winrt::WinUI3Example::implementation
 
 		winrt::Microsoft::UI::Xaml::Controls::Button button;
 		button.Content(winrt::box_value(L"Click"));
-		window.WindowContent(button);
+		window.Content(button);
 		//window.ExtendsContentIntoTitleBar(true);
 		//window.SystemBackdrop(WinUI3Package::TransparentBackdrop{});
 		window.Activate();

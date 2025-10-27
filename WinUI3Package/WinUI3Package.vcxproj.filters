@@ -48,9 +48,6 @@
     <ClCompile Include="WindowContextMenuUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="AcrylicVisualWithBoundedCornerRadius.cpp">
-      <Filter>Controls\AcrylicVisual</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -236,9 +233,6 @@
     <Filter Include="Controls">
       <UniqueIdentifier>{64af69c0-57c7-4bf9-877e-c252bcb5167a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controls\GroupBox">
-      <UniqueIdentifier>{8b0acd1f-86d3-45a7-afa9-9f5fb4907e28}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls\SettingsCard">
       <UniqueIdentifier>{1d6eabd4-0f64-467a-9db2-2b785ed1e7a7}</UniqueIdentifier>
     </Filter>
@@ -308,6 +302,9 @@
     <Filter Include="TaskbarIcon\Errors">
       <UniqueIdentifier>{5286bb85-614b-4b57-a35c-c75dffb90e63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\AcrylicVisual\GroupBox">
+      <UniqueIdentifier>{8b0acd1f-86d3-45a7-afa9-9f5fb4907e28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Placeholder.idl" />
@@ -344,7 +341,7 @@
     </Midl>
     <Midl Include="include\DependentValue.idl" />
     <Midl Include="GroupBox.idl">
-      <Filter>Controls\GroupBox</Filter>
+      <Filter>Controls\AcrylicVisual\GroupBox</Filter>
     </Midl>
     <Midl Include="SettingsCard.idl">
       <Filter>Controls\SettingsCard</Filter>
@@ -480,7 +477,7 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
-      <Filter>Controls\GroupBox</Filter>
+      <Filter>Controls\AcrylicVisual\GroupBox</Filter>
     </Page>
     <Page Include="SettingsExpander_Resource.xaml">
       <Filter>Controls\SettingsExpander</Filter>

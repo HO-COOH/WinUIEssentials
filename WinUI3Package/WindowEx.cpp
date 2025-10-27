@@ -4,7 +4,7 @@
 #include "WindowEx.g.cpp"
 #endif
 #include "HwndHelper.hpp"
-#include <winrt/Microsoft.UI.Interop.h>
+
 #include <winrt/Windows.ApplicationModel.h>
 #include <winrt/Microsoft.UI.Input.h>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
@@ -19,48 +19,88 @@
 #include <dwmapi.h>
 #pragma comment (lib, "dwmapi.lib")
 // Compiles with -lntdll
-
-
+#include <winrt/Microsoft.UI.Content.h>
 
 
 namespace winrt::WinUI3Package::implementation
 {
-    std::unordered_map<winrt::Microsoft::UI::Xaml::FrameworkElement, winrt::event_token> WindowEx::s_sizeChangeHandlers;
-    std::unordered_map<HWND, winrt::weak_ref<WindowEx>> WindowEx::s_allWindows;
+    //std::unordered_map<HWND, std::unordered_set<void*>> WindowEx::s_allWindows;
+	std::unordered_map<HWND, winrt::event_token> WindowEx::s_windowResizeRevokers;
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_isInteractiveProperty =
+    HWND WindowEx::getHwndFromElement(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
+    {
+        auto xamlRoot = element.XamlRoot();
+        if (!xamlRoot)
+            return {};
+
+        auto contentIslandEnv = xamlRoot.ContentIslandEnvironment();
+        if (!contentIslandEnv)
+            return{};
+
+        auto appWindowId = contentIslandEnv.AppWindowId();
+        return reinterpret_cast<HWND>(appWindowId.Value);
+    }
+
+    winrt::Microsoft::UI::Windowing::AppWindow WindowEx::getAppWindowFromElement(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
+    {
+        return winrt::Microsoft::UI::Windowing::AppWindow::GetFromWindowId(winrt::Microsoft::UI::GetWindowIdFromWindow(getHwndFromElement(element)));
+    }
+
+    winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_nonClientRegionKindProperty =
         winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-            L"IsInteractive",
-            winrt::xaml_typename<bool>(),
+            L"NonClientRegionKind",
+            winrt::xaml_typename<winrt::Microsoft::UI::Input::NonClientRegionKind>(),
             winrt::xaml_typename<class_type>(),
             winrt::Microsoft::UI::Xaml::PropertyMetadata{
                 winrt::box_value(false),
                 [](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
                 {
-                    auto element = d.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+                    auto newValue = e.NewValue();
+                    if (!newValue)
+                        return;
 
-                    if (e.NewValue())
+                    auto element = d.try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+                    if (!element)
+                        return;
+
+                    element.LayoutUpdated([weakRef = winrt::make_weak(element), refAdded = false, lastBounds = winrt::Windows::Foundation::Rect{}](auto const& sender, auto...) mutable
                     {
-                        s_sizeChangeHandlers[element] = element.SizeChanged(
-                            [](auto const& sender, auto...)
+                        if (auto element = weakRef.get())
+                        {
+                            auto const hwnd = getHwndFromElement(element);
+                            if (!hwnd || !element.IsLoaded())
+                                return;
+
+                            if (!refAdded)
                             {
-                                auto element = sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
-                                if (auto rootWindow = getRootWindow(element))
-                                {
-                                    rootWindow->updateDragRegion();
-                                }
+                                s_allWindows[hwnd].push_back(winrt::make_weak(element));
+                                auto elementRefIter = --s_allWindows[hwnd].end();
+                               
+                                element.Unloaded([hwnd, elementRefIter](auto&&...) {
+                                    auto& thisWindow = s_allWindows.at(hwnd);
+                                    thisWindow.erase(elementRefIter);
+                                    if (thisWindow.empty())
+                                        s_allWindows.erase(hwnd);
+                                });
+
+								refAdded = true;
+                            }
+
+                            auto transform = element.TransformToVisual(nullptr);
+                            auto const newBounds = transform.TransformBounds(winrt::Windows::Foundation::Rect{
+                                0.f,
+                                0.f,
+                                static_cast<float>(element.ActualWidth()),
+                                static_cast<float>(element.ActualHeight())
                             });
-                        element.Unloaded([](auto const& sender, auto...)
-                            {
-                                auto element = sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
-                                s_sizeChangeHandlers.erase(element);
-                            });
-                    }
-                    else
-                    {
-                        element.SizeChanged(s_sizeChangeHandlers[element]);
-                        s_sizeChangeHandlers.erase(element);
-                    }
+                            if (newBounds == lastBounds)
+                                return;
+
+                            lastBounds = newBounds;
+                            updateNonClientRegions(GetNonClientRegionKind(element), hwnd);
+                        }
+					});
+
                 }
             }
     );
@@ -83,7 +123,6 @@ namespace winrt::WinUI3Package::implementation
     {
         Title(winrt::Windows::ApplicationModel::Package::Current().DisplayName());
         std::hash<winrt::Microsoft::UI::Xaml::FrameworkElement> hasher;
-        s_allWindows[m_hwnd] = get_weak();
     }
 
     int WindowEx::MinWidth()
@@ -318,42 +357,6 @@ namespace winrt::WinUI3Package::implementation
             modernStandardMenu.Window(*this);
     }
 
-    winrt::Microsoft::UI::Xaml::UIElement WindowEx::TitleBar()
-    {
-        return nullptr;
-    }
-
-    void WindowEx::TitleBar(winrt::Microsoft::UI::Xaml::UIElement value)
-    {
-        if (!value)
-            return;
-
-        auto oldContent = Content();
-        Content(nullptr);
-
-        if (!rootGrid)
-        {
-            rootGrid = {};
-            rootGrid.SetValue(s_rootWindowProperty, winrt::box_value(reinterpret_cast<uint64_t>(this)));
-        }
-        {
-            winrt::Microsoft::UI::Xaml::Controls::Grid titleBarGrid;
-            titleBarGrid.Children().Append(value);
-            titleBarGrid.VerticalAlignment(winrt::Microsoft::UI::Xaml::VerticalAlignment::Top);
-            titleBarGrid.SizeChanged([this](auto...) {updateDragRegion(); });
-
-            rootGrid.Children().Append(titleBarGrid);
-            rootGrid.Loaded([this](auto...) { rootGrid.UpdateLayout(); updateDragRegion(); });
-            SetTitleBar(titleBarGrid);
-            if (oldContent) rootGrid.Children().Append(oldContent);
-        }
-
-        extendsContentIntoTitleBar(true);
-        TitleBarDarkMode(!isLightTheme());
-        Content(rootGrid);
-        SizeChanged([this](auto...) {updateDragRegion(); });
-    }
-
     winrt::Microsoft::UI::Windowing::AppWindow WindowEx::AppWindow()
     {
         return m_appWindow;
@@ -364,25 +367,6 @@ namespace winrt::WinUI3Package::implementation
         return reinterpret_cast<uint64_t>(m_hwnd);
     }
 
-    winrt::Microsoft::UI::Xaml::UIElement WindowEx::WindowContent()
-    {
-        if (!rootGrid)
-            return Content();
-
-        //TODO: 
-        return nullptr;
-    }
-
-    void WindowEx::WindowContent(winrt::Microsoft::UI::Xaml::UIElement value)
-    {
-        if (!rootGrid)
-        {
-            Content(value);
-            return;
-        }
-
-        rootGrid.Children().Append(value);
-    }
 
     void WindowEx::Transparent(bool value)
     {
@@ -395,20 +379,21 @@ namespace winrt::WinUI3Package::implementation
         m_transparent = value;
     }
 
-    void WindowEx::SetIsInteractive(winrt::Microsoft::UI::Xaml::Controls::Control element, bool value)
+    winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::NonClientRegionKindProperty()
     {
-        element.SetValue(s_isInteractiveProperty, winrt::box_value(value));
+        return s_nonClientRegionKindProperty;
     }
 
-    bool WindowEx::GetIsInteractive(winrt::Microsoft::UI::Xaml::Controls::Control element)
+    void WindowEx::SetNonClientRegionKind(winrt::Microsoft::UI::Xaml::FrameworkElement const& element, winrt::Microsoft::UI::Input::NonClientRegionKind value)
     {
-        return winrt::unbox_value<bool>(element.GetValue(s_isInteractiveProperty));
+		element.SetValue(s_nonClientRegionKindProperty, winrt::box_value(value));
     }
 
-    winrt::weak_ref<WindowEx> WindowEx::GetByHwnd(HWND hwnd)
+    winrt::Microsoft::UI::Input::NonClientRegionKind WindowEx::GetNonClientRegionKind(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
     {
-        return s_allWindows[hwnd];
+        return winrt::unbox_value<winrt::Microsoft::UI::Input::NonClientRegionKind>(element.GetValue(s_nonClientRegionKindProperty));
     }
+
 
     int WindowEx::scaleForDpi(int value, int dpi)
     {
@@ -502,16 +487,6 @@ namespace winrt::WinUI3Package::implementation
         return static_cast<bool>(value);
     }
 
-    winrt::Windows::Graphics::RectInt32 WindowEx::scaleRect(winrt::Windows::Foundation::Rect const& bound, double scale)
-    {
-        return winrt::Windows::Graphics::RectInt32{
-            .X = static_cast<int>(bound.X * scale),
-            .Y = static_cast<int>(bound.Y * scale),
-            .Width = static_cast<int>(bound.Width * scale),
-            .Height = static_cast<int>(bound.Height * scale)
-        };
-    }
-
     void WindowEx::onSettingChange()
     {
         if (m_titleBarAutoDarkMode || m_extendContents)
@@ -526,27 +501,31 @@ namespace winrt::WinUI3Package::implementation
         if (width != clampedWidth || height != clampedHeight)
             m_appWindow.Resize({ .Width = clampedWidth, .Height = clampedHeight });
     }
-    void WindowEx::updateDragRegion()
-    {
-        auto const scale = Content().XamlRoot().RasterizationScale();
-        std::vector<winrt::Windows::Graphics::RectInt32> rectArray;
-        rectArray.reserve(s_sizeChangeHandlers.size());
 
-        for (auto [element, _] : s_sizeChangeHandlers)
+    void WindowEx::updateNonClientRegions(winrt::Microsoft::UI::Input::NonClientRegionKind kind, HWND hwnd)
+    {
+        auto const scale = GetDpiForWindow(hwnd);
+        std::vector<winrt::Windows::Graphics::RectInt32> rectArray;
+        for (auto controlRef : s_allWindows.at(hwnd))
         {
-            auto transform = element.TransformToVisual(rootGrid);
-            auto rect = transform.TransformBounds(winrt::Windows::Foundation::Rect{
-                0.f,
-                0.f,
-                static_cast<float>(element.ActualWidth()),
-                static_cast<float>(element.ActualHeight())
-                });
-            rectArray.push_back(scaleRect(rect, scale));
+            if (auto strongControl = controlRef.get())
+            {
+                if (auto const kindValue = GetNonClientRegionKind(strongControl); kindValue == kind)
+                {
+                    auto transform = strongControl.TransformToVisual(nullptr);
+                    auto rect = transform.TransformBounds(winrt::Windows::Foundation::Rect{
+                        0.f,
+                        0.f,
+                        static_cast<float>(strongControl.ActualWidth()),
+                        static_cast<float>(strongControl.ActualHeight())
+                    });
+                    rectArray.push_back(scaleRect(rect, scale));
+                }
+			}
         }
 
-
-        auto nonClientInputSource = winrt::Microsoft::UI::Input::InputNonClientPointerSource::GetForWindowId(winrt::Microsoft::UI::GetWindowIdFromWindow(m_hwnd));
-        nonClientInputSource.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::Passthrough, rectArray);
+        winrt::Microsoft::UI::Input::InputNonClientPointerSource::GetForWindowId(winrt::Microsoft::UI::GetWindowIdFromWindow(hwnd))
+            .SetRegionRects(kind, rectArray);
     }
 
     void WindowEx::extendsContentIntoTitleBar(bool value)
@@ -576,25 +555,7 @@ namespace winrt::WinUI3Package::implementation
         return true;
     }
 
-    WindowEx* WindowEx::getRootWindow(winrt::Microsoft::UI::Xaml::FrameworkElement& element)
-    {
-        auto currentParent = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetParent(element);
-        do
-        {
-            auto gridParent = currentParent.try_as<decltype(rootGrid)>();
-            if (gridParent)
-            {
-                auto rootWindowProperty = gridParent.GetValue(s_rootWindowProperty);
-                if (rootWindowProperty)
-                {
-                    auto rootWindowPtr = reinterpret_cast<WindowEx*>(winrt::unbox_value<uint64_t>(rootWindowProperty));
-                    return rootWindowPtr;
-                }
-            }
-            currentParent = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetParent(currentParent);
-        } while (currentParent);
-        return nullptr;
-    }
+
     RECT WindowEx::getAdjustedWindowRect(HWND hwnd, unsigned dpi)
     {
         RECT rect{};

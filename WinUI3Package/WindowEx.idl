@@ -2,7 +2,6 @@ namespace WinUI3Package
 {
    [bindable]
     [default_interface]
-    [contentproperty("WindowContent")]
     unsealed runtimeclass WindowEx : Microsoft.UI.Xaml.Window
     {
         WindowEx();
@@ -37,17 +36,15 @@ namespace WinUI3Package
         Boolean IsShownInSwitcher;
         Boolean TitleBarDarkMode;
         Boolean TitleBarAutoDarkMode;
-        Microsoft.UI.Xaml.UIElement TitleBar;
         Microsoft.UI.Xaml.Controls.MenuFlyout ContextMenu;
         String Icon;
 
         //Microsoft.UI.Windowing.AppWindow AppWindow{ get; };
         UInt64 Hwnd{ get; };
 
-        Microsoft.UI.Xaml.UIElement WindowContent;
 
-        static Microsoft.UI.Xaml.DependencyProperty IsInteractiveProperty{ get; };
-        static void SetIsInteractive(Microsoft.UI.Xaml.Controls.Control element, Boolean value);
-        static Boolean GetIsInteractive(Microsoft.UI.Xaml.Controls.Control element);
+        static Microsoft.UI.Xaml.DependencyProperty NonClientRegionKindProperty{ get; };
+		static void SetNonClientRegionKind(Microsoft.UI.Xaml.FrameworkElement element, Microsoft.UI.Input.NonClientRegionKind value);
+		static Microsoft.UI.Input.NonClientRegionKind GetNonClientRegionKind(Microsoft.UI.Xaml.FrameworkElement element);
     }
 }

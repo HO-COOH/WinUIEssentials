@@ -558,7 +558,6 @@
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="AcrylicVisualWithBoundedCornerRadius.cpp" />
     <ClCompile Include="AutoSuggestBoxHelper.cpp">
       <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>

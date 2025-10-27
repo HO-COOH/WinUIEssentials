@@ -1,9 +1,8 @@
 namespace WinUI3Example
 {
     [default_interface]
-    runtimeclass CustomTitleBar : WinUI3Package.WindowEx
+	runtimeclass CustomTitleBar : Microsoft.UI.Xaml.Window
     {
         CustomTitleBar();
-        Int32 MyProperty;
     }
 }

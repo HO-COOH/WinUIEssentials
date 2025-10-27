@@ -605,29 +605,72 @@ Add this to `App.xaml` (WinUI3)
 |Boolean TitleBarAutoDarkMode;| Enable automatic titlebar dark mode (support down to Windows 10 17763), works regardless of `ExtendContentIntoTitleBar`
 |Microsoft.UI.Xaml.UIElement TitleBar;| Custom title bar, if set, automatically calls `ExtendContentIntoTitleBar` for you
 |String Icon;| Set `.ico` icon used for win32 titlebar
+
 ### Extensions
-`WindowEx.IsInteractive`: used when customizing a title bar, automatically calculate and update `InputNonClientPointerSource` for you
+`WindowEx.NonClientRegionKind`: is an attached `DependencyProperty` used when customizing a title bar, automatically calculate and update `InputNonClientPointerSource` for you when the control size changed.
+
+
 Usage:
 ```xml
-<essential:WindowEx.TitleBar>
-    <Grid x:Name="AppTitleBar" Height="48" Loaded="AppTitleBar_Loaded">
-        <Grid.ColumnDefinitions>
-            ...
-        </Grid.ColumnDefinitions>
-
-        <AutoSuggestBox x:Name="TitleBarSearchBox" 
-                Grid.Column="4" 
-                QueryIcon="Find"
-                PlaceholderText="Search"
-                VerticalAlignment="Center"
-                MaxWidth="600"
-                essential:WindowEx.IsInteractive="True"/>
-        <PersonPicture x:Name="PersonPic" 
-               Grid.Column="6" 
-               Height="32" Margin="0,0,16,0"
-               essential:WindowEx.IsInteractive="True"/>
-    </Grid>
-</essential:WindowEx.TitleBar>
+<Grid x:Name="AppTitleBar">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition x:Name="LeftPaddingColumn" Width="10" />
+        <ColumnDefinition x:Name="IconColumn" Width="Auto" />
+        <ColumnDefinition x:Name="TitleColumn" Width="Auto" />
+        <ColumnDefinition x:Name="LeftDragColumn" Width="*" />
+        <ColumnDefinition
+            x:Name="SearchColumn"
+            Width="4*"
+            MinWidth="220" />
+        <ColumnDefinition
+            x:Name="RightDragColumn"
+            Width="*"
+            MinWidth="48" />
+        <ColumnDefinition x:Name="AccountColumn" Width="Auto" />
+        <ColumnDefinition Width="140" />
+    </Grid.ColumnDefinitions>
+    <Image
+        x:Name="TitleBarIcon"
+        Grid.Column="1"
+        Width="16"
+        Height="16"
+        Margin="8,0,16,0"
+        Source="ms-appx:///Assets/StoreLogo.png" />
+    <TextBlock
+        x:Name="TitleBarTextBlock"
+        Grid.Column="2"
+        VerticalAlignment="Center"
+        Style="{StaticResource CaptionTextBlockStyle}"
+        Text="App title" />
+    <AutoSuggestBox
+        x:Name="TitleBarSearchBox"
+        Grid.Column="4"
+        MaxWidth="600"
+        VerticalAlignment="Center"
+        essential:WindowEx.NonClientRegionKind="Passthrough"
+        PlaceholderText="Search"
+        QueryIcon="Find" />
+    <StackPanel
+        Grid.Column="6"
+        Margin="0,0,16,0"
+        essential:WindowEx.NonClientRegionKind="Passthrough"
+        Orientation="Horizontal"
+        Spacing="10">
+        <ToggleButton>Button on titlebar</ToggleButton>
+        <PersonPicture
+            x:Name="PersonPic"
+            Height="32"
+            PointerPressed="PersonPic_PointerPressed">
+            <PersonPicture.ContextFlyout>
+                <MenuFlyout x:Name="PersonPicMenu">
+                    <MenuFlyoutItem Text="Settings" />
+                    <MenuFlyoutSeparator />
+                    <MenuFlyoutItem Text="About Me" />
+                </MenuFlyout>
+            </PersonPicture.ContextFlyout>
+        </PersonPicture>
+    </StackPanel>
+</Grid>
 ```
 
 ## TransparentBackdrop --- *namespace `TransparentBackdrop*

@@ -8,11 +8,7 @@ namespace winrt::WinUI3Example::implementation
     {
         CustomTitleBar();
 
-        int32_t MyProperty();
-        void MyProperty(int32_t value);
-
         void myButton_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
-        void AppTitleBar_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void PersonPic_PointerPressed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };
 }
