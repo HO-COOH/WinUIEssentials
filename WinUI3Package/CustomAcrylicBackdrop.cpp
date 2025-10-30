@@ -57,6 +57,13 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false) }
 		);
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_requestedThemeProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"RequestedTheme",
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::ElementTheme>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Microsoft::UI::Xaml::ElementTheme::Default), &CustomAcrylicBackdrop::onThemePropertyChanged}
+		);
 
 	void CustomAcrylicBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{
@@ -215,6 +222,21 @@ namespace winrt::WinUI3Package::implementation
 		return s_enableWhenInactiveProperty;
 	}
 
+	winrt::Microsoft::UI::Xaml::ElementTheme CustomAcrylicBackdrop::RequestedTheme()
+	{
+		return winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(GetValue(s_requestedThemeProperty));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::RequestedThemeProperty()
+	{
+		return s_requestedThemeProperty;
+	}
+
+	void CustomAcrylicBackdrop::RequestedTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
+	{
+		SetValue(s_requestedThemeProperty, winrt::box_value(theme));
+	}
+
 	winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme CustomAcrylicBackdrop::toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
 	{
 		switch (theme)
@@ -244,5 +266,14 @@ namespace winrt::WinUI3Package::implementation
 		m_controller.Close();
 		m_controller = nullptr;
 		m_configuration = nullptr;
+	}
+
+	void CustomAcrylicBackdrop::onThemePropertyChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const& backdrop, 
+		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& themePropertyChangedArg)
+	{
+		auto impl = winrt::get_self<CustomAcrylicBackdrop>(backdrop.as<winrt::WinUI3Package::CustomAcrylicBackdrop>());
+		impl->m_configuration.Theme(toBackdropTheme(winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(themePropertyChangedArg.NewValue())));
+		impl->m_controller.SetSystemBackdropConfiguration(impl->m_configuration);
 	}
 }

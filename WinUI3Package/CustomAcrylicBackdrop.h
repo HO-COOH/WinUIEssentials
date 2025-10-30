@@ -43,7 +43,9 @@ namespace winrt::WinUI3Package::implementation
         void EnableWhenInactive(bool value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty EnableWhenInactiveProperty();
 
-
+        winrt::Microsoft::UI::Xaml::ElementTheme RequestedTheme();
+        void RequestedTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty RequestedThemeProperty();
     private:
         HWND m_hwnd{};
         winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration m_configuration{ nullptr };
@@ -61,6 +63,7 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_tintColorProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_tintOpacityProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_enableWhenInactiveProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_requestedThemeProperty;
 
         static winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 
@@ -71,6 +74,11 @@ namespace winrt::WinUI3Package::implementation
         void changeTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
         void makeAcrylicController(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& target);
         void disposeAcrylicController();
+
+        static void onThemePropertyChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& backdrop,
+            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& themePropertyArg
+        );
     };
 }
 
