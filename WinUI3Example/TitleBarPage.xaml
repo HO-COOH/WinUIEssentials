@@ -38,65 +38,85 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-&lt;essential:WindowEx
-    x:Class=&quot;WinUI3Example.CustomTitleBar&quot;
-    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
-    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
-    xmlns:essential=&quot;using:WinUI3Package&quot;
-    mc:Ignorable=&quot;d&quot;&gt;
-    &lt;essential:WindowEx.TitleBar&gt;
-        &lt;Grid x:Name=&quot;AppTitleBar&quot; Height=&quot;48&quot; Loaded=&quot;AppTitleBar_Loaded&quot;&gt;
-            &lt;Grid.ColumnDefinitions&gt;
-                &lt;ColumnDefinition x:Name=&quot;LeftPaddingColumn&quot; Width=&quot;10&quot;/&gt;
-                &lt;ColumnDefinition x:Name=&quot;IconColumn&quot; Width=&quot;Auto&quot;/&gt;
-                &lt;ColumnDefinition x:Name=&quot;TitleColumn&quot; Width=&quot;Auto&quot;/&gt;
-                &lt;ColumnDefinition x:Name=&quot;LeftDragColumn&quot; Width=&quot;*&quot;/&gt;
-                &lt;ColumnDefinition x:Name=&quot;SearchColumn&quot; Width=&quot;4*&quot; MinWidth=&quot;220&quot;/&gt;
-                &lt;ColumnDefinition x:Name=&quot;RightDragColumn&quot; Width=&quot;*&quot; MinWidth=&quot;48&quot;/&gt;
-                &lt;ColumnDefinition x:Name=&quot;AccountColumn&quot; Width=&quot;Auto&quot;/&gt;
-                &lt;ColumnDefinition x:Name=&quot;RightPaddingColumn&quot; Width=&quot;0&quot;/&gt;
-            &lt;/Grid.ColumnDefinitions&gt;
-            &lt;Image x:Name=&quot;TitleBarIcon&quot; 
-                Source=&quot;ms-appx:///Assets/StoreLogo.png&quot;
-                Grid.Column=&quot;1&quot;
-                Width=&quot;16&quot; Height=&quot;16&quot;
-                Margin=&quot;8,0,16,0&quot;/&gt;
-            &lt;TextBlock x:Name=&quot;TitleBarTextBlock&quot;
-                Text=&quot;App title&quot; 
-                Style=&quot;{StaticResource CaptionTextBlockStyle}&quot;
-                Grid.Column=&quot;2&quot;
-                VerticalAlignment=&quot;Center&quot;&gt;
-            &lt;/TextBlock&gt;
-            &lt;AutoSuggestBox x:Name=&quot;TitleBarSearchBox&quot; 
-                    Grid.Column=&quot;4&quot; 
-                    QueryIcon=&quot;Find&quot;
-                    PlaceholderText=&quot;Search&quot;
-                    VerticalAlignment=&quot;Center&quot;
-                    MaxWidth=&quot;600&quot;
-                    essential:WindowEx.IsInteractive=&quot;True&quot;/&gt;
-            &lt;PersonPicture
-                x:Name=&quot;PersonPic&quot;
-                Grid.Column=&quot;6&quot;
-                Height=&quot;32&quot;
-                Margin=&quot;0,0,16,0&quot;
-                essential:WindowEx.IsInteractive=&quot;True&quot;
-                PointerPressed=&quot;PersonPic_PointerPressed&quot;&gt;
-                &lt;PersonPicture.ContextFlyout&gt;
-                    &lt;MenuFlyout x:Name=&quot;PersonPicMenu&quot;&gt;
-                        &lt;MenuFlyoutItem Text=&quot;Settings&quot; /&gt;
-                    &lt;/MenuFlyout&gt;
-                &lt;/PersonPicture.ContextFlyout&gt;
-            &lt;/PersonPicture&gt;
-        &lt;/Grid&gt;
-    &lt;/essential:WindowEx.TitleBar&gt;
+                        <x:String xml:space="preserve">&lt;Window...&gt;
 
-    &lt;StackPanel Orientation=&quot;Horizontal&quot; HorizontalAlignment=&quot;Center&quot; VerticalAlignment=&quot;Center&quot;&gt;
-        &lt;Button x:Name=&quot;myButton&quot; Click=&quot;myButton_Click&quot;&gt;Click Me&lt;/Button&gt;
-    &lt;/StackPanel&gt;
-&lt;/essential:WindowEx&gt;
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height=&quot;48&quot; /&gt;
+            &lt;RowDefinition /&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        &lt;essential:WindowCaptionButtonThemeWorkaround Window=&quot;{x:Bind}&quot; /&gt;
+        &lt;Grid x:Name=&quot;AppTitleBar&quot;&gt;
+            &lt;Grid.ColumnDefinitions&gt;
+                &lt;ColumnDefinition x:Name=&quot;LeftPaddingColumn&quot; Width=&quot;10&quot; /&gt;
+                &lt;ColumnDefinition x:Name=&quot;IconColumn&quot; Width=&quot;Auto&quot; /&gt;
+                &lt;ColumnDefinition x:Name=&quot;TitleColumn&quot; Width=&quot;Auto&quot; /&gt;
+                &lt;ColumnDefinition x:Name=&quot;LeftDragColumn&quot; Width=&quot;*&quot; /&gt;
+                &lt;ColumnDefinition
+                    x:Name=&quot;SearchColumn&quot;
+                    Width=&quot;4*&quot;
+                    MinWidth=&quot;220&quot; /&gt;
+                &lt;ColumnDefinition
+                    x:Name=&quot;RightDragColumn&quot;
+                    Width=&quot;*&quot;
+                    MinWidth=&quot;48&quot; /&gt;
+                &lt;ColumnDefinition x:Name=&quot;AccountColumn&quot; Width=&quot;Auto&quot; /&gt;
+                &lt;ColumnDefinition Width=&quot;140&quot; /&gt;
+            &lt;/Grid.ColumnDefinitions&gt;
+            &lt;Image
+                x:Name=&quot;TitleBarIcon&quot;
+                Grid.Column=&quot;1&quot;
+                Width=&quot;16&quot;
+                Height=&quot;16&quot;
+                Margin=&quot;8,0,16,0&quot;
+                Source=&quot;ms-appx:///Assets/StoreLogo.png&quot; /&gt;
+            &lt;TextBlock
+                x:Name=&quot;TitleBarTextBlock&quot;
+                Grid.Column=&quot;2&quot;
+                VerticalAlignment=&quot;Center&quot;
+                Style=&quot;{StaticResource CaptionTextBlockStyle}&quot;
+                Text=&quot;App title&quot; /&gt;
+            &lt;AutoSuggestBox
+                x:Name=&quot;TitleBarSearchBox&quot;
+                Grid.Column=&quot;4&quot;
+                MaxWidth=&quot;600&quot;
+                VerticalAlignment=&quot;Center&quot;
+                essential:WindowEx.NonClientRegionKind=&quot;Passthrough&quot;
+                PlaceholderText=&quot;Search&quot;
+                QueryIcon=&quot;Find&quot; /&gt;
+            &lt;StackPanel
+                Grid.Column=&quot;6&quot;
+                Margin=&quot;0,0,16,0&quot;
+                essential:WindowEx.NonClientRegionKind=&quot;Passthrough&quot;
+                Orientation=&quot;Horizontal&quot;
+                Spacing=&quot;10&quot;&gt;
+                &lt;ToggleButton&gt;Button on titlebar&lt;/ToggleButton&gt;
+                &lt;PersonPicture
+                    x:Name=&quot;PersonPic&quot;
+                    Height=&quot;32&quot;
+                    PointerPressed=&quot;PersonPic_PointerPressed&quot;&gt;
+                    &lt;PersonPicture.ContextFlyout&gt;
+                        &lt;MenuFlyout x:Name=&quot;PersonPicMenu&quot;&gt;
+                            &lt;MenuFlyoutItem Text=&quot;Settings&quot; /&gt;
+                            &lt;MenuFlyoutSeparator /&gt;
+                            &lt;MenuFlyoutItem Text=&quot;About Me&quot; /&gt;
+                        &lt;/MenuFlyout&gt;
+                    &lt;/PersonPicture.ContextFlyout&gt;
+                &lt;/PersonPicture&gt;
+            &lt;/StackPanel&gt;
+
+        &lt;/Grid&gt;
+
+        &lt;StackPanel
+            Grid.Row=&quot;1&quot;
+            HorizontalAlignment=&quot;Center&quot;
+            VerticalAlignment=&quot;Center&quot;
+            Orientation=&quot;Horizontal&quot;&gt;
+            &lt;Button x:Name=&quot;myButton&quot; Click=&quot;myButton_Click&quot;&gt;Click Me&lt;/Button&gt;
+        &lt;/StackPanel&gt;
+    &lt;/Grid&gt;
+&lt;/Window&gt;
                         </x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
