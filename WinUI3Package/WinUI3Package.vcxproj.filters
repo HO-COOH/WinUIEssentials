@@ -474,6 +474,9 @@
     <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
       <Filter>Windows</Filter>
     </Midl>
+    <Midl Include="MicaBackdropWithFallback.idl">
+      <Filter>Backdrop</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

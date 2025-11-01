@@ -388,6 +388,10 @@
     <ClInclude Include="MenuFlyoutItemPaddingWorkaroundWrapper.hpp" />
     <ClInclude Include="MenuFlyoutWrapper.h" />
     <ClInclude Include="MenuItemInfo.hpp" />
+    <ClInclude Include="MicaBackdropWithFallback.h">
+      <DependentUpon>MicaBackdropWithFallback.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ModalWindow.h">
       <DependentUpon>ModalWindow.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -659,6 +663,10 @@
     </ClCompile>
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
     <ClCompile Include="MenuFlyoutWrapper.cpp" />
+    <ClCompile Include="MicaBackdropWithFallback.cpp">
+      <DependentUpon>MicaBackdropWithFallback.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ModalWindow.cpp">
       <DependentUpon>ModalWindow.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -899,6 +907,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MarqueeText.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="MicaBackdropWithFallback.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ModalWindow.idl">

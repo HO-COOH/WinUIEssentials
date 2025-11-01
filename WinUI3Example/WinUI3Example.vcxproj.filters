@@ -68,9 +68,6 @@
     <Page Include="IncrementalLoadingPage.xaml">
       <Filter>Pages\IncrementalLoadingVectorPage</Filter>
     </Page>
-    <Page Include="BackdropPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="CustomAcrylicWindow.xaml">
       <Filter>Windows\Acrylic</Filter>
     </Page>
@@ -200,6 +197,12 @@
     <Page Include="ToolTipHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="BackdropPage.xaml">
+      <Filter>Pages\BackdropPage</Filter>
+    </Page>
+    <Page Include="MicaBackdropWithFallbackWindow.xaml">
+      <Filter>Pages\BackdropPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -218,9 +221,6 @@
     </Midl>
     <Midl Include="Person.idl">
       <Filter>Pages\IncrementalLoadingVectorPage</Filter>
-    </Midl>
-    <Midl Include="BackdropPage.idl">
-      <Filter>Pages</Filter>
     </Midl>
     <Midl Include="CustomAcrylicWindow.idl">
       <Filter>Windows\Acrylic</Filter>
@@ -275,6 +275,9 @@
     </Midl>
     <Midl Include="LineGraph.idl">
       <Filter>Pages\Experimental\LineGraph</Filter>
+    </Midl>
+    <Midl Include="BackdropPage.idl">
+      <Filter>Pages\BackdropPage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -543,6 +546,9 @@
     </Filter>
     <Filter Include="Pages\CaptionButtonThemeWorkaroundPage">
       <UniqueIdentifier>{575b8090-63bc-41a8-ade3-f274106c59a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\BackdropPage">
+      <UniqueIdentifier>{980a6546-cadd-4d88-a25f-535633b0dad2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

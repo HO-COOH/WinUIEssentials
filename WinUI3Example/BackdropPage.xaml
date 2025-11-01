@@ -294,6 +294,31 @@ window.Activate();</x:String>
             </local:ControlExample.Xaml>
         </local:ControlExample>
 
+        <local:ControlExample HeaderText="Create Window with MicaBackdrop but automatically fallback to Acrylic when not supported">
+            <Button x:Name="CreateMicaWithFallbackButton" Click="CreateMicaWithFallbackButton_Click">Create</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    Title=&quot;MicaBackdropWithFallbackWindow&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+    &lt;Window.SystemBackdrop&gt;
+        &lt;essential:MicaBackdropWithFallback&gt;
+            &lt;essential:MicaBackdropWithFallback.Fallback&gt;
+                &lt;DesktopAcrylicBackdrop /&gt;
+            &lt;/essential:MicaBackdropWithFallback.Fallback&gt;
+        &lt;/essential:MicaBackdropWithFallback&gt;
+    &lt;/Window.SystemBackdrop&gt;
+
+    &lt;Button&gt;Click me&lt;/Button&gt;
+&lt;/Window&gt;
+                            </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
         <!--  Transparent  -->
         <local:ControlExample HeaderText="Create Window with customizable Transparent">
             <Button x:Name="CreateTransparentButton" Click="CreateTransparentButton_Click">Create</Button>

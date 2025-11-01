@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass MicaBackdropWithFallback : Microsoft.UI.Xaml.Media.MicaBackdrop
+    {
+        MicaBackdropWithFallback();
+        
+        Microsoft.UI.Xaml.Media.SystemBackdrop Fallback;
+    }
+}

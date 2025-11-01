@@ -434,6 +434,10 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MicaBackdropWithFallbackWindow.xaml.h">
+      <DependentUpon>MicaBackdropWithFallbackWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ModalWindowPage.xaml.h">
       <DependentUpon>ModalWindowPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -703,6 +707,9 @@
     <Page Include="MarqueeTextPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MicaBackdropWithFallbackWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ModalWindowPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -955,6 +962,10 @@
     </ClCompile>
     <ClCompile Include="MarqueeTextPage.xaml.cpp">
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="MicaBackdropWithFallbackWindow.xaml.cpp">
+      <DependentUpon>MicaBackdropWithFallbackWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ModalWindowPage.xaml.cpp">
@@ -1285,6 +1296,10 @@
     </Midl>
     <Midl Include="MarqueeTextPage.idl">
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="MicaBackdropWithFallbackWindow.idl">
+      <DependentUpon>MicaBackdropWithFallbackWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ModalWindowPage.idl">

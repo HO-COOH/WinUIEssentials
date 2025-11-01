@@ -57,4 +57,8 @@ namespace winrt::WinUI3Example::implementation
 		//WinUI3Package::RoundedAnimatedAcrylicWindowWithShadow{}.Activate();
 	}
 
+	void BackdropPage::CreateMicaWithFallbackButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		WinUI3Example::MicaBackdropWithFallbackWindow{}.Activate();
+	}
 }
