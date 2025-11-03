@@ -4,6 +4,5 @@ namespace WinUI3Example
     runtimeclass DefaultWindowCaptionButtonWorkaround : Microsoft.UI.Xaml.Window
     {
         DefaultWindowCaptionButtonWorkaround();
-        Int32 MyProperty;
     }
 }

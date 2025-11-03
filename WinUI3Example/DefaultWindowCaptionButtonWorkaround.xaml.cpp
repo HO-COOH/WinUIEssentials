@@ -12,13 +12,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    int32_t DefaultWindowCaptionButtonWorkaround::MyProperty()
-    {
-        throw hresult_not_implemented();
-    }
-
-    void DefaultWindowCaptionButtonWorkaround::MyProperty(int32_t /* value */)
-    {
-        throw hresult_not_implemented();
-    }
+	DefaultWindowCaptionButtonWorkaround::DefaultWindowCaptionButtonWorkaround()
+	{
+		ExtendsContentIntoTitleBar(true);
+	}
 }

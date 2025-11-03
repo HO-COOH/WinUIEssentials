@@ -7,13 +7,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct DefaultWindowBrokenCaptionButton : DefaultWindowBrokenCaptionButtonT<DefaultWindowBrokenCaptionButton>, public SupportThemeToggle<DefaultWindowBrokenCaptionButton>
     {
-        DefaultWindowBrokenCaptionButton()
-        {
-            ExtendsContentIntoTitleBar(true);
-        }
-
-        int32_t MyProperty();
-        void MyProperty(int32_t value);
+        DefaultWindowBrokenCaptionButton();
     };
 }
 

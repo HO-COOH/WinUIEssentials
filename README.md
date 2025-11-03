@@ -2,10 +2,14 @@
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
-[![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=WinUIEssential.UWP)](https://www.nuget.org/packages/WinUIEssential.UWP)
-[![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=WinUIEssential.WinUI3)](https://www.nuget.org/packages/WinUIEssential.WinUI3)
+## Nuget
+
+For UWP: [![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=WinUIEssential.UWP)](https://www.nuget.org/packages/WinUIEssential.UWP)
+
+For WinUI3 (Windows App SDK): [![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=WinUIEssential.WinUI3)](https://www.nuget.org/packages/WinUIEssential.WinUI3)
 
 
+## Example Gallery
 [Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9?hl=en-us&gl=US&ocid=pdpshare)
 
 
@@ -109,6 +113,7 @@ You can reference Github Action for detailed build steps.
 |CommandBarHelper | :x: | :white_check_mark: | WinRT component
 |IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only
 |WindowCaptionButtonThemeWorkaround | :x: | :white_check_mark: | WinRT component
+|MicaBackdropWithFallback | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1077,3 +1082,17 @@ To use, simply put it under a Xaml control (such as `Grid`) that can accept chil
 |Before|After|
 |------|-----|
 |![](assets/window-broken.gif)|![](assets/window-fixed.gif)|
+
+## MicaBackdropWithFallback
+The default mica backdrop, but with automatic fallback to any other kind of backdrop (mainly `DesktopAcrylicBackdrop` from WASDK).
+
+Usage: 
+```xml
+<Window.SystemBackdrop>
+    <essential:MicaBackdropWithFallback>
+        <essential:MicaBackdropWithFallback.Fallback>
+            <DesktopAcrylicBackdrop />
+        </essential:MicaBackdropWithFallback.Fallback>
+    </essential:MicaBackdropWithFallback>
+</Window.SystemBackdrop>
+```

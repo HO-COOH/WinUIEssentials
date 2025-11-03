@@ -3,6 +3,7 @@
 #if __has_include("CaptionButtonThemeWorkaroundPage.g.cpp")
 #include "CaptionButtonThemeWorkaroundPage.g.cpp"
 #endif
+#include "HwndHelper.hpp"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -30,8 +31,31 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		winrt::WinUI3Example::DefaultWindowBrokenCaptionButton{}.Activate();
-		winrt::WinUI3Example::DefaultWindowCaptionButtonWorkaround{}.Activate();
+		winrt::WinUI3Example::DefaultWindowBrokenCaptionButton brokenWindow;
+		winrt::WinUI3Example::DefaultWindowCaptionButtonWorkaround fixedWindow;
+
+		auto monitor = MonitorFromWindow(GetHwnd(brokenWindow), MONITOR_DEFAULTTONEAREST);
+		MONITORINFO info
+		{
+			.cbSize = sizeof(info)
+		};
+		GetMonitorInfo(monitor, &info);
+		auto const halfWidth = (info.rcWork.right - info.rcWork.left) / 2;
+		auto const height = info.rcWork.bottom - info.rcWork.top;
+		brokenWindow.AppWindow().MoveAndResize(winrt::Windows::Graphics::RectInt32{
+			.X = info.rcWork.left,
+			.Y = info.rcWork.top,
+			.Width = halfWidth,
+			.Height = height
+		});
+		fixedWindow.AppWindow().MoveAndResize(winrt::Windows::Graphics::RectInt32{
+			.X = info.rcWork.left + halfWidth,
+			.Y = info.rcWork.top,
+			.Width = halfWidth,
+			.Height = height
+		});
+		brokenWindow.Activate();
+		fixedWindow.Activate();
 	}
 }
 
