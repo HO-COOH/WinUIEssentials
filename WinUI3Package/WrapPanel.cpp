@@ -118,7 +118,7 @@ namespace winrt::WinUI3Package::implementation
 				currentLineHeight = max(currentLineHeight, childDesiredSize.Width);
 			}
 		}
-		if (Orientation() == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal)
+		if (orientation == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal)
 		{
 			//desiredSize.Width = currentLineSize - horizontalSpacing;
 			desiredSize.Height += currentLineHeight;

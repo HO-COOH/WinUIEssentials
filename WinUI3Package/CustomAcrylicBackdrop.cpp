@@ -83,9 +83,8 @@ namespace winrt::WinUI3Package::implementation
 		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);
 		BackdropWindowActiveStateWorkaroundHandler<CustomAcrylicBackdrop, subclassId>::Set(m_hwnd, this);
 
-		xamlRoot.Changed([this, target = winrt::make_weak(connectedTarget)](winrt::Microsoft::UI::Xaml::XamlRoot const& root, winrt::Microsoft::UI::Xaml::XamlRootChangedEventArgs const& arg)
+		m_xamlRootChangedRevoker = xamlRoot.Changed(winrt::auto_revoke, [this](winrt::Microsoft::UI::Xaml::XamlRoot const& root, auto&&)
 		{
-
 			if (auto content = root.Content(); content != nullptr)
 			{
 				auto element = content.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();

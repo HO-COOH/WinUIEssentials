@@ -51,6 +51,7 @@ namespace winrt::WinUI3Package::implementation
 
         WNDPROC m_oldProc{};
         LONG_PTR m_oldUserData{};
+        winrt::Microsoft::UI::Xaml::XamlRoot::Changed_revoker m_xamlRootChangedRevoker;
 
         OverrideChecker m_overrideChecker;
 

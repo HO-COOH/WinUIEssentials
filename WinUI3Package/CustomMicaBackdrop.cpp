@@ -76,19 +76,18 @@ namespace winrt::WinUI3Package::implementation
 		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);
 		
 
-		xamlRoot.Changed([this, target = winrt::make_weak(connectedTarget)](winrt::Microsoft::UI::Xaml::XamlRoot const& root, winrt::Microsoft::UI::Xaml::XamlRootChangedEventArgs const& arg)
+		m_xamlRootChangedRevoker = xamlRoot.Changed(winrt::auto_revoke, [this](winrt::Microsoft::UI::Xaml::XamlRoot const& root, auto&&)
+		{
+			if (auto content = root.Content(); content != nullptr)
 			{
-
-				if (auto content = root.Content(); content != nullptr)
-				{
-					auto element = content.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
-					changeTheme(content.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().ActualTheme());
-					element.ActualThemeChanged([this](winrt::Microsoft::UI::Xaml::FrameworkElement const& element, auto&&...)
-						{
-							changeTheme(element.ActualTheme());
-						});
-				}
-			});
+				auto element = content.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+				changeTheme(content.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().ActualTheme());
+				element.ActualThemeChanged([this](winrt::Microsoft::UI::Xaml::FrameworkElement const& element, auto&&...)
+					{
+						changeTheme(element.ActualTheme());
+					});
+			}
+		});
 	}
 
 	void CustomMicaBackdrop::OnDefaultSystemBackdropConfigurationChanged(
