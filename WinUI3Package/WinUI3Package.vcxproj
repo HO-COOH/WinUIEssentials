@@ -73,7 +73,7 @@
   </ItemGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <GenerateManifest>false</GenerateManifest>
     <DesktopCompatible>true</DesktopCompatible>
@@ -404,6 +404,10 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NonMaximizableWindowWorkaround.h">
+      <DependentUpon>NonMaximizableWindowWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NonResizableWindowWhiteBorderWorkaround.h">
       <DependentUpon>NonResizableWindowWhiteBorderWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -679,6 +683,10 @@
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NonMaximizableWindowWorkaround.cpp">
+      <DependentUpon>NonMaximizableWindowWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="NonResizableWindowWhiteBorderWorkaround.cpp">
       <DependentUpon>NonResizableWindowWhiteBorderWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -920,6 +928,9 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="NegateBoolConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="NonMaximizableWindowWorkaround.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">

@@ -244,6 +244,8 @@ namespace winrt::WinUI3Package::implementation
     }
     void WindowEx::IsMaximizable(bool value)
     {
+        if (!value)
+            setSubClassIfNeeded();
         m_overlappedPresenter.IsMaximizable(value);
     }
     bool WindowEx::IsResizable()
@@ -431,27 +433,31 @@ namespace winrt::WinUI3Package::implementation
         auto ptr = reinterpret_cast<WindowEx*>(dwRefData);
         switch (msg)
         {
-        case WM_ERASEBKGND:
-            if (ptr->clearBackground(hwnd, reinterpret_cast<HDC>(wparam)))
-                return 1;
-            break;
-        case WM_SETTINGCHANGE:
-            ptr->onSettingChange();
-            break;
-        case WM_CONTEXTMENU:
-        {
-            if (ptr->m_contextMenu)
+            case WM_ERASEBKGND:
+                if (ptr->clearBackground(hwnd, reinterpret_cast<HDC>(wparam)))
+                    return 1;
+                break;
+            case WM_SETTINGCHANGE:
+                ptr->onSettingChange();
+                break;
+            case WM_CONTEXTMENU:
             {
-                if (!ptr->m_contextMenuHost)
-                    ptr->m_contextMenuHost = {};
-                ptr->m_contextMenuHost.Move({ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) });
-				ptr->m_contextMenu.ShowAt(ptr->m_contextMenuHost);
-                return 0;
+                if (ptr->m_contextMenu)
+                {
+                    if (!ptr->m_contextMenuHost)
+                        ptr->m_contextMenuHost = {};
+                    ptr->m_contextMenuHost.Move({ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) });
+				    ptr->m_contextMenu.ShowAt(ptr->m_contextMenuHost);
+                    return 0;
+                }
+                break;
             }
-            break;
-        }
-        case WM_GETMINMAXINFO:
-            return ptr->onGetMinMaxInfo(wparam, lparam);
+            case WM_GETMINMAXINFO:
+                return ptr->onGetMinMaxInfo(wparam, lparam);
+            case WM_SYSCOMMAND:
+                if (wparam == SC_MAXIMIZE && !ptr->m_overlappedPresenter.IsMaximizable())
+                    return 1;
+                break;
         }
         return DefSubclassProc(hwnd, msg, wparam, lparam);
     }

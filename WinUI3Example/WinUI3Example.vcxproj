@@ -89,7 +89,7 @@
   </ItemGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <DesktopCompatible>true</DesktopCompatible>
   </PropertyGroup>
@@ -463,16 +463,32 @@
       <DependentUpon>NamedUrl.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NonMaximizableWindowWithWorkaround.xaml.h">
+      <DependentUpon>NonMaximizableWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="NonMaximizableWindowWorkaroundPage.xaml.h">
+      <DependentUpon>NonMaximizableWindowWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="NonResizableNoBorderWindowWithWorkaround.xaml.h">
+      <DependentUpon>NonResizableNoBorderWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="NonResizableWindowWhiteBorderWorkaroundPage.xaml.h">
+      <DependentUpon>NonResizableWindowWhiteBorderWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NonResizableWindowWithMenu.xaml.h">
       <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="NonResizableWindowWithWorkaround.xaml.h">
-      <DependentUpon>NonResizableWindowWithWorkaround.xaml</DependentUpon>
+    <ClInclude Include="NormalNonMaximizableWindow.xaml.h">
+      <DependentUpon>NormalNonMaximizableWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="NormalNonResizableWindow.xaml.h">
-      <DependentUpon>NormalNonResizableWindow.xaml</DependentUpon>
+    <ClInclude Include="NormalNonResizableNoBorderWindow.xaml.h">
+      <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="NullToVisibilityConverter.h">
@@ -716,13 +732,25 @@
     <Page Include="ModernStandardWindowContextMenuPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="NonMaximizableWindowWithWorkaround.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NonMaximizableWindowWorkaroundPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NonResizableNoBorderWindowWithWorkaround.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NonResizableWindowWhiteBorderWorkaroundPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NonResizableWindowWithMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="NonResizableWindowWithWorkaround.xaml">
+    <Page Include="NormalNonMaximizableWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="NormalNonResizableWindow.xaml">
+    <Page Include="NormalNonResizableNoBorderWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PageHeader.xaml">
@@ -993,16 +1021,32 @@
       <DependentUpon>NamedUrl.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NonMaximizableWindowWithWorkaround.xaml.cpp">
+      <DependentUpon>NonMaximizableWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="NonMaximizableWindowWorkaroundPage.xaml.cpp">
+      <DependentUpon>NonMaximizableWindowWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="NonResizableNoBorderWindowWithWorkaround.xaml.cpp">
+      <DependentUpon>NonResizableNoBorderWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="NonResizableWindowWhiteBorderWorkaroundPage.xaml.cpp">
+      <DependentUpon>NonResizableWindowWhiteBorderWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="NonResizableWindowWithMenu.xaml.cpp">
       <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="NonResizableWindowWithWorkaround.xaml.cpp">
-      <DependentUpon>NonResizableWindowWithWorkaround.xaml</DependentUpon>
+    <ClCompile Include="NormalNonMaximizableWindow.xaml.cpp">
+      <DependentUpon>NormalNonMaximizableWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="NormalNonResizableWindow.xaml.cpp">
-      <DependentUpon>NormalNonResizableWindow.xaml</DependentUpon>
+    <ClCompile Include="NormalNonResizableNoBorderWindow.xaml.cpp">
+      <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="NullToVisibilityConverter.cpp">
@@ -1322,16 +1366,32 @@
     <Midl Include="NamedUrl.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="NonMaximizableWindowWithWorkaround.idl">
+      <DependentUpon>NonMaximizableWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="NonMaximizableWindowWorkaroundPage.idl">
+      <DependentUpon>NonMaximizableWindowWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="NonResizableNoBorderWindowWithWorkaround.idl">
+      <DependentUpon>NonResizableNoBorderWindowWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="NonResizableWindowWhiteBorderWorkaroundPage.idl">
+      <DependentUpon>NonResizableWindowWhiteBorderWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="NonResizableWindowWithMenu.idl">
       <DependentUpon>NonResizableWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="NonResizableWindowWithWorkaround.idl">
-      <DependentUpon>NonResizableWindowWithWorkaround.xaml</DependentUpon>
+    <Midl Include="NormalNonMaximizableWindow.idl">
+      <DependentUpon>NormalNonMaximizableWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="NormalNonResizableWindow.idl">
-      <DependentUpon>NormalNonResizableWindow.xaml</DependentUpon>
+    <Midl Include="NormalNonResizableNoBorderWindow.idl">
+      <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="NullToVisibilityConverter.idl">

@@ -1096,3 +1096,19 @@ Usage:
     </essential:MicaBackdropWithFallback>
 </Window.SystemBackdrop>
 ```
+
+## WindowWorkaround
+Helper for workaround setting `IsMaximizable=false` but you are still able to maximize the window but double-tapping on the title bar.
+
+
+Simply delcare it under any `Resource` under a control that is inside a `Window`. Usage:
+```xml
+<Window ...>
+    <StackPanel>
+        <StackPanel.Resource>
+            <essential:WindowWorkaround Window="{x:Bind}"/>
+        </StackPanel.Resource>
+    </StackPanel>
+    ...
+</Window>
+```

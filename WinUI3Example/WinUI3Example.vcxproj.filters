@@ -140,12 +140,6 @@
     <Page Include="ExtensionsPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="NormalNonResizableWindow.xaml">
-      <Filter>Pages\Experimental</Filter>
-    </Page>
-    <Page Include="NonResizableWindowWithWorkaround.xaml">
-      <Filter>Pages\Experimental</Filter>
-    </Page>
     <Page Include="AboutPage.xaml">
       <Filter>Helper</Filter>
     </Page>
@@ -202,6 +196,24 @@
     </Page>
     <Page Include="MicaBackdropWithFallbackWindow.xaml">
       <Filter>Pages\BackdropPage</Filter>
+    </Page>
+    <Page Include="NonResizableWindowWhiteBorderWorkaroundPage.xaml">
+      <Filter>Pages\NonResizableWindowWhiteBorderWorkaroundPage</Filter>
+    </Page>
+    <Page Include="NormalNonResizableNoBorderWindow.xaml">
+      <Filter>Pages\NonResizableWindowWhiteBorderWorkaroundPage</Filter>
+    </Page>
+    <Page Include="NonResizableNoBorderWindowWithWorkaround.xaml">
+      <Filter>Pages\NonResizableWindowWhiteBorderWorkaroundPage</Filter>
+    </Page>
+    <Page Include="NonMaximizableWindowWithWorkaround.xaml">
+      <Filter>Pages\NonMaximizableWindowWorkaroundPage</Filter>
+    </Page>
+    <Page Include="NormalNonMaximizableWindow.xaml">
+      <Filter>Pages\NonMaximizableWindowWorkaroundPage</Filter>
+    </Page>
+    <Page Include="NonMaximizableWindowWorkaroundPage.xaml">
+      <Filter>Pages\NonMaximizableWindowWorkaroundPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -549,6 +561,12 @@
     </Filter>
     <Filter Include="Pages\BackdropPage">
       <UniqueIdentifier>{980a6546-cadd-4d88-a25f-535633b0dad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\NonResizableWindowWhiteBorderWorkaroundPage">
+      <UniqueIdentifier>{4b916ae7-c2db-4d40-a160-9afeb864c6ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\NonMaximizableWindowWorkaroundPage">
+      <UniqueIdentifier>{37c0a14f-5f2d-4275-9300-3c2f8074c485}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
