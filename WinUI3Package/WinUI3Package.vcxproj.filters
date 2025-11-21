@@ -477,7 +477,9 @@
     <Midl Include="MicaBackdropWithFallback.idl">
       <Filter>Backdrop</Filter>
     </Midl>
-    <Midl Include="NonMaximizableWindowWorkaround.idl" />
+    <Midl Include="NonMaximizableWindowWorkaround.idl">
+      <Filter>Windows</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
