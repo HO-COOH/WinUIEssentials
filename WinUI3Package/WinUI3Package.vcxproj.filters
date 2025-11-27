@@ -48,6 +48,9 @@
     <ClCompile Include="WindowContextMenuUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="Shimmer.AnimationMember.cpp">
+      <Filter>Controls\Shimmer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -209,6 +212,12 @@
     </ClInclude>
     <ClInclude Include="AcrylicVisualWithBoundedCornerRadius.h">
       <Filter>Controls\AcrylicVisual</Filter>
+    </ClInclude>
+    <ClInclude Include="Shimmer.AnimationMember.h">
+      <Filter>Controls\Shimmer</Filter>
+    </ClInclude>
+    <ClInclude Include="Shimmer.DefaultGradientColor.h">
+      <Filter>Controls\Shimmer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

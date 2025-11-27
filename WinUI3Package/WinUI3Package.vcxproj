@@ -490,6 +490,8 @@
       <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Shimmer.AnimationMember.h" />
+    <ClInclude Include="Shimmer.DefaultGradientColor.h" />
     <ClInclude Include="Shimmer.h">
       <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -767,6 +769,7 @@
       <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Shimmer.AnimationMember.cpp" />
     <ClCompile Include="Shimmer.cpp">
       <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
