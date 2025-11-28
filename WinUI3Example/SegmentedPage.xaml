@@ -13,7 +13,8 @@
         HorizontalAlignment="Stretch"
         VerticalAlignment="Center"
         Orientation="Vertical"
-        Spacing="10">
+        Spacing="10"
+        Style="{StaticResource ControlExamplesStackPanelStyle}">
         <StackPanel.Resources>
             <x:Double x:Key="IconToTextSpacing">8</x:Double>
             <Style TargetType="FontIcon">

@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Spacing="10">
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
 
         <!--  Acrylic  -->
         <local:ControlExample HeaderText="Create Window with WinUI3 Built-in Acrylic">

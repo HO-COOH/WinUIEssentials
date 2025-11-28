@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Spacing="5">
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="Simple Shimmer">
             <essential:Shimmer
                 Width="150"

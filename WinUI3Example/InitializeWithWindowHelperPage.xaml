@@ -9,7 +9,7 @@
     mc:Ignorable="d">
 
     <!--  https://learn.microsoft.com/en-us/windows/apps/develop/ui-input/display-ui-objects#winui-3-with-c  -->
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="WinUIEssentials::Windows::Devices::Enumeration::DevicePicker">
             <Button x:Name="DevicePickerButton" Click="DevicePickerButton_Click">DevicePicker</Button>
             <local:ControlExample.Cpp>

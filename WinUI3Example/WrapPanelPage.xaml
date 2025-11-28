@@ -1,25 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="WinUI3Example.WrapPanelPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WinUI3Example"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
 
     <Page.Resources>
         <DataTemplate x:Key="PhotoTemplate">
-            <Grid Width="{Binding Width}"
+            <Grid
+                Width="{Binding Width}"
                 Height="{Binding Height}"
                 Margin="0">
-                <Image HorizontalAlignment="Center"
-                     Stretch="UniformToFill">
+                <Image HorizontalAlignment="Center" Stretch="UniformToFill">
                     <Image.Source>
-                        <BitmapImage DecodePixelHeight="200"
-                                   UriSource="{Binding Thumbnail}" />
+                        <BitmapImage DecodePixelHeight="200" UriSource="{Binding Thumbnail}" />
                     </Image.Source>
                 </Image>
                 <Border VerticalAlignment="Bottom">
@@ -29,10 +28,11 @@
                             <GradientStop Offset="1" Color="#33000000" />
                         </LinearGradientBrush>
                     </Border.Background>
-                    <TextBlock Margin="5,20,5,5"
-                             VerticalAlignment="Bottom"
-                             Foreground="White"
-                             Text="{Binding Category}" />
+                    <TextBlock
+                        Margin="5,20,5,5"
+                        VerticalAlignment="Bottom"
+                        Foreground="White"
+                        Text="{Binding Category}" />
                 </Border>
             </Grid>
         </DataTemplate>
@@ -47,12 +47,18 @@
         </Style>
     </Page.Resources>
 
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="WrapPanel">
             <local:ControlExample.Options>
                 <StackPanel>
-                    <Slider Header="Horizontal Spacing" Maximum="200" x:Name="HorizontalSpacing"/>
-                    <Slider Header="Vertical Spacing" Maximum="200" x:Name="VerticalSpacing"/>
+                    <Slider
+                        x:Name="HorizontalSpacing"
+                        Header="Horizontal Spacing"
+                        Maximum="200" />
+                    <Slider
+                        x:Name="VerticalSpacing"
+                        Header="Vertical Spacing"
+                        Maximum="200" />
                 </StackPanel>
             </local:ControlExample.Options>
 
@@ -66,15 +72,17 @@
                     <Button Click="AddFixedBtn_Click" Content="Add fixed sized image" />
                     <Button Click="SwitchBtn_Click" Content="Switch Orientation" />
                 </StackPanel>
-                <ListView Name="WrapPanelContainer"
-                      Grid.Row="1"
-                      IsItemClickEnabled="True"
-                      ItemClick="ItemControl_ItemClick"
-                      ItemTemplate="{StaticResource PhotoTemplate}"
-                      ItemsSource="{x:Bind WrapPanelCollection, Mode=OneWay}">
+                <ListView
+                    Name="WrapPanelContainer"
+                    Grid.Row="1"
+                    IsItemClickEnabled="True"
+                    ItemClick="ItemControl_ItemClick"
+                    ItemTemplate="{StaticResource PhotoTemplate}"
+                    ItemsSource="{x:Bind WrapPanelCollection, Mode=OneWay}">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <essential:WrapPanel x:Name="sampleWrapPanel"
+                            <essential:WrapPanel
+                                x:Name="sampleWrapPanel"
                                 HorizontalSpacing="{Binding Value, ElementName=HorizontalSpacing, Mode=OneWay}"
                                 VerticalSpacing="{Binding Value, ElementName=VerticalSpacing, Mode=OneWay}" />
                         </ItemsPanelTemplate>
@@ -147,6 +155,6 @@ uble Height;
                 </local:CodeSource>
             </local:ControlExample.Idl>
         </local:ControlExample>
-      
+
     </StackPanel>
 </Page>

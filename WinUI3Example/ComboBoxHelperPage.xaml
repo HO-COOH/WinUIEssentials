@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="Original ComboBox (from WinUI3 Gallery), you don't have Acrylic">
             <StackPanel Orientation="Horizontal" Spacing="20">
                 <StackPanel Spacing="8">

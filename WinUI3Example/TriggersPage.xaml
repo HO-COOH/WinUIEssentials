@@ -14,7 +14,7 @@
         </Style>
     </Page.Resources>
 
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="ControlSizeTrigger">
             <local:ControlExample.Options>
                 <Slider

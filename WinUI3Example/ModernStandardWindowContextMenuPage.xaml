@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="Create a standard window with ModernStandardWindowContextMenu">
             <Button x:Name="StandardWindowButton" Click="StandardWindowButton_Click">Click to create window</Button>
             <local:ControlExample.Xaml>

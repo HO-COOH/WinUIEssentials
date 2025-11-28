@@ -14,5 +14,7 @@ namespace winrt::WinUI3Example::implementation
         void OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
 
 		winrt::Microsoft::UI::Xaml::Window window{ nullptr };
+
+        winrt::fire_and_forget checkUpdate();
     };
 }

@@ -40,10 +40,10 @@ namespace winrt::WinUI3Package::implementation
 		base_type::OnApplyTemplate();
 		m_loaded = true;
 
-		m_container = GetTemplateChild(L"Container").as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+		m_animationContainer = GetTemplateChild(L"Container").as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
 		m_presenter = GetTemplateChild(L"ContentPresenter").as<winrt::Microsoft::UI::Xaml::Controls::ContentPresenter>();
 		startAnimation();
-		m_container.SizeChanged([this](auto&& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) 
+		m_animationContainer.SizeChanged([this](auto&& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) 
 		{
 			if (m_animation)
 				m_animation->SetSize(args.NewSize());
@@ -62,13 +62,13 @@ namespace winrt::WinUI3Package::implementation
 			return;
 
 		m_animation.emplace(
-			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(m_container).Compositor(),
+			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(m_animationContainer).Compositor(),
 			std::chrono::milliseconds{ 1600 }
 		);
 
 		setGradientStops();
-		auto size = m_container.ActualSize();
-		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(m_container, m_animation->GetVisual(size, CornerRadius().TopLeft));
+		auto size = m_animationContainer.ActualSize();
+		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(m_animationContainer, m_animation->GetVisual(size, CornerRadius().TopLeft));
 	}
 
 	void Shimmer::setGradientStops()
@@ -106,10 +106,10 @@ namespace winrt::WinUI3Package::implementation
 	void Shimmer::loadContent()
 	{
 		m_animation.reset();
-		if (m_container)
+		if (m_animationContainer)
 		{
-			winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_container);
-			m_container = nullptr;
+			winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_animationContainer);
+			m_animationContainer = nullptr;
 		}
 	}
 

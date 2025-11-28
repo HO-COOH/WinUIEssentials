@@ -311,7 +311,7 @@
     <Filter Include="TaskbarIcon\Errors">
       <UniqueIdentifier>{5286bb85-614b-4b57-a35c-c75dffb90e63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controls\AcrylicVisual\GroupBox">
+    <Filter Include="Controls\GroupBox">
       <UniqueIdentifier>{8b0acd1f-86d3-45a7-afa9-9f5fb4907e28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -350,7 +350,7 @@
     </Midl>
     <Midl Include="include\DependentValue.idl" />
     <Midl Include="GroupBox.idl">
-      <Filter>Controls\AcrylicVisual\GroupBox</Filter>
+      <Filter>Controls\GroupBox</Filter>
     </Midl>
     <Midl Include="SettingsCard.idl">
       <Filter>Controls\SettingsCard</Filter>
@@ -492,7 +492,7 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
-      <Filter>Controls\AcrylicVisual\GroupBox</Filter>
+      <Filter>Controls\GroupBox</Filter>
     </Page>
     <Page Include="SettingsExpander_Resource.xaml">
       <Filter>Controls\SettingsExpander</Filter>

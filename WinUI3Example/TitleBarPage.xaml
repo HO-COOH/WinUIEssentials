@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="Win32 titlebar">
             <Button x:Name="CreateWin32Window" Click="CreateWin32Window_Click">Click to create window with win32 titlebar</Button>
             <local:ControlExample.Xaml>

@@ -21,7 +21,7 @@
 
     </Page.Resources>
 
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="Using SettingsCard.Items">
             <local:ControlExample.Options>
                 <StackPanel Spacing="5">

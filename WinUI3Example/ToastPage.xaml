@@ -19,7 +19,8 @@
         HorizontalAlignment="Stretch"
         VerticalAlignment="Center"
         Orientation="Vertical"
-        Spacing="5">
+        Spacing="5"
+        Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="BodyTextOnly">
             <Button x:Name="BodyTextOnlyBtn" Click="BodyTextOnlyBtn_Click">BodyTextOnly</Button>
             <local:ControlExample.Options>

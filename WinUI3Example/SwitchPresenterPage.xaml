@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
 
-    <StackPanel Spacing="10">
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="SwitchPresenter can make it easier to follow complex layout changes or layouts with varying logic that are based on a property, for instance the type of ticketing mode for an airline.">
             <local:ControlExample.Options>
                 <ComboBox

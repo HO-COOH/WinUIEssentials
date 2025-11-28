@@ -24,7 +24,7 @@
         </essential:ConverterGroup>
     </Page.Resources>
 
-    <StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
 
         <local:ControlExample HeaderText="BoolToVisibilityConverter">
             <Rectangle Fill="Blue" Visibility="{x:Bind VisibleToggle1.IsOn, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
