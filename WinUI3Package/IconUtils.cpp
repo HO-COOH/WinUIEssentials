@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "IconUtils.h"
 #include "GdiInitializeHelper.h"
 #include <filesystem>

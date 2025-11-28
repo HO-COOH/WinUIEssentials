@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "ColorTile.g.h"
 #include <PropertyChangeHelper.hpp>

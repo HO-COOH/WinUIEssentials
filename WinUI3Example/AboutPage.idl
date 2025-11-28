@@ -1,4 +1,4 @@
-import "ContributorItem.idl";
+﻿import "ContributorItem.idl";
 
 namespace WinUI3Example
 {

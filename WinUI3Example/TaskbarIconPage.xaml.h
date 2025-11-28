@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "TaskbarIconPage.g.h"
 #include <PropertyChangeHelper.hpp>

@@ -1,4 +1,4 @@
-namespace UWPExample
+﻿namespace UWPExample
 {
     [default_interface]
     runtimeclass SwitchPresenterPage : Windows.UI.Xaml.Controls.Page

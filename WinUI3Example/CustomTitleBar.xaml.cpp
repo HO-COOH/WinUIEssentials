@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CustomTitleBar.xaml.h"
 #if __has_include("CustomTitleBar.g.cpp")
 #include "CustomTitleBar.g.cpp"

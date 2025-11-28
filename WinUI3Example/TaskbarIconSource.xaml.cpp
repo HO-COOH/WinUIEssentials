@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "TaskbarIconSource.xaml.h"
 #if __has_include("TaskbarIconSource.g.cpp")
 #include "TaskbarIconSource.g.cpp"

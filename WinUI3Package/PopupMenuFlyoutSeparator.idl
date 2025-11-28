@@ -1,4 +1,4 @@
-import "PopupMenuFlyoutItemBase.idl";
+﻿import "PopupMenuFlyoutItemBase.idl";
 
 namespace WinUI3Package
 {

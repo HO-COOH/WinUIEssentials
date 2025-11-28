@@ -1,4 +1,4 @@
-namespace UWPPackage
+﻿namespace UWPPackage
 {
     [bindable]
     [default_interface]

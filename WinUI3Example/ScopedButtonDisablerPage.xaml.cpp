@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ScopedButtonDisablerPage.xaml.h"
 #if __has_include("ScopedButtonDisablerPage.g.cpp")
 #include "ScopedButtonDisablerPage.g.cpp"

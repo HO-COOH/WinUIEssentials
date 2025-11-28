@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ShimmerPage.xaml.h"
 #if __has_include("ShimmerPage.g.cpp")
 #include "ShimmerPage.g.cpp"

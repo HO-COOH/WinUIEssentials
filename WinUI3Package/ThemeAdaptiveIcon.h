@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ThemeListener.h"
 #include "TaskbarIconBase.h"
 #include <winrt/Microsoft.UI.Xaml.h>

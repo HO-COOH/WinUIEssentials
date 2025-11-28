@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ComboBoxHelperPage.g.h"
 
 namespace winrt::WinUI3Example::implementation

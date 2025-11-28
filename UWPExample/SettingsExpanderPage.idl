@@ -1,4 +1,4 @@
-import "MyDataModel.idl";
+﻿import "MyDataModel.idl";
 namespace UWPExample
 {
     [default_interface]

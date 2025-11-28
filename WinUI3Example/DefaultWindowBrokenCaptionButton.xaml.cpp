@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "DefaultWindowBrokenCaptionButton.xaml.h"
 #if __has_include("DefaultWindowBrokenCaptionButton.g.cpp")
 #include "DefaultWindowBrokenCaptionButton.g.cpp"

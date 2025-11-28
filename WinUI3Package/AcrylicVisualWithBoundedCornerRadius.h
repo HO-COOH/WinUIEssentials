@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class AcrylicVisualWithBoundedCornerRadius : public winrt::WinUI3Package::AcrylicVisual
 {

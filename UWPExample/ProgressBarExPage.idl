@@ -1,4 +1,4 @@
-namespace UWPExample
+﻿namespace UWPExample
 {
     [default_interface]
     runtimeclass ProgressBarExPage : Windows.UI.Xaml.Controls.Page

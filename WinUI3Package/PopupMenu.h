@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <Windows.h>
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
 #include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SwitchPresenterPage.xaml.h"
 #if __has_include("SwitchPresenterPage.g.cpp")
 #include "SwitchPresenterPage.g.cpp"

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CaptionButtonThemeWorkaroundPage.xaml.h"
 #if __has_include("CaptionButtonThemeWorkaroundPage.g.cpp")
 #include "CaptionButtonThemeWorkaroundPage.g.cpp"

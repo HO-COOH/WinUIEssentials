@@ -1,4 +1,4 @@
-import "UriModel.idl";
+﻿import "UriModel.idl";
 import "UriGroup.idl";
 
 namespace UWPExample

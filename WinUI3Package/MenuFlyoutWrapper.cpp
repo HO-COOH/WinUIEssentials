@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "MenuFlyoutWrapper.h"
 #include <winrt/Microsoft.UI.Xaml.h>
 #include "MenuFlyoutItemPaddingWorkaround.h"

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "IncrementalLoadingPage.xaml.h"
 #if __has_include("IncrementalLoadingPage.g.cpp")
 #include "IncrementalLoadingPage.g.cpp"

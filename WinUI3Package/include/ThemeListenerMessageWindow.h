@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Export.h"
 class ThemeListener;
 class WinUIEssentialDllApi ThemeListenerMessageWindow

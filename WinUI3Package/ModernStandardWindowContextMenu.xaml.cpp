@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ModernStandardWindowContextMenu.xaml.h"
 #if __has_include("ModernStandardWindowContextMenu.g.cpp")
 #include "ModernStandardWindowContextMenu.g.cpp"

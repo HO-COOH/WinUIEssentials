@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "BackdropPage.xaml.h"
 #if __has_include("BackdropPage.g.cpp")
 #include "BackdropPage.g.cpp"

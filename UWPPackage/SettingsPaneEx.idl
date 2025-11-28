@@ -1,4 +1,4 @@
-import "SettingsCommandEx.idl";
+﻿import "SettingsCommandEx.idl";
 namespace UWPPackage
 {
     [bindable]

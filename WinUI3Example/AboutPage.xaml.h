@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "AboutPage.g.h"
 #include "PropertyChangeHelper.hpp"
 

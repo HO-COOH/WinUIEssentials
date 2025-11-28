@@ -1,4 +1,4 @@
-import "GeneratedIconSource.idl";
+﻿import "GeneratedIconSource.idl";
 import "SettingsExpander.idl";
 
 namespace WinUI3Package

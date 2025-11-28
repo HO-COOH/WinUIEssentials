@@ -1,4 +1,4 @@
-namespace WinUI3Example
+﻿namespace WinUI3Example
 {
     [default_interface]
     runtimeclass ExtensionsPage : Microsoft.UI.Xaml.Controls.Page

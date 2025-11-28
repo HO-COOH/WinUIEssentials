@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ProgressBarExPage.xaml.h"
 #if __has_include("ProgressBarExPage.g.cpp")
 #include "ProgressBarExPage.g.cpp"

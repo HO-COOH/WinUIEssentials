@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CustomAcrylicWindow.xaml.h"
 #if __has_include("CustomAcrylicWindow.g.cpp")
 #include "CustomAcrylicWindow.g.cpp"

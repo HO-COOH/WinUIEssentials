@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <winrt/Microsoft.UI.Composition.h>
 #include <chrono>
 #include <winrt/Windows.Foundation.Numerics.h>

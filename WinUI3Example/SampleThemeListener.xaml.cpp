@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SampleThemeListener.xaml.h"
 #if __has_include("SampleThemeListener.g.cpp")
 #include "SampleThemeListener.g.cpp"

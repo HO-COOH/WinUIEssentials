@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <shellapi.h>
 class TaskbarIconBase;
 class TaskbarIconMessageWindow

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "BackdropPage.g.h"
 #include <winrt/Windows.UI.Xaml.Hosting.h>

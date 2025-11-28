@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "EntranceAnimationDemo.xaml.h"
 #if __has_include("EntranceAnimationDemo.g.cpp")
 #include "EntranceAnimationDemo.g.cpp"

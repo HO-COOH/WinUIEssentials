@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "FlipWindow.g.h"
 #include <winrt/Microsoft.UI.Windowing.h>

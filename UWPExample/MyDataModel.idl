@@ -1,4 +1,4 @@
-namespace UWPExample
+﻿namespace UWPExample
 {
     //https://github.com/CommunityToolkit/Windows/blob/main/components/SettingsControls/samples/SettingsExpanderItemsSourceSample.xaml.cs
     [bindable]

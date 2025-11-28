@@ -1,4 +1,4 @@
-namespace UWPExample
+﻿namespace UWPExample
 {
     [bindable]
     [default_interface]

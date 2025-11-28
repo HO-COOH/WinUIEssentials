@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ToolTipHelperPage.xaml.h"
 #if __has_include("ToolTipHelperPage.g.cpp")
 #include "ToolTipHelperPage.g.cpp"

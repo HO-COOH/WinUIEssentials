@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "ModernStandardWindowContextMenu.g.h"
 #include <winrt/Microsoft.UI.Content.h>

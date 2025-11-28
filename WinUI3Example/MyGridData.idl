@@ -1,4 +1,4 @@
-import "IDataGridData.idl";
+﻿import "IDataGridData.idl";
 
 namespace WinUI3Example
 {

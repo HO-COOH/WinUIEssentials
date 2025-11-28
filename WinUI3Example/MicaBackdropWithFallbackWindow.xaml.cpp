@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "MicaBackdropWithFallbackWindow.xaml.h"
 #if __has_include("MicaBackdropWithFallbackWindow.g.cpp")
 #include "MicaBackdropWithFallbackWindow.g.cpp"

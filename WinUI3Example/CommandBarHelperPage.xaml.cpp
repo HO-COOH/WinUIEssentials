@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CommandBarHelperPage.xaml.h"
 #if __has_include("CommandBarHelperPage.g.cpp")
 #include "CommandBarHelperPage.g.cpp"

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "TransparentWindowDemo.xaml.h"
 #if __has_include("TransparentWindowDemo.g.cpp")
 #include "TransparentWindowDemo.g.cpp"

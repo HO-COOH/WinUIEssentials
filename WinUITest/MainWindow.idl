@@ -1,4 +1,4 @@
-namespace WinUITest
+﻿namespace WinUITest
 {
     [default_interface]
     runtimeclass MainWindow : Microsoft.UI.Xaml.Window

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Win32TitleBar.g.h"
 #include <dwmapi.h>

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "EntranceAnimationDemo.g.h"
 #include <winrt/Microsoft.UI.Windowing.h>

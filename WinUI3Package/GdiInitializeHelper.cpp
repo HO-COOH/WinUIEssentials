@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "GdiInitializeHelper.h"
 
 #pragma comment(lib, "gdiplus.lib")

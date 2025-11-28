@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "WindowExPage.xaml.h"
 #if __has_include("WindowExPage.g.cpp")
 #include "WindowExPage.g.cpp"

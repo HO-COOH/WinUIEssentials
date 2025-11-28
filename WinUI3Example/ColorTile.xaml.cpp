@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ColorTile.xaml.h"
 #if __has_include("ColorTile.g.cpp")
 #include "ColorTile.g.cpp"

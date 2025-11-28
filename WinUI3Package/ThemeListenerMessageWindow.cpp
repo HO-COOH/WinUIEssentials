@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ThemeListenerMessageWindow.h"
 #include "ThemeListener.h"
 #include <winuser.h>

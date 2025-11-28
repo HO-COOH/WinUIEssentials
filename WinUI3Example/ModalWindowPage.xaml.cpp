@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ModalWindowPage.xaml.h"
 #if __has_include("ModalWindowPage.g.cpp")
 #include "ModalWindowPage.g.cpp"

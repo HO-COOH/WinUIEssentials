@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "ThemeListenerPage.g.h"
 #include <ThemeListener.h>

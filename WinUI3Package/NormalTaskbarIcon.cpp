@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "NormalTaskbarIcon.h"
 
 NormalTaskbarIcon& NormalTaskbarIcon::Icon(HICON value)

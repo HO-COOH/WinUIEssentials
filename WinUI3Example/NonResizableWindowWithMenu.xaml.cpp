@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "NonResizableWindowWithMenu.xaml.h"
 #if __has_include("NonResizableWindowWithMenu.g.cpp")
 #include "NonResizableWindowWithMenu.g.cpp"

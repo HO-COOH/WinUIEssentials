@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "UpdateChecker.h"
 #include <winrt/Windows.ApplicationModel.h>
 #include <winrt/Windows.Web.Http.h>

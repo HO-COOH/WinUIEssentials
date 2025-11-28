@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "DefaultMicaWindow.xaml.h"
 #if __has_include("DefaultMicaWindow.g.cpp")
 #include "DefaultMicaWindow.g.cpp"

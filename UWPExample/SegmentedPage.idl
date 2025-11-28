@@ -1,4 +1,4 @@
-namespace UWPExample
+﻿namespace UWPExample
 {
     [default_interface]
     runtimeclass SegmentedPage : Windows.UI.Xaml.Controls.Page

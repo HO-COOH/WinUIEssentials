@@ -1,4 +1,4 @@
-import "ControlExampleSubstitution.idl";
+﻿import "ControlExampleSubstitution.idl";
 
 namespace WinUI3Example
 {

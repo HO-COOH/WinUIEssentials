@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "PreferredAppMode.h"
 #include <wil/resource.h>
 

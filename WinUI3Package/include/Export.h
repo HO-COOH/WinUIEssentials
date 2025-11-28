@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #if BuildWinUIEssential
 #define WinUIEssentialDllApi __declspec(dllexport)

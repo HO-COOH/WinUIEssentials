@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "IconButtonPage.xaml.h"
 #if __has_include("IconButtonPage.g.cpp")
 #include "IconButtonPage.g.cpp"

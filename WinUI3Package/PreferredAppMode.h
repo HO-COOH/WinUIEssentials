@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //Enum values used in UxTheme::SetPreferredAppMode
 enum PreferredAppMode

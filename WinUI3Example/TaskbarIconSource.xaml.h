@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "TaskbarIconSource.g.h"
 #include <functional>

@@ -1,4 +1,4 @@
-import "PhotoDataItemWithDimension.idl";
+﻿import "PhotoDataItemWithDimension.idl";
 
 namespace WinUI3Example
 {

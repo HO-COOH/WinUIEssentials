@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "FlipWindow.xaml.h"
 #if __has_include("FlipWindow.g.cpp")
 #include "FlipWindow.g.cpp"

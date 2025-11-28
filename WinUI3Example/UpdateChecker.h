@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <chrono>
 #include <optional>
 #include <winrt/Windows.Foundation.h>

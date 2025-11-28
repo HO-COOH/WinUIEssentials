@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "TaskbarIconMessageWindow.h"
 #include "TaskbarIconBase.h"
 #include "TaskbarIconXamlEvents.h"

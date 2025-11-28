@@ -1,4 +1,4 @@
-namespace WinUI3Package
+﻿namespace WinUI3Package
 {
     [Microsoft.UI.Xaml.Data.Bindable]
     [default_interface]

@@ -1,4 +1,4 @@
-import "NamedUrl.idl";
+﻿import "NamedUrl.idl";
 
 namespace WinUI3Example
 {

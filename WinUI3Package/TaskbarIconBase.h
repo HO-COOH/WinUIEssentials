@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "NotifyIconData.h"
 #include <string_view>
 #include <functional>

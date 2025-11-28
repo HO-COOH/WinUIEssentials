@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #if __has_include("winrt/Microsoft.UI.Xaml.h")
 #include <winrt/Microsoft.UI.Xaml.h>
 #endif

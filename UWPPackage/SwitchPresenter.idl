@@ -1,4 +1,4 @@
-import "Case.idl";
+﻿import "Case.idl";
 import "CaseCollection.idl";
 
 namespace UWPPackage

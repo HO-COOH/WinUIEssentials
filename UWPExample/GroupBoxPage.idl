@@ -1,4 +1,4 @@
-namespace UWPExample
+﻿namespace UWPExample
 {
     [default_interface]
     runtimeclass GroupBoxPage : Windows.UI.Xaml.Controls.Page

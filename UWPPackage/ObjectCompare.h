@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <winrt/Windows.Foundation.h>
 
 namespace internal

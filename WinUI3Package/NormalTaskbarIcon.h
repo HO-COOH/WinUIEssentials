@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "TaskbarIconBase.h"
 
 class NormalTaskbarIcon : public TaskbarIconBase

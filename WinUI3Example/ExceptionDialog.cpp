@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ExceptionDialog.h"
 #include <IInitializeWithWindowHelper.hpp>
 #include "MainWindow.xaml.h"

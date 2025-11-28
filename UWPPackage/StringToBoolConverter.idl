@@ -1,4 +1,4 @@
-namespace UWPPackage
+﻿namespace UWPPackage
 {
     /**
      * @brief This class convert String(winrt::hstring) -> bool

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "App.xaml.h"
 #include "MainWindow.xaml.h"
 #include "CppUnitTest.h"

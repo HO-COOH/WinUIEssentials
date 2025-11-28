@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "DefaultWindowCaptionButtonWorkaround.g.h"
 #include "SupportThemeToggle.h"
