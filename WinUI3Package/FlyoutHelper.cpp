@@ -24,7 +24,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool FlyoutHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Flyout const& flyout)
 	{
-		return winrt::unbox_value<bool>(toolTip.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(flyout.GetValue(AcrylicWorkaroundProperty()));
 	}
 
 	void FlyoutHelper::SetAcrylicWorkaround(
@@ -55,7 +55,10 @@ namespace winrt::WinUI3Package::implementation
 		if (!defaultStyle) return;
 
 
-		auto transparentStyle = winrt::Microsoft::UI::Xaml::Style(winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::FlyoutPresenter>());
+		winrt::Microsoft::UI::Xaml::Style transparentStyle{
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::FlyoutPresenter>()
+		};
+
 		transparentStyle.BasedOn(defaultStyle);
 		
 		transparentStyle.Setters().Append(
