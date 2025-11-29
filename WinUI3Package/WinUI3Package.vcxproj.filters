@@ -489,6 +489,12 @@
     <Midl Include="NonMaximizableWindowWorkaround.idl">
       <Filter>Windows</Filter>
     </Midl>
+    <Midl Include="DatePickerHelper.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="TimePickerHelper.idl">
+      <Filter>Controls</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

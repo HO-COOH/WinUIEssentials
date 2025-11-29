@@ -346,6 +346,10 @@
       <DependentUpon>DataGrid.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="DatePickerHelperPage.xaml.h">
+      <DependentUpon>DatePickerHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="DefaultAcrylicWindow.xaml.h">
       <DependentUpon>DefaultAcrylicWindow.xaml</DependentUpon>
     </ClInclude>
@@ -551,6 +555,7 @@
       <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="StoreUpdateChecker.h" />
     <ClInclude Include="SupportThemeToggle.h" />
     <ClInclude Include="TaskbarIconPage.xaml.h">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
@@ -578,6 +583,10 @@
     </ClInclude>
     <ClInclude Include="ThemeListenerPage.xaml.h">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TimePickerHelperPage.xaml.h">
+      <DependentUpon>TimePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TitleBarPage.xaml.h">
@@ -670,6 +679,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DataGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DatePickerHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DefaultAcrylicWindow.xaml" />
@@ -801,6 +813,9 @@
     <Page Include="ThemeListenerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="TimePickerHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TitleBarPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -904,6 +919,10 @@
     </ClCompile>
     <ClCompile Include="DataGrid.xaml.cpp">
       <DependentUpon>DataGrid.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="DatePickerHelperPage.xaml.cpp">
+      <DependentUpon>DatePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="DefaultAcrylicWindow.cpp" />
@@ -1111,6 +1130,7 @@
       <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="StoreUpdateChecker.cpp" />
     <ClCompile Include="SwitchPresenterPage.xaml.cpp">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1137,6 +1157,10 @@
     </ClCompile>
     <ClCompile Include="TemplateInformation.cpp">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TimePickerHelperPage.xaml.cpp">
+      <DependentUpon>TimePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TitleBarPage.xaml.cpp">
@@ -1255,6 +1279,10 @@
     </Midl>
     <Midl Include="DataGrid.idl">
       <DependentUpon>DataGrid.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="DatePickerHelperPage.idl">
+      <DependentUpon>DatePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="DefaultAcrylicWindow.idl" />
@@ -1468,6 +1496,10 @@
     </Midl>
     <Midl Include="ThemeListenerPage.idl">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TimePickerHelperPage.idl">
+      <DependentUpon>TimePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TitleBarPage.idl">

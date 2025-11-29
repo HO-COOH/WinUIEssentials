@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.DatePickerHelperPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
+        <local:ControlExample HeaderText="Original DatePicker (from WinUI3 Gallery), you don't have Acrylic">
+            <StackPanel Spacing="8">
+                <DatePicker Header="Pick a date" />
+
+                <DatePicker DayFormat="{}{day.integer} ({dayofweek.abbreviated})" YearVisible="False" />
+            </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;DatePicker Header=&quot;Pick a date&quot; /&gt;
+
+&lt;DatePicker DayFormat=&quot;{}{day.integer} ({dayofweek.abbreviated})&quot; YearVisible=&quot;False&quot; /&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Using DatePickerHelper.AcrylicWorkaround, you got Acrylic">
+            <StackPanel Spacing="8">
+                <DatePicker essential:DatePickerHelper.AcrylicWorkaround="True" Header="Pick a date" />
+
+                <DatePicker
+                    essential:DatePickerHelper.AcrylicWorkaround="True"
+                    DayFormat="{}{day.integer} ({dayofweek.abbreviated})"
+                    YearVisible="False" />
+            </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;DatePicker essential:DatePickerHelper.AcrylicWorkaround=&quot;True&quot; Header=&quot;Pick a date&quot; /&gt;
+
+&lt;DatePicker
+    essential:DatePickerHelper.AcrylicWorkaround=&quot;True&quot;
+    DayFormat=&quot;{}{day.integer} ({dayofweek.abbreviated})&quot;
+    YearVisible=&quot;False&quot; /&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+    </StackPanel>
+</Page>

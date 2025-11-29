@@ -75,6 +75,8 @@ namespace winrt::WinUI3Example::implementation
             {L"WindowCaptionButtonThemeWorkaround", winrt::xaml_typename<WinUI3Example::CaptionButtonThemeWorkaroundPage>()},
             {L"NonResizableWindowWhiteBorderWorkaround", winrt::xaml_typename<WinUI3Example::NonResizableWindowWhiteBorderWorkaroundPage>()},
 			{L"NonMaximizableWindowWorkaround", winrt::xaml_typename<WinUI3Example::NonMaximizableWindowWorkaroundPage>()},
+            {L"DatePickerHelper", winrt::xaml_typename<WinUI3Example::DatePickerHelperPage>()},
+            {L"TimePickerHelper", winrt::xaml_typename<WinUI3Example::TimePickerHelperPage>() }
         };
 
     public:

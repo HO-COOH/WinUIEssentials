@@ -306,6 +306,10 @@
       <DependentUpon>CustomMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="DatePickerHelper.h">
+      <DependentUpon>DatePickerHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="EqualPanel.h">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -512,6 +516,10 @@
       <DependentUpon>ThemeSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TimePickerHelper.h">
+      <DependentUpon>TimePickerHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TogglePopupMenuFlyoutItem.h">
       <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -614,6 +622,10 @@
     </ClCompile>
     <ClCompile Include="CustomMicaBackdrop.cpp">
       <DependentUpon>CustomMicaBackdrop.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="DatePickerHelper.cpp">
+      <DependentUpon>DatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="EqualPanel.cpp">
@@ -794,6 +806,10 @@
       <DependentUpon>ThemeSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TimePickerHelper.cpp">
+      <DependentUpon>TimePickerHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TogglePopupMenuFlyoutItem.cpp">
       <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -881,6 +897,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="CustomMicaBackdrop.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="DatePickerHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="EqualPanel.idl">
@@ -1003,6 +1022,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ThemeSettings.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TimePickerHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TogglePopupMenuFlyoutItem.idl">

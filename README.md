@@ -1,4 +1,4 @@
-![](MainLogo.png) 
+﻿![](MainLogo.png) 
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
@@ -1113,3 +1113,21 @@ Simply delcare it under any `Resource` under a control that is inside a `Window`
     ...
 </Window>
 ```
+
+## DatePickerHelper
+The WinUI3's built-in `DatePicker` does not have Acrylic background. We fixed it for you. To use it, simply add `DatePickerHelper.AcrylicWorkaround="True"` as an attached property on your `DatePicker`.
+```xml
+<DatePicker essential:DatePickerHelper.AcrylicWorkaround="True" Header="Pick a date" />
+```
+|Before|After|
+|------|-----|
+|![](assets/datepicker-original.png)|![](assets/datepicker-fixed.png)|
+
+## TimePickerHelper
+The WinUI3's built-in `TimePicker` does not have Acrylic background. We fixed it for you. To use it, simply add `TimePickerHelper.AcrylicWorkaround="True"` as an attached property on your `TimePicker`.
+```xml
+<TimePicker essential:TimePickerHelper.AcrylicWorkaround="True" Header="Pick a time" />
+```
+|Before|After|
+|------|-----|
+|![](assets/timepicker-original.png)|![](assets/timepicker-fixed.png)|

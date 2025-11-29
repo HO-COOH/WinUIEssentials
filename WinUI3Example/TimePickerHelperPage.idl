@@ -1,0 +1,10 @@
+﻿namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass TimePickerHelperPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        TimePickerHelperPage();
+
+        static Windows.Foundation.TimeSpan CurrentTime{ get; };
+    }
+}

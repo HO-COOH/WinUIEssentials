@@ -1,0 +1,11 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TimePickerHelper 
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.TimePicker timePicker);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.TimePicker timePicker, Boolean value);
+    }
+}

@@ -215,6 +215,12 @@
     <Page Include="NonMaximizableWindowWorkaroundPage.xaml">
       <Filter>Pages\NonMaximizableWindowWorkaroundPage</Filter>
     </Page>
+    <Page Include="DatePickerHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="TimePickerHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -305,6 +311,7 @@
       <Filter>Pages\Experimental</Filter>
     </ClCompile>
     <ClCompile Include="ExceptionDialog.cpp" />
+    <ClCompile Include="StoreUpdateChecker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -318,6 +325,9 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SupportThemeToggle.h">
       <Filter>Pages\CaptionButtonThemeWorkaroundPage</Filter>
+    </ClInclude>
+    <ClInclude Include="StoreUpdateChecker.h">
+      <Filter>Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@
 #include "UpdateChecker.h"
 #include <winrt/Windows.Services.Store.h>
 #include <wil/cppwinrt.h>
-#include <IInitializeWithWindowHelper.hpp>
+
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -60,18 +60,5 @@ namespace winrt::WinUI3Example::implementation
         //We don't need this, as we publish to Microsoft Store
         //if (co_await UpdateChecker::HasUpdate())
         //    UpdateChecker::DownloadRelease();
-        checkUpdate();
-    }
-
-    winrt::fire_and_forget App::checkUpdate()
-    {
-        auto dispatcherQueue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
-        auto storeContext = WinUIEssentials::InitializeWithWindow(winrt::Windows::Services::Store::StoreContext::GetDefault(), window);
-        auto updates = co_await storeContext.GetAppAndOptionalStorePackageUpdatesAsync();
-        if (updates.Size() > 0)
-        {
-            co_await wil::resume_foreground(dispatcherQueue);
-            auto result = co_await storeContext.RequestDownloadAndInstallStorePackageUpdatesAsync(updates);
-        }
     }
 }
