@@ -1,0 +1,13 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass FlyoutHelper
+    {
+        FlyoutHelper();
+
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.Flyout Flyout);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.Flyout Flyout, Boolean value);
+    }
+}
