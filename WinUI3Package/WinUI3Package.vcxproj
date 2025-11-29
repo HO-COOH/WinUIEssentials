@@ -314,6 +314,10 @@
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="FlyoutHelper.h">
+      <DependentUpon>FlyoutHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FlyoutWindow.xaml.h">
       <DependentUpon>FlyoutWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -632,6 +636,10 @@
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="FlyoutHelper.cpp">
+      <DependentUpon>FlyoutHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="FlyoutWindow.xaml.cpp">
       <DependentUpon>FlyoutWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -903,6 +911,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="EqualPanel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="FlyoutHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="FlyoutWindow.idl">
