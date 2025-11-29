@@ -9,9 +9,9 @@ namespace winrt::WinUI3Package::implementation
 		FlyoutHelper() = default;
 
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
-		static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Flyout const& comboBox);
+		static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Flyout const& flyout);
 		static void SetAcrylicWorkaround(
-			winrt::Microsoft::UI::Xaml::Controls::Flyout const& comboBox,
+			winrt::Microsoft::UI::Xaml::Controls::Flyout const& flyout,
 			bool value
 		);
 

@@ -22,17 +22,17 @@ namespace winrt::WinUI3Package::implementation
 		return s_acrylicWorkaroundProperty;
 	}
 
-	bool FlyoutHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Flyout const& toolTip)
+	bool FlyoutHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Flyout const& flyout)
 	{
 		return winrt::unbox_value<bool>(toolTip.GetValue(AcrylicWorkaroundProperty()));
 	}
 
 	void FlyoutHelper::SetAcrylicWorkaround(
-		winrt::Microsoft::UI::Xaml::Controls::Flyout const& toolTip,
+		winrt::Microsoft::UI::Xaml::Controls::Flyout const& flyout,
 		bool value
 	)
 	{
-		toolTip.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		flyout.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
 	}
 
 	void FlyoutHelper::acrylicWorkaroundChanged(
@@ -49,8 +49,10 @@ namespace winrt::WinUI3Package::implementation
 
 
 		auto defaultStyle = winrt::Microsoft::UI::Xaml::Application::Current().Resources()
-			.Lookup(winrt::box_value(L"DefaultFlyoutPresenterStyle"))
-			.as<winrt::Microsoft::UI::Xaml::Style>();
+			.TryLookup(winrt::box_value(L"DefaultFlyoutPresenterStyle"))
+			.try_as<winrt::Microsoft::UI::Xaml::Style>();
+
+		if (!defaultStyle) return;
 
 
 		auto transparentStyle = winrt::Microsoft::UI::Xaml::Style(winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::FlyoutPresenter>());
