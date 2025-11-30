@@ -1131,3 +1131,20 @@ The WinUI3's built-in `TimePicker` does not have Acrylic background. We fixed it
 |Before|After|
 |------|-----|
 |![](assets/timepicker-original.png)|![](assets/timepicker-fixed.png)|
+
+## FlyoutHelper
+The WinUI3's built-in `Flyout` does not have Acrylic background. We fixed it for you. To use it, simply add `Flyout.AcrylicWorkaround="True"` as an attached property on your `Flyout`.
+```xml
+<Flyout essential:FlyoutHelper.AcrylicWorkaround="True">
+    <StackPanel>
+        <TextBlock
+            Margin="0,0,0,12"
+            Style="{ThemeResource BaseTextBlockStyle}"
+            Text="All items will be removed. Do you want to continue?" />
+        <Button Content="Yes, empty my cart" />
+    </StackPanel>
+</Flyout>
+```
+|Before|After|
+|------|-----|
+|![](assets/flyout-original.png)|![](assets/flyout-fixed.png)|

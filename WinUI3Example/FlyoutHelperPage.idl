@@ -1,0 +1,8 @@
+﻿namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass FlyoutHelperPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        FlyoutHelperPage();
+    }
+}

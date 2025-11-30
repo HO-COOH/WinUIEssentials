@@ -402,6 +402,10 @@
       <DependentUpon>FlipWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="FlyoutHelperPage.xaml.h">
+      <DependentUpon>FlyoutHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FontInfo.h">
       <DependentUpon>FontInfo.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -713,6 +717,9 @@
     <Page Include="FlipWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FlyoutHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GlyphsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -973,6 +980,10 @@
     </ClCompile>
     <ClCompile Include="FlipWindow.xaml.cpp">
       <DependentUpon>FlipWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="FlyoutHelperPage.xaml.cpp">
+      <DependentUpon>FlyoutHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="FontInfo.cpp">
@@ -1329,6 +1340,10 @@
     </Midl>
     <Midl Include="FlipWindow.idl">
       <DependentUpon>FlipWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="FlyoutHelperPage.idl">
+      <DependentUpon>FlyoutHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="FontInfo.idl">

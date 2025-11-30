@@ -221,6 +221,9 @@
     <Page Include="TimePickerHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="FlyoutHelperPage.xaml">
+      <Filter>Pages\FlyoutHelperPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -577,6 +580,9 @@
     </Filter>
     <Filter Include="Pages\NonMaximizableWindowWorkaroundPage">
       <UniqueIdentifier>{37c0a14f-5f2d-4275-9300-3c2f8074c485}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\FlyoutHelperPage">
+      <UniqueIdentifier>{62cc26b7-a466-49c6-8f0b-1e89eb3bfec6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
