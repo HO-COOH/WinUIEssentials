@@ -225,6 +225,7 @@
     <None Include="packages.config" />
     <None Include=".nuspec" />
     <None Include="WinUIEssential.WinUI3.targets" />
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -527,9 +528,6 @@
     <Page Include="HostBackdropVisual_Resource.xaml">
       <Filter>Controls\AcrylicVisual</Filter>
     </Page>
-    <Page Include="Shimmer_Resource.xaml">
-      <Filter>Controls\Shimmer</Filter>
-    </Page>
     <Page Include="FlyoutWindow.xaml">
       <Filter>TaskbarIcon\FlyoutContent</Filter>
     </Page>
@@ -539,5 +537,11 @@
     <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
       <Filter>Windows</Filter>
     </Page>
+    <Page Include="Shimmer_Resource.xaml">
+      <Filter>Controls\Shimmer</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

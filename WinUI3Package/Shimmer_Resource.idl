@@ -1,0 +1,8 @@
+﻿namespace WinUI3Package
+{
+    [default_interface]
+	runtimeclass Shimmer_Resource : Microsoft.UI.Xaml.ResourceDictionary
+    {
+        Shimmer_Resource();
+    }
+}

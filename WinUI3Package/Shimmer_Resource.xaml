@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
+    x:Class="WinUI3Package.Shimmer_Resource"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:WinUI3Package"
@@ -36,7 +37,7 @@
                     <Grid x:Name="RootGrid">
                         <Border
                             x:Name="Container"
-                            x:Load="False"
+                            x:Load="True"
                             CornerRadius="{TemplateBinding CornerRadius}" />
 
                         <ContentPresenter
@@ -45,8 +46,8 @@
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            x:Load="False"
-                            Content="{TemplateBinding Content}" />
+                            Content="{TemplateBinding Content}"
+                            Visibility="Collapsed" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

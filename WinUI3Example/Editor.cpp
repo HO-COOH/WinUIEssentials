@@ -82,14 +82,14 @@ namespace winrt::WinUI3Example::implementation
 
     std::wstring_view Editor::ltrim(std::wstring_view str)
     {
-        const auto pos(str.find_first_not_of(L" \t\n\r\f\v"));
+        auto const pos = str.find_first_not_of(L" \t\n\r\f\v");
         str.remove_prefix(min(pos, str.length()));
         return str;
     }
 
     std::wstring_view Editor::rtrim(std::wstring_view str)
     {
-        const auto pos(str.find_last_not_of(L" \t\n\r\f\v"));
+        auto const pos = str.find_last_not_of(L" \t\n\r\f\v");
         str.remove_suffix(min(str.length() - pos - 1, str.length()));
         return str;
     }

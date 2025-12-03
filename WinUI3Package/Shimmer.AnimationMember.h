@@ -41,7 +41,7 @@ public:
             boost::make_zip_iterator(boost::make_tuple(colors.begin(), gradientStopOffsets.begin())),
             boost::make_zip_iterator(boost::make_tuple(colors.end(), gradientStopOffsets.end())),
             std::back_inserter(gradientStops),
-            [this](const auto& t)
+            [this](auto const& t)
             {
                 return m_compositor.CreateColorGradientStop(boost::get<1>(t), boost::get<0>(t));
             }

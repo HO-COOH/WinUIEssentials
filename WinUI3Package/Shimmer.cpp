@@ -98,19 +98,27 @@ namespace winrt::WinUI3Package::implementation
 	{
 		if (!m_loaded)
 			return;
-		winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_presenter);
-		OnApplyTemplate();
+		//winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_presenter);
+		//if (!m_animationContainer)
+		//{
+		//	m_animationContainer = GetTemplateChild(L"Container").as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+		//	//auto parent = winrt::get_class_name(m_animationContainer.Parent());
+		//	m_animationContainer.Parent().as<winrt::Microsoft::UI::Xaml::Controls::Panel>().Children().Append(m_animationContainer);
+		//}
 		startAnimation();
 	}
 
 	void Shimmer::loadContent()
 	{
 		m_animation.reset();
-		if (m_animationContainer)
-		{
-			winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_animationContainer);
-			m_animationContainer = nullptr;
-		}
+		//if (m_animationContainer)
+		//{
+		//	m_rootPanel = m_animationContainer.Parent().as<winrt::Microsoft::UI::Xaml::Controls::Panel>();
+		//	removeChildFromPanel(m_rootPanel, m_animationContainer);
+		//	winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_animationContainer);
+		//	m_animationContainer = nullptr;
+		//}
+		m_presenter.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
 	}
 
 	winrt::Microsoft::UI::Xaml::ResourceDictionary Shimmer::tryGetThemeResourceDictionaryFromResource(winrt::Microsoft::UI::Xaml::ResourceDictionary const& resource, winrt::Microsoft::UI::Xaml::ElementTheme theme)
@@ -171,6 +179,17 @@ namespace winrt::WinUI3Package::implementation
 			return nullptr;
 
 		return stops.try_as<winrt::Microsoft::UI::Xaml::Media::GradientStopCollection>();
+	}
+
+	bool Shimmer::removeChildFromPanel(winrt::Microsoft::UI::Xaml::Controls::Panel const& panel, winrt::Microsoft::UI::Xaml::FrameworkElement const& child)
+	{
+		auto children = panel.Children();
+		if (uint32_t childIndex{}; children.IndexOf(child, childIndex))
+		{
+			children.RemoveAt(childIndex);
+			return true;
+		}
+		return false;
 	}
 
 }
