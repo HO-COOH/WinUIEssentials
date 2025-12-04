@@ -6,11 +6,9 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ShimmerPage : ShimmerPageT<ShimmerPage>
     {
-        ShimmerPage()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        ShimmerPage() = default;
+
+        void Image_ImageOpened(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

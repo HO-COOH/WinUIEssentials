@@ -140,5 +140,25 @@
                 </local:CodeSource>
             </local:ControlExample.Xaml>
         </local:ControlExample>
+
+        <local:ControlExample HeaderText="Shimmer with a network image">
+            <essential:Shimmer
+                x:Name="testShimmer"
+                Width="100"
+                Height="100"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                CornerRadius="12"
+                IsLoading="True">
+
+
+                <Image
+                    ImageOpened="Image_ImageOpened"
+                    Source="https://cdn.cloudflare.steamstatic.com/steam/apps/2080690/capsule_616x353.jpg"
+                    Stretch="UniformToFill" />
+
+
+            </essential:Shimmer>
+        </local:ControlExample>
     </StackPanel>
 </Page>

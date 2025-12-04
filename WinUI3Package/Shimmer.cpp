@@ -40,15 +40,9 @@ namespace winrt::WinUI3Package::implementation
 		base_type::OnApplyTemplate();
 		m_loaded = true;
 
-		m_animationContainer = GetTemplateChild(L"Container").as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
 		m_presenter = GetTemplateChild(L"ContentPresenter").as<winrt::Microsoft::UI::Xaml::Controls::ContentPresenter>();
-		startAnimation();
-		m_animationContainer.SizeChanged([this](auto&& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args) 
-		{
-			if (m_animation)
-				m_animation->SetSize(args.NewSize());
-		});
-		
+		IsLoading() ? loadShimmer() : loadContent();
+
 		ActualThemeChanged([this](auto&&...) 
 		{
 			if (m_animation)
@@ -98,27 +92,30 @@ namespace winrt::WinUI3Package::implementation
 	{
 		if (!m_loaded)
 			return;
-		//winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_presenter);
-		//if (!m_animationContainer)
-		//{
-		//	m_animationContainer = GetTemplateChild(L"Container").as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
-		//	//auto parent = winrt::get_class_name(m_animationContainer.Parent());
-		//	m_animationContainer.Parent().as<winrt::Microsoft::UI::Xaml::Controls::Panel>().Children().Append(m_animationContainer);
-		//}
+		if (!m_animationContainer)
+		{
+			m_animationContainer = GetTemplateChild(L"Container").as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+			m_animationSizeChangedRevoker = m_animationContainer.SizeChanged(winrt::auto_revoke, [this](auto&& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& args)
+			{
+				if (m_animation)
+					m_animation->SetSize(args.NewSize());
+			});
+		}
+		if (m_presenter)
+			m_presenter.Opacity(0);
 		startAnimation();
 	}
 
 	void Shimmer::loadContent()
 	{
 		m_animation.reset();
-		//if (m_animationContainer)
-		//{
-		//	m_rootPanel = m_animationContainer.Parent().as<winrt::Microsoft::UI::Xaml::Controls::Panel>();
-		//	removeChildFromPanel(m_rootPanel, m_animationContainer);
-		//	winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_animationContainer);
-		//	m_animationContainer = nullptr;
-		//}
-		m_presenter.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+		if (m_animationContainer)
+		{
+			m_animationSizeChangedRevoker.revoke();
+			winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_animationContainer);
+			m_animationContainer = nullptr;
+		}
+		m_presenter.Opacity(1.0);
 	}
 
 	winrt::Microsoft::UI::Xaml::ResourceDictionary Shimmer::tryGetThemeResourceDictionaryFromResource(winrt::Microsoft::UI::Xaml::ResourceDictionary const& resource, winrt::Microsoft::UI::Xaml::ElementTheme theme)

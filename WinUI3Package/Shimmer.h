@@ -18,6 +18,7 @@ namespace winrt::WinUI3Package::implementation
     private:
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_isLoadingProperty;
         winrt::Microsoft::UI::Xaml::FrameworkElement m_animationContainer{ nullptr };
+        winrt::Microsoft::UI::Xaml::FrameworkElement::SizeChanged_revoker m_animationSizeChangedRevoker;
         void startAnimation();
 
         constexpr static auto ShimmerGradientStopsResourceName = L"ShimmerGradientStops";

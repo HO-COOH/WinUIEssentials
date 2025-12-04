@@ -37,7 +37,7 @@
                     <Grid x:Name="RootGrid">
                         <Border
                             x:Name="Container"
-                            x:Load="True"
+                            x:Load="False"
                             CornerRadius="{TemplateBinding CornerRadius}" />
 
                         <ContentPresenter
@@ -46,8 +46,7 @@
                             VerticalAlignment="Stretch"
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Content="{TemplateBinding Content}"
-                            Visibility="Collapsed" />
+                            Content="{TemplateBinding Content}" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
