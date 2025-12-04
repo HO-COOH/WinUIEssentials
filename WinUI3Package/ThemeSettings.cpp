@@ -48,7 +48,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Windows::UI::Color ThemeSettings::ColorizationColor()
 	{
-		return fromDWORD(ThemeSettingsImpl::ColorizationColor());
+		return ThemeSettingsImpl::ColorFromDWORDFromReg(ThemeSettingsImpl::ColorizationColor());
 	}
 
 	winrt::Microsoft::UI::Xaml::Media::SolidColorBrush ThemeSettings::ColorizationColorBrush()
@@ -65,7 +65,7 @@ namespace winrt::WinUI3Package::implementation
 			colors.begin(),
 			[i = 0](auto const&)mutable
 			{
-				return winrt::box_value(fromDWORD(ThemeSettingsImpl::ColorHistory()[i++]));
+				return winrt::box_value(ThemeSettingsImpl::ColorFromDWORDFromReg(ThemeSettingsImpl::ColorHistory()[i++]));
 			}
 		);
 		return winrt::single_threaded_vector(std::move(colors));
@@ -82,7 +82,7 @@ namespace winrt::WinUI3Package::implementation
 			{
 				return winrt::Microsoft::UI::Xaml::Media::SolidColorBrush
 				{ 
-					fromDWORD(ThemeSettingsImpl::ColorHistory()[i++]) 
+					ThemeSettingsImpl::ColorFromDWORDFromReg(ThemeSettingsImpl::ColorHistory()[i++])
 				};
 			}
 		);

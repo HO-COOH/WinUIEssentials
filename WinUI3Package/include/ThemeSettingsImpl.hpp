@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include <wil/registry.h>
 #include <iterator>
+#include <dwmapi.h>
 
 class ThemeSettingsImpl
 {
@@ -46,11 +47,16 @@ public:
 
 	static DWORD AccentColor()
 	{
-		return wil::reg::get_value_dword(
-			HKEY_CURRENT_USER,
-			DWMSubKey,
-			L"AccentColor"
-		);
+		//return wil::reg::get_value_dword(
+		//	HKEY_CURRENT_USER,
+		//	DWMSubKey,
+		//	L"AccentColor"
+		//);
+
+		DWORD colorization;
+		BOOL opaque;
+		winrt::check_hresult(DwmGetColorizationColor(&colorization, &opaque));
+		return colorization;
 	}
 
 	static DWORD ColorizationColor()
@@ -60,6 +66,15 @@ public:
 			DWMSubKey,
 			L"ColorizationColor"
 		);
+	}
+
+	static bool ShowAccentColorOnTitleBarsAndWindowBorders()
+	{
+		return static_cast<bool>(wil::reg::get_value_dword(
+			HKEY_CURRENT_USER,
+			DWMSubKey,
+			L"ColorPrevalence"
+		));
 	}
 
 	class ColorHistoryCollection
@@ -91,5 +106,27 @@ public:
 	constexpr static ColorHistoryCollection ColorHistory()
 	{
 		return {};
+	}
+
+	static constexpr winrt::Windows::UI::Color ColorFromDWORDFromReg(DWORD value)
+	{
+		return winrt::Windows::UI::Color
+		{
+			.A = 0xFF,
+			.R = static_cast<uint8_t>(value & 0xFF),
+			.G = static_cast<uint8_t>((value >> 8) & 0xFF),
+			.B = static_cast<uint8_t>((value >> 16) & 0xFF)
+		};
+	}
+
+	static constexpr winrt::Windows::UI::Color ColorFromDWORDFromDwm(DWORD value)
+	{
+		return winrt::Windows::UI::Color
+		{
+			.A = 0xFF,
+			.R = static_cast<uint8_t>((value >> 16) & 0xFF),
+			.G = static_cast<uint8_t>((value >> 8) & 0xFF),
+			.B = static_cast<uint8_t>(value & 0xFF)
+		};
 	}
 };

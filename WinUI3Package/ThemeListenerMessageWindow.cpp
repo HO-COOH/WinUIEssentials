@@ -32,11 +32,17 @@ LRESULT ThemeListenerMessageWindow::windowProc(HWND hwnd, UINT msg, WPARAM wpara
 	{
 		if (lparam && std::wstring_view{ reinterpret_cast<wchar_t const*>(lparam) } == L"ImmersiveColorSet")
 		{
+			//OutputDebugString(L"ImmsersiveColorSet changed\n");
 			for (auto& handler : reinterpret_cast<ThemeListener*>(GetWindowLongPtr(hwnd, GWLP_USERDATA))->m_handlers)
 				handler();
 		}
 		return true;
 	}
+	//case WM_DWMCOLORIZATIONCOLORCHANGED:
+	//{
+	//	OutputDebugString(L"DWM Colorization changed\n");
+	//	break;
+	//}
 	default:
 		break;
 	}
