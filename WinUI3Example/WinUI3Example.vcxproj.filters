@@ -224,6 +224,9 @@
     <Page Include="FlyoutHelperPage.xaml">
       <Filter>Pages\FlyoutHelperPage</Filter>
     </Page>
+    <Page Include="TestBackdropSwitch.xaml">
+      <Filter>Pages\BackdropPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

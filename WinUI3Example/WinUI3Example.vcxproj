@@ -581,6 +581,10 @@
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TestBackdropSwitch.xaml.h">
+      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TestWindow.xaml.h">
       <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -812,6 +816,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestBackdropSwitch.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TestWindow.xaml">
@@ -1156,6 +1163,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TestBackdropSwitch.xaml.cpp">
+      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TestWindow.xaml.cpp">
@@ -1504,6 +1515,10 @@
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TestBackdropSwitch.idl">
+      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="TestWindow.idl">
       <DependentUpon>TestWindow.xaml</DependentUpon>

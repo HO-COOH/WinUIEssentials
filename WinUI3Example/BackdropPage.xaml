@@ -344,8 +344,8 @@ window.Activate();</x:String>
             </local:ControlExample.Xaml>
         </local:ControlExample>
 
-        <local:ControlExample HeaderText="Create Notify window">
-            <Button x:Name="CreateNotifyButton" Click="CreateNotifyButton_Click">Create</Button>
-        </local:ControlExample>
+        <!--<local:ControlExample HeaderText="Switch backdrop">
+            <Button x:Name="SwitchBackdropButton" Click="SwitchBackdropButton_Click">Create</Button>
+        </local:ControlExample>-->
     </StackPanel>
 </Page>

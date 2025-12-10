@@ -12,6 +12,12 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	ComboBoxHelperPage::ComboBoxHelperPage()
+	{
+		std::vector<winrt::Windows::Foundation::IInspectable> fontSizes(c_fontSizes.size());
+		std::ranges::transform(c_fontSizes, fontSizes.begin(), [](int value) {return winrt::box_value(value); });
+		m_fontSizes = winrt::single_threaded_vector(std::move(fontSizes));
+	}
 
 	void ComboBoxHelperPage::Combo1_SelectionChanged(
 		winrt::Windows::Foundation::IInspectable const&, 
@@ -79,8 +85,7 @@ namespace winrt::WinUI3Example::implementation
 		{
 		}
 
-		uint32_t index;
-		if (isInt && (m_fontSizes.IndexOf(winrt::box_value(newValue), index) || (newValue < 100 && newValue > 8)))
+		if (isInt && (std::ranges::find(c_fontSizes, newValue) != c_fontSizes.end() || (newValue < 100 && newValue > 8)))
 			sender.SelectedItem(winrt::box_value(newValue));
 		else
 		{

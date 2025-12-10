@@ -8,6 +8,29 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+    // Moved operators inside the namespace so they are found correctly
+    constexpr winrt::Windows::UI::Color operator*(winrt::Windows::UI::Color color, double value)
+    {
+        return
+        {
+            static_cast<uint8_t>(color.A * value),
+            static_cast<uint8_t>(color.R * value),
+            static_cast<uint8_t>(color.G * value),
+            static_cast<uint8_t>(color.B * value)
+        };
+    }
+
+    constexpr winrt::Windows::UI::Color operator+(winrt::Windows::UI::Color lhs, winrt::Windows::UI::Color rhs)
+    {
+        return
+        {
+            static_cast<uint8_t>(lhs.A + rhs.A),
+            static_cast<uint8_t>(lhs.R + rhs.R),
+            static_cast<uint8_t>(lhs.G + rhs.G),
+            static_cast<uint8_t>(lhs.B + rhs.B)
+        };
+    }
+
     WindowCaptionButtonThemeWorkaround::WindowCaptionButtonThemeWorkaround()
     {
         ActualThemeChanged([this](auto&&...) {
@@ -26,10 +49,10 @@ namespace winrt::WinUI3Package::implementation
         setCaptionButtonTheme(ActualTheme());
     }
 
-    constexpr winrt::Windows::UI::Color getPressedForeground(winrt::Windows::UI::Color foreground)
+    // Alpha does not seems to be respected, so we do alpha blending ourselves
+    constexpr winrt::Windows::UI::Color getPressedForeground(winrt::Windows::UI::Color foreground, winrt::Windows::UI::Color background)
     {
-        foreground.A *= 0.2;
-        return foreground;
+        return (foreground * 0.5) + (background * 0.5);
     }
 
     constexpr bool isColorLight(Windows::UI::Color clr)
@@ -49,10 +72,11 @@ namespace winrt::WinUI3Package::implementation
             {
                 auto const hoverBackground = winrt::WinUI3Package::implementation::ThemeSettings::Instance().AccentColor();
                 m_titleBar.ButtonHoverBackgroundColor(hoverBackground);
+                m_titleBar.ButtonPressedBackgroundColor(hoverBackground);
 
                 auto const hoverForeground = isColorLight(hoverBackground) ? winrt::Windows::UI::Colors::Black() : winrt::Windows::UI::Colors::White();
                 m_titleBar.ButtonHoverForegroundColor(hoverForeground);
-                m_titleBar.ButtonPressedForegroundColor(getPressedForeground(hoverForeground));
+                m_titleBar.ButtonPressedForegroundColor(getPressedForeground(hoverForeground, hoverBackground));
             }
             else
             {
@@ -75,7 +99,7 @@ namespace winrt::WinUI3Package::implementation
 
                 m_titleBar.ButtonHoverBackgroundColor(hoverBackground);
                 m_titleBar.ButtonHoverForegroundColor(foreground);
-                m_titleBar.ButtonPressedForegroundColor(getPressedForeground(foreground));
+                m_titleBar.ButtonPressedForegroundColor(getPressedForeground(foreground, pressedBackground));
                 m_titleBar.ButtonPressedBackgroundColor(pressedBackground);
             }
         }

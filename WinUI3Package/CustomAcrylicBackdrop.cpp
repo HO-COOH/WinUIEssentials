@@ -258,6 +258,24 @@ namespace winrt::WinUI3Package::implementation
 		m_controller = {};
 		m_controller.AddSystemBackdropTarget(target);
 		m_controller.SetSystemBackdropConfiguration(m_configuration);
+
+		//set properties
+		auto const unsetValue = winrt::Microsoft::UI::Xaml::DependencyProperty::UnsetValue();
+
+		if (auto fallbackColor = ReadLocalValue(FallbackColorProperty()); fallbackColor != unsetValue)
+			m_controller.FallbackColor(winrt::unbox_value<winrt::Windows::UI::Color>(fallbackColor));
+
+		if (auto kind = ReadLocalValue(KindProperty()); kind != unsetValue)
+			m_controller.Kind(winrt::unbox_value<winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind>(kind));
+
+		if (auto luminosityOpacity = ReadLocalValue(LuminosityOpacityProperty()); luminosityOpacity != unsetValue)
+			m_controller.LuminosityOpacity(winrt::unbox_value<float>(luminosityOpacity));
+
+		if (auto tintColor = ReadLocalValue(TintColorProperty()); tintColor != unsetValue)
+			m_controller.TintColor(winrt::unbox_value<winrt::Windows::UI::Color>(tintColor));
+
+		if (auto tintOpacity = ReadLocalValue(TintOpacityProperty()); tintOpacity != unsetValue)
+			m_controller.TintOpacity(winrt::unbox_value<float>(tintOpacity));
 	}
 
 	void CustomAcrylicBackdrop::disposeAcrylicController()

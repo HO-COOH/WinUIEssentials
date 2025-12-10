@@ -51,14 +51,14 @@ namespace winrt::WinUI3Example::implementation
 		WinUI3Example::TransparentWindowDemo{}.Activate();
 	}
 
-
-	void BackdropPage::CreateNotifyButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
-	{
-		//WinUI3Package::RoundedAnimatedAcrylicWindowWithShadow{}.Activate();
-	}
-
 	void BackdropPage::CreateMicaWithFallbackButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
 		WinUI3Example::MicaBackdropWithFallbackWindow{}.Activate();
 	}
+
+	//void winrt::WinUI3Example::implementation::BackdropPage::SwitchBackdropButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	//{
+	//	WinUI3Example::TestBackdropSwitch{}.Activate();
+	//}
+
 }

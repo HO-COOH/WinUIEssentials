@@ -1,11 +1,13 @@
 ﻿#pragma once
 #include "ComboBoxHelperPage.g.h"
+#include <array>
+#include <vector>
 
 namespace winrt::WinUI3Example::implementation
 {
     struct ComboBoxHelperPage : ComboBoxHelperPageT<ComboBoxHelperPage>
     {
-        ComboBoxHelperPage() = default;
+        ComboBoxHelperPage();
         void Combo1_SelectionChanged(
             winrt::Windows::Foundation::IInspectable const& sender, 
             winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
@@ -32,25 +34,26 @@ namespace winrt::WinUI3Example::implementation
                     winrt::WinUI3Example::FontInfo{L"Times New Roman", winrt::Microsoft::UI::Xaml::Media::FontFamily{L"Times New Roman"}}
                 }
             );
-		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_fontSizes = 
-            winrt::single_threaded_vector(
-                std::vector{
-					winrt::box_value(8),
-					winrt::box_value(9),
-					winrt::box_value(10),
-					winrt::box_value(11),
-					winrt::box_value(12),
-                    winrt::box_value(14),
-					winrt::box_value(16),
-					winrt::box_value(18),
-					winrt::box_value(20),
-                    winrt::box_value(24),
-					winrt::box_value(28),
-                    winrt::box_value(36),
-					winrt::box_value(48),
-					winrt::box_value(72)
-                }
-            );   
+
+        constexpr static std::array c_fontSizes
+        {
+            8,
+            9,
+            10,
+            11,
+            12,
+            14,
+            16,
+            18,
+            20,
+            24,
+            28,
+            36,
+            48,
+            72,
+        };
+
+        winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_fontSizes{ nullptr };
     };
 }
 
