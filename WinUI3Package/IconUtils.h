@@ -19,8 +19,6 @@ class Utils
 public:
 	static HICON GetHIcon(std::wstring_view path);
 
-	static HICON GetHIcon(winrt::Windows::Foundation::Uri uri);
-
 	//Draw for SymbolIcon, which uses Segoe Fluent Icon, fallback to Segoe MDL2 Assets if not exist
 	static HBITMAP DrawGlyph(std::wstring_view glyphString, Gdiplus::Brush& brush, UINT dpi);
 

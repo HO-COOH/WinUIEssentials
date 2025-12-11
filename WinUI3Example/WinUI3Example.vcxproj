@@ -531,10 +531,6 @@
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="SampleThemeListener.xaml.h">
-      <DependentUpon>SampleThemeListener.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ScopedButtonDisablerPage.xaml.h">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -560,7 +556,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="StoreUpdateChecker.h" />
-    <ClInclude Include="SupportThemeToggle.h" />
     <ClInclude Include="TaskbarIconPage.xaml.h">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -591,6 +586,10 @@
     </ClInclude>
     <ClInclude Include="ThemeListenerPage.xaml.h">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ThemeToggleButton.xaml.h">
+      <DependentUpon>ThemeToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TimePickerHelperPage.xaml.h">
@@ -788,9 +787,6 @@
     <Page Include="ScopedButtonDisablerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SampleThemeListener.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="SegmentedPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -825,6 +821,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ThemeListenerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemeToggleButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TimePickerHelperPage.xaml">
@@ -1124,10 +1123,6 @@
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="SampleThemeListener.xaml.cpp">
-      <DependentUpon>SampleThemeListener.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="SegmentedPage.cpp">
       <DependentUpon>SegmentedPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1179,6 +1174,10 @@
     </ClCompile>
     <ClCompile Include="TemplateInformation.cpp">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ThemeToggleButton.xaml.cpp">
+      <DependentUpon>ThemeToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TimePickerHelperPage.xaml.cpp">
@@ -1469,10 +1468,6 @@
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="SampleThemeListener.idl">
-      <DependentUpon>SampleThemeListener.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="ScopedButtonDisablerPage.idl">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1526,6 +1521,10 @@
     </Midl>
     <Midl Include="ThemeListenerPage.idl">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ThemeToggleButton.idl">
+      <DependentUpon>ThemeToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TimePickerHelperPage.idl">

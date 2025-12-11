@@ -6,11 +6,10 @@
 #include "MainWindow.g.h"
 #include <ranges>
 #include <winrt/Microsoft.UI.Xaml.Markup.h>
-#include "SupportThemeToggle.h"
 
 namespace winrt::WinUI3Example::implementation
 {
-    struct MainWindow : MainWindowT<MainWindow>, public SupportThemeToggle<MainWindow>
+    struct MainWindow : MainWindowT<MainWindow>
     {
         MainWindow();
 

@@ -25,33 +25,6 @@
             FontSize="32"
             Text="Notice these Caption Buttons when switching themes ⬆️" />
 
-        <Button
-            VerticalAlignment="Bottom"
-            Click="ThemeButton_Click"
-            ToolTipService.ToolTip="{Binding RequestedTheme, ElementName=RootGrid, Converter={StaticResource ElementThemeToStringConverter}}">
-            <essential:SwitchPresenter
-                xmlns:theme="using:Microsoft.UI.Xaml"
-                x:Name="ThemeSwitcher"
-                Value="{Binding RequestedTheme, ElementName=RootGrid, Mode=OneWay}">
-                <essential:Case>
-                    <TextBlock Text="🌙" />
-                    <essential:Case.Value>
-                        <theme:ElementTheme>Dark</theme:ElementTheme>
-                    </essential:Case.Value>
-                </essential:Case>
-                <essential:Case>
-                    <TextBlock Text="☀️" />
-                    <essential:Case.Value>
-                        <theme:ElementTheme>Light</theme:ElementTheme>
-                    </essential:Case.Value>
-                </essential:Case>
-                <essential:Case>
-                    <TextBlock Text="💻" />
-                    <essential:Case.Value>
-                        <theme:ElementTheme>Default</theme:ElementTheme>
-                    </essential:Case.Value>
-                </essential:Case>
-            </essential:SwitchPresenter>
-        </Button>
+        <local:ThemeToggleButton VerticalAlignment="Bottom" Root="{x:Bind RootGrid}" />
     </Grid>
 </Window>

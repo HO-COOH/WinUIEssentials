@@ -79,7 +79,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <local:SampleThemeListener>
+            <UserControl> <!-- This acts as a ThemeListener-->
                 <Grid
                     x:Name="ExampleContainer"
                     x:FieldModifier="Public"
@@ -136,7 +136,7 @@
                         Content="{x:Bind Options}"
                         Visibility="{x:Bind Options, Converter={StaticResource nullToVisibilityConverter}}" />
                 </Grid>
-            </local:SampleThemeListener>
+            </UserControl>
 
             <!--  Sample code display  -->
             <Expander

@@ -762,7 +762,7 @@
                     VerticalAlignment="Top" />
             </ScrollViewer>
             <NavigationView.FooterMenuItems>
-                <Button Click="ThemeButton_Click" ToolTipService.ToolTip="{Binding RequestedTheme, ElementName=RootGrid, Converter={StaticResource ElementThemeToStringConverter}}">
+                <!--<Button Click="ThemeButton_Click" ToolTipService.ToolTip="{Binding RequestedTheme, ElementName=RootGrid, Converter={StaticResource ElementThemeToStringConverter}}">
                     <essential:SwitchPresenter
                         xmlns:theme="using:Microsoft.UI.Xaml"
                         x:Name="ThemeSwitcher"
@@ -786,7 +786,9 @@
                             </essential:Case.Value>
                         </essential:Case>
                     </essential:SwitchPresenter>
-                </Button>
+                </Button>-->
+
+                <local:ThemeToggleButton Root="{x:Bind RootGrid}" />
             </NavigationView.FooterMenuItems>
         </NavigationView>
 

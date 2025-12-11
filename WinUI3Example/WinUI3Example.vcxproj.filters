@@ -92,9 +92,6 @@
     <Page Include="ControlExample.xaml">
       <Filter>Helper</Filter>
     </Page>
-    <Page Include="SampleThemeListener.xaml">
-      <Filter>Helper</Filter>
-    </Page>
     <Page Include="ExperimentPage.xaml">
       <Filter>Pages\Experimental</Filter>
     </Page>
@@ -227,6 +224,9 @@
     <Page Include="TestBackdropSwitch.xaml">
       <Filter>Pages\BackdropPage</Filter>
     </Page>
+    <Page Include="ThemeToggleButton.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -329,9 +329,6 @@
     </ClInclude>
     <ClInclude Include="ExceptionDialog.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SupportThemeToggle.h">
-      <Filter>Pages\CaptionButtonThemeWorkaroundPage</Filter>
-    </ClInclude>
     <ClInclude Include="StoreUpdateChecker.h">
       <Filter>Helper</Filter>
     </ClInclude>
@@ -536,9 +533,6 @@
     <Filter Include="Pages\SwitchPresenterPage">
       <UniqueIdentifier>{4294cce6-a971-4ba9-aec0-eaf915100848}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Helper">
-      <UniqueIdentifier>{38d542e5-574f-47f2-89db-a4fefca5f544}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pages\Experimental">
       <UniqueIdentifier>{f2cc48d2-a1da-4b1e-b1dd-07f8a7705345}</UniqueIdentifier>
     </Filter>
@@ -586,6 +580,9 @@
     </Filter>
     <Filter Include="Pages\FlyoutHelperPage">
       <UniqueIdentifier>{62cc26b7-a466-49c6-8f0b-1e89eb3bfec6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{38d542e5-574f-47f2-89db-a4fefca5f544}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

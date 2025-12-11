@@ -40,11 +40,6 @@ UINT Utils::GetPrimaryMonitorDpi()
 	return x;
 }
 
-HICON Utils::GetHIcon(winrt::Windows::Foundation::Uri uri)
-{
-	return HICON();
-}
-
 static HBITMAP drawGlyphImpl(std::wstring_view glyphString, Gdiplus::Bitmap&& bitmap, Gdiplus::Font&& font, Gdiplus::Brush& brush)
 {
 	auto graphics = winrt::check_pointer(Gdiplus::Graphics::FromImage(&bitmap));

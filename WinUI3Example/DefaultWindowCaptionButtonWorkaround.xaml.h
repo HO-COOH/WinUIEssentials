@@ -1,11 +1,10 @@
 ﻿#pragma once
 
 #include "DefaultWindowCaptionButtonWorkaround.g.h"
-#include "SupportThemeToggle.h"
 
 namespace winrt::WinUI3Example::implementation
 {
-    struct DefaultWindowCaptionButtonWorkaround : DefaultWindowCaptionButtonWorkaroundT<DefaultWindowCaptionButtonWorkaround>, public SupportThemeToggle<DefaultWindowCaptionButtonWorkaround>
+    struct DefaultWindowCaptionButtonWorkaround : DefaultWindowCaptionButtonWorkaroundT<DefaultWindowCaptionButtonWorkaround>
     {
         DefaultWindowCaptionButtonWorkaround();
     };

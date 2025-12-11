@@ -364,7 +364,6 @@ namespace winrt::WinUI3Example::implementation
 	std::shared_ptr<Impl::Editor> ControlExample::makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language)
 	{
 		winrt::Microsoft::UI::Xaml::Controls::Grid grid;
-		auto child = grid.Children();
 
 		winrt::Microsoft::UI::Xaml::Controls::ProgressBar loadingProgressBar;
 		loadingProgressBar.IsIndeterminate(true);
@@ -374,10 +373,7 @@ namespace winrt::WinUI3Example::implementation
 		auto editor = std::make_shared<Impl::Editor>(codeImpl->Code(), language, loadingProgressBar, code);
 		editor->Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
 
-
-
-		child.Append(*editor);
-		child.Append(loadingProgressBar);
+		grid.Children().ReplaceAll({ *editor, loadingProgressBar });
 
 		//codeImpl->ValueChanged = [editorRef = winrt::make_weak(editor)](std::wstring const& code) {
 		//	editorRef.get().Code(winrt::hstring{ code });

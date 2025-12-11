@@ -72,7 +72,14 @@ namespace winrt::WinUI3Package::implementation
 	{
 		updateVisual();
 		auto const radius = CornerRadius();
-		if (!m_clip)
+		if (m_clip)
+		{
+			m_clip.TopLeftRadius({ static_cast<float>(radius.TopLeft), static_cast<float>(radius.TopLeft) });
+			m_clip.TopRightRadius({ static_cast<float>(radius.TopRight), static_cast<float>(radius.TopRight) });
+			m_clip.BottomLeftRadius({ static_cast<float>(radius.BottomLeft), static_cast<float>(radius.BottomLeft) });
+			m_clip.BottomRightRadius({ static_cast<float>(radius.BottomRight), static_cast<float>(radius.BottomRight) });
+		}
+		else
 		{
 			auto const actualSize = ActualSize();
 			m_clip = winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread().CreateRectangleClip(
@@ -86,13 +93,6 @@ namespace winrt::WinUI3Package::implementation
 				{ static_cast<float>(radius.BottomLeft), static_cast<float>(radius.BottomLeft) }
 			);
 			m_placementVisual.Clip(m_clip);
-		}
-		else
-		{
-			m_clip.TopLeftRadius({ static_cast<float>(radius.TopLeft), static_cast<float>(radius.TopLeft) });
-			m_clip.TopRightRadius({ static_cast<float>(radius.TopRight), static_cast<float>(radius.TopRight) });
-			m_clip.BottomLeftRadius({ static_cast<float>(radius.BottomLeft), static_cast<float>(radius.BottomLeft) });
-			m_clip.BottomRightRadius({ static_cast<float>(radius.BottomRight), static_cast<float>(radius.BottomRight) });
 		}
 	}
 
