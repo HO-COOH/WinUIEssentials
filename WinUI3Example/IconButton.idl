@@ -1,4 +1,4 @@
-﻿namespace WinUI3Package
+﻿namespace WinUI3Example
 {
     [bindable]
     [default_interface]

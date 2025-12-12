@@ -17,6 +17,8 @@ namespace winrt::WinUI3Example::implementation
 		winrt::hstring Name();
 		winrt::Windows::Foundation::Uri Avator();
 		winrt::Windows::Foundation::Uri Profile();
+
+        void OpenWebsite();
     private:
         winrt::hstring m_name;
         winrt::Windows::Foundation::Uri m_avator{ nullptr };

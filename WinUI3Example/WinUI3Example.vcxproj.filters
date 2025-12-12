@@ -59,9 +59,6 @@
     <Page Include="SegmentedPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="IconButtonPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="UriPage.xaml">
       <Filter>Pages\UriPage</Filter>
     </Page>
@@ -227,6 +224,9 @@
     <Page Include="ThemeToggleButton.xaml">
       <Filter>Helper</Filter>
     </Page>
+    <Page Include="IconButton_Resource.xaml">
+      <Filter>Pages\Experimental\IconButton</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -302,6 +302,9 @@
     </Midl>
     <Midl Include="BackdropPage.idl">
       <Filter>Pages\BackdropPage</Filter>
+    </Midl>
+    <Midl Include="IconButton.idl">
+      <Filter>Pages\Experimental\IconButton</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -583,6 +586,9 @@
     </Filter>
     <Filter Include="Helper">
       <UniqueIdentifier>{38d542e5-574f-47f2-89db-a4fefca5f544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\Experimental\IconButton">
+      <UniqueIdentifier>{8171ebc3-0fc2-452e-94b6-b3971d0b42ea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

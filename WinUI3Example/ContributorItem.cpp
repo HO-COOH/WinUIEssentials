@@ -3,6 +3,7 @@
 #if __has_include("ContributorItem.g.cpp")
 #include "ContributorItem.g.cpp"
 #endif
+#include <winrt/Windows.System.h>
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -33,5 +34,10 @@ namespace winrt::WinUI3Example::implementation
     winrt::Windows::Foundation::Uri ContributorItem::Profile()
     {
         return m_profile;
+    }
+    void ContributorItem::OpenWebsite()
+    {
+        if (m_profile)
+            winrt::Windows::System::Launcher::LaunchUriAsync(m_profile);
     }
 }

@@ -4,7 +4,7 @@
 #include <optional>
 #include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::WinUI3Example::implementation
 {
     struct IconButton : IconButtonT<IconButton>
     {
@@ -45,7 +45,7 @@ namespace winrt::WinUI3Package::implementation
     };
 }
 
-namespace winrt::WinUI3Package::factory_implementation
+namespace winrt::WinUI3Example::factory_implementation
 {
     struct IconButton : IconButtonT<IconButton, implementation::IconButton>
     {

@@ -3,8 +3,9 @@
 #if __has_include("IconButton.g.cpp")
 #include "IconButton.g.cpp"
 #endif
+#include <winrt/Microsoft.UI.Xaml.Input.h>
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::WinUI3Example::implementation
 {
 	winrt::Microsoft::UI::Xaml::DependencyProperty IconButton::m_iconProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
@@ -19,7 +20,7 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &IconButton::isExpandedPropertyChanged }
-	);
+		);
 
 
 	IconButton::IconButton()

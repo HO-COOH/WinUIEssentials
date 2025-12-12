@@ -136,4 +136,17 @@ namespace winrt::WinUI3Example::implementation
 		Graph().AddPoint(x, ValueSlider().Value());
 	}
 
+	void ExperimentPage::NormalInnerButton_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		NormalButton().Content(winrt::box_value(L"Clicked"));
+	}
+
+	void ExperimentPage::ToggleInnerButton_Click(
+		winrt::Windows::Foundation::IInspectable const&, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		ToggleButton().Content(winrt::box_value(L"Clicked"));
+	}
 }

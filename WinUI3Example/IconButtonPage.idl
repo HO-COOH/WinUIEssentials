@@ -1,8 +1,0 @@
-﻿namespace WinUI3Example
-{
-    [default_interface]
-    runtimeclass IconButtonPage : Microsoft.UI.Xaml.Controls.Page
-    {
-        IconButtonPage();
-    }
-}

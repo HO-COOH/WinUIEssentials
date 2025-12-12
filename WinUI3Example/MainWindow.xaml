@@ -12,7 +12,11 @@
     TitleBarAutoDarkMode="True"
     mc:Ignorable="d">
     <essential:WindowEx.SystemBackdrop>
-        <MicaBackdrop />
+        <essential:MicaBackdropWithFallback>
+            <essential:MicaBackdropWithFallback.Fallback>
+                <DesktopAcrylicBackdrop />
+            </essential:MicaBackdropWithFallback.Fallback>
+        </essential:MicaBackdropWithFallback>
     </essential:WindowEx.SystemBackdrop>
 
     <Grid x:Name="RootGrid">

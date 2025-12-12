@@ -26,6 +26,9 @@ namespace winrt::WinUI3Example::implementation
             std::chrono::milliseconds duration = {}
         );
 
+        void NormalInnerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void ToggleInnerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+
         winrt::Microsoft::UI::Composition::CompositionAnimationGroup buttonAnimationGroup{ nullptr };
         winrt::Microsoft::UI::Composition::CompositionAnimationGroup progressBarAnimationGroup{ nullptr };
     };

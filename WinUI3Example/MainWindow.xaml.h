@@ -52,7 +52,6 @@ namespace winrt::WinUI3Example::implementation
             {L"ProgressBarEx", winrt::xaml_typename<WinUI3Example::ProgressBarExPage>()},
             {L"WindowEx", winrt::xaml_typename<WinUI3Example::WindowExPage>()},
             {L"Segmented", winrt::xaml_typename<WinUI3Example::SegmentedPage>()},
-            {L"IconButton", winrt::xaml_typename<WinUI3Example::IconButtonPage>()},
             {L"Uris", winrt::xaml_typename<WinUI3Example::UriPage>()},
             //{L"IncrementalLoadingPage", winrt::xaml_typename<WinUI3Example::IncrementalLoadingPage>()},
             {L"Backdrop", winrt::xaml_typename<WinUI3Example::BackdropPage>()},

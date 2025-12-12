@@ -19,5 +19,7 @@
         String Name{ get; };
         Windows.Foundation.Uri Avator{ get; };
         Windows.Foundation.Uri Profile{ get; };
+
+        void OpenWebsite();
     }
 }

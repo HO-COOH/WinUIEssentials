@@ -89,7 +89,6 @@ You can reference Github Action for detailed build steps.
 |GroupBox | :white_check_mark: | :white_check_mark: | Control
 |SettingsCard | :white_check_mark: | :white_check_mark:* | Control
 |SettingsExpander | :white_check_mark: | :white_check_mark:* | Control
-|IconButton | :white_check_mark: | :white_check_mark: | Control
 |FontIconExtension | :white_check_mark: | :white_check_mark: | WinRT component
 |DependentValue| :white_check_mark: | :white_check_mark: | WinRT component
 |Taskbar| :x: | :white_check_mark: | Header only
@@ -524,33 +523,6 @@ Taskbar::SetProgressValue(hwnd, 50); //a third optional parameter for total, def
 Enhanced version of `MarqueeText` in the community toolkit.
 ![](assets/marquee-text.png)
 
-## IconButton --- *namespace `IconButton`*
-Expandable button, which shows an icon (actually anything) in its default state, and a content when you hover on it.
-
-![](assets/icon-button.gif)
-
-- Add this to `App.xaml` (UWP)
-```xml
-<Application.Resources>
-    <controls:XamlControlsResources>
-        <controls:XamlControlsResources.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///UWPPackage/IconButton_Resource.xaml"/>
-            ...
-        </controls:XamlControlsResources.MergedDictionaries>
-    </controls:XamlControlsResources>
-</Application.Resources>
-```
-- Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/IconButton_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Application.Resources>
-```
 
 ## ProgressBarEx --- *namespace `ProgressBarEx`*
 A progress bar with animated highlight colors (and animated progress). Default to vista-like styles but also allows you to customize its color.

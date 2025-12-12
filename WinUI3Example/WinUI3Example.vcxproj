@@ -418,8 +418,8 @@
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="IconButtonPage.xaml.h">
-      <DependentUpon>IconButtonPage.xaml</DependentUpon>
+    <ClInclude Include="IconButton.h">
+      <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="IncrementalLoadingPage.xaml.h">
@@ -729,9 +729,7 @@
     <Page Include="GroupBoxPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="IconButtonPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
+    <Page Include="IconButton_Resource.xaml" />
     <Page Include="IncrementalLoadingPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1004,8 +1002,8 @@
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="IconButtonPage.xaml.cpp">
-      <DependentUpon>IconButtonPage.xaml</DependentUpon>
+    <ClCompile Include="IconButton.cpp">
+      <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="IncrementalLoadingPage.xaml.cpp">
@@ -1367,9 +1365,8 @@
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="IconButtonPage.idl">
-      <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Midl Include="IconButton.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="IDataGridData.idl" />
     <Midl Include="IncrementalLoadingPage.idl">

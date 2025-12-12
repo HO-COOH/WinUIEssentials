@@ -85,6 +85,62 @@
             </Grid>
         </local:ControlExample>
 
+        <local:ControlExample HeaderText="IconButton Demo">
+            <local:ControlExample.Options>
+                <ToggleSwitch x:Name="ExpandToggle" />
+            </local:ControlExample.Options>
+
+            <StackPanel
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Orientation="Vertical"
+                Spacing="4">
+
+                <local:IconButton
+                    x:Name="NormalButton"
+                    FontSize="20"
+                    IsExpanded="{x:Bind ExpandToggle.IsOn, Mode=OneWay}">
+                    <local:IconButton.Icon>
+                        <FontIcon Glyph="&#xE700;" />
+                    </local:IconButton.Icon>
+
+                    <SymbolIcon Symbol="Accept" />
+
+                    <local:IconButton.Container>
+                        <Button x:Name="NormalInnerButton" Click="NormalInnerButton_Click" />
+                    </local:IconButton.Container>
+                </local:IconButton>
+
+                <local:IconButton
+                    x:Name="ToggleButton"
+                    FontSize="20"
+                    IsExpanded="{x:Bind ExpandToggle.IsOn, Mode=OneWay}">
+                    <local:IconButton.Icon>
+                        <FontIcon Glyph="&#xE700;" />
+                    </local:IconButton.Icon>
+                    Some content
+                    <local:IconButton.Container>
+                        <ToggleButton x:Name="ToggleInnerButton" Click="ToggleInnerButton_Click" />
+                    </local:IconButton.Container>
+                </local:IconButton>
+
+
+                <local:IconButton
+                    x:Name="HyperlinkButton"
+                    FontSize="20"
+                    IsExpanded="{x:Bind ExpandToggle.IsOn, Mode=OneWay}">
+                    <local:IconButton.Icon>
+                        <FontIcon Glyph="&#xE700;" />
+                    </local:IconButton.Icon>
+
+                    <TextBlock Text="https://www.google.com" TextDecorations="Underline" />
+                    <local:IconButton.Container>
+                        <HyperlinkButton NavigateUri="https://www.google.com" />
+                    </local:IconButton.Container>
+                </local:IconButton>
+            </StackPanel>
+        </local:ControlExample>
+
         <local:ControlExample HeaderText="DataGrid Demo">
             <local:DataGrid Width="500" Height="500" />
         </local:ControlExample>
