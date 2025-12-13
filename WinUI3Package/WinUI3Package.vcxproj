@@ -269,6 +269,10 @@
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CalendarDatePickerHelper.h">
+      <DependentUpon>CalendarDatePickerHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Case.h">
       <DependentUpon>Case.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -591,6 +595,10 @@
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="CalendarDatePickerHelper.cpp">
+      <DependentUpon>CalendarDatePickerHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Case.cpp">
       <DependentUpon>Case.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -879,6 +887,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="BoolToVisibilityConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="CalendarDatePickerHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Case.idl">

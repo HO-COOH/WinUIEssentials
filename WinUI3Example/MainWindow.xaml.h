@@ -75,7 +75,8 @@ namespace winrt::WinUI3Example::implementation
 			{L"NonMaximizableWindowWorkaround", winrt::xaml_typename<WinUI3Example::NonMaximizableWindowWorkaroundPage>()},
             {L"DatePickerHelper", winrt::xaml_typename<WinUI3Example::DatePickerHelperPage>()},
             {L"TimePickerHelper", winrt::xaml_typename<WinUI3Example::TimePickerHelperPage>()},
-            {L"FlyoutHelper", winrt::xaml_typename<WinUI3Example::FlyoutHelperPage>()}
+            {L"FlyoutHelper", winrt::xaml_typename<WinUI3Example::FlyoutHelperPage>()},
+            {L"CalendarDatePickerHelper", winrt::xaml_typename<WinUI3Example::CalendarDatePickerWorkaroundPage>()}
         };
 
     public:

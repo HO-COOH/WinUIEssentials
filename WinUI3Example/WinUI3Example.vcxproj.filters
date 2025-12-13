@@ -227,6 +227,9 @@
     <Page Include="IconButton_Resource.xaml">
       <Filter>Pages\Experimental\IconButton</Filter>
     </Page>
+    <Page Include="CalendarDatePickerWorkaroundPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -584,11 +587,11 @@
     <Filter Include="Pages\FlyoutHelperPage">
       <UniqueIdentifier>{62cc26b7-a466-49c6-8f0b-1e89eb3bfec6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Helper">
-      <UniqueIdentifier>{38d542e5-574f-47f2-89db-a4fefca5f544}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pages\Experimental\IconButton">
       <UniqueIdentifier>{8171ebc3-0fc2-452e-94b6-b3971d0b42ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{38d542e5-574f-47f2-89db-a4fefca5f544}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

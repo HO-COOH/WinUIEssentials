@@ -292,6 +292,10 @@
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CalendarDatePickerWorkaroundPage.xaml.h">
+      <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="CaptionButtonThemeWorkaroundPage.xaml.h">
       <DependentUpon>CaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -659,6 +663,9 @@
     <Page Include="BadgePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CalendarDatePickerWorkaroundPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CaptionButtonThemeWorkaroundPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -876,6 +883,10 @@
     </ClCompile>
     <ClCompile Include="BadgePage.xaml.cpp">
       <DependentUpon>BadgePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CalendarDatePickerWorkaroundPage.xaml.cpp">
+      <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="CaptionButtonThemeWorkaroundPage.xaml.cpp">
@@ -1251,6 +1262,10 @@
     <Midl Include="BackdropPage.idl" />
     <Midl Include="BadgePage.idl">
       <DependentUpon>BadgePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="CalendarDatePickerWorkaroundPage.idl">
+      <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="CaptionButtonThemeWorkaroundPage.idl">

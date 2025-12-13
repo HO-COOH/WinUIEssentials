@@ -1,0 +1,11 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass CalendarDatePickerHelper 
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.CalendarDatePicker calendarDatePicker);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.CalendarDatePicker calendarDatePicker, Boolean value);
+    }
+}

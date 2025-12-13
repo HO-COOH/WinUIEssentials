@@ -114,6 +114,10 @@ You can reference Github Action for detailed build steps.
 |WindowCaptionButtonThemeWorkaround | :x: | :white_check_mark: | WinRT component
 |MicaBackdropWithFallback | :x: | :white_check_mark: | WinRT component
 |NonMaximizableWindowWorkaround | :x: | :white_check_mark: | WinRT component
+|DatePickerHelper | :x: | :white_check_mark: | WinRT component
+|TimePickerHelper | :x: | :white_check_mark: | WinRT component
+|FlyoutHelper | :x: | :white_check_mark: | WinRT component
+|CalendarDatePickerHelper | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1120,3 +1124,15 @@ The WinUI3's built-in `Flyout` does not have Acrylic background. We fixed it for
 |Before|After|
 |------|-----|
 |![](assets/flyout-original.png)|![](assets/flyout-fixed.png)|
+
+## CalendarDatePickerHelper
+The WinUI3's built-in `TimePickerHelper` does not have Acrylic background. We fixed it for you. To use it, simply add `TimePickerHelper.AcrylicWorkaround="True"` as an attached property on your `TimePickerHelper`.
+```xml
+<CalendarDatePicker
+    essential:CalendarDatePickerHelper.AcrylicWorkaround="True"
+    Header="Calendar"
+    PlaceholderText="Pick a date" />
+```
+|Before|After|
+|------|-----|
+|![](assets/calendardatepicker-original.png)|![](assets/calendardatepicker-fixed.png)|
