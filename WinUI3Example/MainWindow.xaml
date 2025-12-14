@@ -437,7 +437,10 @@
                                                             x:Name="FooterItemsScrollViewer"
                                                             VerticalAnchorRatio="1"
                                                             VerticalScrollBarVisibility="Auto">
-                                                            <ItemsRepeater x:Name="FooterMenuItemsHost" AutomationProperties.AccessibilityView="Content">
+                                                            <ItemsRepeater
+                                                                x:Name="FooterMenuItemsHost"
+                                                                AutomationProperties.AccessibilityView="Content"
+                                                                Loaded="FooterMenuItemsHost_Loaded">
                                                                 <ItemsRepeater.Layout>
                                                                     <StackLayout Orientation="Horizontal" />
                                                                 </ItemsRepeater.Layout>
@@ -766,32 +769,6 @@
                     VerticalAlignment="Top" />
             </ScrollViewer>
             <NavigationView.FooterMenuItems>
-                <!--<Button Click="ThemeButton_Click" ToolTipService.ToolTip="{Binding RequestedTheme, ElementName=RootGrid, Converter={StaticResource ElementThemeToStringConverter}}">
-                    <essential:SwitchPresenter
-                        xmlns:theme="using:Microsoft.UI.Xaml"
-                        x:Name="ThemeSwitcher"
-                        Value="{Binding RequestedTheme, ElementName=RootGrid, Mode=OneWay}">
-                        <essential:Case>
-                            <TextBlock Text="🌙" />
-                            <essential:Case.Value>
-                                <theme:ElementTheme>Dark</theme:ElementTheme>
-                            </essential:Case.Value>
-                        </essential:Case>
-                        <essential:Case>
-                            <TextBlock Text="☀️" />
-                            <essential:Case.Value>
-                                <theme:ElementTheme>Light</theme:ElementTheme>
-                            </essential:Case.Value>
-                        </essential:Case>
-                        <essential:Case>
-                            <TextBlock Text="💻" />
-                            <essential:Case.Value>
-                                <theme:ElementTheme>Default</theme:ElementTheme>
-                            </essential:Case.Value>
-                        </essential:Case>
-                    </essential:SwitchPresenter>
-                </Button>-->
-
                 <local:ThemeToggleButton Root="{x:Bind RootGrid}" />
             </NavigationView.FooterMenuItems>
         </NavigationView>

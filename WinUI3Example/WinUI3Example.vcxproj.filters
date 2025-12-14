@@ -334,9 +334,11 @@
       <Filter>Pages\Experimental</Filter>
     </ClInclude>
     <ClInclude Include="ExceptionDialog.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="StoreUpdateChecker.h">
       <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Assets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -505,8 +507,12 @@
     <Image Include="Assets\cliff.jpg">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\MainLogo.png" />
-    <Image Include="..\MainLogo.ico" />
+    <Image Include="..\MainLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="..\MainLogo.ico">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -618,6 +624,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc" />
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Assets</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

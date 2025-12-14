@@ -62,16 +62,33 @@
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="local:ContributorItem">
                                     <StackPanel DoubleTapped="{x:Bind OpenWebsite}" IsDoubleTapEnabled="True">
-                                        <Image Width="100" Height="100">
-                                            <Image.Source>
-                                                <BitmapImage UriSource="{x:Bind Avator}" />
-                                            </Image.Source>
-                                        </Image>
+                                        <essential:Shimmer CornerRadius="4" IsLoading="True">
+                                            <Image
+                                                Width="100"
+                                                Height="100"
+                                                ImageOpened="Image_ImageOpened">
+                                                <Image.Source>
+                                                    <BitmapImage UriSource="{x:Bind Avator}" />
+                                                </Image.Source>
+                                            </Image>
+                                        </essential:Shimmer>
                                         <TextBlock HorizontalAlignment="Center" Text="{x:Bind Name}" />
                                     </StackPanel>
                                 </DataTemplate>
                             </GridView.ItemTemplate>
                         </GridView>
+
+                        <StackPanel
+                            x:Name="LoadingContributorPanel"
+                            Spacing="8"
+                            Visibility="{x:Bind IsLoadingContributors, Mode=OneWay}">
+                            <ProgressRing IsActive="True" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="Fetching data..." />
+                        </StackPanel>
 
                         <InfoBar
                             x:Name="GetContributorFailedBar"

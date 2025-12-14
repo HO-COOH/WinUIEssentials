@@ -6,8 +6,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct UIElementExtension : UIElementExtensionT<UIElementExtension>
     {
-        UIElementExtension() = default;
-
         static winrt::Microsoft::UI::Xaml::DependencyProperty ClipToBoundsProperty();
         static bool GetClipToBounds(winrt::Microsoft::UI::Xaml::UIElement element);
         static void SetClipToBounds(winrt::Microsoft::UI::Xaml::UIElement element, bool value);

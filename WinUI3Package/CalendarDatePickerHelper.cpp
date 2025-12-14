@@ -35,48 +35,12 @@ namespace winrt::WinUI3Package::implementation
         picker.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
     }
 
-    bool CalendarDatePickerHelper::modifyFlyout(winrt::Microsoft::UI::Xaml::DependencyObject const& popupChild)
-    {
-        auto border = VisualTreeHelper::FindVisualChildByType<winrt::Microsoft::UI::Xaml::Controls::Border>(popupChild);
-        if (!border)
-            return false;
-
-        auto oldChild = border.Child();
-        if (!oldChild) return false;
-
-        // Check if already modified
-        if (auto grid = oldChild.try_as<winrt::Microsoft::UI::Xaml::Controls::Grid>())
-        {
-            if (grid.Children().Size() > 0)
-            {
-                if (grid.Children().GetAt(0).try_as<winrt::WinUI3Package::AcrylicVisual>())
-                    return true;
-            }
-        }
-
-        border.Child(nullptr);
-
-        winrt::Microsoft::UI::Xaml::Controls::Grid newChild;
-        newChild.Children().Append(AcrylicVisualWithBoundedCornerRadius{ border });
-        newChild.Children().Append(oldChild);
-
-        border.Child(newChild);
-
-        if (auto control = popupChild.try_as<winrt::Microsoft::UI::Xaml::Controls::Control>())
-        {
-            control.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
-        }
-        border.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
-
-        return true;
-    }
-
     void CalendarDatePickerHelper::acrylicWorkaroundChanged(
         winrt::Microsoft::UI::Xaml::DependencyObject const& object,
         winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg
     )
     {
-        auto value = winrt::unbox_value<bool>(arg.NewValue());
+        auto const value = winrt::unbox_value<bool>(arg.NewValue());
         if (!value)
             return;
 

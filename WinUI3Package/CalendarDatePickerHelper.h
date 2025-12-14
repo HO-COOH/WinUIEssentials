@@ -13,10 +13,6 @@ namespace winrt::WinUI3Package::implementation
     private:
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
-        static bool modifyFlyout(
-            winrt::Microsoft::UI::Xaml::DependencyObject const& popupChild
-        );
-
         static void acrylicWorkaroundChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& object,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg

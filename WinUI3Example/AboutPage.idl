@@ -19,5 +19,7 @@ namespace WinUI3Example
         );
 
 		Windows.Foundation.Collections.IVector<Object> Contributors{ get; };
+
+        Microsoft.UI.Xaml.Visibility IsLoadingContributors{ get; };
     }
 }

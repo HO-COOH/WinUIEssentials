@@ -65,6 +65,11 @@ namespace winrt::WinUI3Example::implementation
 		return m_contributors;
 	}
 
+	winrt::Microsoft::UI::Xaml::Visibility AboutPage::IsLoadingContributors()
+	{
+		return m_isLoadingContributors ? winrt::Microsoft::UI::Xaml::Visibility::Visible : winrt::Microsoft::UI::Xaml::Visibility::Collapsed;
+	}
+
 	winrt::fire_and_forget AboutPage::loadContributors()
 	{
 		try
@@ -87,7 +92,9 @@ namespace winrt::WinUI3Example::implementation
 				[](auto&& jsonObj) {return winrt::WinUI3Example::ContributorItem{ jsonObj.GetObjectW() }; }
 			);
 			m_contributors = winrt::single_threaded_vector(std::move(contributors));
+			m_isLoadingContributors = false;
 			raisePropertyChange(L"Contributors");
+			raisePropertyChange(L"IsLoadingContributors");
 			co_return;
 		}
 		catch (winrt::hresult_error const& e)
@@ -97,7 +104,16 @@ namespace winrt::WinUI3Example::implementation
 		catch (...)
 		{
 		}
+		m_isLoadingContributors = false;
+		raisePropertyChange(L"IsLoadingContributors");
 		winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"GetContributorFailed", false);
+	}
+
+	void winrt::WinUI3Example::implementation::AboutPage::Image_ImageOpened(
+		winrt::Windows::Foundation::IInspectable const& sender, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Parent().as<winrt::WinUI3Package::Shimmer>().IsLoading(false);
 	}
 
 }

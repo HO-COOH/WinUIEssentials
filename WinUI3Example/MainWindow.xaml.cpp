@@ -9,12 +9,6 @@
 #include <WebView2Helper.hpp>
 #include <HwndHelper.hpp>
 
-//#include <dwmapi.h>
-//#pragma comment(lib, "gdi32.lib")
-//#pragma comment(lib, "dwmapi.lib")
-//#include <../WinUI3Package/HwndHelper.hpp>
-
-
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -68,6 +62,16 @@ namespace winrt::WinUI3Example::implementation
 	void MainWindow::WindowEx_Activated(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args)
 	{
 		TitleBarTextBlock().Opacity(args.WindowActivationState() == winrt::Microsoft::UI::Xaml::WindowActivationState::Deactivated ? 0.5f : 1.0f);
+	}
+
+	void MainWindow::FooterMenuItemsHost_Loaded(
+		winrt::Windows::Foundation::IInspectable const& sender, 
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		auto itemsRepeater = sender.as<winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater>();
+		auto items = itemsRepeater.ItemsSource().as<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>();
+		auto settingsButton = items.GetAt(1).as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
+		settingsButton.Content(winrt::box_value(L"About"));
 	}
 
 }

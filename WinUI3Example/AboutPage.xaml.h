@@ -23,10 +23,14 @@ namespace winrt::WinUI3Example::implementation
 
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Contributors();
 
+        winrt::Microsoft::UI::Xaml::Visibility IsLoadingContributors();
     private:
+        bool m_isLoadingContributors = true;
         winrt::fire_and_forget loadContributors();
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_contributors{ nullptr };
+    public:
+        void Image_ImageOpened(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 
