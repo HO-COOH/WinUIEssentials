@@ -25,7 +25,7 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
-    <Style TargetType="local:Shimmer">
+    <Style x:Key="DefaultShimmerStyle" TargetType="local:Shimmer">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -52,4 +52,6 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style BasedOn="{StaticResource DefaultShimmerStyle}" TargetType="local:Shimmer" />
 </ResourceDictionary>

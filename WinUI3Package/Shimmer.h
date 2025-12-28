@@ -31,7 +31,7 @@ namespace winrt::WinUI3Package::implementation
 
         // IsLoading == false
         void loadContent();
-
+        
         
         static winrt::Microsoft::UI::Xaml::ResourceDictionary tryGetThemeResourceDictionaryFromResource(
             winrt::Microsoft::UI::Xaml::ResourceDictionary const& resource,

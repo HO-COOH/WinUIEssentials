@@ -2,7 +2,7 @@
 {
     [bindable]
     [default_interface]
-    runtimeclass Shimmer : Microsoft.UI.Xaml.Controls.ContentControl
+    unsealed runtimeclass Shimmer : Microsoft.UI.Xaml.Controls.ContentControl
     {
         Shimmer();
         

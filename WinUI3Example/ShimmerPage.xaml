@@ -22,7 +22,7 @@
                 <ToggleSwitch
                     x:Name="IsLoadingSwitch1"
                     Header="IsLoading: "
-                    IsOn="True" />
+                    IsOn="False" />
             </local:ControlExample.Options>
             <local:ControlExample.Xaml>
                 <local:CodeSource>

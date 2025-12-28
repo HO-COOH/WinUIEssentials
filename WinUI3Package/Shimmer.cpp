@@ -15,7 +15,12 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{
-				winrt::box_value(false)
+				winrt::box_value(false),
+				[](winrt::Microsoft::UI::Xaml::DependencyObject const& shimmer, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
+				{
+					auto self = winrt::get_self<Shimmer>(shimmer.as<WinUI3Package::Shimmer>());
+					winrt::unbox_value<bool>(args.NewValue()) ? self->loadShimmer() : self->loadContent();
+				}
 			}
 		);
 
@@ -27,7 +32,7 @@ namespace winrt::WinUI3Package::implementation
 	void Shimmer::IsLoading(bool value)
 	{
 		SetValue(IsLoadingProperty(), winrt::box_value(value));
-		value ? loadShimmer() : loadContent();
+		//value ? loadShimmer() : loadContent();
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty Shimmer::IsLoadingProperty()
@@ -115,7 +120,8 @@ namespace winrt::WinUI3Package::implementation
 			winrt::Microsoft::UI::Xaml::Markup::XamlMarkupHelper::UnloadObject(m_animationContainer);
 			m_animationContainer = nullptr;
 		}
-		m_presenter.Opacity(1.0);
+		if (m_presenter)
+			m_presenter.Opacity(1.0);
 	}
 
 	winrt::Microsoft::UI::Xaml::ResourceDictionary Shimmer::tryGetThemeResourceDictionaryFromResource(winrt::Microsoft::UI::Xaml::ResourceDictionary const& resource, winrt::Microsoft::UI::Xaml::ElementTheme theme)

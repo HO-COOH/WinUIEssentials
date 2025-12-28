@@ -312,6 +312,9 @@
     <Filter Include="Controls\GroupBox">
       <UniqueIdentifier>{8b0acd1f-86d3-45a7-afa9-9f5fb4907e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Helpers">
+      <UniqueIdentifier>{1e6dcb42-f11c-454a-ba47-4d5dc1735958}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Placeholder.idl" />
@@ -450,9 +453,6 @@
     <Midl Include="WindowContextMenu.idl">
       <Filter>Windows</Filter>
     </Midl>
-    <Midl Include="ComboBoxHelper.idl">
-      <Filter>Controls</Filter>
-    </Midl>
     <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">
       <Filter>Windows</Filter>
     </Midl>
@@ -463,17 +463,8 @@
     <Midl Include="WrapPanel.idl">
       <Filter>Controls</Filter>
     </Midl>
-    <Midl Include="AutoSuggestBoxHelper.idl">
-      <Filter>Controls</Filter>
-    </Midl>
     <Midl Include="ModalWindow.idl">
       <Filter>Windows</Filter>
-    </Midl>
-    <Midl Include="ToolTipHelper.idl">
-      <Filter>Controls</Filter>
-    </Midl>
-    <Midl Include="CommandBarHelper.idl">
-      <Filter>Controls</Filter>
     </Midl>
     <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
       <Filter>Windows</Filter>
@@ -484,17 +475,29 @@
     <Midl Include="NonMaximizableWindowWorkaround.idl">
       <Filter>Windows</Filter>
     </Midl>
-    <Midl Include="DatePickerHelper.idl">
-      <Filter>Controls</Filter>
-    </Midl>
-    <Midl Include="TimePickerHelper.idl">
-      <Filter>Controls</Filter>
-    </Midl>
-    <Midl Include="FlyoutHelper.idl">
-      <Filter>Controls</Filter>
+    <Midl Include="AutoSuggestBoxHelper.idl">
+      <Filter>Controls\Helpers</Filter>
     </Midl>
     <Midl Include="CalendarDatePickerHelper.idl">
-      <Filter>Controls</Filter>
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="ComboBoxHelper.idl">
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="CommandBarHelper.idl">
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="DatePickerHelper.idl">
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="FlyoutHelper.idl">
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="TimePickerHelper.idl">
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="ToolTipHelper.idl">
+      <Filter>Controls\Helpers</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
