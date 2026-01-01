@@ -377,6 +377,10 @@
       <DependentUpon>Editor.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="EffectToggleButton.xaml.h">
+      <DependentUpon>EffectToggleButton.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ElementThemeToStringConverter.h">
       <DependentUpon>ElementThemeToStringConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -560,6 +564,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="StoreUpdateChecker.h" />
+    <ClInclude Include="SystemBackdropType.h" />
     <ClInclude Include="TaskbarIconPage.xaml.h">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -637,6 +642,10 @@
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WindowBackgroundHelper.h">
+      <DependentUpon>WindowBackgroundHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WindowExPage.xaml.h">
       <DependentUpon>WindowExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -709,6 +718,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DependentValuePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EffectToggleButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EntranceAnimationDemo.xaml">
@@ -966,6 +978,10 @@
     </ClCompile>
     <ClCompile Include="Editor.cpp">
       <DependentUpon>Editor.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="EffectToggleButton.xaml.cpp">
+      <DependentUpon>EffectToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ElementThemeToStringConverter.cpp">
@@ -1230,6 +1246,10 @@
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WindowBackgroundHelper.cpp">
+      <DependentUpon>WindowBackgroundHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="WindowExPage.xaml.cpp">
       <DependentUpon>WindowExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1338,6 +1358,10 @@
     </Midl>
     <Midl Include="Editor.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="EffectToggleButton.idl">
+      <DependentUpon>EffectToggleButton.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="ElementThemeToStringConverter.idl">
       <SubType>Designer</SubType>
@@ -1576,6 +1600,9 @@
     <Midl Include="Win32TitleBar.idl">
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WindowBackgroundHelper.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowExPage.idl">
       <DependentUpon>WindowExPage.xaml</DependentUpon>

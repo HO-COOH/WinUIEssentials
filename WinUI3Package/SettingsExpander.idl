@@ -5,7 +5,7 @@
     [bindable]
     [default_interface]
     [contentproperty("Content")]
-    runtimeclass SettingsExpander : Microsoft.UI.Xaml.Controls.Control
+    unsealed runtimeclass SettingsExpander : Microsoft.UI.Xaml.Controls.Control
     {
         SettingsExpander();
 

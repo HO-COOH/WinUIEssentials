@@ -10,7 +10,7 @@
 
     [bindable]
     [default_interface]
-    runtimeclass SettingsCard : Microsoft.UI.Xaml.Controls.Primitives.ButtonBase
+    unsealed runtimeclass SettingsCard : Microsoft.UI.Xaml.Controls.Primitives.ButtonBase
     {
 
         SettingsCard();

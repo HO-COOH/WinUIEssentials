@@ -2,7 +2,7 @@
 {
     [Microsoft.UI.Xaml.Data.Bindable]
     [default_interface]
-    runtimeclass GroupBox : Microsoft.UI.Xaml.Controls.ContentControl
+    unsealed runtimeclass GroupBox : Microsoft.UI.Xaml.Controls.ContentControl
     {
         GroupBox();
 

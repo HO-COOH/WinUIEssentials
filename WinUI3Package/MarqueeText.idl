@@ -20,7 +20,7 @@
 
     [bindable]
     [default_interface]
-    runtimeclass MarqueeText : Microsoft.UI.Xaml.Controls.Control
+    unsealed runtimeclass MarqueeText : Microsoft.UI.Xaml.Controls.Control
     {
         MarqueeText();
         

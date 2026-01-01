@@ -230,6 +230,9 @@
     <Page Include="CalendarDatePickerWorkaroundPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="EffectToggleButton.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -309,6 +312,9 @@
     <Midl Include="IconButton.idl">
       <Filter>Pages\Experimental\IconButton</Filter>
     </Midl>
+    <Midl Include="WindowBackgroundHelper.idl">
+      <Filter>Helper</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -339,6 +345,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemBackdropType.h">
+      <Filter>Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

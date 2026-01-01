@@ -3,7 +3,7 @@
     [bindable]
     [default_interface]
     [contentproperty("Content")]
-    runtimeclass Case : Microsoft.UI.Xaml.DependencyObject
+    unsealed runtimeclass Case : Microsoft.UI.Xaml.DependencyObject
     {
         Case();
 

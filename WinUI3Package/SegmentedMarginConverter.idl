@@ -2,7 +2,7 @@
 {
     [bindable]
     [default_interface]
-    runtimeclass SegmentedMarginConverter : Microsoft.UI.Xaml.Data.IValueConverter
+    unsealed runtimeclass SegmentedMarginConverter : Microsoft.UI.Xaml.Data.IValueConverter
     {
         SegmentedMarginConverter();
 

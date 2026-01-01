@@ -1,0 +1,11 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass WindowBackgroundHelper : Microsoft.UI.Xaml.Controls.Control
+    {
+        WindowBackgroundHelper();
+
+        Microsoft.UI.Xaml.Window Window;
+    }
+}

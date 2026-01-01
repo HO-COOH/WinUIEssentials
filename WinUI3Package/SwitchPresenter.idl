@@ -6,7 +6,7 @@ namespace WinUI3Package
     [bindable]
     [contentproperty("SwitchCases")]
     [default_interface]
-    runtimeclass SwitchPresenter : Microsoft.UI.Xaml.Controls.ContentPresenter
+    unsealed runtimeclass SwitchPresenter : Microsoft.UI.Xaml.Controls.ContentPresenter
     {
         SwitchPresenter();
 

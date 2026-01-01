@@ -2,7 +2,7 @@
 {
     [bindable]
     [default_interface]
-    runtimeclass Segmented : Microsoft.UI.Xaml.Controls.ListViewBase
+    unsealed runtimeclass Segmented : Microsoft.UI.Xaml.Controls.ListViewBase
     {
         Segmented();
     }

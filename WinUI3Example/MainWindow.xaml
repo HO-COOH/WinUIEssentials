@@ -11,15 +11,11 @@
     Icon="Assets/MainLogo.ico"
     TitleBarAutoDarkMode="True"
     mc:Ignorable="d">
-    <essential:WindowEx.SystemBackdrop>
-        <essential:MicaBackdropWithFallback>
-            <essential:MicaBackdropWithFallback.Fallback>
-                <DesktopAcrylicBackdrop />
-            </essential:MicaBackdropWithFallback.Fallback>
-        </essential:MicaBackdropWithFallback>
-    </essential:WindowEx.SystemBackdrop>
 
     <Grid x:Name="RootGrid">
+        <Grid.BackgroundTransition>
+            <BrushTransition />
+        </Grid.BackgroundTransition>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -716,7 +712,7 @@
             </Style>
         </Grid.Resources>
         <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind}" />
-
+        <local:WindowBackgroundHelper x:Name="WindowBackgroundHelper" Window="{x:Bind}" />
         <Grid x:Name="AppTitleBar" Height="32">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="LeftPaddingColumn" Width="10" />
@@ -769,7 +765,10 @@
                     VerticalAlignment="Top" />
             </ScrollViewer>
             <NavigationView.FooterMenuItems>
-                <local:ThemeToggleButton Root="{x:Bind RootGrid}" />
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <local:ThemeToggleButton Root="{x:Bind RootGrid}" />
+                    <local:EffectToggleButton Window="{x:Bind WindowBackgroundHelper}" />
+                </StackPanel>
             </NavigationView.FooterMenuItems>
         </NavigationView>
 

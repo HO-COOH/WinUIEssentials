@@ -2,7 +2,7 @@
 {
     [bindable]
     [default_interface]
-    runtimeclass ProgressBarEx : Microsoft.UI.Xaml.Controls.ContentControl
+    unsealed runtimeclass ProgressBarEx : Microsoft.UI.Xaml.Controls.ContentControl
     {
         ProgressBarEx();
 

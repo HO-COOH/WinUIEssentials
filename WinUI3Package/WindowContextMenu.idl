@@ -3,7 +3,7 @@
     [bindable]
     [default_interface]
     [contentproperty("Menu")]
-    runtimeclass WindowContextMenu
+    unsealed runtimeclass WindowContextMenu
     {
         WindowContextMenu();
 

@@ -1,0 +1,12 @@
+import "WindowBackgroundHelper.idl";
+
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass EffectToggleButton : Microsoft.UI.Xaml.Controls.Button
+    {
+        EffectToggleButton();
+        
+        WindowBackgroundHelper Window;
+    }
+}

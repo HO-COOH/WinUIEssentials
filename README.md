@@ -118,6 +118,7 @@ You can reference Github Action for detailed build steps.
 |TimePickerHelper | :x: | :white_check_mark: | WinRT component
 |FlyoutHelper | :x: | :white_check_mark: | WinRT component
 |CalendarDatePickerHelper | :x: | :white_check_mark: | WinRT component
+|ModalWindow | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1136,3 +1137,21 @@ The WinUI3's built-in `TimePickerHelper` does not have Acrylic background. We fi
 |Before|After|
 |------|-----|
 |![](assets/calendardatepicker-original.png)|![](assets/calendardatepicker-fixed.png)|
+
+## ModalWindow
+A WinUI3 modal window (meaning that it has an owner window, and take its focus) that you can directly use in xaml, just like the good-ol `Window`.
+```xml
+<essential:ModalWindow
+    x:Class="WinUI3Example.SampleModalWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Sample Modal Window"
+    mc:Ignorable="d">
+
+    <TextBlock Text="This is a ModalWindow" />
+</essential:ModalWindow>
+```

@@ -2,7 +2,7 @@
 {
     [bindable]
     [default_interface]
-    runtimeclass CaseCollection : Microsoft.UI.Xaml.DependencyObjectCollection
+    unsealed runtimeclass CaseCollection : Microsoft.UI.Xaml.DependencyObjectCollection
     {
         CaseCollection();
     }

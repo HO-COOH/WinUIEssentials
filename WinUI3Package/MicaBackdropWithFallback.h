@@ -7,6 +7,7 @@ namespace winrt::WinUI3Package::implementation
     struct MicaBackdropWithFallback : MicaBackdropWithFallbackT<MicaBackdropWithFallback>
     {
         MicaBackdropWithFallback() = default;
+        MicaBackdropWithFallback(winrt::Microsoft::UI::Xaml::Media::SystemBackdrop const& fallback);
 
         winrt::Microsoft::UI::Xaml::Media::SystemBackdrop Fallback();
         void Fallback(winrt::Microsoft::UI::Xaml::Media::SystemBackdrop const& value);

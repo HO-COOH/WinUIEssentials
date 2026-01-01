@@ -499,6 +499,9 @@
     <Midl Include="ToolTipHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
+    <Midl Include="WindowBackgroundHelper.idl">
+      <Filter>Windows</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

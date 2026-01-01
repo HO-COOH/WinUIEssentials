@@ -2,7 +2,7 @@
 {
     [bindable]
     [default_interface]
-    runtimeclass EqualPanel : Microsoft.UI.Xaml.Controls.Panel
+    unsealed runtimeclass EqualPanel : Microsoft.UI.Xaml.Controls.Panel
     {
         EqualPanel();
 

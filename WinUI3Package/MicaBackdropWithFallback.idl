@@ -5,6 +5,7 @@
     runtimeclass MicaBackdropWithFallback : Microsoft.UI.Xaml.Media.MicaBackdrop
     {
         MicaBackdropWithFallback();
+        MicaBackdropWithFallback(Microsoft.UI.Xaml.Media.SystemBackdrop fallback);
         
         Microsoft.UI.Xaml.Media.SystemBackdrop Fallback;
     }
