@@ -6,7 +6,7 @@
 #include <WindowsAppSDK-VersionInfo.h>
 #include <winrt/Windows.System.h>
 #include <winrt/Windows.Web.Http.h>
-#include <winrt/Windows.Web.Http.Headers.h>
+#include "GithubRequest.h"
 #include <winrt/Windows.Data.Json.h>
 
 // To learn more about WinUI, the WinUI project structure,
@@ -17,6 +17,7 @@ namespace winrt::WinUI3Example::implementation
 	AboutPage::AboutPage()
 	{
 		loadContributors();
+		loadRepoInfos();
 	}
 
 	winrt::hstring AboutPage::WASDKReleaseVersion()
@@ -53,6 +54,21 @@ namespace winrt::WinUI3Example::implementation
 		) };
 	}
 
+	int AboutPage::Stars()
+	{
+		return m_repoInfo? m_repoInfo->Stars : 0;
+	}
+
+	int AboutPage::Forks()
+	{
+		return m_repoInfo? m_repoInfo->Forks : 0;
+	}
+
+	int AboutPage::Issues()
+	{
+		return m_repoInfo ? m_repoInfo->Issues : 0;
+	}
+
 	void AboutPage::SettingsCard_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
@@ -70,18 +86,17 @@ namespace winrt::WinUI3Example::implementation
 		return m_isLoadingContributors ? winrt::Microsoft::UI::Xaml::Visibility::Visible : winrt::Microsoft::UI::Xaml::Visibility::Collapsed;
 	}
 
+	bool AboutPage::IsLoadingRepoInfo()
+	{
+		return !m_repoInfo.has_value();
+	}
+
 	winrt::fire_and_forget AboutPage::loadContributors()
 	{
 		try
 		{
 			winrt::Windows::Web::Http::HttpClient client;
-			winrt::Windows::Web::Http::HttpRequestMessage message
-			{
-				winrt::Windows::Web::Http::HttpMethod::Get(),
-				winrt::Windows::Foundation::Uri{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials/contributors" }
-			};
-			message.Headers().Append(L"User-Agent", L"WinUI3ExampleApp");
-			auto result = co_await client.SendRequestAsync(message);
+			auto result = co_await client.SendRequestAsync(GithubRequest{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials/contributors" });
 			auto resultStr = co_await result.Content().ReadAsStringAsync();
 
 			auto contributorsJsonArray = winrt::Windows::Data::Json::JsonArray::Parse(resultStr);
@@ -107,6 +122,25 @@ namespace winrt::WinUI3Example::implementation
 		m_isLoadingContributors = false;
 		raisePropertyChange(L"IsLoadingContributors");
 		winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"GetContributorFailed", false);
+	}
+
+	winrt::fire_and_forget AboutPage::loadRepoInfos()
+	{
+		try
+		{
+			winrt::Windows::Web::Http::HttpClient client;
+			auto result = co_await client.SendRequestAsync(GithubRequest{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials" });
+			auto resultStr = co_await result.Content().ReadAsStringAsync();
+
+			m_repoInfo.emplace(winrt::Windows::Data::Json::JsonObject::Parse(resultStr));
+			raisePropertyChange(L"IsLoadingRepoInfo");
+			raisePropertyChange(L"Stars");
+			raisePropertyChange(L"Forks");
+			raisePropertyChange(L"Issues");
+		}
+		catch (...)
+		{
+		}
 	}
 
 	void winrt::WinUI3Example::implementation::AboutPage::Image_ImageOpened(

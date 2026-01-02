@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "AboutPage.g.h"
 #include "PropertyChangeHelper.hpp"
+#include "RepoInfo.h"
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -17,6 +18,11 @@ namespace winrt::WinUI3Example::implementation
             uint32_t majorMinor,
             winrt::hstring const& channel
         );
+
+        int Stars();
+        int Forks();
+        int Issues();
+
         void SettingsCard_Click(
             winrt::Windows::Foundation::IInspectable const& sender, 
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
@@ -24,9 +30,12 @@ namespace winrt::WinUI3Example::implementation
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Contributors();
 
         winrt::Microsoft::UI::Xaml::Visibility IsLoadingContributors();
+        bool IsLoadingRepoInfo();
     private:
+        std::optional<RepoInfo> m_repoInfo;
         bool m_isLoadingContributors = true;
         winrt::fire_and_forget loadContributors();
+        winrt::fire_and_forget loadRepoInfos();
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_contributors{ nullptr };
     public:

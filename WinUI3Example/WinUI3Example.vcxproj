@@ -418,6 +418,7 @@
       <DependentUpon>FontInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="GithubRequest.h" />
     <ClInclude Include="GlyphsPage.xaml.h">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -534,6 +535,7 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="RepoInfo.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SampleModalWindow.xaml.h">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
@@ -1021,6 +1023,7 @@
       <DependentUpon>FontInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="GithubRequest.cpp" />
     <ClCompile Include="GlyphsPage.xaml.cpp">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1140,6 +1143,7 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="RepoInfo.cpp" />
     <ClCompile Include="SampleModalWindow.xaml.cpp">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

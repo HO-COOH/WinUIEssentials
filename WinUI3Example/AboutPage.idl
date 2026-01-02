@@ -18,8 +18,13 @@ namespace WinUI3Example
             String channel
         );
 
+        Int32 Stars{ get; };
+        Int32 Forks{ get; };
+        Int32 Issues{ get; };
+
 		Windows.Foundation.Collections.IVector<Object> Contributors{ get; };
 
         Microsoft.UI.Xaml.Visibility IsLoadingContributors{ get; };
+        Boolean IsLoadingRepoInfo{ get; };
     }
 }

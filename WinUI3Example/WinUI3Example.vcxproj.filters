@@ -134,9 +134,6 @@
     <Page Include="ExtensionsPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="AboutPage.xaml">
-      <Filter>Helper</Filter>
-    </Page>
     <Page Include="ComboBoxHelperPage.xaml">
       <Filter>Pages\ComboBoxHelperPage</Filter>
     </Page>
@@ -232,6 +229,9 @@
     </Page>
     <Page Include="EffectToggleButton.xaml">
       <Filter>Helper</Filter>
+    </Page>
+    <Page Include="AboutPage.xaml">
+      <Filter>Helper\AboutPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +330,12 @@
     </ClCompile>
     <ClCompile Include="ExceptionDialog.cpp" />
     <ClCompile Include="StoreUpdateChecker.cpp" />
+    <ClCompile Include="GithubRequest.cpp">
+      <Filter>Helper\AboutPage</Filter>
+    </ClCompile>
+    <ClCompile Include="RepoInfo.cpp">
+      <Filter>Helper\AboutPage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -348,6 +354,12 @@
     </ClInclude>
     <ClInclude Include="SystemBackdropType.h">
       <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="GithubRequest.h">
+      <Filter>Helper\AboutPage</Filter>
+    </ClInclude>
+    <ClInclude Include="RepoInfo.h">
+      <Filter>Helper\AboutPage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -607,6 +619,9 @@
     </Filter>
     <Filter Include="Helper">
       <UniqueIdentifier>{38d542e5-574f-47f2-89db-a4fefca5f544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\AboutPage">
+      <UniqueIdentifier>{2ec57fb9-8c63-4648-b80b-38e5f8a98136}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

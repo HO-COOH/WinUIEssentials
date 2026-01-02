@@ -44,6 +44,8 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <essential:NegateBoolConverter x:Key="NegateBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
