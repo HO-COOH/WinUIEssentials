@@ -1,0 +1,24 @@
+﻿namespace WinUI3Package
+{
+
+    enum UnderlayCoverMode
+    {
+        ClientArea,
+        Full
+    };
+
+    enum UnderlayMode
+    {
+        None,
+        SmokeLayer,
+        SystemBackdrop
+    };
+
+    enum WindowedContentDialogSmokeLayerKind
+    {
+        None = 0,
+        Darken = 1,
+        Custom = -1
+    };
+
+}
