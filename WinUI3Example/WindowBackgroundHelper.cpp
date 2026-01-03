@@ -24,6 +24,7 @@ namespace winrt::WinUI3Example::implementation
 	void WindowBackgroundHelper::Window(winrt::Microsoft::UI::Xaml::Window const& value)
 	{
 		m_window = value;
+		SystemBackdrop(m_type);
 	}
 
 	void WindowBackgroundHelper::SystemBackdrop(SystemBackdropType type)
