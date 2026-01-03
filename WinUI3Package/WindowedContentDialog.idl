@@ -1,0 +1,77 @@
+﻿import "Underlay.idl";
+import "UnderlaySmokeLayerOptions.idl";
+import "UnderlaySystemBackdropOptions.idl";
+import "ContentDialogWindowButtonClickEventArgs.idl";
+import "ContentDialogWindow.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass WindowedContentDialog : Microsoft.UI.Xaml.Controls.Control
+    {
+        WindowedContentDialog();
+
+        void Close();
+
+        WinUI3Package.ContentDialogWindow GetDialogWindow();
+
+        void UpdateWindowSize();
+
+        Microsoft.UI.Xaml.Shapes.Rectangle SmokeLayerCache;
+        Microsoft.UI.Xaml.Controls.Border BackdropLayerCache;
+
+        Microsoft.UI.Xaml.Media.Imaging.BitmapImage HeaderImage{ get; set; };
+        String HeaderImageUri{ get; set; };
+
+        String WindowTitle;
+        Object Title;
+        Object Content;
+
+
+        Microsoft.UI.Xaml.Media.SystemBackdrop SystemBackdrop;
+
+        Microsoft.UI.Xaml.DataTemplate TitleTemplate;
+        Microsoft.UI.Xaml.DataTemplate ContentTemplate;
+        String PrimaryButtonText;
+        String SecondaryButtonText;
+        String CloseButtonText;
+        Boolean IsPrimaryButtonEnabled;
+        Boolean IsSecondaryButtonEnabled;
+        Microsoft.UI.Xaml.Controls.ContentDialogButton DefaultButton;
+
+        WinUI3Package.UnderlayMode Underlay;
+        WinUI3Package.UnderlaySystemBackdropOptions UnderlaySystemBackdrop;
+
+        Boolean CenterInParent;
+        Microsoft.UI.Xaml.Style PrimaryButtonStyle;
+        Microsoft.UI.Xaml.Style SecondaryButtonStyle;
+        Microsoft.UI.Xaml.Style CloseButtonStyle;
+        Microsoft.UI.Xaml.Window OwnerWindow;
+        Boolean HasTitleBar;
+        Boolean IsResizable;
+
+        Microsoft.UI.Xaml.FlowDirection ContentFlowDirection;
+
+        Double ContentMinWidth;
+
+
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> PrimaryButtonKeyboardAccelerators{ get; };
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> SecondaryButtonKeyboardAccelerators{ get; };
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> CloseButtonKeyboardAccelerators{ get; };
+
+
+        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, Object> Opened;
+        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, Microsoft.UI.Xaml.WindowEventArgs> Closed;
+
+        event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs> ContentRightTapped;
+
+        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, WinUI3Package.ContentDialogWindowButtonClickEventArgs> PrimaryButtonClick;
+        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, WinUI3Package.ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;
+        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, WinUI3Package.ContentDialogWindowButtonClickEventArgs> CloseButtonClick;
+
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Boolean isModal);
+
+    }
+}
