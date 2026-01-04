@@ -219,9 +219,6 @@
     <ClInclude Include="Shimmer.DefaultGradientColor.h">
       <Filter>Controls\Shimmer</Filter>
     </ClInclude>
-    <ClInclude Include="include\cppwinrt_utils.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="ContentDialogUtils.h">
       <Filter>Controls\WindowedContentDialog</Filter>
     </ClInclude>
@@ -573,5 +570,8 @@
     <Page Include="ContentDialogContent_Resource.xaml">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

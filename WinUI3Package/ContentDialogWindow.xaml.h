@@ -3,7 +3,6 @@
 #include "ContentDialogWindow.g.h"
 
 #include <winrt/Microsoft.UI.Windowing.h>
-#include "include/cppwinrt_utils.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -158,13 +157,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> SecondaryButtonKeyboardAccelerators();
 		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> CloseButtonKeyboardAccelerators();
 
-
-		//DEFINE_PROPERTY2(winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator>, PrimaryButtonKeyboardAccelerators);
-		//DEFINE_PROPERTY2(winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator>, SecondaryButtonKeyboardAccelerators);
-		//DEFINE_PROPERTY2(winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator>, CloseButtonKeyboardAccelerators);
-
-	//	DEFINE_PROPERTY2(Microsoft::UI::Xaml::Media::Imaging::BitmapImage, HeaderImage);
-		//DEFINE_PROPERTY(winrt::hstring, HeaderImageUri);
 
 
 	private:

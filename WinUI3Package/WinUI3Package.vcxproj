@@ -367,7 +367,6 @@
     <ClInclude Include="IconUtils.h" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
-    <ClInclude Include="include\cppwinrt_utils.h" />
     <ClInclude Include="include\DependentValue.h">
       <DependentUpon>include\DependentValue.idl</DependentUpon>
       <SubType>Code</SubType>
