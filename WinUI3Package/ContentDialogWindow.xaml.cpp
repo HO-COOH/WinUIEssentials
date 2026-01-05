@@ -122,7 +122,7 @@ namespace winrt::WinUI3Package::implementation
 
 			Closed(m_Closed);
 
-			if (_parent != nullptr) 	_parent.Closed(m_OnParentClosed);
+			if (m_parent != nullptr) 	m_parent.Closed(m_OnParentClosed);
 
 			WindowImage().ImageOpened(m_ImageOpened);
 
@@ -228,11 +228,11 @@ namespace winrt::WinUI3Package::implementation
 
 		if (_center)
 		{
-			if (_parent != nullptr)
+			if (m_parent != nullptr)
 			{
 				AppWindow().Move(Windows::Graphics::PointInt32(
-					_parent.AppWindow().Position().X + (_parent.AppWindow().Size().Width - AppWindow().Size().Width) / 2,
-					_parent.AppWindow().Position().Y + (_parent.AppWindow().Size().Height - AppWindow().Size().Height) / 2));
+					m_parent.AppWindow().Position().X + (m_parent.AppWindow().Size().Width - AppWindow().Size().Width) / 2,
+					m_parent.AppWindow().Position().Y + (m_parent.AppWindow().Size().Height - AppWindow().Size().Height) / 2));
 			}
 			else
 			{
@@ -347,8 +347,8 @@ namespace winrt::WinUI3Package::implementation
 
 	void ContentDialogWindow::OnClosingRequestedBySystem()
 	{
-		if (_parent) {
-			_parent.Activate();
+		if (m_parent) {
+			m_parent.Activate();
 			//_parent.Closed(m_OnParentClosed);
 		}
 		if (AppWindow()) AppWindow().Hide();
@@ -358,8 +358,8 @@ namespace winrt::WinUI3Package::implementation
 
 	void ContentDialogWindow::OnClosingRequstedByCode()
 	{
-		if (_parent) {
-			_parent.Activate();
+		if (m_parent) {
+			m_parent.Activate();
 			//_parent.Closed(m_OnParentClosed);
 		}
 
@@ -372,7 +372,7 @@ namespace winrt::WinUI3Package::implementation
 	{
 		//if (_parent != nullptr) _parent.Closed(m_OnParentClosed);
 
-		_parent = nullptr;
+		m_parent = nullptr;
 
 		//DispatcherQueue().TryEnqueue([&] {
 
@@ -489,25 +489,11 @@ namespace winrt::WinUI3Package::implementation
 	{
 		_center = center;
 
-		if (_parent == parent) return;
+		if (m_parent == parent) return;
 
-		if (_parent != nullptr) _parent.Closed(m_OnParentClosed);
-
-		_parent = parent;
-
-		if (_parent != nullptr) m_OnParentClosed = _parent.Closed({ this, &ContentDialogWindow::OnParentClosed });;
-
-		HWND ownerHwnd = parent ?
-			winrt::Microsoft::UI::GetWindowFromWindowId(parent.AppWindow().Id()) :
-			nullptr;
-		HWND ownedHwnd = GetWindowFromWindowId(AppWindow().Id());
-
-		if (ownedHwnd)
-		{
-			SetWindowLongPtr(ownedHwnd, -8, reinterpret_cast<LONG_PTR>(ownerHwnd));
-		}
-
-		_presenter.IsModal(parent && modal);
+		SetModal(parent);
+		m_parent.Closed(m_OnParentClosed);
+		m_OnParentClosed = m_parent.Closed({ this, &ContentDialogWindow::OnParentClosed });;
 	}
 
 	void ContentDialogWindow::Foreground(Microsoft::UI::Xaml::Media::Brush const& brush) {

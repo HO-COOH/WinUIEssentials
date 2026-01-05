@@ -3,10 +3,11 @@
 #include "ContentDialogWindow.g.h"
 
 #include <winrt/Microsoft.UI.Windowing.h>
+#include "ModalWindowBase.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-	struct ContentDialogWindow : ContentDialogWindowT<ContentDialogWindow>
+	struct ContentDialogWindow : ContentDialogWindowT<ContentDialogWindow>, ModalWindowBase<ContentDialogWindow>
 	{
 		ContentDialogWindow();
 		~ContentDialogWindow();
@@ -172,8 +173,6 @@ namespace winrt::WinUI3Package::implementation
 		//winrt::Windows::Foundation::IInspectable m_DialogContent{ nullptr };
 
 		Microsoft::UI::Windowing::OverlappedPresenter _presenter{ nullptr };
-
-		Microsoft::UI::Xaml::Window _parent{ nullptr };
 
 		bool _center;
 

@@ -420,6 +420,7 @@
       <DependentUpon>ModalWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ModalWindowBase.hpp" />
     <ClInclude Include="ModernStandardWindowContextMenu.xaml.h">
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
