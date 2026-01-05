@@ -219,6 +219,9 @@
     <ClInclude Include="Shimmer.DefaultGradientColor.h">
       <Filter>Controls\Shimmer</Filter>
     </ClInclude>
+    <ClInclude Include="ContentDialogUtils.h">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -314,6 +317,9 @@
     </Filter>
     <Filter Include="Controls\Helpers">
       <UniqueIdentifier>{1e6dcb42-f11c-454a-ba47-4d5dc1735958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog">
+      <UniqueIdentifier>{25cd8eb6-3fd6-476a-a500-4a3441f22f88}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -499,8 +505,26 @@
     <Midl Include="ToolTipHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
-    <Midl Include="WindowBackgroundHelper.idl">
-      <Filter>Windows</Filter>
+    <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </Midl>
+    <Midl Include="ContentDialogContent.idl">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </Midl>
+    <Midl Include="WinUIAsyncEventArgs.idl">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </Midl>
+    <Midl Include="Underlay.idl">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </Midl>
+    <Midl Include="UnderlaySmokeLayerOptions.idl">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </Midl>
+    <Midl Include="UnderlaySystemBackdropOptions.idl">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </Midl>
+    <Midl Include="WindowedContentDialog.idl">
+      <Filter>Controls\WindowedContentDialog</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -539,6 +563,12 @@
     </Page>
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
+    </Page>
+    <Page Include="ContentDialogWindow.xaml">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </Page>
+    <Page Include="ContentDialogContent_Resource.xaml">
+      <Filter>Controls\WindowedContentDialog</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

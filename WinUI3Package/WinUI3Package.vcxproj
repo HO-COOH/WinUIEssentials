@@ -293,6 +293,19 @@
       <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ContentDialogContent.h">
+      <DependentUpon>ContentDialogContent.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ContentDialogUtils.h" />
+    <ClInclude Include="ContentDialogWindow.xaml.h">
+      <DependentUpon>ContentDialogWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ContentDialogWindowButtonClickEventArgs.h">
+      <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ControlSizeTrigger.h">
       <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -407,6 +420,7 @@
       <DependentUpon>ModalWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ModalWindowBase.hpp" />
     <ClInclude Include="ModernStandardWindowContextMenu.xaml.h">
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -556,6 +570,14 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="UnderlaySmokeLayerOptions.h">
+      <DependentUpon>UnderlaySmokeLayerOptions.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="UnderlaySystemBackdropOptions.h">
+      <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="UnsupportedImageTypeError.hpp" />
     <ClInclude Include="UxThemeWrapper.h" />
     <ClInclude Include="VersionInfo.h">
@@ -571,11 +593,19 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="WindowContextMenuUtils.h" />
+    <ClInclude Include="WindowedContentDialog.h">
+      <DependentUpon>WindowedContentDialog.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WindowEx.h">
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="WindowsVersion.hpp" />
+    <ClInclude Include="WinUIAsyncEventArgs.h">
+      <DependentUpon>WinUIAsyncEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WinUIEssentialError.hpp" />
     <ClInclude Include="WrapPanel.h">
       <DependentUpon>WrapPanel.idl</DependentUpon>
@@ -617,6 +647,18 @@
     </ClCompile>
     <ClCompile Include="ContainerToBoolConverter.cpp">
       <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ContentDialogContent.cpp">
+      <DependentUpon>ContentDialogContent.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ContentDialogWindow.xaml.cpp">
+      <DependentUpon>ContentDialogWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ContentDialogWindowButtonClickEventArgs.cpp">
+      <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ControlSizeTrigger.cpp">
@@ -850,6 +892,14 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="UnderlaySmokeLayerOptions.cpp">
+      <DependentUpon>UnderlaySmokeLayerOptions.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="UnderlaySystemBackdropOptions.cpp">
+      <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="VersionInfo.cpp">
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -863,8 +913,16 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WindowContextMenuUtils.cpp" />
+    <ClCompile Include="WindowedContentDialog.cpp">
+      <DependentUpon>WindowedContentDialog.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="WindowEx.cpp">
       <DependentUpon>WindowEx.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="WinUIAsyncEventArgs.cpp">
+      <DependentUpon>WinUIAsyncEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WrapPanel.cpp">
@@ -905,6 +963,16 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ContainerToBoolConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ContentDialogContent.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ContentDialogWindow.idl">
+      <DependentUpon>ContentDialogWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ControlSizeTrigger.idl">
@@ -1069,6 +1137,13 @@
     <Midl Include="UIElementExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Underlay.idl" />
+    <Midl Include="UnderlaySmokeLayerOptions.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="UnderlaySystemBackdropOptions.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="VersionInfo.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1078,7 +1153,13 @@
     <Midl Include="WindowContextMenu.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="WindowedContentDialog.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="WindowEx.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="WinUIAsyncEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WrapPanel.idl">
@@ -1086,6 +1167,10 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ContentDialogContent_Resource.xaml" />
+    <Page Include="ContentDialogWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FlyoutWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

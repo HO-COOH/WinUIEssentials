@@ -1,0 +1,17 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ContentDialogWindowButtonClickEventArgs 
+    {
+        ContentDialogWindowButtonClickEventArgs();
+
+
+        Windows.Foundation.Deferral GetDeferral();
+
+        Windows.Foundation.IAsyncAction wait_for_deferrals();
+
+        Boolean Cancel{ get; set; };
+        Boolean Handled{ get; set; };
+    }
+}

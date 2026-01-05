@@ -1,0 +1,60 @@
+﻿import "ContentDialogWindowButtonClickEventArgs.idl";
+
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ContentDialogContent : Microsoft.UI.Xaml.Controls.ContentControl
+    {
+        ContentDialogContent();
+
+        void AfterGotFocus();
+        void AfterLostFocus();
+
+        Microsoft.UI.Xaml.UIElement TitleArea{ get; set; };
+        Microsoft.UI.Xaml.Controls.Grid DialogSpace{ get; set; };
+        Microsoft.UI.Xaml.Controls.Grid CommandSpace{ get; set; };
+
+        Object Title;
+        Microsoft.UI.Xaml.DataTemplate TitleTemplate;
+
+
+        Boolean IsHeaderImage;
+
+        String PrimaryButtonText;
+        String SecondaryButtonText;
+        String CloseButtonText;
+
+        Boolean IsPrimaryButtonEnabled;
+        Boolean IsSecondaryButtonEnabled;
+
+        Microsoft.UI.Xaml.Controls.ContentDialogButton DefaultButton;
+
+        Microsoft.UI.Xaml.Style PrimaryButtonStyle;
+        Microsoft.UI.Xaml.Style SecondaryButtonStyle;
+        Microsoft.UI.Xaml.Style CloseButtonStyle;
+
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> PrimaryButtonKeyboardAccelerators{ get; };
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> SecondaryButtonKeyboardAccelerators{ get; };
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> CloseButtonKeyboardAccelerators{ get; };
+
+
+        static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonTextProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonTextProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty CloseButtonTextProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty IsPrimaryButtonEnabledProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty DefaultButtonProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonStyleProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonStyleProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty CloseButtonStyleProperty{ get; };
+
+
+        event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs> ContentRightTapped;
+
+        event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> PrimaryButtonClick;
+        event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;
+        event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> CloseButtonClick;
+    }
+}
