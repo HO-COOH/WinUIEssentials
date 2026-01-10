@@ -219,6 +219,9 @@
     <ClInclude Include="Shimmer.DefaultGradientColor.h">
       <Filter>Controls\Shimmer</Filter>
     </ClInclude>
+    <ClInclude Include="include\LayoutUpdateAwaiter.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -498,9 +501,6 @@
     </Midl>
     <Midl Include="ToolTipHelper.idl">
       <Filter>Controls\Helpers</Filter>
-    </Midl>
-    <Midl Include="WindowBackgroundHelper.idl">
-      <Filter>Windows</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

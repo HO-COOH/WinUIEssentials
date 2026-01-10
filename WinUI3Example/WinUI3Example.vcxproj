@@ -171,7 +171,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj /Zc:__cplusplus</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -293,6 +293,7 @@
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ButtonAnimations.h" />
     <ClInclude Include="CalendarDatePickerWorkaroundPage.xaml.h">
       <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -317,6 +318,7 @@
       <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ComponentTag.h" />
     <ClInclude Include="ContributorItem.h">
       <DependentUpon>ContributorItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -900,6 +902,7 @@
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ButtonAnimations.cpp" />
     <ClCompile Include="CalendarDatePickerWorkaroundPage.xaml.cpp">
       <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>

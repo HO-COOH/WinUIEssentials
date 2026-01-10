@@ -336,6 +336,9 @@
     <ClCompile Include="RepoInfo.cpp">
       <Filter>Helper\AboutPage</Filter>
     </ClCompile>
+    <ClCompile Include="ButtonAnimations.cpp">
+      <Filter>Helper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -360,6 +363,12 @@
     </ClInclude>
     <ClInclude Include="RepoInfo.h">
       <Filter>Helper\AboutPage</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonAnimations.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTag.h">
+      <Filter>Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -363,6 +363,7 @@
     <ClInclude Include="include\Handler.hpp" />
     <ClInclude Include="include\HwndHelper.hpp" />
     <ClInclude Include="include\IInitializeWithWindowHelper.hpp" />
+    <ClInclude Include="include\LayoutUpdateAwaiter.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
     <ClInclude Include="include\ScopedButtonDisabler.hpp" />
     <ClInclude Include="include\Taskbar.hpp" />

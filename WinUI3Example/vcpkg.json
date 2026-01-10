@@ -1,6 +1,7 @@
-{
+﻿{
   "dependencies": [
     "boost-algorithm",
-    "boost-container"
+    "boost-container",
+    "boost-hana"
   ]
 }

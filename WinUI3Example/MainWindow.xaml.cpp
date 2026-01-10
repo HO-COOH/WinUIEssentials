@@ -8,6 +8,50 @@
 #endif
 #include <WebView2Helper.hpp>
 #include <HwndHelper.hpp>
+#include <wil/cppwinrt.h>
+#include <LayoutUpdateAwaiter.hpp>
+
+#include "ToastPage.xaml.h"
+#include "CursorControllerPage.xaml.h"
+#include "ConvertersPage.xaml.h"
+#include "BadgePage.xaml.h"
+#include "TaskbarPage.xaml.h"
+#include "TriggersPage.xaml.h"
+#include "GroupBoxPage.xaml.h"
+#include "SettingsCardPage.xaml.h"
+#include "SettingsExpanderPage.xaml.h"
+#include "DependentValuePage.xaml.h"
+#include "MarqueeTextPage.xaml.h"
+#include "GlyphsPage.xaml.h"
+#include "TitleBarPage.xaml.h"
+#include "ProgressBarExPage.xaml.h"
+#include "WindowExPage.xaml.h"
+#include "SegmentedPage.h"
+#include "UriPage.xaml.h"
+#include "BackdropPage.xaml.h"
+#include "ShimmerPage.xaml.h"
+#include "SwitchPresenterPage.xaml.h"
+#include "ExperimentPage.xaml.h"
+#include "TaskbarIconPage.xaml.h"
+#include "ThemeListenerPage.xaml.h"
+#include "ScopedButtonDisablerPage.xaml.h"
+#include "InitializeWithWindowHelperPage.xaml.h"
+#include "ModernStandardWindowContextMenuPage.xaml.h"
+#include "ExtensionsPage.xaml.h"
+#include "ComboBoxHelperPage.xaml.h"
+#include "WrapPanelPage.xaml.h"
+#include "AutoSuggestBoxHelperPage.xaml.h"
+#include "ModalWindowPage.xaml.h"
+#include "ToolTipHelperPage.xaml.h"
+#include "CommandBarHelperPage.xaml.h"
+#include "CaptionButtonThemeWorkaroundPage.xaml.h"
+#include "NonResizableWindowWhiteBorderWorkaroundPage.xaml.h"
+#include "NonMaximizableWindowWorkaroundPage.xaml.h"
+#include "DatePickerHelperPage.xaml.h"
+#include "TimePickerHelperPage.xaml.h"
+#include "FlyoutHelperPage.xaml.h"
+#include "CalendarDatePickerWorkaroundPage.xaml.h"
+
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -37,11 +81,37 @@ namespace winrt::WinUI3Example::implementation
 		if (args.IsSettingsSelected())
 		{
 			ContentFrame().Navigate(winrt::xaml_typename<WinUI3Example::AboutPage>());
+			ComponentsList().ItemsSource(nullptr);
 			return;
 		}
 
 		if (auto tag = args.SelectedItem().try_as<winrt::hstring>())
-			ContentFrame().Navigate(s_page[*tag]);
+		{
+			ContentFrame().Navigate(getPageType(*tag));
+			
+			// Check if the page type has a static Components member
+			bool componentsFound = false;
+			iteratePageType(*tag, [&](auto type)
+			{
+				using T = typename decltype(type)::type;
+				
+				// Check if T has a static Components member
+				if constexpr (requires { T::Components; })
+				{
+					std::vector<winrt::Windows::Foundation::IInspectable> componentsName;
+					boost::hana::for_each(T::Components, [&componentsName](auto const& item) {
+						componentsName.emplace_back(winrt::box_value(boost::hana::first(item)));
+					});
+					ComponentsList().ItemsSource(winrt::single_threaded_vector(std::move(componentsName)));
+					componentsFound = true;
+				}
+			});
+			
+			if (!componentsFound)
+			{
+				ComponentsList().ItemsSource(nullptr);
+			}
+		}
 	}
 
 	winrt::guid MainWindow::IconGuid()
@@ -72,6 +142,60 @@ namespace winrt::WinUI3Example::implementation
 		auto items = itemsRepeater.ItemsSource().as<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>();
 		auto settingsButton = items.GetAt(1).as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
 		settingsButton.Content(winrt::box_value(L"About"));
+	}
+
+    winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> MainWindow::Pages()
+    {
+        std::vector<winrt::Windows::Foundation::IInspectable> pages;
+        pages.reserve(static_cast<size_t>(boost::hana::value(boost::hana::size(s_page))));
+        boost::hana::for_each(s_page, [&](auto const& p)
+        {
+            pages.push_back(winrt::box_value(boost::hana::first(p)));
+        });
+        return winrt::single_threaded_vector(std::move(pages));
+    }
+
+    winrt::Windows::UI::Xaml::Interop::TypeName MainWindow::getPageType(winrt::hstring const& key)
+    {
+        winrt::Windows::UI::Xaml::Interop::TypeName result;
+        iteratePageType(key, [&](auto type)
+        {
+            using T = typename decltype(type)::type;
+            result = winrt::xaml_typename<typename T::class_type>();
+        });
+        return result;
+    }
+
+	winrt::Windows::Foundation::IAsyncAction MainWindow::MoreButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		auto target = PageSourceContentButton();
+		auto button = MoreButton();
+
+		button.IsHitTestVisible(false);
+		target.IsHitTestVisible(false);
+
+		button.ReleasePointerCaptures();
+		winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(button, L"Normal", false);
+		winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(target, L"Normal", false);
+
+		if (target.Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Collapsed)
+		{
+			target.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+			co_await LayoutUpdateAwaiter{ target };
+		}
+
+		m_sourceButtonAnimations.CreateForwardPass(button, target);
+		m_sourceButtonAnimations.Play();
+	}
+
+	void MainWindow::PageSourceContentButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+
+	}
+
+	winrt::Windows::Foundation::Uri MainWindow::GetXamlUrl(winrt::hstring const& name)
+	{
+		return winrt::Windows::Foundation::Uri{ std::format(L"https://github.com/HO-COOH/WinUIEssentials/blob/master/WinUI3Package/{}.xaml", name) };
 	}
 
 }

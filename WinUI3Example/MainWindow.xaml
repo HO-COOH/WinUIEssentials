@@ -751,19 +751,41 @@
                 essential:WindowEx.IsInteractive="True"
                 PlaceholderText="Search"
                 QueryIcon="Find" />-->
-
         </Grid>
         <NavigationView
             Grid.Row="1"
             MenuItemsSource="{x:Bind Pages}"
             SelectionChanged="NavigationView_SelectionChanged"
             Style="{StaticResource ModifiedNavigationViewStyle}">
-            <ScrollViewer>
-                <Frame
-                    x:Name="ContentFrame"
-                    Margin="10,10,20,10"
-                    VerticalAlignment="Top" />
-            </ScrollViewer>
+            <Grid>
+                <ScrollViewer>
+                    <Frame
+                        x:Name="ContentFrame"
+                        Margin="10,10,20,10"
+                        VerticalAlignment="Top" />
+                </ScrollViewer>
+
+                <Button
+                    x:Name="MoreButton"
+                    Width="50"
+                    Height="50"
+                    Margin="20"
+                    Padding="12"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    BorderThickness="0"
+                    Click="MoreButton_Click"
+                    CornerRadius="25"
+                    Style="{StaticResource AccentButtonStyle}">
+                    <Viewbox Margin="0,-2,0,0">
+                        <PathIcon Data="M1.293,11.293l4-4A1,1,0,1,1,6.707,8.707L3.414,12l3.293,3.293a1,1,0,1,1-1.414,1.414l-4-4A1,1,0,0,1,1.293,11.293Zm17.414-4a1,1,0,1,0-1.414,1.414L20.586,12l-3.293,3.293a1,1,0,1,0,1.414,1.414l4-4a1,1,0,0,0,0-1.414ZM13.039,4.726l-4,14a1,1,0,0,0,.686,1.236A1.053,1.053,0,0,0,10,20a1,1,0,0,0,.961-.726l4-14a1,1,0,1,0-1.922-.548Z" />
+                    </Viewbox>
+
+                </Button>
+
+
+            </Grid>
+
             <NavigationView.FooterMenuItems>
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <local:ThemeToggleButton Root="{x:Bind RootGrid}" />
@@ -771,6 +793,30 @@
                 </StackPanel>
             </NavigationView.FooterMenuItems>
         </NavigationView>
+
+        <Button
+            x:Name="PageSourceContentButton"
+            Grid.Row="1"
+            Padding="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="Red"
+            Click="PageSourceContentButton_Click"
+            Visibility="Collapsed">
+            <StackPanel Spacing="8">
+                <TextBlock Text="Page source: " />
+                <MenuFlyoutSeparator />
+                <TextBlock Text="Components" />
+                <ListView x:Name="ComponentsList" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <HyperlinkButton Content="{x:Bind}" NavigateUri="{x:Bind local:MainWindow.GetXamlUrl((x:String))}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Button>
+
 
         <ContentDialog
             x:Name="InstallWebView2Dialog"
