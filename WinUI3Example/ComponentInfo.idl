@@ -1,0 +1,11 @@
+﻿namespace WinUI3Example
+{
+    struct ComponentInfo
+    {
+        String Name;
+        Boolean Xaml;
+        Boolean Idl;
+        Boolean H;
+        Boolean Cpp;
+    };
+}

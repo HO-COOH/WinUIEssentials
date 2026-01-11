@@ -96,13 +96,9 @@ namespace winrt::WinUI3Example::implementation
 				using T = typename decltype(type)::type;
 				
 				// Check if T has a static Components member
-				if constexpr (requires { T::Components; })
+				if constexpr (requires { T::Components(); })
 				{
-					std::vector<winrt::Windows::Foundation::IInspectable> componentsName;
-					boost::hana::for_each(T::Components, [&componentsName](auto const& item) {
-						componentsName.emplace_back(winrt::box_value(boost::hana::first(item)));
-					});
-					ComponentsList().ItemsSource(winrt::single_threaded_vector(std::move(componentsName)));
+					ComponentsList().ItemsSource(winrt::single_threaded_vector(T::Components()));
 					componentsFound = true;
 				}
 			});

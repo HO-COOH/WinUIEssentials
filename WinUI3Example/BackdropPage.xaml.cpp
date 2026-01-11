@@ -56,6 +56,16 @@ namespace winrt::WinUI3Example::implementation
 		WinUI3Example::MicaBackdropWithFallbackWindow{}.Activate();
 	}
 
+	std::vector<winrt::Windows::Foundation::IInspectable> BackdropPage::Components()
+	{
+		return std::vector
+		{
+			winrt::box_value(winrt::WinUI3Example::ComponentInfo{.Name = L"CustomAcrylicBackdrop", .Xaml = false, .Idl = true, .H = true, .Cpp = true}),
+			winrt::box_value(winrt::WinUI3Example::ComponentInfo{.Name = L"CustomMicaBackdrop", .Xaml = false, .Idl = true, .H = true, .Cpp = true}),
+			winrt::box_value(winrt::WinUI3Example::ComponentInfo{.Name = L"MicaBackdropWithFallback", .Xaml = false, .Idl = true, .H = true, .Cpp = true})
+		};
+	}
+
 	//void winrt::WinUI3Example::implementation::BackdropPage::SwitchBackdropButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	//{
 	//	WinUI3Example::TestBackdropSwitch{}.Activate();

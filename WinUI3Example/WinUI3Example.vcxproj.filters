@@ -315,6 +315,9 @@
     <Midl Include="WindowBackgroundHelper.idl">
       <Filter>Helper</Filter>
     </Midl>
+    <Midl Include="ComponentInfo.idl">
+      <Filter>Helper</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -365,9 +368,6 @@
       <Filter>Helper\AboutPage</Filter>
     </ClInclude>
     <ClInclude Include="ButtonAnimations.h">
-      <Filter>Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentTag.h">
       <Filter>Helper</Filter>
     </ClInclude>
   </ItemGroup>

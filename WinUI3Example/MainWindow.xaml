@@ -809,8 +809,8 @@
                 <TextBlock Text="Components" />
                 <ListView x:Name="ComponentsList" SelectionMode="None">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="x:String">
-                            <HyperlinkButton Content="{x:Bind}" NavigateUri="{x:Bind local:MainWindow.GetXamlUrl((x:String))}" />
+                        <DataTemplate x:DataType="local:ComponentInfo">
+                            <HyperlinkButton Content="{x:Bind Name}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

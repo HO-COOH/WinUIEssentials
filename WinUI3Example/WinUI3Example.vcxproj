@@ -318,7 +318,6 @@
       <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ComponentTag.h" />
     <ClInclude Include="ContributorItem.h">
       <DependentUpon>ContributorItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1315,6 +1314,7 @@
       <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ComponentInfo.idl" />
     <Midl Include="ContributorItem.idl">
       <SubType>Designer</SubType>
     </Midl>
