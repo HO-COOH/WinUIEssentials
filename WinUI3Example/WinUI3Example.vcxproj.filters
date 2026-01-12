@@ -233,6 +233,9 @@
     <Page Include="AboutPage.xaml">
       <Filter>Helper\AboutPage</Filter>
     </Page>
+    <Page Include="NavigationViewHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

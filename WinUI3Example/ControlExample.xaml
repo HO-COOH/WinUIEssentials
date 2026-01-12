@@ -9,43 +9,40 @@
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <local:NullToVisibilityConverter x:Key="nullToVisibilityConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <StaticResource x:Key="ControlExampleDisplayBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
+                    <Thickness x:Key="ControlExampleDisplayBorderThickness">0</Thickness>
+                    <StaticResource x:Key="GalleryBackgroundBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
+                    <StaticResource x:Key="GalleryBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <StaticResource x:Key="ControlExampleDisplayBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
+                    <Thickness x:Key="ControlExampleDisplayBorderThickness">0</Thickness>
+                    <StaticResource x:Key="GalleryBackgroundBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
+                    <StaticResource x:Key="GalleryBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="ControlExampleDisplayBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                    <Thickness x:Key="ControlExampleDisplayBorderThickness">1</Thickness>
+                    <SolidColorBrush x:Key="GalleryBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                    <SolidColorBrush x:Key="GalleryBorderBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <Thickness x:Key="ControlElementScreenshotModePadding">67</Thickness>
+
+            <Style x:Key="GalleryTileGridStyle" TargetType="Grid">
+                <Setter Property="Background" Value="{ThemeResource GalleryBackgroundBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource GalleryBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid x:Name="rootGrid">
-        <Grid.Resources>
-            <ResourceDictionary>
-                <ResourceDictionary.ThemeDictionaries>
-                    <ResourceDictionary x:Key="Light">
-                        <StaticResource x:Key="ControlExampleDisplayBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
-                        <Thickness x:Key="ControlExampleDisplayBorderThickness">0</Thickness>
-                        <StaticResource x:Key="GalleryBackgroundBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
-                        <StaticResource x:Key="GalleryBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
-                    </ResourceDictionary>
-                    <ResourceDictionary x:Key="Dark">
-                        <StaticResource x:Key="ControlExampleDisplayBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
-                        <Thickness x:Key="ControlExampleDisplayBorderThickness">0</Thickness>
-                        <StaticResource x:Key="GalleryBackgroundBrush" ResourceKey="SolidBackgroundFillColorBaseBrush" />
-                        <StaticResource x:Key="GalleryBorderBrush" ResourceKey="CardStrokeColorDefaultBrush" />
-                    </ResourceDictionary>
-                    <ResourceDictionary x:Key="HighContrast">
-                        <SolidColorBrush x:Key="ControlExampleDisplayBrush" Color="{ThemeResource SystemColorWindowColor}" />
-                        <Thickness x:Key="ControlExampleDisplayBorderThickness">1</Thickness>
-                        <SolidColorBrush x:Key="GalleryBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
-                        <SolidColorBrush x:Key="GalleryBorderBrush" Color="{ThemeResource SystemColorWindowColor}" />
-                    </ResourceDictionary>
-                </ResourceDictionary.ThemeDictionaries>
-
-                <Thickness x:Key="ControlElementScreenshotModePadding">67</Thickness>
-
-                <Style x:Key="GalleryTileGridStyle" TargetType="Grid">
-                    <Setter Property="Background" Value="{ThemeResource GalleryBackgroundBrush}" />
-                    <Setter Property="BorderBrush" Value="{ThemeResource GalleryBorderBrush}" />
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
-                </Style>
-            </ResourceDictionary>
-        </Grid.Resources>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -79,7 +76,8 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <UserControl> <!-- This acts as a ThemeListener-->
+            <UserControl>
+                <!--  This acts as a ThemeListener  -->
                 <Grid
                     x:Name="ExampleContainer"
                     x:FieldModifier="Public"

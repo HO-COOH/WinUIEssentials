@@ -412,6 +412,10 @@
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NavigationViewHelper.h">
+      <DependentUpon>NavigationViewHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -709,6 +713,10 @@
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NavigationViewHelper.cpp">
+      <DependentUpon>NavigationViewHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="NegateBoolConverter.cpp">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -972,6 +980,9 @@
     <Midl Include="ModernStandardWindowContextMenu.idl">
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="NavigationViewHelper.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="NegateBoolConverter.idl">
       <SubType>Designer</SubType>

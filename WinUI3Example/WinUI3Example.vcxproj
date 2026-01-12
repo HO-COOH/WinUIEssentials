@@ -482,6 +482,10 @@
       <DependentUpon>NamedUrl.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NavigationViewHelperPage.xaml.h">
+      <DependentUpon>NavigationViewHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NonMaximizableWindowWithWorkaround.xaml.h">
       <DependentUpon>NonMaximizableWindowWithWorkaround.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -773,6 +777,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ModernStandardWindowContextMenuPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NavigationViewHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="NonMaximizableWindowWithWorkaround.xaml">
@@ -1086,6 +1093,10 @@
     </ClCompile>
     <ClCompile Include="NamedUrl.cpp">
       <DependentUpon>NamedUrl.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="NavigationViewHelperPage.xaml.cpp">
+      <DependentUpon>NavigationViewHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="NonMaximizableWindowWithWorkaround.xaml.cpp">
@@ -1462,6 +1473,10 @@
     </Midl>
     <Midl Include="NamedUrl.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="NavigationViewHelperPage.idl">
+      <DependentUpon>NavigationViewHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="NonMaximizableWindowWithWorkaround.idl">
       <DependentUpon>NonMaximizableWindowWithWorkaround.xaml</DependentUpon>

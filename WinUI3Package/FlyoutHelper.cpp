@@ -54,12 +54,13 @@ namespace winrt::WinUI3Package::implementation
 
 		if (!defaultStyle) return;
 
+		auto previousStyle = Flyout.FlyoutPresenterStyle();
 
 		winrt::Microsoft::UI::Xaml::Style transparentStyle{
 			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::FlyoutPresenter>()
 		};
 
-		transparentStyle.BasedOn(defaultStyle);
+		transparentStyle.BasedOn(previousStyle ? previousStyle : defaultStyle);
 		
 		transparentStyle.Setters().Append(
 			winrt::Microsoft::UI::Xaml::Setter(
@@ -71,6 +72,5 @@ namespace winrt::WinUI3Package::implementation
 		Flyout.FlyoutPresenterStyle(transparentStyle);
 		Flyout.ShouldConstrainToRootBounds(false);
 		Flyout.SystemBackdrop(Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop());
-
 	}
 }

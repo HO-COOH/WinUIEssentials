@@ -502,6 +502,9 @@
     <Midl Include="ToolTipHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
+    <Midl Include="NavigationViewHelper.idl">
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

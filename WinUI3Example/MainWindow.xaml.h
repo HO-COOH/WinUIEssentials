@@ -54,6 +54,7 @@ namespace winrt::WinUI3Example::implementation
     struct FlyoutHelperPage;
     struct CalendarDatePickerWorkaroundPage;
     struct SegmentedPage;
+	struct NavigationViewHelperPage;
 
     struct MainWindow : MainWindowT<MainWindow>
     {
@@ -123,7 +124,8 @@ namespace winrt::WinUI3Example::implementation
             boost::hana::make_pair(L"Uris", boost::hana::type_c<WinUI3Example::implementation::UriPage>),
             boost::hana::make_pair(L"WindowCaptionButtonThemeWorkaround", boost::hana::type_c<WinUI3Example::implementation::CaptionButtonThemeWorkaroundPage>),
             boost::hana::make_pair(L"WindowEx", boost::hana::type_c<WinUI3Example::implementation::WindowExPage>),
-            boost::hana::make_pair(L"WrapPanel", boost::hana::type_c<WinUI3Example::implementation::WrapPanelPage>)
+            boost::hana::make_pair(L"WrapPanel", boost::hana::type_c<WinUI3Example::implementation::WrapPanelPage>),
+			boost::hana::make_pair(L"NavigationViewHelper", boost::hana::type_c<WinUI3Example::implementation::NavigationViewHelperPage>)
         );
 
         static constexpr void iteratePageType(std::wstring_view key, auto&& onFound)

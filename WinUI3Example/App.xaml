@@ -46,6 +46,7 @@
             </Style>
 
             <essential:NegateBoolConverter x:Key="NegateBoolConverter" />
+            <local:NullToVisibilityConverter x:Key="nullToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
