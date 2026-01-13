@@ -1155,3 +1155,18 @@ A WinUI3 modal window (meaning that it has an owner window, and take its focus) 
     <TextBlock Text="This is a ModalWindow" />
 </essential:ModalWindow>
 ```
+
+## NavigationViewHelper
+The WinUI3's built-in `NavigationView` does not have Acrylic background with the dropdown menu and the overflow menu when it's at top. We fixed it for you. To use it, simply add `TimePickerHelper.AcrylicWorkaround="True"` as an attached property on your `NavigationView` when it has `PaneDisplayMode="Top"`.
+```xml
+<NavigationView
+    ...
+    essential:NavigationViewHelper.AcrylicWorkaround="True"
+    PaneDisplayMode="Top">
+
+    ...Other contents...
+</NavigationView>
+```
+|Before|After|
+|------|-----|
+|![](assets/navigationview-original.png)|![](assets/navigationview-fixed.png)|

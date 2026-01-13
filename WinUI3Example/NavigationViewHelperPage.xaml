@@ -48,7 +48,7 @@
                     <RadioButton
                         x:Name="nvSample8LeftCompact"
                         Checked="pane8PositionLeftCompact_Checked"
-                        Content="LeftCompact mode"/>
+                        Content="LeftCompact mode" />
                 </RadioButtons>
             </local:ControlExample.Options>
 
@@ -115,6 +115,76 @@
                 </NavigationView.MenuItems>
                 <Frame x:Name="contentFrame8" />
             </NavigationView>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;NavigationView
+    x:Name=&quot;nvSample8&quot;
+    Height=&quot;460&quot;
+    IsTabStop=&quot;False&quot;
+    PaneDisplayMode=&quot;Top&quot;&gt;
+    &lt;NavigationView.MenuItems&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Home&quot;
+            Icon=&quot;Home&quot;
+            Tag=&quot;SamplePage1&quot;
+            ToolTipService.ToolTip=&quot;Home&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Account&quot;
+            Icon=&quot;Contact&quot;
+            Tag=&quot;SamplePage2&quot;
+            ToolTipService.ToolTip=&quot;Account&quot;&gt;
+            &lt;NavigationViewItem.MenuItems&gt;
+                &lt;NavigationViewItem
+                    Content=&quot;Mail&quot;
+                    Icon=&quot;Mail&quot;
+                    Tag=&quot;SamplePage3&quot;
+                    ToolTipService.ToolTip=&quot;Mail&quot; /&gt;
+                &lt;NavigationViewItem
+                    Content=&quot;Calendar&quot;
+                    Icon=&quot;Calendar&quot;
+                    Tag=&quot;SamplePage4&quot;
+                    ToolTipService.ToolTip=&quot;Calendar&quot; /&gt;
+            &lt;/NavigationViewItem.MenuItems&gt;
+        &lt;/NavigationViewItem&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Document options&quot;
+            Icon=&quot;Page2&quot;
+            SelectsOnInvoked=&quot;False&quot;
+            ToolTipService.ToolTip=&quot;Document options&quot;&gt;
+            &lt;NavigationViewItem.MenuItems&gt;
+                &lt;NavigationViewItem
+                    Content=&quot;Create new&quot;
+                    Icon=&quot;NewFolder&quot;
+                    Tag=&quot;SamplePage5&quot;
+                    ToolTipService.ToolTip=&quot;Create new&quot; /&gt;
+                &lt;NavigationViewItem
+                    Content=&quot;Upload file&quot;
+                    Icon=&quot;OpenLocal&quot;
+                    Tag=&quot;SamplePage6&quot;
+                    ToolTipService.ToolTip=&quot;Upload file&quot; /&gt;
+            &lt;/NavigationViewItem.MenuItems&gt;
+        &lt;/NavigationViewItem&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Browse&quot;
+            Icon=&quot;Library&quot;
+            Tag=&quot;SamplePage1&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Track an Order&quot;
+            Icon=&quot;Map&quot;
+            Tag=&quot;SamplePage2&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Order History&quot;
+            Icon=&quot;Tag&quot;
+            Tag=&quot;SamplePage3&quot; /&gt;
+
+    &lt;/NavigationView.MenuItems&gt;
+    &lt;Frame x:Name=&quot;contentFrame8&quot; /&gt;
+&lt;/NavigationView&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Using NavigationViewHelper.AcrylicWorkaround, you got Acrylic">
@@ -123,7 +193,7 @@
                     <RadioButton
                         x:Name="nvSample9Left"
                         Checked="pane9PositionLeft_Checked"
-                        Content="Left mode"/>
+                        Content="Left mode" />
                     <RadioButton
                         x:Name="nvSample9Top"
                         Checked="pane9PositionTop_Checked"
@@ -131,7 +201,7 @@
                     <RadioButton
                         x:Name="nvSample9LeftCompact"
                         Checked="pane9PositionLeftCompact_Checked"
-                        Content="LeftCompact mode"/>
+                        Content="LeftCompact mode" />
                 </RadioButtons>
             </local:ControlExample.Options>
             <local:ControlExample.Resources>
@@ -216,6 +286,77 @@
                 </NavigationView.MenuItems>
                 <Frame x:Name="contentFrame9" />
             </NavigationView>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;NavigationView
+    x:Name=&quot;nvSample9&quot;
+    Height=&quot;460&quot;
+    essential:NavigationViewHelper.AcrylicWorkaround=&quot;True&quot;
+    IsTabStop=&quot;False&quot;
+    PaneDisplayMode=&quot;Top&quot;&gt;
+    &lt;NavigationView.MenuItems&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Home&quot;
+            Icon=&quot;Home&quot;
+            Tag=&quot;SamplePage1&quot;
+            ToolTipService.ToolTip=&quot;Home&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Account&quot;
+            Icon=&quot;Contact&quot;
+            Tag=&quot;SamplePage2&quot;
+            ToolTipService.ToolTip=&quot;Account&quot;&gt;
+            &lt;NavigationViewItem.MenuItems&gt;
+                &lt;NavigationViewItem
+                    Content=&quot;Mail&quot;
+                    Icon=&quot;Mail&quot;
+                    Tag=&quot;SamplePage3&quot;
+                    ToolTipService.ToolTip=&quot;Mail&quot; /&gt;
+                &lt;NavigationViewItem
+                    Content=&quot;Calendar&quot;
+                    Icon=&quot;Calendar&quot;
+                    Tag=&quot;SamplePage4&quot;
+                    ToolTipService.ToolTip=&quot;Calendar&quot; /&gt;
+            &lt;/NavigationViewItem.MenuItems&gt;
+        &lt;/NavigationViewItem&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Document options&quot;
+            Icon=&quot;Page2&quot;
+            SelectsOnInvoked=&quot;False&quot;
+            ToolTipService.ToolTip=&quot;Document options&quot;&gt;
+            &lt;NavigationViewItem.MenuItems&gt;
+                &lt;NavigationViewItem
+                    Content=&quot;Create new&quot;
+                    Icon=&quot;NewFolder&quot;
+                    Tag=&quot;SamplePage5&quot;
+                    ToolTipService.ToolTip=&quot;Create new&quot; /&gt;
+                &lt;NavigationViewItem
+                    Content=&quot;Upload file&quot;
+                    Icon=&quot;OpenLocal&quot;
+                    Tag=&quot;SamplePage6&quot;
+                    ToolTipService.ToolTip=&quot;Upload file&quot; /&gt;
+            &lt;/NavigationViewItem.MenuItems&gt;
+        &lt;/NavigationViewItem&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Browse&quot;
+            Icon=&quot;Library&quot;
+            Tag=&quot;SamplePage1&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Track an Order&quot;
+            Icon=&quot;Map&quot;
+            Tag=&quot;SamplePage2&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Order History&quot;
+            Icon=&quot;Tag&quot;
+            Tag=&quot;SamplePage3&quot; /&gt;
+
+    &lt;/NavigationView.MenuItems&gt;
+    &lt;Frame x:Name=&quot;contentFrame9&quot; /&gt;
+&lt;/NavigationView&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
     </StackPanel>
 

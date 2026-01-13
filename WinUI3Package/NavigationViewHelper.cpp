@@ -48,7 +48,7 @@ namespace winrt::WinUI3Package::implementation
 			auto button = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Button>(navigationView, L"TopNavOverflowButton");
 			auto flyout = button.Flyout().as<winrt::Microsoft::UI::Xaml::Controls::Flyout>();
 
-			auto newStyle = getStyle();
+			auto newStyle = getStyle(flyout.FlyoutPresenterStyle());
 
 			flyout.FlyoutPresenterStyle(newStyle);
 			flyout.Opening(&onFlyoutOpened);
@@ -93,33 +93,36 @@ namespace winrt::WinUI3Package::implementation
 		itemsRepeaterScrollHost.ScrollViewer().Background(nullptr);
 	}
 
-	winrt::Microsoft::UI::Xaml::Style NavigationViewHelper::getStyle()
+	winrt::Microsoft::UI::Xaml::Style NavigationViewHelper::getStyle(winrt::Microsoft::UI::Xaml::Style const& defaultNavigationViewFlyoutStyle)
 	{
+		//The original FlyoutPresenter style cannot be used directly, or it will not have acrylic, I tried.
+		//It must be based from the DefaultFlyoutPresenterStyle
+
 		winrt::Microsoft::UI::Xaml::Style newStyle
 		{
 			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::FlyoutPresenter>()
 		};
 
-
 		if (auto defaultFlyoutStyle = winrt::Microsoft::UI::Xaml::Application::Current().Resources().TryLookup(winrt::box_value(L"DefaultFlyoutPresenterStyle")))
 			newStyle.BasedOn(defaultFlyoutStyle.try_as<winrt::Microsoft::UI::Xaml::Style>());
 
-		newStyle.Setters().ReplaceAll({
-			winrt::Microsoft::UI::Xaml::Setter
+		auto setters = newStyle.Setters();
+
+		//Add back some original styles for consistency
+		for (auto setter : defaultNavigationViewFlyoutStyle.Setters())
+		{
+			if (auto targetProperty = setter.as<winrt::Microsoft::UI::Xaml::Setter>().Property();
+				targetProperty == winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty() ||
+				targetProperty == winrt::Microsoft::UI::Xaml::Controls::Control::PaddingProperty())
 			{
-				winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
-				winrt::box_value(winrt::Microsoft::UI::Xaml::CornerRadius{8, 8, 8, 8})
-			},
-			winrt::Microsoft::UI::Xaml::Setter
-			{
-				winrt::Microsoft::UI::Xaml::Controls::Control::PaddingProperty(),
-				winrt::box_value(winrt::Microsoft::UI::Xaml::Thickness{0, 2, 0, 2})
-			},
-			winrt::Microsoft::UI::Xaml::Setter
-			{
-				winrt::Microsoft::UI::Xaml::Controls::Control::BackgroundProperty(),
-				winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() }
-			} 
+				setters.Append(setter);
+			}
+		}
+
+		setters.Append(winrt::Microsoft::UI::Xaml::Setter
+		{
+			winrt::Microsoft::UI::Xaml::Controls::Control::BackgroundProperty(),
+			winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() }
 		});
 
 		return newStyle;

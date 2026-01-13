@@ -30,7 +30,7 @@ namespace winrt::WinUI3Package::implementation
             winrt::Windows::Foundation::IInspectable const&
         );
 
-        static winrt::Microsoft::UI::Xaml::Style getStyle();
+        static winrt::Microsoft::UI::Xaml::Style getStyle(winrt::Microsoft::UI::Xaml::Style const& defaultNavigationViewFlyoutStyle);
     };
 }
 
