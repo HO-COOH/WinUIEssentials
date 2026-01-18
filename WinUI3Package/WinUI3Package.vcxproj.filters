@@ -51,6 +51,9 @@
     <ClCompile Include="Shimmer.AnimationMember.cpp">
       <Filter>Controls\Shimmer</Filter>
     </ClCompile>
+    <ClCompile Include="RevealBrush.cpp">
+      <Filter>Controls\RevealFocus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -222,6 +225,9 @@
     <ClInclude Include="include\LayoutUpdateAwaiter.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="RevealBrush.h">
+      <Filter>Controls\RevealFocus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -317,6 +323,9 @@
     </Filter>
     <Filter Include="Controls\Helpers">
       <UniqueIdentifier>{1e6dcb42-f11c-454a-ba47-4d5dc1735958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\RevealFocus">
+      <UniqueIdentifier>{07cbeca9-02b9-4907-86bb-8c245f0f4577}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -504,6 +513,9 @@
     </Midl>
     <Midl Include="NavigationViewHelper.idl">
       <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="RevealFocusPanel.idl">
+      <Filter>Controls\RevealFocus</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

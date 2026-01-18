@@ -99,4 +99,12 @@ namespace winrt::WinUI3Example::implementation
 		}
 		args.Handled(true);
 	}
+
+	std::vector<winrt::Windows::Foundation::IInspectable> ComboBoxHelperPage::Components()
+	{
+		return std::vector
+		{
+			winrt::box_value(winrt::WinUI3Example::ComponentInfo{.Name = L"ComboBoxHelper", .Xaml = false, .Idl = true, .H = true, .Cpp = true})
+		};
+	}
 }

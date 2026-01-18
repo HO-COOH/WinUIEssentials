@@ -473,6 +473,11 @@
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="RevealBrush.h" />
+    <ClInclude Include="RevealFocusPanel.h">
+      <DependentUpon>RevealFocusPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ReverseConverterBase.hpp" />
     <ClInclude Include="Segmented.h">
       <DependentUpon>Segmented.idl</DependentUpon>
@@ -773,6 +778,11 @@
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="RevealBrush.cpp" />
+    <ClCompile Include="RevealFocusPanel.cpp">
+      <DependentUpon>RevealFocusPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Segmented.cpp">
       <DependentUpon>Segmented.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1018,6 +1028,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ReferenceToBoolConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="RevealFocusPanel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Segmented.idl">

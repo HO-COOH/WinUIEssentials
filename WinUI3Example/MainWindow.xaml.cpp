@@ -52,6 +52,7 @@
 #include "FlyoutHelperPage.xaml.h"
 #include "CalendarDatePickerWorkaroundPage.xaml.h"
 #include "NavigationViewHelperPage.xaml.h"
+#include "RevealFocusPage.xaml.h"
 
 
 // To learn more about WinUI, the WinUI project structure,

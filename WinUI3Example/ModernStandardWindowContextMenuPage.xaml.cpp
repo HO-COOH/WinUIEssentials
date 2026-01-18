@@ -42,4 +42,12 @@ namespace winrt::WinUI3Example::implementation
 		winrt::WinUI3Example::WindowWithCustomMenu{}.Activate();
 	}
 
+	std::vector<winrt::Windows::Foundation::IInspectable> ModernStandardWindowContextMenuPage::Components()
+	{
+		return std::vector
+		{
+			winrt::box_value(winrt::WinUI3Example::ComponentInfo{.Name = L"ModernStandardWindowContextMenu", .Xaml = true, .Idl = true, .H = true, .Cpp = true}),
+			winrt::box_value(winrt::WinUI3Example::ComponentInfo{.Name = L"WindowContextMenu", .Xaml = false, .Idl = true, .H = true, .Cpp = true}),
+		};
+	}
 }

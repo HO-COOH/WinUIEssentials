@@ -22,6 +22,8 @@ namespace winrt::WinUI3Example::implementation
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> FontSizes();
         static double GetDoubleFromComboBox(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::Microsoft::UI::Xaml::Media::FontFamily GetFontFamilyFromComboBox(winrt::Windows::Foundation::IInspectable const& value);
+
+		static std::vector<winrt::Windows::Foundation::IInspectable> Components();
     private:
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_fonts
             = winrt::single_threaded_vector(

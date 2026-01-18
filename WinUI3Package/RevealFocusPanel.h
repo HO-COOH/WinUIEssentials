@@ -1,0 +1,59 @@
+﻿#pragma once
+
+#include "RevealFocusPanel.g.h"
+#include <winrt/Microsoft.UI.Composition.h>
+
+namespace winrt::WinUI3Package::implementation
+{
+    struct RevealFocusPanel : RevealFocusPanelT<RevealFocusPanel>
+    {
+        RevealFocusPanel();
+
+		static winrt::Microsoft::UI::Xaml::DependencyProperty AttachToPanelProperty();
+		static void SetAttachToPanel(
+            winrt::Microsoft::UI::Xaml::FrameworkElement const& element, 
+            winrt::WinUI3Package::RevealFocusPanel const& panel
+        );
+        static winrt::WinUI3Package::RevealFocusPanel GetAttachToPanel(
+            winrt::Microsoft::UI::Xaml::FrameworkElement const& element
+        );
+    private:
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_attachToPanelProperty;
+        static void onAttachToPanelChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& d,
+            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+
+        void createResourcesIfNeeded();
+
+        void onUpdateMousePosition(
+            winrt::Windows::Foundation::IInspectable const& sender,
+            winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& args
+        );
+
+        winrt::Microsoft::UI::Composition::Compositor m_compositor{ nullptr };
+        winrt::Microsoft::UI::Composition::CompositionPropertySet m_globalPropertySet{ nullptr };
+        winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_opacityForwardAnimation{ nullptr };
+        winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_opacityBackwardAnimation{ nullptr };
+        winrt::Microsoft::UI::Composition::Vector2KeyFrameAnimation m_revealBrushRadiusForwardAnimation{ nullptr };
+		winrt::Microsoft::UI::Composition::Vector2KeyFrameAnimation m_revealBrushRadiusBackwardAnimation{ nullptr };
+
+        //The same ExpressionAnimation can be used on multiple objects after you set its parameter
+        winrt::Microsoft::UI::Composition::ExpressionAnimation m_hostVisualSizeExpressionAnimation{ nullptr };
+        winrt::Microsoft::UI::Composition::ExpressionAnimation m_borderGeometrySizeExpressionAnimation{ nullptr };
+        winrt::Microsoft::UI::Composition::ExpressionAnimation m_ellipseCenterExpressionAnimation{ nullptr };
+
+        constexpr static auto hostVisualSizeExpression = L"hostVisual.Size";
+        constexpr static auto borderGeometrySizeExpression = L"hostVisual.Size - Vector2(strokeWidth, strokeWidth)";
+        constexpr static auto ellipseCenterExpression = L"globalProperty.MousePosition - localProperty.elementPosition";
+
+        constexpr static winrt::Windows::Foundation::Numerics::float2 InitialMousePosition{ (std::numeric_limits<float>::max)(), (std::numeric_limits<float>::max)() };
+    };
+}
+
+namespace winrt::WinUI3Package::factory_implementation
+{
+    struct RevealFocusPanel : RevealFocusPanelT<RevealFocusPanel, implementation::RevealFocusPanel>
+    {
+    };
+}

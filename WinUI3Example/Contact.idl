@@ -1,0 +1,14 @@
+﻿namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass Contact 
+    {
+        Contact(String firstName, String lastName, String company);
+
+        String FirstName{ get; };
+        String LastName{ get; };
+        String Company{ get; };
+        String Name{ get; };
+    }
+}

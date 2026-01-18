@@ -1,0 +1,9 @@
+﻿namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass RevealFocusPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        RevealFocusPage();
+        WinUI3Package.RevealFocusPanel ListViewRevealFocusPanel{ get; };
+    }
+}

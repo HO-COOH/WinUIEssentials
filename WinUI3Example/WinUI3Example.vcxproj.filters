@@ -236,6 +236,9 @@
     <Page Include="NavigationViewHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="RevealFocusPage.xaml">
+      <Filter>Pages\RevealFocusPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -320,6 +323,9 @@
     </Midl>
     <Midl Include="ComponentInfo.idl">
       <Filter>Helper</Filter>
+    </Midl>
+    <Midl Include="Contact.idl">
+      <Filter>Pages\RevealFocusPage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -634,6 +640,9 @@
     </Filter>
     <Filter Include="Helper\AboutPage">
       <UniqueIdentifier>{2ec57fb9-8c63-4648-b80b-38e5f8a98136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\RevealFocusPage">
+      <UniqueIdentifier>{77f71352-8092-4f37-8e50-58c06b1417df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

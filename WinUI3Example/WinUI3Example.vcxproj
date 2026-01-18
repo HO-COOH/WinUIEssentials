@@ -318,6 +318,10 @@
       <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Contact.h">
+      <DependentUpon>Contact.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ContributorItem.h">
       <DependentUpon>ContributorItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -543,6 +547,10 @@
     </ClInclude>
     <ClInclude Include="RepoInfo.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RevealFocusPage.xaml.h">
+      <DependentUpon>RevealFocusPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SampleModalWindow.xaml.h">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -809,6 +817,9 @@
     <Page Include="ProgressBarExPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="RevealFocusPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SampleModalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -931,6 +942,10 @@
     </ClCompile>
     <ClCompile Include="CommandBarHelperPage.xaml.cpp">
       <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Contact.cpp">
+      <DependentUpon>Contact.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ContributorItem.cpp">
@@ -1158,6 +1173,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="RepoInfo.cpp" />
+    <ClCompile Include="RevealFocusPage.xaml.cpp">
+      <DependentUpon>RevealFocusPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SampleModalWindow.xaml.cpp">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1326,6 +1345,9 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ComponentInfo.idl" />
+    <Midl Include="Contact.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ContributorItem.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1521,6 +1543,10 @@
     </Midl>
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="RevealFocusPage.idl">
+      <DependentUpon>RevealFocusPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="SampleModalWindow.idl">
