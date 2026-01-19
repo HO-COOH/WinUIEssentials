@@ -4,7 +4,6 @@
 #include "RevealFocusPanel.g.cpp"
 #endif
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
-#include "RevealBrush.h"
 #include <winrt/Microsoft.UI.Xaml.Input.h>
 #include <winrt/Microsoft.UI.Input.h>
 
@@ -25,6 +24,10 @@ namespace winrt::WinUI3Package::implementation
 	{
         m_compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
         Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
+
+        // Create a Canvas for overlays that sits behind all other content (ZIndex = -1)
+        winrt::Microsoft::UI::Xaml::Controls::Canvas::SetZIndex(m_overlayCanvas, -1);
+        Children().Append(m_overlayCanvas);
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::AttachToPanelProperty()
@@ -57,28 +60,33 @@ namespace winrt::WinUI3Package::implementation
         //create border geometry
         auto child = d.as<winrt::Microsoft::UI::Xaml::UIElement>();
         auto elementVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(child);
-        auto m_roundedRectangleGeometry = revealFocusPanel->m_compositor.CreateRoundedRectangleGeometry();
+
+        auto borderGeometry = revealFocusPanel->m_compositor.CreateRoundedRectangleGeometry();
+        auto overlayGeometry = revealFocusPanel->m_compositor.CreateRoundedRectangleGeometry();
 
         // Adjust size to account for stroke being centered (inset by half stroke thickness)
         float const strokeThickness = 1.0f;
         float const halfStroke = strokeThickness / 2.0f;
         revealFocusPanel->m_borderGeometrySizeExpressionAnimation.SetReferenceParameter(L"hostVisual", elementVisual);
         revealFocusPanel->m_borderGeometrySizeExpressionAnimation.SetScalarParameter(L"strokeWidth", strokeThickness);
-        m_roundedRectangleGeometry.StartAnimation(L"Size", revealFocusPanel->m_borderGeometrySizeExpressionAnimation);
+        borderGeometry.StartAnimation(L"Size", revealFocusPanel->m_borderGeometrySizeExpressionAnimation);
 
-        if (auto hasCornerRadius = child.try_as<winrt::Microsoft::UI::Xaml::Controls::Control>())
+        //set CornerRadius if child has such property
+        winrt::Microsoft::UI::Xaml::CornerRadius cornerRadius{ -1 };
+        if (auto control = child.try_as<winrt::Microsoft::UI::Xaml::Controls::Control>())
+            cornerRadius = control.CornerRadius();
+        else if (auto contentPresenter = child.try_as<winrt::Microsoft::UI::Xaml::Controls::ContentPresenter>())
+            cornerRadius = contentPresenter.CornerRadius();
+        if (cornerRadius.TopLeft != -1)
         {
-            auto const cornerRadius = hasCornerRadius.CornerRadius();
-            // Subtract half stroke to keep corner radius aligned
-            float adjustedRadius = (std::max)(0.0f, static_cast<float>(cornerRadius.TopLeft) - halfStroke);
-            m_roundedRectangleGeometry.CornerRadius({ adjustedRadius, adjustedRadius });
+            float const adjustedRadius = (std::max)(0.0f, static_cast<float>(cornerRadius.TopLeft) - halfStroke);
+            borderGeometry.CornerRadius({ adjustedRadius, adjustedRadius });
+            overlayGeometry.CornerRadius({ static_cast<float>(cornerRadius.TopLeft), static_cast<float>(cornerRadius.TopLeft) });
         }
-        m_roundedRectangleGeometry.Offset({ halfStroke, halfStroke });
 
-        RevealBrush brush{ revealFocusPanel->m_compositor };
-        auto borderShape = revealFocusPanel->m_compositor.CreateSpriteShape(m_roundedRectangleGeometry);
+        borderGeometry.Offset({ halfStroke, halfStroke });
+        auto borderShape = revealFocusPanel->m_compositor.CreateSpriteShape(borderGeometry);
         borderShape.StrokeThickness(strokeThickness);
-        borderShape.StrokeBrush(brush);
 
         auto borderVisual = revealFocusPanel->m_compositor.CreateShapeVisual();
         borderVisual.Shapes().Append(borderShape);
@@ -88,40 +96,40 @@ namespace winrt::WinUI3Package::implementation
 
         auto localProperty = revealFocusPanel->m_compositor.CreatePropertySet();
         localProperty.InsertVector2(L"elementPosition", {});
-        revealFocusPanel->m_ellipseCenterExpressionAnimation.SetReferenceParameter(L"localProperty", localProperty);
-
 
         child.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().LayoutUpdated([localProperty, child, panel](auto&&...) {
             auto transform = child.TransformToVisual(panel).TransformPoint({});
             localProperty.InsertVector2(L"elementPosition", transform);
         });
 
+        //create brush
+        revealFocusPanel->m_ellipseCenterExpressionAnimation.SetReferenceParameter(L"localProperty", localProperty);
+        RevealBrush revealBrush{ revealFocusPanel->m_compositor };
+        revealBrush.StartAnimation(L"EllipseCenter", revealFocusPanel->m_ellipseCenterExpressionAnimation);
 
-        brush.StartAnimation(L"EllipseCenter", revealFocusPanel->m_ellipseCenterExpressionAnimation);
+        borderShape.StrokeBrush(revealBrush);
 
-
-        // Create separate geometry for overlay fill (no inset needed for fill)
-        auto overlayGeometry = revealFocusPanel->m_compositor.CreateRoundedRectangleGeometry();
+        //overlay, the highlight when cursor is inside the control
         revealFocusPanel->m_hostVisualSizeExpressionAnimation.SetReferenceParameter(L"hostVisual", elementVisual);
         overlayGeometry.StartAnimation(L"Size", revealFocusPanel->m_hostVisualSizeExpressionAnimation);
-        if (auto hasCornerRadius = child.try_as<winrt::Microsoft::UI::Xaml::Controls::Control>())
-        {
-            auto const cornerRadius = hasCornerRadius.CornerRadius();
-            overlayGeometry.CornerRadius({ static_cast<float>(cornerRadius.TopLeft), static_cast<float>(cornerRadius.TopLeft) });
-        }
-
         auto overlayShape = revealFocusPanel->m_compositor.CreateSpriteShape(overlayGeometry);
-        overlayShape.FillBrush(brush);
+        overlayShape.FillBrush(revealBrush);
         auto overlayVisual = revealFocusPanel->m_compositor.CreateShapeVisual();
         overlayVisual.Shapes().Append(overlayShape);
         overlayVisual.StartAnimation(L"Size", revealFocusPanel->m_hostVisualSizeExpressionAnimation);
         overlayVisual.Opacity(0.f);
 
-        auto container = revealFocusPanel->m_compositor.CreateContainerVisual();
-        container.StartAnimation(L"Size", revealFocusPanel->m_hostVisualSizeExpressionAnimation);
-        auto visuals = container.Children();
-        visuals.InsertAtTop(borderVisual);
-        visuals.InsertAtBottom(overlayVisual);
+        // Position the overlay at the element's location within the panel
+        auto offsetExpression = revealFocusPanel->m_compositor.CreateExpressionAnimation(L"localProperty.elementPosition");
+        offsetExpression.SetReferenceParameter(L"localProperty", localProperty);
+        overlayVisual.StartAnimation(L"Offset.XY", offsetExpression);
+        borderVisual.StartAnimation(L"Offset.XY", offsetExpression);
+
+        // Add overlay to panel's overlay container (renders at panel level, behind XAML children)
+        auto overlayVisuals = revealFocusPanel->m_overlayContainer.Children();
+        overlayVisuals.InsertAtTop(overlayVisual);
+        overlayVisuals.InsertAtTop(borderVisual);
+        
 
         child.PointerEntered([overlayVisual, revealFocusPanel](auto&&...) {
             overlayVisual.StartAnimation(L"Opacity", revealFocusPanel->m_opacityForwardAnimation);
@@ -133,9 +141,9 @@ namespace winrt::WinUI3Package::implementation
         child.AddHandler(
             winrt::Microsoft::UI::Xaml::UIElement::PointerPressedEvent(),
             winrt::box_value(winrt::Microsoft::UI::Xaml::Input::PointerEventHandler{ 
-                [revealFocusPanel, brush](auto&&...)
+                [revealBrush, revealFocusPanel](auto&&...)
                 {
-                    brush.StartAnimation(L"EllipseRadius", revealFocusPanel->m_revealBrushRadiusForwardAnimation);
+                    revealBrush.StartAnimation(L"EllipseRadius", revealFocusPanel->m_revealBrushRadiusForwardAnimation);
                 }     
             }),
             true
@@ -144,15 +152,14 @@ namespace winrt::WinUI3Package::implementation
         child.AddHandler(
             winrt::Microsoft::UI::Xaml::UIElement::PointerReleasedEvent(),
             winrt::box_value(winrt::Microsoft::UI::Xaml::Input::PointerEventHandler{
-                [revealFocusPanel, brush](auto&&...)
+                [revealBrush, revealFocusPanel](auto&&...)
                 {
-                    brush.StartAnimation(L"EllipseRadius", revealFocusPanel->m_revealBrushRadiusBackwardAnimation);
+                    revealBrush.StartAnimation(L"EllipseRadius", revealFocusPanel->m_revealBrushRadiusBackwardAnimation);
                 }
-                }),
+            }),
             true
         );
 
-        winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(child, container);
 	}
 
 	void RevealFocusPanel::createResourcesIfNeeded()
@@ -181,12 +188,23 @@ namespace winrt::WinUI3Package::implementation
         m_ellipseCenterExpressionAnimation = m_compositor.CreateExpressionAnimation(ellipseCenterExpression);
         m_ellipseCenterExpressionAnimation.SetReferenceParameter(L"globalProperty", m_globalPropertySet);
 
+        // Create overlay container and attach to the overlay canvas (which has ZIndex = -1)
+        // This ensures overlays render behind other Grid children
+        m_overlayContainer = m_compositor.CreateContainerVisual();
+        winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(m_overlayCanvas, m_overlayContainer);
+
         PointerEntered({ this, &RevealFocusPanel::onUpdateMousePosition });
         PointerMoved({this, &RevealFocusPanel::onUpdateMousePosition});
 
         PointerExited([this](auto const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& args) {
             m_globalPropertySet.InsertVector2(L"MousePosition", InitialMousePosition);
         });
+
+        auto panelVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this);
+        auto sizeExpression = m_compositor.CreateExpressionAnimation(L"panelVisual.Size");
+        sizeExpression.SetReferenceParameter(L"panelVisual", panelVisual);
+        m_overlayContainer.StartAnimation(L"Size", sizeExpression);
+        m_overlayContainer.Clip(m_compositor.CreateInsetClip());
 	}
 
     void RevealFocusPanel::onUpdateMousePosition(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& args)

@@ -10,27 +10,74 @@
     mc:Ignorable="d">
 
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
+        <InfoBar
+            IsClosable="False"
+            IsOpen="True"
+            Message="This is still a demo and highly experimental. It's not in the package yet!"
+            Severity="Warning" />
         <local:ControlExample HeaderText="RevealFocus basic example">
-            <essential:RevealFocusPanel x:Name="RevealFocusPanel" Height="500">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel.Resources>
-                        <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
-                            <Setter Property="Width" Value="100" />
-                            <Setter Property="Height" Value="100" />
-                            <Setter Property="VerticalAlignment" Value="Top" />
-                            <Setter Property="CornerRadius" Value="4" />
-                            <Setter Property="Margin" Value="10" />
-                        </Style>
-                    </StackPanel.Resources>
-                    <Button essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}" Content="Button 1" />
-                    <Button essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}" Content="Button 2" />
-                    <Button essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}" Content="Button 3" />
+            <essential:RevealFocusPanel x:Name="RevealFocusPanel">
+                <StackPanel Height="300" Spacing="10">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style
+                                x:Key="RoundedButtonStyle"
+                                BasedOn="{StaticResource DefaultButtonStyle}"
+                                TargetType="Button">
+                                <Setter Property="Width" Value="100" />
+                                <Setter Property="Height" Value="100" />
+                                <Setter Property="VerticalAlignment" Value="Top" />
+                                <Setter Property="CornerRadius" Value="4" />
+                                <Setter Property="Margin" Value="10" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button
+                            essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}"
+                            Content="Button 1"
+                            Style="{StaticResource RoundedButtonStyle}" />
+                        <Button
+                            essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}"
+                            Content="Button 2"
+                            Style="{StaticResource RoundedButtonStyle}" />
+                        <Button
+                            essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}"
+                            Content="Button 3"
+                            Style="{StaticResource RoundedButtonStyle}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style
+                                x:Key="CircleButtonStyle"
+                                BasedOn="{StaticResource DefaultButtonStyle}"
+                                TargetType="Button">
+                                <Setter Property="Width" Value="100" />
+                                <Setter Property="Height" Value="100" />
+                                <Setter Property="VerticalAlignment" Value="Top" />
+                                <Setter Property="CornerRadius" Value="50" />
+                                <Setter Property="Margin" Value="10" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button
+                            essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}"
+                            Content="Button 4"
+                            Style="{StaticResource CircleButtonStyle}" />
+                        <Button
+                            essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}"
+                            Content="Button 5"
+                            Style="{StaticResource CircleButtonStyle}" />
+                        <Button
+                            essential:RevealFocusPanel.AttachToPanel="{x:Bind RevealFocusPanel}"
+                            Content="Button 6"
+                            Style="{StaticResource CircleButtonStyle}" />
+                    </StackPanel>
                 </StackPanel>
+
             </essential:RevealFocusPanel>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="RevealFocus on ListView">
-            <essential:RevealFocusPanel x:Name="ListViewRevealFocusPanel" Height="400">
+            <essential:RevealFocusPanel x:Name="ListViewRevealFocusPanel">
                 <ListView
                     x:Name="BaseListView"
                     Width="350"
@@ -40,6 +87,70 @@
                     BorderThickness="1"
                     ContainerContentChanging="BaseListView_ContainerContentChanging"
                     Tag="{x:Bind ListViewRevealFocusPanel}">
+                    <ListView.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <ListViewItemPresenter
+                                            x:Name="Root"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            essential:RevealFocusPanel.AttachToPanel="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                            CheckBoxBorderBrush="{ThemeResource ListViewItemCheckBoxBorderBrush}"
+                                            CheckBoxBrush="{ThemeResource ListViewItemCheckBoxBrush}"
+                                            CheckBoxCornerRadius="{ThemeResource ListViewItemCheckBoxCornerRadius}"
+                                            CheckBoxDisabledBorderBrush="{ThemeResource ListViewItemCheckBoxDisabledBorderBrush}"
+                                            CheckBoxDisabledBrush="{ThemeResource ListViewItemCheckBoxDisabledBrush}"
+                                            CheckBoxPointerOverBorderBrush="{ThemeResource ListViewItemCheckBoxPointerOverBorderBrush}"
+                                            CheckBoxPointerOverBrush="{ThemeResource ListViewItemCheckBoxPointerOverBrush}"
+                                            CheckBoxPressedBorderBrush="{ThemeResource ListViewItemCheckBoxPressedBorderBrush}"
+                                            CheckBoxPressedBrush="{ThemeResource ListViewItemCheckBoxPressedBrush}"
+                                            CheckBoxSelectedBrush="{ThemeResource ListViewItemCheckBoxSelectedBrush}"
+                                            CheckBoxSelectedDisabledBrush="{ThemeResource ListViewItemCheckBoxSelectedDisabledBrush}"
+                                            CheckBoxSelectedPointerOverBrush="{ThemeResource ListViewItemCheckBoxSelectedPointerOverBrush}"
+                                            CheckBoxSelectedPressedBrush="{ThemeResource ListViewItemCheckBoxSelectedPressedBrush}"
+                                            CheckBrush="{ThemeResource ListViewItemCheckBrush}"
+                                            CheckDisabledBrush="{ThemeResource ListViewItemCheckDisabledBrush}"
+                                            CheckMode="{ThemeResource ListViewItemCheckMode}"
+                                            CheckPressedBrush="{ThemeResource ListViewItemCheckPressedBrush}"
+                                            ContentMargin="{TemplateBinding Padding}"
+                                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                                            Control.IsTemplateFocusTarget="True"
+                                            CornerRadius="{ThemeResource ListViewItemCornerRadius}"
+                                            DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                            DragBackground="{ThemeResource ListViewItemDragBackground}"
+                                            DragForeground="{ThemeResource ListViewItemDragForeground}"
+                                            DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                            FocusBorderBrush="{ThemeResource ListViewItemFocusBorderBrush}"
+                                            FocusSecondaryBorderBrush="{ThemeResource ListViewItemFocusSecondaryBorderBrush}"
+                                            FocusVisualMargin="{TemplateBinding FocusVisualMargin}"
+                                            FocusVisualPrimaryBrush="{TemplateBinding FocusVisualPrimaryBrush}"
+                                            FocusVisualPrimaryThickness="{TemplateBinding FocusVisualPrimaryThickness}"
+                                            FocusVisualSecondaryBrush="{TemplateBinding FocusVisualSecondaryBrush}"
+                                            FocusVisualSecondaryThickness="{TemplateBinding FocusVisualSecondaryThickness}"
+                                            PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackground}"
+                                            PointerOverBackground="{ThemeResource ListViewItemBackgroundPointerOver}"
+                                            PointerOverForeground="{ThemeResource ListViewItemForegroundPointerOver}"
+                                            PressedBackground="{ThemeResource ListViewItemBackgroundPressed}"
+                                            ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                            SelectedBackground="{ThemeResource ListViewItemBackgroundSelected}"
+                                            SelectedDisabledBackground="{ThemeResource ListViewItemBackgroundSelectedDisabled}"
+                                            SelectedForeground="{ThemeResource ListViewItemForegroundSelected}"
+                                            SelectedPointerOverBackground="{ThemeResource ListViewItemBackgroundSelectedPointerOver}"
+                                            SelectedPressedBackground="{ThemeResource ListViewItemBackgroundSelectedPressed}"
+                                            SelectionCheckMarkVisualEnabled="{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}"
+                                            SelectionIndicatorBrush="{ThemeResource ListViewItemSelectionIndicatorBrush}"
+                                            SelectionIndicatorCornerRadius="{ThemeResource ListViewItemSelectionIndicatorCornerRadius}"
+                                            SelectionIndicatorDisabledBrush="{ThemeResource ListViewItemSelectionIndicatorDisabledBrush}"
+                                            SelectionIndicatorPointerOverBrush="{ThemeResource ListViewItemSelectionIndicatorPointerOverBrush}"
+                                            SelectionIndicatorPressedBrush="{ThemeResource ListViewItemSelectionIndicatorPressedBrush}"
+                                            SelectionIndicatorVisualEnabled="{ThemeResource ListViewItemSelectionIndicatorVisualEnabled}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="local:Contact">
                             <TextBlock
@@ -58,7 +169,72 @@
                     x:Name="BaseGridView"
                     Width="300"
                     ContainerContentChanging="BaseListView_ContainerContentChanging"
-                    Tag="{x:Bind GridViewRevealFocusPanel}" />
+                    Tag="{x:Bind GridViewRevealFocusPanel}">
+                    <GridView.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource DefaultGridViewItemStyle}" TargetType="GridViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="GridViewItem">
+                                        <ListViewItemPresenter
+                                            x:Name="Root"
+                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            essential:RevealFocusPanel.AttachToPanel="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                            CheckBoxBorderBrush="{ThemeResource GridViewItemCheckBoxBorderBrush}"
+                                            CheckBoxBrush="{ThemeResource GridViewItemCheckBoxBrush}"
+                                            CheckBoxCornerRadius="{ThemeResource GridViewItemCheckBoxCornerRadius}"
+                                            CheckBoxDisabledBorderBrush="{ThemeResource GridViewItemCheckBoxDisabledBorderBrush}"
+                                            CheckBoxDisabledBrush="{ThemeResource GridViewItemCheckBoxDisabledBrush}"
+                                            CheckBoxPointerOverBorderBrush="{ThemeResource GridViewItemCheckBoxPointerOverBorderBrush}"
+                                            CheckBoxPointerOverBrush="{ThemeResource GridViewItemCheckBoxPointerOverBrush}"
+                                            CheckBoxPressedBorderBrush="{ThemeResource GridViewItemCheckBoxPressedBorderBrush}"
+                                            CheckBoxPressedBrush="{ThemeResource GridViewItemCheckBoxPressedBrush}"
+                                            CheckBoxSelectedBrush="{ThemeResource GridViewItemCheckBoxSelectedBrush}"
+                                            CheckBoxSelectedDisabledBrush="{ThemeResource GridViewItemCheckBoxSelectedDisabledBrush}"
+                                            CheckBoxSelectedPointerOverBrush="{ThemeResource GridViewItemCheckBoxSelectedPointerOverBrush}"
+                                            CheckBoxSelectedPressedBrush="{ThemeResource GridViewItemCheckBoxSelectedPressedBrush}"
+                                            CheckBrush="{ThemeResource GridViewItemCheckBrush}"
+                                            CheckDisabledBrush="{ThemeResource GridViewItemCheckDisabledBrush}"
+                                            CheckMode="{ThemeResource GridViewItemCheckMode}"
+                                            CheckPressedBrush="{ThemeResource GridViewItemCheckPressedBrush}"
+                                            ContentMargin="{TemplateBinding Padding}"
+                                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                                            Control.IsTemplateFocusTarget="True"
+                                            CornerRadius="{ThemeResource GridViewItemCornerRadius}"
+                                            DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                            DragBackground="{ThemeResource GridViewItemDragBackground}"
+                                            DragForeground="{ThemeResource GridViewItemDragForeground}"
+                                            DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                            FocusBorderBrush="{ThemeResource GridViewItemFocusBorderBrush}"
+                                            FocusVisualMargin="{TemplateBinding FocusVisualMargin}"
+                                            FocusVisualPrimaryBrush="{TemplateBinding FocusVisualPrimaryBrush}"
+                                            FocusVisualPrimaryThickness="{TemplateBinding FocusVisualPrimaryThickness}"
+                                            FocusVisualSecondaryBrush="{TemplateBinding FocusVisualSecondaryBrush}"
+                                            FocusVisualSecondaryThickness="{TemplateBinding FocusVisualSecondaryThickness}"
+                                            PlaceholderBackground="{ThemeResource GridViewItemPlaceholderBackground}"
+                                            PointerOverBackground="{ThemeResource GridViewItemBackgroundPointerOver}"
+                                            PointerOverBorderBrush="{ThemeResource GridViewItemPointerOverBorderBrush}"
+                                            PointerOverForeground="{ThemeResource GridViewItemForegroundPointerOver}"
+                                            PressedBackground="{ThemeResource GridViewItemBackgroundPressed}"
+                                            ReorderHintOffset="{ThemeResource GridViewItemReorderHintThemeOffset}"
+                                            SelectedBackground="{ThemeResource GridViewItemBackgroundSelected}"
+                                            SelectedBorderBrush="{ThemeResource GridViewItemSelectedBorderBrush}"
+                                            SelectedBorderThickness="{ThemeResource GridViewItemSelectedBorderThickness}"
+                                            SelectedDisabledBackground="{ThemeResource GridViewItemBackgroundSelectedDisabled}"
+                                            SelectedDisabledBorderBrush="{ThemeResource GridViewItemSelectedDisabledBorderBrush}"
+                                            SelectedForeground="{ThemeResource GridViewItemForegroundSelected}"
+                                            SelectedInnerBorderBrush="{ThemeResource GridViewItemSelectedInnerBorderBrush}"
+                                            SelectedPointerOverBackground="{ThemeResource GridViewItemBackgroundSelectedPointerOver}"
+                                            SelectedPointerOverBorderBrush="{ThemeResource GridViewItemSelectedPointerOverBorderBrush}"
+                                            SelectedPressedBackground="{ThemeResource GridViewItemBackgroundSelectedPressed}"
+                                            SelectedPressedBorderBrush="{ThemeResource GridViewItemSelectedPressedBorderBrush}"
+                                            SelectionCheckMarkVisualEnabled="{ThemeResource GridViewItemSelectionCheckMarkVisualEnabled}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                </GridView>
             </essential:RevealFocusPanel>
         </local:ControlExample>
 

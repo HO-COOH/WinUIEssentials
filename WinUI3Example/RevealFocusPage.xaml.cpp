@@ -25,8 +25,9 @@ namespace winrt::WinUI3Example::implementation
         if (args.InRecycleQueue())
             return;
 
+        // Set Tag on the container so the ListViewItemPresenter can bind to it via TemplatedParent
         if (auto itemContainer = args.ItemContainer())
-            itemContainer.SetValue(winrt::WinUI3Package::RevealFocusPanel::AttachToPanelProperty(), sender.Tag());
+            itemContainer.Tag(sender.Tag());
     }
 
     std::vector<winrt::WinUI3Example::Contact> RevealFocusPage::GetContactAsync()

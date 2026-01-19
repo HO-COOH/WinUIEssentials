@@ -4,6 +4,5 @@
     runtimeclass RevealFocusPage : Microsoft.UI.Xaml.Controls.Page
     {
         RevealFocusPage();
-        WinUI3Package.RevealFocusPanel ListViewRevealFocusPanel{ get; };
     }
 }

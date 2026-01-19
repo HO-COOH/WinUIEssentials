@@ -2,6 +2,8 @@
 
 #include "RevealFocusPanel.g.h"
 #include <winrt/Microsoft.UI.Composition.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.h>
+#include "RevealBrush.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -48,6 +50,11 @@ namespace winrt::WinUI3Package::implementation
         constexpr static auto ellipseCenterExpression = L"globalProperty.MousePosition - localProperty.elementPosition";
 
         constexpr static winrt::Windows::Foundation::Numerics::float2 InitialMousePosition{ (std::numeric_limits<float>::max)(), (std::numeric_limits<float>::max)() };
+
+        // Canvas for overlay visuals with ZIndex = -1 (renders behind other Grid children)
+        winrt::Microsoft::UI::Xaml::Controls::Canvas m_overlayCanvas;
+        // Container visual on the canvas that holds all overlay visuals
+        winrt::Microsoft::UI::Composition::ContainerVisual m_overlayContainer{ nullptr };
     };
 }
 

@@ -2,7 +2,7 @@
 {
     [bindable]
     [default_interface]
-    runtimeclass RevealFocusPanel : Microsoft.UI.Xaml.Controls.ContentPresenter //Inherit from ContentPresenter for minimum overhead
+    runtimeclass RevealFocusPanel : Microsoft.UI.Xaml.Controls.Grid // Grid allows ZIndex layering for overlay behind content
     {
         RevealFocusPanel();
         
