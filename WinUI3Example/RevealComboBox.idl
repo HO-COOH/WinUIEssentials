@@ -1,0 +1,9 @@
+﻿namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+	runtimeclass RevealComboBox : Microsoft.UI.Xaml.Controls.ComboBox
+    {
+        RevealComboBox();
+    }
+}

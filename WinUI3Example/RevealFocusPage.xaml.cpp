@@ -12,10 +12,10 @@ namespace winrt::WinUI3Example::implementation
 {
     void RevealFocusPage::OnNavigatedTo(winrt::Microsoft::UI::Xaml::Navigation::NavigationEventArgs const& e)
     {
-        BaseListView().ItemsSource(winrt::single_threaded_observable_vector(GetContactAsync()));
+        //BaseListView().ItemsSource(winrt::single_threaded_observable_vector(GetContactAsync()));
         std::vector<int> days(30, 0);
         std::iota(days.begin(), days.end(), 0);
-        BaseGridView().ItemsSource(winrt::single_threaded_observable_vector(std::move(days)));
+        //BaseGridView().ItemsSource(winrt::single_threaded_observable_vector(std::move(days)));
     }
 
     void RevealFocusPage::BaseListView_ContainerContentChanging(

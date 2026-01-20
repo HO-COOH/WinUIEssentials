@@ -547,6 +547,10 @@
     </ClInclude>
     <ClInclude Include="RepoInfo.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RevealComboBox.h">
+      <DependentUpon>RevealComboBox.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="RevealFocusPage.xaml.h">
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1173,6 +1177,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="RepoInfo.cpp" />
+    <ClCompile Include="RevealComboBox.cpp">
+      <DependentUpon>RevealComboBox.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="RevealFocusPage.xaml.cpp">
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1544,6 +1552,9 @@
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="RevealComboBox.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="RevealFocusPage.idl">
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>

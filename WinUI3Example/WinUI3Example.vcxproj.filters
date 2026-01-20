@@ -327,6 +327,9 @@
     <Midl Include="Contact.idl">
       <Filter>Pages\RevealFocusPage</Filter>
     </Midl>
+    <Midl Include="RevealComboBox.idl">
+      <Filter>Pages\RevealFocusPage</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

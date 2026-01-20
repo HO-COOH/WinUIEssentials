@@ -2,12 +2,16 @@
 {
     [bindable]
     [default_interface]
-    runtimeclass RevealFocusPanel : Microsoft.UI.Xaml.Controls.Grid // Grid allows ZIndex layering for overlay behind content
+    runtimeclass RevealFocusPanel
     {
-        RevealFocusPanel();
-        
+		RevealFocusPanel(Microsoft.UI.Xaml.FrameworkElement element);
+
+        static Microsoft.UI.Xaml.DependencyProperty SetAsPanelProperty{ get; };
+	    static void SetSetAsPanel(Microsoft.UI.Xaml.FrameworkElement element, Boolean value);
+	    static Boolean GetSetAsPanel(Microsoft.UI.Xaml.FrameworkElement element);
+
         static Microsoft.UI.Xaml.DependencyProperty AttachToPanelProperty{ get; };
-        static void SetAttachToPanel(Microsoft.UI.Xaml.FrameworkElement element, RevealFocusPanel panel);
-        static RevealFocusPanel GetAttachToPanel(Microsoft.UI.Xaml.FrameworkElement element);
+        static void SetAttachToPanel(Microsoft.UI.Xaml.FrameworkElement element, Microsoft.UI.Xaml.FrameworkElement panel);
+        static Microsoft.UI.Xaml.FrameworkElement GetAttachToPanel(Microsoft.UI.Xaml.FrameworkElement element);
     }
 }

@@ -9,24 +9,42 @@ namespace winrt::WinUI3Package::implementation
 {
     struct RevealFocusPanel : RevealFocusPanelT<RevealFocusPanel>
     {
-        RevealFocusPanel();
+        RevealFocusPanel(winrt::Microsoft::UI::Xaml::FrameworkElement const& element);
+
+		static winrt::Microsoft::UI::Xaml::DependencyProperty SetAsPanelProperty();
+        static void SetSetAsPanel(
+            winrt::Microsoft::UI::Xaml::FrameworkElement const& element, 
+            bool value
+		);
+        static bool GetSetAsPanel(
+            winrt::Microsoft::UI::Xaml::FrameworkElement const& element
+		);
 
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AttachToPanelProperty();
 		static void SetAttachToPanel(
             winrt::Microsoft::UI::Xaml::FrameworkElement const& element, 
-            winrt::WinUI3Package::RevealFocusPanel const& panel
+            winrt::Microsoft::UI::Xaml::FrameworkElement const& panel
         );
-        static winrt::WinUI3Package::RevealFocusPanel GetAttachToPanel(
+        static winrt::Microsoft::UI::Xaml::FrameworkElement GetAttachToPanel(
             winrt::Microsoft::UI::Xaml::FrameworkElement const& element
         );
     private:
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_panelProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_setAsPanelProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty s_attachToPanelProperty;
+
+        static void onSetAsPanelChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& d,
+            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+		);
         static void onAttachToPanelChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& d,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
-        void createResourcesIfNeeded();
+        void createResourcesIfNeeded(
+			winrt::Microsoft::UI::Xaml::FrameworkElement const& element
+        );
 
         void onUpdateMousePosition(
             winrt::Windows::Foundation::IInspectable const& sender,
@@ -53,8 +71,6 @@ namespace winrt::WinUI3Package::implementation
 
         constexpr static winrt::Windows::Foundation::Numerics::float2 InitialMousePosition{ (std::numeric_limits<float>::max)(), (std::numeric_limits<float>::max)() };
 
-        // Canvas for overlay visuals with ZIndex = -1 (renders behind other Grid children)
-        winrt::Microsoft::UI::Xaml::Controls::Canvas m_overlayCanvas;
         // Container visual on the canvas that holds all overlay visuals
         winrt::Microsoft::UI::Composition::ContainerVisual m_overlayContainer{ nullptr };
     };

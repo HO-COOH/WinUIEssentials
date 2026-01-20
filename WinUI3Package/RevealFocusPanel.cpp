@@ -10,10 +10,31 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+    winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::s_panelProperty = 
+        winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+            L"Panel",
+            winrt::xaml_typename<class_type>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+                nullptr
+            }
+	);
+
+    winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::s_setAsPanelProperty =
+        winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+            L"SetAsPanel",
+            winrt::xaml_typename<bool>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+                winrt::box_value(false),
+                &RevealFocusPanel::onSetAsPanelChanged
+            }
+        );
+
 	winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::s_attachToPanelProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
 			L"AttachToPanel",
-			winrt::xaml_typename<class_type>(),
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::FrameworkElement>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{
 				nullptr,
@@ -21,42 +42,65 @@ namespace winrt::WinUI3Package::implementation
 			}
 		);
 
-	RevealFocusPanel::RevealFocusPanel()
+	RevealFocusPanel::RevealFocusPanel(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
 	{
-        m_compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
-        Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
-
-        // Create a Canvas for overlays that sits behind all other content (ZIndex = -1)
-        winrt::Microsoft::UI::Xaml::Controls::Canvas::SetZIndex(m_overlayCanvas, -1);
-        Children().Append(m_overlayCanvas);
+        m_compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(element).Compositor();
+		createResourcesIfNeeded(element);
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::AttachToPanelProperty()
 	{
 		return s_attachToPanelProperty;
 	}
+
+    winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::SetAsPanelProperty()
+    {
+        return s_setAsPanelProperty;
+	}
+
+    void RevealFocusPanel::SetSetAsPanel(
+        winrt::Microsoft::UI::Xaml::FrameworkElement const& element,
+        bool value
+    )
+    {
+        element.SetValue(SetAsPanelProperty(), winrt::box_value(value));
+	}
+
+    bool RevealFocusPanel::GetSetAsPanel(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
+    {
+        return winrt::unbox_value<bool>(element.GetValue(SetAsPanelProperty()));
+	}
 	
 	void RevealFocusPanel::SetAttachToPanel(
 		winrt::Microsoft::UI::Xaml::FrameworkElement const& element,
-		winrt::WinUI3Package::RevealFocusPanel const& panel
+        winrt::Microsoft::UI::Xaml::FrameworkElement const& panel
 	)
 	{
 		element.SetValue(AttachToPanelProperty(), panel);
 	}
 
-	winrt::WinUI3Package::RevealFocusPanel RevealFocusPanel::GetAttachToPanel(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
+    winrt::Microsoft::UI::Xaml::FrameworkElement RevealFocusPanel::GetAttachToPanel(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
 	{
-		return element.GetValue(AttachToPanelProperty()).as<winrt::WinUI3Package::RevealFocusPanel>();
+		return element.GetValue(AttachToPanelProperty()).as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
 	}
 
-	void RevealFocusPanel::onAttachToPanelChanged(
+    void RevealFocusPanel::onSetAsPanelChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+		d.SetValue(s_panelProperty, winrt::WinUI3Package::RevealFocusPanel{ d.as<winrt::Microsoft::UI::Xaml::FrameworkElement>() });
+    }
+
+    void RevealFocusPanel::onAttachToPanelChanged(
 		winrt::Microsoft::UI::Xaml::DependencyObject const& d,
 		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 	)
 	{
-        auto panel = e.NewValue().as<winrt::WinUI3Package::RevealFocusPanel>();
-        auto revealFocusPanel = winrt::get_self<RevealFocusPanel>(panel);
-        revealFocusPanel->createResourcesIfNeeded();
+        auto panel = e.NewValue().as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+        auto revealFocusPanelProperty = panel.GetValue(s_panelProperty);
+
+        if (!revealFocusPanelProperty)
+            return;
+
+        auto revealFocusPanel = winrt::get_self<RevealFocusPanel>(revealFocusPanelProperty.as<class_type>());
 
         //create border geometry
         auto child = d.as<winrt::Microsoft::UI::Xaml::UIElement>();
@@ -161,7 +205,7 @@ namespace winrt::WinUI3Package::implementation
         );
 	}
 
-	void RevealFocusPanel::createResourcesIfNeeded()
+	void RevealFocusPanel::createResourcesIfNeeded(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
 	{
         if (m_globalPropertySet)
             return;
@@ -195,24 +239,25 @@ namespace winrt::WinUI3Package::implementation
         
         // Clip the overlay container to the panel's bounds
         // This prevents overlays from showing outside scrollable areas
-        auto panelVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this);
+        auto panelVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(element).as < winrt::Microsoft::UI::Composition::ContainerVisual>();
         auto sizeExpression = m_compositor.CreateExpressionAnimation(L"panelVisual.Size");
         sizeExpression.SetReferenceParameter(L"panelVisual", panelVisual);
         m_overlayContainer.StartAnimation(L"Size", sizeExpression);
         m_overlayContainer.Clip(m_compositor.CreateInsetClip());
+        panelVisual.Children().InsertAtBottom(m_overlayContainer);
         
-        winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(m_overlayCanvas, m_overlayContainer);
+        //winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(element, m_overlayContainer);
 
-        PointerEntered({ this, &RevealFocusPanel::onUpdateMousePosition });
-        PointerMoved({this, &RevealFocusPanel::onUpdateMousePosition});
+        element.PointerEntered({ this, &RevealFocusPanel::onUpdateMousePosition });
+        element.PointerMoved({this, &RevealFocusPanel::onUpdateMousePosition});
 
-        PointerExited([this](auto const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& args) {
+        element.PointerExited([this](auto const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& args) {
             m_globalPropertySet.InsertVector2(L"MousePosition", InitialMousePosition);
         });
 	}
 
     void RevealFocusPanel::onUpdateMousePosition(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& args)
     {
-        m_globalPropertySet.InsertVector2(L"MousePosition", args.GetCurrentPoint(*this).Position());
+        m_globalPropertySet.InsertVector2(L"MousePosition", args.GetCurrentPoint(sender.as<winrt::Microsoft::UI::Xaml::UIElement>()).Position());
     }
 }
