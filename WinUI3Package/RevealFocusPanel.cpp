@@ -49,6 +49,20 @@ namespace winrt::WinUI3Package::implementation
 		return element.GetValue(AttachToPanelProperty()).as<winrt::WinUI3Package::RevealFocusPanel>();
 	}
 
+    void bindToCornerRadiusProperty(auto const& element, auto const& property, auto halfStroke, auto const& borderGeometry, auto const& overlayGeometry)
+    {
+        element.RegisterPropertyChangedCallback(
+            property,
+            [halfStroke, borderGeometry, overlayGeometry](winrt::Microsoft::UI::Xaml::DependencyObject const& obj, winrt::Microsoft::UI::Xaml::DependencyProperty const& property)
+            {
+                auto const cornerRadius = winrt::unbox_value<winrt::Microsoft::UI::Xaml::CornerRadius>(obj.GetValue(property));
+                float const adjustedRadius = (std::max)(0.0f, static_cast<float>(cornerRadius.TopLeft) - halfStroke);
+                borderGeometry.CornerRadius({ adjustedRadius, adjustedRadius });
+                overlayGeometry.CornerRadius({ static_cast<float>(cornerRadius.TopLeft), static_cast<float>(cornerRadius.TopLeft) });
+            }
+        );
+    }
+
 	void RevealFocusPanel::onAttachToPanelChanged(
 		winrt::Microsoft::UI::Xaml::DependencyObject const& d,
 		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e
@@ -73,12 +87,43 @@ namespace winrt::WinUI3Package::implementation
         borderGeometry.StartAnimation(L"Size", revealFocusPanel->m_borderGeometrySizeExpressionAnimation);
 
         //set CornerRadius if child has such property
-        winrt::Microsoft::UI::Xaml::CornerRadius cornerRadius{};
+        winrt::Microsoft::UI::Xaml::CornerRadius cornerRadius{ -1 };
         if (auto control = child.try_as<winrt::Microsoft::UI::Xaml::Controls::Control>())
+        {
             cornerRadius = control.CornerRadius();
+            bindToCornerRadiusProperty(
+                control,
+                winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
+                halfStroke,
+                borderGeometry,
+                overlayGeometry
+            );
+        }
         else if (auto contentPresenter = child.try_as<winrt::Microsoft::UI::Xaml::Controls::ContentPresenter>())
-            cornerRadius = contentPresenter.CornerRadius();
-        if (cornerRadius.TopLeft)
+        {
+			cornerRadius = contentPresenter.CornerRadius();
+            bindToCornerRadiusProperty(
+                contentPresenter,
+                winrt::Microsoft::UI::Xaml::Controls::ContentPresenter::CornerRadiusProperty(),
+                halfStroke,
+                borderGeometry,
+                overlayGeometry
+			);
+        }
+		else if (auto grid = child.try_as<winrt::Microsoft::UI::Xaml::Controls::Grid>())
+        {
+            cornerRadius = grid.CornerRadius();
+            bindToCornerRadiusProperty(
+                grid,
+                winrt::Microsoft::UI::Xaml::Controls::Grid::CornerRadiusProperty(),
+                halfStroke,
+                borderGeometry,
+                overlayGeometry
+			);
+        }
+
+
+        if (cornerRadius.TopLeft != -1)
         {
             float const adjustedRadius = (std::max)(0.0f, static_cast<float>(cornerRadius.TopLeft) - halfStroke);
             borderGeometry.CornerRadius({ adjustedRadius, adjustedRadius });

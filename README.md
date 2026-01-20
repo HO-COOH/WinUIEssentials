@@ -119,6 +119,7 @@ You can reference Github Action for detailed build steps.
 |FlyoutHelper | :x: | :white_check_mark: | WinRT component
 |CalendarDatePickerHelper | :x: | :white_check_mark: | WinRT component
 |ModalWindow | :x: | :white_check_mark: | WinRT component
+|NavigationViewHelper | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
