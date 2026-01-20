@@ -44,10 +44,12 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Composition::ExpressionAnimation m_hostVisualSizeExpressionAnimation{ nullptr };
         winrt::Microsoft::UI::Composition::ExpressionAnimation m_borderGeometrySizeExpressionAnimation{ nullptr };
         winrt::Microsoft::UI::Composition::ExpressionAnimation m_ellipseCenterExpressionAnimation{ nullptr };
+		winrt::Microsoft::UI::Composition::ExpressionAnimation m_visualOffsetExpressionAnimation{ nullptr };
 
         constexpr static auto hostVisualSizeExpression = L"hostVisual.Size";
         constexpr static auto borderGeometrySizeExpression = L"hostVisual.Size - Vector2(strokeWidth, strokeWidth)";
         constexpr static auto ellipseCenterExpression = L"globalProperty.MousePosition - localProperty.elementPosition";
+        constexpr static auto visualOffsetExpression = L"localProperty.elementPosition";
 
         constexpr static winrt::Windows::Foundation::Numerics::float2 InitialMousePosition{ (std::numeric_limits<float>::max)(), (std::numeric_limits<float>::max)() };
 
