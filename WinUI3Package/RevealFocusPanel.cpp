@@ -49,7 +49,7 @@ namespace winrt::WinUI3Package::implementation
 		return element.GetValue(AttachToPanelProperty()).as<winrt::WinUI3Package::RevealFocusPanel>();
 	}
 
-    void bindToCornerRadiusProperty(auto const& element, auto const& property, auto halfStroke, auto const& borderGeometry, auto const& overlayGeometry)
+    static void bindToCornerRadiusProperty(auto const& element, auto const& property, auto halfStroke, auto const& borderGeometry, auto const& overlayGeometry)
     {
         element.RegisterPropertyChangedCallback(
             property,
@@ -215,16 +215,17 @@ namespace winrt::WinUI3Package::implementation
         m_globalPropertySet.InsertVector2(L"MousePosition", InitialMousePosition);
 
         m_opacityForwardAnimation = m_compositor.CreateScalarKeyFrameAnimation();
-        m_opacityForwardAnimation.InsertKeyFrame(1.f, 0.8f);
+        m_opacityForwardAnimation.InsertKeyFrame(1.f, 0.4f);
 
         m_opacityBackwardAnimation = m_compositor.CreateScalarKeyFrameAnimation();
         m_opacityBackwardAnimation.InsertKeyFrame(1.f, 0.f);
 
         m_revealBrushRadiusForwardAnimation = m_compositor.CreateVector2KeyFrameAnimation();
-        m_revealBrushRadiusForwardAnimation.InsertKeyFrame(1.f, { 200.f, 200.f });
+        m_revealBrushRadiusForwardAnimation.InsertKeyFrame(1.f, RevealBrush::NormalRevealRadius * 3);
+        m_revealBrushRadiusForwardAnimation.Duration(std::chrono::seconds{ 3 });
 
         m_revealBrushRadiusBackwardAnimation = m_compositor.CreateVector2KeyFrameAnimation();
-        m_revealBrushRadiusBackwardAnimation.InsertKeyFrame(1.f, { 100.f, 100.f });
+        m_revealBrushRadiusBackwardAnimation.InsertKeyFrame(1.f, RevealBrush::NormalRevealRadius);
 
         m_hostVisualSizeExpressionAnimation = m_compositor.CreateExpressionAnimation(hostVisualSizeExpression);
         m_borderGeometrySizeExpressionAnimation = m_compositor.CreateExpressionAnimation(borderGeometrySizeExpression);

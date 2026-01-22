@@ -15,6 +15,8 @@
             IsOpen="True"
             Message="This is still a demo and highly experimental. It's not in the package yet!"
             Severity="Warning" />
+
+        <TextBlock Margin="0,10,0,-10" Text="For a basic usage, simply wrap the panel inside a RevealFocusPanel, then for every element that you want to have RevealFocus effect, set the attached property like so." />
         <local:ControlExample HeaderText="RevealFocus basic example">
             <essential:RevealFocusPanel x:Name="RevealFocusPanel">
                 <StackPanel Height="300" Spacing="10">
@@ -73,8 +75,73 @@
                     </StackPanel>
                 </StackPanel>
             </essential:RevealFocusPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:RevealFocusPanel x:Name=&quot;RevealFocusPanel&quot;&gt;
+    &lt;StackPanel Height=&quot;300&quot; Spacing=&quot;10&quot;&gt;
+        &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;
+            &lt;StackPanel.Resources&gt;
+                &lt;Style
+                    x:Key=&quot;RoundedButtonStyle&quot;
+                    BasedOn=&quot;{StaticResource DefaultButtonStyle}&quot;
+                    TargetType=&quot;Button&quot;&gt;
+                    &lt;Setter Property=&quot;Width&quot; Value=&quot;100&quot; /&gt;
+                    &lt;Setter Property=&quot;Height&quot; Value=&quot;100&quot; /&gt;
+                    &lt;Setter Property=&quot;VerticalAlignment&quot; Value=&quot;Top&quot; /&gt;
+                    &lt;Setter Property=&quot;CornerRadius&quot; Value=&quot;4&quot; /&gt;
+                    &lt;Setter Property=&quot;Margin&quot; Value=&quot;10&quot; /&gt;
+                &lt;/Style&gt;
+            &lt;/StackPanel.Resources&gt;
+            &lt;Button
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind RevealFocusPanel}&quot;
+                Content=&quot;Button 1&quot;
+                Style=&quot;{StaticResource RoundedButtonStyle}&quot; /&gt;
+            &lt;Button
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind RevealFocusPanel}&quot;
+                Content=&quot;Button 2&quot;
+                Style=&quot;{StaticResource RoundedButtonStyle}&quot; /&gt;
+            &lt;Button
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind RevealFocusPanel}&quot;
+                Content=&quot;Button 3&quot;
+                Style=&quot;{StaticResource RoundedButtonStyle}&quot; /&gt;
+        &lt;/StackPanel&gt;
+
+        &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;
+            &lt;StackPanel.Resources&gt;
+                &lt;Style
+                    x:Key=&quot;CircleButtonStyle&quot;
+                    BasedOn=&quot;{StaticResource DefaultButtonStyle}&quot;
+                    TargetType=&quot;Button&quot;&gt;
+                    &lt;Setter Property=&quot;Width&quot; Value=&quot;100&quot; /&gt;
+                    &lt;Setter Property=&quot;Height&quot; Value=&quot;100&quot; /&gt;
+                    &lt;Setter Property=&quot;VerticalAlignment&quot; Value=&quot;Top&quot; /&gt;
+                    &lt;Setter Property=&quot;CornerRadius&quot; Value=&quot;50&quot; /&gt;
+                    &lt;Setter Property=&quot;Margin&quot; Value=&quot;10&quot; /&gt;
+                &lt;/Style&gt;
+            &lt;/StackPanel.Resources&gt;
+            &lt;Button
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind RevealFocusPanel}&quot;
+                Content=&quot;Button 4&quot;
+                Style=&quot;{StaticResource CircleButtonStyle}&quot; /&gt;
+            &lt;Button
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind RevealFocusPanel}&quot;
+                Content=&quot;Button 5&quot;
+                Style=&quot;{StaticResource CircleButtonStyle}&quot; /&gt;
+            &lt;Button
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind RevealFocusPanel}&quot;
+                Content=&quot;Button 6&quot;
+                Style=&quot;{StaticResource CircleButtonStyle}&quot; /&gt;
+        &lt;/StackPanel&gt;
+    &lt;/StackPanel&gt;
+&lt;/essential:RevealFocusPanel&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
+        <TextBlock Margin="0,10,0,-10" Text="Using RevealFocus in a ListView, you will need to set its ItemContainerStyle, and also provide a event handler to set individual item's attached property in code-behind." />
         <local:ControlExample HeaderText="RevealFocus on ListView">
             <essential:RevealFocusPanel x:Name="ListViewRevealFocusPanel">
                 <ListView
@@ -160,8 +227,118 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </essential:RevealFocusPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:RevealFocusPanel x:Name=&quot;ListViewRevealFocusPanel&quot;&gt;
+    &lt;ListView
+        x:Name=&quot;BaseListView&quot;
+        Width=&quot;350&quot;
+        Height=&quot;400&quot;
+        HorizontalAlignment=&quot;Left&quot;
+        BorderBrush=&quot;{ThemeResource SystemControlForegroundBaseMediumLowBrush}&quot;
+        BorderThickness=&quot;1&quot;
+        ContainerContentChanging=&quot;BaseListView_ContainerContentChanging&quot;
+        Tag=&quot;{x:Bind ListViewRevealFocusPanel}&quot;&gt;
+        &lt;ListView.ItemContainerStyle&gt;
+            &lt;Style BasedOn=&quot;{StaticResource DefaultListViewItemStyle}&quot; TargetType=&quot;ListViewItem&quot;&gt;
+                &lt;Setter Property=&quot;Template&quot;&gt;
+                    &lt;Setter.Value&gt;
+                        &lt;ControlTemplate TargetType=&quot;ListViewItem&quot;&gt;
+                            &lt;ListViewItemPresenter
+                                x:Name=&quot;Root&quot;
+                                HorizontalContentAlignment=&quot;{TemplateBinding HorizontalContentAlignment}&quot;
+                                VerticalContentAlignment=&quot;{TemplateBinding VerticalContentAlignment}&quot;
+                                essential:RevealFocusPanel.AttachToPanel=&quot;{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}&quot;
+                                CheckBoxBorderBrush=&quot;{ThemeResource ListViewItemCheckBoxBorderBrush}&quot;
+                                CheckBoxBrush=&quot;{ThemeResource ListViewItemCheckBoxBrush}&quot;
+                                CheckBoxCornerRadius=&quot;{ThemeResource ListViewItemCheckBoxCornerRadius}&quot;
+                                CheckBoxDisabledBorderBrush=&quot;{ThemeResource ListViewItemCheckBoxDisabledBorderBrush}&quot;
+                                CheckBoxDisabledBrush=&quot;{ThemeResource ListViewItemCheckBoxDisabledBrush}&quot;
+                                CheckBoxPointerOverBorderBrush=&quot;{ThemeResource ListViewItemCheckBoxPointerOverBorderBrush}&quot;
+                                CheckBoxPointerOverBrush=&quot;{ThemeResource ListViewItemCheckBoxPointerOverBrush}&quot;
+                                CheckBoxPressedBorderBrush=&quot;{ThemeResource ListViewItemCheckBoxPressedBorderBrush}&quot;
+                                CheckBoxPressedBrush=&quot;{ThemeResource ListViewItemCheckBoxPressedBrush}&quot;
+                                CheckBoxSelectedBrush=&quot;{ThemeResource ListViewItemCheckBoxSelectedBrush}&quot;
+                                CheckBoxSelectedDisabledBrush=&quot;{ThemeResource ListViewItemCheckBoxSelectedDisabledBrush}&quot;
+                                CheckBoxSelectedPointerOverBrush=&quot;{ThemeResource ListViewItemCheckBoxSelectedPointerOverBrush}&quot;
+                                CheckBoxSelectedPressedBrush=&quot;{ThemeResource ListViewItemCheckBoxSelectedPressedBrush}&quot;
+                                CheckBrush=&quot;{ThemeResource ListViewItemCheckBrush}&quot;
+                                CheckDisabledBrush=&quot;{ThemeResource ListViewItemCheckDisabledBrush}&quot;
+                                CheckMode=&quot;{ThemeResource ListViewItemCheckMode}&quot;
+                                CheckPressedBrush=&quot;{ThemeResource ListViewItemCheckPressedBrush}&quot;
+                                ContentMargin=&quot;{TemplateBinding Padding}&quot;
+                                ContentTransitions=&quot;{TemplateBinding ContentTransitions}&quot;
+                                Control.IsTemplateFocusTarget=&quot;True&quot;
+                                CornerRadius=&quot;{ThemeResource ListViewItemCornerRadius}&quot;
+                                DisabledOpacity=&quot;{ThemeResource ListViewItemDisabledThemeOpacity}&quot;
+                                DragBackground=&quot;{ThemeResource ListViewItemDragBackground}&quot;
+                                DragForeground=&quot;{ThemeResource ListViewItemDragForeground}&quot;
+                                DragOpacity=&quot;{ThemeResource ListViewItemDragThemeOpacity}&quot;
+                                FocusBorderBrush=&quot;{ThemeResource ListViewItemFocusBorderBrush}&quot;
+                                FocusSecondaryBorderBrush=&quot;{ThemeResource ListViewItemFocusSecondaryBorderBrush}&quot;
+                                FocusVisualMargin=&quot;{TemplateBinding FocusVisualMargin}&quot;
+                                FocusVisualPrimaryBrush=&quot;{TemplateBinding FocusVisualPrimaryBrush}&quot;
+                                FocusVisualPrimaryThickness=&quot;{TemplateBinding FocusVisualPrimaryThickness}&quot;
+                                FocusVisualSecondaryBrush=&quot;{TemplateBinding FocusVisualSecondaryBrush}&quot;
+                                FocusVisualSecondaryThickness=&quot;{TemplateBinding FocusVisualSecondaryThickness}&quot;
+                                PlaceholderBackground=&quot;{ThemeResource ListViewItemPlaceholderBackground}&quot;
+                                PointerOverBackground=&quot;{ThemeResource ListViewItemBackgroundPointerOver}&quot;
+                                PointerOverForeground=&quot;{ThemeResource ListViewItemForegroundPointerOver}&quot;
+                                PressedBackground=&quot;{ThemeResource ListViewItemBackgroundPressed}&quot;
+                                ReorderHintOffset=&quot;{ThemeResource ListViewItemReorderHintThemeOffset}&quot;
+                                SelectedBackground=&quot;{ThemeResource ListViewItemBackgroundSelected}&quot;
+                                SelectedDisabledBackground=&quot;{ThemeResource ListViewItemBackgroundSelectedDisabled}&quot;
+                                SelectedForeground=&quot;{ThemeResource ListViewItemForegroundSelected}&quot;
+                                SelectedPointerOverBackground=&quot;{ThemeResource ListViewItemBackgroundSelectedPointerOver}&quot;
+                                SelectedPressedBackground=&quot;{ThemeResource ListViewItemBackgroundSelectedPressed}&quot;
+                                SelectionCheckMarkVisualEnabled=&quot;{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}&quot;
+                                SelectionIndicatorBrush=&quot;{ThemeResource ListViewItemSelectionIndicatorBrush}&quot;
+                                SelectionIndicatorCornerRadius=&quot;{ThemeResource ListViewItemSelectionIndicatorCornerRadius}&quot;
+                                SelectionIndicatorDisabledBrush=&quot;{ThemeResource ListViewItemSelectionIndicatorDisabledBrush}&quot;
+                                SelectionIndicatorPointerOverBrush=&quot;{ThemeResource ListViewItemSelectionIndicatorPointerOverBrush}&quot;
+                                SelectionIndicatorPressedBrush=&quot;{ThemeResource ListViewItemSelectionIndicatorPressedBrush}&quot;
+                                SelectionIndicatorVisualEnabled=&quot;{ThemeResource ListViewItemSelectionIndicatorVisualEnabled}&quot; /&gt;
+                        &lt;/ControlTemplate&gt;
+                    &lt;/Setter.Value&gt;
+                &lt;/Setter&gt;
+            &lt;/Style&gt;
+        &lt;/ListView.ItemContainerStyle&gt;
+        &lt;ListView.ItemTemplate&gt;
+            &lt;DataTemplate x:DataType=&quot;local:Contact&quot;&gt;
+                &lt;TextBlock
+                    Margin=&quot;0,5,0,5&quot;
+                    x:Phase=&quot;1&quot;
+                    Text=&quot;{x:Bind Name}&quot; /&gt;
+            &lt;/DataTemplate&gt;
+        &lt;/ListView.ItemTemplate&gt;
+    &lt;/ListView&gt;
+&lt;/essential:RevealFocusPanel&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">    void RevealFocusPage::BaseListView_ContainerContentChanging(
+        winrt::Microsoft::UI::Xaml::Controls::ListViewBase const&amp; sender,
+        winrt::Microsoft::UI::Xaml::Controls::ContainerContentChangingEventArgs const&amp; args)
+    {
+        if (args.InRecycleQueue())
+            return;
+
+        // Set Tag on the container so the ListViewItemPresenter can bind to it via TemplatedParent
+        if (auto itemContainer = args.ItemContainer())
+            itemContainer.Tag(sender.Tag());
+    }</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
+        <TextBlock Margin="0,10,0,-10" Text="Using RevealFocus in a GridView is similar to ListView, you will need to set its ItemContainerStyle, and also provide a event handler to set individual item's attached property in code-behind." />
         <local:ControlExample HeaderText="RevealFocus on GridView">
             <essential:RevealFocusPanel x:Name="GridViewRevealFocusPanel">
                 <GridView
@@ -235,6 +412,103 @@
                     </GridView.ItemContainerStyle>
                 </GridView>
             </essential:RevealFocusPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:RevealFocusPanel x:Name=&quot;GridViewRevealFocusPanel&quot;&gt;
+    &lt;GridView
+        x:Name=&quot;BaseGridView&quot;
+        Width=&quot;300&quot;
+        ContainerContentChanging=&quot;BaseListView_ContainerContentChanging&quot;
+        Tag=&quot;{x:Bind GridViewRevealFocusPanel}&quot;&gt;
+        &lt;GridView.ItemContainerStyle&gt;
+            &lt;Style BasedOn=&quot;{StaticResource DefaultGridViewItemStyle}&quot; TargetType=&quot;GridViewItem&quot;&gt;
+                &lt;Setter Property=&quot;Template&quot;&gt;
+                    &lt;Setter.Value&gt;
+                        &lt;ControlTemplate TargetType=&quot;GridViewItem&quot;&gt;
+                            &lt;ListViewItemPresenter
+                                x:Name=&quot;Root&quot;
+                                HorizontalContentAlignment=&quot;{TemplateBinding HorizontalContentAlignment}&quot;
+                                VerticalContentAlignment=&quot;{TemplateBinding VerticalContentAlignment}&quot;
+                                essential:RevealFocusPanel.AttachToPanel=&quot;{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}&quot;
+                                CheckBoxBorderBrush=&quot;{ThemeResource GridViewItemCheckBoxBorderBrush}&quot;
+                                CheckBoxBrush=&quot;{ThemeResource GridViewItemCheckBoxBrush}&quot;
+                                CheckBoxCornerRadius=&quot;{ThemeResource GridViewItemCheckBoxCornerRadius}&quot;
+                                CheckBoxDisabledBorderBrush=&quot;{ThemeResource GridViewItemCheckBoxDisabledBorderBrush}&quot;
+                                CheckBoxDisabledBrush=&quot;{ThemeResource GridViewItemCheckBoxDisabledBrush}&quot;
+                                CheckBoxPointerOverBorderBrush=&quot;{ThemeResource GridViewItemCheckBoxPointerOverBorderBrush}&quot;
+                                CheckBoxPointerOverBrush=&quot;{ThemeResource GridViewItemCheckBoxPointerOverBrush}&quot;
+                                CheckBoxPressedBorderBrush=&quot;{ThemeResource GridViewItemCheckBoxPressedBorderBrush}&quot;
+                                CheckBoxPressedBrush=&quot;{ThemeResource GridViewItemCheckBoxPressedBrush}&quot;
+                                CheckBoxSelectedBrush=&quot;{ThemeResource GridViewItemCheckBoxSelectedBrush}&quot;
+                                CheckBoxSelectedDisabledBrush=&quot;{ThemeResource GridViewItemCheckBoxSelectedDisabledBrush}&quot;
+                                CheckBoxSelectedPointerOverBrush=&quot;{ThemeResource GridViewItemCheckBoxSelectedPointerOverBrush}&quot;
+                                CheckBoxSelectedPressedBrush=&quot;{ThemeResource GridViewItemCheckBoxSelectedPressedBrush}&quot;
+                                CheckBrush=&quot;{ThemeResource GridViewItemCheckBrush}&quot;
+                                CheckDisabledBrush=&quot;{ThemeResource GridViewItemCheckDisabledBrush}&quot;
+                                CheckMode=&quot;{ThemeResource GridViewItemCheckMode}&quot;
+                                CheckPressedBrush=&quot;{ThemeResource GridViewItemCheckPressedBrush}&quot;
+                                ContentMargin=&quot;{TemplateBinding Padding}&quot;
+                                ContentTransitions=&quot;{TemplateBinding ContentTransitions}&quot;
+                                Control.IsTemplateFocusTarget=&quot;True&quot;
+                                CornerRadius=&quot;{ThemeResource GridViewItemCornerRadius}&quot;
+                                DisabledOpacity=&quot;{ThemeResource ListViewItemDisabledThemeOpacity}&quot;
+                                DragBackground=&quot;{ThemeResource GridViewItemDragBackground}&quot;
+                                DragForeground=&quot;{ThemeResource GridViewItemDragForeground}&quot;
+                                DragOpacity=&quot;{ThemeResource ListViewItemDragThemeOpacity}&quot;
+                                FocusBorderBrush=&quot;{ThemeResource GridViewItemFocusBorderBrush}&quot;
+                                FocusVisualMargin=&quot;{TemplateBinding FocusVisualMargin}&quot;
+                                FocusVisualPrimaryBrush=&quot;{TemplateBinding FocusVisualPrimaryBrush}&quot;
+                                FocusVisualPrimaryThickness=&quot;{TemplateBinding FocusVisualPrimaryThickness}&quot;
+                                FocusVisualSecondaryBrush=&quot;{TemplateBinding FocusVisualSecondaryBrush}&quot;
+                                FocusVisualSecondaryThickness=&quot;{TemplateBinding FocusVisualSecondaryThickness}&quot;
+                                PlaceholderBackground=&quot;{ThemeResource GridViewItemPlaceholderBackground}&quot;
+                                PointerOverBackground=&quot;{ThemeResource GridViewItemBackgroundPointerOver}&quot;
+                                PointerOverBorderBrush=&quot;{ThemeResource GridViewItemPointerOverBorderBrush}&quot;
+                                PointerOverForeground=&quot;{ThemeResource GridViewItemForegroundPointerOver}&quot;
+                                PressedBackground=&quot;{ThemeResource GridViewItemBackgroundPressed}&quot;
+                                ReorderHintOffset=&quot;{ThemeResource GridViewItemReorderHintThemeOffset}&quot;
+                                SelectedBackground=&quot;{ThemeResource GridViewItemBackgroundSelected}&quot;
+                                SelectedBorderBrush=&quot;{ThemeResource GridViewItemSelectedBorderBrush}&quot;
+                                SelectedBorderThickness=&quot;{ThemeResource GridViewItemSelectedBorderThickness}&quot;
+                                SelectedDisabledBackground=&quot;{ThemeResource GridViewItemBackgroundSelectedDisabled}&quot;
+                                SelectedDisabledBorderBrush=&quot;{ThemeResource GridViewItemSelectedDisabledBorderBrush}&quot;
+                                SelectedForeground=&quot;{ThemeResource GridViewItemForegroundSelected}&quot;
+                                SelectedInnerBorderBrush=&quot;{ThemeResource GridViewItemSelectedInnerBorderBrush}&quot;
+                                SelectedPointerOverBackground=&quot;{ThemeResource GridViewItemBackgroundSelectedPointerOver}&quot;
+                                SelectedPointerOverBorderBrush=&quot;{ThemeResource GridViewItemSelectedPointerOverBorderBrush}&quot;
+                                SelectedPressedBackground=&quot;{ThemeResource GridViewItemBackgroundSelectedPressed}&quot;
+                                SelectedPressedBorderBrush=&quot;{ThemeResource GridViewItemSelectedPressedBorderBrush}&quot;
+                                SelectionCheckMarkVisualEnabled=&quot;{ThemeResource GridViewItemSelectionCheckMarkVisualEnabled}&quot; /&gt;
+                        &lt;/ControlTemplate&gt;
+                    &lt;/Setter.Value&gt;
+                &lt;/Setter&gt;
+            &lt;/Style&gt;
+        &lt;/GridView.ItemContainerStyle&gt;
+    &lt;/GridView&gt;
+&lt;/essential:RevealFocusPanel&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">    void RevealFocusPage::BaseListView_ContainerContentChanging(
+        winrt::Microsoft::UI::Xaml::Controls::ListViewBase const&amp; sender,
+        winrt::Microsoft::UI::Xaml::Controls::ContainerContentChangingEventArgs const&amp; args)
+    {
+        if (args.InRecycleQueue())
+            return;
+
+        // Set Tag on the container so the ListViewItemPresenter can bind to it via TemplatedParent
+        if (auto itemContainer = args.ItemContainer())
+            itemContainer.Tag(sender.Tag());
+    }</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
 
         <local:ControlExample HorizontalContentAlignment="Stretch" HeaderText="RevealFocus on NavigationView">
@@ -265,10 +539,48 @@
                     <Frame />
                 </NavigationView>
             </essential:RevealFocusPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:RevealFocusPanel x:Name=&quot;NavigationViewRevealFocusPanel&quot;&gt;
+    &lt;NavigationView&gt;
+        &lt;NavigationView.MenuItems&gt;
+            &lt;NavigationViewItem
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind NavigationViewRevealFocusPanel}&quot;
+                Content=&quot;Menu Item1&quot;
+                Icon=&quot;Play&quot;
+                Tag=&quot;SamplePage1&quot; /&gt;
+            &lt;NavigationViewItem
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind NavigationViewRevealFocusPanel}&quot;
+                Content=&quot;Menu Item2&quot;
+                Icon=&quot;Save&quot;
+                Tag=&quot;SamplePage2&quot; /&gt;
+            &lt;NavigationViewItem
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind NavigationViewRevealFocusPanel}&quot;
+                Content=&quot;Menu Item3&quot;
+                Icon=&quot;Refresh&quot;
+                Tag=&quot;SamplePage3&quot; /&gt;
+            &lt;NavigationViewItem
+                essential:RevealFocusPanel.AttachToPanel=&quot;{x:Bind NavigationViewRevealFocusPanel}&quot;
+                Content=&quot;Menu Item4&quot;
+                Icon=&quot;Download&quot;
+                Tag=&quot;SamplePage4&quot; /&gt;
+        &lt;/NavigationView.MenuItems&gt;
+        &lt;Frame /&gt;
+    &lt;/NavigationView&gt;
+&lt;/essential:RevealFocusPanel&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
+        <TextBlock Margin="0,10,0,-10" Text="RevealFocus does not work as a whole inside the ComboBox popup, and can only be used on individual items. You also need to rewrite its ItemContainerStyle." />
         <local:ControlExample HeaderText="RevealFocus in ComboBox">
-            <ComboBox MinWidth="200" PlaceholderText="Select an item">
+            <ComboBox
+                MinWidth="200"
+                essential:ComboBoxHelper.AcrylicWorkaround="True"
+                PlaceholderText="Select an item">
                 <ComboBox.ItemContainerStyle>
                     <Style BasedOn="{StaticResource DefaultComboBoxItemStyle}" TargetType="ComboBoxItem">
                         <Setter Property="Template">
@@ -480,6 +792,858 @@
                 <ComboBoxItem>Item 2</ComboBoxItem>
                 <ComboBoxItem>Item 3</ComboBoxItem>
             </ComboBox>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;ComboBox
+    MinWidth=&quot;200&quot;
+    essential:ComboBoxHelper.AcrylicWorkaround=&quot;True&quot;
+    PlaceholderText=&quot;Select an item&quot;&gt;
+    &lt;ComboBox.ItemContainerStyle&gt;
+        &lt;Style BasedOn=&quot;{StaticResource DefaultComboBoxItemStyle}&quot; TargetType=&quot;ComboBoxItem&quot;&gt;
+            &lt;Setter Property=&quot;Template&quot;&gt;
+                &lt;Setter.Value&gt;
+                    &lt;ControlTemplate TargetType=&quot;ComboBoxItem&quot;&gt;
+                        &lt;essential:RevealFocusPanel x:Name=&quot;ComboBoxRevealPanel&quot;&gt;
+                            &lt;Grid
+                                x:Name=&quot;LayoutRoot&quot;
+                                Margin=&quot;5,2,5,2&quot;
+                                essential:RevealFocusPanel.AttachToPanel=&quot;{Binding ElementName=ComboBoxRevealPanel, RelativeSource={RelativeSource Mode=Self}}&quot;
+                                Background=&quot;{TemplateBinding Background}&quot;
+                                BorderBrush=&quot;{TemplateBinding BorderBrush}&quot;
+                                BorderThickness=&quot;{TemplateBinding BorderThickness}&quot;
+                                Control.IsTemplateFocusTarget=&quot;True&quot;
+                                CornerRadius=&quot;{TemplateBinding CornerRadius}&quot;&gt;
+                                &lt;Rectangle
+                                    x:Name=&quot;Pill&quot;
+                                    Grid.Row=&quot;1&quot;
+                                    Grid.Column=&quot;0&quot;
+                                    Opacity=&quot;0&quot;
+                                    Style=&quot;{StaticResource ComboBoxItemPill}&quot;&gt;
+                                    &lt;Rectangle.RenderTransform&gt;
+                                        &lt;CompositeTransform x:Name=&quot;PillTransform&quot; ScaleY=&quot;1&quot; /&gt;
+                                    &lt;/Rectangle.RenderTransform&gt;
+                                &lt;/Rectangle&gt;
+                                &lt;ContentPresenter
+                                    x:Name=&quot;ContentPresenter&quot;
+                                    Margin=&quot;{TemplateBinding Padding}&quot;
+                                    HorizontalAlignment=&quot;{TemplateBinding HorizontalContentAlignment}&quot;
+                                    VerticalAlignment=&quot;{TemplateBinding VerticalContentAlignment}&quot;
+                                    Content=&quot;{TemplateBinding Content}&quot;
+                                    ContentTemplate=&quot;{TemplateBinding ContentTemplate}&quot;
+                                    ContentTransitions=&quot;{TemplateBinding ContentTransitions}&quot;
+                                    Foreground=&quot;{TemplateBinding Foreground}&quot; /&gt;
+
+
+                            &lt;/Grid&gt;
+                            &lt;VisualStateManager.VisualStateGroups&gt;
+                                &lt;VisualStateGroup x:Name=&quot;CommonStates&quot;&gt;
+                                    &lt;VisualState x:Name=&quot;Normal&quot; /&gt;
+
+                                    &lt;VisualState x:Name=&quot;PointerOver&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Background&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBackgroundPointerOver}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;BorderBrush&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBorderBrushPointerOver}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Foreground&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemForegroundPointerOver}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+
+                                    &lt;VisualState x:Name=&quot;Disabled&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Background&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBackgroundDisabled}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;BorderBrush&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBorderBrushDisabled}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Foreground&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemForegroundDisabled}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+
+                                    &lt;VisualState x:Name=&quot;Pressed&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Background&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBackgroundPressed}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;BorderBrush&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBorderBrushPressed}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Foreground&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemForegroundPressed}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+
+                                    &lt;VisualState x:Name=&quot;Selected&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;Pill&quot; Storyboard.TargetProperty=&quot;Opacity&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;1&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Background&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBackgroundSelected}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;BorderBrush&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBorderBrushSelected}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Foreground&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemForegroundSelected}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+                                    &lt;VisualState x:Name=&quot;SelectedUnfocused&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;Pill&quot; Storyboard.TargetProperty=&quot;Opacity&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;1&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Background&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBackgroundSelectedUnfocused}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;BorderBrush&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBorderBrushSelectedUnfocused}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Foreground&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemForegroundSelectedUnfocused}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+                                    &lt;VisualState x:Name=&quot;SelectedDisabled&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;Pill&quot; Storyboard.TargetProperty=&quot;Opacity&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;1&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Background&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBackgroundSelectedDisabled}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;BorderBrush&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBorderBrushSelectedDisabled}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Foreground&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemForegroundSelectedDisabled}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+                                    &lt;VisualState x:Name=&quot;SelectedPointerOver&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;Pill&quot; Storyboard.TargetProperty=&quot;Opacity&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;1&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Background&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBackgroundSelectedPointerOver}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;BorderBrush&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBorderBrushSelectedPointerOver}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Foreground&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemForegroundSelectedPointerOver}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+                                    &lt;VisualState x:Name=&quot;SelectedPressed&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;Pill&quot; Storyboard.TargetProperty=&quot;Opacity&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;1&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;DoubleAnimationUsingKeyFrames Storyboard.TargetName=&quot;PillTransform&quot; Storyboard.TargetProperty=&quot;ScaleY&quot;&gt;
+                                                &lt;SplineDoubleKeyFrame
+                                                    KeySpline=&quot;0,0,0,1&quot;
+                                                    KeyTime=&quot;{StaticResource ComboBoxItemScaleAnimationDuration}&quot;
+                                                    Value=&quot;{StaticResource ComboBoxItemPillMinScale}&quot; /&gt;
+                                            &lt;/DoubleAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Background&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBackgroundSelectedPressed}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;BorderBrush&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemBorderBrushSelectedPressed}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Foreground&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemForegroundSelectedPressed}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+
+                                &lt;/VisualStateGroup&gt;
+                                &lt;VisualStateGroup x:Name=&quot;InputModeStates&quot;&gt;
+                                    &lt;VisualState x:Name=&quot;InputModeDefault&quot; /&gt;
+                                    &lt;VisualState x:Name=&quot;TouchInputMode&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Margin&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemThemeTouchPadding}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+                                    &lt;VisualState x:Name=&quot;GameControllerInputMode&quot;&gt;
+
+                                        &lt;Storyboard&gt;
+                                            &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;ContentPresenter&quot; Storyboard.TargetProperty=&quot;Margin&quot;&gt;
+                                                &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{ThemeResource ComboBoxItemThemeGameControllerPadding}&quot; /&gt;
+                                            &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                        &lt;/Storyboard&gt;
+                                    &lt;/VisualState&gt;
+
+                                &lt;/VisualStateGroup&gt;
+
+                            &lt;/VisualStateManager.VisualStateGroups&gt;
+                        &lt;/essential:RevealFocusPanel&gt;
+                    &lt;/ControlTemplate&gt;
+                &lt;/Setter.Value&gt;
+            &lt;/Setter&gt;
+        &lt;/Style&gt;
+    &lt;/ComboBox.ItemContainerStyle&gt;
+    &lt;ComboBoxItem&gt;Item 1&lt;/ComboBoxItem&gt;
+    &lt;ComboBoxItem&gt;Item 2&lt;/ComboBoxItem&gt;
+    &lt;ComboBoxItem&gt;Item 3&lt;/ComboBoxItem&gt;
+&lt;/ComboBox&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <TextBlock Margin="0,10,0,-10" Text="Similar to ComboBox, RevealFocus does not work as a whole in the Popup, and only work inside individual MenuFlyoutItems. You will need to rewrite its ControlTemplate for MenuFlyoutItem, MenuFlyoutSubItem and MenuFlyoutToggleItem as needed." />
+        <local:ControlExample HeaderText="RevealFocus on MenuFlyout">
+            <local:ControlExample.Resources>
+                <Style
+                    x:Key="RevealMenuFlyoutItemStyle"
+                    BasedOn="{StaticResource DefaultMenuFlyoutItemStyle}"
+                    TargetType="MenuFlyoutItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="MenuFlyoutItem">
+                                <essential:RevealFocusPanel x:Name="MenuFlyoutItemRevealPanel">
+                                    <Grid
+                                        x:Name="LayoutRoot"
+                                        Margin="{StaticResource MenuFlyoutItemMargin}"
+                                        Padding="{TemplateBinding Padding}"
+                                        essential:RevealFocusPanel.AttachToPanel="{Binding ElementName=MenuFlyoutItemRevealPanel, RelativeSource={RelativeSource Mode=Self}}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="{TemplateBinding CornerRadius}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Viewbox
+                                            x:Name="IconRoot"
+                                            Width="16"
+                                            Height="16"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Visibility="Collapsed">
+                                            <ContentPresenter
+                                                x:Name="IconContent"
+                                                Content="{TemplateBinding Icon}"
+                                                Foreground="{TemplateBinding Foreground}" />
+
+                                        </Viewbox>
+                                        <TextBlock
+                                            x:Name="TextBlock"
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            Text="{TemplateBinding Text}"
+                                            TextTrimming="{ThemeResource MenuFlyoutItemTextTrimming}" />
+                                        <TextBlock
+                                            x:Name="KeyboardAcceleratorTextBlock"
+                                            Grid.Column="1"
+                                            MinWidth="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.KeyboardAcceleratorTextMinWidth}"
+                                            Margin="24,4,0,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            AutomationProperties.AccessibilityView="Raw"
+                                            Foreground="{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"
+                                            Style="{ThemeResource CaptionTextBlockStyle}"
+                                            Text="{TemplateBinding KeyboardAcceleratorTextOverride}"
+                                            TextAlignment="Right"
+                                            Visibility="Collapsed" />
+
+                                    </Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal" />
+
+                                            <VisualState x:Name="PointerOver">
+                                                <VisualState.Setters>
+                                                    <Setter Target="LayoutRoot.Background" Value="{ThemeResource MenuFlyoutItemBackgroundPointerOver}" />
+                                                    <Setter Target="TextBlock.Foreground" Value="{ThemeResource MenuFlyoutItemForegroundPointerOver}" />
+                                                    <Setter Target="IconContent.Foreground" Value="{ThemeResource MenuFlyoutItemForegroundPointerOver}" />
+                                                    <Setter Target="KeyboardAcceleratorTextBlock.Foreground" Value="{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForegroundPointerOver}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                            <VisualState x:Name="Pressed">
+                                                <VisualState.Setters>
+                                                    <Setter Target="LayoutRoot.Background" Value="{ThemeResource MenuFlyoutItemBackgroundPressed}" />
+                                                    <Setter Target="TextBlock.Foreground" Value="{ThemeResource MenuFlyoutItemForegroundPressed}" />
+                                                    <Setter Target="IconContent.Foreground" Value="{ThemeResource MenuFlyoutItemForegroundPressed}" />
+                                                    <Setter Target="KeyboardAcceleratorTextBlock.Foreground" Value="{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForegroundPressed}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                            <VisualState x:Name="Disabled">
+                                                <VisualState.Setters>
+                                                    <Setter Target="LayoutRoot.Background" Value="{ThemeResource MenuFlyoutItemBackgroundDisabled}" />
+                                                    <Setter Target="TextBlock.Foreground" Value="{ThemeResource MenuFlyoutItemForegroundDisabled}" />
+                                                    <Setter Target="IconContent.Foreground" Value="{ThemeResource MenuFlyoutItemForegroundDisabled}" />
+                                                    <Setter Target="KeyboardAcceleratorTextBlock.Foreground" Value="{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForegroundDisabled}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="CheckPlaceholderStates">
+                                            <VisualState x:Name="NoPlaceholder" />
+                                            <VisualState x:Name="CheckPlaceholder">
+                                                <VisualState.Setters>
+                                                    <Setter Target="TextBlock.Margin" Value="{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="IconPlaceholder">
+                                                <VisualState.Setters>
+                                                    <Setter Target="TextBlock.Margin" Value="{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}" />
+                                                    <Setter Target="IconRoot.Visibility" Value="Visible" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="CheckAndIconPlaceholder">
+                                                <VisualState.Setters>
+                                                    <Setter Target="TextBlock.Margin" Value="{ThemeResource MenuFlyoutItemDoublePlaceholderThemeThickness}" />
+                                                    <Setter Target="IconRoot.Margin" Value="{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}" />
+                                                    <Setter Target="IconRoot.Visibility" Value="Visible" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+                                        <!--  Narrow padding is only applied when flyout was invoked with pen, mouse or keyboard.  -->
+                                        <!--  Default padding is applied for all other cases including touch.  -->
+                                        <VisualStateGroup x:Name="PaddingSizeStates">
+                                            <VisualState x:Name="DefaultPadding" />
+                                            <VisualState x:Name="NarrowPadding">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Padding">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource MenuFlyoutItemThemePaddingNarrow}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="KeyboardAcceleratorTextVisibility">
+                                            <VisualState x:Name="KeyboardAcceleratorTextCollapsed" />
+                                            <VisualState x:Name="KeyboardAcceleratorTextVisible">
+                                                <VisualState.Setters>
+                                                    <Setter Target="KeyboardAcceleratorTextBlock.Visibility" Value="Visible" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+
+                                    </VisualStateManager.VisualStateGroups>
+                                </essential:RevealFocusPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <Style
+                    x:Key="RevealMenuFlyoutSubItemStyle"
+                    BasedOn="{StaticResource DefaultMenuFlyoutSubItemStyle}"
+                    TargetType="MenuFlyoutSubItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="MenuFlyoutSubItem">
+                                <essential:RevealFocusPanel x:Name="MenuFlyoutSubItemRevealPanel">
+                                    <Grid
+                                        x:Name="LayoutRoot"
+                                        Margin="{StaticResource MenuFlyoutItemMargin}"
+                                        Padding="{TemplateBinding Padding}"
+                                        essential:RevealFocusPanel.AttachToPanel="{Binding ElementName=MenuFlyoutSubItemRevealPanel, RelativeSource={RelativeSource Mode=Self}}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="{TemplateBinding CornerRadius}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Viewbox
+                                                x:Name="IconRoot"
+                                                Grid.Column="0"
+                                                Width="16"
+                                                Height="16"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Visibility="Collapsed">
+                                                <ContentPresenter
+                                                    x:Name="IconContent"
+                                                    Content="{TemplateBinding Icon}"
+                                                    Foreground="{TemplateBinding Foreground}" />
+                                            </Viewbox>
+                                            <TextBlock
+                                                x:Name="TextBlock"
+                                                Grid.Column="0"
+                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                Foreground="{TemplateBinding Foreground}"
+                                                Text="{TemplateBinding Text}"
+                                                TextTrimming="{ThemeResource MenuFlyoutItemTextTrimming}" />
+                                            <FontIcon
+                                                x:Name="SubItemChevron"
+                                                Grid.Column="1"
+                                                Margin="{StaticResource MenuFlyoutItemChevronMargin}"
+                                                AutomationProperties.AccessibilityView="Raw"
+                                                FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                                                FontSize="12"
+                                                Foreground="{ThemeResource MenuFlyoutSubItemChevron}"
+                                                Glyph="&#xE974;"
+                                                MirroredWhenRightToLeft="True" />
+
+                                        </Grid>
+
+                                    </Grid>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal" />
+
+                                            <VisualState x:Name="PointerOver">
+                                                <VisualState.Setters>
+                                                    <Setter Target="LayoutRoot.Background" Value="{ThemeResource MenuFlyoutSubItemBackgroundPointerOver}" />
+                                                    <Setter Target="TextBlock.Foreground" Value="{ThemeResource MenuFlyoutSubItemForegroundPointerOver}" />
+                                                    <Setter Target="SubItemChevron.Foreground" Value="{ThemeResource MenuFlyoutSubItemChevronPointerOver}" />
+                                                    <Setter Target="IconContent.Foreground" Value="{ThemeResource MenuFlyoutSubItemForegroundPointerOver}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                            <VisualState x:Name="Pressed">
+                                                <VisualState.Setters>
+                                                    <Setter Target="LayoutRoot.Background" Value="{ThemeResource MenuFlyoutSubItemBackgroundPressed}" />
+                                                    <Setter Target="TextBlock.Foreground" Value="{ThemeResource MenuFlyoutSubItemForegroundPressed}" />
+                                                    <Setter Target="SubItemChevron.Foreground" Value="{ThemeResource MenuFlyoutSubItemChevronPressed}" />
+                                                    <Setter Target="IconContent.Foreground" Value="{ThemeResource MenuFlyoutSubItemForegroundPressed}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="SubMenuOpened">
+                                                <VisualState.Setters>
+                                                    <Setter Target="LayoutRoot.Background" Value="{ThemeResource MenuFlyoutSubItemBackgroundSubMenuOpened}" />
+                                                    <Setter Target="TextBlock.Foreground" Value="{ThemeResource MenuFlyoutSubItemForegroundSubMenuOpened}" />
+                                                    <Setter Target="SubItemChevron.Foreground" Value="{ThemeResource MenuFlyoutSubItemChevronSubMenuOpened}" />
+                                                    <Setter Target="IconContent.Foreground" Value="{ThemeResource MenuFlyoutSubItemForegroundSubMenuOpened}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                            <VisualState x:Name="Disabled">
+                                                <VisualState.Setters>
+                                                    <Setter Target="LayoutRoot.Background" Value="{ThemeResource MenuFlyoutSubItemBackgroundDisabled}" />
+                                                    <Setter Target="TextBlock.Foreground" Value="{ThemeResource MenuFlyoutSubItemForegroundDisabled}" />
+                                                    <Setter Target="SubItemChevron.Foreground" Value="{ThemeResource MenuFlyoutSubItemChevronDisabled}" />
+                                                    <Setter Target="IconContent.Foreground" Value="{ThemeResource MenuFlyoutSubItemForegroundDisabled}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="CheckPlaceholderStates">
+                                            <VisualState x:Name="NoPlaceholder" />
+                                            <VisualState x:Name="CheckPlaceholder">
+                                                <VisualState.Setters>
+                                                    <Setter Target="TextBlock.Margin" Value="{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="IconPlaceholder">
+                                                <VisualState.Setters>
+                                                    <Setter Target="TextBlock.Margin" Value="{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}" />
+                                                    <Setter Target="IconRoot.Visibility" Value="Visible" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                            <VisualState x:Name="CheckAndIconPlaceholder">
+                                                <VisualState.Setters>
+                                                    <Setter Target="TextBlock.Margin" Value="{ThemeResource MenuFlyoutItemDoublePlaceholderThemeThickness}" />
+                                                    <Setter Target="IconRoot.Margin" Value="{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}" />
+                                                    <Setter Target="IconRoot.Visibility" Value="Visible" />
+
+                                                </VisualState.Setters>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="PaddingSizeStates">
+                                            <VisualState x:Name="DefaultPadding" />
+                                            <VisualState x:Name="NarrowPadding">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Padding">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource MenuFlyoutItemThemePaddingNarrow}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+
+                                    </VisualStateManager.VisualStateGroups>
+                                </essential:RevealFocusPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </local:ControlExample.Resources>
+            <Button>
+                Click to open MenuFlyout
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Style="{StaticResource RevealMenuFlyoutItemStyle}" Text="Menu Item1" />
+                        <MenuFlyoutItem Style="{StaticResource RevealMenuFlyoutItemStyle}" Text="Menu Item2" />
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutItem Style="{StaticResource RevealMenuFlyoutItemStyle}" Text="Menu Item3" />
+                        <MenuFlyoutSubItem Style="{StaticResource RevealMenuFlyoutSubItemStyle}" Text="Sub items">
+                            <MenuFlyoutItem Style="{StaticResource RevealMenuFlyoutItemStyle}" Text="Sub Menu Item1" />
+                            <MenuFlyoutItem Style="{StaticResource RevealMenuFlyoutItemStyle}" Text="Sub Menu Item2" />
+                        </MenuFlyoutSubItem>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">    &lt;Style
+        x:Key=&quot;RevealMenuFlyoutItemStyle&quot;
+        BasedOn=&quot;{StaticResource DefaultMenuFlyoutItemStyle}&quot;
+        TargetType=&quot;MenuFlyoutItem&quot;&gt;
+        &lt;Setter Property=&quot;Template&quot;&gt;
+            &lt;Setter.Value&gt;
+                &lt;ControlTemplate TargetType=&quot;MenuFlyoutItem&quot;&gt;
+                    &lt;essential:RevealFocusPanel x:Name=&quot;MenuFlyoutItemRevealPanel&quot;&gt;
+                        &lt;Grid
+                            x:Name=&quot;LayoutRoot&quot;
+                            Margin=&quot;{StaticResource MenuFlyoutItemMargin}&quot;
+                            Padding=&quot;{TemplateBinding Padding}&quot;
+                            essential:RevealFocusPanel.AttachToPanel=&quot;{Binding ElementName=MenuFlyoutItemRevealPanel, RelativeSource={RelativeSource Mode=Self}}&quot;
+                            Background=&quot;{TemplateBinding Background}&quot;
+                            BorderBrush=&quot;{TemplateBinding BorderBrush}&quot;
+                            BorderThickness=&quot;{TemplateBinding BorderThickness}&quot;
+                            CornerRadius=&quot;{TemplateBinding CornerRadius}&quot;&gt;
+                            &lt;Grid.ColumnDefinitions&gt;
+                                &lt;ColumnDefinition Width=&quot;*&quot; /&gt;
+                                &lt;ColumnDefinition Width=&quot;Auto&quot; /&gt;
+                            &lt;/Grid.ColumnDefinitions&gt;
+                            &lt;Viewbox
+                                x:Name=&quot;IconRoot&quot;
+                                Width=&quot;16&quot;
+                                Height=&quot;16&quot;
+                                HorizontalAlignment=&quot;Left&quot;
+                                VerticalAlignment=&quot;Center&quot;
+                                Visibility=&quot;Collapsed&quot;&gt;
+                                &lt;ContentPresenter
+                                    x:Name=&quot;IconContent&quot;
+                                    Content=&quot;{TemplateBinding Icon}&quot;
+                                    Foreground=&quot;{TemplateBinding Foreground}&quot; /&gt;
+
+                            &lt;/Viewbox&gt;
+                            &lt;TextBlock
+                                x:Name=&quot;TextBlock&quot;
+                                HorizontalAlignment=&quot;{TemplateBinding HorizontalContentAlignment}&quot;
+                                VerticalAlignment=&quot;{TemplateBinding VerticalContentAlignment}&quot;
+                                Foreground=&quot;{TemplateBinding Foreground}&quot;
+                                Text=&quot;{TemplateBinding Text}&quot;
+                                TextTrimming=&quot;{ThemeResource MenuFlyoutItemTextTrimming}&quot; /&gt;
+                            &lt;TextBlock
+                                x:Name=&quot;KeyboardAcceleratorTextBlock&quot;
+                                Grid.Column=&quot;1&quot;
+                                MinWidth=&quot;{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TemplateSettings.KeyboardAcceleratorTextMinWidth}&quot;
+                                Margin=&quot;24,4,0,0&quot;
+                                HorizontalAlignment=&quot;Right&quot;
+                                VerticalAlignment=&quot;{TemplateBinding VerticalContentAlignment}&quot;
+                                AutomationProperties.AccessibilityView=&quot;Raw&quot;
+                                Foreground=&quot;{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForeground}&quot;
+                                Style=&quot;{ThemeResource CaptionTextBlockStyle}&quot;
+                                Text=&quot;{TemplateBinding KeyboardAcceleratorTextOverride}&quot;
+                                TextAlignment=&quot;Right&quot;
+                                Visibility=&quot;Collapsed&quot; /&gt;
+
+                        &lt;/Grid&gt;
+                        &lt;VisualStateManager.VisualStateGroups&gt;
+                            &lt;VisualStateGroup x:Name=&quot;CommonStates&quot;&gt;
+                                &lt;VisualState x:Name=&quot;Normal&quot; /&gt;
+
+                                &lt;VisualState x:Name=&quot;PointerOver&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;LayoutRoot.Background&quot; Value=&quot;{ThemeResource MenuFlyoutItemBackgroundPointerOver}&quot; /&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemForegroundPointerOver}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconContent.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemForegroundPointerOver}&quot; /&gt;
+                                        &lt;Setter Target=&quot;KeyboardAcceleratorTextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForegroundPointerOver}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                                &lt;VisualState x:Name=&quot;Pressed&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;LayoutRoot.Background&quot; Value=&quot;{ThemeResource MenuFlyoutItemBackgroundPressed}&quot; /&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemForegroundPressed}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconContent.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemForegroundPressed}&quot; /&gt;
+                                        &lt;Setter Target=&quot;KeyboardAcceleratorTextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForegroundPressed}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                                &lt;VisualState x:Name=&quot;Disabled&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;LayoutRoot.Background&quot; Value=&quot;{ThemeResource MenuFlyoutItemBackgroundDisabled}&quot; /&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemForegroundDisabled}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconContent.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemForegroundDisabled}&quot; /&gt;
+                                        &lt;Setter Target=&quot;KeyboardAcceleratorTextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForegroundDisabled}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                            &lt;/VisualStateGroup&gt;
+                            &lt;VisualStateGroup x:Name=&quot;CheckPlaceholderStates&quot;&gt;
+                                &lt;VisualState x:Name=&quot;NoPlaceholder&quot; /&gt;
+                                &lt;VisualState x:Name=&quot;CheckPlaceholder&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Margin&quot; Value=&quot;{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+                                &lt;VisualState x:Name=&quot;IconPlaceholder&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Margin&quot; Value=&quot;{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconRoot.Visibility&quot; Value=&quot;Visible&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+                                &lt;VisualState x:Name=&quot;CheckAndIconPlaceholder&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Margin&quot; Value=&quot;{ThemeResource MenuFlyoutItemDoublePlaceholderThemeThickness}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconRoot.Margin&quot; Value=&quot;{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconRoot.Visibility&quot; Value=&quot;Visible&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                            &lt;/VisualStateGroup&gt;
+                            &lt;!--  Narrow padding is only applied when flyout was invoked with pen, mouse or keyboard.  --&gt;
+                            &lt;!--  Default padding is applied for all other cases including touch.  --&gt;
+                            &lt;VisualStateGroup x:Name=&quot;PaddingSizeStates&quot;&gt;
+                                &lt;VisualState x:Name=&quot;DefaultPadding&quot; /&gt;
+                                &lt;VisualState x:Name=&quot;NarrowPadding&quot;&gt;
+
+                                    &lt;Storyboard&gt;
+                                        &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Padding&quot;&gt;
+                                            &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{StaticResource MenuFlyoutItemThemePaddingNarrow}&quot; /&gt;
+                                        &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                    &lt;/Storyboard&gt;
+                                &lt;/VisualState&gt;
+
+                            &lt;/VisualStateGroup&gt;
+                            &lt;VisualStateGroup x:Name=&quot;KeyboardAcceleratorTextVisibility&quot;&gt;
+                                &lt;VisualState x:Name=&quot;KeyboardAcceleratorTextCollapsed&quot; /&gt;
+                                &lt;VisualState x:Name=&quot;KeyboardAcceleratorTextVisible&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;KeyboardAcceleratorTextBlock.Visibility&quot; Value=&quot;Visible&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                            &lt;/VisualStateGroup&gt;
+
+                        &lt;/VisualStateManager.VisualStateGroups&gt;
+                    &lt;/essential:RevealFocusPanel&gt;
+                &lt;/ControlTemplate&gt;
+            &lt;/Setter.Value&gt;
+        &lt;/Setter&gt;
+    &lt;/Style&gt;
+
+    &lt;Style
+        x:Key=&quot;RevealMenuFlyoutSubItemStyle&quot;
+        BasedOn=&quot;{StaticResource DefaultMenuFlyoutSubItemStyle}&quot;
+        TargetType=&quot;MenuFlyoutSubItem&quot;&gt;
+        &lt;Setter Property=&quot;Template&quot;&gt;
+            &lt;Setter.Value&gt;
+                &lt;ControlTemplate TargetType=&quot;MenuFlyoutSubItem&quot;&gt;
+                    &lt;essential:RevealFocusPanel x:Name=&quot;MenuFlyoutSubItemRevealPanel&quot;&gt;
+                        &lt;Grid
+                            x:Name=&quot;LayoutRoot&quot;
+                            Margin=&quot;{StaticResource MenuFlyoutItemMargin}&quot;
+                            Padding=&quot;{TemplateBinding Padding}&quot;
+                            essential:RevealFocusPanel.AttachToPanel=&quot;{Binding ElementName=MenuFlyoutSubItemRevealPanel, RelativeSource={RelativeSource Mode=Self}}&quot;
+                            Background=&quot;{TemplateBinding Background}&quot;
+                            BorderBrush=&quot;{TemplateBinding BorderBrush}&quot;
+                            BorderThickness=&quot;{TemplateBinding BorderThickness}&quot;
+                            CornerRadius=&quot;{TemplateBinding CornerRadius}&quot;&gt;
+                            &lt;Grid&gt;
+                                &lt;Grid.ColumnDefinitions&gt;
+                                    &lt;ColumnDefinition Width=&quot;*&quot; /&gt;
+                                    &lt;ColumnDefinition Width=&quot;Auto&quot; /&gt;
+                                &lt;/Grid.ColumnDefinitions&gt;
+                                &lt;Viewbox
+                                    x:Name=&quot;IconRoot&quot;
+                                    Grid.Column=&quot;0&quot;
+                                    Width=&quot;16&quot;
+                                    Height=&quot;16&quot;
+                                    HorizontalAlignment=&quot;Left&quot;
+                                    VerticalAlignment=&quot;Center&quot;
+                                    Visibility=&quot;Collapsed&quot;&gt;
+                                    &lt;ContentPresenter
+                                        x:Name=&quot;IconContent&quot;
+                                        Content=&quot;{TemplateBinding Icon}&quot;
+                                        Foreground=&quot;{TemplateBinding Foreground}&quot; /&gt;
+                                &lt;/Viewbox&gt;
+                                &lt;TextBlock
+                                    x:Name=&quot;TextBlock&quot;
+                                    Grid.Column=&quot;0&quot;
+                                    HorizontalAlignment=&quot;{TemplateBinding HorizontalContentAlignment}&quot;
+                                    VerticalAlignment=&quot;{TemplateBinding VerticalContentAlignment}&quot;
+                                    Foreground=&quot;{TemplateBinding Foreground}&quot;
+                                    Text=&quot;{TemplateBinding Text}&quot;
+                                    TextTrimming=&quot;{ThemeResource MenuFlyoutItemTextTrimming}&quot; /&gt;
+                                &lt;FontIcon
+                                    x:Name=&quot;SubItemChevron&quot;
+                                    Grid.Column=&quot;1&quot;
+                                    Margin=&quot;{StaticResource MenuFlyoutItemChevronMargin}&quot;
+                                    AutomationProperties.AccessibilityView=&quot;Raw&quot;
+                                    FontFamily=&quot;{ThemeResource SymbolThemeFontFamily}&quot;
+                                    FontSize=&quot;12&quot;
+                                    Foreground=&quot;{ThemeResource MenuFlyoutSubItemChevron}&quot;
+                                    Glyph=&quot;&amp;#xE974;&quot;
+                                    MirroredWhenRightToLeft=&quot;True&quot; /&gt;
+
+                            &lt;/Grid&gt;
+
+                        &lt;/Grid&gt;
+                        &lt;VisualStateManager.VisualStateGroups&gt;
+                            &lt;VisualStateGroup x:Name=&quot;CommonStates&quot;&gt;
+                                &lt;VisualState x:Name=&quot;Normal&quot; /&gt;
+
+                                &lt;VisualState x:Name=&quot;PointerOver&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;LayoutRoot.Background&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemBackgroundPointerOver}&quot; /&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemForegroundPointerOver}&quot; /&gt;
+                                        &lt;Setter Target=&quot;SubItemChevron.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemChevronPointerOver}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconContent.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemForegroundPointerOver}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                                &lt;VisualState x:Name=&quot;Pressed&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;LayoutRoot.Background&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemBackgroundPressed}&quot; /&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemForegroundPressed}&quot; /&gt;
+                                        &lt;Setter Target=&quot;SubItemChevron.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemChevronPressed}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconContent.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemForegroundPressed}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+                                &lt;VisualState x:Name=&quot;SubMenuOpened&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;LayoutRoot.Background&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemBackgroundSubMenuOpened}&quot; /&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemForegroundSubMenuOpened}&quot; /&gt;
+                                        &lt;Setter Target=&quot;SubItemChevron.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemChevronSubMenuOpened}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconContent.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemForegroundSubMenuOpened}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                                &lt;VisualState x:Name=&quot;Disabled&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;LayoutRoot.Background&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemBackgroundDisabled}&quot; /&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemForegroundDisabled}&quot; /&gt;
+                                        &lt;Setter Target=&quot;SubItemChevron.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemChevronDisabled}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconContent.Foreground&quot; Value=&quot;{ThemeResource MenuFlyoutSubItemForegroundDisabled}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                            &lt;/VisualStateGroup&gt;
+                            &lt;VisualStateGroup x:Name=&quot;CheckPlaceholderStates&quot;&gt;
+                                &lt;VisualState x:Name=&quot;NoPlaceholder&quot; /&gt;
+                                &lt;VisualState x:Name=&quot;CheckPlaceholder&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Margin&quot; Value=&quot;{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+                                &lt;VisualState x:Name=&quot;IconPlaceholder&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Margin&quot; Value=&quot;{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconRoot.Visibility&quot; Value=&quot;Visible&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+                                &lt;VisualState x:Name=&quot;CheckAndIconPlaceholder&quot;&gt;
+                                    &lt;VisualState.Setters&gt;
+                                        &lt;Setter Target=&quot;TextBlock.Margin&quot; Value=&quot;{ThemeResource MenuFlyoutItemDoublePlaceholderThemeThickness}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconRoot.Margin&quot; Value=&quot;{ThemeResource MenuFlyoutItemPlaceholderThemeThickness}&quot; /&gt;
+                                        &lt;Setter Target=&quot;IconRoot.Visibility&quot; Value=&quot;Visible&quot; /&gt;
+
+                                    &lt;/VisualState.Setters&gt;
+                                &lt;/VisualState&gt;
+
+                            &lt;/VisualStateGroup&gt;
+                            &lt;VisualStateGroup x:Name=&quot;PaddingSizeStates&quot;&gt;
+                                &lt;VisualState x:Name=&quot;DefaultPadding&quot; /&gt;
+                                &lt;VisualState x:Name=&quot;NarrowPadding&quot;&gt;
+
+                                    &lt;Storyboard&gt;
+                                        &lt;ObjectAnimationUsingKeyFrames Storyboard.TargetName=&quot;LayoutRoot&quot; Storyboard.TargetProperty=&quot;Padding&quot;&gt;
+                                            &lt;DiscreteObjectKeyFrame KeyTime=&quot;0&quot; Value=&quot;{StaticResource MenuFlyoutItemThemePaddingNarrow}&quot; /&gt;
+                                        &lt;/ObjectAnimationUsingKeyFrames&gt;
+                                    &lt;/Storyboard&gt;
+                                &lt;/VisualState&gt;
+
+                            &lt;/VisualStateGroup&gt;
+
+                        &lt;/VisualStateManager.VisualStateGroups&gt;
+                    &lt;/essential:RevealFocusPanel&gt;
+                &lt;/ControlTemplate&gt;
+            &lt;/Setter.Value&gt;
+        &lt;/Setter&gt;
+    &lt;/Style&gt;
+&lt;/local:ControlExample.Resources&gt;
+&lt;Button&gt;
+    Click to open MenuFlyout
+    &lt;Button.Flyout&gt;
+        &lt;MenuFlyout&gt;
+            &lt;MenuFlyoutItem Style=&quot;{StaticResource RevealMenuFlyoutItemStyle}&quot; Text=&quot;Menu Item1&quot; /&gt;
+            &lt;MenuFlyoutItem Style=&quot;{StaticResource RevealMenuFlyoutItemStyle}&quot; Text=&quot;Menu Item2&quot; /&gt;
+            &lt;MenuFlyoutSeparator /&gt;
+            &lt;MenuFlyoutItem Style=&quot;{StaticResource RevealMenuFlyoutItemStyle}&quot; Text=&quot;Menu Item3&quot; /&gt;
+            &lt;MenuFlyoutSubItem Style=&quot;{StaticResource RevealMenuFlyoutSubItemStyle}&quot; Text=&quot;Sub items&quot;&gt;
+                &lt;MenuFlyoutItem Style=&quot;{StaticResource RevealMenuFlyoutItemStyle}&quot; Text=&quot;Sub Menu Item1&quot; /&gt;
+                &lt;MenuFlyoutItem Style=&quot;{StaticResource RevealMenuFlyoutItemStyle}&quot; Text=&quot;Sub Menu Item2&quot; /&gt;
+            &lt;/MenuFlyoutSubItem&gt;
+        &lt;/MenuFlyout&gt;
+    &lt;/Button.Flyout&gt;
+&lt;/Button&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
     </StackPanel>
 </Page>

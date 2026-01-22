@@ -120,6 +120,7 @@ You can reference Github Action for detailed build steps.
 |CalendarDatePickerHelper | :x: | :white_check_mark: | WinRT component
 |ModalWindow | :x: | :white_check_mark: | WinRT component
 |NavigationViewHelper | :x: | :white_check_mark: | WinRT component
+|RevealFocusPanel | :x: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -1171,3 +1172,12 @@ The WinUI3's built-in `NavigationView` does not have Acrylic background with the
 |Before|After|
 |------|-----|
 |![](assets/navigationview-original.png)|![](assets/navigationview-fixed.png)|
+
+
+## RevealFocusPanel
+Missing the good-ol Reveal Focus effect from UWP? We bring it back to you! For detailed usage, please download the [Example Gallery](https://apps.microsoft.com/detail/9PCC690BCMT9?hl=en-us&gl=US&ocid=pdpshare) and see for yourself!
+|Light|Dark|
+|-----|----|
+|![](assets/reveal1-light.gif)|![](assets/reveal1-dark.gif)|
+|![](assets/reveal2-light.gif)|![](assets/reveal2-dark.gif)|
+|![](assets/reveal3-light.gif)|![](assets/reveal3-dark.gif)|
