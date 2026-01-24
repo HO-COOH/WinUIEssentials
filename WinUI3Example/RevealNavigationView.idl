@@ -1,0 +1,9 @@
+﻿namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+	runtimeclass RevealNavigationView : Microsoft.UI.Xaml.Controls.NavigationView
+    {
+        RevealNavigationView();
+    }
+}

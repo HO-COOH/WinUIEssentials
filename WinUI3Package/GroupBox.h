@@ -10,13 +10,10 @@ namespace winrt::WinUI3Package::implementation
         GroupBox() = default;
 
         //This really should be String, but it fucked up the compilation, because of https://github.com/microsoft/microsoft-ui-xaml/issues/8994
-        //winrt::hstring Header();
-        //void Header(winrt::hstring value);
-
-        winrt::Windows::Foundation::IInspectable Header();
-        void Header(winrt::Windows::Foundation::IInspectable value);
+        winrt::hstring Header();
+        void Header(winrt::hstring const& value);
     private:
-        winrt::Windows::Foundation::IInspectable m_header{ nullptr };
+        winrt::hstring m_header;
     };
 }
 

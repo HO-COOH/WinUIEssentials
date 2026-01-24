@@ -551,6 +551,10 @@
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="RevealNavigationView.h">
+      <DependentUpon>RevealNavigationView.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SampleModalWindow.xaml.h">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -599,10 +603,6 @@
     </ClInclude>
     <ClInclude Include="TemplateInformation.h">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="TestBackdropSwitch.xaml.h">
-      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TestWindow.xaml.h">
@@ -851,9 +851,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TestBackdropSwitch.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TestWindow.xaml">
@@ -1177,6 +1174,10 @@
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="RevealNavigationView.cpp">
+      <DependentUpon>RevealNavigationView.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SampleModalWindow.xaml.cpp">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1220,10 +1221,6 @@
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="TestBackdropSwitch.xaml.cpp">
-      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TestWindow.xaml.cpp">
@@ -1549,6 +1546,9 @@
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="RevealNavigationView.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="SampleModalWindow.idl">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1595,10 +1595,6 @@
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="TestBackdropSwitch.idl">
-      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Midl>
     <Midl Include="TestWindow.idl">
       <DependentUpon>TestWindow.xaml</DependentUpon>

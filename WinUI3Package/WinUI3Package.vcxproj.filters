@@ -517,6 +517,9 @@
     <Midl Include="RevealFocusPanel.idl">
       <Filter>Controls\RevealFocus</Filter>
     </Midl>
+    <Midl Include="Convert.idl">
+      <Filter>Converters</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

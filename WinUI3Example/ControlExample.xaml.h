@@ -85,7 +85,7 @@ namespace winrt::WinUI3Example::implementation
 		void Substitutions(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Example::ControlExampleSubstitution> const& value);
 		static winrt::Microsoft::UI::Xaml::DependencyProperty SubstitutionsProperty();
 
-		static winrt::hstring GetStringFromComboBoxItem(winrt::Windows::Foundation::IInspectable const& value);
+		static winrt::hstring UnboxString(winrt::Windows::Foundation::IInspectable const& value);
 		static winrt::hstring BooleanToString(bool value);
 	private:
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerTextProperty;

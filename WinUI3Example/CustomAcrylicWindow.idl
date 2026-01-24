@@ -4,8 +4,5 @@
     runtimeclass CustomAcrylicWindow : Microsoft.UI.Xaml.Window
     {
         CustomAcrylicWindow();
-
-
-        static Single DoubleToSingle(Double value);
     }
 }

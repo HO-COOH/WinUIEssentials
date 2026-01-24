@@ -1,0 +1,9 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass Convert 
+    {
+		static Single DoubleToSingle(Double value);
+    }
+}

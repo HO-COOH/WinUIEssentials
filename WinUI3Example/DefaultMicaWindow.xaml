@@ -7,9 +7,10 @@
     xmlns:essential="using:WinUI3Package"
     xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:systemBackdrops="using:Microsoft.UI.Composition.SystemBackdrops"
     mc:Ignorable="d">
     <Window.SystemBackdrop>
-        <essential:CustomMicaBackdrop EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}" Kind="{x:Bind local:DefaultMicaWindow.ToMicaKind(KindComboBox.SelectedItem), Mode=OneWay}" />
+        <essential:CustomMicaBackdrop EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}" Kind="{x:Bind (systemBackdrops:MicaKind)((ComboBoxItem)KindComboBox.SelectedItem).Tag, Mode=OneWay}" />
     </Window.SystemBackdrop>
 
     <StackPanel
@@ -21,8 +22,17 @@
             x:Name="KindComboBox"
             Header="Kind"
             SelectedIndex="0">
-            <x:String>Base</x:String>
-            <x:String>BaseAlt</x:String>
+            <ComboBoxItem Content="Base">
+                <ComboBoxItem.Tag>
+                    <systemBackdrops:MicaKind>Base</systemBackdrops:MicaKind>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="BaseAlt">
+                <ComboBoxItem.Tag>
+                    <systemBackdrops:MicaKind>BaseAlt</systemBackdrops:MicaKind>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
         </ComboBox>
     </StackPanel>
 </Window>

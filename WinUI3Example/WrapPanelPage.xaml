@@ -144,8 +144,8 @@ runtimeclass PhotoDataItemWithDimension
 {
     PhotoDataItemWithDimension();
 
- Double Width;
-uble Height;
+    Double Width;
+    Double Height;
 
     String Title;
     String Category;

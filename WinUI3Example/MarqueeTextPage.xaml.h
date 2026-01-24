@@ -10,9 +10,6 @@ namespace winrt::WinUI3Example::implementation
     struct MarqueeTextPage : MarqueeTextPageT<MarqueeTextPage>
     {
         MarqueeTextPage() = default;
-
-        static WinUI3Package::MarqueeBehavior GetBehaviorFromIndex(int value);
-        static WinUI3Package::MarqueeDirection GetDirectionFromIndex(int value);
     };
 }
 

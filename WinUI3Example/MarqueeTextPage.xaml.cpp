@@ -15,24 +15,4 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-	WinUI3Package::MarqueeBehavior MarqueeTextPage::GetBehaviorFromIndex(int value)
-	{
-		switch (value)
-		{
-		case 0: return WinUI3Package::MarqueeBehavior::Ticker;
-		case 1: return WinUI3Package::MarqueeBehavior::Looping;
-		case 2: return WinUI3Package::MarqueeBehavior::Bouncing;
-		}
-	}
-
-	WinUI3Package::MarqueeDirection MarqueeTextPage::GetDirectionFromIndex(int value)
-	{
-		switch (value)
-		{
-		case 0: return WinUI3Package::MarqueeDirection::Left;
-		case 1: return WinUI3Package::MarqueeDirection::Right;
-		case 2: return WinUI3Package::MarqueeDirection::Up;
-		case 3: return WinUI3Package::MarqueeDirection::Down;
-		}
-	}
 }

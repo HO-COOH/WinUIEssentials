@@ -49,7 +49,13 @@ namespace winrt::WinUI3Package::implementation
 		return element.GetValue(AttachToPanelProperty()).as<winrt::WinUI3Package::RevealFocusPanel>();
 	}
 
-    static void bindToCornerRadiusProperty(auto const& element, auto const& property, auto halfStroke, auto const& borderGeometry, auto const& overlayGeometry)
+    static void bindToCornerRadiusPropertyImpl(
+        auto const& element, 
+        auto const& property, 
+        auto halfStroke, 
+        auto const& borderGeometry, 
+        auto const& overlayGeometry
+    )
     {
         element.RegisterPropertyChangedCallback(
             property,
@@ -63,6 +69,50 @@ namespace winrt::WinUI3Package::implementation
         );
     }
 
+    //return a CornerRadius for convenience
+    static auto bindToCornerRadiusProperty(
+        winrt::Microsoft::UI::Xaml::FrameworkElement const& element,
+        auto halfStroke,
+        auto const& borderGeometry,
+        auto const& overlayGeometry)
+    {
+        winrt::Microsoft::UI::Xaml::CornerRadius cornerRadius{ -1 };
+        if (auto control = element.try_as<winrt::Microsoft::UI::Xaml::Controls::Control>())
+        {
+            cornerRadius = control.CornerRadius();
+            bindToCornerRadiusPropertyImpl(
+                control,
+                winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
+                halfStroke,
+                borderGeometry,
+                overlayGeometry
+            );
+        }
+        else if (auto contentPresenter = element.try_as<winrt::Microsoft::UI::Xaml::Controls::ContentPresenter>())
+        {
+            cornerRadius = contentPresenter.CornerRadius();
+            bindToCornerRadiusPropertyImpl(
+                contentPresenter,
+                winrt::Microsoft::UI::Xaml::Controls::ContentPresenter::CornerRadiusProperty(),
+                halfStroke,
+                borderGeometry,
+                overlayGeometry
+            );
+        }
+        else if (auto grid = element.try_as<winrt::Microsoft::UI::Xaml::Controls::Grid>())
+        {
+            cornerRadius = grid.CornerRadius();
+            bindToCornerRadiusPropertyImpl(
+                grid,
+                winrt::Microsoft::UI::Xaml::Controls::Grid::CornerRadiusProperty(),
+                halfStroke,
+                borderGeometry,
+                overlayGeometry
+            );
+        }
+        return cornerRadius;
+    }
+
 	void RevealFocusPanel::onAttachToPanelChanged(
 		winrt::Microsoft::UI::Xaml::DependencyObject const& d,
 		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e
@@ -73,7 +123,7 @@ namespace winrt::WinUI3Package::implementation
         revealFocusPanel->createResourcesIfNeeded();
 
         //create border geometry
-        auto child = d.as<winrt::Microsoft::UI::Xaml::UIElement>();
+        auto child = d.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
         auto elementVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(child);
 
         auto borderGeometry = revealFocusPanel->m_compositor.CreateRoundedRectangleGeometry();
@@ -87,42 +137,12 @@ namespace winrt::WinUI3Package::implementation
         borderGeometry.StartAnimation(L"Size", revealFocusPanel->m_borderGeometrySizeExpressionAnimation);
 
         //set CornerRadius if child has such property
-        winrt::Microsoft::UI::Xaml::CornerRadius cornerRadius{ -1 };
-        if (auto control = child.try_as<winrt::Microsoft::UI::Xaml::Controls::Control>())
-        {
-            cornerRadius = control.CornerRadius();
-            bindToCornerRadiusProperty(
-                control,
-                winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
-                halfStroke,
-                borderGeometry,
-                overlayGeometry
-            );
-        }
-        else if (auto contentPresenter = child.try_as<winrt::Microsoft::UI::Xaml::Controls::ContentPresenter>())
-        {
-			cornerRadius = contentPresenter.CornerRadius();
-            bindToCornerRadiusProperty(
-                contentPresenter,
-                winrt::Microsoft::UI::Xaml::Controls::ContentPresenter::CornerRadiusProperty(),
-                halfStroke,
-                borderGeometry,
-                overlayGeometry
-			);
-        }
-		else if (auto grid = child.try_as<winrt::Microsoft::UI::Xaml::Controls::Grid>())
-        {
-            cornerRadius = grid.CornerRadius();
-            bindToCornerRadiusProperty(
-                grid,
-                winrt::Microsoft::UI::Xaml::Controls::Grid::CornerRadiusProperty(),
-                halfStroke,
-                borderGeometry,
-                overlayGeometry
-			);
-        }
-
-
+        auto const cornerRadius = bindToCornerRadiusProperty(
+            child,
+            halfStroke,
+            borderGeometry,
+            overlayGeometry
+		);
         if (cornerRadius.TopLeft != -1)
         {
             float const adjustedRadius = (std::max)(0.0f, static_cast<float>(cornerRadius.TopLeft) - halfStroke);
@@ -148,7 +168,7 @@ namespace winrt::WinUI3Package::implementation
         revealFocusPanel->m_ellipseCenterExpressionAnimation.SetReferenceParameter(L"localProperty", localProperty);
 
 
-        child.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().LayoutUpdated([localProperty, child, panel](auto&&...) {
+        child.LayoutUpdated([localProperty, child, panel](auto&&...) {
             auto transform = child.TransformToVisual(panel).TransformPoint({});
             localProperty.InsertVector2(L"elementPosition", transform);
         });
@@ -176,11 +196,13 @@ namespace winrt::WinUI3Package::implementation
         overlayVisuals.InsertAtTop(overlayVisual);
         overlayVisuals.InsertAtTop(borderVisual);
 
-        child.PointerEntered([overlayVisual, revealFocusPanel](auto&&...) {
-            overlayVisual.StartAnimation(L"Opacity", revealFocusPanel->m_opacityForwardAnimation);
+        child.PointerEntered([overlayVisual, revealFocusPanel](auto&& sender, auto&&...) {
+            if (sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Visible)
+                overlayVisual.StartAnimation(L"Opacity", revealFocusPanel->m_opacityForwardAnimation);
         });
-        child.PointerExited([overlayVisual, revealFocusPanel](auto&&...) {
-            overlayVisual.StartAnimation(L"Opacity", revealFocusPanel->m_opacityBackwardAnimation);
+        child.PointerExited([overlayVisual, revealFocusPanel](auto&& sender, auto&&...) {
+            if (sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Visibility() == winrt::Microsoft::UI::Xaml::Visibility::Visible)
+                overlayVisual.StartAnimation(L"Opacity", revealFocusPanel->m_opacityBackwardAnimation);
         });
 
         child.AddHandler(

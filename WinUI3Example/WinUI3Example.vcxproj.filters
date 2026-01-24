@@ -66,19 +66,19 @@
       <Filter>Pages\IncrementalLoadingVectorPage</Filter>
     </Page>
     <Page Include="CustomAcrylicWindow.xaml">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </Page>
     <Page Include="DefaultAcrylicWindow.xaml">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </Page>
     <Page Include="DefaultMicaWindow.xaml">
-      <Filter>Windows\Mica</Filter>
+      <Filter>Pages\BackdropPage\Mica</Filter>
     </Page>
     <Page Include="CustomMicaWindow.xaml">
-      <Filter>Windows\Mica</Filter>
+      <Filter>Pages\BackdropPage\Mica</Filter>
     </Page>
     <Page Include="TransparentWindowDemo.xaml">
-      <Filter>Windows\Transparent</Filter>
+      <Filter>Pages\BackdropPage\Transparent</Filter>
     </Page>
     <Page Include="ShimmerPage.xaml">
       <Filter>Pages</Filter>
@@ -215,9 +215,6 @@
     <Page Include="FlyoutHelperPage.xaml">
       <Filter>Pages\FlyoutHelperPage</Filter>
     </Page>
-    <Page Include="TestBackdropSwitch.xaml">
-      <Filter>Pages\BackdropPage</Filter>
-    </Page>
     <Page Include="ThemeToggleButton.xaml">
       <Filter>Helper</Filter>
     </Page>
@@ -259,13 +256,13 @@
       <Filter>Pages\IncrementalLoadingVectorPage</Filter>
     </Midl>
     <Midl Include="CustomAcrylicWindow.idl">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </Midl>
     <Midl Include="DefaultAcrylicWindow.idl">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </Midl>
     <Midl Include="CustomMicaWindow.idl">
-      <Filter>Windows\Mica</Filter>
+      <Filter>Pages\BackdropPage\Mica</Filter>
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <Filter>Pages\SwitchPresenterPage</Filter>
@@ -327,12 +324,15 @@
     <Midl Include="Contact.idl">
       <Filter>Pages\RevealFocusPage</Filter>
     </Midl>
+    <Midl Include="RevealNavigationView.idl">
+      <Filter>Pages\RevealFocusPage</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="DefaultAcrylicWindow.cpp">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </ClCompile>
     <ClCompile Include="UpdateChecker.cpp">
       <Filter>Helper</Filter>
@@ -572,15 +572,6 @@
     <Filter Include="Pages\IncrementalLoadingVectorPage">
       <UniqueIdentifier>{d306ad37-ea85-49fe-a0bd-f0f7d586abbd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Windows\Acrylic">
-      <UniqueIdentifier>{c28f8164-e459-4aa6-85e3-97f3243c6584}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Mica">
-      <UniqueIdentifier>{8108e428-f2df-4b28-b61d-44e983de8a3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Transparent">
-      <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pages\SwitchPresenterPage">
       <UniqueIdentifier>{4294cce6-a971-4ba9-aec0-eaf915100848}</UniqueIdentifier>
     </Filter>
@@ -643,6 +634,15 @@
     </Filter>
     <Filter Include="Pages\RevealFocusPage">
       <UniqueIdentifier>{77f71352-8092-4f37-8e50-58c06b1417df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\BackdropPage\Acrylic">
+      <UniqueIdentifier>{c28f8164-e459-4aa6-85e3-97f3243c6584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\BackdropPage\Mica">
+      <UniqueIdentifier>{8108e428-f2df-4b28-b61d-44e983de8a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\BackdropPage\Transparent">
+      <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

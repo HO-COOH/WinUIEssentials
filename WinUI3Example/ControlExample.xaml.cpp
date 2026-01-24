@@ -448,7 +448,7 @@ namespace winrt::WinUI3Example::implementation
 		return winrt::get_self<ControlExample>(d.as<class_type>());
 	}
 
-	winrt::hstring ControlExample::GetStringFromComboBoxItem(winrt::Windows::Foundation::IInspectable const& value) 
+	winrt::hstring ControlExample::UnboxString(winrt::Windows::Foundation::IInspectable const& value) 
 	{ 
 		return winrt::unbox_value_or(value, L""); 
 	}

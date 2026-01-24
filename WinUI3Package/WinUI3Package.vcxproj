@@ -297,6 +297,10 @@
       <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Convert.h">
+      <DependentUpon>Convert.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ConverterGroup.h">
       <DependentUpon>ConverterGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -633,6 +637,10 @@
       <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Convert.cpp">
+      <DependentUpon>Convert.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ConverterGroup.cpp">
       <DependentUpon>ConverterGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -927,6 +935,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ControlSizeTrigger.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Convert.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ConverterGroup.idl">
