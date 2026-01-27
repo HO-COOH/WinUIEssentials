@@ -236,6 +236,9 @@
     <Page Include="RevealFocusPage.xaml">
       <Filter>Pages\RevealFocusPage</Filter>
     </Page>
+    <Page Include="TenMicaWindow.xaml">
+      <Filter>Windows</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -351,6 +354,7 @@
     <ClCompile Include="ButtonAnimations.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
+    <ClCompile Include="WallpaperManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -379,6 +383,7 @@
     <ClInclude Include="ButtonAnimations.h">
       <Filter>Helper</Filter>
     </ClInclude>
+    <ClInclude Include="WallpaperManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

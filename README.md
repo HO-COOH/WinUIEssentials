@@ -51,8 +51,9 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 ## Build and contribute
 ### Build requirements
 - You need to have [vcpkg](https://vcpkg.io/en/) installed and integrate setup for msbuild. See [this documentation for guide](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started-msbuild?pivots=shell-powershell).
-- You need to have Visual Studio with `Desktop development with C++` and `WinUI Application development` workload installed.
-- You need to build both `Debug` and `Release` build to successfully build and debug the example project (this is intentional for not missing debug version of the package)
+- You need to have Visual Studio **2026** with `Desktop development with C++` and `WinUI Application development` workload installed.
+- You need to build both `Debug` and `Release` build to successfully build and debug the example project (**this is intentional for not missing debug version of the package**)
+- >= Windows 10 17763 (Actually I mostly use Windows 10 17763 to ensure compatibility that WinUI3 claims to support)
 
 You can reference Github Action for detailed build steps.
 

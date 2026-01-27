@@ -605,6 +605,10 @@
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TenMicaWindow.xaml.h">
+      <DependentUpon>TenMicaWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TestWindow.xaml.h">
       <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -654,6 +658,7 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WallpaperManager.h" />
     <ClInclude Include="Win32TitleBar.xaml.h">
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -851,6 +856,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TenMicaWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TestWindow.xaml">
@@ -1223,6 +1231,10 @@
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TenMicaWindow.xaml.cpp">
+      <DependentUpon>TenMicaWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TestWindow.xaml.cpp">
       <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1276,6 +1288,7 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WallpaperManager.cpp" />
     <ClCompile Include="Win32TitleBar.xaml.cpp">
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1595,6 +1608,10 @@
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TenMicaWindow.idl">
+      <DependentUpon>TenMicaWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="TestWindow.idl">
       <DependentUpon>TestWindow.xaml</DependentUpon>
