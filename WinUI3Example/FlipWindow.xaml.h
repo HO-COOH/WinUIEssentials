@@ -19,7 +19,7 @@ namespace winrt::WinUI3Example::implementation
         void myButton_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
         void RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
-        static double GetCanvasLeftOffset(double controlWidth, double canvasWidth)
+        constexpr static double GetCanvasLeftOffset(double controlWidth, double canvasWidth)
         {
             return (canvasWidth - controlWidth) / 2.0;
         }
@@ -41,8 +41,8 @@ namespace winrt::WinUI3Example::implementation
         winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_backVisualRotationAnimation{ nullptr };
         winrt::Microsoft::UI::Composition::ExpressionAnimation m_frontVisualOpacityAnimation{ nullptr };
         winrt::Microsoft::UI::Composition::ExpressionAnimation m_backVisualOpacityAnimation{ nullptr };
-
-        winrt::Microsoft::UI::Composition::ContainerVisual shadowVisual{ nullptr };
+        winrt::Microsoft::UI::Composition::ExpressionAnimation m_centerPointAnimation{ nullptr };
+        winrt::Microsoft::UI::Composition::ContainerVisual m_shadowVisual{ nullptr };
     };
 }
 

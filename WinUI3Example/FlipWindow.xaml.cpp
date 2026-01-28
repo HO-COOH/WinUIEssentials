@@ -30,9 +30,7 @@ namespace winrt::WinUI3Example::implementation
 
         auto compositor = m_frontVisual.Compositor();
         m_frontVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
-        m_frontVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
         m_backVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
-        m_backVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
 
         //0 -> 180 -> 0
         m_frontVisualRotationAnimation = compositor.CreateScalarKeyFrameAnimation();
@@ -52,8 +50,9 @@ namespace winrt::WinUI3Example::implementation
         m_frontVisualOpacityAnimation = compositor.CreateExpressionAnimation(L"this.Target.RotationAngleInDegrees >= 90 ? 0 : 1");
         m_backVisualOpacityAnimation = compositor.CreateExpressionAnimation(L"this.Target.RotationAngleInDegrees >= -90 ? 1 : 0");
 
-        shadowVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
-        shadowVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
+        m_centerPointAnimation = compositor.CreateExpressionAnimation(L"Vector3(this.Target.Size.X / 2, this.Target.Size.Y, 0.0f)");
+
+        m_shadowVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
     }
 
     void FlipWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
@@ -67,11 +66,14 @@ namespace winrt::WinUI3Example::implementation
         ZIndexAnimation().Begin();
         m_frontVisual.StartAnimation(L"RotationAngleInDegrees", m_frontVisualRotationAnimation);
         m_frontVisual.StartAnimation(L"Opacity", m_frontVisualOpacityAnimation);
+        m_frontVisual.StartAnimation(L"CenterPoint", m_centerPointAnimation);
         m_backVisual.StartAnimation(L"RotationAngleInDegrees", m_backVisualRotationAnimation);
         m_backVisual.StartAnimation(L"Opacity", m_backVisualOpacityAnimation);
+        m_backVisual.StartAnimation(L"CenterPoint", m_centerPointAnimation);
 
-        shadowVisual.StartAnimation(L"RotationAngleInDegrees", m_frontVisualRotationAnimation);
-        shadowVisual.StartAnimation(L"Opacity", m_frontVisualOpacityAnimation);
+        m_shadowVisual.StartAnimation(L"RotationAngleInDegrees", m_frontVisualRotationAnimation);
+        m_shadowVisual.StartAnimation(L"Opacity", m_frontVisualOpacityAnimation);
+        m_shadowVisual.StartAnimation(L"CenterPoint", m_centerPointAnimation);
     }
 
     void FlipWindow::RootGrid_Loaded(
@@ -79,8 +81,8 @@ namespace winrt::WinUI3Example::implementation
         winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
     {
         auto uiElement = sender.as<winrt::Microsoft::UI::Xaml::UIElement>();
-        shadowVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(uiElement).as<winrt::Microsoft::UI::Composition::ContainerVisual>();
-        auto compositor = shadowVisual.Compositor();
+        m_shadowVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(uiElement).as<winrt::Microsoft::UI::Composition::ContainerVisual>();
+        auto compositor = m_shadowVisual.Compositor();
         
         auto transparentVisual = compositor.CreateSpriteVisual();
         auto size = uiElement.ActualSize();
@@ -90,7 +92,7 @@ namespace winrt::WinUI3Example::implementation
         shadow.BlurRadius(ShadowRadius);
         transparentVisual.Shadow(shadow);
 
-        shadowVisual.Children().InsertAtBottom(transparentVisual);
+        m_shadowVisual.Children().InsertAtBottom(transparentVisual);
     }
 
     double FlipWindow::ContentWidth()
