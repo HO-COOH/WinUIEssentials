@@ -18,7 +18,7 @@
             <Storyboard x:Name="ZIndexAnimation">
                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackGrid" Storyboard.TargetProperty="(Canvas.ZIndex)">
                     <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="2" />
-                    <DiscreteObjectKeyFrame KeyTime="0:0:3.9" Value="0" />
+                    <DiscreteObjectKeyFrame KeyTime="0:0:4.9" Value="0" />
                 </ObjectAnimationUsingKeyFrames>
             </Storyboard>
         </Canvas.Resources>

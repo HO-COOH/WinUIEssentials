@@ -23,61 +23,55 @@ namespace winrt::WinUI3Example::implementation
         });
     }
 
+    void FlipWindow::createCompositionObjects()
+    {
+        m_frontVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(RootGrid());
+        m_backVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(BackGrid());
+
+        auto compositor = m_frontVisual.Compositor();
+        m_frontVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
+        m_frontVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
+        m_backVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
+        m_backVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
+
+        //0 -> 180 -> 0
+        m_frontVisualRotationAnimation = compositor.CreateScalarKeyFrameAnimation();
+        m_frontVisualRotationAnimation.InsertKeyFrame(0.2f, 180.f);
+        m_frontVisualRotationAnimation.InsertKeyFrame(0.8f, 180.f);
+        m_frontVisualRotationAnimation.InsertKeyFrame(1.0f, 0.f);
+        m_frontVisualRotationAnimation.Duration(std::chrono::seconds{ 5 });
+
+        //-180 -> 0 -> 180
+        m_backVisualRotationAnimation = compositor.CreateScalarKeyFrameAnimation();
+        m_backVisualRotationAnimation.InsertKeyFrame(0.0f, -180.f);
+        m_backVisualRotationAnimation.InsertKeyFrame(0.2f, 0.f);
+        m_backVisualRotationAnimation.InsertKeyFrame(0.8f, 0.f);
+        m_backVisualRotationAnimation.InsertKeyFrame(1.0f, -180.f);
+        m_backVisualRotationAnimation.Duration(std::chrono::seconds{ 5 });
+
+        m_frontVisualOpacityAnimation = compositor.CreateExpressionAnimation(L"this.Target.RotationAngleInDegrees >= 90 ? 0 : 1");
+        m_backVisualOpacityAnimation = compositor.CreateExpressionAnimation(L"this.Target.RotationAngleInDegrees >= -90 ? 1 : 0");
+
+        shadowVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
+        shadowVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
+    }
+
     void FlipWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
         myButton().Content(box_value(L"Clicked"));
 
-        {
-            auto rootVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(RootGrid());
-            auto compositor = rootVisual.Compositor();
-            //auto rotationAxis = rootVisual.RotationAxis(); //default to (0,0,1), rotation around z axis
-
-            rootVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
-            rootVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
-            //rootVisual.AnchorPoint({ 0.5f, 0.5f });
-            //rootVisual.CenterPoint({ 0,0,0 });
-
-            auto scalarAnimation = compositor.CreateScalarKeyFrameAnimation();
-            scalarAnimation.InsertKeyFrame(0.2f, 180.f);
-            scalarAnimation.InsertKeyFrame(0.8f, 180.f);
-            scalarAnimation.InsertKeyFrame(1.0f, 0.f);
-            scalarAnimation.Duration(std::chrono::seconds{ 5 });
+        if (!m_frontVisual)
+            createCompositionObjects();
 
 
-            auto scalarAnimation2 = compositor.CreateScalarKeyFrameAnimation();
-            scalarAnimation2.InsertKeyFrame(0.0f, -180.f);
-            scalarAnimation2.InsertKeyFrame(0.2f, 0.f);
-            scalarAnimation2.InsertKeyFrame(0.8f, 0.f);
-            scalarAnimation2.InsertKeyFrame(1.0f, -180.f);
-            scalarAnimation2.Duration(std::chrono::seconds{ 5 });
+        ZIndexAnimation().Begin();
+        m_frontVisual.StartAnimation(L"RotationAngleInDegrees", m_frontVisualRotationAnimation);
+        m_frontVisual.StartAnimation(L"Opacity", m_frontVisualOpacityAnimation);
+        m_backVisual.StartAnimation(L"RotationAngleInDegrees", m_backVisualRotationAnimation);
+        m_backVisual.StartAnimation(L"Opacity", m_backVisualOpacityAnimation);
 
-
-            auto backVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(BackGrid());
-            backVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
-            backVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
-
-            ZIndexAnimation().Begin();
-            rootVisual.StartAnimation(L"RotationAngleInDegrees", scalarAnimation);
-            backVisual.StartAnimation(L"RotationAngleInDegrees", scalarAnimation2);
-
-            shadowVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
-            shadowVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
-            shadowVisual.StartAnimation(L"RotationAngleInDegrees", scalarAnimation);
-            
-        }
-        
-
-        //{
-        //    auto backVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(BackGrid());
-        //    backVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
-        //    backVisual.CenterPoint({ static_cast<float>(RootGrid().ActualWidth()) / 2.0f, static_cast<float>(RootGrid().ActualHeight()) / 2.0f, 0.0f });
-        //    auto compositor = backVisual.Compositor();
-        //    auto scalarAnimation = compositor.CreateScalarKeyFrameAnimation();
-        //    scalarAnimation.InsertKeyFrame(0.0f, -180.f);
-        //    scalarAnimation.InsertKeyFrame(1.0f, 0.f);
-        //    scalarAnimation.Duration(std::chrono::seconds{ 1 });
-        //    backVisual.StartAnimation(L"RotationAngleInDegrees", scalarAnimation);
-        //}
+        shadowVisual.StartAnimation(L"RotationAngleInDegrees", m_frontVisualRotationAnimation);
+        shadowVisual.StartAnimation(L"Opacity", m_frontVisualOpacityAnimation);
     }
 
     void FlipWindow::RootGrid_Loaded(

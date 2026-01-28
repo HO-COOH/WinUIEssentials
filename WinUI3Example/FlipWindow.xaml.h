@@ -34,6 +34,14 @@ namespace winrt::WinUI3Example::implementation
         constexpr static auto c_WindowHeight = 720;
         constexpr static auto ShadowRadius = 20.f;
 
+        void createCompositionObjects();
+        winrt::Microsoft::UI::Composition::Visual m_frontVisual{ nullptr };
+        winrt::Microsoft::UI::Composition::Visual m_backVisual{ nullptr };
+        winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_frontVisualRotationAnimation{ nullptr };
+        winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_backVisualRotationAnimation{ nullptr };
+        winrt::Microsoft::UI::Composition::ExpressionAnimation m_frontVisualOpacityAnimation{ nullptr };
+        winrt::Microsoft::UI::Composition::ExpressionAnimation m_backVisualOpacityAnimation{ nullptr };
+
         winrt::Microsoft::UI::Composition::ContainerVisual shadowVisual{ nullptr };
     };
 }
