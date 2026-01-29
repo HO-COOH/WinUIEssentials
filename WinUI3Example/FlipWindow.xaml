@@ -58,24 +58,20 @@
             Height="{x:Bind ContentHeight}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Background="Gray"
             BorderBrush="Yellow"
             BorderThickness="1"
-            Canvas.ZIndex="1"
+            Canvas.ZIndex="8"
             CornerRadius="8,8,8,8">
-
-
-            <essential:HostBackdropVisual>
-                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <ColorPicker />
-                    <Button
+            <essential:AcrylicVisual />
+            <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ColorPicker />
+                <Button
                     x:Name="myButton"
                     HorizontalAlignment="Center"
                     Click="myButton_Click">
-                        Click Me
-                    </Button>
-                </StackPanel>
-            </essential:HostBackdropVisual>
+                    Click Me
+                </Button>
+            </StackPanel>
 
             <local:FakeTitleBar
                 Width="{x:Bind ContentWidth}"

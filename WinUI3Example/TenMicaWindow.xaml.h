@@ -32,7 +32,10 @@ namespace winrt::WinUI3Example::implementation
         winrt::com_ptr<ID2D1Effect> m_tintColorEffect;
         winrt::com_ptr<ID2D1Effect> m_finalBlend;
 
+        void createEffects(ID2D1DeviceContext* d2dContext);
+
         winrt::com_ptr<ID2D1Bitmap1> wallpaperBitmap;
+        void combinedWallpaper(ID2D1DeviceContext* d2dContext);
     };
 }
 
