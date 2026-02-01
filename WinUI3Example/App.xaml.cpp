@@ -34,7 +34,7 @@ namespace winrt::WinUI3Example::implementation
                 }
             });
 #else
-        UnhandledException([](IInspectable const&, UnhandledExceptionEventArgs const& e)
+        UnhandledException([](winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::UnhandledExceptionEventArgs const& e)
             {
                 MessageBox(nullptr, e.Message().data(), L"Unhandled exception", 0);
                 e.Handled(true);
@@ -52,7 +52,7 @@ namespace winrt::WinUI3Example::implementation
     {
         window = make<MainWindow>();
         window.Activate();
-        winrt::WinUI3Example::TenMicaWindow{}.Activate();
+        //winrt::WinUI3Example::TenMicaWindow{}.Activate();
 
         //We don't need this, as we publish to Microsoft Store
         //if (co_await UpdateChecker::HasUpdate())

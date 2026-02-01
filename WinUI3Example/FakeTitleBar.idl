@@ -6,7 +6,7 @@
     {
         FakeTitleBar();
         
-        String Title{ get; };
+        String Title;
         static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };
     }
 }

@@ -4,6 +4,8 @@
 #include "NavigationViewHelper.g.cpp"
 #endif
 #include "include/VisualTreeHelper.hpp"
+#include <winrt/Microsoft.UI.Xaml.Hosting.h>
+#include <winrt/Microsoft.UI.Composition.h>
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -11,11 +13,24 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
 			L"AcrylicWorkaround",
 			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::NavigationView>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata(
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata
+			{
 				winrt::box_value(false),
 				winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::acrylicWorkaroundChanged)
-			)
+			}
+		);
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::s_clipToBoundsProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+			L"ClipToBounds",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata
+			{
+				winrt::box_value(false),
+				winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::clipToBoundsChanged)
+			}
 		);
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::AcrylicWorkaroundProperty()
@@ -31,6 +46,21 @@ namespace winrt::WinUI3Package::implementation
 	void NavigationViewHelper::SetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& navigationView, bool value)
 	{
 		navigationView.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::ClipToBoundsProperty()
+	{
+		return s_clipToBoundsProperty;
+	}
+
+	bool NavigationViewHelper::GetClipToBounds(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& element)
+	{
+		return winrt::unbox_value<bool>(element.GetValue(ClipToBoundsProperty()));
+	}
+
+	void NavigationViewHelper::SetClipToBounds(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& element, bool value)
+	{
+		element.SetValue(ClipToBoundsProperty(), winrt::box_value(value));
 	}
 
 	void NavigationViewHelper::acrylicWorkaroundChanged(
@@ -55,6 +85,36 @@ namespace winrt::WinUI3Package::implementation
 			modifyNavigationViewItems(navigationView, newStyle);
 			loadedRevoker->revoke();
 		});
+	}
+
+	void winrt::WinUI3Package::implementation::NavigationViewHelper::clipToBoundsChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& object, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg)
+	{
+		auto navigationView = object.as<winrt::Microsoft::UI::Xaml::Controls::NavigationView>();
+		auto const clipToBounds = winrt::unbox_value<bool>(arg.NewValue());
+
+		auto visual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(navigationView);
+		if (!clipToBounds)
+		{
+			visual.Clip(nullptr);
+			return;
+		}
+
+		auto compositor = visual.Compositor();
+		auto clipGeometry = compositor.CreateRoundedRectangleGeometry();
+		auto sizeExpressionAnimation = compositor.CreateExpressionAnimation(L"host.Size");
+		sizeExpressionAnimation.SetReferenceParameter(L"host", visual);
+		float const cornerRadius = navigationView.CornerRadius().TopLeft;
+		clipGeometry.CornerRadius({ cornerRadius, cornerRadius });
+		clipGeometry.StartAnimation(L"Size", sizeExpressionAnimation);
+		visual.Clip(compositor.CreateGeometricClip(clipGeometry));
+		navigationView.RegisterPropertyChangedCallback(
+			winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
+			[clipGeometry](winrt::Microsoft::UI::Xaml::DependencyObject const& navigationView, winrt::Microsoft::UI::Xaml::DependencyProperty const& cornerRadiusProperty)
+			{
+				float const cornerRadius = winrt::unbox_value<winrt::Microsoft::UI::Xaml::CornerRadius>(navigationView.GetValue(cornerRadiusProperty)).TopLeft;
+				clipGeometry.CornerRadius({ cornerRadius, cornerRadius });
+			}
+		);
 	}
 
 	void NavigationViewHelper::modifyNavigationViewItems(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& navigationView, winrt::Microsoft::UI::Xaml::Style const& newStyle)

@@ -7,5 +7,9 @@
         static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
         static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.NavigationView navigationView);
         static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.NavigationView navigationView, Boolean value);
+
+        static Microsoft.UI.Xaml.DependencyProperty ClipToBoundsProperty{ get; };
+        static Boolean GetClipToBounds(Microsoft.UI.Xaml.Controls.NavigationView navigationView);
+        static void SetClipToBounds(Microsoft.UI.Xaml.Controls.NavigationView navigationView, Boolean value);
     }
 }

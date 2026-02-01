@@ -17,7 +17,8 @@
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Light">
                                         <Color x:Key="CloseButtonColor">#C42B1C</Color>
-                                        <StaticResource x:Key="CaptionButtonBackgroundPointerOver" ResourceKey="SubtleFillColorSecondary" />
+                                        <!--<StaticResource x:Key="CaptionButtonBackgroundPointerOver" ResourceKey="SubtleFillColorSecondary" />-->
+                                        <SolidColorBrush x:Key="CaptionButtonBackgroundPointerOver" Color="#7FFFFFFF" />
                                         <!--<SolidColorBrush x:Key="CaptionButtonBackgroundPointerOver" Color="{x:Bind local:DWMPersonalization.Instance.AccentColor, Mode=OneWay}" />-->
                                         <!--<SolidColorBrush x:Key="CaptionButtonBackgroundPointerOver" Color="{Binding ColorizationColor, Source={StaticResource DWMPersonalization}}" />-->
                                         <StaticResource x:Key="CaptionButtonBackgroundPressed" ResourceKey="SubtleFillColorTertiary" />
@@ -44,7 +45,8 @@
                                     <!--  Dark  -->
                                     <ResourceDictionary x:Key="Dark">
                                         <Color x:Key="CloseButtonColor">#C42B1C</Color>
-                                        <StaticResource x:Key="CaptionButtonBackgroundPointerOver" ResourceKey="SubtleFillColorSecondary" />
+                                        <!--<StaticResource x:Key="CaptionButtonBackgroundPointerOver" ResourceKey="SubtleFillColorSecondary" />-->
+                                        <SolidColorBrush x:Key="CaptionButtonBackgroundPointerOver" Color="#7FFFFFFF" />
                                         <!--<SolidColorBrush x:Key="CaptionButtonBackgroundPointerOver" Color="{x:Bind local:DWMPersonalization.Instance.AccentColor, Mode=OneWay}" />-->
                                         <!--<SolidColorBrush x:Key="CaptionButtonBackgroundPointerOver" Color="{Binding ColorizationColor, Source={StaticResource DWMPersonalization}}" />-->
                                         <StaticResource x:Key="CaptionButtonBackgroundPressed" ResourceKey="SubtleFillColorTertiary" />

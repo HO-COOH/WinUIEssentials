@@ -1,0 +1,8 @@
+﻿namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass TenMicaPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        TenMicaPage();
+    }
+}

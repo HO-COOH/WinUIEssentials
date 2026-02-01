@@ -237,7 +237,10 @@
       <Filter>Pages\RevealFocusPage</Filter>
     </Page>
     <Page Include="TenMicaWindow.xaml">
-      <Filter>Windows</Filter>
+      <Filter>Pages\TenMicaPage</Filter>
+    </Page>
+    <Page Include="TenMicaPage.xaml">
+      <Filter>Pages\TenMicaPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -344,7 +347,6 @@
       <Filter>Pages\Experimental</Filter>
     </ClCompile>
     <ClCompile Include="ExceptionDialog.cpp" />
-    <ClCompile Include="StoreUpdateChecker.cpp" />
     <ClCompile Include="GithubRequest.cpp">
       <Filter>Helper\AboutPage</Filter>
     </ClCompile>
@@ -354,7 +356,18 @@
     <ClCompile Include="ButtonAnimations.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
-    <ClCompile Include="WallpaperManager.cpp" />
+    <ClCompile Include="WallpaperManager.cpp">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClCompile>
+    <ClCompile Include="CombinedWallpaper.cpp">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClCompile>
+    <ClCompile Include="StoreUpdateChecker.cpp">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClCompile>
+    <ClCompile Include="D2D1DeviceContextState.cpp">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -383,7 +396,15 @@
     <ClInclude Include="ButtonAnimations.h">
       <Filter>Helper</Filter>
     </ClInclude>
-    <ClInclude Include="WallpaperManager.h" />
+    <ClInclude Include="WallpaperManager.h">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClInclude>
+    <ClInclude Include="CombinedWallpaper.h">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClInclude>
+    <ClInclude Include="D2D1DeviceContextState.h">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -648,6 +669,9 @@
     </Filter>
     <Filter Include="Pages\BackdropPage\Transparent">
       <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\TenMicaPage">
+      <UniqueIdentifier>{9552aa05-013e-4657-be0f-8a173ffba4a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

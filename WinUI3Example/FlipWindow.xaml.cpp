@@ -5,7 +5,7 @@
 #endif
 #include <winrt/Microsoft.UI.Composition.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
-
+#include "FakeTitleBar.h"
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
 
@@ -21,6 +21,46 @@ namespace winrt::WinUI3Example::implementation
             ScaleForDpi<int>(c_WindowWidth, dpi), 
             ScaleForDpi<int>(c_WindowHeight, dpi) 
         });
+        InitializeComponent();
+        winrt::get_self<winrt::WinUI3Example::implementation::FakeTitleBar>(FakeTitleBar())->ParentWindow = this;
+        addShadows();
+        winrt::Microsoft::UI::Input::InputNonClientPointerSource::GetForWindowId(AppWindow().Id())
+            .SetRegionRects(
+                winrt::Microsoft::UI::Input::NonClientRegionKind::Caption, 
+                {
+                    winrt::Windows::Graphics::RectInt32
+                    {
+                        .X = 0,
+                        .Y = 0,
+                        .Width = ScaleForDpi<int>(c_WindowWidth - 150, dpi),
+                        .Height = ScaleForDpi<int>(50, dpi)
+                    }
+                }
+            );
+    }
+
+    void FlipWindow::addShadows()
+    {
+        auto frontShadowContainerVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(ShadowGrid());
+        auto compositor = frontShadowContainerVisual.Compositor();
+
+        m_frontShadow = compositor.CreateSpriteVisual();
+        auto sizeExpression = compositor.CreateExpressionAnimation(L"host.Size");
+        sizeExpression.SetReferenceParameter(L"host", frontShadowContainerVisual);
+        m_frontShadow.StartAnimation(L"Size", sizeExpression);
+
+        auto shadow = compositor.CreateDropShadow();
+        shadow.BlurRadius(ShadowRadius);
+        m_frontShadow.Shadow(shadow);
+        winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(ShadowGrid(), m_frontShadow);
+    
+        auto backShadowContainerVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(BackShadowGrid());
+        m_backShadow = compositor.CreateSpriteVisual();
+        sizeExpression.SetReferenceParameter(L"host", backShadowContainerVisual);
+        m_backShadow.StartAnimation(L"Size", sizeExpression);
+        m_backShadow.Shadow(shadow);
+        m_backShadow.Opacity(0);
+        winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(BackShadowGrid(), m_backShadow);
     }
 
     void FlipWindow::createCompositionObjects()
@@ -32,67 +72,64 @@ namespace winrt::WinUI3Example::implementation
         m_frontVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
         m_backVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
 
-        //0 -> 180 -> 0
-        m_frontVisualRotationAnimation = compositor.CreateScalarKeyFrameAnimation();
-        m_frontVisualRotationAnimation.InsertKeyFrame(0.2f, 180.f);
-        m_frontVisualRotationAnimation.InsertKeyFrame(0.8f, 180.f);
-        m_frontVisualRotationAnimation.InsertKeyFrame(1.0f, 0.f);
-        m_frontVisualRotationAnimation.Duration(std::chrono::seconds{ 5 });
+        rotationAnimation = compositor.CreateScalarKeyFrameAnimation();
+        rotationAnimation.Target(L"RotationAngleInDegrees");
+        rotationAnimation.InsertExpressionKeyFrame(1.f, L"this.FinalValue");
+        rotationAnimation.Duration(std::chrono::milliseconds{ static_cast<int64_t>(m_animationDurationMilli) });
+         
+        auto implicitAnimations = compositor.CreateImplicitAnimationCollection();
+        implicitAnimations.Insert(L"RotationAngleInDegrees", rotationAnimation);
+        m_backVisual.RotationAngleInDegrees(-180.f);
+        m_backShadow.RotationAngleInDegrees(-180.f);
 
-        //-180 -> 0 -> 180
-        m_backVisualRotationAnimation = compositor.CreateScalarKeyFrameAnimation();
-        m_backVisualRotationAnimation.InsertKeyFrame(0.0f, -180.f);
-        m_backVisualRotationAnimation.InsertKeyFrame(0.2f, 0.f);
-        m_backVisualRotationAnimation.InsertKeyFrame(0.8f, 0.f);
-        m_backVisualRotationAnimation.InsertKeyFrame(1.0f, -180.f);
-        m_backVisualRotationAnimation.Duration(std::chrono::seconds{ 5 });
+        m_frontVisual.ImplicitAnimations(implicitAnimations);
+        m_backVisual.ImplicitAnimations(implicitAnimations);
 
-        m_frontVisualOpacityAnimation = compositor.CreateExpressionAnimation(L"this.Target.RotationAngleInDegrees >= 90 ? 0 : 1");
-        m_backVisualOpacityAnimation = compositor.CreateExpressionAnimation(L"this.Target.RotationAngleInDegrees >= -90 ? 1 : 0");
+        auto frontVisualOpacityAnimation = compositor.CreateExpressionAnimation(L"this.Target.RotationAngleInDegrees >= 90 ? 0 : 1");
+        auto backVisualOpacityAnimation = compositor.CreateExpressionAnimation(L"this.Target.RotationAngleInDegrees >= -90 ? 1 : 0");
+        m_frontVisual.StartAnimation(L"Opacity", frontVisualOpacityAnimation);
+        m_backVisual.StartAnimation(L"Opacity", backVisualOpacityAnimation);
 
-        m_centerPointAnimation = compositor.CreateExpressionAnimation(L"Vector3(this.Target.Size.X / 2, this.Target.Size.Y, 0.0f)");
-
-        m_shadowVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
+        auto centerPointAnimation = compositor.CreateExpressionAnimation(L"Vector3(this.Target.Size.X / 2, this.Target.Size.Y / 2, 0.0f)");
+        m_frontVisual.StartAnimation(L"CenterPoint", centerPointAnimation);
+        m_backVisual.StartAnimation(L"CenterPoint", centerPointAnimation);
+        
+        auto shadowRotationExpression = compositor.CreateExpressionAnimation(L"host.RotationAngleInDegrees");
+        if (m_frontShadow)
+        {
+            m_frontShadow.RotationAxis({ 0.0f, 1.0f, 0.0f });
+            m_frontShadow.ImplicitAnimations(implicitAnimations);
+            m_frontShadow.StartAnimation(L"CenterPoint", centerPointAnimation);
+            m_frontShadow.StartAnimation(L"Opacity", frontVisualOpacityAnimation);
+            shadowRotationExpression.SetReferenceParameter(L"host", m_frontVisual);
+            m_frontShadow.StartAnimation(L"RotationAngleInDegrees", shadowRotationExpression);
+        }
+        if (m_backShadow)
+        {
+            m_backShadow.RotationAxis({ 0.0f, 1.0f, 0.0f });
+            m_backShadow.ImplicitAnimations(implicitAnimations);
+            m_backShadow.StartAnimation(L"CenterPoint", centerPointAnimation);
+            m_backShadow.StartAnimation(L"Opacity", backVisualOpacityAnimation);
+            shadowRotationExpression.SetReferenceParameter(L"host", m_backVisual);
+            m_backShadow.StartAnimation(L"RotationAngleInDegrees", shadowRotationExpression);
+        }
     }
 
     void FlipWindow::myButton_Click(IInspectable const&, RoutedEventArgs const&)
     {
-        myButton().Content(box_value(L"Clicked"));
-
         if (!m_frontVisual)
             createCompositionObjects();
 
-
-        ZIndexAnimation().Begin();
-        m_frontVisual.StartAnimation(L"RotationAngleInDegrees", m_frontVisualRotationAnimation);
-        m_frontVisual.StartAnimation(L"Opacity", m_frontVisualOpacityAnimation);
-        m_frontVisual.StartAnimation(L"CenterPoint", m_centerPointAnimation);
-        m_backVisual.StartAnimation(L"RotationAngleInDegrees", m_backVisualRotationAnimation);
-        m_backVisual.StartAnimation(L"Opacity", m_backVisualOpacityAnimation);
-        m_backVisual.StartAnimation(L"CenterPoint", m_centerPointAnimation);
-
-        m_shadowVisual.StartAnimation(L"RotationAngleInDegrees", m_frontVisualRotationAnimation);
-        m_shadowVisual.StartAnimation(L"Opacity", m_frontVisualOpacityAnimation);
-        m_shadowVisual.StartAnimation(L"CenterPoint", m_centerPointAnimation);
+        m_frontVisual.RotationAngleInDegrees(180.f);
+        m_backVisual.RotationAngleInDegrees(0.f);
+        ZIndexForwardAnimation().Begin();
     }
 
-    void FlipWindow::RootGrid_Loaded(
-        winrt::Windows::Foundation::IInspectable const& sender, 
-        winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    void FlipWindow::GoBackButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
     {
-        auto uiElement = sender.as<winrt::Microsoft::UI::Xaml::UIElement>();
-        m_shadowVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(uiElement).as<winrt::Microsoft::UI::Composition::ContainerVisual>();
-        auto compositor = m_shadowVisual.Compositor();
-        
-        auto transparentVisual = compositor.CreateSpriteVisual();
-        auto size = uiElement.ActualSize();
-        transparentVisual.Size(size);
-
-        auto shadow = compositor.CreateDropShadow();
-        shadow.BlurRadius(ShadowRadius);
-        transparentVisual.Shadow(shadow);
-
-        m_shadowVisual.Children().InsertAtBottom(transparentVisual);
+        m_frontVisual.RotationAngleInDegrees(0.f);
+        m_backVisual.RotationAngleInDegrees(-180.f);
+        ZIndexBackwardAnimation().Begin();
     }
 
     double FlipWindow::ContentWidth()
@@ -115,5 +152,13 @@ namespace winrt::WinUI3Example::implementation
         return c_WindowHeight;
     }
 
-}
+    void FlipWindow::AnimationDuration(double value)
+    {
+        if (m_animationDurationMilli == value)
+            return;
 
+        m_animationDurationMilli = value;
+        if (rotationAnimation)
+            rotationAnimation.Duration(std::chrono::milliseconds{ static_cast<int64_t>(m_animationDurationMilli) });
+    }
+}

@@ -1,9 +1,10 @@
-﻿#pragma once
+#pragma once
 
 #include "TenMicaWindow.g.h"
 #include "WallpaperManager.h"
 #include <winrt/Microsoft.UI.Composition.h>
 #include <d2d1_1.h>
+#include "CombinedWallpaper.h"
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -17,10 +18,10 @@ namespace winrt::WinUI3Example::implementation
         void createBrush(ID2D1DeviceContext* d2dContext);
 		winrt::Microsoft::UI::Composition::CompositionDrawingSurface m_drawingSurface{ nullptr };
 		WallpaperManager m_wallpaperManager;
-
+        CombinedWallpaper m_combinedWallpaper;
         //from Master Dai's figma
         //winrt::com_ptr<ID2D1Effect> m_scaleEffect;
-		//winrt::com_ptr<ID2D1Effect> m_blurEffect;
+        //winrt::com_ptr<ID2D1Effect> m_blurEffect;
         //winrt::com_ptr<ID2D1Effect> m_floodEffect;
         //winrt::com_ptr<ID2D1Effect> m_finalBlend;
 
@@ -33,9 +34,6 @@ namespace winrt::WinUI3Example::implementation
         winrt::com_ptr<ID2D1Effect> m_finalBlend;
 
         void createEffects(ID2D1DeviceContext* d2dContext);
-
-        winrt::com_ptr<ID2D1Bitmap1> wallpaperBitmap;
-        void combinedWallpaper(ID2D1DeviceContext* d2dContext);
     };
 }
 

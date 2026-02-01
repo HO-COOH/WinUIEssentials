@@ -310,6 +310,7 @@
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CombinedWallpaper.h" />
     <ClInclude Include="ComboBoxHelperPage.xaml.h">
       <DependentUpon>ComboBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -352,6 +353,7 @@
       <DependentUpon>CustomTitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="D2D1DeviceContextState.h" />
     <ClInclude Include="DataGrid.xaml.h">
       <DependentUpon>DataGrid.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -603,6 +605,10 @@
     </ClInclude>
     <ClInclude Include="TemplateInformation.h">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TenMicaPage.xaml.h">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TenMicaWindow.xaml.h">
@@ -858,6 +864,9 @@
     <Page Include="TaskbarPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="TenMicaPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TenMicaWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -941,6 +950,7 @@
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="CombinedWallpaper.cpp" />
     <ClCompile Include="ComboBoxHelperPage.xaml.cpp">
       <DependentUpon>ComboBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -983,6 +993,7 @@
       <DependentUpon>CustomTitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="D2D1DeviceContextState.cpp" />
     <ClCompile Include="DataGrid.xaml.cpp">
       <DependentUpon>DataGrid.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1229,6 +1240,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TenMicaPage.xaml.cpp">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TenMicaWindow.xaml.cpp">
@@ -1608,6 +1623,10 @@
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TenMicaPage.idl">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="TenMicaWindow.idl">
       <DependentUpon>TenMicaWindow.xaml</DependentUpon>
