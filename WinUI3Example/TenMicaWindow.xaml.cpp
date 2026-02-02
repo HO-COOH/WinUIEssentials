@@ -7,9 +7,12 @@
 #include <d2d1_1.h>
 #include <winrt/Microsoft.UI.Composition.Interop.h>
 #include <HwndHelper.hpp>
+#include "BlurEffectInterop.h"
+#include "CrossFadeEffectInterop.h"
+#include <commctrl.h>
 #pragma comment(lib, "dxguid.lib")
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+#pragma comment(lib, "comctl32.lib")
+
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -52,7 +55,7 @@ namespace winrt::WinUI3Example::implementation
 	{
 		InitializeComponent();
 		auto visual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(CompositionHost());
-		auto compositor = visual.Compositor();
+		compositor = visual.Compositor();
 		auto compositorInterop = compositor.as<winrt::Microsoft::UI::Composition::ICompositorInterop>();
 
 		winrt::Microsoft::UI::Composition::CompositionGraphicsDevice graphicsDevice{ nullptr };
@@ -73,21 +76,122 @@ namespace winrt::WinUI3Example::implementation
 			winrt::Microsoft::Graphics::DirectX::DirectXPixelFormat::B8G8R8A8UIntNormalized,
 			winrt::Microsoft::Graphics::DirectX::DirectXAlphaMode::Premultiplied
 		);
-		auto brush = compositor.CreateSurfaceBrush(m_drawingSurface);
-		brush.Stretch(winrt::Microsoft::UI::Composition::CompositionStretch::None);
+		m_surfaceBrush = compositor.CreateSurfaceBrush(m_drawingSurface);
+		m_surfaceBrush.Stretch(winrt::Microsoft::UI::Composition::CompositionStretch::None);
 		//top left align the brush
-		brush.HorizontalAlignmentRatio({});
-		brush.VerticalAlignmentRatio({});
+		m_surfaceBrush.HorizontalAlignmentRatio({});
+		m_surfaceBrush.VerticalAlignmentRatio({});
 		auto sprite = compositor.CreateSpriteVisual();
-		sprite.Brush(brush);
+		//sprite.Brush(m_surfaceBrush);
 		auto spriteSizeExpression = compositor.CreateExpressionAnimation(L"host.Size");
 		spriteSizeExpression.SetReferenceParameter(L"host", visual);
 		sprite.StartAnimation(L"Size", spriteSizeExpression);
 		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(CompositionHost(), sprite);
-		auto const dpi = GetDpiForWindow(GetHwnd(*this));
-		auto const scale = winrt::Windows::Foundation::Numerics::float2::one() / (dpi / 96.f);
-		brush.Scale(scale);
+		m_hwnd = GetHwnd(*this);
+		m_dpi = GetDpiForWindow(m_hwnd);
+		auto const scale = winrt::Windows::Foundation::Numerics::float2::one() / (m_dpi / 96.f);
+		m_surfaceBrush.Scale(scale);
+
+
+		auto solidColorTintBrush = compositor.CreateColorBrush(winrt::Windows::UI::ColorHelper::FromArgb(255, 32, 32, 32));
+
+		auto crossFadeEffectInterop = winrt::make_self<CrossFadeInterop>();
+		crossFadeEffectInterop->CrossFade = 0.0f;
+		crossFadeEffectInterop->Name(L"CrossFade");
+		crossFadeEffectInterop->Source1 = winrt::Microsoft::UI::Composition::CompositionEffectSourceParameter{ L"Source1" };
+		crossFadeEffectInterop->Source2 = winrt::Microsoft::UI::Composition::CompositionEffectSourceParameter{ L"Source2" };
+
+		crossFadeBrush = compositor.CreateEffectFactory(*crossFadeEffectInterop, { L"CrossFade.CrossFade" }).CreateBrush();
+		crossFadeBrush.SetSourceParameter(L"Source1", m_surfaceBrush);
+		crossFadeBrush.SetSourceParameter(L"Source2", solidColorTintBrush);
+
+
 		Draw();
+		sprite.Brush(crossFadeBrush);
+
+		// Set up Win32 subclassing to intercept window move events
+		SetWindowSubclass(m_hwnd, SubclassProc, 0, reinterpret_cast<DWORD_PTR>(this));
+
+		// Set initial brush offset based on current window position
+		updateBrushOffset();
+	}
+
+	TenMicaWindow::~TenMicaWindow()
+	{
+		// Remove the subclass
+		if (m_hwnd)
+		{
+			RemoveWindowSubclass(m_hwnd, SubclassProc, 0);
+		}
+	}
+
+	LRESULT CALLBACK TenMicaWindow::SubclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+	{
+		auto* pThis = reinterpret_cast<TenMicaWindow*>(dwRefData);
+
+		switch (msg)
+		{
+			case WM_WINDOWPOSCHANGING:
+			{
+				auto* pos = reinterpret_cast<WINDOWPOS*>(lParam);
+				// Only update if position actually changed (not just size or z-order)
+				if (!(pos->flags & SWP_NOMOVE))
+				{
+					// Use the incoming position from WINDOWPOS to update before the move happens
+					pThis->updateBrushOffset(pos->x, pos->y);
+				}
+				break;
+			}
+			case WM_DPICHANGED:
+			{
+				// Update DPI and brush scale when moving to a monitor with different DPI
+				pThis->m_dpi = HIWORD(wParam);
+				auto const scale = winrt::Windows::Foundation::Numerics::float2::one() / (pThis->m_dpi / 96.f);
+				pThis->m_surfaceBrush.Scale(scale);
+
+				// Update brush offset with new DPI
+				auto* suggestedRect = reinterpret_cast<RECT*>(lParam);
+				pThis->updateBrushOffset(suggestedRect->left, suggestedRect->top);
+				break;
+			}
+			case WM_NCDESTROY:
+				// Remove subclass before window is destroyed
+				RemoveWindowSubclass(hwnd, SubclassProc, uIdSubclass);
+				break;
+		}
+
+		return DefSubclassProc(hwnd, msg, wParam, lParam);
+	}
+
+	void TenMicaWindow::updateBrushOffset()
+	{
+		if (!m_hwnd)
+			return;
+
+		RECT windowRect{};
+		GetWindowRect(m_hwnd, &windowRect);
+		updateBrushOffset(windowRect.left, windowRect.top);
+	}
+
+	void TenMicaWindow::updateBrushOffset(int windowX, int windowY)
+	{
+		if (!m_surfaceBrush || !m_hwnd)
+			return;
+
+		// Get the virtual screen origin (for multi-monitor setups)
+		auto virtualScreenX = GetSystemMetrics(SM_XVIRTUALSCREEN);
+		auto virtualScreenY = GetSystemMetrics(SM_YVIRTUALSCREEN);
+
+		// Calculate offset relative to virtual screen origin
+		// The offset needs to be negative to shift the brush content
+		// so that the correct portion of the wallpaper shows through
+		auto const dpiScale = m_dpi / 96.f;
+
+		// Convert from physical pixels to DIPs (the brush offset is in DIPs before scaling)
+		float offsetX = -static_cast<float>(windowX - virtualScreenX) / dpiScale;
+		float offsetY = -static_cast<float>(windowY - virtualScreenY) / dpiScale;
+
+		m_surfaceBrush.Offset({ offsetX, offsetY });
 	}
 
 	void TenMicaWindow::Draw()
@@ -116,17 +220,8 @@ namespace winrt::WinUI3Example::implementation
 	void TenMicaWindow::createBrush(ID2D1DeviceContext* d2dContext)
 	{
 		constexpr bool isLightMode = false;
-		//auto wallpaperSize = wallpaperBitmap->GetSize();
-		//auto size = m_drawingSurface.Size();
-		//auto scaleX = size.Width / wallpaperSize.width;
-		//auto scaleY = size.Height / wallpaperSize.height;
-		//auto scale = (std::max)(scaleX, scaleY);
-
-		//m_scaleEffect->SetInput(0, wallpaperBitmap.get());
-		//winrt::check_hresult(m_scaleEffect->SetValue(D2D1_SCALE_PROP_SCALE, D2D1::Vector2F(scale, scale)));
 
 		// --- Blur ---
-		//m_blurEffect->SetInputEffect(0, m_scaleEffect.get());
 		winrt::check_hresult(m_blurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, 120.f)); // Debug blur
 		winrt::check_hresult(m_blurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_BORDER_MODE, D2D1_BORDER_MODE_HARD));
 		winrt::check_hresult(m_blurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION, D2D1_GAUSSIANBLUR_OPTIMIZATION_QUALITY));
@@ -152,11 +247,28 @@ namespace winrt::WinUI3Example::implementation
 
 	void TenMicaWindow::createEffects(ID2D1DeviceContext* d2dContext)
 	{
-		winrt::check_hresult(d2dContext->CreateEffect(CLSID_D2D1Scale, m_scaleEffect.put()));
 		winrt::check_hresult(d2dContext->CreateEffect(CLSID_D2D1GaussianBlur, m_blurEffect.put()));
 		winrt::check_hresult(d2dContext->CreateEffect(CLSID_D2D1Flood, m_luminosityColorEffect.put()));
 		winrt::check_hresult(d2dContext->CreateEffect(CLSID_D2D1Blend, m_luminosityBlendEffect.put()));
 		winrt::check_hresult(d2dContext->CreateEffect(CLSID_D2D1Flood, m_tintColorEffect.put()));
 		winrt::check_hresult(d2dContext->CreateEffect(CLSID_D2D1Blend, m_finalBlend.put()));
+	}
+
+	void TenMicaWindow::Window_Activated(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args)
+	{
+
+		auto crossFadeAnimation = compositor.CreateScalarKeyFrameAnimation();
+		auto easing = compositor.CreateLinearEasingFunction();
+		if (args.WindowActivationState() == winrt::Microsoft::UI::Xaml::WindowActivationState::Deactivated)
+		{
+			crossFadeAnimation.InsertKeyFrame(0.f, 0.f, easing);
+			crossFadeAnimation.InsertKeyFrame(1.f, 1.f, easing);
+		}
+		else
+		{
+			crossFadeAnimation.InsertKeyFrame(0.f, 1.f, easing);
+			crossFadeAnimation.InsertKeyFrame(1.f, 0.f, easing);
+		}
+		crossFadeBrush.StartAnimation(L"CrossFade.CrossFade", crossFadeAnimation);
 	}
 }

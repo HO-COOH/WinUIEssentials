@@ -293,6 +293,7 @@
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="BlurEffectInterop.h" />
     <ClInclude Include="ButtonAnimations.h" />
     <ClInclude Include="CalendarDatePickerWorkaroundPage.xaml.h">
       <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
@@ -339,6 +340,7 @@
       <DependentUpon>ConvertersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CrossFadeEffectInterop.h" />
     <ClInclude Include="CursorControllerPage.xaml.h">
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -385,6 +387,8 @@
       <DependentUpon>Editor.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="EffectInterop.hpp" />
+    <ClInclude Include="EffectPropertyMapping.h" />
     <ClInclude Include="EffectToggleButton.xaml.h">
       <DependentUpon>EffectToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -405,6 +405,18 @@
     <ClInclude Include="D2D1DeviceContextState.h">
       <Filter>Pages\TenMicaPage</Filter>
     </ClInclude>
+    <ClInclude Include="BlurEffectInterop.h">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPropertyMapping.h">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectInterop.hpp">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClInclude>
+    <ClInclude Include="CrossFadeEffectInterop.h">
+      <Filter>Pages\TenMicaPage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

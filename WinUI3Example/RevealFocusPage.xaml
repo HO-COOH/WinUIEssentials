@@ -10,12 +10,6 @@
     mc:Ignorable="d">
 
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
-        <InfoBar
-            IsClosable="False"
-            IsOpen="True"
-            Message="This is still a demo and highly experimental. It's not in the package yet!"
-            Severity="Warning" />
-
         <TextBlock Margin="0,10,0,-10" Text="For a basic usage, simply wrap the panel inside a RevealFocusPanel, then for every element that you want to have RevealFocus effect, set the attached property like so." />
         <local:ControlExample HeaderText="RevealFocus basic example">
             <essential:RevealFocusPanel x:Name="RevealFocusPanel">

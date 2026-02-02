@@ -51,7 +51,7 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 ## Build and contribute
 ### Build requirements
 - You need to have [vcpkg](https://vcpkg.io/en/) installed and integrate setup for msbuild. See [this documentation for guide](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started-msbuild?pivots=shell-powershell).
-- You need to have Visual Studio **2026** with `Desktop development with C++` and `WinUI Application development` workload installed.
+- You need to have Visual Studio **2026** with `Desktop development with C++` and `WinUI Application development` workload installed. (2022 will NOT work, as we are using the `v145` C++ tools)
 - You need to build both `Debug` and `Release` build to successfully build and debug the example project (**this is intentional for not missing debug version of the package**)
 - >= Windows 10 17763 (Actually I mostly use Windows 10 17763 to ensure compatibility that WinUI3 claims to support)
 
@@ -59,8 +59,9 @@ You can reference Github Action for detailed build steps.
 
 
 ### Contribute a new templated control
+0. **DO NOT submit a PR that's purely AI written WITHOUT your reviewing.** I will **NOT** review it.
 1. Create a control under the `Controls` folder, with the `ViewModel` file template, then you edit the `idl` as needed
-2. If the control has a `ResourceDictionary` xaml, add an entry in the `WinUIEssential.WinU3.targets` so that the `.xbf` file is properly copied (see the file for example) 
+2. If the control has a `ResourceDictionary` xaml, add an entry in the `WinUIEssential.WinU3.targets` so that the `.xbf` file is properly copied (see that file for example) 
 3. Please also consider adding a demo page for the control, and add it to `MainWindow.xaml.h` `MainWindow::s_page` (see the file for example)
 
 -----
