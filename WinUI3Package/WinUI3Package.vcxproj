@@ -265,6 +265,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp" />
+    <ClInclude Include="BlurEffectInterop.h" />
     <ClInclude Include="BoolToVisibilityConverter.h">
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -281,6 +282,7 @@
       <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CombinedWallpaper.h" />
     <ClInclude Include="ComboBoxHelper.h">
       <DependentUpon>ComboBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -305,6 +307,7 @@
       <DependentUpon>ConverterGroup.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CrossFadeEffectInterop.h" />
     <ClInclude Include="CursorController.h">
       <DependentUpon>CursorController.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -317,10 +320,14 @@
       <DependentUpon>CustomMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="D2D1DeviceContextState.h" />
     <ClInclude Include="DatePickerHelper.h">
       <DependentUpon>DatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="EffectInterop.hpp" />
+    <ClInclude Include="EffectPropertyHelper.h" />
+    <ClInclude Include="EffectPropertyMapping.h" />
     <ClInclude Include="EqualPanel.h">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -536,6 +543,10 @@
     <ClInclude Include="TaskbarIconBase.h" />
     <ClInclude Include="TaskbarIconMessageWindow.h" />
     <ClInclude Include="TaskbarIconXamlEvents.h" />
+    <ClInclude Include="TenMicaBackdrop.h">
+      <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ThemeAdaptiveIcon.h" />
     <ClInclude Include="ThemeSettings.h">
       <DependentUpon>ThemeSettings.idl</DependentUpon>
@@ -576,6 +587,7 @@
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WallpaperManager.h" />
     <ClInclude Include="WindowCaptionButtonThemeWorkaround.h">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -621,6 +633,7 @@
       <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="CombinedWallpaper.cpp" />
     <ClCompile Include="ComboBoxHelper.cpp">
       <DependentUpon>ComboBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -657,10 +670,12 @@
       <DependentUpon>CustomMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="D2D1DeviceContextState.cpp" />
     <ClCompile Include="DatePickerHelper.cpp">
       <DependentUpon>DatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="EffectPropertyHelper.cpp" />
     <ClCompile Include="EqualPanel.cpp">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -846,6 +861,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarIconBase.cpp" />
     <ClCompile Include="TaskbarIconMessageWindow.cpp" />
+    <ClCompile Include="TenMicaBackdrop.cpp">
+      <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
     <ClCompile Include="ThemeSettings.cpp">
@@ -881,6 +900,7 @@
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WallpaperManager.cpp" />
     <ClCompile Include="WindowCaptionButtonThemeWorkaround.cpp">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1082,6 +1102,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TaskbarIcon.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TenMicaBackdrop.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ThemeSettings.idl">

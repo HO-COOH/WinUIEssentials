@@ -236,10 +236,10 @@
     <Page Include="RevealFocusPage.xaml">
       <Filter>Pages\RevealFocusPage</Filter>
     </Page>
-    <Page Include="TenMicaWindow.xaml">
+    <Page Include="TenMicaPage.xaml">
       <Filter>Pages\TenMicaPage</Filter>
     </Page>
-    <Page Include="TenMicaPage.xaml">
+    <Page Include="TenMicaBackdropWindow.xaml">
       <Filter>Pages\TenMicaPage</Filter>
     </Page>
   </ItemGroup>
@@ -356,17 +356,8 @@
     <ClCompile Include="ButtonAnimations.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
-    <ClCompile Include="WallpaperManager.cpp">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClCompile>
-    <ClCompile Include="CombinedWallpaper.cpp">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClCompile>
     <ClCompile Include="StoreUpdateChecker.cpp">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClCompile>
-    <ClCompile Include="D2D1DeviceContextState.cpp">
-      <Filter>Pages\TenMicaPage</Filter>
+      <Filter>Helper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -395,27 +386,6 @@
     </ClInclude>
     <ClInclude Include="ButtonAnimations.h">
       <Filter>Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="WallpaperManager.h">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClInclude>
-    <ClInclude Include="CombinedWallpaper.h">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClInclude>
-    <ClInclude Include="D2D1DeviceContextState.h">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClInclude>
-    <ClInclude Include="BlurEffectInterop.h">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectPropertyMapping.h">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectInterop.hpp">
-      <Filter>Pages\TenMicaPage</Filter>
-    </ClInclude>
-    <ClInclude Include="CrossFadeEffectInterop.h">
-      <Filter>Pages\TenMicaPage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

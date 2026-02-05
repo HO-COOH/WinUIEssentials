@@ -158,6 +158,52 @@
                         Maximum="3000"
                         Minimum="300"
                         Value="{x:Bind AnimationDuration, Mode=TwoWay}" />
+
+                    <RadioButtons
+                        Header="Rotation Axis:"
+                        SelectedIndex="1"
+                        SelectionChanged="RadioButtons_SelectionChanged">
+                        <RadioButtons.Style>
+                            <Style TargetType="RadioButtons">
+                                <Setter Property="IsTabStop" Value="False" />
+                                <Setter Property="TabNavigation" Value="Once" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="RadioButtons">
+                                            <StackPanel>
+                                                <ContentPresenter
+                                                    x:Name="HeaderContentPresenter"
+                                                    Margin="{ThemeResource RadioButtonsTopHeaderMargin}"
+                                                    Content="{TemplateBinding Header}"
+                                                    ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                    Foreground="{ThemeResource RadioButtonsHeaderForeground}" />
+                                                <ItemsRepeater xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives" x:Name="InnerRepeater">
+                                                    <ItemsRepeater.Layout>
+                                                        <StackLayout Orientation="Horizontal" Spacing="{ThemeResource RadioButtonsRowSpacing}" />
+                                                    </ItemsRepeater.Layout>
+                                                </ItemsRepeater>
+
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup x:Name="CommonStates">
+                                                        <VisualState x:Name="Normal" />
+                                                        <VisualState x:Name="Disabled">
+                                                            <VisualState.Setters>
+                                                                <Setter Target="HeaderContentPresenter.Foreground" Value="{ThemeResource RadioButtonsHeaderForegroundDisabled}" />
+                                                            </VisualState.Setters>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                            </StackPanel>
+
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </RadioButtons.Style>
+                        <RadioButton Content="X" />
+                        <RadioButton Content="Y" />
+                        <RadioButton Content="Z" />
+                    </RadioButtons>
                     <Button
                         x:Name="myButton"
                         HorizontalAlignment="Center"

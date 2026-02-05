@@ -2,6 +2,7 @@
 #include "EffectInterop.hpp"
 #include "EffectPropertyMapping.h"
 #include <d2d1effects_2.h>
+#include "EffectPropertyHelper.h"
 
 class CrossFadeInterop : public EffectInterop<CrossFadeInterop>
 {
@@ -21,7 +22,7 @@ class CrossFadeInterop : public EffectInterop<CrossFadeInterop>
 	HRESULT getPropertyImpl(UINT index, ABI::Windows::Foundation::IPropertyValue** value)
 	{
 		if (index == D2D1_CROSSFADE_PROP::D2D1_CROSSFADE_PROP_WEIGHT)
-			return makeProperty(CrossFade, value);
+			return EffectPropertyHelper::MakeProperty(CrossFade, value);
 
 		return E_INVALIDARG;
 	}

@@ -69,8 +69,8 @@ namespace winrt::WinUI3Example::implementation
         m_backVisual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(BackGrid());
 
         auto compositor = m_frontVisual.Compositor();
-        m_frontVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
-        m_backVisual.RotationAxis({ 0.0f, 1.0f, 0.0f });
+        m_frontVisual.RotationAxis(m_rotationAxis);
+        m_backVisual.RotationAxis(m_rotationAxis);
 
         rotationAnimation = compositor.CreateScalarKeyFrameAnimation();
         rotationAnimation.Target(L"RotationAngleInDegrees");
@@ -97,7 +97,7 @@ namespace winrt::WinUI3Example::implementation
         auto shadowRotationExpression = compositor.CreateExpressionAnimation(L"host.RotationAngleInDegrees");
         if (m_frontShadow)
         {
-            m_frontShadow.RotationAxis({ 0.0f, 1.0f, 0.0f });
+            m_frontShadow.RotationAxis(m_rotationAxis);
             m_frontShadow.ImplicitAnimations(implicitAnimations);
             m_frontShadow.StartAnimation(L"CenterPoint", centerPointAnimation);
             m_frontShadow.StartAnimation(L"Opacity", frontVisualOpacityAnimation);
@@ -106,7 +106,7 @@ namespace winrt::WinUI3Example::implementation
         }
         if (m_backShadow)
         {
-            m_backShadow.RotationAxis({ 0.0f, 1.0f, 0.0f });
+            m_backShadow.RotationAxis(m_rotationAxis);
             m_backShadow.ImplicitAnimations(implicitAnimations);
             m_backShadow.StartAnimation(L"CenterPoint", centerPointAnimation);
             m_backShadow.StartAnimation(L"Opacity", backVisualOpacityAnimation);
@@ -161,4 +161,33 @@ namespace winrt::WinUI3Example::implementation
         if (rotationAnimation)
             rotationAnimation.Duration(std::chrono::milliseconds{ static_cast<int64_t>(m_animationDurationMilli) });
     }
+
+    void FlipWindow::RadioButtons_SelectionChanged(
+        winrt::Windows::Foundation::IInspectable const& sender, 
+        winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e)
+    {
+        switch (sender.as<winrt::Microsoft::UI::Xaml::Controls::RadioButtons>().SelectedIndex())
+        {
+            case 0:
+                m_rotationAxis = winrt::Windows::Foundation::Numerics::float3{ 1.f, 0.f, 0.f };
+                break;
+            case 1:
+                m_rotationAxis = winrt::Windows::Foundation::Numerics::float3{ 0.f, 1.f, 0.f };
+                break;
+            case 2:
+                m_rotationAxis = winrt::Windows::Foundation::Numerics::float3{ 0.f, 0.f, 1.f };
+                break;
+        }
+
+        if (m_frontVisual)
+        {
+            m_frontVisual.RotationAxis(m_rotationAxis);
+            m_backVisual.RotationAxis(m_rotationAxis);
+        }
+        if (m_frontShadow)
+            m_frontShadow.RotationAxis(m_rotationAxis);
+        if (m_backShadow)
+            m_backShadow.RotationAxis(m_rotationAxis);
+    }
+
 }

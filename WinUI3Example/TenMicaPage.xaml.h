@@ -7,7 +7,7 @@ namespace winrt::WinUI3Example::implementation
     struct TenMicaPage : TenMicaPageT<TenMicaPage>
     {
         TenMicaPage() = default;
-        void Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void Button_Click_1(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

@@ -293,7 +293,6 @@
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="BlurEffectInterop.h" />
     <ClInclude Include="ButtonAnimations.h" />
     <ClInclude Include="CalendarDatePickerWorkaroundPage.xaml.h">
       <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
@@ -311,7 +310,6 @@
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="CombinedWallpaper.h" />
     <ClInclude Include="ComboBoxHelperPage.xaml.h">
       <DependentUpon>ComboBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -340,7 +338,6 @@
       <DependentUpon>ConvertersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="CrossFadeEffectInterop.h" />
     <ClInclude Include="CursorControllerPage.xaml.h">
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -355,7 +352,6 @@
       <DependentUpon>CustomTitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="D2D1DeviceContextState.h" />
     <ClInclude Include="DataGrid.xaml.h">
       <DependentUpon>DataGrid.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -387,8 +383,6 @@
       <DependentUpon>Editor.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="EffectInterop.hpp" />
-    <ClInclude Include="EffectPropertyMapping.h" />
     <ClInclude Include="EffectToggleButton.xaml.h">
       <DependentUpon>EffectToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -611,12 +605,12 @@
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TenMicaPage.xaml.h">
-      <DependentUpon>TenMicaPage.xaml</DependentUpon>
+    <ClInclude Include="TenMicaBackdropWindow.xaml.h">
+      <DependentUpon>TenMicaBackdropWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TenMicaWindow.xaml.h">
-      <DependentUpon>TenMicaWindow.xaml</DependentUpon>
+    <ClInclude Include="TenMicaPage.xaml.h">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TestWindow.xaml.h">
@@ -668,7 +662,6 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="WallpaperManager.h" />
     <ClInclude Include="Win32TitleBar.xaml.h">
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -868,10 +861,10 @@
     <Page Include="TaskbarPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TenMicaPage.xaml">
+    <Page Include="TenMicaBackdropWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TenMicaWindow.xaml">
+    <Page Include="TenMicaPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TestWindow.xaml">
@@ -954,7 +947,6 @@
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="CombinedWallpaper.cpp" />
     <ClCompile Include="ComboBoxHelperPage.xaml.cpp">
       <DependentUpon>ComboBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -997,7 +989,6 @@
       <DependentUpon>CustomTitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="D2D1DeviceContextState.cpp" />
     <ClCompile Include="DataGrid.xaml.cpp">
       <DependentUpon>DataGrid.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1246,12 +1237,12 @@
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TenMicaPage.xaml.cpp">
-      <DependentUpon>TenMicaPage.xaml</DependentUpon>
+    <ClCompile Include="TenMicaBackdropWindow.xaml.cpp">
+      <DependentUpon>TenMicaBackdropWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TenMicaWindow.xaml.cpp">
-      <DependentUpon>TenMicaWindow.xaml</DependentUpon>
+    <ClCompile Include="TenMicaPage.xaml.cpp">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TestWindow.xaml.cpp">
@@ -1307,7 +1298,6 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="WallpaperManager.cpp" />
     <ClCompile Include="Win32TitleBar.xaml.cpp">
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1628,12 +1618,12 @@
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="TenMicaPage.idl">
-      <DependentUpon>TenMicaPage.xaml</DependentUpon>
+    <Midl Include="TenMicaBackdropWindow.idl">
+      <DependentUpon>TenMicaBackdropWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="TenMicaWindow.idl">
-      <DependentUpon>TenMicaWindow.xaml</DependentUpon>
+    <Midl Include="TenMicaPage.idl">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TestWindow.idl">

@@ -4,7 +4,6 @@
 #include "pch.h"
 #include "App.xaml.h"
 #include "MainWindow.xaml.h"
-#include "TenMicaWindow.xaml.h"
 #include <winrt/Microsoft.Windows.AppNotifications.h>
 #include "UpdateChecker.h"
 #include <winrt/Windows.Services.Store.h>
@@ -52,7 +51,6 @@ namespace winrt::WinUI3Example::implementation
     {
         window = make<MainWindow>();
         window.Activate();
-        //winrt::WinUI3Example::TenMicaWindow{}.Activate();
 
         //We don't need this, as we publish to Microsoft Store
         //if (co_await UpdateChecker::HasUpdate())

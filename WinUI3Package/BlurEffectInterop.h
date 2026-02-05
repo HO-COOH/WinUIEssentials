@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "EffectInterop.hpp"
 #include "EffectPropertyMapping.h"
 #include <d2d1effects.h>
@@ -27,19 +27,19 @@ class BlurEffectInterop : public EffectInterop<BlurEffectInterop>
 			ABI::Windows::Graphics::Effects::GRAPHICS_EFFECT_PROPERTY_MAPPING::GRAPHICS_EFFECT_PROPERTY_MAPPING_DIRECT
 		},
 	};
-	
+
 	HRESULT getPropertyImpl(UINT index, ABI::Windows::Foundation::IPropertyValue** value)
 	{
 		switch (index)
 		{
-			case D2D1_GAUSSIANBLUR_PROP::D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION:
-				return makeProperty(Radius, value);
-			case D2D1_GAUSSIANBLUR_PROP::D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION:
-				return makeProperty(static_cast<UINT32>(Optimization), value);
-			case D2D1_GAUSSIANBLUR_PROP::D2D1_GAUSSIANBLUR_PROP_BORDER_MODE:
-				return makeProperty(static_cast<UINT32>(BorderMode), value);
-			default:
-				return E_INVALIDARG;
+		case D2D1_GAUSSIANBLUR_PROP::D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION:
+			return MakeProperty(Radius, value);
+		case D2D1_GAUSSIANBLUR_PROP::D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION:
+			return MakeProperty(static_cast<UINT32>(Optimization), value);
+		case D2D1_GAUSSIANBLUR_PROP::D2D1_GAUSSIANBLUR_PROP_BORDER_MODE:
+			return MakeProperty(static_cast<UINT32>(BorderMode), value);
+		default:
+			return E_INVALIDARG;
 		}
 	}
 

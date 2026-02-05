@@ -4,7 +4,7 @@
 #include "TransparentBackdrop.g.cpp"
 #endif
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
-#include <winrt/Microsoft.UI.Content.h>
+#include "HwndHelper.hpp"
 #include <dwmapi.h>
 #include "WindowsVersion.hpp"
 #include <winrt/Microsoft.UI.Interop.h>
@@ -13,16 +13,7 @@ namespace winrt::WinUI3Package::implementation
 {
     void TransparentBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot xamlRoot)
     {
-        //On 1.7.250208002-preview1 this no longer works
-        //HWND hwnd = (HWND)connectedTarget
-        //    .as<winrt::Microsoft::UI::Xaml::Hosting::DesktopWindowXamlSource>()
-        //    .SiteBridge()
-        //    .SiteView()
-        //    .EnvironmentView()
-        //    .AppWindowId()
-        //    .Value;
-        HWND hwnd = reinterpret_cast<HWND>(xamlRoot.ContentIslandEnvironment().AppWindowId().Value);
-        configureDwm(hwnd);
+        configureDwm(GetHwnd(xamlRoot));
         base_type::OnTargetConnected(connectedTarget, xamlRoot);
     }
 

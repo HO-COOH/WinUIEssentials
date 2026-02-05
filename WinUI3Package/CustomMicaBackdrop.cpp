@@ -6,7 +6,7 @@
 #include <winrt/Microsoft.UI.Composition.SystemBackdrops.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Microsoft.UI.Interop.h>
-#include <winrt/Microsoft.UI.Content.h>
+#include "HwndHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -70,7 +70,7 @@ namespace winrt::WinUI3Package::implementation
 		//Note: This method will be called before any Property setter get called.
 		//So we do not need to apply the properties in this method
 		makeMicaController(connectedTarget);
-		m_hwnd = reinterpret_cast<HWND>(xamlRoot.ContentIslandEnvironment().AppWindowId().Value);
+		m_hwnd = GetHwnd(xamlRoot);
 		BackdropWindowActiveStateWorkaroundHandler<CustomMicaBackdrop, subclassId>::Set(m_hwnd, this);
 
 		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);

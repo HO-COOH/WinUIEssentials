@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "RevealFocusPanel.h"
 #if __has_include("RevealFocusPanel.g.cpp")
 #include "RevealFocusPanel.g.cpp"

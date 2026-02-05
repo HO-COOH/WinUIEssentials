@@ -1,0 +1,16 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TenMicaBackdrop : Microsoft.UI.Xaml.Media.SystemBackdrop
+    {
+        TenMicaBackdrop();
+
+        //Directly binding to Element.ActualTheme does not work in C++ due to https://github.com/microsoft/microsoft-ui-xaml/issues/10390
+        //Microsoft.UI.Xaml.ElementTheme ActualTheme;
+        //static Microsoft.UI.Xaml.DependencyProperty ActualThemeProperty{ get; };
+
+        //So we bind to an Element instead
+        Microsoft.UI.Xaml.FrameworkElement BindThemeTo;
+    }
+}

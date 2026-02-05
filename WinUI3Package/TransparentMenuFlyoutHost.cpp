@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "TransparentMenuFlyoutHost.h"
 #include <winrt/Microsoft.UI.Windowing.h>
 #include "HwndHelper.hpp"

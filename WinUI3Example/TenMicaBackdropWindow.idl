@@ -1,0 +1,9 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass TenMicaBackdropWindow : Microsoft.UI.Xaml.Window
+    {
+        TenMicaBackdropWindow();
+        Int32 MyProperty;
+    }
+}

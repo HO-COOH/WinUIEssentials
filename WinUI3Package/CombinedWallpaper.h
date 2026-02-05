@@ -16,7 +16,7 @@ class CombinedWallpaper
 
 	//draw_span need to use member size, so not static
 	void draw_span(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaper);
-	
+
 	static void draw_fill(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo, ID2D1Bitmap1* wallpaper);
 	static void draw_tile(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo, ID2D1Bitmap1* wallpaper);
 	static void draw_center(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo, ID2D1Bitmap1* wallpaper);
@@ -36,30 +36,30 @@ public:
 		D2D1DeviceContextState savedState{ d2dContext };
 		d2dContext->SetTarget(m_combinedWallpaperBitmap.get());
 		d2dContext->Clear(D2D1::ColorF{ 0.0f, 0.0f, 0.0f, 1.0f });
-		
+
 		void(*drawLogic)(ID2D1DeviceContext*, WallpaperInfo&, ID2D1Bitmap1*) {};
 
 		switch (position)
 		{
-			case DESKTOP_WALLPAPER_POSITION::DWPOS_SPAN:
-				if (!wallpapers.empty())
-					draw_span(d2dContext, wallpapers.front());
-				return m_combinedWallpaperBitmap.get();
-			case DESKTOP_WALLPAPER_POSITION::DWPOS_CENTER:
-				drawLogic = &CombinedWallpaper::draw_center;
-				break;
-			case DESKTOP_WALLPAPER_POSITION::DWPOS_TILE:
-				drawLogic = &CombinedWallpaper::draw_tile;
-				break;
-			case DESKTOP_WALLPAPER_POSITION::DWPOS_STRETCH:
-				drawLogic = &CombinedWallpaper::draw_stretch;
-				break;
-			case DESKTOP_WALLPAPER_POSITION::DWPOS_FIT:
-				drawLogic = &CombinedWallpaper::draw_fit;
-				break;
-			case DESKTOP_WALLPAPER_POSITION::DWPOS_FILL:
-				drawLogic = &CombinedWallpaper::draw_fill;
-				break;
+		case DESKTOP_WALLPAPER_POSITION::DWPOS_SPAN:
+			if (!wallpapers.empty())
+				draw_span(d2dContext, wallpapers.front());
+			return m_combinedWallpaperBitmap.get();
+		case DESKTOP_WALLPAPER_POSITION::DWPOS_CENTER:
+			drawLogic = &CombinedWallpaper::draw_center;
+			break;
+		case DESKTOP_WALLPAPER_POSITION::DWPOS_TILE:
+			drawLogic = &CombinedWallpaper::draw_tile;
+			break;
+		case DESKTOP_WALLPAPER_POSITION::DWPOS_STRETCH:
+			drawLogic = &CombinedWallpaper::draw_stretch;
+			break;
+		case DESKTOP_WALLPAPER_POSITION::DWPOS_FIT:
+			drawLogic = &CombinedWallpaper::draw_fit;
+			break;
+		case DESKTOP_WALLPAPER_POSITION::DWPOS_FILL:
+			drawLogic = &CombinedWallpaper::draw_fill;
+			break;
 		}
 
 		for (auto& wallpaperInfo : wallpapers)

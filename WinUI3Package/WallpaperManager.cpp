@@ -11,14 +11,14 @@ void WallpaperManager::init()
         nullptr,
         CLSCTX_ALL,
         IID_PPV_ARGS(m_desktopWallpaper.put())
-	));
+    ));
 
     winrt::check_hresult(CoCreateInstance(
         CLSID_WICImagingFactory,
         nullptr,
         CLSCTX_INPROC_SERVER,
         IID_PPV_ARGS(m_wicFactory.put())
-	));
+    ));
 }
 
 boost::container::small_vector<WallpaperInfo, WallpaperManager::MonitorCountEstimate> WallpaperManager::Get()
@@ -29,7 +29,7 @@ boost::container::small_vector<WallpaperInfo, WallpaperManager::MonitorCountEsti
     boost::container::small_vector<WallpaperInfo, MonitorCountEstimate> result;
     UINT count{};
     winrt::check_hresult(m_desktopWallpaper->GetMonitorDevicePathCount(&count));
-    
+
     wil::unique_cotaskmem_string monitorId, path;
 
     for (UINT i = 0; i < count; ++i)

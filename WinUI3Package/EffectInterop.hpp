@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include <winrt/Windows.Graphics.Effects.h>
 #include <winrt/Windows.Foundation.h>
-#include <windows.foundation.h>
 #include <windows.graphics.effects.interop.h>
 
 // CRTP base class for D2D1 effect interop
@@ -20,44 +19,6 @@ class EffectInterop : public winrt::implements<
 >
 {
 	winrt::hstring m_name;
-
-protected:
-	// Overloaded helpers to create property values
-	static HRESULT makeProperty(float value, ABI::Windows::Foundation::IPropertyValue** result)
-	{
-		auto pv = winrt::Windows::Foundation::PropertyValue::CreateSingle(value);
-		pv.as<ABI::Windows::Foundation::IPropertyValue>().copy_to(result);
-		return S_OK;
-	}
-
-	static HRESULT makeProperty(double value, ABI::Windows::Foundation::IPropertyValue** result)
-	{
-		auto pv = winrt::Windows::Foundation::PropertyValue::CreateDouble(value);
-		pv.as<ABI::Windows::Foundation::IPropertyValue>().copy_to(result);
-		return S_OK;
-	}
-
-	static HRESULT makeProperty(UINT32 value, ABI::Windows::Foundation::IPropertyValue** result)
-	{
-		auto pv = winrt::Windows::Foundation::PropertyValue::CreateUInt32(value);
-		pv.as<ABI::Windows::Foundation::IPropertyValue>().copy_to(result);
-		return S_OK;
-	}
-
-	static HRESULT makeProperty(INT32 value, ABI::Windows::Foundation::IPropertyValue** result)
-	{
-		auto pv = winrt::Windows::Foundation::PropertyValue::CreateInt32(value);
-		pv.as<ABI::Windows::Foundation::IPropertyValue>().copy_to(result);
-		return S_OK;
-	}
-
-	static HRESULT makeProperty(bool value, ABI::Windows::Foundation::IPropertyValue** result)
-	{
-		auto pv = winrt::Windows::Foundation::PropertyValue::CreateBoolean(value);
-		pv.as<ABI::Windows::Foundation::IPropertyValue>().copy_to(result);
-		return S_OK;
-	}
-
 public:
 	// IGraphicsEffect
 	winrt::hstring Name() { return m_name; }

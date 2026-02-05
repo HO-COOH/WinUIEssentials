@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CursorController.h"
 #if __has_include("CursorController.g.cpp")
 #include "CursorController.g.cpp"
@@ -30,16 +30,12 @@ namespace winrt::WinUI3Package::implementation
 	}
 	void CursorController::CursorChanged(winrt::Microsoft::UI::Xaml::DependencyObject obj, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
 	{
-		auto element = obj.try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+		auto element = obj.try_as<winrt::Microsoft::UI::Xaml::UIElement>();
 		if (!element)
 			return;
 
 		auto value = winrt::unbox_value<winrt::Windows::UI::Core::CoreCursorType>(e.NewValue());
-		element.PointerEntered([value](auto sender, auto)
-			{
-					winrt::Windows::UI::Core::CoreCursor cursor{ value, 1 };
-				sender.as<winrt::Microsoft::UI::Xaml::UIElement>().ProtectedCursor(winrt::Microsoft::UI::Input::InputCursor::CreateFromCoreCursor(cursor));
-			}
-		);
+		winrt::Windows::UI::Core::CoreCursor cursor{ value, 1 };
+		element.ProtectedCursor(winrt::Microsoft::UI::Input::InputCursor::CreateFromCoreCursor(cursor));
 	}
 }

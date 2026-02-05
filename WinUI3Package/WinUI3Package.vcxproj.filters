@@ -54,6 +54,18 @@
     <ClCompile Include="RevealBrush.cpp">
       <Filter>Controls\RevealFocus</Filter>
     </ClCompile>
+    <ClCompile Include="D2D1DeviceContextState.cpp">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClCompile>
+    <ClCompile Include="WallpaperManager.cpp">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClCompile>
+    <ClCompile Include="CombinedWallpaper.cpp">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectPropertyHelper.cpp">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -228,6 +240,30 @@
     <ClInclude Include="RevealBrush.h">
       <Filter>Controls\RevealFocus</Filter>
     </ClInclude>
+    <ClInclude Include="D2D1DeviceContextState.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectInterop.hpp">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurEffectInterop.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPropertyMapping.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="CombinedWallpaper.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="WallpaperManager.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="CrossFadeEffectInterop.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPropertyHelper.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -326,6 +362,9 @@
     </Filter>
     <Filter Include="Controls\RevealFocus">
       <UniqueIdentifier>{07cbeca9-02b9-4907-86bb-8c245f0f4577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backdrop\TenMica">
+      <UniqueIdentifier>{f02159cf-7397-4676-b463-5a7328a9d948}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +558,9 @@
     </Midl>
     <Midl Include="Convert.idl">
       <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="TenMicaBackdrop.idl">
+      <Filter>Backdrop\TenMica</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
