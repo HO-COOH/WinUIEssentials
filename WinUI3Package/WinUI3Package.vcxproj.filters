@@ -64,7 +64,7 @@
       <Filter>Backdrop\TenMica</Filter>
     </ClCompile>
     <ClCompile Include="EffectPropertyHelper.cpp">
-      <Filter>Backdrop\TenMica</Filter>
+      <Filter>Backdrop\TenMica\EffectInterop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -243,25 +243,25 @@
     <ClInclude Include="D2D1DeviceContextState.h">
       <Filter>Backdrop\TenMica</Filter>
     </ClInclude>
-    <ClInclude Include="EffectInterop.hpp">
-      <Filter>Backdrop\TenMica</Filter>
-    </ClInclude>
-    <ClInclude Include="BlurEffectInterop.h">
-      <Filter>Backdrop\TenMica</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectPropertyMapping.h">
-      <Filter>Backdrop\TenMica</Filter>
-    </ClInclude>
     <ClInclude Include="CombinedWallpaper.h">
       <Filter>Backdrop\TenMica</Filter>
     </ClInclude>
     <ClInclude Include="WallpaperManager.h">
       <Filter>Backdrop\TenMica</Filter>
     </ClInclude>
-    <ClInclude Include="CrossFadeEffectInterop.h">
-      <Filter>Backdrop\TenMica</Filter>
+    <ClInclude Include="EffectInterop.hpp">
+      <Filter>Backdrop\TenMica\EffectInterop</Filter>
     </ClInclude>
     <ClInclude Include="EffectPropertyHelper.h">
+      <Filter>Backdrop\TenMica\EffectInterop</Filter>
+    </ClInclude>
+    <ClInclude Include="CrossFadeEffectInterop.h">
+      <Filter>Backdrop\TenMica\EffectInterop</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPropertyMapping.h">
+      <Filter>Backdrop\TenMica\EffectInterop</Filter>
+    </ClInclude>
+    <ClInclude Include="TenMicaConstants.h">
       <Filter>Backdrop\TenMica</Filter>
     </ClInclude>
   </ItemGroup>
@@ -365,6 +365,9 @@
     </Filter>
     <Filter Include="Backdrop\TenMica">
       <UniqueIdentifier>{f02159cf-7397-4676-b463-5a7328a9d948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backdrop\TenMica\EffectInterop">
+      <UniqueIdentifier>{b7c1187a-e5e1-4471-9425-c0921a637114}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -561,6 +564,9 @@
     </Midl>
     <Midl Include="TenMicaBackdrop.idl">
       <Filter>Backdrop\TenMica</Filter>
+    </Midl>
+    <Midl Include="CustomBackdropBase.idl">
+      <Filter>Backdrop</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

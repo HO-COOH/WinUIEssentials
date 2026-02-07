@@ -8,6 +8,7 @@
 #include <windows.ui.composition.interop.h>
 #include "CrossFadeEffectInterop.h"
 #include "HwndHelper.hpp"
+#include "TenMicaConstants.h"
 
 
 namespace winrt::WinUI3Package::implementation
@@ -49,46 +50,32 @@ namespace winrt::WinUI3Package::implementation
 
 	LRESULT CALLBACK TenMicaBackdrop::subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 	{
-		auto* pThis = reinterpret_cast<TenMicaBackdrop*>(dwRefData);
-
 		switch (msg)
 		{
 			case WM_WINDOWPOSCHANGING:
 			{
-				//TODO: this is incorrect when dpi changed.
-				auto* pos = reinterpret_cast<WINDOWPOS*>(lParam);
+				auto* pThis = reinterpret_cast<TenMicaBackdrop*>(dwRefData);
+				auto* windowPos = reinterpret_cast<WINDOWPOS const*>(lParam);
 				// Only update if position actually changed (not just size or z-order)
-				if (!(pos->flags & SWP_NOMOVE))
-				{
-					// Use the incoming position from WINDOWPOS to update before the move happens
-					pThis->updateBrushOffset(pos->x, pos->y);
-				}
+				if (!(windowPos->flags & SWP_NOMOVE))
+					pThis->updateBrushOffset(windowPos->x, windowPos->y);
 				break;
 			}
 			case WM_DPICHANGED:
 			{
-				// Update DPI and brush scale when moving to a monitor with different DPI
-				pThis->m_dpi = HIWORD(wParam);
-				//auto const scale = winrt::Windows::Foundation::Numerics::float2::one() / (pThis->m_dpi / 96.f);
-				//pThis->m_surfaceBrush.Scale(scale);
-
-				// Update brush offset with new DPI
-				auto* suggestedRect = reinterpret_cast<RECT*>(lParam);
+				auto* pThis = reinterpret_cast<TenMicaBackdrop*>(dwRefData);
+				auto* suggestedRect = reinterpret_cast<RECT const*>(lParam);
 				pThis->updateBrushOffset(suggestedRect->left, suggestedRect->top);
 				break;
 			}
 			case WM_ACTIVATE:
 			{
-				if (LOWORD(wParam) == WA_INACTIVE)
-				{
-					// Window deactivated - play backward animation (crossfade to solid color)
-					pThis->crossFadeBrush.StartAnimation(L"CrossFade.CrossFade", pThis->m_crossFadeBackwardAnimation);
-				}
-				else
-				{
-					// Window activated (WA_ACTIVE or WA_CLICKACTIVE) - play forward animation (crossfade to mica)
-					pThis->crossFadeBrush.StartAnimation(L"CrossFade.CrossFade", pThis->m_crossFadeForwardAnimation);
-				}
+				auto const isActive = (LOWORD(wParam) != WA_INACTIVE);
+				auto* pThis = reinterpret_cast<TenMicaBackdrop*>(dwRefData);
+				pThis->crossFadeBrush.StartAnimation(
+					L"CrossFade.CrossFade",
+					isActive ? pThis->m_crossFadeForwardAnimation : pThis->m_crossFadeBackwardAnimation
+				);
 				break;
 			}
 			case WM_NCDESTROY:
@@ -108,10 +95,11 @@ namespace winrt::WinUI3Package::implementation
     void TenMicaBackdrop::BindThemeTo(winrt::Microsoft::UI::Xaml::FrameworkElement const value)
     {
         m_bindThemeTo = value;
-        m_bindThemeRevoker = value.ActualThemeChanged(winrt::auto_revoke, [this](auto&&...)
-            {
-
-            });
+        m_bindThemeRevoker = value.ActualThemeChanged(winrt::auto_revoke, [this](winrt::Microsoft::UI::Xaml::FrameworkElement const& sender, auto&&)
+        {
+            bool isLight = sender.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light;
+            onThemeChanged(isLight);
+        });
     }
 
     void TenMicaBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
@@ -119,6 +107,9 @@ namespace winrt::WinUI3Package::implementation
         auto brush = makeBrush();
         connectedTarget.SystemBackdrop(brush);
 		m_hwnd = GetHwnd(xamlRoot);
+		RECT windowRect;
+		winrt::check_bool(GetWindowRect(m_hwnd, &windowRect));
+		updateBrushOffset(windowRect.left, windowRect.top);
 		SetWindowSubclass(m_hwnd, subclassProc, 0, reinterpret_cast<DWORD_PTR>(this));
     }
 
@@ -136,22 +127,20 @@ namespace winrt::WinUI3Package::implementation
         winrt::check_hresult(d2dContext->CreateEffect(CLSID_D2D1Blend, m_finalBlend.put()));
     }
 
-	void TenMicaBackdrop::createBrush(ID2D1DeviceContext* d2dContext)
+	void TenMicaBackdrop::createBrush(bool isLightMode)
 	{
-		constexpr bool isLightMode = false;
-
-		winrt::check_hresult(m_blurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, 120.f)); // Debug blur
+		winrt::check_hresult(m_blurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION, TenMicaConstants::D2D::BlurRadius));
 		winrt::check_hresult(m_blurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_BORDER_MODE, D2D1_BORDER_MODE_HARD));
 		winrt::check_hresult(m_blurEffect->SetValue(D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION, D2D1_GAUSSIANBLUR_OPTIMIZATION_QUALITY));
 
-		D2D1_COLOR_F baseColor = isLightMode ? D2D1_COLOR_F{ 0.9529f, 0.9529f, 0.9529f, 1.0f } : D2D1_COLOR_F{ 0.125f, 0.125f, 0.125f, 1.0f };
+		auto baseColor = isLightMode ? TenMicaConstants::D2D::LuminosityColorLight : TenMicaConstants::D2D::LuminosityColorDark;
 		winrt::check_hresult(m_luminosityColorEffect->SetValue(D2D1_FLOOD_PROP_COLOR, baseColor));
 		winrt::check_hresult(m_luminosityBlendEffect->SetValue(D2D1_BLEND_PROP_MODE, D2D1_BLEND_MODE_LUMINOSITY));
 
 		m_luminosityBlendEffect->SetInputEffect(0, m_blurEffect.get());
 		m_luminosityBlendEffect->SetInputEffect(1, m_luminosityColorEffect.get());
 
-		baseColor.a = isLightMode ? 0.5f : 0.8f;
+		baseColor.a = isLightMode ? TenMicaConstants::D2D::TintColorOpacityLight : TenMicaConstants::D2D::TintColorOpacityDark;
 		winrt::check_hresult(m_tintColorEffect->SetValue(D2D1_FLOOD_PROP_COLOR, baseColor));
 
 		winrt::check_hresult(m_finalBlend->SetValue(D2D1_BLEND_PROP_MODE, D2D1_BLEND_MODE_COLOR));
@@ -159,15 +148,25 @@ namespace winrt::WinUI3Package::implementation
 		m_finalBlend->SetInputEffect(1, m_tintColorEffect.get());
 	}
 
+	void TenMicaBackdrop::onThemeChanged(bool isLightTheme)
+	{
+		m_themeCrossFadeBrush.StartAnimation(
+			L"ThemeFade.CrossFade",
+			isLightTheme ? m_crossFadeForwardAnimation : m_crossFadeBackwardAnimation
+		);
+	}
+
 	void TenMicaBackdrop::createAnimation()
 	{
-		m_crossFadeForwardAnimation = compositor.CreateScalarKeyFrameAnimation();
 		auto linearEase = compositor.CreateLinearEasingFunction();
-		m_crossFadeForwardAnimation.InsertKeyFrame(0.f, 1.f, linearEase);
+
+		m_crossFadeForwardAnimation = compositor.CreateScalarKeyFrameAnimation();
 		m_crossFadeForwardAnimation.InsertKeyFrame(1.f, 0.f, linearEase);
+		m_crossFadeForwardAnimation.Duration(TenMicaConstants::AnimationDuration);
+
 		m_crossFadeBackwardAnimation = compositor.CreateScalarKeyFrameAnimation();
-		m_crossFadeBackwardAnimation.InsertKeyFrame(0.f, 0.f, linearEase);
 		m_crossFadeBackwardAnimation.InsertKeyFrame(1.f, 1.f, linearEase);
+		m_crossFadeBackwardAnimation.Duration(TenMicaConstants::AnimationDuration);
 	}
 
     winrt::Windows::UI::Composition::CompositionBrush TenMicaBackdrop::makeBrush()
@@ -181,29 +180,46 @@ namespace winrt::WinUI3Package::implementation
 			reinterpret_cast<ABI::Windows::UI::Composition::ICompositionGraphicsDevice**>(winrt::put_abi(graphicsDevice))
 		));
 
+		m_virtualScreenX = GetSystemMetrics(SM_XVIRTUALSCREEN);
+		m_virtualScreenY = GetSystemMetrics(SM_YVIRTUALSCREEN);
 
-		auto sizeX = GetSystemMetricsForDpi(SM_CXVIRTUALSCREEN, 96);
-		auto sizeXOrig = GetSystemMetrics(SM_CXVIRTUALSCREEN);
-		m_drawingSurface = graphicsDevice.CreateDrawingSurface(
-			winrt::Windows::Foundation::Size
-			{
-				static_cast<float>(GetSystemMetricsForDpi(SM_CXVIRTUALSCREEN, 96)),
-				static_cast<float>(GetSystemMetricsForDpi(SM_CYVIRTUALSCREEN, 96))
-			},
-			winrt::Windows::Graphics::DirectX::DirectXPixelFormat::B8G8R8A8UIntNormalized,
-			winrt::Windows::Graphics::DirectX::DirectXAlphaMode::Premultiplied
-		);
-		m_surfaceBrush = compositor.CreateSurfaceBrush(m_drawingSurface);
-		m_surfaceBrush.Stretch(winrt::Windows::UI::Composition::CompositionStretch::None);
-		//top left align the brush
-		m_surfaceBrush.HorizontalAlignmentRatio({});
-		m_surfaceBrush.VerticalAlignmentRatio({});
+		winrt::Windows::Foundation::Size surfaceSize
+		{
+			static_cast<float>(GetSystemMetricsForDpi(SM_CXVIRTUALSCREEN, 96)),
+			static_cast<float>(GetSystemMetricsForDpi(SM_CYVIRTUALSCREEN, 96))
+		};
+		auto pixelFormat = winrt::Windows::Graphics::DirectX::DirectXPixelFormat::B8G8R8A8UIntNormalized;
+		auto alphaMode = winrt::Windows::Graphics::DirectX::DirectXAlphaMode::Premultiplied;
 
-		auto const scale = winrt::Windows::Foundation::Numerics::float2::one() / (m_dpi / 96.f);
-		m_surfaceBrush.Scale(scale);
+		// Create light and dark theme surfaces
+		m_lightSurface = graphicsDevice.CreateDrawingSurface(surfaceSize, pixelFormat, alphaMode);
+		m_darkSurface = graphicsDevice.CreateDrawingSurface(surfaceSize, pixelFormat, alphaMode);
 
+		//auto const scale = winrt::Windows::Foundation::Numerics::float2::one() / (m_dpi / 96.f);
 
-		auto solidColorTintBrush = compositor.CreateColorBrush(winrt::Windows::UI::ColorHelper::FromArgb(255, 32, 32, 32));
+		auto initSurfaceBrush = [this](auto& brush, auto const& surface) {
+			brush = compositor.CreateSurfaceBrush(surface);
+			brush.Stretch(winrt::Windows::UI::Composition::CompositionStretch::None);
+			brush.HorizontalAlignmentRatio({});
+			brush.VerticalAlignmentRatio({});
+			brush.Scale({ 1.f, 1.f });
+		};
+		initSurfaceBrush(m_lightBrush, m_lightSurface);
+		initSurfaceBrush(m_darkBrush, m_darkSurface);
+
+		// Theme crossfade: Source1=light, Source2=dark, weight 0=light, 1=dark
+		auto themeCrossFadeEffect = winrt::make_self<CrossFadeInterop>();
+		themeCrossFadeEffect->CrossFade = 0.0f; // start light
+		themeCrossFadeEffect->Name(L"ThemeFade");
+		themeCrossFadeEffect->Source1 = winrt::Windows::UI::Composition::CompositionEffectSourceParameter{ L"Light" };
+		themeCrossFadeEffect->Source2 = winrt::Windows::UI::Composition::CompositionEffectSourceParameter{ L"Dark" };
+
+		m_themeCrossFadeBrush = compositor.CreateEffectFactory(*themeCrossFadeEffect, { L"ThemeFade.CrossFade" }).CreateBrush();
+		m_themeCrossFadeBrush.SetSourceParameter(L"Light", m_lightBrush);
+		m_themeCrossFadeBrush.SetSourceParameter(L"Dark", m_darkBrush);
+
+		// Active/inactive crossfade
+		m_inactiveBrush = compositor.CreateColorBrush(winrt::Windows::UI::ColorHelper::FromArgb(255, 32, 32, 32));
 
 		auto crossFadeEffectInterop = winrt::make_self<CrossFadeInterop>();
 		crossFadeEffectInterop->CrossFade = 0.0f;
@@ -212,10 +228,14 @@ namespace winrt::WinUI3Package::implementation
 		crossFadeEffectInterop->Source2 = winrt::Windows::UI::Composition::CompositionEffectSourceParameter{ L"Source2" };
 
 		crossFadeBrush = compositor.CreateEffectFactory(*crossFadeEffectInterop, { L"CrossFade.CrossFade" }).CreateBrush();
-		crossFadeBrush.SetSourceParameter(L"Source1", m_surfaceBrush);
-		crossFadeBrush.SetSourceParameter(L"Source2", solidColorTintBrush);
+		crossFadeBrush.SetSourceParameter(L"Source1", m_themeCrossFadeBrush);
+		crossFadeBrush.SetSourceParameter(L"Source2", m_inactiveBrush);
 
-		draw();
+		draw(m_darkSurface, false);
+		m_combinedWallpaper.Reset();
+		draw(m_lightSurface, true);
+
+
 		createAnimation();
 
 		return crossFadeBrush;
@@ -233,37 +253,33 @@ namespace winrt::WinUI3Package::implementation
 
 	void TenMicaBackdrop::updateBrushOffset(int windowX, int windowY)
 	{
-		if (!m_surfaceBrush || !m_hwnd)
+		if (!m_lightBrush || !m_hwnd)
 			return;
 
-		// Convert from physical pixels to DIPs (the brush offset is in DIPs before scaling)
-		float offsetX = -static_cast<float>(windowX);
-		float offsetY = -static_cast<float>(windowY);
+		float const offsetX = static_cast<float>(m_virtualScreenX - windowX);
+		float const offsetY = static_cast<float>(m_virtualScreenY - windowY);
 
-		m_surfaceBrush.Offset({ offsetX, offsetY });
+		m_lightBrush.Offset({ offsetX, offsetY });
+		m_darkBrush.Offset({ offsetX, offsetY });
 	}
 
 
-	void TenMicaBackdrop::draw()
+	void TenMicaBackdrop::draw(winrt::Windows::UI::Composition::CompositionDrawingSurface const& surface, bool isLightMode)
 	{
-		auto surfaceInterop = m_drawingSurface.as<ABI::Windows::UI::Composition::ICompositionDrawingSurfaceInterop>();
+		auto surfaceInterop = surface.as<ABI::Windows::UI::Composition::ICompositionDrawingSurfaceInterop>();
 
-		winrt:com_ptr<ID2D1DeviceContext> d2dContext;
+		winrt::com_ptr<ID2D1DeviceContext> d2dContext;
 		POINT offset{};
 		winrt::check_hresult(surfaceInterop->BeginDraw(nullptr, IID_PPV_ARGS(d2dContext.put()), &offset));
 		d2dContext->SetTransform(D2D1::Matrix3x2F::Translation(static_cast<float>(offset.x), static_cast<float>(offset.y)));
 		d2dContext->SetUnitMode(D2D1_UNIT_MODE::D2D1_UNIT_MODE_PIXELS);
 		auto combinedWallpaper = m_combinedWallpaper.Draw(m_wallpaperManager.Get(), m_wallpaperManager.Position(), d2dContext.get());
+		
 		if (!m_blurEffect)
-		{
 			createEffects(d2dContext.get());
-			createBrush(d2dContext.get());
-		}
+		createBrush(isLightMode);
 		m_blurEffect->SetInput(0, combinedWallpaper);
-		d2dContext->Clear(D2D1::ColorF{ D2D1::ColorF::Red });
 		d2dContext->DrawImage(m_finalBlend.get());
-		//TODO: debug
-		//d2dContext->DrawImage(m_blurEffect.get());
 		winrt::check_hresult(surfaceInterop->EndDraw());
 	}
 }

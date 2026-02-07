@@ -1,0 +1,12 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    unsealed runtimeclass CustomBackdropBase : Microsoft.UI.Xaml.Media.SystemBackdrop
+    {
+        CustomBackdropBase();
+
+        Boolean EnableWhenInactive;
+        static Microsoft.UI.Xaml.DependencyProperty EnableWhenInactiveProperty{ get; };
+    }
+}

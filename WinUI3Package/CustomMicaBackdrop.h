@@ -3,9 +3,11 @@
 #include "CustomMicaBackdrop.g.h"
 #include "OverrideChecker.h"
 #include "BackdropWindowActiveStateWorkaroundHandler.hpp"
+#include "CustomBackdropBase.h"
+
 namespace winrt::WinUI3Package::implementation
 {
-    struct CustomMicaBackdrop : CustomMicaBackdropT<CustomMicaBackdrop>
+    struct CustomMicaBackdrop : CustomMicaBackdropT<CustomMicaBackdrop, CustomBackdropBase>
     {
         CustomMicaBackdrop() = default;
 
@@ -39,11 +41,6 @@ namespace winrt::WinUI3Package::implementation
         void TintOpacity(float value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty TintOpacityProperty();
 
-        bool EnableWhenInactive();
-        void EnableWhenInactive(bool value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty EnableWhenInactiveProperty();
-
-
     private:
         HWND m_hwnd{};
         winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration m_configuration{ nullptr };
@@ -61,7 +58,6 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_luminosityOpacityProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_tintColorProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_tintOpacityProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_enableWhenInactiveProperty;
 
         static winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 

@@ -49,13 +49,6 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
 		);
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_enableWhenInactiveProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"EnableWhenInactive",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false) }
-		);
 
 	void CustomMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{
@@ -198,18 +191,7 @@ namespace winrt::WinUI3Package::implementation
 	{
 		return s_tintOpacityProperty;
 	}
-	bool CustomMicaBackdrop::EnableWhenInactive()
-	{
-		return winrt::unbox_value<bool>(GetValue(EnableWhenInactiveProperty()));
-	}
-	void CustomMicaBackdrop::EnableWhenInactive(bool value)
-	{
-		SetValue(EnableWhenInactiveProperty(), winrt::box_value(value));
-	}
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::EnableWhenInactiveProperty()
-	{
-		return s_enableWhenInactiveProperty;
-	}
+
 	winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme CustomMicaBackdrop::toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
 	{
 		switch (theme)

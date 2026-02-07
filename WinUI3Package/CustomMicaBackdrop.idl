@@ -1,8 +1,10 @@
-﻿namespace WinUI3Package
+﻿import "CustomBackdropBase.idl";
+
+namespace WinUI3Package
 {
     [bindable]
     [default_interface]
-    runtimeclass CustomMicaBackdrop : Microsoft.UI.Xaml.Media.SystemBackdrop
+    runtimeclass CustomMicaBackdrop : CustomBackdropBase
     {
         CustomMicaBackdrop();
 
@@ -20,8 +22,5 @@
 
         Single TintOpacity;
         static Microsoft.UI.Xaml.DependencyProperty TintOpacityProperty{ get; };
-
-        Boolean EnableWhenInactive;
-        static Microsoft.UI.Xaml.DependencyProperty EnableWhenInactiveProperty{ get; };
     }
 }

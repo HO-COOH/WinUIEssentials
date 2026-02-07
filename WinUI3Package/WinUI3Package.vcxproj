@@ -265,7 +265,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp" />
-    <ClInclude Include="BlurEffectInterop.h" />
     <ClInclude Include="BoolToVisibilityConverter.h">
       <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -314,6 +313,10 @@
     </ClInclude>
     <ClInclude Include="CustomAcrylicBackdrop.h">
       <DependentUpon>CustomAcrylicBackdrop.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="CustomBackdropBase.h">
+      <DependentUpon>CustomBackdropBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="CustomMicaBackdrop.h">
@@ -547,6 +550,7 @@
       <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TenMicaConstants.h" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />
     <ClInclude Include="ThemeSettings.h">
       <DependentUpon>ThemeSettings.idl</DependentUpon>
@@ -664,6 +668,10 @@
     </ClCompile>
     <ClCompile Include="CustomAcrylicBackdrop.cpp">
       <DependentUpon>CustomAcrylicBackdrop.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CustomBackdropBase.cpp">
+      <DependentUpon>CustomBackdropBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="CustomMicaBackdrop.cpp">
@@ -967,6 +975,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="CustomAcrylicBackdrop.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="CustomBackdropBase.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="CustomMicaBackdrop.idl">

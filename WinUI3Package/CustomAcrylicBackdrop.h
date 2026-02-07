@@ -1,11 +1,12 @@
 ﻿#pragma once
 
 #include "CustomAcrylicBackdrop.g.h"
+#include "CustomBackdropBase.h"
 #include "OverrideChecker.h"
 #include "BackdropWindowActiveStateWorkaroundHandler.hpp"
 namespace winrt::WinUI3Package::implementation
 {
-    struct CustomAcrylicBackdrop : CustomAcrylicBackdropT<CustomAcrylicBackdrop>
+    struct CustomAcrylicBackdrop : CustomAcrylicBackdropT<CustomAcrylicBackdrop, CustomBackdropBase>
     {
         CustomAcrylicBackdrop() = default;
 
@@ -39,10 +40,6 @@ namespace winrt::WinUI3Package::implementation
         void TintOpacity(float value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty TintOpacityProperty();
 
-        bool EnableWhenInactive();
-        void EnableWhenInactive(bool value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty EnableWhenInactiveProperty();
-
         winrt::Microsoft::UI::Xaml::ElementTheme RequestedTheme();
         void RequestedTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
         static winrt::Microsoft::UI::Xaml::DependencyProperty RequestedThemeProperty();
@@ -63,7 +60,6 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_luminosityOpacityProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_tintColorProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_tintOpacityProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_enableWhenInactiveProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_requestedThemeProperty;
 
         static winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);

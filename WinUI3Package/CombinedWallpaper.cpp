@@ -2,7 +2,7 @@
 #include "CombinedWallpaper.h"
 
 
-void CombinedWallpaper::createNewBitmapIfSizeChanged(ID2D1DeviceContext* d2dContext)
+bool CombinedWallpaper::createNewBitmapIfSizeChanged(ID2D1DeviceContext* d2dContext)
 {
 	auto currentSize = D2D1::SizeU(
 		GetSystemMetricsForDpi(SM_CXVIRTUALSCREEN, 96),
@@ -10,7 +10,7 @@ void CombinedWallpaper::createNewBitmapIfSizeChanged(ID2D1DeviceContext* d2dCont
 	);
 
 	if (m_currentSize == currentSize)
-		return;
+		return false;
 
 	auto combinedWallpaperProperties = D2D1::BitmapProperties1(
 		D2D1_BITMAP_OPTIONS::D2D1_BITMAP_OPTIONS_TARGET,
@@ -24,11 +24,18 @@ void CombinedWallpaper::createNewBitmapIfSizeChanged(ID2D1DeviceContext* d2dCont
 		m_combinedWallpaperBitmap.put()
 	));
 	m_currentSize = currentSize;
+
+	return true;
 }
 
 void CombinedWallpaper::drawBitmapImpl(ID2D1DeviceContext* d2dContext, ID2D1Bitmap* bitmap, D2D1_RECT_F rect)
 {
 	d2dContext->DrawBitmap(bitmap, rect);
+}
+
+void CombinedWallpaper::Reset()
+{
+	m_currentSize = {};
 }
 
 void CombinedWallpaper::draw_span(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo)

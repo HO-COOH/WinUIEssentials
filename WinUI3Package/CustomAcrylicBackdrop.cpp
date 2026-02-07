@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CustomAcrylicBackdrop.h"
 #if __has_include("CustomAcrylicBackdrop.g.cpp")
 #include "CustomAcrylicBackdrop.g.cpp"
@@ -50,13 +50,6 @@ namespace winrt::WinUI3Package::implementation
 			nullptr
 		);
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_enableWhenInactiveProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"EnableWhenInactive",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false) }
-		);
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_requestedThemeProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"RequestedTheme",
@@ -204,21 +197,6 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::TintOpacityProperty()
 	{
 		return s_tintOpacityProperty;
-	}
-
-	bool CustomAcrylicBackdrop::EnableWhenInactive()
-	{
-		return winrt::unbox_value<bool>(GetValue(EnableWhenInactiveProperty()));
-	}
-
-	void CustomAcrylicBackdrop::EnableWhenInactive(bool value)
-	{
-		SetValue(EnableWhenInactiveProperty(), winrt::box_value(value));
-	}
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::EnableWhenInactiveProperty()
-	{
-		return s_enableWhenInactiveProperty;
 	}
 
 	winrt::Microsoft::UI::Xaml::ElementTheme CustomAcrylicBackdrop::RequestedTheme()

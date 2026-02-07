@@ -12,7 +12,8 @@ class CombinedWallpaper
 	winrt::com_ptr<ID2D1Bitmap1> m_combinedWallpaperBitmap;
 	D2D1_SIZE_U m_currentSize{};
 
-	void createNewBitmapIfSizeChanged(ID2D1DeviceContext* d2dContext);
+	//return bitmap created
+	bool createNewBitmapIfSizeChanged(ID2D1DeviceContext* d2dContext);
 
 	//draw_span need to use member size, so not static
 	void draw_span(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaper);
@@ -25,41 +26,45 @@ class CombinedWallpaper
 	static winrt::com_ptr<ID2D1Bitmap1> createBitmap(ID2D1DeviceContext* d2dContext, IWICFormatConverter* converter);
 	static void drawBitmapImpl(ID2D1DeviceContext* d2dContext, ID2D1Bitmap* bitmap, D2D1_RECT_F rect);
 public:
+	void Reset();
+
 	ID2D1Bitmap1* Draw(
 		auto&& wallpapers,
 		DESKTOP_WALLPAPER_POSITION position,
 		ID2D1DeviceContext* d2dContext
 	)
 	{
-		createNewBitmapIfSizeChanged(d2dContext);
+		if (!createNewBitmapIfSizeChanged(d2dContext))
+			return m_combinedWallpaperBitmap.get();
 
 		D2D1DeviceContextState savedState{ d2dContext };
 		d2dContext->SetTarget(m_combinedWallpaperBitmap.get());
+		d2dContext->SetTransform(D2D1::Matrix3x2F::Identity());
 		d2dContext->Clear(D2D1::ColorF{ 0.0f, 0.0f, 0.0f, 1.0f });
 
 		void(*drawLogic)(ID2D1DeviceContext*, WallpaperInfo&, ID2D1Bitmap1*) {};
 
 		switch (position)
 		{
-		case DESKTOP_WALLPAPER_POSITION::DWPOS_SPAN:
-			if (!wallpapers.empty())
-				draw_span(d2dContext, wallpapers.front());
-			return m_combinedWallpaperBitmap.get();
-		case DESKTOP_WALLPAPER_POSITION::DWPOS_CENTER:
-			drawLogic = &CombinedWallpaper::draw_center;
-			break;
-		case DESKTOP_WALLPAPER_POSITION::DWPOS_TILE:
-			drawLogic = &CombinedWallpaper::draw_tile;
-			break;
-		case DESKTOP_WALLPAPER_POSITION::DWPOS_STRETCH:
-			drawLogic = &CombinedWallpaper::draw_stretch;
-			break;
-		case DESKTOP_WALLPAPER_POSITION::DWPOS_FIT:
-			drawLogic = &CombinedWallpaper::draw_fit;
-			break;
-		case DESKTOP_WALLPAPER_POSITION::DWPOS_FILL:
-			drawLogic = &CombinedWallpaper::draw_fill;
-			break;
+			case DESKTOP_WALLPAPER_POSITION::DWPOS_SPAN:
+				if (!wallpapers.empty())
+					draw_span(d2dContext, wallpapers.front());
+				return m_combinedWallpaperBitmap.get();
+			case DESKTOP_WALLPAPER_POSITION::DWPOS_CENTER:
+				drawLogic = &CombinedWallpaper::draw_center;
+				break;
+			case DESKTOP_WALLPAPER_POSITION::DWPOS_TILE:
+				drawLogic = &CombinedWallpaper::draw_tile;
+				break;
+			case DESKTOP_WALLPAPER_POSITION::DWPOS_STRETCH:
+				drawLogic = &CombinedWallpaper::draw_stretch;
+				break;
+			case DESKTOP_WALLPAPER_POSITION::DWPOS_FIT:
+				drawLogic = &CombinedWallpaper::draw_fit;
+				break;
+			case DESKTOP_WALLPAPER_POSITION::DWPOS_FILL:
+				drawLogic = &CombinedWallpaper::draw_fill;
+				break;
 		}
 
 		for (auto& wallpaperInfo : wallpapers)
