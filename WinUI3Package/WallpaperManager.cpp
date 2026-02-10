@@ -4,7 +4,7 @@
 #include <wil/com.h>
 #include <wincodec.h>
 
-void WallpaperManager::init()
+WallpaperManager::WallpaperManager()
 {
     winrt::check_hresult(CoCreateInstance(
         CLSID_DesktopWallpaper,
@@ -21,23 +21,31 @@ void WallpaperManager::init()
     ));
 }
 
-boost::container::small_vector<WallpaperInfo, WallpaperManager::MonitorCountEstimate> WallpaperManager::Get()
+UINT WallpaperManager::getMonitorCount()
 {
-    if (!m_desktopWallpaper)
-        init();
-
-    boost::container::small_vector<WallpaperInfo, MonitorCountEstimate> result;
+    //I found this could sometimes return 0 monitors when I absolutely have 1. Better print a log when in debug mode
     UINT count{};
     winrt::check_hresult(m_desktopWallpaper->GetMonitorDevicePathCount(&count));
+#if (defined DEBUG) || (defined _DEBUG)
+    OutputDebugString(std::format(L"TenMica backdrop get: {} monitors.\n", count).data());
+#endif
+    return count;
+}
 
-    wil::unique_cotaskmem_string monitorId, path;
+bool WallpaperManager::UpdatedNeeded()
+{
+    auto const count = getMonitorCount();
+    auto const previousCount = m_wallpaperInfos.size();
+    bool updateNeeded = (count != previousCount);
+    if (updateNeeded)
+        m_wallpaperInfos.resize(count);
 
+    wil::unique_cotaskmem_string monitorId;
     for (UINT i = 0; i < count; ++i)
     {
         WallpaperInfo info;
 
         winrt::check_hresult(m_desktopWallpaper->GetMonitorDevicePathAt(i, monitorId.put()));
-        winrt::check_hresult(m_desktopWallpaper->GetWallpaper(monitorId.get(), path.put()));
 
         //the `count` will contain detached monitors with a wallpaper assigned. 
         //See https://learn.microsoft.com/en-us/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitorrect
@@ -45,9 +53,27 @@ boost::container::small_vector<WallpaperInfo, WallpaperManager::MonitorCountEsti
         if (FAILED(m_desktopWallpaper->GetMonitorRECT(monitorId.get(), &info.rect)))
             continue;
 
+        winrt::check_hresult(m_desktopWallpaper->GetWallpaper(monitorId.get(), info.path.put()));
+
+        bool const isSamePath = (
+            i < previousCount &&
+            m_wallpaperInfos[i].path &&
+            info.path &&
+            std::wstring_view{ m_wallpaperInfos[i].path.get() } == std::wstring_view{ info.path.get() }
+        );
+        
+        if (isSamePath)
+            continue;
+        else
+            updateNeeded = true;
+
+#if (defined DEBUG) || (defined _DEBUG)
+        OutputDebugString(std::format(L"TenMica backdrop monitor #{}: {}\n", i, info.path.get()).data());
+#endif
+
         winrt::com_ptr<IWICBitmapDecoder> decoder;
         winrt::check_hresult(m_wicFactory->CreateDecoderFromFilename(
-            path.get(),
+            info.path.get(),
             nullptr,
             GENERIC_READ,
             WICDecodeMetadataCacheOnLoad,
@@ -65,18 +91,29 @@ boost::container::small_vector<WallpaperInfo, WallpaperManager::MonitorCountEsti
             WICBitmapPaletteType::WICBitmapPaletteTypeMedianCut
         ));
 
-        result.emplace_back(std::move(info));
+        m_wallpaperInfos[i] = std::move(info);
     }
 
-    return result;
+    return updateNeeded;
+}
+
+boost::container::small_vector<WallpaperInfo, WallpaperManager::MonitorCountEstimate> const& WallpaperManager::Get() const
+{
+    return m_wallpaperInfos;
 }
 
 DESKTOP_WALLPAPER_POSITION WallpaperManager::Position()
 {
-    if (!m_desktopWallpaper)
-        init();
-
     DESKTOP_WALLPAPER_POSITION position;
     winrt::check_hresult(m_desktopWallpaper->GetPosition(&position));
     return position;
+}
+
+static std::optional<WallpaperManager> s_instance;
+WallpaperManager& WallpaperManager::GetInstance()
+{
+    if (!s_instance)
+        s_instance.emplace();
+
+    return *s_instance;
 }

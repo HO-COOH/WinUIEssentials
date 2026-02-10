@@ -3,6 +3,7 @@
 #include <wincodec.h>
 #include <ShlObj_core.h>
 #include <boost/container/small_vector.hpp>
+#include <wil/com.h>
 
 struct IDesktopWallpaper;
 struct IWICImagingFactory;
@@ -12,18 +13,25 @@ struct IWICFormatConverter;
 struct WallpaperInfo
 {
 	winrt::com_ptr<IWICFormatConverter> wallpaper;
+	wil::unique_cotaskmem_string path;
 	RECT rect;
 };
 
 class WallpaperManager
 {
+	constexpr static auto MonitorCountEstimate = 4;
+
 	winrt::com_ptr<IDesktopWallpaper> m_desktopWallpaper;
 	winrt::com_ptr<IWICImagingFactory> m_wicFactory;
-	void init();
+	boost::container::small_vector<WallpaperInfo, MonitorCountEstimate> m_wallpaperInfos;
 
-	constexpr static auto MonitorCountEstimate = 4;
+	UINT getMonitorCount();
 public:
-	[[nodiscard]] boost::container::small_vector<WallpaperInfo, MonitorCountEstimate> Get();
+	WallpaperManager();
+	[[nodiscard]] bool UpdatedNeeded();
+	[[nodiscard]] boost::container::small_vector<WallpaperInfo, MonitorCountEstimate> const& Get() const;
 	[[nodiscard]] DESKTOP_WALLPAPER_POSITION Position();
+
+	static WallpaperManager& GetInstance();
 };
 

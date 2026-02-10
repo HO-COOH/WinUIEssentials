@@ -11,10 +11,28 @@
     mc:Ignorable="d">
 
     <Window.SystemBackdrop>
-        <essential:TenMicaBackdrop BindThemeTo="{x:Bind RootGrid}" />
+        <essential:TenMicaBackdrop BindThemeTo="{x:Bind RootGrid}" EnableWhenInactive="{x:Bind EnableInactiveSwitch.IsOn, Mode=OneWay}" />
     </Window.SystemBackdrop>
 
     <Grid x:Name="RootGrid">
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="20">
+            <ToggleSwitch
+                x:Name="EnableInactiveSwitch"
+                HorizontalAlignment="Center"
+                Header="Enable when window is inactive" />
+
+            <TextBlock>
+                This brush automatically handles:<LineBreak />
+                1. Cross-screen window moving with different dpi<LineBreak />
+                2. Wallpaper changes<LineBreak />
+                3. Theme changes<LineBreak />
+                4. Monitor changes<LineBreak />
+                And it's optimized! Only one Compositor and wallpaper surface are created per thread regardless how many windows with this brush are applied!</TextBlock>
+        </StackPanel>
+
         <local:ThemeToggleButton
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"

@@ -282,6 +282,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="CombinedWallpaper.h" />
+    <ClInclude Include="CombinedWallpaperSurfaces.h" />
     <ClInclude Include="ComboBoxHelper.h">
       <DependentUpon>ComboBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -551,6 +552,9 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TenMicaConstants.h" />
+    <ClInclude Include="TenMicaEffect.h" />
+    <ClInclude Include="TenMicaEffectFactory.h" />
+    <ClInclude Include="TenMicaWindowSubProc.hpp" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />
     <ClInclude Include="ThemeSettings.h">
       <DependentUpon>ThemeSettings.idl</DependentUpon>
@@ -638,6 +642,7 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="CombinedWallpaper.cpp" />
+    <ClCompile Include="CombinedWallpaperSurfaces.cpp" />
     <ClCompile Include="ComboBoxHelper.cpp">
       <DependentUpon>ComboBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -873,6 +878,8 @@
       <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TenMicaEffect.cpp" />
+    <ClCompile Include="TenMicaEffectFactory.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
     <ClCompile Include="ThemeSettings.cpp">

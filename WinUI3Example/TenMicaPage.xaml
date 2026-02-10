@@ -14,9 +14,30 @@
             IsOpen="True"
             Message="This is still a demo and highly experimental. It's not in the package yet!"
             Severity="Warning" />
-        
+
         <local:ControlExample HeaderText="Simulated MicaBackdrop for Windows 10">
             <Button Click="Button_Click_1">Create</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window
+    x:Class=&quot;WinUI3Example.TenMicaBackdropWindow&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+
+    &lt;Window.SystemBackdrop&gt;
+        &lt;essential:TenMicaBackdrop BindThemeTo=&quot;{x:Bind RootGrid}&quot; /&gt;
+    &lt;/Window.SystemBackdrop&gt;
+
+    &lt;Grid x:Name=&quot;RootGrid&quot;&gt;
+        ...Elements...
+    &lt;/Grid&gt;
+&lt;/Window&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
     </StackPanel>
 </Page>

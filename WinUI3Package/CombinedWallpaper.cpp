@@ -4,7 +4,7 @@
 
 bool CombinedWallpaper::createNewBitmapIfSizeChanged(ID2D1DeviceContext* d2dContext)
 {
-	auto currentSize = D2D1::SizeU(
+	auto const currentSize = D2D1::SizeU(
 		GetSystemMetricsForDpi(SM_CXVIRTUALSCREEN, 96),
 		GetSystemMetricsForDpi(SM_CYVIRTUALSCREEN, 96)
 	);
@@ -38,7 +38,7 @@ void CombinedWallpaper::Reset()
 	m_currentSize = {};
 }
 
-void CombinedWallpaper::draw_span(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo)
+void CombinedWallpaper::draw_span(ID2D1DeviceContext* d2dContext, WallpaperInfo const& wallpaperInfo)
 {
 	auto wallpaperBitmap = createBitmap(d2dContext, wallpaperInfo.wallpaper.get());
 	auto const wallpaperSize = wallpaperBitmap->GetPixelSize();
@@ -57,7 +57,7 @@ void CombinedWallpaper::draw_span(ID2D1DeviceContext* d2dContext, WallpaperInfo&
 	drawBitmapImpl(d2dContext, wallpaperBitmap.get(), D2D1::RectF(destLeft, destTop, destLeft + destWidth, destTop + destHeight));
 }
 
-void CombinedWallpaper::draw_fill(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo, ID2D1Bitmap1* wallpaperBitmap)
+void CombinedWallpaper::draw_fill(ID2D1DeviceContext* d2dContext, WallpaperInfo const& wallpaperInfo, ID2D1Bitmap1* wallpaperBitmap)
 {
 	auto const wallpaperSize = wallpaperBitmap->GetPixelSize();
 	auto const rectWidth = static_cast<float>(wallpaperInfo.rect.right - wallpaperInfo.rect.left);
@@ -87,7 +87,7 @@ void CombinedWallpaper::draw_fill(ID2D1DeviceContext* d2dContext, WallpaperInfo&
 	d2dContext->PopAxisAlignedClip();
 }
 
-void CombinedWallpaper::draw_tile(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo, ID2D1Bitmap1* wallpaper)
+void CombinedWallpaper::draw_tile(ID2D1DeviceContext* d2dContext, WallpaperInfo const& wallpaperInfo, ID2D1Bitmap1* wallpaper)
 {
 	winrt::com_ptr<ID2D1BitmapBrush> tileBrush;
 	winrt::check_hresult(d2dContext->CreateBitmapBrush(wallpaper, tileBrush.put()));
@@ -97,7 +97,7 @@ void CombinedWallpaper::draw_tile(ID2D1DeviceContext* d2dContext, WallpaperInfo&
 	d2dContext->FillRectangle(D2D1::RectF(wallpaperInfo.rect.left, wallpaperInfo.rect.top, wallpaperInfo.rect.right, wallpaperInfo.rect.bottom), tileBrush.get());
 }
 
-void CombinedWallpaper::draw_center(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo, ID2D1Bitmap1* wallpaper)
+void CombinedWallpaper::draw_center(ID2D1DeviceContext* d2dContext, WallpaperInfo const& wallpaperInfo, ID2D1Bitmap1* wallpaper)
 {
 	auto const wallpaperSize = wallpaper->GetPixelSize();
 	auto const left = (std::min<float>)(wallpaperInfo.rect.left, (wallpaperInfo.rect.right + wallpaperInfo.rect.left - wallpaperSize.width) / 2);
@@ -107,12 +107,12 @@ void CombinedWallpaper::draw_center(ID2D1DeviceContext* d2dContext, WallpaperInf
 	drawBitmapImpl(d2dContext, wallpaper, D2D1::RectF(left, top, right, bottom));
 }
 
-void CombinedWallpaper::draw_stretch(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo, ID2D1Bitmap1* wallpaper)
+void CombinedWallpaper::draw_stretch(ID2D1DeviceContext* d2dContext, WallpaperInfo const& wallpaperInfo, ID2D1Bitmap1* wallpaper)
 {
 	drawBitmapImpl(d2dContext, wallpaper, D2D1::RectF(wallpaperInfo.rect.left, wallpaperInfo.rect.top, wallpaperInfo.rect.right, wallpaperInfo.rect.bottom));
 }
 
-void CombinedWallpaper::draw_fit(ID2D1DeviceContext* d2dContext, WallpaperInfo& wallpaperInfo, ID2D1Bitmap1* wallpaper)
+void CombinedWallpaper::draw_fit(ID2D1DeviceContext* d2dContext, WallpaperInfo const& wallpaperInfo, ID2D1Bitmap1* wallpaper)
 {
 	auto const wallpaperSize = wallpaper->GetPixelSize();
 	auto const rectWidth = static_cast<float>(wallpaperInfo.rect.right - wallpaperInfo.rect.left);
