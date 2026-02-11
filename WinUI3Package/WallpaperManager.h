@@ -4,18 +4,7 @@
 #include <ShlObj_core.h>
 #include <boost/container/small_vector.hpp>
 #include <wil/com.h>
-
-struct IDesktopWallpaper;
-struct IWICImagingFactory;
-struct IWICBitmapDecoder;
-struct IWICFormatConverter;
-
-struct WallpaperInfo
-{
-	winrt::com_ptr<IWICFormatConverter> wallpaper;
-	wil::unique_cotaskmem_string path;
-	RECT rect;
-};
+#include "WallpaperInfo.h"
 
 class WallpaperManager
 {

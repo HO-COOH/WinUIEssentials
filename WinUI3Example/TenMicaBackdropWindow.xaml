@@ -25,11 +25,14 @@
                 Header="Enable when window is inactive" />
 
             <TextBlock>
-                This brush automatically handles:<LineBreak />
+                TenMicaBackdrop automatically handles:<LineBreak />
                 1. Cross-screen window moving with different dpi<LineBreak />
                 2. Wallpaper changes<LineBreak />
                 3. Theme changes<LineBreak />
                 4. Monitor changes<LineBreak />
+                5. Works for Windows 10 AND Windows 11<LineBreak />
+                (In case you want the effect even when user turns it off in system settings, although you shouldn't really do that.<LineBreak />
+                Please consider using essential:MicaBackdropWithFallback and use this effect as Fallback)<LineBreak />
                 And it's optimized! Only one Compositor and wallpaper surface are created per thread regardless how many windows with this brush are applied!</TextBlock>
         </StackPanel>
 

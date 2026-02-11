@@ -1,5 +1,6 @@
-﻿#pragma once
+#pragma once
 #include <d2d1_1.h>
+#include <ranges>
 #include <ShlObj_core.h>
 #include "D2D1DeviceContextState.h"
 #include "WallpaperManager.h"
@@ -66,7 +67,7 @@ public:
 				break;
 		}
 
-		for (auto& wallpaperInfo : wallpapers)
+		for (auto& wallpaperInfo : wallpapers | std::views::filter([](auto const& w) { return static_cast<bool>(w.wallpaper); }))
 		{
 			auto wallpaperBitmap = createBitmap(d2dContext, wallpaperInfo.wallpaper.get());
 			(*drawLogic)(d2dContext, wallpaperInfo, wallpaperBitmap.get());

@@ -7,6 +7,7 @@
 #include "CustomBackdropBase.h"
 #include "TenMicaEffectFactory.h"
 #include "TenMicaWindowSubProc.hpp"
+#include "TenMicaRegistryWatcher.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -29,7 +30,8 @@ namespace winrt::WinUI3Package::implementation
     private:
         winrt::weak_ref<winrt::Microsoft::UI::Xaml::FrameworkElement> m_bindThemeTo;
         winrt::Microsoft::UI::Xaml::FrameworkElement::ActualThemeChanged_revoker m_bindThemeRevoker;
-
+        winrt::Microsoft::UI::Dispatching::DispatcherQueue m_queue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
+        std::optional<TenMicaRegistryWatcher> m_registryWatcher;
         TenMicaEffect m_effect = TenMicaEffectFactory::GetFactory().Get();
 
         int m_virtualScreenX{};

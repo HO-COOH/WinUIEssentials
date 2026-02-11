@@ -30,9 +30,7 @@ namespace winrt::WinUI3Package::implementation
         param.fEnable = true;
         param.hRgnBlur = CreateRectRgn(-2, -2, -1, -1);
         DwmEnableBlurBehindWindow(hwnd, &param);
-        OSVERSIONINFOEXW version{};
-        RtlGetVersion(&version);
-        if (version.dwBuildNumber >= 22000)
+        if (GetWindowsVersion().dwBuildNumber >= 22000)
         {
             auto round = DWMWCP_DONOTROUND;
             winrt::check_hresult(DwmSetWindowAttribute(hwnd, DWMWA_WINDOW_CORNER_PREFERENCE, &round, sizeof(round)));

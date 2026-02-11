@@ -309,12 +309,10 @@ namespace winrt::WinUI3Package::implementation
     }
     void WindowEx::TitleBarDarkMode(bool value)
     {
-        OSVERSIONINFOEXW version{};
-        auto hr = RtlGetVersion(&version);
         BOOL copy = value;
         DwmSetWindowAttribute(
             m_hwnd,
-            version.dwBuildNumber >= 19041 ? 20 : 19,
+            GetWindowsVersion().dwBuildNumber >= 19041 ? 20 : 19,
             &copy,
             sizeof(copy)
         );

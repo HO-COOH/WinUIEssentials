@@ -8,7 +8,7 @@
 #include <windows.ui.composition.interop.h>
 #include "CrossFadeEffectInterop.h"
 #include "HwndHelper.hpp"
-
+#include "WindowsVersion.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -38,11 +38,14 @@ namespace winrt::WinUI3Package::implementation
 		winrt::check_bool(GetWindowRect(hwnd, &windowRect));
 		updateBrushOffset(windowRect.left, windowRect.top);
 		addSubClass(hwnd);
+		if (GetWindowsVersion().dwMajorVersion >= 22000)
+			m_registryWatcher.emplace(this);
     }
 
 	void TenMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const&)
 	{
 		removeSubClass();
+		m_registryWatcher.reset();
 	}
 
 	void TenMicaBackdrop::updateBrushOffset(int windowX, int windowY)
@@ -64,11 +67,8 @@ namespace winrt::WinUI3Package::implementation
 	{
 		//This must be put inside a queue, otherwise the GetMonitorDevicePathCount() causes a COM exception
 		//0x8001010d : An outgoing call cannot be made since the application is dispatching an input-synchronous call
-		auto queue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
-		if (!queue)
-			return;
 
-		queue.TryEnqueue([weakThis = get_weak()]
+		m_queue.TryEnqueue([weakThis = get_weak()]
 		{
 			if (auto strong = weakThis.get())
 			{

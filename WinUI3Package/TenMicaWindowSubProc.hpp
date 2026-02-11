@@ -36,6 +36,9 @@ protected:
 				getThis(dwRefData)->onWindowActivated(isActive);
 				break;
 			}
+			//This works fine on Windows 10, but NOT on Windows 11
+			//See this link: https://learn.microsoft.com/en-us/answers/questions/5771029/windows-11-changing-wallpaper-in-the-settings-app
+			//We need to use registry watcher to monitor wallpaper registry key on Windows 11
 			case WM_SETTINGCHANGE:
 			{
 				if (wParam == SPI_SETDESKWALLPAPER)

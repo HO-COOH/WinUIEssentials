@@ -554,6 +554,7 @@
     <ClInclude Include="TenMicaConstants.h" />
     <ClInclude Include="TenMicaEffect.h" />
     <ClInclude Include="TenMicaEffectFactory.h" />
+    <ClInclude Include="TenMicaRegistryWatcher.h" />
     <ClInclude Include="TenMicaWindowSubProc.hpp" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />
     <ClInclude Include="ThemeSettings.h">
@@ -595,6 +596,7 @@
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WallpaperInfo.h" />
     <ClInclude Include="WallpaperManager.h" />
     <ClInclude Include="WindowCaptionButtonThemeWorkaround.h">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
@@ -880,6 +882,7 @@
     </ClCompile>
     <ClCompile Include="TenMicaEffect.cpp" />
     <ClCompile Include="TenMicaEffectFactory.cpp" />
+    <ClCompile Include="TenMicaRegistryWatcher.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
     <ClCompile Include="ThemeSettings.cpp">
@@ -929,6 +932,7 @@
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WindowsVersion.cpp" />
     <ClCompile Include="WrapPanel.cpp">
       <DependentUpon>WrapPanel.idl</DependentUpon>
       <SubType>Code</SubType>

@@ -75,6 +75,10 @@
     <ClCompile Include="TenMicaEffect.cpp">
       <Filter>Backdrop\TenMica</Filter>
     </ClCompile>
+    <ClCompile Include="TenMicaRegistryWatcher.cpp">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsVersion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -283,6 +287,12 @@
       <Filter>Backdrop\TenMica</Filter>
     </ClInclude>
     <ClInclude Include="TenMicaEffect.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="WallpaperInfo.h">
+      <Filter>Backdrop\TenMica\Wallpaper</Filter>
+    </ClInclude>
+    <ClInclude Include="TenMicaRegistryWatcher.h">
       <Filter>Backdrop\TenMica</Filter>
     </ClInclude>
   </ItemGroup>
