@@ -42,10 +42,11 @@ namespace winrt::WinUI3Package::implementation
 			m_registryWatcher.emplace(this);
     }
 
-	void TenMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const&)
+	void TenMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{
 		removeSubClass();
 		m_registryWatcher.reset();
+		connectedTarget.SystemBackdrop(nullptr);
 	}
 
 	void TenMicaBackdrop::updateBrushOffset(int windowX, int windowY)

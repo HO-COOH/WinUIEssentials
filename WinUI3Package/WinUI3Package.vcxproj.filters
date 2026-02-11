@@ -295,6 +295,9 @@
     <ClInclude Include="TenMicaRegistryWatcher.h">
       <Filter>Backdrop\TenMica</Filter>
     </ClInclude>
+    <ClInclude Include="EnsureSystemDispatcherQueueController.hpp">
+      <Filter>Backdrop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

@@ -36,8 +36,12 @@ namespace winrt::WinUI3Example::implementation
 		switch (type)
 		{
 			case SystemBackdropType::Automatic:
-				m_window.SystemBackdrop(winrt::WinUI3Package::MicaBackdropWithFallback{ winrt::Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{} });
+			{
+				winrt::WinUI3Package::TenMicaBackdrop tenMica;
+				tenMica.BindThemeTo(*this);
+				m_window.SystemBackdrop(winrt::WinUI3Package::MicaBackdropWithFallback{ tenMica /*winrt::Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{}*/ });
 				break;
+			}
 			case SystemBackdropType::Mica:
 				m_window.SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::MicaBackdrop{});
 				break;

@@ -12,6 +12,17 @@
     TitleBarAutoDarkMode="True"
     mc:Ignorable="d">
 
+    <!--<essential:WindowEx.SystemBackdrop>
+        <essential:MicaBackdropWithFallback>
+            <essential:MicaBackdropWithFallback.Fallback>
+                <essential:TenMicaBackdrop BindThemeTo="{x:Bind RootGrid}" />
+            </essential:MicaBackdropWithFallback.Fallback>
+        </essential:MicaBackdropWithFallback>
+    </essential:WindowEx.SystemBackdrop>-->
+    <!--<essential:WindowEx.SystemBackdrop>
+        <DesktopAcrylicBackdrop />
+    </essential:WindowEx.SystemBackdrop>-->
+
     <Grid x:Name="RootGrid">
         <Grid.BackgroundTransition>
             <BrushTransition />

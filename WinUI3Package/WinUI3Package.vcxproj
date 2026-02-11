@@ -332,6 +332,7 @@
     <ClInclude Include="EffectInterop.hpp" />
     <ClInclude Include="EffectPropertyHelper.h" />
     <ClInclude Include="EffectPropertyMapping.h" />
+    <ClInclude Include="EnsureSystemDispatcherQueueController.hpp" />
     <ClInclude Include="EqualPanel.h">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
