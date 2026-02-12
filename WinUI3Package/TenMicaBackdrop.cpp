@@ -9,6 +9,7 @@
 #include "CrossFadeEffectInterop.h"
 #include "HwndHelper.hpp"
 #include "WindowsVersion.hpp"
+#include "TenMicaDeviceLostException.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -29,9 +30,8 @@ namespace winrt::WinUI3Package::implementation
 
     void TenMicaBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
     {
-		m_virtualScreenX = GetSystemMetrics(SM_XVIRTUALSCREEN);
-		m_virtualScreenY = GetSystemMetrics(SM_YVIRTUALSCREEN);
-
+		getVirtualScreenXY();
+		onWallpaperChanged();
         connectedTarget.SystemBackdrop(m_effect.m_finalCrossFadeBrush);
 		auto const hwnd = GetHwnd(xamlRoot);
 		RECT windowRect;
@@ -40,6 +40,7 @@ namespace winrt::WinUI3Package::implementation
 		addSubClass(hwnd);
 		if (GetWindowsVersion().dwMajorVersion >= 22000)
 			m_registryWatcher.emplace(this);
+		m_savedTarget = connectedTarget;
     }
 
 	void TenMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
@@ -51,8 +52,8 @@ namespace winrt::WinUI3Package::implementation
 
 	void TenMicaBackdrop::updateBrushOffset(int windowX, int windowY)
 	{
-		float const offsetX = static_cast<float>(m_virtualScreenX - windowX);
-		float const offsetY = static_cast<float>(m_virtualScreenY - windowY);
+		float const offsetX = m_virtualScreenX - windowX;
+		float const offsetY = m_virtualScreenY - windowY;
 		m_effect.SetBrushOffset(offsetX, offsetY);
 	}
 
@@ -77,8 +78,44 @@ namespace winrt::WinUI3Package::implementation
 				if (!wallpaperManager.UpdatedNeeded())
 					return;
 
-				TenMicaEffectFactory::GetFactory().Redraw(wallpaperManager);
+				try
+				{
+					TenMicaEffectFactory::GetFactory().Redraw(wallpaperManager);
+				}
+				catch (TenMicaDeviceLostException const&)
+				{
+					strong->onDeviceReset();
+				}
 			}
 		});
+	}
+
+	void TenMicaBackdrop::onDisplayChanged()
+	{
+		getVirtualScreenXY();
+		applyNewBrush(false);
+	}
+
+	void TenMicaBackdrop::getVirtualScreenXY()
+	{
+		m_virtualScreenX = GetSystemMetrics(SM_XVIRTUALSCREEN);
+		m_virtualScreenY = GetSystemMetrics(SM_YVIRTUALSCREEN);
+	}
+
+	void TenMicaBackdrop::onDeviceReset()
+	{
+		applyNewBrush(true);
+		RECT windowRect;
+		winrt::check_bool(GetWindowRect(m_hwnd, &windowRect));
+		updateBrushOffset(windowRect.left, windowRect.top);
+	}
+
+	void TenMicaBackdrop::applyNewBrush(bool recreateFactory)
+	{
+		m_effect = TenMicaEffectFactory::GetFactory(recreateFactory).Get();
+		if (auto bindThemeTo = m_bindThemeTo.get())
+			m_effect.SetTheme(bindThemeTo.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
+		if (m_savedTarget)
+			m_savedTarget.SystemBackdrop(m_effect.m_finalCrossFadeBrush);
 	}
 }

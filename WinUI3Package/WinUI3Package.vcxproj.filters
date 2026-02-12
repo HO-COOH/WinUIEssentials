@@ -298,6 +298,9 @@
     <ClInclude Include="EnsureSystemDispatcherQueueController.hpp">
       <Filter>Backdrop</Filter>
     </ClInclude>
+    <ClInclude Include="TenMicaDeviceLostException.h">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

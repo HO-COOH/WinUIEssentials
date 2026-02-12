@@ -47,7 +47,7 @@ protected:
 			}
 			case WM_DISPLAYCHANGE:
 			{
-				getThis(dwRefData)->onWallpaperChanged();
+				getThis(dwRefData)->onDisplayChanged();
 				break;
 			}
 			case WM_NCDESTROY:

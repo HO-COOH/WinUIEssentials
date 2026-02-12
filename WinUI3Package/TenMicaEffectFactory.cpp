@@ -50,7 +50,7 @@ TenMicaEffect TenMicaEffectFactory::Get()
 	{
 		.m_themeCrossFadeBrush = themeCrossFadeEffectFactory.CreateBrush(),
 		.m_finalCrossFadeBrush = finalEffectFactory.CreateBrush(),
-		.m_inactiveBrush = compositor.CreateColorBrush(),
+		.m_inactiveBrush = compositor.CreateColorBrush(TenMicaConstants::WinUI::LuminosityColorDark),
 		.m_lightBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, wallpaperManager, true),
 		.m_darkBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, wallpaperManager, false)
 	};
@@ -67,10 +67,12 @@ TenMicaEffect TenMicaEffectFactory::Get()
 	return effect;
 }
 
-TenMicaEffectFactory& TenMicaEffectFactory::GetFactory()
+TenMicaEffectFactory& TenMicaEffectFactory::GetFactory(bool recreate)
 {
-	thread_local TenMicaEffectFactory s_factory;
-	return s_factory;
+	thread_local std::optional<TenMicaEffectFactory> s_factory;
+	if (!s_factory || recreate)
+		s_factory.emplace();
+	return *s_factory;
 }
 
 void TenMicaEffectFactory::Redraw(WallpaperManager& wallpaperManager)

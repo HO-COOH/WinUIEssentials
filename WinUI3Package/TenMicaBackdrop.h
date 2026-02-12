@@ -28,13 +28,17 @@ namespace winrt::WinUI3Package::implementation
         void updateBrushOffset(int windowX, int windowY);
         void onWindowActivated(bool isActive);
         void onWallpaperChanged();
+        void onDisplayChanged();
     private:
         winrt::weak_ref<winrt::Microsoft::UI::Xaml::FrameworkElement> m_bindThemeTo;
         winrt::Microsoft::UI::Xaml::FrameworkElement::ActualThemeChanged_revoker m_bindThemeRevoker;
         winrt::Microsoft::UI::Dispatching::DispatcherQueue m_queue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
         std::optional<TenMicaRegistryWatcher> m_registryWatcher;
         TenMicaEffect m_effect = TenMicaEffectFactory::GetFactory().Get();
-
+        winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop m_savedTarget{ nullptr };
+        void getVirtualScreenXY();
+        void onDeviceReset();
+        void applyNewBrush(bool recreateFactory);
         int m_virtualScreenX{};
         int m_virtualScreenY{};
     };

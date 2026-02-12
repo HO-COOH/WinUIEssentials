@@ -553,6 +553,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TenMicaConstants.h" />
+    <ClInclude Include="TenMicaDeviceLostException.h" />
     <ClInclude Include="TenMicaEffect.h" />
     <ClInclude Include="TenMicaEffectFactory.h" />
     <ClInclude Include="TenMicaRegistryWatcher.h" />

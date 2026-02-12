@@ -1,9 +1,10 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CombinedWallpaperSurfaces.h"
 #include <windows.ui.composition.interop.h>
 #include <d2d1.h>
 #include <d3d11.h>
 #include "TenMicaConstants.h"
+#include "TenMicaDeviceLostException.h"
 
 static auto GetD2D1Device()
 {
@@ -17,14 +18,20 @@ static auto GetD2D1Device()
 	));
 
 	winrt::com_ptr<ID3D11Device> d3dDevice;
-	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_1, D3D_FEATURE_LEVEL_11_0 };
+	D3D_FEATURE_LEVEL featureLevels[]
+	{ 
+		D3D_FEATURE_LEVEL_11_1, 
+		D3D_FEATURE_LEVEL_11_0,
+		D3D_FEATURE_LEVEL_10_0,
+		D3D_FEATURE_LEVEL_10_1
+	};
 	winrt::check_hresult(D3D11CreateDevice(
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
 		D3D11_CREATE_DEVICE_BGRA_SUPPORT,
 		featureLevels,
-		ARRAYSIZE(featureLevels),
+		std::size(featureLevels),
 		D3D11_SDK_VERSION,
 		d3dDevice.put(),
 		nullptr,
@@ -39,6 +46,8 @@ static auto GetD2D1Device()
 	));
 	return d2dDevice;
 }
+
+thread_local winrt::com_ptr<ID2D1Device> t_d2dDevice;
 
 void CombinedWallpaperSurfaces::createD2DEffects(ID2D1DeviceContext* d2dContext)
 {
@@ -125,27 +134,42 @@ void CombinedWallpaperSurfaces::DrawToSurface(winrt::Windows::UI::Composition::C
 	constexpr static auto pixelFormat = winrt::Windows::Graphics::DirectX::DirectXPixelFormat::B8G8R8A8UIntNormalized;
 	constexpr static auto alphaMode = winrt::Windows::Graphics::DirectX::DirectXAlphaMode::Premultiplied;
 
-	thread_local auto d2dDevice = GetD2D1Device();
 
 	if (!graphicsDevice)
 	{
 		auto compositorInterop = compositor.as<ABI::Windows::UI::Composition::ICompositorInterop>();
+		if (!t_d2dDevice)
+			t_d2dDevice = GetD2D1Device();
 		winrt::check_hresult(compositorInterop->CreateGraphicsDevice(
-			d2dDevice.get(),
+			t_d2dDevice.get(),
 			reinterpret_cast<ABI::Windows::UI::Composition::ICompositionGraphicsDevice**>(winrt::put_abi(graphicsDevice))
 		));
 	}
 
-	if (isLight)
+	try 
 	{
-		if (!m_surfaceLight)
-			m_surfaceLight = graphicsDevice.CreateDrawingSurface(surfaceSize, pixelFormat, alphaMode);
-		drawToSurfaceImpl(true, wallpaper);
+		if (isLight)
+		{
+			if (!m_surfaceLight)
+				m_surfaceLight = graphicsDevice.CreateDrawingSurface(surfaceSize, pixelFormat, alphaMode);
+			drawToSurfaceImpl(true, wallpaper);
+		}
+		else
+		{
+			if (!m_surfaceDark)
+				m_surfaceDark = graphicsDevice.CreateDrawingSurface(surfaceSize, pixelFormat, alphaMode);
+			drawToSurfaceImpl(false, wallpaper);
+		}
 	}
-	else
+	catch (winrt::hresult_error const& e)
 	{
-		if (!m_surfaceDark)
-			m_surfaceDark = graphicsDevice.CreateDrawingSurface(surfaceSize, pixelFormat, alphaMode);
-		drawToSurfaceImpl(false, wallpaper);
+		if (auto hr = e.code(); hr == DXGI_ERROR_DEVICE_REMOVED || hr == DXGI_ERROR_DEVICE_RESET)
+		{
+			t_d2dDevice = nullptr;
+			throw TenMicaDeviceLostException{};
+		}
+
+		//unknown exception, rethrow it
+		throw;
 	}
 }
