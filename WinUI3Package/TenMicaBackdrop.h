@@ -35,10 +35,8 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Dispatching::DispatcherQueue m_queue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
         std::optional<TenMicaRegistryWatcher> m_registryWatcher;
         TenMicaEffect m_effect = TenMicaEffectFactory::GetFactory().Get();
-        winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop m_savedTarget{ nullptr };
         void getVirtualScreenXY();
-        void onDeviceReset();
-        void applyNewBrush(bool recreateFactory);
+        void onDeviceReset(WallpaperManager& wallpaperManager);
         int m_virtualScreenX{};
         int m_virtualScreenY{};
     };

@@ -57,6 +57,7 @@ bool WallpaperManager::UpdatedNeeded()
 
         bool const isSamePath = (
             i < previousCount &&
+            memcmp(&info.rect, &m_wallpaperInfos[i].rect, sizeof(info.rect)) == 0 &&
             m_wallpaperInfos[i].path &&
             info.path &&
             std::wstring_view{ m_wallpaperInfos[i].path.get() } == std::wstring_view{ info.path.get() }
@@ -68,7 +69,7 @@ bool WallpaperManager::UpdatedNeeded()
             updateNeeded = true;
 
 #if (defined DEBUG) || (defined _DEBUG)
-        OutputDebugString(std::format(L"TenMica backdrop monitor #{}: {}\n", i, info.path.get()).data());
+        OutputDebugString(std::format(L"[TenMica] monitor #{}: {}\n", i, info.path.get()).data());
 #endif
 
         winrt::com_ptr<IWICBitmapDecoder> decoder;
@@ -110,9 +111,9 @@ DESKTOP_WALLPAPER_POSITION WallpaperManager::Position()
 }
 
 static std::optional<WallpaperManager> s_instance;
-WallpaperManager& WallpaperManager::GetInstance()
+WallpaperManager& WallpaperManager::GetInstance(bool recreate)
 {
-    if (!s_instance)
+    if (!s_instance || recreate)
         s_instance.emplace();
 
     return *s_instance;

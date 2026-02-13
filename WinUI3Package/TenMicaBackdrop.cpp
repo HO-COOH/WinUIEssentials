@@ -40,7 +40,6 @@ namespace winrt::WinUI3Package::implementation
 		addSubClass(hwnd);
 		if (GetWindowsVersion().dwMajorVersion >= 22000)
 			m_registryWatcher.emplace(this);
-		m_savedTarget = connectedTarget;
     }
 
 	void TenMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
@@ -84,7 +83,7 @@ namespace winrt::WinUI3Package::implementation
 				}
 				catch (TenMicaDeviceLostException const&)
 				{
-					strong->onDeviceReset();
+					//strong->onDeviceReset();
 				}
 			}
 		});
@@ -93,7 +92,22 @@ namespace winrt::WinUI3Package::implementation
 	void TenMicaBackdrop::onDisplayChanged()
 	{
 		getVirtualScreenXY();
-		applyNewBrush(false);
+		m_queue.TryEnqueue([weakThis = get_weak()]
+		{
+			if (auto strong = weakThis.get())
+			{
+				try
+				{
+					strong->onDeviceReset(WallpaperManager::GetInstance());
+				}
+				catch (TenMicaDeviceLostException const&)
+				{
+					auto& wallpaperManager = WallpaperManager::GetInstance(true);
+					std::ignore = wallpaperManager.UpdatedNeeded();
+					strong->onDeviceReset(wallpaperManager);
+				}
+			}
+		});
 	}
 
 	void TenMicaBackdrop::getVirtualScreenXY()
@@ -102,20 +116,12 @@ namespace winrt::WinUI3Package::implementation
 		m_virtualScreenY = GetSystemMetrics(SM_YVIRTUALSCREEN);
 	}
 
-	void TenMicaBackdrop::onDeviceReset()
+	void TenMicaBackdrop::onDeviceReset(WallpaperManager& wallpaperManager)
 	{
-		applyNewBrush(true);
+		TenMicaEffectFactory::GetFactory().OnDeviceLost(m_effect, wallpaperManager);
 		RECT windowRect;
 		winrt::check_bool(GetWindowRect(m_hwnd, &windowRect));
 		updateBrushOffset(windowRect.left, windowRect.top);
 	}
 
-	void TenMicaBackdrop::applyNewBrush(bool recreateFactory)
-	{
-		m_effect = TenMicaEffectFactory::GetFactory(recreateFactory).Get();
-		if (auto bindThemeTo = m_bindThemeTo.get())
-			m_effect.SetTheme(bindThemeTo.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
-		if (m_savedTarget)
-			m_savedTarget.SystemBackdrop(m_effect.m_finalCrossFadeBrush);
-	}
 }

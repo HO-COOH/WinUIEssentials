@@ -67,16 +67,23 @@ TenMicaEffect TenMicaEffectFactory::Get()
 	return effect;
 }
 
-TenMicaEffectFactory& TenMicaEffectFactory::GetFactory(bool recreate)
+TenMicaEffectFactory& TenMicaEffectFactory::GetFactory()
 {
-	thread_local std::optional<TenMicaEffectFactory> s_factory;
-	if (!s_factory || recreate)
-		s_factory.emplace();
-	return *s_factory;
+	thread_local TenMicaEffectFactory s_factory;
+	return s_factory;
 }
 
 void TenMicaEffectFactory::Redraw(WallpaperManager& wallpaperManager)
 {
 	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, true);
 	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, false);
+}
+
+void TenMicaEffectFactory::OnDeviceLost(TenMicaEffect& effectToReset, WallpaperManager& wallpaperManager)
+{
+	m_wallpaperSurfaces = {};
+	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, true);
+	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, false);
+	effectToReset.m_lightBrush.Surface(m_wallpaperSurfaces.m_surfaceLight);
+	effectToReset.m_darkBrush.Surface(m_wallpaperSurfaces.m_surfaceDark);
 }

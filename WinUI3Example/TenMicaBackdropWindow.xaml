@@ -24,16 +24,51 @@
                 HorizontalAlignment="Center"
                 Header="Enable when window is inactive" />
 
-            <TextBlock>
-                TenMicaBackdrop automatically handles:<LineBreak />
-                1. Cross-screen window moving with different dpi<LineBreak />
-                2. Wallpaper changes<LineBreak />
-                3. Theme changes<LineBreak />
-                4. Monitor changes<LineBreak />
-                5. Works for Windows 10 AND Windows 11<LineBreak />
-                (In case you want the effect even when user turns it off in system settings, although you shouldn't really do that.<LineBreak />
-                Please consider using essential:MicaBackdropWithFallback and use this effect as Fallback)<LineBreak />
-                And it's optimized! Only one Compositor and wallpaper surface are created per thread regardless how many windows with this brush are applied!</TextBlock>
+            <RichTextBlock IsTextSelectionEnabled="False" TextWrapping="Wrap">
+                <Paragraph>
+                    <Run Text="TenMicaBackdrop automatically handles:" />
+                    <LineBreak />
+                    <Run Text="      1. Cross-screen window moving with different dpi" />
+                    <LineBreak />
+                    <Run Text="      2. Wallpaper changes" />
+                    <LineBreak />
+                    <Run Text="      3. Theme changes" />
+                    <LineBreak />
+                    <Run Text="      4. Monitor changes" />
+                    <LineBreak />
+                    <Run Text="      5. GPU driver reset / GPU changes" />
+                    <LineBreak />
+                    <Run Text="      6. Works for Windows 10 AND Windows 11" />
+                    <LineBreak />
+                    <Run Text="      7. Works with software (no GPU) and hardware rendering" />
+                    <LineBreak />
+                    <Run Text="      (In case you want the effect even when user turns it off in system settings, although you shouldn't really do that." />
+                    <LineBreak />
+                    <Run Text="Please consider using " />
+
+                    <!--  InlineUIContainer works inside RichTextBlock  -->
+                    <InlineUIContainer>
+                        <!--  Adjust VerticalAlignment to align with text baseline  -->
+                        <Border
+                            Margin="0,0,0,-4"
+                            Padding="4,0,4,0"
+                            VerticalAlignment="Center"
+                            Background="#181818"
+                            CornerRadius="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="Consolas"
+                                FontSize="13"
+                                Foreground="#CF6B18"
+                                Text="essential:MicaBackdropWithFallback" />
+                        </Border>
+                    </InlineUIContainer>
+
+                    <Run Text=" and use this effect as Fallback)" />
+                    <LineBreak />
+                    <Run Text="And it's optimized! Only one Compositor and wallpaper surface are created per thread regardless how many windows with this brush are applied!" />
+                </Paragraph>
+            </RichTextBlock>
         </StackPanel>
 
         <local:ThemeToggleButton

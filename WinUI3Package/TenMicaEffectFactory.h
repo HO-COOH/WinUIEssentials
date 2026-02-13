@@ -25,6 +25,7 @@ public:
 	TenMicaEffectFactory();
 
 	[[nodiscard]] TenMicaEffect Get();
-	[[nodiscard]] static TenMicaEffectFactory& GetFactory(bool recreate = false);
+	[[nodiscard]] static TenMicaEffectFactory& GetFactory();
 	void Redraw(WallpaperManager& wallpaperManager);
+	void OnDeviceLost(TenMicaEffect& effectToReset, WallpaperManager& wallpaperManager);
 };

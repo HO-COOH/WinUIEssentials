@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CombinedWallpaper.h"
 #include <winrt/Windows.UI.Composition.h>
 #include <d2d1_1.h>
@@ -9,8 +9,7 @@ class CombinedWallpaperSurfaces
 {
 	CombinedWallpaper m_combinedWallpaperLight;
 	CombinedWallpaper m_combinedWallpaperDark;
-	winrt::Windows::UI::Composition::CompositionDrawingSurface m_surfaceLight{ nullptr };
-	winrt::Windows::UI::Composition::CompositionDrawingSurface m_surfaceDark{ nullptr };
+
 	winrt::Windows::UI::Composition::CompositionGraphicsDevice graphicsDevice{ nullptr };
 	winrt::com_ptr<ID2D1Effect> m_blurEffect;
 	winrt::com_ptr<ID2D1Effect> m_finalBlend;
@@ -32,6 +31,9 @@ class CombinedWallpaperSurfaces
 
 	void setEffectValues(bool isLight);
 public:
+	winrt::Windows::UI::Composition::CompositionDrawingSurface m_surfaceLight{ nullptr };
+	winrt::Windows::UI::Composition::CompositionDrawingSurface m_surfaceDark{ nullptr };
+
 	winrt::Windows::UI::Composition::CompositionSurfaceBrush DrawToSurfaceWithNewBrush(
 		winrt::Windows::UI::Composition::Compositor const& compositor, 
 		WallpaperManager& wallpaper, 

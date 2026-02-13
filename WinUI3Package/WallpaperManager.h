@@ -21,6 +21,6 @@ public:
 	[[nodiscard]] boost::container::small_vector<WallpaperInfo, MonitorCountEstimate> const& Get() const;
 	[[nodiscard]] DESKTOP_WALLPAPER_POSITION Position();
 
-	static WallpaperManager& GetInstance();
+	static WallpaperManager& GetInstance(bool recreate = false);
 };
 

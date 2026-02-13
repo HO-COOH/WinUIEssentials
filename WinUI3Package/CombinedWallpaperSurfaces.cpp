@@ -5,6 +5,7 @@
 #include <d3d11.h>
 #include "TenMicaConstants.h"
 #include "TenMicaDeviceLostException.h"
+#include "TenMicaEffect.h"
 
 static auto GetD2D1Device()
 {
