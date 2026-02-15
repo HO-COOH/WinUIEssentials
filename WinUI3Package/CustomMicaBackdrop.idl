@@ -8,19 +8,7 @@ namespace WinUI3Package
     {
         CustomMicaBackdrop();
 
-        Windows.UI.Color FallbackColor;
-        static Microsoft.UI.Xaml.DependencyProperty FallbackColorProperty{ get; };
-
         Microsoft.UI.Composition.SystemBackdrops.MicaKind Kind;
         static Microsoft.UI.Xaml.DependencyProperty KindProperty{ get; };
-
-        Single LuminosityOpacity;
-        static Microsoft.UI.Xaml.DependencyProperty LuminosityOpacityProperty{ get; };
-
-        Windows.UI.Color TintColor;
-        static Microsoft.UI.Xaml.DependencyProperty TintColorProperty{ get; };
-
-        Single TintOpacity;
-        static Microsoft.UI.Xaml.DependencyProperty TintOpacityProperty{ get; };
     }
 }

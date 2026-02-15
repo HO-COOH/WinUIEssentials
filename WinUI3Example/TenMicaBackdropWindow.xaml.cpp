@@ -9,5 +9,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-
+	TenMicaBackdropWindow::TenMicaBackdropWindow()
+	{
+		ExtendsContentIntoTitleBar(true);
+	}
 }

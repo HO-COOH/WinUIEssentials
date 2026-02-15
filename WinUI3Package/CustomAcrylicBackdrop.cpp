@@ -10,13 +10,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_fallbackColorProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"FallbackColor",
-			winrt::xaml_typename<winrt::Windows::UI::Color>(),
-			winrt::xaml_typename<class_type>(),
-			nullptr
-			);
+
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_kindProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
@@ -24,30 +18,6 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{winrt::box_value(winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind::Default)}
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_luminosityOpacityProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"LuminosityOpacity",
-			winrt::xaml_typename<float>(),
-			winrt::xaml_typename<class_type>(),
-			nullptr
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_tintColorProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"TintColor",
-			winrt::xaml_typename<winrt::Windows::UI::Color>(),
-			winrt::xaml_typename<class_type>(),
-			nullptr
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_tintOpacityProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"TintOpacity",
-			winrt::xaml_typename<float>(),
-			winrt::xaml_typename<class_type>(),
-			nullptr
 		);
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_requestedThemeProperty =
@@ -88,33 +58,11 @@ namespace winrt::WinUI3Package::implementation
 				});
 			}
 		});
+
+
 	}
 
-	void CustomAcrylicBackdrop::OnDefaultSystemBackdropConfigurationChanged(
-		winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& target, 
-		winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
-	{
-	}
 
-	winrt::Windows::UI::Color CustomAcrylicBackdrop::FallbackColor()
-	{
-		return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(FallbackColorProperty()));
-	}
-
-	void CustomAcrylicBackdrop::FallbackColor(winrt::Windows::UI::Color value)
-	{
-		SetValue(FallbackColorProperty(), winrt::box_value(value));
-		if (m_controller)
-		{
-			m_controller.FallbackColor(value);
-			m_overrideChecker = true;
-		}
-	}
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::FallbackColorProperty()
-	{
-		return s_fallbackColorProperty;
-	}
 
 	winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind CustomAcrylicBackdrop::Kind()
 	{
@@ -136,68 +84,37 @@ namespace winrt::WinUI3Package::implementation
 		return s_kindProperty;
 	}
 
-	float CustomAcrylicBackdrop::LuminosityOpacity()
-	{
-		return winrt::unbox_value<float>(GetValue(LuminosityOpacityProperty()));
-	}
 
-	void CustomAcrylicBackdrop::LuminosityOpacity(float value)
+	void CustomAcrylicBackdrop::OnLuminosityOpacityChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
-		SetValue(LuminosityOpacityProperty(), winrt::box_value(value));
 		if (m_controller)
 		{
 			m_overrideChecker = true;
-			m_controller.LuminosityOpacity(value);
+			m_controller.LuminosityOpacity(winrt::unbox_value<float>(args.NewValue()));
 		}
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::LuminosityOpacityProperty()
+	void CustomAcrylicBackdrop::OnTintColorChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
-		return s_luminosityOpacityProperty;
-	}
-
-	winrt::Windows::UI::Color CustomAcrylicBackdrop::TintColor()
-	{
-		return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(TintColorProperty()));
-	}
-
-	void CustomAcrylicBackdrop::TintColor(winrt::Windows::UI::Color value)
-	{
-		SetValue(TintColorProperty(), winrt::box_value(value));
 		if (m_controller)
 		{
 			m_overrideChecker = true;
-			m_controller.TintColor(value);
+			m_controller.TintColor(winrt::unbox_value<winrt::Windows::UI::Color>(args.NewValue()));
 		}
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::TintColorProperty()
+	void CustomAcrylicBackdrop::OnTintOpacityChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
-		return s_tintColorProperty;
-	}
-
-	float CustomAcrylicBackdrop::TintOpacity()
-	{
-		return winrt::unbox_value<float>(GetValue(TintOpacityProperty()));
-	}
-
-	void CustomAcrylicBackdrop::TintOpacity(float value)
-	{
-		SetValue(TintOpacityProperty(), winrt::box_value(value));
 		if (m_controller)
 		{
 			//WinUI issue: You have to change TintColor in order to change TintOpacity, otherwise it is not applied
 			m_controller.TintColor({});
-			m_controller.TintOpacity(value);
+			m_controller.TintOpacity(winrt::unbox_value<float>(args.NewValue()));
 			m_controller.TintColor(TintColor());
 			m_overrideChecker = true;
 		}
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::TintOpacityProperty()
-	{
-		return s_tintOpacityProperty;
-	}
 
 	winrt::Microsoft::UI::Xaml::ElementTheme CustomAcrylicBackdrop::RequestedTheme()
 	{
@@ -207,6 +124,15 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::RequestedThemeProperty()
 	{
 		return s_requestedThemeProperty;
+	}
+
+	void CustomAcrylicBackdrop::OnFallbackColorChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
+	{
+		if (m_controller)
+		{
+			m_controller.FallbackColor(winrt::unbox_value<winrt::Windows::UI::Color>(args.NewValue()));
+			m_overrideChecker = true;
+		}
 	}
 
 	void CustomAcrylicBackdrop::RequestedTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)

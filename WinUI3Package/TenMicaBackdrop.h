@@ -9,6 +9,7 @@
 #include "TenMicaWindowSubProc.hpp"
 #include "TenMicaRegistryWatcher.h"
 #include "EnsureSystemDispatcherQueueController.hpp"
+#include <optional>
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -30,11 +31,13 @@ namespace winrt::WinUI3Package::implementation
         void onWallpaperChanged();
         void onDisplayChanged();
     private:
+        TenMicaEffect& getEffect();
+
         winrt::weak_ref<winrt::Microsoft::UI::Xaml::FrameworkElement> m_bindThemeTo;
         winrt::Microsoft::UI::Xaml::FrameworkElement::ActualThemeChanged_revoker m_bindThemeRevoker;
         winrt::Microsoft::UI::Dispatching::DispatcherQueue m_queue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
         std::optional<TenMicaRegistryWatcher> m_registryWatcher;
-        TenMicaEffect m_effect = TenMicaEffectFactory::GetFactory().Get();
+        std::optional<TenMicaEffect> m_effect;
         void getVirtualScreenXY();
         void onDeviceReset(WallpaperManager& wallpaperManager);
         int m_virtualScreenX{};

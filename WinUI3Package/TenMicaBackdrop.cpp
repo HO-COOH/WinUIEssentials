@@ -23,16 +23,19 @@ namespace winrt::WinUI3Package::implementation
         m_bindThemeTo = value;
         m_bindThemeRevoker = value.ActualThemeChanged(winrt::auto_revoke, [this](winrt::Microsoft::UI::Xaml::FrameworkElement const& sender, auto&&)
         {
-			m_effect.SetTheme(sender.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
+			if (m_effect)
+				m_effect->SetTheme(sender.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
         });
-		m_effect.SetTheme(value.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
+
+		if (m_effect)
+			m_effect->SetTheme(value.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
     }
 
     void TenMicaBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
     {
 		getVirtualScreenXY();
 		onWallpaperChanged();
-        connectedTarget.SystemBackdrop(m_effect.m_finalCrossFadeBrush);
+        connectedTarget.SystemBackdrop(getEffect().m_finalCrossFadeBrush);
 		auto const hwnd = GetHwnd(xamlRoot);
 		RECT windowRect;
 		winrt::check_bool(GetWindowRect(hwnd, &windowRect));
@@ -51,9 +54,9 @@ namespace winrt::WinUI3Package::implementation
 
 	void TenMicaBackdrop::updateBrushOffset(int windowX, int windowY)
 	{
-		float const offsetX = m_virtualScreenX - windowX;
-		float const offsetY = m_virtualScreenY - windowY;
-		m_effect.SetBrushOffset(offsetX, offsetY);
+		auto const offsetX = static_cast<float>(m_virtualScreenX - windowX);
+		auto const offsetY = static_cast<float>(m_virtualScreenY - windowY);
+		getEffect().SetBrushOffset(offsetX, offsetY);
 	}
 
 	void TenMicaBackdrop::onWindowActivated(bool isActive)
@@ -61,7 +64,7 @@ namespace winrt::WinUI3Package::implementation
 		if (EnableWhenInactive())
 			return;
 
-		m_effect.SetActive(isActive);
+		getEffect().SetActive(isActive);
 	}
 
 	void TenMicaBackdrop::onWallpaperChanged()
@@ -83,7 +86,7 @@ namespace winrt::WinUI3Package::implementation
 				}
 				catch (TenMicaDeviceLostException const&)
 				{
-					//strong->onDeviceReset();
+					//no need to handle it here
 				}
 			}
 		});
@@ -110,6 +113,14 @@ namespace winrt::WinUI3Package::implementation
 		});
 	}
 
+	TenMicaEffect& TenMicaBackdrop::getEffect()
+	{
+		if (!m_effect)
+			m_effect.emplace(TenMicaEffectFactory::GetFactory().Get());
+		
+		return *m_effect;
+	}
+
 	void TenMicaBackdrop::getVirtualScreenXY()
 	{
 		m_virtualScreenX = GetSystemMetrics(SM_XVIRTUALSCREEN);
@@ -118,7 +129,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void TenMicaBackdrop::onDeviceReset(WallpaperManager& wallpaperManager)
 	{
-		TenMicaEffectFactory::GetFactory().OnDeviceLost(m_effect, wallpaperManager);
+		TenMicaEffectFactory::GetFactory().OnDeviceLost(getEffect(), wallpaperManager);
 		RECT windowRect;
 		winrt::check_bool(GetWindowRect(m_hwnd, &windowRect));
 		updateBrushOffset(windowRect.left, windowRect.top);

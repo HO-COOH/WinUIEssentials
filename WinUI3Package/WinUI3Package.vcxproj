@@ -995,6 +995,7 @@
     </Midl>
     <Midl Include="CustomMicaBackdrop.idl">
       <SubType>Designer</SubType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </Midl>
     <Midl Include="DatePickerHelper.idl">
       <SubType>Designer</SubType>

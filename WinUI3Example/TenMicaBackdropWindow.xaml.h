@@ -6,7 +6,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TenMicaBackdropWindow : TenMicaBackdropWindowT<TenMicaBackdropWindow>
     {
-        TenMicaBackdropWindow() = default;
+        TenMicaBackdropWindow();
     };
 }
 
