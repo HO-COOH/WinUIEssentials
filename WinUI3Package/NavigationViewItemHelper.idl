@@ -1,0 +1,11 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass NavigationViewItemHelper 
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.NavigationViewItem navigationViewItem);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.NavigationViewItem navigationViewItem, Boolean value);
+    }
+}

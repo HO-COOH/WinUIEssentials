@@ -608,6 +608,12 @@
     <Midl Include="CustomBackdropBase.idl">
       <Filter>Backdrop</Filter>
     </Midl>
+    <Midl Include="NavigationViewItemHelper.idl">
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="SliderHelper.idl">
+      <Filter>Controls\Helpers</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

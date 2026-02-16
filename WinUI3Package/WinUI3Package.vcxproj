@@ -432,6 +432,10 @@
       <DependentUpon>NavigationViewHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NavigationViewItemHelper.h">
+      <DependentUpon>NavigationViewItemHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -535,6 +539,10 @@
     </ClInclude>
     <ClInclude Include="Shimmer_Resource.xaml.h">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="SliderHelper.h">
+      <DependentUpon>SliderHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="StringToBoolConverter.h">
@@ -762,6 +770,10 @@
       <DependentUpon>NavigationViewHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NavigationViewItemHelper.cpp">
+      <DependentUpon>NavigationViewItemHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="NegateBoolConverter.cpp">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -862,6 +874,10 @@
     </ClCompile>
     <ClCompile Include="Shimmer_Resource.xaml.cpp">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SliderHelper.cpp">
+      <DependentUpon>SliderHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="StringToBoolConverter.cpp">
@@ -1050,6 +1066,9 @@
     <Midl Include="NavigationViewHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="NavigationViewItemHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="NegateBoolConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1119,6 +1138,9 @@
     <Midl Include="Shimmer_Resource.idl">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SliderHelper.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="StringToBoolConverter.idl">
       <SubType>Designer</SubType>

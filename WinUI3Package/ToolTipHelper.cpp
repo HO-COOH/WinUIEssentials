@@ -45,17 +45,26 @@ namespace winrt::WinUI3Package::implementation
 
 		auto tooltip = object.as<winrt::Microsoft::UI::Xaml::Controls::ToolTip>();
 		tooltip.Loading([](auto&& sender, auto&&) {
+
 			winrt::WinUI3Package::CustomAcrylicBackdrop backdrop;
 			auto tooltip = sender
 				.as<winrt::Microsoft::UI::Xaml::Controls::ToolTip>();
-			tooltip.Parent()
-				.as<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>()
-				.SystemBackdrop(
-					backdrop
-				);
+
+			if (!tooltip) return;
+
+			auto popup = tooltip.Parent()
+				.as<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>();
+
+			if (!popup) return;
+
+			if (popup.SystemBackdrop()) return;
+
+			popup.SystemBackdrop(
+				backdrop
+			);
 			tooltip.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{
 				winrt::Windows::UI::Colors::Transparent()
-			});
+				});
 
 			backdrop.RequestedTheme(tooltip.ActualTheme());
 		});
