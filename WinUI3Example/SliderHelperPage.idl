@@ -4,6 +4,5 @@ namespace WinUI3Example
     runtimeclass SliderHelperPage : Microsoft.UI.Xaml.Controls.Page
     {
         SliderHelperPage();
-        Int32 MyProperty;
     }
 }

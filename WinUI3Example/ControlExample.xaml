@@ -171,26 +171,40 @@
                     <Pivot.HeaderTemplate>
                         <DataTemplate x:DataType="local:CodeSource">
                             <essential:SwitchPresenter Margin="-4,0,0,0" Value="{x:Bind CodeLanguage}">
+                                <essential:SwitchPresenter.Resources>
+                                    <Style TargetType="Viewbox">
+                                        <Setter Property="Width" Value="24" />
+                                        <Setter Property="Height" Value="24" />
+                                    </Style>
+                                </essential:SwitchPresenter.Resources>
                                 <essential:Case>
                                     <essential:Case.Value>
                                         <local:Language>Xaml</local:Language>
                                     </essential:Case.Value>
-                                    <PathIcon Data="{StaticResource XamlIcon}" ToolTipService.ToolTip="Xaml" />
+                                    <Viewbox>
+                                        <PathIcon Data="{StaticResource XamlIcon}" ToolTipService.ToolTip="Xaml" />
+                                    </Viewbox>
                                 </essential:Case>
                                 <essential:Case>
                                     <essential:Case.Value>
                                         <local:Language>H</local:Language>
                                     </essential:Case.Value>
-                                    <PathIcon Data="{StaticResource HIcon}" ToolTipService.ToolTip="C++ Header" />
+                                    <Viewbox>
+                                        <PathIcon Data="{StaticResource HIcon}" ToolTipService.ToolTip="C++ Header" />
+                                    </Viewbox>
                                 </essential:Case>
                                 <essential:Case>
                                     <essential:Case.Value>
                                         <local:Language>Cpp</local:Language>
                                     </essential:Case.Value>
-                                    <PathIcon Data="{StaticResource CppIcon}" ToolTipService.ToolTip="C++ Source" />
+                                    <Viewbox>
+                                        <PathIcon Data="{StaticResource CppIcon}" ToolTipService.ToolTip="C++ Source" />
+                                    </Viewbox>
                                 </essential:Case>
                                 <essential:Case IsDefault="True">
-                                    <PathIcon Data="{StaticResource IdlIcon}" ToolTipService.ToolTip="Idl" />
+                                    <Viewbox>
+                                        <PathIcon Data="{StaticResource IdlIcon}" ToolTipService.ToolTip="Idl" />
+                                    </Viewbox>
                                 </essential:Case>
                             </essential:SwitchPresenter>
                         </DataTemplate>

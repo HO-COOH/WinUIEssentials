@@ -61,11 +61,6 @@ namespace winrt::WinUI3Example::implementation
 
 		void makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language);
 
-		//std::shared_ptr<Impl::Editor> m_xamlEditor{ nullptr };
-		//std::shared_ptr<Impl::Editor> m_idlEditor{ nullptr };
-		//std::shared_ptr<Impl::Editor> m_headerEditor{ nullptr };
-		//std::shared_ptr<Impl::Editor> m_cppEditor{ nullptr };
-
 		static void onXamlChanged(
 			winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
 			winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
@@ -81,18 +76,6 @@ namespace winrt::WinUI3Example::implementation
 		static void onSubstitutionsChanged(
 			winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
 			winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
-
-		//constexpr static auto languageHeader(winrt::WinUI3Example::Language language)
-		//{
-		//	switch (language)
-		//	{
-		//		case winrt::WinUI3Example::Language::Xaml: return L"XAML";
-		//		case winrt::WinUI3Example::Language::Cpp: return L"C++";
-		//		case winrt::WinUI3Example::Language::H: return L"Header";
-		//		case winrt::WinUI3Example::Language::Idl: return L"idl";
-		//	}
-		//	return L"";
-		//}
 
 		winrt::Microsoft::UI::Xaml::Controls::PathIcon languageHeader(winrt::WinUI3Example::Language language);
 		static ControlExample* getSelf(winrt::Microsoft::UI::Xaml::DependencyObject const& d);

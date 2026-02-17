@@ -26,6 +26,22 @@
                 </StackPanel>
             </Grid>
 
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Slider Width=&quot;200&quot; VerticalAlignment=&quot;Center&quot; /&gt;
+                            
+&lt;Slider
+    Width=&quot;100&quot;
+    Height=&quot;100&quot;
+    Maximum=&quot;50&quot;
+    Minimum=&quot;-50&quot;
+    Orientation=&quot;Vertical&quot;
+    TickFrequency=&quot;10&quot;
+    TickPlacement=&quot;Outside&quot; /&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="With SliderHelper.AcrylicWorkaround, you get Acrylic on the tooltip when you drag the Slider">
@@ -47,6 +63,27 @@
                         TickPlacement="Outside" />
                 </StackPanel>
             </Grid>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Slider
+    Width=&quot;200&quot;
+    VerticalAlignment=&quot;Center&quot;
+    essential:SliderHelper.AcrylicWorkaround=&quot;True&quot; /&gt;
+                            
+&lt;Slider
+    Width=&quot;100&quot;
+    Height=&quot;100&quot;
+    essential:SliderHelper.AcrylicWorkaround=&quot;True&quot;
+    Maximum=&quot;50&quot;
+    Minimum=&quot;-50&quot;
+    Orientation=&quot;Vertical&quot;
+    TickFrequency=&quot;10&quot;
+    TickPlacement=&quot;Outside&quot; /&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
     </StackPanel>
 </Page>

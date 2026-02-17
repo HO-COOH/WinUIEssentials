@@ -1,4 +1,4 @@
-﻿![](MainLogo.png) 
+![](MainLogo.png) 
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
@@ -122,6 +122,7 @@ You can reference Github Action for detailed build steps.
 |CalendarDatePickerHelper | :x: | :white_check_mark: | WinRT component
 |ModalWindow | :x: | :white_check_mark: | WinRT component
 |NavigationViewHelper | :x: | :white_check_mark: | WinRT component
+|SliderHelper | :x: | :white_check_mark: | WinRT component
 |RevealFocusPanel | :x: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
@@ -1174,6 +1175,18 @@ The WinUI3's built-in `NavigationView` does not have Acrylic background with the
 |Before|After|
 |------|-----|
 |![](assets/navigationview-original.png)|![](assets/navigationview-fixed.png)|
+
+## SliderHelper
+The WinUI3's built-in `Slider` does not have Acrylic background on its tooltip. We fixed it for you. To use it, simply add `SliderHelper.AcrylicWorkaround="True"` as an attached property on your `Slider`.
+```xml
+<Slider
+    Width="200"
+    VerticalAlignment="Center"
+    essential:SliderHelper.AcrylicWorkaround="True" />
+```
+|Before|After|
+|------|-----|
+|![](assets/slider-original.png)|![](assets/slider-fixed.png)|
 
 
 ## RevealFocusPanel
