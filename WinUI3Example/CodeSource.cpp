@@ -103,4 +103,8 @@ namespace winrt::WinUI3Example::implementation
             assert(false);
         }
     }
+    winrt::WinUI3Example::Language CodeSource::CodeLanguage()
+    {
+        return m_codeLanguage;
+    }
 }

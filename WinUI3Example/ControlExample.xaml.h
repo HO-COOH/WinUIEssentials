@@ -1,48 +1,6 @@
 ﻿#pragma once
-
 #include "ControlExample.g.h"
 
-namespace Impl
-{
-	/*TODO:
-		This is a workaround for the Editor runtimeclass I created
-		I used that class in `ControlExample::makePivotItem()`, and it crashed when switching from `ThemeListenerPage` to any other pages
-		It seems like creating two `Editor` will cause the crash, but I may have fucked up object life time, but I tried by removing 
-		all the event handlers, and it still crashes, so I'm not sure what's the problem.
-		You can help to investigate by changing the `Impl::Editor` to `winrt::WinUI3Example::Editor`.
-	*/
-	struct Editor : winrt::Microsoft::UI::Xaml::Controls::WebView2, std::enable_shared_from_this<Editor>
-	{
-		Editor(std::nullptr_t) : WebView2{ nullptr } {}
-		Editor(
-			winrt::hstring const& code, 
-			winrt::WinUI3Example::Language language, 
-			winrt::Microsoft::UI::Xaml::Controls::ProgressBar const& progressBar,
-			winrt::WinUI3Example::CodeSource const& codeSource);
-
-		void Load();
-
-		winrt::hstring Code();
-		void Code(winrt::hstring const& value);
-
-		winrt::fire_and_forget loadHtml();
-
-		winrt::hstring m_code;
-		winrt::WinUI3Example::Language m_language;
-		winrt::Microsoft::Web::WebView2::Core::CoreWebView2 m_coreWebView{ nullptr };
-
-	private:
-		NavigationCompleted_revoker m_navigationCompletedRevoker;
-		winrt::weak_ref<winrt::Microsoft::UI::Xaml::Controls::ProgressBar> m_progressBarRef;
-		winrt::weak_ref<winrt::WinUI3Example::CodeSource> m_codeRef;
-		void createEditor();
-		static double measureHeight(winrt::hstring const& value);
-		static std::wstring_view ltrim(std::wstring_view str);
-		static std::wstring_view rtrim(std::wstring_view str);
-		static winrt::hstring stripEmptyLine(winrt::hstring const& value);
-		wchar_t const* languageString() const;
-	};
-}
 namespace winrt::WinUI3Example::implementation
 {
     struct ControlExample : ControlExampleT<ControlExample>
@@ -87,6 +45,8 @@ namespace winrt::WinUI3Example::implementation
 
 		static winrt::hstring UnboxString(winrt::Windows::Foundation::IInspectable const& value);
 		static winrt::hstring BooleanToString(bool value);
+
+		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> CodeItems();
 	private:
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerTextProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_exampleProperty;
@@ -97,13 +57,14 @@ namespace winrt::WinUI3Example::implementation
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_cppProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty m_substitutionsProperty;
+		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_codeItems = winrt::single_threaded_vector<winrt::Windows::Foundation::IInspectable>();
 
-		std::shared_ptr<Impl::Editor> makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language);
+		void makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language);
 
-		std::shared_ptr<Impl::Editor> m_xamlEditor{ nullptr };
-		std::shared_ptr<Impl::Editor> m_idlEditor{ nullptr };
-		std::shared_ptr<Impl::Editor> m_headerEditor{ nullptr };
-		std::shared_ptr<Impl::Editor> m_cppEditor{ nullptr };
+		//std::shared_ptr<Impl::Editor> m_xamlEditor{ nullptr };
+		//std::shared_ptr<Impl::Editor> m_idlEditor{ nullptr };
+		//std::shared_ptr<Impl::Editor> m_headerEditor{ nullptr };
+		//std::shared_ptr<Impl::Editor> m_cppEditor{ nullptr };
 
 		static void onXamlChanged(
 			winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
@@ -121,18 +82,19 @@ namespace winrt::WinUI3Example::implementation
 			winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
 			winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
-		constexpr static auto languageHeader(winrt::WinUI3Example::Language language)
-		{
-			switch (language)
-			{
-				case winrt::WinUI3Example::Language::Xaml: return L"XAML";
-				case winrt::WinUI3Example::Language::Cpp: return L"C++";
-				case winrt::WinUI3Example::Language::H: return L"Header";
-				case winrt::WinUI3Example::Language::Idl: return L"idl";
-			}
-			return L"";
-		}
+		//constexpr static auto languageHeader(winrt::WinUI3Example::Language language)
+		//{
+		//	switch (language)
+		//	{
+		//		case winrt::WinUI3Example::Language::Xaml: return L"XAML";
+		//		case winrt::WinUI3Example::Language::Cpp: return L"C++";
+		//		case winrt::WinUI3Example::Language::H: return L"Header";
+		//		case winrt::WinUI3Example::Language::Idl: return L"idl";
+		//	}
+		//	return L"";
+		//}
 
+		winrt::Microsoft::UI::Xaml::Controls::PathIcon languageHeader(winrt::WinUI3Example::Language language);
 		static ControlExample* getSelf(winrt::Microsoft::UI::Xaml::DependencyObject const& d);
 	public:
 		void Expander_Loaded(

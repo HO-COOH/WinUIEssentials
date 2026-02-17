@@ -1,0 +1,10 @@
+namespace WinUI3Example
+{
+    enum Language
+    {
+        Xaml,
+        Cpp,
+        H,
+        Idl
+    };
+}

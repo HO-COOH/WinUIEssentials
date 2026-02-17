@@ -379,8 +379,8 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Editor.h">
-      <DependentUpon>Editor.idl</DependentUpon>
+    <ClInclude Include="Editor.xaml.h">
+      <DependentUpon>Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="EffectToggleButton.xaml.h">
@@ -744,6 +744,9 @@
     <Page Include="DependentValuePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Editor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="EffectToggleButton.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1014,8 +1017,8 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Editor.cpp">
-      <DependentUpon>Editor.idl</DependentUpon>
+    <ClCompile Include="Editor.xaml.cpp">
+      <DependentUpon>Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="EffectToggleButton.xaml.cpp">
@@ -1417,7 +1420,8 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Editor.idl">
-      <SubType>Designer</SubType>
+      <DependentUpon>Editor.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="EffectToggleButton.idl">
       <DependentUpon>EffectToggleButton.xaml</DependentUpon>
@@ -1476,6 +1480,7 @@
       <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Language.idl" />
     <Midl Include="LineGraph.idl">
       <SubType>Designer</SubType>
     </Midl>

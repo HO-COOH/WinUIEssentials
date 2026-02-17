@@ -242,6 +242,9 @@
     <Page Include="TenMicaBackdropWindow.xaml">
       <Filter>Pages\TenMicaPage</Filter>
     </Page>
+    <Page Include="Editor.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -272,9 +275,6 @@
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <Filter>Pages\SwitchPresenterPage</Filter>
-    </Midl>
-    <Midl Include="Editor.idl">
-      <Filter>Helper</Filter>
     </Midl>
     <Midl Include="ControlExampleSubstitution.idl">
       <Filter>Helper</Filter>
@@ -332,6 +332,9 @@
     </Midl>
     <Midl Include="RevealNavigationView.idl">
       <Filter>Pages\RevealFocusPage</Filter>
+    </Midl>
+    <Midl Include="Language.idl">
+      <Filter>Helper</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
