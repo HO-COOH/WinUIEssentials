@@ -1,0 +1,12 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TeachingTipHelper 
+    {
+        TeachingTipHelper();
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.TeachingTip teachingTip);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.TeachingTip teachingTip, Boolean value);
+    }
+}

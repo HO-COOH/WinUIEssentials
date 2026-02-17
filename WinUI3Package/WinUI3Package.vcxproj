@@ -552,6 +552,10 @@
     <ClInclude Include="TaskbarIconBase.h" />
     <ClInclude Include="TaskbarIconMessageWindow.h" />
     <ClInclude Include="TaskbarIconXamlEvents.h" />
+    <ClInclude Include="TeachingTipHelper.h">
+      <DependentUpon>TeachingTipHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TenMicaBackdrop.h">
       <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -886,6 +890,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarIconBase.cpp" />
     <ClCompile Include="TaskbarIconMessageWindow.cpp" />
+    <ClCompile Include="TeachingTipHelper.cpp">
+      <DependentUpon>TeachingTipHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TenMicaBackdrop.cpp">
       <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1138,6 +1146,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TaskbarIcon.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TeachingTipHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TenMicaBackdrop.idl">
