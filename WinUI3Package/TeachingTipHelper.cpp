@@ -42,7 +42,6 @@ namespace winrt::WinUI3Package::implementation
 
 	void ApplyAcrylicToGrid(winrt::Microsoft::UI::Xaml::Controls::Grid const& grid)
 	{
-		// 1. 保存原始 Background 和 CornerRadius
 		auto originalBackground = grid.Background();
 		auto cornerRadius = grid.CornerRadius();
 
