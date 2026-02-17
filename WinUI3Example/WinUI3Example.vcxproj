@@ -579,6 +579,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SliderHelperPage.xaml.h">
+      <DependentUpon>SliderHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="StandardWindowWithMenu.xaml.h">
       <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -844,6 +848,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ShimmerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SliderHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StandardWindowWithMenu.xaml">
@@ -1214,6 +1221,10 @@
     </ClCompile>
     <ClCompile Include="ShimmerPage.xaml.cpp">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SliderHelperPage.xaml.cpp">
+      <DependentUpon>SliderHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="StandardWindowWithMenu.xaml.cpp">
@@ -1593,6 +1604,10 @@
     </Midl>
     <Midl Include="ShimmerPage.idl">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SliderHelperPage.idl">
+      <DependentUpon>SliderHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="StandardWindowWithMenu.idl">

@@ -432,10 +432,6 @@
       <DependentUpon>NavigationViewHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="NavigationViewItemHelper.h">
-      <DependentUpon>NavigationViewItemHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -770,10 +766,6 @@
       <DependentUpon>NavigationViewHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="NavigationViewItemHelper.cpp">
-      <DependentUpon>NavigationViewItemHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="NegateBoolConverter.cpp">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1064,9 +1056,6 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="NavigationViewHelper.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="NavigationViewItemHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="NegateBoolConverter.idl">

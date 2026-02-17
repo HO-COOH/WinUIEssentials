@@ -1,0 +1,9 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass SliderHelperPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        SliderHelperPage();
+        Int32 MyProperty;
+    }
+}

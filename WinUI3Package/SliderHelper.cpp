@@ -38,16 +38,18 @@ namespace winrt::WinUI3Package::implementation
 	}
 
 
-	void SliderHelper::ApplyThumbAcrylic(winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb const& thumb)
+	void SliderHelper::applyThumbAcrylic(winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb const& thumb)
 	{
 
 		auto spToolTip = winrt::Microsoft::UI::Xaml::Controls::ToolTipService::GetToolTip(thumb);
 
-		if (!spToolTip) return;
+		if (!spToolTip) 
+			return;
 
 		auto tooltip = spToolTip.try_as<winrt::Microsoft::UI::Xaml::Controls::ToolTip>();
 
-		if (!tooltip) return;
+		if (!tooltip) 
+			return;
 
 		winrt::WinUI3Package::ToolTipHelper::SetAcrylicWorkaround(tooltip, true);
 
@@ -72,11 +74,13 @@ namespace winrt::WinUI3Package::implementation
 
 			auto horizontalThumb = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb>(slider, L"HorizontalThumb");
 
-			if (horizontalThumb) ApplyThumbAcrylic(horizontalThumb);
+			if (horizontalThumb) 
+				applyThumbAcrylic(horizontalThumb);
 
 			auto verticalThumb = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb>(slider, L"VerticalThumb");
 
-			if (verticalThumb) ApplyThumbAcrylic(verticalThumb);
+			if (verticalThumb) 
+				applyThumbAcrylic(verticalThumb);
 
 			loadedRevoker->revoke();
 		});
