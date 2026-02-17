@@ -537,6 +537,10 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SliderHelper.h">
+      <DependentUpon>SliderHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="StringToBoolConverter.h">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -864,6 +868,10 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SliderHelper.cpp">
+      <DependentUpon>SliderHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="StringToBoolConverter.cpp">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1119,6 +1127,9 @@
     <Midl Include="Shimmer_Resource.idl">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SliderHelper.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="StringToBoolConverter.idl">
       <SubType>Designer</SubType>

@@ -1,0 +1,11 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SliderHelper 
+    {
+		static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+	    static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.Slider slider);
+		static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.Slider slider, Boolean value);
+    }
+}
