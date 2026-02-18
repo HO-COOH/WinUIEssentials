@@ -368,6 +368,14 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="IconUtils.h" />
+	<ClInclude Include="Implicit.h" >
+	  <DependentUpon>Animations.idl</DependentUpon>
+	  <SubType>Code</SubType>
+	</ClInclude>
+	<ClInclude Include="ImplicitAnimationSet.h">
+	  <DependentUpon>Animations.idl</DependentUpon>
+	  <SubType>Code</SubType>
+	</ClInclude>
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\DependentValue.h">
@@ -447,6 +455,14 @@
     <ClInclude Include="ObjectCompare.h" />
     <ClInclude Include="NormalTaskbarIcon.h" />
     <ClInclude Include="NotifyIconData.h" />
+	<ClInclude Include="OffsetAnimation.h">
+	  <DependentUpon>Animations.idl</DependentUpon>
+	  <SubType>Code</SubType>
+	</ClInclude>
+	<ClInclude Include="OpacityAnimation.h">
+	  <DependentUpon>Animations.idl</DependentUpon>
+	  <SubType>Code</SubType>
+	</ClInclude>
     <ClInclude Include="OverrideChecker.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Placeholder.h">
@@ -732,6 +748,14 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="IconUtils.cpp" />
+	<ClCompile Include="Implicit.cpp">
+	  <DependentUpon>Animations.idl</DependentUpon>
+	  <SubType>Code</SubType>
+	</ClCompile>
+	<ClCompile Include="ImplicitAnimationSet.cpp">
+	  <DependentUpon>Animations.idl</DependentUpon>
+	  <SubType>Code</SubType>
+	</ClCompile>
     <ClCompile Include="include\DependentValue.cpp">
       <DependentUpon>include\DependentValue.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -780,6 +804,14 @@
     </ClCompile>
     <ClCompile Include="ObjectCompare.cpp" />
     <ClCompile Include="NormalTaskbarIcon.cpp" />
+	<ClCompile Include="OffsetAnimation.cpp">
+	  <DependentUpon>Animations.idl</DependentUpon>
+	  <SubType>Code</SubType>
+	</ClCompile>
+	<ClCompile Include="OpacityAnimation.cpp">
+	  <DependentUpon>Animations.idl</DependentUpon>
+	  <SubType>Code</SubType>
+	</ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -959,6 +991,9 @@
     <Midl Include="AcrylicVisual.idl">
       <SubType>Designer</SubType>
     </Midl>
+	<Midl Include="Animations.idl">
+	  <SubType>Designer</SubType>
+	</Midl>
     <Midl Include="AutoSuggestBoxHelper.idl">
       <SubType>Designer</SubType>
     </Midl>

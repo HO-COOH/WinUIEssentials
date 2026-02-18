@@ -1,0 +1,52 @@
+﻿namespace WinUI3Package.UI.Xaml.Media.Animations
+{
+	[default_interface]
+	runtimeclass Implicit
+	{
+		Implicit();
+
+		// ShowAnimations: for element entrance/visibility change animations
+		static Microsoft.UI.Xaml.DependencyProperty ShowAnimationsProperty{ get; };
+		static WinUI3Package.UI.Xaml.Media.Animations.ImplicitAnimationSet GetShowAnimations(Microsoft.UI.Xaml.UIElement obj);
+		static void SetShowAnimations(Microsoft.UI.Xaml.UIElement obj, WinUI3Package.UI.Xaml.Media.Animations.ImplicitAnimationSet value);
+
+		// HideAnimations: for element exit/visibility change animations
+		static Microsoft.UI.Xaml.DependencyProperty HideAnimationsProperty{ get; };
+		static WinUI3Package.UI.Xaml.Media.Animations.ImplicitAnimationSet GetHideAnimations(Microsoft.UI.Xaml.UIElement obj);
+		static void SetHideAnimations(Microsoft.UI.Xaml.UIElement obj, WinUI3Package.UI.Xaml.Media.Animations.ImplicitAnimationSet value);
+
+		// Animations: for general implicit animations (layout, property changes)
+		static Microsoft.UI.Xaml.DependencyProperty AnimationsProperty{ get; };
+		static WinUI3Package.UI.Xaml.Media.Animations.ImplicitAnimationSet GetAnimations(Microsoft.UI.Xaml.UIElement obj);
+		static void SetAnimations(Microsoft.UI.Xaml.UIElement obj, WinUI3Package.UI.Xaml.Media.Animations.ImplicitAnimationSet value);
+	}
+
+	[default_interface]
+	[contentproperty("Children")]
+	runtimeclass ImplicitAnimationSet
+	{
+		ImplicitAnimationSet();
+		Microsoft.UI.Xaml.Media.Animation.TimelineCollection Children{ get; };
+	}
+
+	[default_interface]
+	runtimeclass OffsetAnimation : Microsoft.UI.Xaml.Media.Animation.Timeline
+	{
+		OffsetAnimation();
+		// Properties expected by XAML usage in App.xaml
+		Microsoft.UI.Xaml.Media.Animation.EasingMode EasingMode;
+		// From/To as Vector3 to allow values like "0,24,0"
+		Windows.Foundation.Numerics.Vector3 From;
+		Windows.Foundation.Numerics.Vector3 To;
+	}
+
+	[default_interface]
+	runtimeclass OpacityAnimation : Microsoft.UI.Xaml.Media.Animation.Timeline
+	{
+		OpacityAnimation();
+		// Properties expected by XAML usage in App.xaml
+		Microsoft.UI.Xaml.Media.Animation.EasingMode EasingMode;
+        Double From;
+		Double To;
+	}
+}
