@@ -19,7 +19,8 @@ public:
 		).value_or(true);
 	}
 
-	static bool ColorPrevalence()
+	//This is for "Show Accent Color on Start and taskbar"
+	static bool ShowAccentColorOnStartAndTaskbar()
 	{
 		//It seems it always exists, but just in case
 		return wil::reg::try_get_value_dword(
@@ -73,7 +74,11 @@ public:
 
 	static bool ShowAccentColorOnTitleBarsAndWindowBorders()
 	{
-		return ColorPrevalence();
+		return wil::reg::try_get_value_dword(
+			HKEY_CURRENT_USER,
+			DWMSubKey,
+			L"ColorPrevalence"
+		).value_or(false);
 	}
 
 	class ColorHistoryCollection
