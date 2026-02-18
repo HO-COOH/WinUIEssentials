@@ -55,6 +55,7 @@
 #include "RevealFocusPage.xaml.h"
 #include "TenMicaPage.xaml.h"
 #include "SliderHelperPage.xaml.h"
+#include "TeachingTipHelperPage.xaml.h"
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.

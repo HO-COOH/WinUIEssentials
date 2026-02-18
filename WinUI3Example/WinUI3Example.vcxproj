@@ -605,6 +605,10 @@
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TeachingTipHelperPage.xaml.h">
+      <DependentUpon>TeachingTipHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TemplateInformation.h">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -869,6 +873,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TeachingTipHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TenMicaBackdropWindow.xaml">
@@ -1249,6 +1256,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TeachingTipHelperPage.xaml.cpp">
+      <DependentUpon>TeachingTipHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TenMicaBackdropWindow.xaml.cpp">
@@ -1633,6 +1644,10 @@
     </Midl>
     <Midl Include="TaskbarPage.idl">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TeachingTipHelperPage.idl">
+      <DependentUpon>TeachingTipHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TemplateInformation.idl">
