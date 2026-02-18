@@ -79,6 +79,18 @@
       <Filter>Backdrop\TenMica</Filter>
     </ClCompile>
     <ClCompile Include="WindowsVersion.cpp" />
+    <ClCompile Include="Implicit.cpp">
+      <Filter>Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="OffsetAnimation.cpp">
+      <Filter>Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="ImplicitAnimationSet.cpp">
+      <Filter>Animations</Filter>
+    </ClCompile>
+    <ClCompile Include="OpacityAnimation.cpp">
+      <Filter>Animations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -301,6 +313,18 @@
     <ClInclude Include="TenMicaDeviceLostException.h">
       <Filter>Backdrop\TenMica</Filter>
     </ClInclude>
+    <ClInclude Include="Implicit.h">
+      <Filter>Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="OffsetAnimation.h">
+      <Filter>Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="OpacityAnimation.h">
+      <Filter>Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="ImplicitAnimationSet.h">
+      <Filter>Animations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -408,6 +432,9 @@
     </Filter>
     <Filter Include="Backdrop\TenMica\Wallpaper">
       <UniqueIdentifier>{b2e95773-1b25-4166-8fd1-ecedb1cfa077}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animations">
+      <UniqueIdentifier>{d4508fa0-bac9-4631-b5ac-0e6486ff5b96}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +640,9 @@
     </Midl>
     <Midl Include="SliderHelper.idl">
       <Filter>Controls\Helpers</Filter>
+    </Midl>
+        <Midl Include="Animations.idl">
+      <Filter>Animations</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
