@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "TeachingTipHelper.h"
 #if __has_include("TeachingTipHelper.g.cpp")
 #include "TeachingTipHelper.g.cpp"
@@ -42,17 +42,57 @@ namespace winrt::WinUI3Package::implementation
 
 	void ApplyAcrylicToGrid(winrt::Microsoft::UI::Xaml::Controls::Grid const& grid)
 	{
-		auto originalBackground = grid.Background();
-		auto cornerRadius = grid.CornerRadius();
-
 		grid.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush(
 			winrt::Windows::UI::Colors::Transparent()));
 
 		AcrylicVisualWithBoundedCornerRadius acrylicLayer{ grid };
+		winrt::get_self<winrt::WinUI3Package::implementation::AcrylicVisual>(
+			static_cast<winrt::WinUI3Package::AcrylicVisual const&>(acrylicLayer)
+		)->ClipOffset = { 0, 0, 0, 1 };
 		winrt::Microsoft::UI::Xaml::Controls::Grid::SetRow(acrylicLayer, 0);
 		winrt::Microsoft::UI::Xaml::Controls::Grid::SetRowSpan(acrylicLayer, 3);
 
 		grid.Children().InsertAt(0, acrylicLayer);
+	}
+
+	void PatchTailBorder(
+		winrt::Microsoft::UI::Xaml::Controls::Grid const& contentRootGrid,
+		winrt::Microsoft::UI::Xaml::Shapes::Polygon const& tailPolygon)
+	{
+		auto borderBrush = contentRootGrid.BorderBrush();
+
+		auto bottomBorder = winrt::Microsoft::UI::Xaml::Controls::Grid();
+
+		winrt::Microsoft::UI::Xaml::Controls::ColumnDefinition col0;
+		col0.Width({ 1, winrt::Microsoft::UI::Xaml::GridUnitType::Star });
+		winrt::Microsoft::UI::Xaml::Controls::ColumnDefinition col1;
+		col1.Width({ 20, winrt::Microsoft::UI::Xaml::GridUnitType::Pixel });
+		winrt::Microsoft::UI::Xaml::Controls::ColumnDefinition col2;
+		col2.Width({ 1, winrt::Microsoft::UI::Xaml::GridUnitType::Star });
+
+		bottomBorder.ColumnDefinitions().Append(col0);
+		bottomBorder.ColumnDefinitions().Append(col1);
+		bottomBorder.ColumnDefinitions().Append(col2);
+
+		auto leftSeg = winrt::Microsoft::UI::Xaml::Controls::Grid();
+		leftSeg.Background(borderBrush);
+		winrt::Microsoft::UI::Xaml::Controls::Grid::SetColumn(leftSeg, 0);
+		bottomBorder.Children().Append(leftSeg);
+
+		auto rightSeg = winrt::Microsoft::UI::Xaml::Controls::Grid();
+		rightSeg.Background(borderBrush);
+		winrt::Microsoft::UI::Xaml::Controls::Grid::SetColumn(rightSeg, 2);
+		bottomBorder.Children().Append(rightSeg);
+
+		double borderHeight = 1;
+		bottomBorder.Height(borderHeight);
+		bottomBorder.VerticalAlignment(winrt::Microsoft::UI::Xaml::VerticalAlignment::Bottom);
+		winrt::Microsoft::UI::Xaml::Controls::Grid::SetRowSpan(bottomBorder, 3);
+		contentRootGrid.Children().Append(bottomBorder);
+
+		winrt::Microsoft::UI::Xaml::Media::TranslateTransform transform;
+		transform.Y(1);
+		tailPolygon.RenderTransform(transform);
 	}
 
 	void PatchLightDismissSetters(winrt::Microsoft::UI::Xaml::Controls::Border const& contentRootGrid)
@@ -112,6 +152,7 @@ namespace winrt::WinUI3Package::implementation
 			teachingTipLoadedRevoker->revoke();
 
 			auto teachingTip = teachingTipRef.as<winrt::Microsoft::UI::Xaml::Controls::TeachingTip>();
+			teachingTip.ShouldConstrainToRootBounds(false);
 
 			auto border = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Border>(
 				teachingTip,
@@ -123,15 +164,20 @@ namespace winrt::WinUI3Package::implementation
 			PatchLightDismissSetters(border);
 
 			auto borderLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::Border::Loaded_revoker>();
-			*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [comboBoxRef = winrt::make_weak(teachingTip), borderLoadedRevoker](winrt::Windows::Foundation::IInspectable const& borderRef, auto&&)
+			*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [borderLoadedRevoker](winrt::Windows::Foundation::IInspectable const& borderRef, auto&&)
 			{
 				borderLoadedRevoker->revoke();
 
 				auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
 
 				auto contentRootGrid = border.FindName(L"ContentRootGrid").try_as<winrt::Microsoft::UI::Xaml::Controls::Grid>();
+				auto tailPolygon = border.FindName(L"TailPolygon").try_as<winrt::Microsoft::UI::Xaml::Shapes::Polygon>();
 
-				if (contentRootGrid) ApplyAcrylicToGrid(contentRootGrid);
+				if (contentRootGrid)
+					ApplyAcrylicToGrid(contentRootGrid);
+
+				if (contentRootGrid && tailPolygon)
+					PatchTailBorder(contentRootGrid, tailPolygon);
 
 			});
 

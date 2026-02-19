@@ -6,8 +6,6 @@ namespace winrt::WinUI3Package::implementation
 {
 	struct TeachingTipHelper : TeachingTipHelperT<TeachingTipHelper>
 	{
-		TeachingTipHelper() = default;
-
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
 		static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::TeachingTip const& teachingTip);
 		static void SetAcrylicWorkaround(
