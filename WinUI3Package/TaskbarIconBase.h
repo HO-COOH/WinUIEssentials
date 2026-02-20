@@ -56,9 +56,5 @@ public:
 
 	void SetTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 
-
-	
-
-
 	friend class TaskbarIconMessageWindow;
 };

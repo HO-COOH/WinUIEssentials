@@ -21,7 +21,6 @@ TransparentMenuFlyoutHost::TransparentMenuFlyoutHost() : m_appWindow{m_dummyWind
 	{
 
 	}
-	m_dummyFrame.RequestedTheme(winrt::Microsoft::UI::Xaml::ElementTheme::Dark);
 	m_dummyWindow.Content(m_dummyFrame);
 	auto const dummyHwnd = GetHwnd(m_dummyWindow);
 	SetWindowLongPtr(dummyHwnd, GWL_STYLE, WS_POPUP);
@@ -30,6 +29,11 @@ TransparentMenuFlyoutHost::TransparentMenuFlyoutHost() : m_appWindow{m_dummyWind
 		if (arg.WindowActivationState() == winrt::Microsoft::UI::Xaml::WindowActivationState::Deactivated)
 			m_appWindow.Hide();
 	});
+}
+
+void TransparentMenuFlyoutHost::RequestedTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
+{
+	m_dummyFrame.RequestedTheme(theme);
 }
 
 void TransparentMenuFlyoutHost::Move(POINT p)

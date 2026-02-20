@@ -23,6 +23,8 @@ public:
 
 	void Move(POINT p);
 
+	void RequestedTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
+
 	operator winrt::Microsoft::UI::Xaml::FrameworkElement() const
 	{ 
 		return m_dummyFrame; 
