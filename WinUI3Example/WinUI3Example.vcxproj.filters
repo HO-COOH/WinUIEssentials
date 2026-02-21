@@ -248,6 +248,9 @@
     <Page Include="SliderHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="TeachingTipHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
