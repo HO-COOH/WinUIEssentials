@@ -1,4 +1,4 @@
-![](MainLogo.png) 
+﻿![](MainLogo.png) 
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
@@ -124,6 +124,7 @@ You can reference Github Action for detailed build steps.
 |NavigationViewHelper | :x: | :white_check_mark: | WinRT component
 |SliderHelper | :x: | :white_check_mark: | WinRT component
 |RevealFocusPanel | :x: | :white_check_mark: | Control
+|TenMica | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1196,3 +1197,28 @@ Missing the good-ol Reveal Focus effect from UWP? We bring it back to you! For d
 |![](assets/reveal1-light.gif)|![](assets/reveal1-dark.gif)|
 |![](assets/reveal2-light.gif)|![](assets/reveal2-dark.gif)|
 |![](assets/reveal3-light.gif)|![](assets/reveal3-dark.gif)|
+
+
+## TenMica
+Simulated [Mica effect](https://learn.microsoft.com/en-us/windows/apps/design/style/mica) for Windows 10 (that also works on Windows 11 if you want to force the effect even when the user disabled it in system settings). 
+This is a drop-in replacement for WinUI3's built-in `MicaBackdrop`, and it automatically handles:
+- Cross-screen window moving with different dpi
+- Wallpaper changes
+- Theme changes
+- Monitor changes
+- GPU driver reset / GPU changes
+- Works with software (no GPU) and hardware rendering
+
+```xml
+<Window ...>
+    <Window.SystemBackdrop>
+        <essential:TenMicaBackdrop BindThemeTo="{x:Bind RootGrid}" EnableWhenInactive="{x:Bind EnableInactiveSwitch.IsOn, Mode=OneWay}" />
+    </Window.SystemBackdrop>
+
+    ...
+</Window>
+```
+
+|Light|Dark|
+|-----|----|
+|![](assets/tenmica-light.png)|![](assets/tenmica-dark.png)|

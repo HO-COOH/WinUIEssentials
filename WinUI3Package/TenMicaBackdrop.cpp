@@ -35,7 +35,10 @@ namespace winrt::WinUI3Package::implementation
     {
 		getVirtualScreenXY();
 		onWallpaperChanged();
-        connectedTarget.SystemBackdrop(getEffect().m_finalCrossFadeBrush);
+		auto& effect = getEffect();
+		if (auto bindThemeTo = m_bindThemeTo.get())
+			effect.SetTheme(bindThemeTo.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
+        connectedTarget.SystemBackdrop(effect.m_finalCrossFadeBrush);
 		auto const hwnd = GetHwnd(xamlRoot);
 		RECT windowRect;
 		winrt::check_bool(GetWindowRect(hwnd, &windowRect));

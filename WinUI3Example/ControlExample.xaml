@@ -53,6 +53,14 @@
             <x:String x:Key="IdlIcon">
                 F1 M 6.3 19.490002 C 5.98 19.490002 5.74 19.230001 5.74 18.91 L 5.74 5.070001 C 5.74 4.750001 5.98 4.490001 6.3 4.490001 L 12.08 4.490001 L 12.08 7.390001 C 12.08 8.030001 12.599999 8.530001 13.24 8.530001 L 16.119999 8.530001 L 16.119999 18.91 C 16.119999 19.230001 15.86 19.490002 15.54 19.490002 Z M 6.3 2.770001 C 5.02 2.770001 4 3.790001 4 5.070001 L 4 18.91 C 4 20.190001 5.02 21.230001 6.3 21.230001 L 15.54 21.230001 C 16.82 21.230001 17.84 20.190001 17.84 18.91 L 17.84 8.330001 C 17.84 7.710001 17.619999 7.150001 17.18 6.710001 L 13.9 3.430001 C 13.46 2.990001 12.9 2.770001 12.28 2.770001 Z M 9.799999 13.190001 C 10.139999 12.85 10.139999 12.310001 9.799999 11.970001 C 9.46 11.630001 8.92 11.630001 8.58 11.970001 L 6.84 13.690001 C 6.5 14.030001 6.5 14.570001 6.84 14.910001 L 8.58 16.650002 C 8.92 16.990002 9.46 16.990002 9.799999 16.650002 C 10.139999 16.310001 10.139999 15.77 9.799999 15.43 L 8.68 14.310001 L 9.799999 13.190001 Z M 13.26 11.970001 C 12.92 11.630001 12.38 11.630001 12.04 11.970001 C 11.7 12.310001 11.7 12.85 12.04 13.190001 L 13.16 14.310001 L 12.04 15.410001 C 11.7 15.750001 11.7 16.310001 12.04 16.650002 C 12.38 16.990002 12.92 16.990002 13.26 16.650002 L 15 14.910001 C 15.34 14.570001 15.34 14.030001 15 13.690001 L 13.26 11.950001 Z
             </x:String>
+
+            <Style TargetType="Viewbox">
+                <Setter Property="Width" Value="20" />
+                <Setter Property="Height" Value="20" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,-6,0,0" />
+                <Setter Property="Opacity" Value="0.7" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -160,8 +168,24 @@
                 IsExpanded="True"
                 Loaded="Expander_Loaded">
 
+
                 <Expander.Header>
-                    <TextBlock Text="Source code" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock VerticalAlignment="Center" Text="Source code" />
+                        <Viewbox Visibility="{x:Bind Xaml, Converter={StaticResource nullToVisibilityConverter}}">
+                            <PathIcon Data="{StaticResource XamlIcon}" />
+                        </Viewbox>
+                        <Viewbox Visibility="{x:Bind Idl, Converter={StaticResource nullToVisibilityConverter}}">
+                            <PathIcon Data="{StaticResource IdlIcon}" />
+                        </Viewbox>
+                        <Viewbox Visibility="{x:Bind Header, Converter={StaticResource nullToVisibilityConverter}}">
+                            <PathIcon Data="{StaticResource HIcon}" />
+                        </Viewbox>
+                        <Viewbox Visibility="{x:Bind Cpp, Converter={StaticResource nullToVisibilityConverter}}">
+                            <PathIcon Data="{StaticResource CppIcon}" />
+                        </Viewbox>
+                    </StackPanel>
+
                 </Expander.Header>
 
                 <Pivot
