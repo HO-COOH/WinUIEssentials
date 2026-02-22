@@ -765,6 +765,7 @@
         </Grid>
         <NavigationView
             Grid.Row="1"
+            IsBackButtonVisible="Collapsed"
             MenuItemsSource="{x:Bind Pages}"
             SelectionChanged="NavigationView_SelectionChanged"
             Style="{StaticResource ModifiedNavigationViewStyle}">

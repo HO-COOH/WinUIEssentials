@@ -37,7 +37,8 @@
             <Style x:Key="GalleryTileGridStyle" TargetType="Grid">
                 <Setter Property="Background" Value="{ThemeResource GalleryBackgroundBrush}" />
                 <Setter Property="BorderBrush" Value="{ThemeResource GalleryBorderBrush}" />
-                <Setter Property="BorderThickness" Value="1" />
+                <!--  Leave the bottom border to not causing a duplicate border with the expander  -->
+                <Setter Property="BorderThickness" Value="1,1,1,0" />
                 <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
             </Style>
 

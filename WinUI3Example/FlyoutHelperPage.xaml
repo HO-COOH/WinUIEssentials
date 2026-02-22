@@ -24,6 +24,27 @@
                     </Flyout>
                 </Button.Flyout>
             </Button>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Button Content=&quot;Empty cart&quot;&gt;
+    &lt;Button.Flyout&gt;
+        &lt;Flyout&gt;
+            &lt;StackPanel&gt;
+                &lt;TextBlock
+                    Margin=&quot;0,0,0,12&quot;
+                    Style=&quot;{ThemeResource BaseTextBlockStyle}&quot;
+                    Text=&quot;All items will be removed. Do you want to continue?&quot; /&gt;
+                &lt;Button Content=&quot;Yes, empty my cart&quot; /&gt;
+            &lt;/StackPanel&gt;
+        &lt;/Flyout&gt;
+    &lt;/Button.Flyout&gt;
+&lt;/Button&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Using FlyoutHelper.AcrylicWorkaround, you got Acrylic">

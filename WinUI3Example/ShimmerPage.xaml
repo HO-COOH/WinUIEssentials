@@ -150,15 +150,42 @@
                 VerticalAlignment="Stretch"
                 CornerRadius="12"
                 IsLoading="True">
-
-
                 <Image
                     ImageOpened="Image_ImageOpened"
                     Source="https://cdn.cloudflare.steamstatic.com/steam/apps/2080690/capsule_616x353.jpg"
                     Stretch="UniformToFill" />
-
-
             </essential:Shimmer>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:Shimmer
+    x:Name=&quot;testShimmer&quot;
+    Width=&quot;100&quot;
+    Height=&quot;100&quot;
+    HorizontalAlignment=&quot;Stretch&quot;
+    VerticalAlignment=&quot;Stretch&quot;
+    CornerRadius=&quot;12&quot;
+    IsLoading=&quot;True&quot;&gt;
+    &lt;Image
+        ImageOpened=&quot;Image_ImageOpened&quot;
+        Source=&quot;https://cdn.cloudflare.steamstatic.com/steam/apps/2080690/capsule_616x353.jpg&quot;
+        Stretch=&quot;UniformToFill&quot; /&gt;
+&lt;/essential:Shimmer&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">void ShimmerPage::Image_ImageOpened(winrt::Windows::Foundation::IInspectable const&amp;, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&amp;)
+{
+	testShimmer().IsLoading(false);
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
     </StackPanel>
 </Page>
