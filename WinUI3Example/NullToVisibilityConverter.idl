@@ -1,9 +1,0 @@
-﻿namespace WinUI3Example
-{
-    [bindable]
-    [default_interface]
-	runtimeclass NullToVisibilityConverter : Microsoft.UI.Xaml.Data.IValueConverter
-    {
-        NullToVisibilityConverter();
-    }
-}

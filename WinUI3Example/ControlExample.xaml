@@ -139,7 +139,7 @@
                         Background="{ThemeResource ControlExampleDisplayBrush}"
                         CornerRadius="8"
                         Orientation="Vertical"
-                        Visibility="{x:Bind Output, Converter={StaticResource nullToVisibilityConverter}}">
+                        Visibility="{x:Bind essential:Convert.ReferenceToVisibility(Output)}">
                         <TextBlock Text="Output:" />
                         <ContentPresenter x:Name="OutputPresenter" Content="{x:Bind Output, Mode=OneWay}" />
                     </StackPanel>
@@ -155,7 +155,7 @@
                         BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                         BorderThickness="1,0,0,0"
                         Content="{x:Bind Options}"
-                        Visibility="{x:Bind Options, Converter={StaticResource nullToVisibilityConverter}}" />
+                        Visibility="{x:Bind essential:Convert.ReferenceToVisibility(Options)}" />
                 </Grid>
             </UserControl>
 
@@ -173,16 +173,16 @@
                 <Expander.Header>
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock VerticalAlignment="Center" Text="Source code" />
-                        <Viewbox Visibility="{x:Bind Xaml, Converter={StaticResource nullToVisibilityConverter}}">
+                        <Viewbox Visibility="{x:Bind essential:Convert.ReferenceToVisibility(Xaml)}">
                             <PathIcon Data="{StaticResource XamlIcon}" />
                         </Viewbox>
-                        <Viewbox Visibility="{x:Bind Idl, Converter={StaticResource nullToVisibilityConverter}}">
+                        <Viewbox Visibility="{x:Bind essential:Convert.ReferenceToVisibility(Idl)}">
                             <PathIcon Data="{StaticResource IdlIcon}" />
                         </Viewbox>
-                        <Viewbox Visibility="{x:Bind Header, Converter={StaticResource nullToVisibilityConverter}}">
+                        <Viewbox Visibility="{x:Bind essential:Convert.ReferenceToVisibility(Header)}">
                             <PathIcon Data="{StaticResource HIcon}" />
                         </Viewbox>
-                        <Viewbox Visibility="{x:Bind Cpp, Converter={StaticResource nullToVisibilityConverter}}">
+                        <Viewbox Visibility="{x:Bind essential:Convert.ReferenceToVisibility(Cpp)}">
                             <PathIcon Data="{StaticResource CppIcon}" />
                         </Viewbox>
                     </StackPanel>

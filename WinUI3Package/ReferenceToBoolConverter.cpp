@@ -1,5 +1,6 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ReferenceToBoolConverter.h"
+#include "Convert.h"
 #if __has_include("ReferenceToBoolConverter.g.cpp")
 #include "ReferenceToBoolConverter.g.cpp"
 #endif
@@ -12,7 +13,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::IInspectable const& parameter,
         [[maybe_unused]] winrt::hstring const& language)
     {
-        auto boolValue = static_cast<bool>(value);
+        auto boolValue = Convert::ReferenceToBool(value);
         if (Reverse() || (parameter && winrt::unbox_value<winrt::hstring>(parameter) == L"Reverse"))
             boolValue = !boolValue;
 

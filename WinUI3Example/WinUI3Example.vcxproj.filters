@@ -282,9 +282,6 @@
     <Midl Include="ControlExampleSubstitution.idl">
       <Filter>Helper</Filter>
     </Midl>
-    <Midl Include="NullToVisibilityConverter.idl">
-      <Filter>Helper</Filter>
-    </Midl>
     <Midl Include="CodeSource.idl">
       <Filter>Helper</Filter>
     </Midl>

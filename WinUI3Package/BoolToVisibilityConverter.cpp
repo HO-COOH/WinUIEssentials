@@ -1,5 +1,6 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "BoolToVisibilityConverter.h"
+#include "Convert.h"
 #if __has_include("BoolToVisibilityConverter.g.cpp")
 #include "BoolToVisibilityConverter.g.cpp"
 #endif
@@ -16,9 +17,7 @@ namespace winrt::WinUI3Package::implementation
         if (Reverse() || (parameter && winrt::unbox_value<winrt::hstring>(parameter) == L"Reverse"))
             boolValue = !boolValue;
 
-        return winrt::box_value(
-            boolValue ? winrt::Microsoft::UI::Xaml::Visibility::Visible : winrt::Microsoft::UI::Xaml::Visibility::Collapsed
-        );
+        return winrt::box_value(Convert::BoolToVisibility(boolValue));
     }
 
     winrt::Windows::Foundation::IInspectable BoolToVisibilityConverter::ConvertBack(

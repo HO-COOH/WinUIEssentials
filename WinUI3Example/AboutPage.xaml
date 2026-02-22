@@ -47,7 +47,7 @@
                                 IsLoading="{x:Bind IsLoadingRepoInfo, Mode=OneWay}">
                                 <StackPanel
                                     x:Name="RepoInfoPanel"
-                                    x:Load="{x:Bind IsLoadingRepoInfo, Mode=OneWay, Converter={StaticResource NegateBoolConverter}}"
+                                    x:Load="{x:Bind essential:Convert.ReverseBool(IsLoadingRepoInfo), Mode=OneWay}"
                                     Orientation="Horizontal"
                                     Spacing="8">
                                     <StackPanel.Resources>

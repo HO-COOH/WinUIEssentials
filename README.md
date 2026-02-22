@@ -84,6 +84,7 @@ You can reference Github Action for detailed build steps.
 |StringToBoolConverter | :white_check_mark: | :white_check_mark: | WinRT component
 |ReferenceToBoolConverter | :white_check_mark: | :white_check_mark: | WinRT component
 |ConverterGroup | :white_check_mark: | :white_check_mark: | WinRT component
+|Convert | :x: | :white_check_mark: | WinRT component
 |IsEqualStringTrigger| :white_check_mark: | :white_check_mark: | WinRT component
 |IsNullOrEmptyStateTrigger | :white_check_mark: | :white_check_mark: | WinRT component
 |ControlSizeTrigger | :white_check_mark: | :white_check_mark: | WinRT component
@@ -363,6 +364,38 @@ namespace winrt::<MyProject>::implementation
        <essential:BoolToVisibilityConverter/>
    </essential:ConverterGroup>
   ```
+
+And most of the time when you are NOT using `ConverterGroup`, you should consider using the static functions in `Convert` class.
+All of the above converters have corresponding static functions in `Convert` that you can use with `x:Bind` directly. Here are the complete list.
+```
+runtimeclass Convert 
+{
+    static Single DoubleToSingle(Double value);
+    
+    static Boolean ContainerToBool(Windows.Foundation.Collections.IVector<Object> container);
+    static Boolean ReferenceToBool(Object value);
+    static Boolean StringToBool(String value);
+    static Boolean VisibilityToBool(Microsoft.UI.Xaml.Visibility value);
+
+    static Boolean ContainerToBoolReverse(Windows.Foundation.Collections.IVector<Object> container);
+    static Boolean ReferenceToBoolReverse(Object value);
+    static Boolean StringToBoolReverse(String value);
+    static Boolean VisibilityToBoolReverse(Microsoft.UI.Xaml.Visibility value);
+
+    static Microsoft.UI.Xaml.Visibility ContainerToVisibility(Windows.Foundation.Collections.IVector<Object> container);
+    static Microsoft.UI.Xaml.Visibility ReferenceToVisibility(Object value);
+    static Microsoft.UI.Xaml.Visibility StringToVisibility(String value);
+    static Microsoft.UI.Xaml.Visibility BoolToVisibility(Boolean value);
+    
+    static Microsoft.UI.Xaml.Visibility ContainerToVisibilityReverse(Windows.Foundation.Collections.IVector<Object> container);
+    static Microsoft.UI.Xaml.Visibility ReferenceToVisibilityReverse(Object value);
+    static Microsoft.UI.Xaml.Visibility StringToVisibilityReverse(String value);
+    static Microsoft.UI.Xaml.Visibility BoolToVisibilityReverse(Boolean value);
+
+    static Boolean ReverseBool(Boolean value);
+    static Microsoft.UI.Xaml.Visibility ReverseVisibility(Microsoft.UI.Xaml.Visibility value);
+}
+```
 
 ## BadgeGlyphs --- *namespace `BadgeGlyphs`*
 Helpers for creating badge notification xml.

@@ -518,10 +518,6 @@
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="NullToVisibilityConverter.h">
-      <DependentUpon>NullToVisibilityConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="PageHeader.xaml.h">
       <DependentUpon>PageHeader.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1163,10 +1159,6 @@
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="NullToVisibilityConverter.cpp">
-      <DependentUpon>NullToVisibilityConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="PageHeader.xaml.cpp">
       <DependentUpon>PageHeader.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1562,9 +1554,6 @@
     <Midl Include="NormalNonResizableNoBorderWindow.idl">
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="NullToVisibilityConverter.idl">
-      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="PageHeader.idl">
       <DependentUpon>PageHeader.xaml</DependentUpon>

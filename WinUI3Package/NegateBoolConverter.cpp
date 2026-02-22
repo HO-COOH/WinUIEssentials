@@ -1,5 +1,6 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "NegateBoolConverter.h"
+#include "Convert.h"
 #if __has_include("NegateBoolConverter.g.cpp")
 #include "NegateBoolConverter.g.cpp"
 #endif
@@ -12,9 +13,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::IInspectable const& parameter,
         [[maybe_unused]] winrt::hstring const& language)
     {
-        return winrt::box_value(
-            !winrt::unbox_value<bool>(value)
-        );
+        return winrt::box_value(Convert::ReverseBool(winrt::unbox_value<bool>(value)));
     }
 
     winrt::Windows::Foundation::IInspectable NegateBoolConverter::ConvertBack(

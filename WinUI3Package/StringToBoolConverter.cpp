@@ -1,5 +1,6 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "StringToBoolConverter.h"
+#include "Convert.h"
 #if __has_include("StringToBoolConverter.g.cpp")
 #include "StringToBoolConverter.g.cpp"
 #endif
@@ -12,7 +13,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::IInspectable const& parameter,
         [[maybe_unused]] winrt::hstring const& language)
     {
-        auto boolValue = value && !winrt::unbox_value<winrt::hstring>(value).empty();
+        auto boolValue = value && Convert::StringToBool(winrt::unbox_value<winrt::hstring>(value));
         if (Reverse() || (parameter && winrt::unbox_value<winrt::hstring>(parameter) == L"Reverse"))
             boolValue = !boolValue;
 

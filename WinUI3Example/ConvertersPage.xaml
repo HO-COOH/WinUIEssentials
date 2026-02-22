@@ -39,10 +39,14 @@
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">&lt;Page.Resources&gt;        
-&lt;essential:BoolToVisibilityConverter x:Key=&quot;BoolToVisibilityConverter&quot; /&gt;
+    &lt;essential:BoolToVisibilityConverter x:Key=&quot;BoolToVisibilityConverter&quot; /&gt;
 &lt;/Page.Resources&gt;
                             
 &lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind VisibleToggle1.IsOn, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}&quot; /&gt;
+
+&lt;!-- Or equivalent --&gt;
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind essential:Convert.BoolToVisibility(VisibleToggle1.IsOn), Mode=OneWay}&quot; /&gt;
+                            
 &lt;ToggleSwitch
     x:Name=&quot;VisibleToggle1&quot;
     Header=&quot;Toggle to show/hide the rect&quot;
@@ -71,6 +75,10 @@
 &lt;/Page.Resources&gt;
                             
 &lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind VisibleToggle1.IsOn, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}&quot; /&gt;
+                            
+&lt;!-- Or equivalent --&gt;
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind essential:Convert.BoolToVisibilityReverse(VisibleToggle1.IsOn), Mode=OneWay}&quot; /&gt;
+                            
 &lt;ToggleSwitch
     x:Name=&quot;VisibleToggle1&quot;
     Header=&quot;Toggle to show/hide the rect&quot;
@@ -93,14 +101,18 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">    &lt;Page.Resources&gt;       
- &lt;essential:ConverterGroup x:Key=&quot;StringToVisibilityConverter&quot;&gt;
+                        <x:String xml:space="preserve">&lt;Page.Resources&gt;       
+    &lt;essential:ConverterGroup x:Key=&quot;StringToVisibilityConverter&quot;&gt;
         &lt;essential:StringToBoolConverter /&gt;
         &lt;essential:BoolToVisibilityConverter /&gt;
     &lt;/essential:ConverterGroup&gt;
 &lt;/Page.Resources&gt;
 
 &lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind InputString.Text, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}&quot; /&gt;
+                            
+&lt;!-- Or equivalent --&gt;
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind essential:Convert.StringToVisibility(InputString.Text), Mode=OneWay}&quot; /&gt;
+                            
 &lt;TextBox
     x:Name=&quot;InputString&quot;
     Width=&quot;200&quot;

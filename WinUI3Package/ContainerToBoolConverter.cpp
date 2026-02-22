@@ -1,5 +1,6 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ContainerToBoolConverter.h"
+#include "Convert.h"
 #if __has_include("ContainerToBoolConverter.g.cpp")
 #include "ContainerToBoolConverter.g.cpp"
 #endif
@@ -12,14 +13,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::IInspectable const& parameter,
         [[maybe_unused]] winrt::hstring const& language)
     {
-        auto boolValue = false;
-        if (value)
-        {
-            auto container = reinterpret_cast<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>*>(
-                const_cast<winrt::Windows::Foundation::IInspectable*>(&value)
-                );
-            boolValue = container->Size();
-        }
+        auto boolValue = Convert::ContainerToBool(value.try_as<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>());
 
         if (Reverse() || (parameter && winrt::unbox_value<winrt::hstring>(parameter) == L"Reverse"))
             boolValue = !boolValue;
