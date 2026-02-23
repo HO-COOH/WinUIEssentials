@@ -7,7 +7,7 @@ namespace winrt::WinUI3Example::implementation
     struct WindowedContentDialogPage : WindowedContentDialogPageT<WindowedContentDialogPage>
     {
         WindowedContentDialogPage() = default;
-        void Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        winrt::Windows::Foundation::IAsyncAction Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 
