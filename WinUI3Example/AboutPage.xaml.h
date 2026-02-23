@@ -2,6 +2,7 @@
 #include "AboutPage.g.h"
 #include "PropertyChangeHelper.hpp"
 #include "RepoInfo.h"
+#include <winrt/Windows.Web.Http.h>
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -22,6 +23,8 @@ namespace winrt::WinUI3Example::implementation
         int Stars();
         int Forks();
         int Issues();
+        winrt::hstring UpdatedAt();
+        winrt::hstring CommitMessage();
 
         void SettingsCard_Click(
             winrt::Windows::Foundation::IInspectable const& sender, 
@@ -33,9 +36,12 @@ namespace winrt::WinUI3Example::implementation
         bool IsLoadingRepoInfo();
     private:
         std::optional<RepoInfo> m_repoInfo;
+        winrt::hstring m_commitMessage;
+        winrt::Windows::Web::Http::HttpClient client;
         bool m_isLoadingContributors = true;
         winrt::fire_and_forget loadContributors();
         winrt::fire_and_forget loadRepoInfos();
+        winrt::fire_and_forget loadCommitMessage();
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_contributors{ nullptr };
     public:

@@ -42,8 +42,8 @@
                         <StackPanel Orientation="Horizontal" Spacing="20">
                             <TextBlock Text="Go to the repro" />
                             <essential:Shimmer
-                                Width="200"
                                 Height="20"
+                                MinWidth="200"
                                 IsLoading="{x:Bind IsLoadingRepoInfo, Mode=OneWay}">
                                 <StackPanel
                                     x:Name="RepoInfoPanel"
@@ -68,6 +68,11 @@
                                         <PathIcon Data="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z" />
                                         <TextBlock Text="{x:Bind Issues, Mode=OneWay}" />
                                     </StackPanel>
+                                    <TextBlock Margin="50,0,0,0" FontSize="10">
+                                        <Run Text="Last commit: " />
+                                        <Run Text="{x:Bind CommitMessage, Mode=OneWay}" />
+                                        @<Run Text="{x:Bind UpdatedAt, Mode=OneWay}" />
+                                    </TextBlock>
                                 </StackPanel>
                             </essential:Shimmer>
                         </StackPanel>
@@ -78,6 +83,30 @@
                             VerticalAlignment="Center"
                             Data="F1 M 8.75 10.625 C 8.75 10.455729 8.811849 10.309245 8.935547 10.185547 L 16.621094 2.5 L 10.625 2.5 C 10.455729 2.5 10.309244 2.438152 10.185547 2.314453 C 10.061849 2.190756 10 2.044271 10 1.875 C 10 1.70573 10.061849 1.559246 10.185547 1.435547 C 10.309244 1.31185 10.455729 1.25 10.625 1.25 L 18.125 1.25 C 18.29427 1.25 18.440754 1.31185 18.564453 1.435547 C 18.68815 1.559246 18.75 1.70573 18.75 1.875 L 18.75 9.375 C 18.75 9.544271 18.68815 9.690756 18.564453 9.814453 C 18.440754 9.938151 18.29427 10 18.125 10 C 17.955729 10 17.809244 9.938151 17.685547 9.814453 C 17.561848 9.690756 17.5 9.544271 17.5 9.375 L 17.5 3.388672 L 9.814453 11.064453 C 9.749349 11.123047 9.682617 11.16862 9.614258 11.201172 C 9.545898 11.233725 9.466146 11.25 9.375 11.25 C 9.205729 11.25 9.059244 11.188151 8.935547 11.064453 C 8.811849 10.940756 8.75 10.794271 8.75 10.625 Z M 4.921875 18.75 C 4.433594 18.75 3.966471 18.650717 3.520508 18.452148 C 3.074544 18.25358 2.683919 17.986654 2.348633 17.651367 C 2.013346 17.31608 1.746419 16.925455 1.547852 16.479492 C 1.349284 16.033529 1.25 15.566406 1.25 15.078125 L 1.25 6.171875 C 1.25 5.683595 1.349284 5.216473 1.547852 4.770508 C 1.746419 4.324545 2.013346 3.93392 2.348633 3.598633 C 2.683919 3.263348 3.074544 2.99642 3.520508 2.797852 C 3.966471 2.599285 4.433594 2.5 4.921875 2.5 L 8.125 2.5 C 8.294271 2.5 8.440755 2.56185 8.564453 2.685547 C 8.68815 2.809246 8.75 2.95573 8.75 3.125 C 8.75 3.294271 8.68815 3.440756 8.564453 3.564453 C 8.440755 3.688152 8.294271 3.75 8.125 3.75 L 4.951172 3.75 C 4.625651 3.75 4.314778 3.816732 4.018555 3.950195 C 3.722331 4.08366 3.461914 4.262696 3.237305 4.487305 C 3.012695 4.711915 2.833659 4.972332 2.700195 5.268555 C 2.566732 5.564779 2.5 5.875651 2.5 6.201172 L 2.5 15.048828 C 2.5 15.37435 2.566732 15.685222 2.700195 15.981445 C 2.833659 16.27767 3.012695 16.538086 3.237305 16.762695 C 3.461914 16.987305 3.722331 17.166342 4.018555 17.299805 C 4.314778 17.433268 4.625651 17.5 4.951172 17.5 L 13.798828 17.5 C 14.137369 17.5 14.454752 17.431641 14.750977 17.294922 C 15.0472 17.158203 15.305989 16.975912 15.527344 16.748047 C 15.748697 16.520182 15.924479 16.254883 16.054688 15.952148 C 16.184895 15.649414 16.25 15.332031 16.25 15 L 16.25 11.875 C 16.25 11.705729 16.311848 11.559245 16.435547 11.435547 C 16.559244 11.31185 16.705729 11.25 16.875 11.25 C 17.04427 11.25 17.190754 11.31185 17.314453 11.435547 C 17.43815 11.559245 17.5 11.705729 17.5 11.875 L 17.5 15.078125 C 17.5 15.566406 17.400715 16.033529 17.202148 16.479492 C 17.00358 16.925455 16.736652 17.31608 16.401367 17.651367 C 16.06608 17.986654 15.675455 18.25358 15.229492 18.452148 C 14.783527 18.650717 14.316405 18.75 13.828125 18.75 Z " />
                     </essential:SettingsCard.ActionIcon>
+                </essential:SettingsCard>
+
+                <essential:SettingsCard Header="nuget">
+                    <essential:SettingsCard.HeaderIcon>
+                        <Image Width="28" Height="28">
+                            <Image.Source>
+                                <SvgImageSource UriSource="https://upload.wikimedia.org/wikipedia/commons/2/25/NuGet_project_logo.svg" />
+                            </Image.Source>
+                        </Image>
+                    </essential:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <HyperlinkButton
+                            Padding="0"
+                            BorderThickness="0"
+                            NavigateUri="https://www.nuget.org/packages/WinUIEssential.UWP">
+                            <Image Source="https://raster.shields.io/nuget/v/WinUIEssential.UWP.png?label=WinUIEssential.UWP" />
+                        </HyperlinkButton>
+                        <HyperlinkButton
+                            Padding="0"
+                            BorderThickness="0"
+                            NavigateUri="https://www.nuget.org/packages/WinUIEssential.WinUI3">
+                            <Image Source="https://img.shields.io/nuget/v/WinUIEssential.WinUI3.png?label=WinUIEssential.WinUI3" />
+                        </HyperlinkButton>
+                    </StackPanel>
                 </essential:SettingsCard>
 
                 <essential:SettingsCard
