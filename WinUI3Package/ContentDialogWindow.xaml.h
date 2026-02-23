@@ -10,9 +10,6 @@ namespace winrt::WinUI3Package::implementation
 	struct ContentDialogWindow : ContentDialogWindowT<ContentDialogWindow>, ModalWindowBase<ContentDialogWindow>
 	{
 		ContentDialogWindow();
-		~ContentDialogWindow();
-
-		void InitializeContentDialog(WinUI3Package::ContentDialogContent& component);
 
 		winrt::WinUI3Package::ContentDialogContent ContentDialogContent() {
 

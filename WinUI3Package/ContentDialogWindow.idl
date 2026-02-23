@@ -5,7 +5,7 @@ import "ContentDialogContent.idl";
 namespace WinUI3Package
 {
     [default_interface]
-    runtimeclass ContentDialogWindow : Microsoft.UI.Xaml.Window
+    unsealed runtimeclass ContentDialogWindow : Microsoft.UI.Xaml.Window
     {
         ContentDialogWindow();
 

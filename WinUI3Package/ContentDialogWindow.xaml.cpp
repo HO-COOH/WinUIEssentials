@@ -168,21 +168,6 @@ namespace winrt::WinUI3Package::implementation
 
 	}
 
-	ContentDialogWindow::~ContentDialogWindow() {
-
-		//Closed(m_Closed);
-		//if (_parent != nullptr) _parent.Closed(m_OnParentClosed);
-
-		//this->ContentDialogContent().PrimaryButtonClick(m_OnPrimaryButtonClick);
-		//this->ContentDialogContent().SecondaryButtonClick(m_OnSecondaryButtonClick);
-		//this->ContentDialogContent().CloseButtonClick(m_OnCloseButtonClick);
-	}
-
-	void ContentDialogWindow::InitializeContentDialog(WinUI3Package::ContentDialogContent& component)
-	{
-
-	}
-
 	winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ContentDialogWindow::ShowAsync()
 	{
 

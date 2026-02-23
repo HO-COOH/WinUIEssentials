@@ -76,7 +76,8 @@ namespace winrt::WinUI3Example::implementation
             {L"DatePickerHelper", winrt::xaml_typename<WinUI3Example::DatePickerHelperPage>()},
             {L"TimePickerHelper", winrt::xaml_typename<WinUI3Example::TimePickerHelperPage>()},
             {L"FlyoutHelper", winrt::xaml_typename<WinUI3Example::FlyoutHelperPage>()},
-            {L"CalendarDatePickerHelper", winrt::xaml_typename<WinUI3Example::CalendarDatePickerWorkaroundPage>()}
+            {L"CalendarDatePickerHelper", winrt::xaml_typename<WinUI3Example::CalendarDatePickerWorkaroundPage>()},
+            {L"WindowedContentDialog", winrt::xaml_typename<WinUI3Example::WindowedContentDialogPage>()}
         };
 
     public:
