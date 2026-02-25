@@ -6,7 +6,7 @@
 
 
 #include <winrt/Microsoft.UI.Windowing.h>
-
+#include "ContentDialogWindow.xaml.h"
 #include "ContentDialogUtils.h"
 
 namespace winrt::WinUI3Package::implementation
@@ -71,11 +71,8 @@ namespace winrt::WinUI3Package::implementation
 		);
 
 
-	WindowedContentDialog::WindowedContentDialog() {
-
-
-		m_ContentDialogWindow = WinUI3Package::ContentDialogWindow();
-
+	WindowedContentDialog::WindowedContentDialog()
+	{
 		IsPrimaryButtonEnabled(true);
 		IsSecondaryButtonEnabled(true);
 
@@ -103,14 +100,9 @@ namespace winrt::WinUI3Package::implementation
 
 	}
 
-	WindowedContentDialog::~WindowedContentDialog() {
-
-
-		//Close();
-
-		if (OwnerWindow()) OwnerWindow().SizeChanged(m_OnOwnerWindowSizeChanged);
-
-		OwnerWindow(nullptr);
+	WindowedContentDialog::~WindowedContentDialog() 
+	{
+		Close();
 	}
 
 	void WindowedContentDialog::Close()
@@ -193,16 +185,17 @@ namespace winrt::WinUI3Package::implementation
 
 	}
 
-	winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync()
+	winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync()
 	{
-		co_return co_await ShowAsync(true);
+		return winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult>();
 	}
 
-	winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync(bool isModal)
+
+	winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync(winrt::Microsoft::UI::Xaml::Window const& parent)
 	{
 
 		InitializeContentDialogWindow();
-		m_ContentDialogWindow.SetParent(OwnerWindow(), isModal, CenterInParent());
+		m_ContentDialogWindow.SetParent(parent, CenterInParent());
 		SetUnderlay(m_ContentDialogWindow);
 
 		//winrt::awaitable_event DialogEvent = {};
@@ -234,6 +227,7 @@ namespace winrt::WinUI3Package::implementation
 		m_ContentDialogWindow.Loaded(WindowLoadedEvent);
 		m_ContentDialogWindow.Closed(WindowClosedEvent);
 
+		m_ContentDialogWindow = nullptr;
 
 		//m_ContentDialogWindow.Opened(m_onPopupOpened);
 		//m_ContentDialogWindow.Loaded(m_onPopupLoaded);
@@ -258,11 +252,6 @@ namespace winrt::WinUI3Package::implementation
 	void WindowedContentDialog::SetUnderlay(WinUI3Package::ContentDialogWindow const& dialogWindow)
 	{
 
-		if (!OwnerWindow() || !OwnerWindow().Content() || !OwnerWindow().Content().XamlRoot())
-		{
-			return;
-		}
-
 		switch (Underlay())
 		{
 			case UnderlayMode::SmokeLayer:
@@ -277,23 +266,17 @@ namespace winrt::WinUI3Package::implementation
 
 	void WindowedContentDialog::HandleSmokeLayer(WinUI3Package::ContentDialogWindow const& dialogWindow)
 	{
-
-		if (OwnerWindow() == nullptr || OwnerWindow().Content() == nullptr || OwnerWindow().Content().XamlRoot() == nullptr)
+		auto owner = ownerWindow();
+		if (!owner)
 			return;
 
-		//if (!UnderlaySmokeLayer() ||
-		//	UnderlaySmokeLayer().SmokeLayerKind() == WindowedContentDialogSmokeLayerKind::None)
-		//{
-		//	return;
-		//}
-
-		//DisableOwnerEvents(dialogWindow);
-
-		//Microsoft::UI::Xaml::Controls::Primitives::Popup popup = {};
+		auto content = owner.Content();
+		if (!content)
+			return;
 
 		m_Popup = Microsoft::UI::Xaml::Controls::Primitives::Popup();
 
-		m_Popup.XamlRoot(OwnerWindow().Content().XamlRoot());
+		m_Popup.XamlRoot(content.XamlRoot());
 		m_Popup.RequestedTheme(RequestedTheme());
 
 
@@ -310,7 +293,7 @@ namespace winrt::WinUI3Package::implementation
 		darkLayer.Fill(brush);
 
 
-		SizeToXamlRoot(darkLayer, OwnerWindow());
+		SizeToXamlRoot(darkLayer, owner);
 
 		m_Popup.Child(darkLayer);
 		SmokeLayerCache(darkLayer);
@@ -327,18 +310,16 @@ namespace winrt::WinUI3Package::implementation
 
 	void WindowedContentDialog::HandleSystemBackdrop(WinUI3Package::ContentDialogWindow const& dialogWindow)
 	{
-		//if (UnderlaySystemBackdrop() == nullptr || UnderlaySystemBackdrop().Backdrop() == WinUI3Package::BackdropType::None)
-		//	return;
-
-
-		if (OwnerWindow() == nullptr || OwnerWindow().Content() == nullptr || OwnerWindow().Content().XamlRoot() == nullptr)
+		auto owner = ownerWindow();
+		if (!owner)
 			return;
 
-		//DisableOwnerEvents(dialogWindow);
+		auto content = owner.Content();
+		if (!content)
+			return;
 
-		// Create the popup with helper
 		m_Popup = ContentDialogUtils::CreatePopup(
-			OwnerWindow().Content().XamlRoot(),
+			content.XamlRoot(),
 			UnderlaySystemBackdrop().CoverMode() == UnderlayCoverMode::Full,
 			GetTitleBarOffset());
 
@@ -417,6 +398,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void WindowedContentDialog::SizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window)
 	{
+		if (!window || !window.Content() || !window.Content().XamlRoot()) return;
 
 		element.Width(window.Content().XamlRoot().Size().Width);
 
@@ -434,13 +416,11 @@ namespace winrt::WinUI3Package::implementation
 
 	int WindowedContentDialog::GetTitleBarOffset()
 	{
-
-		if (!OwnerWindow() || !OwnerWindow().AppWindow() || !OwnerWindow().AppWindow().TitleBar())
-		{
+		auto owner = ownerWindow();
+		if (!owner)
 			return 0;
-		}
 
-		auto heightOption = OwnerWindow().AppWindow().TitleBar().PreferredHeightOption();
+		auto const heightOption = owner.AppWindow().TitleBar().PreferredHeightOption();
 
 		switch (heightOption)
 		{
@@ -453,33 +433,17 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	//void WindowedContentDialog::DialogWindow_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e)
-	//{
-	//	if (auto popup = sender.try_as<Microsoft::UI::Xaml::Controls::Primitives::Popup>()) {
-
-	//		popup.IsOpen(true);
-	//		popup.Child().Opacity(1.0f);
-	//		m_OnOwnerWindowSizeChanged_Loaded = OwnerWindow().SizeChanged({this, &WindowedContentDialog::OnOwnerWindowSizeChanged});
-	//	
-	//	}
-
-	//}
-
 	void WindowedContentDialog::DialogWindow_Opened(WinUI3Package::ContentDialogWindow const& sender, winrt::Windows::Foundation::IInspectable const& e)
 	{
 
 		m_Popup.IsOpen(true);
 		m_Popup.Child().Opacity(1.0f);
 
-		if (OwnerWindow()) {
-
-			OwnerWindow().SizeChanged(m_OnOwnerWindowSizeChanged);
-			m_OnOwnerWindowSizeChanged = OwnerWindow().SizeChanged({ this, &WindowedContentDialog::OnOwnerWindowSizeChanged });
+		if (auto owner = ownerWindow()) 
+		{
+			owner.SizeChanged(m_OnOwnerWindowSizeChanged);
+			m_OnOwnerWindowSizeChanged = owner.SizeChanged({ this, &WindowedContentDialog::OnOwnerWindowSizeChanged });
 		}
-
-
-		/*	if (auto control = OwnerWindow().Content().try_as<Microsoft::UI::Xaml::Controls::Control>())
-				control.IsEnabled(false);*/
 	}
 
 	void WindowedContentDialog::DialogWindow_Closed(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowEventArgs const& e)
@@ -492,7 +456,8 @@ namespace winrt::WinUI3Package::implementation
 
 		m_Popup.Child(nullptr);
 
-		if (OwnerWindow()) OwnerWindow().SizeChanged(m_OnOwnerWindowSizeChanged);
+		if (auto owner = ownerWindow()) 
+			owner.SizeChanged(m_OnOwnerWindowSizeChanged);
 
 		//if (auto control = OwnerWindow().Content().try_as<Microsoft::UI::Xaml::Controls::Control>())
 		//	control.IsEnabled(true);
@@ -513,15 +478,16 @@ namespace winrt::WinUI3Package::implementation
 
 	void WindowedContentDialog::OnOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args)
 	{
+		if (!ownerWindow()) return;
 
 		switch (Underlay())
 		{
 			case WinUI3Package::UnderlayMode::SmokeLayer:
-				SizeToXamlRoot(SmokeLayerCache(), OwnerWindow());
+				SizeToXamlRoot(SmokeLayerCache(), ownerWindow());
 				break;
 
 			case WinUI3Package::UnderlayMode::SystemBackdrop:
-				SizeToXamlRoot(BackdropLayerCache(), OwnerWindow());
+				SizeToXamlRoot(BackdropLayerCache(), ownerWindow());
 				break;
 		}
 
@@ -570,6 +536,11 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> WindowedContentDialog::CloseButtonKeyboardAccelerators()
 	{
 		return m_ContentDialogWindow.CloseButtonKeyboardAccelerators();
+	}
+
+	winrt::Microsoft::UI::Xaml::Window WindowedContentDialog::ownerWindow()
+	{
+		return winrt::get_self<ContentDialogWindow>(m_ContentDialogWindow)->m_parent.get();
 	}
 
 	winrt::event_token WindowedContentDialog::Opened(Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable> const& handler)

@@ -43,7 +43,7 @@ namespace winrt::WinUI3Package::implementation
 		void Close();
 		void InitializeContentDialogWindow();
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync();
-		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync(bool isModal);
+		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync(winrt::Microsoft::UI::Xaml::Window const& parent);
 		WinUI3Package::ContentDialogWindow GetDialogWindow() { return m_ContentDialogWindow; };
 		void UpdateWindowSize();
 		void SetUnderlay(WinUI3Package::ContentDialogWindow const& dialogWindow);
@@ -52,7 +52,6 @@ namespace winrt::WinUI3Package::implementation
 		void DisableOwnerEvents(WinUI3Package::ContentDialogWindow const& dialogWindow);
 		void AttachPopupLifecycle(WinUI3Package::ContentDialogWindow const& dialogWindow, Microsoft::UI::Xaml::Controls::Primitives::Popup const& popup, bool isSmokeLayer);
 		void SizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window);
-		void DialogWindow_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
 		void DialogWindow_Opened(WinUI3Package::ContentDialogWindow const& sender, winrt::Windows::Foundation::IInspectable const& e);
 		void DialogWindow_Closed(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowEventArgs const& e);
 		void DialogWindow_ClosedPopup(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowEventArgs const& e);
@@ -394,19 +393,6 @@ namespace winrt::WinUI3Package::implementation
 			}
 		}
 
-		// OwnerWindow
-		Microsoft::UI::Xaml::Window OwnerWindow() const
-		{
-			return _OwnerWindow;
-		}
-		void OwnerWindow(const Microsoft::UI::Xaml::Window& value)
-		{
-			if (_OwnerWindow != value)
-			{
-				_OwnerWindow = value;
-			}
-		}
-
 		// HasTitleBar
 		bool HasTitleBar() const
 		{
@@ -434,12 +420,14 @@ namespace winrt::WinUI3Package::implementation
 		}
 
 	private:
+		winrt::Microsoft::UI::Xaml::Window ownerWindow();
+
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _ContentFlowDirectionProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _ContentMinWidthProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _IsPrimaryButtonEnabledProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _IsSecondaryButtonEnabledProperty;
 
-		WinUI3Package::ContentDialogWindow m_ContentDialogWindow{ nullptr };
+		WinUI3Package::ContentDialogWindow m_ContentDialogWindow;
 		Microsoft::UI::Xaml::Controls::Primitives::Popup m_Popup{ nullptr };
 
 		winrt::event<Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable>> m_Loaded;
@@ -455,7 +443,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::event_token m_onPopupOpened;
 		winrt::event_token m_onPopupClosed;
 		winrt::event_token m_OnOwnerWindowSizeChanged;
-		winrt::event_token m_OnOwnerWindowSizeChanged_Loaded;
 
 		winrt::handle m_DialogEvent;
 
@@ -480,7 +467,7 @@ namespace winrt::WinUI3Package::implementation
 		Microsoft::UI::Xaml::Style _PrimaryButtonStyle{ nullptr };
 		Microsoft::UI::Xaml::Style _SecondaryButtonStyle{ nullptr };
 		Microsoft::UI::Xaml::Style _CloseButtonStyle{ nullptr };
-		Microsoft::UI::Xaml::Window _OwnerWindow{ nullptr };
+		//winrt::weak_ref<Microsoft::UI::Xaml::Window> _OwnerWindow{ nullptr };
 		bool _HasTitleBar;
 		bool _IsResizable;
 	};

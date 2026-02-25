@@ -8,7 +8,12 @@
     xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Sample Modal Window"
+    Activated="ModalWindow_Activated"
     mc:Ignorable="d">
 
-    <TextBlock Text="This is a ModalWindow" />
+    <StackPanel>
+        <Button ToolTipService.ToolTip="Some tooltip">This is a modal window</Button>
+        <Button ToolTipService.ToolTip="Second tooltip">This is a second</Button>
+    </StackPanel>
+
 </essential:ModalWindow>

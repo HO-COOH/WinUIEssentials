@@ -9,5 +9,6 @@ namespace winrt::WinUI3Package::implementation
 	ModalWindow::ModalWindow(winrt::Microsoft::UI::Xaml::Window const& parent)
 	{
 		SetModal(parent);
+		AppWindow().Show();
 	}
 }

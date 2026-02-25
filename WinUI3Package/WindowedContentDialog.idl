@@ -8,7 +8,7 @@ namespace WinUI3Package
 {
     [bindable]
     [default_interface]
-    runtimeclass WindowedContentDialog : Microsoft.UI.Xaml.Controls.Control
+    runtimeclass WindowedContentDialog : Microsoft.UI.Xaml.DependencyObject
     {
         WindowedContentDialog();
 
@@ -47,7 +47,6 @@ namespace WinUI3Package
         Microsoft.UI.Xaml.Style PrimaryButtonStyle;
         Microsoft.UI.Xaml.Style SecondaryButtonStyle;
         Microsoft.UI.Xaml.Style CloseButtonStyle;
-        Microsoft.UI.Xaml.Window OwnerWindow;
         Boolean HasTitleBar;
         Boolean IsResizable;
 
@@ -70,8 +69,7 @@ namespace WinUI3Package
         event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, WinUI3Package.ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;
         event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, WinUI3Package.ContentDialogWindowButtonClickEventArgs> CloseButtonClick;
 
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parent);
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
-        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Boolean isModal);
-
     }
 }

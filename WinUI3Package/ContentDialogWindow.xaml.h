@@ -4,11 +4,16 @@
 
 #include <winrt/Microsoft.UI.Windowing.h>
 #include "ModalWindowBase.hpp"
+#include "NonMaximizableWindowWorkaround.h"
 
 namespace winrt::WinUI3Package::implementation
 {
+	struct WindowedContentDialog;
+
 	struct ContentDialogWindow : ContentDialogWindowT<ContentDialogWindow>, ModalWindowBase<ContentDialogWindow>
 	{
+		friend struct WindowedContentDialog;
+
 		ContentDialogWindow();
 
 		winrt::WinUI3Package::ContentDialogContent ContentDialogContent() {
@@ -48,12 +53,9 @@ namespace winrt::WinUI3Package::implementation
 		winrt::event_token ContentRightTapped(Windows::Foundation::TypedEventHandler<Windows::Foundation::IInspectable, Microsoft::UI::Xaml::Input::RightTappedRoutedEventArgs> const& handler);
 		void ContentRightTapped(winrt::event_token const& token);
 
-
-		void UpdateDragRegion(std::list<Microsoft::UI::Xaml::FrameworkElement> const& ElementsList);
-
 		void DetermineTitleBarButtonForegroundColor();
 		void AfterCommandSpaceButtonClick(WinUI3Package::ContentDialogWindowButtonClickEventArgs const& args);
-		void SetParent(Microsoft::UI::Xaml::Window const& parent, bool modal, bool center);
+		void SetParent(Microsoft::UI::Xaml::Window const& parent, bool center);
 
 		winrt::event_token Loaded(Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, Windows::Foundation::IInspectable> const& handler);
 		void Loaded(winrt::event_token const& token);
@@ -205,6 +207,8 @@ namespace winrt::WinUI3Package::implementation
 		winrt::event_token m_ImageOpened;
 
 		winrt::event_token m_ActualThemeChanged;
+
+		WinUI3Package::NonMaximizableWindowWorkaround m_windowWorkaround{ nullptr };
 
 		WinUI3Package::WinUIAsyncEventArgs AsyncEventArgs;
 		winrt::Windows::Foundation::Deferral Deferral{ nullptr };

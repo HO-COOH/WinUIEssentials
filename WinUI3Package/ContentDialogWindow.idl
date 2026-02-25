@@ -15,7 +15,7 @@ namespace WinUI3Package
 
         void UpdateWindowSize();
 
-        void SetParent(Microsoft.UI.Xaml.Window parent, Boolean modal, Boolean center);
+        void SetParent(Microsoft.UI.Xaml.Window parent, Boolean center);
 
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
 

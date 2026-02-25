@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "HwndHelper.hpp"
 
 template<typename WindowImplementation>
@@ -11,19 +11,17 @@ class ModalWindowBase
 	}
 
 protected:
-	winrt::Microsoft::UI::Xaml::Window m_parent{ nullptr };
+	winrt::weak_ref<winrt::Microsoft::UI::Xaml::Window> m_parent;
 
 public:
 	void SetModal(winrt::Microsoft::UI::Xaml::Window const& parent)
 	{
 		m_parent = parent;
 		m_closedRevoker = getSelf().Closed(winrt::auto_revoke, [this](auto&&...) {
-			m_parent.Activate();
+			m_parent.get().Activate();
 		});
 
 		SetWindowLongPtr(GetHwnd(getSelf()), GWLP_HWNDPARENT, reinterpret_cast<LONG_PTR>(GetHwnd(parent)));
-		auto appWindow = getSelf().AppWindow();
-		appWindow.Presenter().as<winrt::Microsoft::UI::Windowing::OverlappedPresenter>().IsModal(true);
-		appWindow.Show();
+		getSelf().AppWindow().Presenter().as<winrt::Microsoft::UI::Windowing::OverlappedPresenter>().IsModal(true);
 	}
 };
