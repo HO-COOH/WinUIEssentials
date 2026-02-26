@@ -226,6 +226,9 @@
       <Filter>Controls\WindowedContentDialog</Filter>
     </ClInclude>
     <ClInclude Include="ModalWindowBase.hpp" />
+    <ClInclude Include="WinUIAsyncEventArgs.hpp">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -513,9 +516,6 @@
       <Filter>Controls\WindowedContentDialog</Filter>
     </Midl>
     <Midl Include="ContentDialogContent.idl">
-      <Filter>Controls\WindowedContentDialog</Filter>
-    </Midl>
-    <Midl Include="WinUIAsyncEventArgs.idl">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Midl>
     <Midl Include="Underlay.idl">

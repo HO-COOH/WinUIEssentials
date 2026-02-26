@@ -9,12 +9,9 @@ namespace WinUI3Package
     {
         ContentDialogContent();
 
-        void AfterGotFocus();
-        void AfterLostFocus();
-
-        Microsoft.UI.Xaml.UIElement TitleArea{ get; set; };
-        Microsoft.UI.Xaml.Controls.Grid DialogSpace{ get; set; };
-        Microsoft.UI.Xaml.Controls.Grid CommandSpace{ get; set; };
+        Microsoft.UI.Xaml.UIElement TitleArea;
+        Microsoft.UI.Xaml.Controls.Grid DialogSpace;
+        Microsoft.UI.Xaml.Controls.Grid CommandSpace;
 
         Object Title;
         Microsoft.UI.Xaml.DataTemplate TitleTemplate;

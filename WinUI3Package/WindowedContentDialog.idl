@@ -16,11 +16,8 @@ namespace WinUI3Package
 
         WinUI3Package.ContentDialogWindow GetDialogWindow();
 
-        Microsoft.UI.Xaml.Shapes.Rectangle SmokeLayerCache;
-        Microsoft.UI.Xaml.Controls.Border BackdropLayerCache;
-
-        Microsoft.UI.Xaml.Media.Imaging.BitmapImage HeaderImage{ get; set; };
-        String HeaderImageUri{ get; set; };
+        Microsoft.UI.Xaml.Media.Imaging.BitmapImage HeaderImage;
+        String HeaderImageUri;
 
         String WindowTitle;
         Object Title;

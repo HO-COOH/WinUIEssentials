@@ -19,22 +19,17 @@ namespace WinUI3Package
 
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
 
-        Microsoft.UI.Xaml.Media.Imaging.BitmapImage HeaderImage{ get; set; };
-        String HeaderImageUri{ get; set; };
+        Microsoft.UI.Xaml.Media.Imaging.BitmapImage HeaderImage;
+        String HeaderImageUri;
 
-        Microsoft.UI.Xaml.Controls.ContentDialogResult Result{ get; set; };
+        Microsoft.UI.Xaml.Controls.ContentDialogResult Result{ get; };
 
-        Boolean HasTitleBar{ get; set; };
-        Boolean IsResizable{ get; set; };
+        Boolean HasTitleBar;
+        Boolean IsResizable;
 
         event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, Object> Loaded;
         event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, Object> Opened;
 
         event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs> ContentRightTapped;
-
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, WinUI3Package.ContentDialogWindowButtonClickEventArgs> PrimaryButtonClick;
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, WinUI3Package.ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, WinUI3Package.ContentDialogWindowButtonClickEventArgs> CloseButtonClick;
-
     }
 }

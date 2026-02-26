@@ -5,6 +5,7 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #include "ModalWindowBase.hpp"
 #include "NonMaximizableWindowWorkaround.h"
+#include "WinUIAsyncEventArgs.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -22,8 +23,6 @@ namespace winrt::WinUI3Package::implementation
 
 		void OnContentLoaded(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
-		void OnActivated(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowActivatedEventArgs args);
-
 		void Open();
 
 		void Hide();
@@ -31,8 +30,6 @@ namespace winrt::WinUI3Package::implementation
 		void OnClosingRequestedBySystem();
 
 		void OnClosingRequstedByCode();
-
-		void OnParentClosed(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowEventArgs args);
 
 		winrt::Windows::Foundation::IAsyncAction OnPrimaryButtonClick(winrt::Windows::Foundation::IInspectable const& sender, WinUI3Package::ContentDialogWindowButtonClickEventArgs const& e);
 		winrt::Windows::Foundation::IAsyncAction OnSecondaryButtonClick(winrt::Windows::Foundation::IInspectable const& sender, WinUI3Package::ContentDialogWindowButtonClickEventArgs const& e);
@@ -54,15 +51,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::event_token Opened(Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, Windows::Foundation::IInspectable> const& handler);
 		void Opened(winrt::event_token const& token);
 
-		winrt::event_token PrimaryButtonClick(Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, WinUI3Package::ContentDialogWindowButtonClickEventArgs> const& handler);
-		void PrimaryButtonClick(winrt::event_token const& token);
-
-		winrt::event_token SecondaryButtonClick(Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, WinUI3Package::ContentDialogWindowButtonClickEventArgs> const& handler);
-		void SecondaryButtonClick(winrt::event_token const& token);
-
-		winrt::event_token CloseButtonClick(Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, WinUI3Package::ContentDialogWindowButtonClickEventArgs> const& handler);
-		void CloseButtonClick(winrt::event_token const& token);
-
 		void HasTitleBar(bool hasTitleBar);
 		bool HasTitleBar();
 
@@ -75,21 +63,12 @@ namespace winrt::WinUI3Package::implementation
 		Microsoft::UI::Xaml::Media::Imaging::BitmapImage HeaderImage();
 		void HeaderImage(Microsoft::UI::Xaml::Media::Imaging::BitmapImage const& Value);
 
-		Microsoft::UI::Xaml::Controls::ContentDialogResult Result() const {
-
-			return _Result;
-		}
-
-		void Result(const Microsoft::UI::Xaml::Controls::ContentDialogResult& value) {
-			if (_Result != value) {
-				_Result = value;
-			}
-
-		}
-
-
+		Microsoft::UI::Xaml::Controls::ContentDialogResult Result() const;
 		winrt::WinUI3Package::ContentDialogContent ContentDialogContent();
 	private:
+
+		void Result(const Microsoft::UI::Xaml::Controls::ContentDialogResult& value);
+
 		bool m_hasTitleBar = true;
 		bool m_isResizable;
 
@@ -113,24 +92,6 @@ namespace winrt::WinUI3Package::implementation
 
 		winrt::event<Windows::Foundation::TypedEventHandler<Windows::Foundation::IInspectable, Microsoft::UI::Xaml::Input::RightTappedRoutedEventArgs>> m_ContentRightTapped;
 
-
-		winrt::event<Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, WinUI3Package::ContentDialogWindowButtonClickEventArgs>> m_PrimaryButtonClick;
-		winrt::event<Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, WinUI3Package::ContentDialogWindowButtonClickEventArgs>> m_SecondaryButtonClick;
-		winrt::event<Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, WinUI3Package::ContentDialogWindowButtonClickEventArgs>> m_CloseButtonClick;
-
-
-		//public event TypedEventHandler<ContentDialogWindow, ContentDialogWindowButtonClickEventArgs>? PrimaryButtonClick;
-
-		winrt::event_token m_OnParentClosed;
-
-		winrt::event_token m_OnPrimaryButtonClick;
-		winrt::event_token m_OnSecondaryButtonClick;
-		winrt::event_token m_OnCloseButtonClick;
-
-
-		//winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> m_PrimaryButtonKeyboardAccelerators{ nullptr };
-		//winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> m_SecondaryButtonKeyboardAccelerators{ nullptr };
-		//winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> m_CloseButtonKeyboardAccelerators{ nullptr };
 		winrt::event_token m_Closing;
 		winrt::event_token m_Closed;
 		winrt::event_token m_Activated;
@@ -140,7 +101,7 @@ namespace winrt::WinUI3Package::implementation
 
 		WinUI3Package::NonMaximizableWindowWorkaround m_windowWorkaround{ nullptr };
 
-		WinUI3Package::WinUIAsyncEventArgs AsyncEventArgs;
+		winrt::com_ptr<WinUIAsyncEventArgs> AsyncEventArgs = winrt::make_self<WinUIAsyncEventArgs>();
 		winrt::Windows::Foundation::Deferral Deferral{ nullptr };
 
 	};

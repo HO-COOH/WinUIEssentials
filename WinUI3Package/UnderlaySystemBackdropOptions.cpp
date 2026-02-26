@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "UnderlaySystemBackdropOptions.h"
 #if __has_include("UnderlaySystemBackdropOptions.g.cpp")
 #include "UnderlaySystemBackdropOptions.g.cpp"
@@ -6,13 +6,34 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	UnderlaySystemBackdropOptions::UnderlaySystemBackdropOptions() {
+	UnderlaySystemBackdropOptions::UnderlaySystemBackdropOptions() 
+	{
+		_OpacityTransition.Duration(std::chrono::milliseconds(150));
+	}
 
-		CoverMode(winrt::WinUI3Package::UnderlayCoverMode::ClientArea);
+	WinUI3Package::UnderlayCoverMode UnderlaySystemBackdropOptions::CoverMode() const
+	{
+		return _CoverMode;
+	}
 
-		auto Transition = Microsoft::UI::Xaml::ScalarTransition();
-		Transition.Duration(std::chrono::milliseconds(150));
+	void UnderlaySystemBackdropOptions::CoverMode(WinUI3Package::UnderlayCoverMode value)
+	{
+		if (_CoverMode != value)
+		{
+			_CoverMode = value;
+		}
+	}
 
-		OpacityTransition(Transition);
+	winrt::Microsoft::UI::Xaml::ScalarTransition UnderlaySystemBackdropOptions::OpacityTransition() const
+	{
+		return _OpacityTransition;
+	}
+
+	void UnderlaySystemBackdropOptions::OpacityTransition(winrt::Microsoft::UI::Xaml::ScalarTransition const& value)
+	{
+		if (_OpacityTransition != value)
+		{
+			_OpacityTransition = value;
+		}
 	}
 }

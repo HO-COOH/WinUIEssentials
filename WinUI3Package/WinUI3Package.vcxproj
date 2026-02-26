@@ -602,10 +602,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="WindowsVersion.hpp" />
-    <ClInclude Include="WinUIAsyncEventArgs.h">
-      <DependentUpon>WinUIAsyncEventArgs.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
+    <ClInclude Include="WinUIAsyncEventArgs.hpp" />
     <ClInclude Include="WinUIEssentialError.hpp" />
     <ClInclude Include="WrapPanel.h">
       <DependentUpon>WrapPanel.idl</DependentUpon>
@@ -922,10 +919,6 @@
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="WinUIAsyncEventArgs.cpp">
-      <DependentUpon>WinUIAsyncEventArgs.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="WrapPanel.cpp">
       <DependentUpon>WrapPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1158,9 +1151,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowEx.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="WinUIAsyncEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WrapPanel.idl">

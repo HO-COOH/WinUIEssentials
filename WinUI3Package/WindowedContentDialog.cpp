@@ -143,27 +143,6 @@ namespace winrt::WinUI3Package::implementation
 
 		m_ContentDialogWindow.SystemBackdrop(SystemBackdrop());
 
-
-
-		m_ContentDialogWindow.PrimaryButtonClick([this](auto& sender, auto& args) {
-
-
-			m_PrimaryButtonClick(*this, args);
-
-		});
-		m_ContentDialogWindow.SecondaryButtonClick([this](auto& sender, auto& args) {
-
-
-			m_SecondaryButtonClick(*this, args);
-
-		});
-		m_ContentDialogWindow.CloseButtonClick([this](auto& sender, auto& args) {
-
-
-			m_CloseButtonClick(*this, args);
-
-		});
-
 		//m_ContentDialogWindow.ContentRightTapped();
 
 		m_ContentDialogWindow.ContentRightTapped([this](auto& sender, auto& args) {
@@ -522,5 +501,384 @@ namespace winrt::WinUI3Package::implementation
 
 	}
 
+	double WindowedContentDialog::ContentMinWidth()
+	{
+		return winrt::unbox_value<double>(GetValue(ContentMinWidthProperty()));
+	}
+
+	void WindowedContentDialog::ContentMinWidth(double value)
+	{
+		SetValue(ContentMinWidthProperty(), winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowedContentDialog::ContentMinWidthProperty()
+	{
+		return _ContentMinWidthProperty;
+	}
+
+	winrt::Microsoft::UI::Xaml::FlowDirection WindowedContentDialog::ContentFlowDirection()
+	{
+		return winrt::unbox_value<winrt::Microsoft::UI::Xaml::FlowDirection>(GetValue(ContentFlowDirectionProperty()));
+	}
+
+	void WindowedContentDialog::ContentFlowDirection(winrt::Microsoft::UI::Xaml::FlowDirection const& value)
+	{
+		SetValue(ContentFlowDirectionProperty(), winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowedContentDialog::ContentFlowDirectionProperty()
+	{
+		return _ContentFlowDirectionProperty;
+	}
+
+	WinUI3Package::ContentDialogWindow WindowedContentDialog::GetDialogWindow()
+	{
+		return m_ContentDialogWindow;
+	}
+
+	void WindowedContentDialog::OnIsPrimaryButtonEnabledChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
+	{
+		UNREFERENCED_PARAMETER(sender);
+		UNREFERENCED_PARAMETER(e);
+		auto self = get_self<WindowedContentDialog>(sender.as<winrt::WinUI3Package::WindowedContentDialog>());
+		self->m_contentDialogWindowImpl->ContentDialogContent().IsPrimaryButtonEnabled(e.NewValue().as<bool>());
+	}
+
+	void WindowedContentDialog::OnIsSecondaryButtonEnabledChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
+	{
+		UNREFERENCED_PARAMETER(sender);
+		UNREFERENCED_PARAMETER(e);
+		auto self = get_self<WindowedContentDialog>(sender.as<winrt::WinUI3Package::WindowedContentDialog>());
+		self->m_contentDialogWindowImpl->ContentDialogContent().IsSecondaryButtonEnabled(e.NewValue().as<bool>());
+	}
+
+	Microsoft::UI::Xaml::Media::Imaging::BitmapImage WindowedContentDialog::HeaderImage() const
+	{
+		return _HeaderImage;
+	}
+
+	void WindowedContentDialog::HeaderImage(const Microsoft::UI::Xaml::Media::Imaging::BitmapImage& value)
+	{
+		if (_HeaderImage != value)
+		{
+			_HeaderImage = value;
+		}
+	}
+
+	winrt::hstring WindowedContentDialog::HeaderImageUri() const
+	{
+		return _HeaderImageUri;
+	}
+
+	void WindowedContentDialog::HeaderImageUri(const winrt::hstring& value)
+	{
+		if (_HeaderImageUri != value)
+		{
+			_HeaderImageUri = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::Shapes::Rectangle WindowedContentDialog::SmokeLayerCache() const
+	{
+		return _SmokeLayerCache;
+	}
+
+	void WindowedContentDialog::SmokeLayerCache(const Microsoft::UI::Xaml::Shapes::Rectangle& value)
+	{
+		if (_SmokeLayerCache != value)
+		{
+			_SmokeLayerCache = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::Controls::Border WindowedContentDialog::BackdropLayerCache() const
+	{
+		return _BackdropLayerCache;
+	}
+
+	void WindowedContentDialog::BackdropLayerCache(const Microsoft::UI::Xaml::Controls::Border& value)
+	{
+		if (_BackdropLayerCache != value)
+		{
+			_BackdropLayerCache = value;
+		}
+	}
+
+	winrt::hstring WindowedContentDialog::WindowTitle() const
+	{
+		return _WindowTitle;
+	}
+
+	void WindowedContentDialog::WindowTitle(const winrt::hstring& value)
+	{
+		if (_WindowTitle != value)
+		{
+			_WindowTitle = value;
+		}
+	}
+
+	winrt::Windows::Foundation::IInspectable WindowedContentDialog::Title() const
+	{
+		return _Title;
+	}
+
+	void WindowedContentDialog::Title(const winrt::Windows::Foundation::IInspectable& value)
+	{
+		if (_Title != value)
+		{
+			_Title = value;
+		}
+	}
+
+	winrt::Windows::Foundation::IInspectable WindowedContentDialog::Content() const
+	{
+		return _Content;
+	}
+
+	void WindowedContentDialog::Content(const winrt::Windows::Foundation::IInspectable& value)
+	{
+		if (_Content != value)
+		{
+			_Content = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::ElementTheme WindowedContentDialog::RequestedTheme() const
+	{
+		return _RequestedTheme;
+	}
+
+	void WindowedContentDialog::RequestedTheme(const Microsoft::UI::Xaml::ElementTheme& value)
+	{
+		if (_RequestedTheme != value)
+		{
+			_RequestedTheme = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::Media::SystemBackdrop WindowedContentDialog::SystemBackdrop() const
+	{
+		return _SystemBackdrop;
+	}
+
+	void WindowedContentDialog::SystemBackdrop(const Microsoft::UI::Xaml::Media::SystemBackdrop& value)
+	{
+		if (_SystemBackdrop != value)
+		{
+			_SystemBackdrop = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::DataTemplate WindowedContentDialog::TitleTemplate() const
+	{
+		return _TitleTemplate;
+	}
+
+	void WindowedContentDialog::TitleTemplate(const Microsoft::UI::Xaml::DataTemplate& value)
+	{
+		if (_TitleTemplate != value)
+		{
+			_TitleTemplate = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::DataTemplate WindowedContentDialog::ContentTemplate() const
+	{
+		return _ContentTemplate;
+	}
+
+	void WindowedContentDialog::ContentTemplate(const Microsoft::UI::Xaml::DataTemplate& value)
+	{
+		if (_ContentTemplate != value)
+		{
+			_ContentTemplate = value;
+		}
+	}
+
+	winrt::hstring WindowedContentDialog::PrimaryButtonText() const
+	{
+		return _PrimaryButtonText;
+	}
+
+	void WindowedContentDialog::PrimaryButtonText(const winrt::hstring& value)
+	{
+		if (_PrimaryButtonText != value)
+		{
+			_PrimaryButtonText = value;
+		}
+	}
+
+	winrt::hstring WindowedContentDialog::SecondaryButtonText() const
+	{
+		return _SecondaryButtonText;
+	}
+
+	void WindowedContentDialog::SecondaryButtonText(const winrt::hstring& value)
+	{
+		if (_SecondaryButtonText != value)
+		{
+			_SecondaryButtonText = value;
+		}
+	}
+
+	winrt::hstring WindowedContentDialog::CloseButtonText() const
+	{
+		return _CloseButtonText;
+	}
+
+	void WindowedContentDialog::CloseButtonText(const winrt::hstring& value)
+	{
+		if (_CloseButtonText != value)
+		{
+			_CloseButtonText = value;
+		}
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowedContentDialog::IsPrimaryButtonEnabledProperty()
+	{
+		return _IsPrimaryButtonEnabledProperty;
+	}
+
+	bool WindowedContentDialog::IsPrimaryButtonEnabled() const
+	{
+		return winrt::unbox_value<bool>(GetValue(_IsPrimaryButtonEnabledProperty));
+	}
+
+	void WindowedContentDialog::IsPrimaryButtonEnabled(const bool& value)
+	{
+		SetValue(_IsPrimaryButtonEnabledProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowedContentDialog::IsSecondaryButtonEnabledProperty()
+	{
+		return _IsSecondaryButtonEnabledProperty;
+	}
+
+	bool WindowedContentDialog::IsSecondaryButtonEnabled() const
+	{
+		return winrt::unbox_value<bool>(GetValue(_IsSecondaryButtonEnabledProperty));
+	}
+
+	void WindowedContentDialog::IsSecondaryButtonEnabled(const bool& value)
+	{
+		SetValue(_IsSecondaryButtonEnabledProperty, winrt::box_value(value));
+	}
+
+	Microsoft::UI::Xaml::Controls::ContentDialogButton WindowedContentDialog::DefaultButton() const
+	{
+		return _DefaultButton;
+	}
+
+	void WindowedContentDialog::DefaultButton(const Microsoft::UI::Xaml::Controls::ContentDialogButton& value)
+	{
+		if (_DefaultButton != value)
+		{
+			_DefaultButton = value;
+		}
+	}
+
+	WinUI3Package::UnderlayMode WindowedContentDialog::Underlay() const
+	{
+		return _Underlay;
+	}
+
+	void WindowedContentDialog::Underlay(const WinUI3Package::UnderlayMode& value)
+	{
+		if (_Underlay != value)
+		{
+			_Underlay = value;
+		}
+	}
+
+	WinUI3Package::UnderlaySystemBackdropOptions WindowedContentDialog::UnderlaySystemBackdrop() const
+	{
+		return _UnderlaySystemBackdrop;
+	}
+
+	void WindowedContentDialog::UnderlaySystemBackdrop(const WinUI3Package::UnderlaySystemBackdropOptions& value)
+	{
+		if (_UnderlaySystemBackdrop != value)
+		{
+			_UnderlaySystemBackdrop = value;
+		}
+	}
+
+	bool WindowedContentDialog::CenterInParent() const
+	{
+		return _CenterInParent;
+	}
+
+	void WindowedContentDialog::CenterInParent(const bool& value)
+	{
+		if (_CenterInParent != value)
+		{
+			_CenterInParent = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::Style WindowedContentDialog::PrimaryButtonStyle() const
+	{
+		return _PrimaryButtonStyle;
+	}
+
+	void WindowedContentDialog::PrimaryButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	{
+		if (_PrimaryButtonStyle != value)
+		{
+			_PrimaryButtonStyle = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::Style WindowedContentDialog::SecondaryButtonStyle() const
+	{
+		return _SecondaryButtonStyle;
+	}
+
+	void WindowedContentDialog::SecondaryButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	{
+		if (_SecondaryButtonStyle != value)
+		{
+			_SecondaryButtonStyle = value;
+		}
+	}
+
+	Microsoft::UI::Xaml::Style WindowedContentDialog::CloseButtonStyle() const
+	{
+		return _CloseButtonStyle;
+	}
+
+	void WindowedContentDialog::CloseButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	{
+		if (_CloseButtonStyle != value)
+		{
+			_CloseButtonStyle = value;
+		}
+	}
+
+	bool WindowedContentDialog::HasTitleBar() const
+	{
+		return _HasTitleBar;
+	}
+
+	void WindowedContentDialog::HasTitleBar(const bool& value)
+	{
+		if (_HasTitleBar != value)
+		{
+			_HasTitleBar = value;
+		}
+	}
+
+	bool WindowedContentDialog::IsResizable() const
+	{
+		return _IsResizable;
+	}
+
+	void WindowedContentDialog::IsResizable(const bool& value)
+	{
+		if (_IsResizable != value)
+		{
+			_IsResizable = value;
+		}
+	}
 
 }

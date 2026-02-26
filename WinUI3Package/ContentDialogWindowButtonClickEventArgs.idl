@@ -11,7 +11,7 @@
 
         Windows.Foundation.IAsyncAction wait_for_deferrals();
 
-        Boolean Cancel{ get; set; };
-        Boolean Handled{ get; set; };
+        Boolean Cancel;
+        Boolean Handled;
     }
 }

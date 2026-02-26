@@ -11,46 +11,23 @@ namespace winrt::WinUI3Package::implementation
 		WindowedContentDialog();
 		~WindowedContentDialog();
 
-		double ContentMinWidth()
-		{
-			return winrt::unbox_value<double>(GetValue(ContentMinWidthProperty()));
-		}
+		double ContentMinWidth();
+		void ContentMinWidth(double value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty ContentMinWidthProperty();
 
-		void ContentMinWidth(double value)
-		{
-			SetValue(ContentMinWidthProperty(), winrt::box_value(value));
-		}
-
-		static winrt::Microsoft::UI::Xaml::DependencyProperty ContentMinWidthProperty()
-		{
-			return _ContentMinWidthProperty;
-		}
-
-		winrt::Microsoft::UI::Xaml::FlowDirection ContentFlowDirection()
-		{
-			return winrt::unbox_value<winrt::Microsoft::UI::Xaml::FlowDirection>(GetValue(ContentFlowDirectionProperty()));
-		}
-
-		void ContentFlowDirection(winrt::Microsoft::UI::Xaml::FlowDirection const& value)
-		{
-			SetValue(ContentFlowDirectionProperty(), winrt::box_value(value));
-		}
-
-		static winrt::Microsoft::UI::Xaml::DependencyProperty ContentFlowDirectionProperty()
-		{
-			return _ContentFlowDirectionProperty;
-		}
+		winrt::Microsoft::UI::Xaml::FlowDirection ContentFlowDirection();
+		void ContentFlowDirection(winrt::Microsoft::UI::Xaml::FlowDirection const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty ContentFlowDirectionProperty();
 
 		void Close();
 		void InitializeContentDialogWindow();
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync();
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync(winrt::Microsoft::UI::Xaml::Window const& parent);
-		WinUI3Package::ContentDialogWindow GetDialogWindow() { return m_ContentDialogWindow; };
+		WinUI3Package::ContentDialogWindow GetDialogWindow();
 		void SetUnderlay(WinUI3Package::ContentDialogWindow const& dialogWindow);
 		void HandleSmokeLayer(WinUI3Package::ContentDialogWindow const& dialogWindow);
 		void HandleSystemBackdrop(WinUI3Package::ContentDialogWindow const& dialogWindow);
 		void DisableOwnerEvents(WinUI3Package::ContentDialogWindow const& dialogWindow);
-		void AttachPopupLifecycle(WinUI3Package::ContentDialogWindow const& dialogWindow, Microsoft::UI::Xaml::Controls::Primitives::Popup const& popup, bool isSmokeLayer);
 		void SizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window);
 		void DialogWindow_Opened(WinUI3Package::ContentDialogWindow const& sender, winrt::Windows::Foundation::IInspectable const& e);
 		void DialogWindow_Closed(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowEventArgs const& e);
@@ -76,348 +53,85 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> SecondaryButtonKeyboardAccelerators();
 		winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> CloseButtonKeyboardAccelerators();
 
-		static void OnIsPrimaryButtonEnabledChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
-		{
-			UNREFERENCED_PARAMETER(sender);
-			UNREFERENCED_PARAMETER(e);
-			auto self = get_self<WindowedContentDialog>(sender.as<winrt::WinUI3Package::WindowedContentDialog>());
-			self->m_contentDialogWindowImpl->ContentDialogContent().IsPrimaryButtonEnabled(e.NewValue().as<bool>());
-		}
+		static void OnIsPrimaryButtonEnabledChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e);
+		static void OnIsSecondaryButtonEnabledChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e);
 
-		static void OnIsSecondaryButtonEnabledChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
-		{
-			UNREFERENCED_PARAMETER(sender);
-			UNREFERENCED_PARAMETER(e);
-			auto self = get_self<WindowedContentDialog>(sender.as<winrt::WinUI3Package::WindowedContentDialog>());
-			self->m_contentDialogWindowImpl->ContentDialogContent().IsSecondaryButtonEnabled(e.NewValue().as<bool>());
-		}
+		Microsoft::UI::Xaml::Media::Imaging::BitmapImage HeaderImage() const;
+		void HeaderImage(const Microsoft::UI::Xaml::Media::Imaging::BitmapImage& value);
 
-		// HeaderImage
-		Microsoft::UI::Xaml::Media::Imaging::BitmapImage HeaderImage() const
-		{
-			return _HeaderImage;
-		}
-		void HeaderImage(const Microsoft::UI::Xaml::Media::Imaging::BitmapImage& value)
-		{
-			if (_HeaderImage != value)
-			{
-				_HeaderImage = value;
-			}
-		}
+		winrt::hstring HeaderImageUri() const;
+		void HeaderImageUri(const winrt::hstring& value);
 
-		// HeaderImageUri
-		winrt::hstring HeaderImageUri() const
-		{
-			return _HeaderImageUri;
-		}
-		void HeaderImageUri(const winrt::hstring& value)
-		{
-			if (_HeaderImageUri != value)
-			{
-				_HeaderImageUri = value;
-			}
-		}
+		Microsoft::UI::Xaml::Shapes::Rectangle SmokeLayerCache() const;
+		void SmokeLayerCache(const Microsoft::UI::Xaml::Shapes::Rectangle& value);
 
-		// SmokeLayerCache
-		Microsoft::UI::Xaml::Shapes::Rectangle SmokeLayerCache() const
-		{
-			return _SmokeLayerCache;
-		}
-		void SmokeLayerCache(const Microsoft::UI::Xaml::Shapes::Rectangle& value)
-		{
-			if (_SmokeLayerCache != value)
-			{
-				_SmokeLayerCache = value;
-			}
-		}
+		Microsoft::UI::Xaml::Controls::Border BackdropLayerCache() const;
+		void BackdropLayerCache(const Microsoft::UI::Xaml::Controls::Border& value);
 
-		// BackdropLayerCache
-		Microsoft::UI::Xaml::Controls::Border BackdropLayerCache() const
-		{
-			return _BackdropLayerCache;
-		}
-		void BackdropLayerCache(const Microsoft::UI::Xaml::Controls::Border& value)
-		{
-			if (_BackdropLayerCache != value)
-			{
-				_BackdropLayerCache = value;
-			}
-		}
+		winrt::hstring WindowTitle() const;
+		void WindowTitle(const winrt::hstring& value);
 
-		// WindowTitle
-		winrt::hstring WindowTitle() const
-		{
-			return _WindowTitle;
-		}
-		void WindowTitle(const winrt::hstring& value)
-		{
-			if (_WindowTitle != value)
-			{
-				_WindowTitle = value;
-			}
-		}
+		winrt::Windows::Foundation::IInspectable Title() const;
+		void Title(const winrt::Windows::Foundation::IInspectable& value);
 
-		// Title
-		winrt::Windows::Foundation::IInspectable Title() const
-		{
-			return _Title;
-		}
-		void Title(const winrt::Windows::Foundation::IInspectable& value)
-		{
-			if (_Title != value)
-			{
-				_Title = value;
-			}
-		}
+		winrt::Windows::Foundation::IInspectable Content() const;
+		void Content(const winrt::Windows::Foundation::IInspectable& value);
 
-		// Content
-		winrt::Windows::Foundation::IInspectable Content() const
-		{
-			return _Content;
-		}
-		void Content(const winrt::Windows::Foundation::IInspectable& value)
-		{
-			if (_Content != value)
-			{
-				_Content = value;
-			}
-		}
+		Microsoft::UI::Xaml::ElementTheme RequestedTheme() const;
+		void RequestedTheme(const Microsoft::UI::Xaml::ElementTheme& value);
 
-		// RequestedTheme
-		Microsoft::UI::Xaml::ElementTheme RequestedTheme() const
-		{
-			return _RequestedTheme;
-		}
-		void RequestedTheme(const Microsoft::UI::Xaml::ElementTheme& value)
-		{
-			if (_RequestedTheme != value)
-			{
-				_RequestedTheme = value;
-			}
-		}
+		Microsoft::UI::Xaml::Media::SystemBackdrop SystemBackdrop() const;
+		void SystemBackdrop(const Microsoft::UI::Xaml::Media::SystemBackdrop& value);
 
-		// SystemBackdrop
-		Microsoft::UI::Xaml::Media::SystemBackdrop SystemBackdrop() const
-		{
-			return _SystemBackdrop;
-		}
-		void SystemBackdrop(const Microsoft::UI::Xaml::Media::SystemBackdrop& value)
-		{
-			if (_SystemBackdrop != value)
-			{
-				_SystemBackdrop = value;
-			}
-		}
+		Microsoft::UI::Xaml::DataTemplate TitleTemplate() const;
+		void TitleTemplate(const Microsoft::UI::Xaml::DataTemplate& value);
 
-		// TitleTemplate
-		Microsoft::UI::Xaml::DataTemplate TitleTemplate() const
-		{
-			return _TitleTemplate;
-		}
-		void TitleTemplate(const Microsoft::UI::Xaml::DataTemplate& value)
-		{
-			if (_TitleTemplate != value)
-			{
-				_TitleTemplate = value;
-			}
-		}
+		Microsoft::UI::Xaml::DataTemplate ContentTemplate() const;
+		void ContentTemplate(const Microsoft::UI::Xaml::DataTemplate& value);
 
-		// ContentTemplate
-		Microsoft::UI::Xaml::DataTemplate ContentTemplate() const
-		{
-			return _ContentTemplate;
-		}
-		void ContentTemplate(const Microsoft::UI::Xaml::DataTemplate& value)
-		{
-			if (_ContentTemplate != value)
-			{
-				_ContentTemplate = value;
-			}
-		}
+		winrt::hstring PrimaryButtonText() const;
+		void PrimaryButtonText(const winrt::hstring& value);
 
-		// PrimaryButtonText
-		winrt::hstring PrimaryButtonText() const
-		{
-			return _PrimaryButtonText;
-		}
-		void PrimaryButtonText(const winrt::hstring& value)
-		{
-			if (_PrimaryButtonText != value)
-			{
-				_PrimaryButtonText = value;
-			}
-		}
+		winrt::hstring SecondaryButtonText() const;
+		void SecondaryButtonText(const winrt::hstring& value);
 
-		// SecondaryButtonText
-		winrt::hstring SecondaryButtonText() const
-		{
-			return _SecondaryButtonText;
-		}
-		void SecondaryButtonText(const winrt::hstring& value)
-		{
-			if (_SecondaryButtonText != value)
-			{
-				_SecondaryButtonText = value;
-			}
-		}
+		winrt::hstring CloseButtonText() const;
+		void CloseButtonText(const winrt::hstring& value);
 
-		// CloseButtonText
-		winrt::hstring CloseButtonText() const
-		{
-			return _CloseButtonText;
-		}
-		void CloseButtonText(const winrt::hstring& value)
-		{
-			if (_CloseButtonText != value)
-			{
-				_CloseButtonText = value;
-			}
-		}
+		static winrt::Microsoft::UI::Xaml::DependencyProperty IsPrimaryButtonEnabledProperty();
+		bool IsPrimaryButtonEnabled() const;
+		void IsPrimaryButtonEnabled(const bool& value);
 
-		// IsPrimaryButtonEnabled
-		static winrt::Microsoft::UI::Xaml::DependencyProperty IsPrimaryButtonEnabledProperty()
-		{
-			return _IsPrimaryButtonEnabledProperty;
-		}
-		bool IsPrimaryButtonEnabled() const
-		{
-			return winrt::unbox_value<bool>(GetValue(_IsPrimaryButtonEnabledProperty));
-		}
-		void IsPrimaryButtonEnabled(const bool& value)
-		{
-			SetValue(_IsPrimaryButtonEnabledProperty, winrt::box_value(value));
-		}
+		static winrt::Microsoft::UI::Xaml::DependencyProperty IsSecondaryButtonEnabledProperty();
+		bool IsSecondaryButtonEnabled() const;
+		void IsSecondaryButtonEnabled(const bool& value);
 
-		// IsSecondaryButtonEnabled
-		static winrt::Microsoft::UI::Xaml::DependencyProperty IsSecondaryButtonEnabledProperty()
-		{
-			return _IsSecondaryButtonEnabledProperty;
-		}
-		bool IsSecondaryButtonEnabled() const
-		{
-			return winrt::unbox_value<bool>(GetValue(_IsSecondaryButtonEnabledProperty));
-		}
-		void IsSecondaryButtonEnabled(const bool& value)
-		{
-			SetValue(_IsSecondaryButtonEnabledProperty, winrt::box_value(value));
-		}
+		Microsoft::UI::Xaml::Controls::ContentDialogButton DefaultButton() const;
+		void DefaultButton(const Microsoft::UI::Xaml::Controls::ContentDialogButton& value);
 
-		// DefaultButton
-		Microsoft::UI::Xaml::Controls::ContentDialogButton DefaultButton() const
-		{
-			return _DefaultButton;
-		}
-		void DefaultButton(const Microsoft::UI::Xaml::Controls::ContentDialogButton& value)
-		{
-			if (_DefaultButton != value)
-			{
-				_DefaultButton = value;
-			}
-		}
+		WinUI3Package::UnderlayMode Underlay() const;
+		void Underlay(const WinUI3Package::UnderlayMode& value);
 
-		// Underlay
-		WinUI3Package::UnderlayMode Underlay() const
-		{
-			return _Underlay;
-		}
-		void Underlay(const WinUI3Package::UnderlayMode& value)
-		{
-			if (_Underlay != value)
-			{
-				_Underlay = value;
-			}
-		}
+		WinUI3Package::UnderlaySystemBackdropOptions UnderlaySystemBackdrop() const;
+		void UnderlaySystemBackdrop(const WinUI3Package::UnderlaySystemBackdropOptions& value);
 
-		// UnderlaySystemBackdrop
-		WinUI3Package::UnderlaySystemBackdropOptions UnderlaySystemBackdrop() const
-		{
-			return _UnderlaySystemBackdrop;
-		}
-		void UnderlaySystemBackdrop(const WinUI3Package::UnderlaySystemBackdropOptions& value)
-		{
-			if (_UnderlaySystemBackdrop != value)
-			{
-				_UnderlaySystemBackdrop = value;
-			}
-		}
+		bool CenterInParent() const;
+		void CenterInParent(const bool& value);
 
-		// CenterInParent
-		bool CenterInParent() const
-		{
-			return _CenterInParent;
-		}
-		void CenterInParent(const bool& value)
-		{
-			if (_CenterInParent != value)
-			{
-				_CenterInParent = value;
-			}
-		}
+		Microsoft::UI::Xaml::Style PrimaryButtonStyle() const;
+		void PrimaryButtonStyle(const Microsoft::UI::Xaml::Style& value);
 
-		// PrimaryButtonStyle
-		Microsoft::UI::Xaml::Style PrimaryButtonStyle() const
-		{
-			return _PrimaryButtonStyle;
-		}
-		void PrimaryButtonStyle(const Microsoft::UI::Xaml::Style& value)
-		{
-			if (_PrimaryButtonStyle != value)
-			{
-				_PrimaryButtonStyle = value;
-			}
-		}
+		Microsoft::UI::Xaml::Style SecondaryButtonStyle() const;
+		void SecondaryButtonStyle(const Microsoft::UI::Xaml::Style& value);
 
-		// SecondaryButtonStyle
-		Microsoft::UI::Xaml::Style SecondaryButtonStyle() const
-		{
-			return _SecondaryButtonStyle;
-		}
-		void SecondaryButtonStyle(const Microsoft::UI::Xaml::Style& value)
-		{
-			if (_SecondaryButtonStyle != value)
-			{
-				_SecondaryButtonStyle = value;
-			}
-		}
+		Microsoft::UI::Xaml::Style CloseButtonStyle() const;
+		void CloseButtonStyle(const Microsoft::UI::Xaml::Style& value);
 
-		// CloseButtonStyle
-		Microsoft::UI::Xaml::Style CloseButtonStyle() const
-		{
-			return _CloseButtonStyle;
-		}
-		void CloseButtonStyle(const Microsoft::UI::Xaml::Style& value)
-		{
-			if (_CloseButtonStyle != value)
-			{
-				_CloseButtonStyle = value;
-			}
-		}
+		bool HasTitleBar() const;
+		void HasTitleBar(const bool& value);
 
-		// HasTitleBar
-		bool HasTitleBar() const
-		{
-			return _HasTitleBar;
-		}
-		void HasTitleBar(const bool& value)
-		{
-			if (_HasTitleBar != value)
-			{
-				_HasTitleBar = value;
-			}
-		}
-
-		// IsResizable
-		bool IsResizable() const
-		{
-			return _IsResizable;
-		}
-		void IsResizable(const bool& value)
-		{
-			if (_IsResizable != value)
-			{
-				_IsResizable = value;
-			}
-		}
+		bool IsResizable() const;
+		void IsResizable(const bool& value);
 
 	private:
 		winrt::Microsoft::UI::Xaml::Window ownerWindow();
@@ -468,7 +182,6 @@ namespace winrt::WinUI3Package::implementation
 		Microsoft::UI::Xaml::Style _PrimaryButtonStyle{ nullptr };
 		Microsoft::UI::Xaml::Style _SecondaryButtonStyle{ nullptr };
 		Microsoft::UI::Xaml::Style _CloseButtonStyle{ nullptr };
-		//winrt::weak_ref<Microsoft::UI::Xaml::Window> _OwnerWindow{ nullptr };
 		bool _HasTitleBar;
 		bool _IsResizable;
 	};

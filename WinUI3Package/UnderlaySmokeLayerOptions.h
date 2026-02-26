@@ -8,50 +8,17 @@ namespace winrt::WinUI3Package::implementation
 	{
 		UnderlaySmokeLayerOptions();
 
-		// SmokeLayerKind 属性
-		WinUI3Package::WindowedContentDialogSmokeLayerKind SmokeLayerKind() const
-		{
-			return _SmokeLayerKind;
-		}
+		WinUI3Package::WindowedContentDialogSmokeLayerKind SmokeLayerKind() const;
+		void SmokeLayerKind(WinUI3Package::WindowedContentDialogSmokeLayerKind value);
 
-		void SmokeLayerKind(const WinUI3Package::WindowedContentDialogSmokeLayerKind& value)
-		{
-			if (_SmokeLayerKind != value)
-			{
-				_SmokeLayerKind = value;
-			}
-		}
+		Microsoft::UI::Xaml::UIElement CustomSmokeLayer() const;
+		void CustomSmokeLayer(Microsoft::UI::Xaml::UIElement const& value);
 
-		// CustomSmokeLayer 属性
-		Microsoft::UI::Xaml::UIElement CustomSmokeLayer() const
-		{
-			return _CustomSmokeLayer;
-		}
-
-		void CustomSmokeLayer(const Microsoft::UI::Xaml::UIElement& value)
-		{
-			if (_CustomSmokeLayer != value)
-			{
-				_CustomSmokeLayer = value;
-			}
-		}
-
-		// OpacityTransition 属性
-		Microsoft::UI::Xaml::ScalarTransition OpacityTransition() const
-		{
-			return _OpacityTransition;
-		}
-
-		void OpacityTransition(const Microsoft::UI::Xaml::ScalarTransition& value)
-		{
-			if (_OpacityTransition != value)
-			{
-				_OpacityTransition = value;
-			}
-		}
+		Microsoft::UI::Xaml::ScalarTransition OpacityTransition() const;
+		void OpacityTransition(Microsoft::UI::Xaml::ScalarTransition const& value);
 
 	private:
-		WinUI3Package::WindowedContentDialogSmokeLayerKind _SmokeLayerKind;
+		WinUI3Package::WindowedContentDialogSmokeLayerKind _SmokeLayerKind{ WinUI3Package::WindowedContentDialogSmokeLayerKind::Darken };
 		Microsoft::UI::Xaml::UIElement _CustomSmokeLayer{ nullptr };
 		Microsoft::UI::Xaml::ScalarTransition _OpacityTransition;
 	};

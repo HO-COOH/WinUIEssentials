@@ -151,7 +151,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void ContentDialogContent::OnApplyTemplate()
 	{
-		Super::OnApplyTemplate();
+		base_type::OnApplyTemplate();
 
 		TitleArea(GetTemplateChild(L"TitleArea").try_as<Microsoft::UI::Xaml::UIElement>());
 		DialogSpace(GetTemplateChild(L"DialogSpace").try_as<Microsoft::UI::Xaml::Controls::Grid>());
@@ -536,6 +536,211 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> ContentDialogContent::CloseButtonKeyboardAccelerators()
 	{
 		return m_CloseButtonKeyboardAccelerators;
+	}
+
+	void ContentDialogContent::OnButtonTextChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
+	{
+		UNREFERENCED_PARAMETER(sender);
+		UNREFERENCED_PARAMETER(e);
+
+		auto self = get_self<ContentDialogContent>(sender.as<winrt::WinUI3Package::ContentDialogContent>());
+
+		if (self->IsLoaded())
+		{
+			self->buttonsVisibilityState = self->DetermineButtonsVisibilityState();
+			self->isCustomMeasureFinishedAfterLoaded = false;
+		}
+	}
+
+	void ContentDialogContent::OnDefaultButtonChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
+	{
+		UNREFERENCED_PARAMETER(sender);
+		UNREFERENCED_PARAMETER(e);
+
+		auto self = get_self<ContentDialogContent>(sender.as<winrt::WinUI3Package::ContentDialogContent>());
+
+		if (self->IsLoaded())
+		{
+			self->defaultButtonState = self->DetermineDefaultButtonState();
+		}
+	}
+
+	bool ContentDialogContent::IsHeaderImage() const
+	{
+		return _IsHeaderImage;
+	}
+
+	void ContentDialogContent::IsHeaderImage(const bool& value)
+	{
+		if (_IsHeaderImage != value)
+		{
+			_IsHeaderImage = value;
+		}
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::TitleProperty()
+	{
+		return _TitleProperty;
+	}
+
+	winrt::Windows::Foundation::IInspectable ContentDialogContent::Title() const
+	{
+		return winrt::unbox_value<winrt::Windows::Foundation::IInspectable>(GetValue(_TitleProperty));
+	}
+
+	void ContentDialogContent::Title(const winrt::Windows::Foundation::IInspectable& value)
+	{
+		SetValue(_TitleProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::TitleTemplateProperty()
+	{
+		return _TitleTemplateProperty;
+	}
+
+	Microsoft::UI::Xaml::DataTemplate ContentDialogContent::TitleTemplate() const
+	{
+		return winrt::unbox_value<Microsoft::UI::Xaml::DataTemplate>(GetValue(_TitleTemplateProperty));
+	}
+
+	void ContentDialogContent::TitleTemplate(const Microsoft::UI::Xaml::DataTemplate& value)
+	{
+		SetValue(_TitleTemplateProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::PrimaryButtonTextProperty()
+	{
+		return _PrimaryButtonTextProperty;
+	}
+
+	winrt::hstring ContentDialogContent::PrimaryButtonText() const
+	{
+		return winrt::unbox_value<winrt::hstring>(GetValue(_PrimaryButtonTextProperty));
+	}
+
+	void ContentDialogContent::PrimaryButtonText(const winrt::hstring& value)
+	{
+		SetValue(_PrimaryButtonTextProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::SecondaryButtonTextProperty()
+	{
+		return _SecondaryButtonTextProperty;
+	}
+
+	winrt::hstring ContentDialogContent::SecondaryButtonText() const
+	{
+		return winrt::unbox_value<winrt::hstring>(GetValue(_SecondaryButtonTextProperty));
+	}
+
+	void ContentDialogContent::SecondaryButtonText(const winrt::hstring& value)
+	{
+		SetValue(_SecondaryButtonTextProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::CloseButtonTextProperty()
+	{
+		return _CloseButtonTextProperty;
+	}
+
+	winrt::hstring ContentDialogContent::CloseButtonText() const
+	{
+		return winrt::unbox_value<winrt::hstring>(GetValue(_CloseButtonTextProperty));
+	}
+
+	void ContentDialogContent::CloseButtonText(const winrt::hstring& value)
+	{
+		SetValue(_CloseButtonTextProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::IsPrimaryButtonEnabledProperty()
+	{
+		return _IsPrimaryButtonEnabledProperty;
+	}
+
+	bool ContentDialogContent::IsPrimaryButtonEnabled() const
+	{
+		return winrt::unbox_value<bool>(GetValue(_IsPrimaryButtonEnabledProperty));
+	}
+
+	void ContentDialogContent::IsPrimaryButtonEnabled(const bool& value)
+	{
+		SetValue(_IsPrimaryButtonEnabledProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::IsSecondaryButtonEnabledProperty()
+	{
+		return _IsSecondaryButtonEnabledProperty;
+	}
+
+	bool ContentDialogContent::IsSecondaryButtonEnabled() const
+	{
+		return winrt::unbox_value<bool>(GetValue(_IsSecondaryButtonEnabledProperty));
+	}
+
+	void ContentDialogContent::IsSecondaryButtonEnabled(const bool& value)
+	{
+		SetValue(_IsSecondaryButtonEnabledProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::DefaultButtonProperty()
+	{
+		return _DefaultButtonProperty;
+	}
+
+	Microsoft::UI::Xaml::Controls::ContentDialogButton ContentDialogContent::DefaultButton() const
+	{
+		return winrt::unbox_value<Microsoft::UI::Xaml::Controls::ContentDialogButton>(GetValue(_DefaultButtonProperty));
+	}
+
+	void ContentDialogContent::DefaultButton(const Microsoft::UI::Xaml::Controls::ContentDialogButton& value)
+	{
+		SetValue(_DefaultButtonProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::PrimaryButtonStyleProperty()
+	{
+		return _PrimaryButtonStyleProperty;
+	}
+
+	Microsoft::UI::Xaml::Style ContentDialogContent::PrimaryButtonStyle() const
+	{
+		return winrt::unbox_value<Microsoft::UI::Xaml::Style>(GetValue(_PrimaryButtonStyleProperty));
+	}
+
+	void ContentDialogContent::PrimaryButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	{
+		SetValue(_PrimaryButtonStyleProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::SecondaryButtonStyleProperty()
+	{
+		return _SecondaryButtonStyleProperty;
+	}
+
+	Microsoft::UI::Xaml::Style ContentDialogContent::SecondaryButtonStyle() const
+	{
+		return winrt::unbox_value<Microsoft::UI::Xaml::Style>(GetValue(_SecondaryButtonStyleProperty));
+	}
+
+	void ContentDialogContent::SecondaryButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	{
+		SetValue(_SecondaryButtonStyleProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::CloseButtonStyleProperty()
+	{
+		return _CloseButtonStyleProperty;
+	}
+
+	Microsoft::UI::Xaml::Style ContentDialogContent::CloseButtonStyle() const
+	{
+		return winrt::unbox_value<Microsoft::UI::Xaml::Style>(GetValue(_CloseButtonStyleProperty));
+	}
+
+	void ContentDialogContent::CloseButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	{
+		SetValue(_CloseButtonStyleProperty, winrt::box_value(value));
 	}
 
 }
