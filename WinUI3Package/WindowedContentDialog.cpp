@@ -39,7 +39,7 @@ namespace winrt::WinUI3Package::implementation
 				{
 					auto self = winrt::get_self<WindowedContentDialog>(obj.as<WinUI3Package::WindowedContentDialog>());
 
-					auto m_ContentDialogContent = self->m_ContentDialogWindow.ContentDialogContent();
+					auto m_ContentDialogContent = self->m_contentDialogWindowImpl->ContentDialogContent();
 
 					if (m_ContentDialogContent) {
 
@@ -60,7 +60,7 @@ namespace winrt::WinUI3Package::implementation
 				{
 					auto self = winrt::get_self<WindowedContentDialog>(obj.as<WinUI3Package::WindowedContentDialog>());
 
-					auto m_ContentDialogContent = self->m_ContentDialogWindow.ContentDialogContent();
+					auto m_ContentDialogContent = self->m_contentDialogWindowImpl->ContentDialogContent();
 
 					if (m_ContentDialogContent) {
 
@@ -92,10 +92,10 @@ namespace winrt::WinUI3Package::implementation
 
 		CenterInParent(true);
 
-
-		PrimaryButtonStyle(ContentDialogUtils::DefaultButtonStyle());
-		SecondaryButtonStyle(ContentDialogUtils::DefaultButtonStyle());
-		CloseButtonStyle(ContentDialogUtils::DefaultButtonStyle());
+		auto defaultButtonStyle = ContentDialogUtils::DefaultButtonStyle();
+		PrimaryButtonStyle(defaultButtonStyle);
+		SecondaryButtonStyle(defaultButtonStyle);
+		CloseButtonStyle(defaultButtonStyle);
 		HasTitleBar(true);
 
 	}
@@ -122,29 +122,26 @@ namespace winrt::WinUI3Package::implementation
 		if (!HeaderImageUri().empty()) m_ContentDialogWindow.HeaderImageUri(HeaderImageUri());
 
 		m_ContentDialogWindow.Title(WindowTitle());
-		m_ContentDialogWindow.DialogTitle(Title());
-		m_ContentDialogWindow.DialogContent(Content());
 		m_ContentDialogWindow.HasTitleBar(HasTitleBar());
 		m_ContentDialogWindow.IsResizable(IsResizable());
 
-		m_ContentDialogWindow.TitleTemplate(TitleTemplate());
-		m_ContentDialogWindow.ContentTemplate(ContentTemplate());
-
-
-		m_ContentDialogWindow.PrimaryButtonText(PrimaryButtonText());
-		m_ContentDialogWindow.SecondaryButtonText(SecondaryButtonText());
-		m_ContentDialogWindow.CloseButtonText(CloseButtonText());
-		m_ContentDialogWindow.DefaultButton(DefaultButton());
-		m_ContentDialogWindow.IsPrimaryButtonEnabled(IsPrimaryButtonEnabled());
-		m_ContentDialogWindow.IsSecondaryButtonEnabled(IsSecondaryButtonEnabled());
-
-		m_ContentDialogWindow.PrimaryButtonStyle(PrimaryButtonStyle());
-		m_ContentDialogWindow.SecondaryButtonStyle(SecondaryButtonStyle());
-		m_ContentDialogWindow.CloseButtonStyle(CloseButtonStyle());
+		auto content = m_contentDialogWindowImpl->ContentDialogContent();
+		content.Title(Title());
+		content.Content(Content());
+		content.TitleTemplate(TitleTemplate());
+		content.ContentTemplate(ContentTemplate());
+		content.PrimaryButtonText(PrimaryButtonText());
+		content.SecondaryButtonText(SecondaryButtonText());
+		content.CloseButtonText(CloseButtonText());
+		content.DefaultButton(DefaultButton());
+		content.IsPrimaryButtonEnabled(IsPrimaryButtonEnabled());
+		content.IsSecondaryButtonEnabled(IsSecondaryButtonEnabled());
+		content.PrimaryButtonStyle(PrimaryButtonStyle());
+		content.SecondaryButtonStyle(SecondaryButtonStyle());
+		content.CloseButtonStyle(CloseButtonStyle());
+		content.RequestedTheme(RequestedTheme());
 
 		m_ContentDialogWindow.SystemBackdrop(SystemBackdrop());
-
-		m_ContentDialogWindow.RequestedTheme(RequestedTheme());
 
 
 
@@ -243,12 +240,6 @@ namespace winrt::WinUI3Package::implementation
 
 	}
 
-	void WindowedContentDialog::UpdateWindowSize() {
-
-		//m_dialogWindow.DialogContent();
-
-	}
-
 	void WindowedContentDialog::SetUnderlay(WinUI3Package::ContentDialogWindow const& dialogWindow)
 	{
 
@@ -337,8 +328,6 @@ namespace winrt::WinUI3Package::implementation
 
 		dialogWindow.Closed(m_onPopupClosed);
 		m_onPopupClosed = dialogWindow.Closed({ this, &WindowedContentDialog::DialogWindow_Closed });
-
-		//AttachPopupLifecycle(dialogWindow, m_Popup, false);
 	}
 
 	void WindowedContentDialog::DisableOwnerEvents(WinUI3Package::ContentDialogWindow const& dialogWindow)
@@ -348,53 +337,8 @@ namespace winrt::WinUI3Package::implementation
 
 		m_DialogWindow_Opened = dialogWindow.Opened({ this, &WindowedContentDialog::DialogWindow_Opened });
 		m_DialogWindow_Closed = dialogWindow.Closed({ this, &WindowedContentDialog::DialogWindow_Closed });
-
 	}
 
-	void WindowedContentDialog::AttachPopupLifecycle(WinUI3Package::ContentDialogWindow const& dialogWindow, Microsoft::UI::Xaml::Controls::Primitives::Popup const& popup, bool isSmokeLayer)
-	{
-
-		//auto OnDialogWindowOpened = [&](WinUI3Package::ContentDialogWindow const& Window, winrt::Windows::Foundation::IInspectable const& args) {
-
-		//	m_Popup.IsOpen(true);
-		//	m_Popup.Child().Opacity(1.0f);
-
-		//	OwnerWindow().SizeChanged(m_OnOwnerWindowSizeChanged);
-		//	m_OnOwnerWindowSizeChanged = OwnerWindow().SizeChanged({ this, &WindowedContentDialog::OnOwnerWindowSizeChanged });
-
-		//};
-
-		//auto DialogWindow_ClosedPopup = [&](Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowEventArgs const& args) ->Windows::Foundation::IAsyncAction {
-
-
-		//	m_Popup.Child().Opacity(0.f);
-
-		//	m_Popup.IsOpen(false);
-
-		//	m_Popup.Child(nullptr);
-
-		//	OwnerWindow().SizeChanged(m_OnOwnerWindowSizeChanged);
-
-		//	co_return;
-		//};
-
-		//if (isSmokeLayer)
-		//{
-		//	dialogWindow.Opened(m_onPopupOpened);
-		//	m_onPopupOpened = dialogWindow.Opened(OnDialogWindowOpened);
-		//}
-		//else {
-
-		//	dialogWindow.Loaded(m_onPopupLoaded);
-		//	m_onPopupLoaded = dialogWindow.Loaded(OnDialogWindowOpened);
-		//}
-
-		//dialogWindow.Closed(m_onPopupClosed);
-		//m_onPopupClosed = dialogWindow.Closed(DialogWindow_ClosedPopup);
-
-
-
-	}
 
 	void WindowedContentDialog::SizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window)
 	{
@@ -525,17 +469,17 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> WindowedContentDialog::PrimaryButtonKeyboardAccelerators()
 	{
-		return m_ContentDialogWindow.PrimaryButtonKeyboardAccelerators();
+		return m_contentDialogWindowImpl->ContentDialogContent().PrimaryButtonKeyboardAccelerators();
 	}
 
 	winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> WindowedContentDialog::SecondaryButtonKeyboardAccelerators()
 	{
-		return m_ContentDialogWindow.SecondaryButtonKeyboardAccelerators();
+		return m_contentDialogWindowImpl->ContentDialogContent().SecondaryButtonKeyboardAccelerators();
 	}
 
 	winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> WindowedContentDialog::CloseButtonKeyboardAccelerators()
 	{
-		return m_ContentDialogWindow.CloseButtonKeyboardAccelerators();
+		return m_contentDialogWindowImpl->ContentDialogContent().CloseButtonKeyboardAccelerators();
 	}
 
 	winrt::Microsoft::UI::Xaml::Window WindowedContentDialog::ownerWindow()

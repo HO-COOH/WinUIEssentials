@@ -79,17 +79,13 @@ namespace winrt::WinUI3Package::implementation
 		//m_Activated = Activated({ this, &ContentDialogWindow::OnActivated });;
 
 
-		m_OnPrimaryButtonClick = this->ContentDialogContent().PrimaryButtonClick({ this, &ContentDialogWindow::OnPrimaryButtonClick });
-		m_OnSecondaryButtonClick = this->ContentDialogContent().SecondaryButtonClick({ this, &ContentDialogWindow::OnSecondaryButtonClick });
-		m_OnCloseButtonClick = this->ContentDialogContent().CloseButtonClick({ this, &ContentDialogWindow::OnCloseButtonClick });
+		m_OnPrimaryButtonClick = ContentDialogContent().PrimaryButtonClick({ this, &ContentDialogWindow::OnPrimaryButtonClick });
+		m_OnSecondaryButtonClick = ContentDialogContent().SecondaryButtonClick({ this, &ContentDialogWindow::OnSecondaryButtonClick });
+		m_OnCloseButtonClick = ContentDialogContent().CloseButtonClick({ this, &ContentDialogWindow::OnCloseButtonClick });
 
-		this->ContentDialogContent().ContentRightTapped({ this, &ContentDialogWindow::OnContentRightTapped });
+		ContentDialogContent().ContentRightTapped({ this, &ContentDialogWindow::OnContentRightTapped });
 
-		//this->ContentDialogContent().Loaded([&](auto&, auto&) {
-		//	DetermineTitleBarButtonForegroundColor();
-		//});
-
-		m_ActualThemeChanged = this->ContentDialogContent().ActualThemeChanged([&](auto&, auto&) {
+		m_ActualThemeChanged = ContentDialogContent().ActualThemeChanged([&](auto&, auto&) {
 			DetermineTitleBarButtonForegroundColor();
 		});
 
@@ -109,7 +105,7 @@ namespace winrt::WinUI3Package::implementation
 			OnClosingRequestedBySystem();
 
 			m_windowWorkaround = nullptr;
-			this->DispatcherQueue().TryEnqueue([this] {
+			DispatcherQueue().TryEnqueue([this] {
 				Close();
 			});
 		});
@@ -131,10 +127,8 @@ namespace winrt::WinUI3Package::implementation
 
 		});
 
-		//SetWindowSubclass((HWND)WindowHelper::GetWindowHandle(*this), TitleBarSubclassProc, 0xFF69B4, 0);
 
-		//this->ContentDialogContent() = WinUI3Package::ContentDialogthis->ContentDialogContent();
-		this->ContentDialogContent().Loaded({ this, &ContentDialogWindow::OnContentLoaded });;
+		ContentDialogContent().Loaded({ this, &ContentDialogWindow::OnContentLoaded });;
 
 		m_ImageOpened = WindowImage().ImageOpened([this](IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
 		{
@@ -185,26 +179,21 @@ namespace winrt::WinUI3Package::implementation
 		// 计算基础窗口宽度（未应用缩放）
 		int baseWidth = ImageGrid().Width() ?
 			(int)ImageGrid().Width() :
-			(int)(this->ContentDialogContent().DesiredSize().Width + 1);
+			(int)(ContentDialogContent().DesiredSize().Width + 1);
 
 		// 计算基础窗口高度（未应用缩放）
 		int baseHeight =
-			(int)(this->ContentDialogContent().DesiredSize().Height - 30) +
+			(int)(ContentDialogContent().DesiredSize().Height - 30) +
 			(int)ImageGrid().Height();
 
 		// 获取缩放比例
-		float scale = (float)this->ContentDialogContent().XamlRoot().RasterizationScale();
+		float scale = (float)ContentDialogContent().XamlRoot().RasterizationScale();
 
 		// 在ResizeClient中应用缩放比例
 		AppWindow().ResizeClient(Windows::Graphics::SizeInt32(
 			(int)(baseWidth * scale) + 1,
 			(int)(baseHeight * scale) + 1
 		));
-
-
-		//AppWindow().ResizeClient(Windows::Graphics::SizeInt32(
-		//	((int)((this->ContentDialogContent().DesiredSize().Width + 1) * this->ContentDialogContent().XamlRoot().RasterizationScale()) + 1) + ImageGrid().Width(),
-		//	((int)((this->ContentDialogContent().DesiredSize().Height - 30) * this->ContentDialogContent().XamlRoot().RasterizationScale()) + 1) + ImageGrid().Height()));
 
 
 		if (_center)
@@ -232,26 +221,24 @@ namespace winrt::WinUI3Package::implementation
 
 		UpdateWindowSize();
 
-		SetTitleBar(this->ContentDialogContent().TitleArea());
+		SetTitleBar(ContentDialogContent().TitleArea());
 
 
 		if (SystemBackdrop() == nullptr)
 		{
-			auto requestedTheme = RequestedTheme();
+			auto requestedTheme = ContentDialogContent().RequestedTheme();
 
-			// 根据主题设置不同的背景色
 			switch (requestedTheme)
 			{
 				case Microsoft::UI::Xaml::ElementTheme::Light:
-					Background(Microsoft::UI::Xaml::Media::SolidColorBrush(Microsoft::UI::Colors::White()));
+					ContentDialogContent().Background(Microsoft::UI::Xaml::Media::SolidColorBrush(Microsoft::UI::Colors::White()));
 					break;
 				case Microsoft::UI::Xaml::ElementTheme::Dark:
-					// ARGB值: 0xFF (不透明), 0x20, 0x20, 0x20 (深灰色)
-					Background(Microsoft::UI::Xaml::Media::SolidColorBrush(
+					ContentDialogContent().Background(Microsoft::UI::Xaml::Media::SolidColorBrush(
 						Windows::UI::ColorHelper::FromArgb(0xFF, 0x20, 0x20, 0x20)));
 					break;
 				default:
-					Background(nullptr);
+					ContentDialogContent().Background(nullptr);
 					break;
 			}
 		}
@@ -259,12 +246,12 @@ namespace winrt::WinUI3Package::implementation
 		if (SystemBackdrop() == nullptr || SystemBackdrop().try_as<Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop>() != nullptr)
 		{
 			// 如果系统背景为空或为DesktopAcrylicBackdrop，将透明度设为1.0
-			this->ContentDialogContent().CommandSpace().Background().Opacity(1.0);
+			ContentDialogContent().CommandSpace().Background().Opacity(1.0);
 		}
 		else
 		{
 			// 其他情况透明度设为0.5
-			this->ContentDialogContent().CommandSpace().Background().Opacity(0.5);
+			ContentDialogContent().CommandSpace().Background().Opacity(0.5);
 		}
 
 
@@ -283,17 +270,7 @@ namespace winrt::WinUI3Package::implementation
 		});
 
 		Open();
-		//sizeChangedToken = this->ContentDialogContent().SizeChanged([&](auto&, auto&) {
 
-
-		//	InitializeWindow();
-
-
-		//});
-		//this->ContentDialogContent().SizeChanged([&](auto&, auto&) {
-
-		//	UpdateWindowSize();
-		//});
 	}
 
 	void ContentDialogWindow::Open()
@@ -431,7 +408,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void ContentDialogWindow::DetermineTitleBarButtonForegroundColor()
 	{
-		switch (this->ContentDialogContent().ActualTheme())
+		switch (ContentDialogContent().ActualTheme())
 		{
 			case Microsoft::UI::Xaml::ElementTheme::Light: {
 				AppWindow().TitleBar().ButtonForegroundColor(Microsoft::UI::Colors::Black());
@@ -461,7 +438,7 @@ namespace winrt::WinUI3Package::implementation
 		OnClosingRequstedByCode();
 
 		m_windowWorkaround = nullptr;
-		this->DispatcherQueue().TryEnqueue([this] {
+		DispatcherQueue().TryEnqueue([this] {
 
 			Close();
 		});
@@ -475,141 +452,6 @@ namespace winrt::WinUI3Package::implementation
 		if (m_parent.get() == parent) return;
 
 		SetModal(parent);
-	}
-
-	void ContentDialogWindow::Foreground(Microsoft::UI::Xaml::Media::Brush const& brush) {
-
-		this->ContentDialogContent().Foreground(brush);
-	}
-	Microsoft::UI::Xaml::Media::Brush ContentDialogWindow::Foreground() {
-
-		return this->ContentDialogContent().Foreground();
-	}
-
-	void ContentDialogWindow::Background(Microsoft::UI::Xaml::Media::Brush const& brush) {
-
-		this->ContentDialogContent().Background(brush);
-	}
-	Microsoft::UI::Xaml::Media::Brush ContentDialogWindow::Background() {
-
-		return this->ContentDialogContent().Background();
-	}
-
-	void ContentDialogWindow::BorderBrush(Microsoft::UI::Xaml::Media::Brush const& brush) {
-
-		this->ContentDialogContent().BorderBrush(brush);
-	}
-	Microsoft::UI::Xaml::Media::Brush ContentDialogWindow::BorderBrush() {
-
-		return this->ContentDialogContent().BorderBrush();
-	}
-
-
-	void ContentDialogWindow::BorderThickness(Microsoft::UI::Xaml::Thickness const& thickness) {
-		this->ContentDialogContent().BorderThickness(thickness);
-	}
-	Microsoft::UI::Xaml::Thickness ContentDialogWindow::BorderThickness() {
-
-		return this->ContentDialogContent().BorderThickness();
-	}
-
-	void ContentDialogWindow::FlowDirection(Microsoft::UI::Xaml::FlowDirection const& direction) {
-		this->ContentDialogContent().FlowDirection(direction);
-	}
-	Microsoft::UI::Xaml::FlowDirection ContentDialogWindow::FlowDirection() {
-		return this->ContentDialogContent().FlowDirection();
-	}
-
-	void ContentDialogWindow::TitleTemplate(Microsoft::UI::Xaml::DataTemplate const& value) {
-		this->ContentDialogContent().TitleTemplate(value);
-	}
-	Microsoft::UI::Xaml::DataTemplate ContentDialogWindow::TitleTemplate() {
-		return this->ContentDialogContent().TitleTemplate();
-	}
-
-	void ContentDialogWindow::ContentTemplate(Microsoft::UI::Xaml::DataTemplate const& value) {
-		this->ContentDialogContent().ContentTemplate(value);
-	}
-	Microsoft::UI::Xaml::DataTemplate ContentDialogWindow::ContentTemplate() {
-		return this->ContentDialogContent().ContentTemplate();
-	}
-
-	void ContentDialogWindow::PrimaryButtonText(winrt::hstring const& text) {
-		this->ContentDialogContent().PrimaryButtonText(text);
-	}
-	winrt::hstring ContentDialogWindow::PrimaryButtonText() {
-		return this->ContentDialogContent().PrimaryButtonText();
-	}
-
-	void ContentDialogWindow::SecondaryButtonText(winrt::hstring const& text) {
-		this->ContentDialogContent().SecondaryButtonText(text);
-	}
-	winrt::hstring ContentDialogWindow::SecondaryButtonText() {
-		return this->ContentDialogContent().SecondaryButtonText();
-	}
-
-	void ContentDialogWindow::CloseButtonText(winrt::hstring const& text) {
-		this->ContentDialogContent().CloseButtonText(text);
-	}
-	winrt::hstring ContentDialogWindow::CloseButtonText() {
-		return this->ContentDialogContent().CloseButtonText();
-	}
-
-	void ContentDialogWindow::IsPrimaryButtonEnabled(bool enabled) {
-		this->ContentDialogContent().IsPrimaryButtonEnabled(enabled);
-
-	}
-	bool ContentDialogWindow::IsPrimaryButtonEnabled() {
-		return this->ContentDialogContent().IsPrimaryButtonEnabled();
-	}
-
-	void ContentDialogWindow::IsSecondaryButtonEnabled(bool enabled) {
-		this->ContentDialogContent().IsSecondaryButtonEnabled(enabled);
-	}
-	bool ContentDialogWindow::IsSecondaryButtonEnabled() {
-		return this->ContentDialogContent().IsSecondaryButtonEnabled();
-	}
-
-	void ContentDialogWindow::DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton button) {
-		this->ContentDialogContent().DefaultButton(button);
-	}
-	Microsoft::UI::Xaml::Controls::ContentDialogButton ContentDialogWindow::DefaultButton() {
-		return this->ContentDialogContent().DefaultButton();
-	}
-
-	void ContentDialogWindow::PrimaryButtonStyle(Microsoft::UI::Xaml::Style const& style) {
-		this->ContentDialogContent().PrimaryButtonStyle(style);
-	}
-	Microsoft::UI::Xaml::Style ContentDialogWindow::PrimaryButtonStyle() {
-		return this->ContentDialogContent().PrimaryButtonStyle();
-	}
-
-	void ContentDialogWindow::SecondaryButtonStyle(Microsoft::UI::Xaml::Style const& style) {
-		this->ContentDialogContent().SecondaryButtonStyle(style);
-	}
-	Microsoft::UI::Xaml::Style ContentDialogWindow::SecondaryButtonStyle() {
-		return this->ContentDialogContent().SecondaryButtonStyle();
-	}
-
-	void ContentDialogWindow::CloseButtonStyle(Microsoft::UI::Xaml::Style const& style) {
-		this->ContentDialogContent().CloseButtonStyle(style);
-	}
-	Microsoft::UI::Xaml::Style ContentDialogWindow::CloseButtonStyle() {
-		return this->ContentDialogContent().CloseButtonStyle();
-	}
-
-	void ContentDialogWindow::DialogTitle(winrt::Windows::Foundation::IInspectable const& title) {
-		this->ContentDialogContent().Title(title);
-	}
-	winrt::Windows::Foundation::IInspectable ContentDialogWindow::DialogTitle() {
-		return this->ContentDialogContent().Title();
-	}
-
-	void ContentDialogWindow::DialogContent(winrt::Windows::Foundation::IInspectable const& Value) {
-		this->ContentDialogContent().Content(Value);
-	}
-	winrt::Windows::Foundation::IInspectable ContentDialogWindow::DialogContent() {
-		return this->ContentDialogContent().Content();
 	}
 
 	//void ContentDialogWindow::Result(Microsoft::UI::Xaml::Controls::ContentDialogResult result) {
@@ -636,12 +478,6 @@ namespace winrt::WinUI3Package::implementation
 		return m_isResizable;
 	}
 
-	void ContentDialogWindow::RequestedTheme(Microsoft::UI::Xaml::ElementTheme theme) {
-		this->ContentDialogContent().RequestedTheme(theme);
-	}
-	Microsoft::UI::Xaml::ElementTheme ContentDialogWindow::RequestedTheme() {
-		return this->ContentDialogContent().RequestedTheme();
-	}
 
 	winrt::event_token ContentDialogWindow::Loaded(Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, Windows::Foundation::IInspectable> const& handler)
 	{
@@ -715,7 +551,7 @@ namespace winrt::WinUI3Package::implementation
 				Microsoft::UI::Xaml::Media::Imaging::BitmapImage bitmapImage = {};
 				bitmapImage.UriSource(Windows::Foundation::Uri(m_HeaderImageUri));
 				WindowImage().Source(bitmapImage);
-				this->ContentDialogContent().IsHeaderImage(true);
+				ContentDialogContent().IsHeaderImage(true);
 				ImageGrid().Visibility(Microsoft::UI::Xaml::Visibility::Visible);
 			}
 		}
@@ -736,26 +572,14 @@ namespace winrt::WinUI3Package::implementation
 			//bitmapImage.UriSource(Windows::Foundation::Uri(L"https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1364780/header.jpg"));
 			WindowImage().Source(Value);
 
-			this->ContentDialogContent().IsHeaderImage(true);
+			ContentDialogContent().IsHeaderImage(true);
 		}
 	}
 
-	winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> ContentDialogWindow::PrimaryButtonKeyboardAccelerators() {
-
-		return this->ContentDialogContent().PrimaryButtonKeyboardAccelerators();
+	winrt::WinUI3Package::ContentDialogContent ContentDialogWindow::ContentDialogContent()
+	{
+		return ContentDialogContentControl();
 	}
-
-	winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> ContentDialogWindow::SecondaryButtonKeyboardAccelerators() {
-
-		return this->ContentDialogContent().SecondaryButtonKeyboardAccelerators();
-	}
-
-	winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> ContentDialogWindow::CloseButtonKeyboardAccelerators() {
-
-		return this->ContentDialogContent().CloseButtonKeyboardAccelerators();
-	}
-
-
 
 	void ContentDialogWindow::OnContentRightTapped(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::RightTappedRoutedEventArgs const& e)
 	{

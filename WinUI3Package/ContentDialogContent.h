@@ -24,9 +24,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::hstring DetermineButtonsVisibilityState();
 		winrt::hstring DetermineDefaultButtonState();
 
-		void DetermineWidthLimit();
-		void RemoveSizeLimit();
-
 		void TitleArea(Microsoft::UI::Xaml::UIElement const& Element);
 		Microsoft::UI::Xaml::UIElement TitleArea();
 

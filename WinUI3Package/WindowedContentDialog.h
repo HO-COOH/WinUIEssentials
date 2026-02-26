@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "WindowedContentDialog.g.h"
+#include "ContentDialogWindow.xaml.h"
 
 
 namespace winrt::WinUI3Package::implementation
@@ -45,7 +46,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync();
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync(winrt::Microsoft::UI::Xaml::Window const& parent);
 		WinUI3Package::ContentDialogWindow GetDialogWindow() { return m_ContentDialogWindow; };
-		void UpdateWindowSize();
 		void SetUnderlay(WinUI3Package::ContentDialogWindow const& dialogWindow);
 		void HandleSmokeLayer(WinUI3Package::ContentDialogWindow const& dialogWindow);
 		void HandleSystemBackdrop(WinUI3Package::ContentDialogWindow const& dialogWindow);
@@ -81,7 +81,7 @@ namespace winrt::WinUI3Package::implementation
 			UNREFERENCED_PARAMETER(sender);
 			UNREFERENCED_PARAMETER(e);
 			auto self = get_self<WindowedContentDialog>(sender.as<winrt::WinUI3Package::WindowedContentDialog>());
-			self->m_ContentDialogWindow.IsPrimaryButtonEnabled(e.NewValue().as<bool>());
+			self->m_contentDialogWindowImpl->ContentDialogContent().IsPrimaryButtonEnabled(e.NewValue().as<bool>());
 		}
 
 		static void OnIsSecondaryButtonEnabledChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
@@ -89,7 +89,7 @@ namespace winrt::WinUI3Package::implementation
 			UNREFERENCED_PARAMETER(sender);
 			UNREFERENCED_PARAMETER(e);
 			auto self = get_self<WindowedContentDialog>(sender.as<winrt::WinUI3Package::WindowedContentDialog>());
-			self->m_ContentDialogWindow.IsSecondaryButtonEnabled(e.NewValue().as<bool>());
+			self->m_contentDialogWindowImpl->ContentDialogContent().IsSecondaryButtonEnabled(e.NewValue().as<bool>());
 		}
 
 		// HeaderImage
@@ -428,6 +428,7 @@ namespace winrt::WinUI3Package::implementation
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _IsSecondaryButtonEnabledProperty;
 
 		WinUI3Package::ContentDialogWindow m_ContentDialogWindow;
+		ContentDialogWindow* m_contentDialogWindowImpl = winrt::get_self<ContentDialogWindow>(m_ContentDialogWindow);
 		Microsoft::UI::Xaml::Controls::Primitives::Popup m_Popup{ nullptr };
 
 		winrt::event<Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable>> m_Loaded;

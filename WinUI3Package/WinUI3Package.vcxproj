@@ -653,6 +653,7 @@
       <DependentUpon>ContentDialogContent.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ContentDialogUtils.cpp" />
     <ClCompile Include="ContentDialogWindow.xaml.cpp">
       <DependentUpon>ContentDialogWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

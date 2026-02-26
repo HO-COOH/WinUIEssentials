@@ -16,18 +16,9 @@ namespace winrt::WinUI3Package::implementation
 
 		ContentDialogWindow();
 
-		winrt::WinUI3Package::ContentDialogContent ContentDialogContent() {
-
-			return this->ContentDialogContentControl();
-		}
-
-
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync();
 
 		void UpdateWindowSize();
-
-
-		//void UpdateWindowSize1();
 
 		void OnContentLoaded(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
@@ -72,68 +63,11 @@ namespace winrt::WinUI3Package::implementation
 		winrt::event_token CloseButtonClick(Windows::Foundation::TypedEventHandler<WinUI3Package::ContentDialogWindow, WinUI3Package::ContentDialogWindowButtonClickEventArgs> const& handler);
 		void CloseButtonClick(winrt::event_token const& token);
 
-		void Foreground(Microsoft::UI::Xaml::Media::Brush const& brush);
-		Microsoft::UI::Xaml::Media::Brush Foreground();
-
-		void Background(Microsoft::UI::Xaml::Media::Brush const& brush);
-		Microsoft::UI::Xaml::Media::Brush Background();
-
-		void BorderBrush(Microsoft::UI::Xaml::Media::Brush const& brush);
-		Microsoft::UI::Xaml::Media::Brush BorderBrush();
-
-		void BorderThickness(Microsoft::UI::Xaml::Thickness const& thickness);
-		Microsoft::UI::Xaml::Thickness BorderThickness();
-
-		void FlowDirection(Microsoft::UI::Xaml::FlowDirection const& direction);
-		Microsoft::UI::Xaml::FlowDirection FlowDirection();
-
-		void TitleTemplate(Microsoft::UI::Xaml::DataTemplate const& dataTemplate);
-		Microsoft::UI::Xaml::DataTemplate TitleTemplate();
-
-		void ContentTemplate(Microsoft::UI::Xaml::DataTemplate const& dataTemplate);
-		Microsoft::UI::Xaml::DataTemplate ContentTemplate();
-
-		void PrimaryButtonText(winrt::hstring const& text);
-		winrt::hstring PrimaryButtonText();
-
-		void SecondaryButtonText(winrt::hstring const& text);
-		winrt::hstring SecondaryButtonText();
-
-		void CloseButtonText(winrt::hstring const& text);
-		winrt::hstring CloseButtonText();
-
-		void IsPrimaryButtonEnabled(bool enabled);
-		bool IsPrimaryButtonEnabled();
-
-		void IsSecondaryButtonEnabled(bool enabled);
-		bool IsSecondaryButtonEnabled();
-
-		void DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton button);
-		Microsoft::UI::Xaml::Controls::ContentDialogButton DefaultButton();
-
-		void PrimaryButtonStyle(Microsoft::UI::Xaml::Style const& style);
-		Microsoft::UI::Xaml::Style PrimaryButtonStyle();
-
-		void SecondaryButtonStyle(Microsoft::UI::Xaml::Style const& style);
-		Microsoft::UI::Xaml::Style SecondaryButtonStyle();
-
-		void CloseButtonStyle(Microsoft::UI::Xaml::Style const& style);
-		Microsoft::UI::Xaml::Style CloseButtonStyle();
-
-		void DialogTitle(winrt::Windows::Foundation::IInspectable const& title);
-		winrt::Windows::Foundation::IInspectable DialogTitle();
-
-		void DialogContent(winrt::Windows::Foundation::IInspectable const& content);
-		winrt::Windows::Foundation::IInspectable DialogContent();
-
 		void HasTitleBar(bool hasTitleBar);
 		bool HasTitleBar();
 
 		void IsResizable(bool isResizable);
 		bool IsResizable();
-
-		void RequestedTheme(Microsoft::UI::Xaml::ElementTheme theme);
-		Microsoft::UI::Xaml::ElementTheme RequestedTheme();
 
 		winrt::hstring HeaderImageUri();
 		void HeaderImageUri(winrt::hstring const& Value);
@@ -153,12 +87,8 @@ namespace winrt::WinUI3Package::implementation
 
 		}
 
-		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> PrimaryButtonKeyboardAccelerators();
-		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> SecondaryButtonKeyboardAccelerators();
-		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> CloseButtonKeyboardAccelerators();
 
-
-
+		winrt::WinUI3Package::ContentDialogContent ContentDialogContent();
 	private:
 		bool m_hasTitleBar = true;
 		bool m_isResizable;
@@ -212,9 +142,7 @@ namespace winrt::WinUI3Package::implementation
 
 		WinUI3Package::WinUIAsyncEventArgs AsyncEventArgs;
 		winrt::Windows::Foundation::Deferral Deferral{ nullptr };
-		//TypedEventHandler<ContentDialogWindow, EventArgs> Loaded;
-		//TypedEventHandler<ContentDialogWindow, EventArgs> Opened;
-		//winrt::event<Microsoft::UI::Xaml::Data::PropertyChangedEventHandler> m_propertyChanged;
+
 	};
 }
 

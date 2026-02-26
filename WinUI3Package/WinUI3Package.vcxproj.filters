@@ -51,6 +51,9 @@
     <ClCompile Include="Shimmer.AnimationMember.cpp">
       <Filter>Controls\Shimmer</Filter>
     </ClCompile>
+    <ClCompile Include="ContentDialogUtils.cpp">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -222,6 +225,7 @@
     <ClInclude Include="ContentDialogUtils.h">
       <Filter>Controls\WindowedContentDialog</Filter>
     </ClInclude>
+    <ClInclude Include="ModalWindowBase.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

@@ -16,8 +16,6 @@ namespace WinUI3Package
 
         WinUI3Package.ContentDialogWindow GetDialogWindow();
 
-        void UpdateWindowSize();
-
         Microsoft.UI.Xaml.Shapes.Rectangle SmokeLayerCache;
         Microsoft.UI.Xaml.Controls.Border BackdropLayerCache;
 

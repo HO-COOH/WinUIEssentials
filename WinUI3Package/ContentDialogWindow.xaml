@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Window
     x:Class="WinUI3Package.ContentDialogWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -26,10 +26,7 @@
 
             <local:ContentDialogContent
                 x:Name="ContentDialogContentControl"
-                CloseButtonClick="OnCloseButtonClick"
-                Loaded="OnContentLoaded"
-                PrimaryButtonClick="OnPrimaryButtonClick"
-                SecondaryButtonClick="OnSecondaryButtonClick" />
+                Loaded="OnContentLoaded" />
         </StackPanel>
 
     </Grid>

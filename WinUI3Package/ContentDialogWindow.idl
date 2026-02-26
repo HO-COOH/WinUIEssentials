@@ -19,57 +19,18 @@ namespace WinUI3Package
 
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
 
-        WinUI3Package.ContentDialogContent ContentDialogContent();
-
         Microsoft.UI.Xaml.Media.Imaging.BitmapImage HeaderImage{ get; set; };
         String HeaderImageUri{ get; set; };
-
-        Microsoft.UI.Xaml.Media.Brush Foreground{ get; set; };
-        Microsoft.UI.Xaml.Media.Brush Background{ get; set; };
-        Microsoft.UI.Xaml.Media.Brush BorderBrush{ get; set; };
-
-        Microsoft.UI.Xaml.Thickness BorderThickness{ get; set; };
-
-        Microsoft.UI.Xaml.FlowDirection FlowDirection{ get; set; };
-
-        Microsoft.UI.Xaml.DataTemplate TitleTemplate{ get; set; };
-        Microsoft.UI.Xaml.DataTemplate ContentTemplate{ get; set; };
-
-        String PrimaryButtonText{ get; set; };
-        String SecondaryButtonText{ get; set; };
-        String CloseButtonText{ get; set; };
-
-        Boolean IsPrimaryButtonEnabled{ get; set; };
-        Boolean IsSecondaryButtonEnabled{ get; set; };
-
-
-        Microsoft.UI.Xaml.Controls.ContentDialogButton DefaultButton{ get; set; };
-
-        Microsoft.UI.Xaml.Style PrimaryButtonStyle{ get; set; };
-        Microsoft.UI.Xaml.Style SecondaryButtonStyle{ get; set; };
-        Microsoft.UI.Xaml.Style CloseButtonStyle{ get; set; };
-
-        Object DialogTitle{ get; set; };
-        Object DialogContent{ get; set; };
 
         Microsoft.UI.Xaml.Controls.ContentDialogResult Result{ get; set; };
 
         Boolean HasTitleBar{ get; set; };
         Boolean IsResizable{ get; set; };
 
-        Microsoft.UI.Xaml.ElementTheme RequestedTheme{ get; set; };
-
-
-        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> PrimaryButtonKeyboardAccelerators{ get; };
-        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> SecondaryButtonKeyboardAccelerators{ get; };
-        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> CloseButtonKeyboardAccelerators{ get; };
-
-
         event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, Object> Loaded;
         event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, Object> Opened;
 
         event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs> ContentRightTapped;
-
 
         event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, WinUI3Package.ContentDialogWindowButtonClickEventArgs> PrimaryButtonClick;
         event Windows.Foundation.TypedEventHandler<WinUI3Package.ContentDialogWindow, WinUI3Package.ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;
