@@ -328,6 +328,9 @@
     <Filter Include="Controls\WindowedContentDialog">
       <UniqueIdentifier>{25cd8eb6-3fd6-476a-a500-4a3441f22f88}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\WindowedContentDialog\Underlay">
+      <UniqueIdentifier>{c6e2dbf1-93c2-4c65-b282-62b80f67a990}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Placeholder.idl" />
@@ -518,17 +521,14 @@
     <Midl Include="ContentDialogContent.idl">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Midl>
-    <Midl Include="Underlay.idl">
-      <Filter>Controls\WindowedContentDialog</Filter>
-    </Midl>
     <Midl Include="UnderlaySmokeLayerOptions.idl">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Midl>
     <Midl Include="UnderlaySystemBackdropOptions.idl">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Midl>
-    <Midl Include="WindowedContentDialog.idl">
-      <Filter>Controls\WindowedContentDialog</Filter>
+    <Midl Include="Underlay.idl">
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -568,10 +568,10 @@
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
     </Page>
-    <Page Include="ContentDialogWindow.xaml">
+    <Page Include="ContentDialogContent_Resource.xaml">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Page>
-    <Page Include="ContentDialogContent_Resource.xaml">
+    <Page Include="WindowedContentDialog.xaml">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Page>
   </ItemGroup>

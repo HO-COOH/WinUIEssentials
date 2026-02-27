@@ -1,7 +1,7 @@
 ﻿namespace WinUI3Example
 {
     [default_interface]
-    runtimeclass ExampleDialog : WinUI3Package.ContentDialogWindow
+    runtimeclass ExampleDialog : WinUI3Package.WindowedContentDialog
     {
         ExampleDialog();
     }

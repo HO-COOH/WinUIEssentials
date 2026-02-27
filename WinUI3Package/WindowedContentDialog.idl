@@ -1,70 +1,41 @@
-﻿import "Underlay.idl";
-import "UnderlaySmokeLayerOptions.idl";
+import "ContentDialogContent.idl";
+import "Underlay.idl";
 import "UnderlaySystemBackdropOptions.idl";
-import "ContentDialogWindowButtonClickEventArgs.idl";
-import "ContentDialogWindow.idl";
 
 namespace WinUI3Package
 {
-    [bindable]
     [default_interface]
-    runtimeclass WindowedContentDialog : Microsoft.UI.Xaml.DependencyObject
+    unsealed runtimeclass WindowedContentDialog : Microsoft.UI.Xaml.Window
     {
         WindowedContentDialog();
 
-        void Close();
+        void Open();
 
-        WinUI3Package.ContentDialogWindow GetDialogWindow();
+        void Hide();
+
+        void UpdateWindowSize();
+
+        void SetParent(Microsoft.UI.Xaml.Window parent, Boolean center);
+
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parent);
+
+        WinUI3Package.ContentDialogContent ContentDialogContent{ get; };
 
         Microsoft.UI.Xaml.Media.Imaging.BitmapImage HeaderImage;
         String HeaderImageUri;
 
-        String WindowTitle;
-        Object Title;
-        Object Content;
+        Microsoft.UI.Xaml.Controls.ContentDialogResult Result{ get; };
 
-
-        Microsoft.UI.Xaml.Media.SystemBackdrop SystemBackdrop;
-
-        Microsoft.UI.Xaml.DataTemplate TitleTemplate;
-        Microsoft.UI.Xaml.DataTemplate ContentTemplate;
-        String PrimaryButtonText;
-        String SecondaryButtonText;
-        String CloseButtonText;
-        Boolean IsPrimaryButtonEnabled;
-        Boolean IsSecondaryButtonEnabled;
-        Microsoft.UI.Xaml.Controls.ContentDialogButton DefaultButton;
+        Boolean HasTitleBar;
+        Boolean IsResizable;
 
         WinUI3Package.UnderlayMode Underlay;
         WinUI3Package.UnderlaySystemBackdropOptions UnderlaySystemBackdrop;
 
         Boolean CenterInParent;
-        Microsoft.UI.Xaml.Style PrimaryButtonStyle;
-        Microsoft.UI.Xaml.Style SecondaryButtonStyle;
-        Microsoft.UI.Xaml.Style CloseButtonStyle;
-        Boolean HasTitleBar;
-        Boolean IsResizable;
 
-        Microsoft.UI.Xaml.FlowDirection ContentFlowDirection;
-
-        Double ContentMinWidth;
-
-
-        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> PrimaryButtonKeyboardAccelerators{ get; };
-        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> SecondaryButtonKeyboardAccelerators{ get; };
-        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> CloseButtonKeyboardAccelerators{ get; };
-
-
+        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, Object> Loaded;
         event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, Object> Opened;
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, Microsoft.UI.Xaml.WindowEventArgs> Closed;
-
-        event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs> ContentRightTapped;
-
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, WinUI3Package.ContentDialogWindowButtonClickEventArgs> PrimaryButtonClick;
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, WinUI3Package.ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, WinUI3Package.ContentDialogWindowButtonClickEventArgs> CloseButtonClick;
-
-        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parent);
-        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
     }
 }

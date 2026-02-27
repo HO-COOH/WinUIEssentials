@@ -23,9 +23,6 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
-    <!--<FontFamily x:Key="HarmonyOSSans">ms-appx:///WinUIToolKit/Assets/Fonts/HarmonyOS.ttf#HarmonyOS Sans SC</FontFamily>-->
-
-
     <Thickness x:Key="ContentDialogWindowTitlePadding">24,24,24,0</Thickness>
     <Thickness x:Key="ContentDialogWindowContentPadding">24,0,24,24</Thickness>
     <Color x:Key="ContentDialogWindowCommandSpaceBackground">#0F000000</Color>

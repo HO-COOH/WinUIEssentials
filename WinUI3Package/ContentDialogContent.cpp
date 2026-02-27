@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ContentDialogContent.h"
 #if __has_include("ContentDialogContent.g.cpp")
 #include "ContentDialogContent.g.cpp"
@@ -175,6 +175,9 @@ namespace winrt::WinUI3Package::implementation
 
 			co_await ContentDialogArgs.wait_for_deferrals();
 
+			if (!ContentDialogArgs.Cancel() && m_closeRequestCallback)
+				m_closeRequestCallback(Microsoft::UI::Xaml::Controls::ContentDialogResult::Primary);
+
 		});
 
 		m_OnSecondaryButtonClick = SecondaryButton.Click([&](auto const& sender, auto&)->winrt::Windows::Foundation::IAsyncAction {
@@ -186,6 +189,9 @@ namespace winrt::WinUI3Package::implementation
 			m_SecondaryButtonClick(*this, ContentDialogArgs);
 
 			co_await ContentDialogArgs.wait_for_deferrals();
+
+			if (!ContentDialogArgs.Cancel() && m_closeRequestCallback)
+				m_closeRequestCallback(Microsoft::UI::Xaml::Controls::ContentDialogResult::Secondary);
 		});
 
 		m_OnCloseButtonClick = CloseButton.Click([&](auto const& sender, auto&)->winrt::Windows::Foundation::IAsyncAction {
@@ -195,6 +201,9 @@ namespace winrt::WinUI3Package::implementation
 			m_CloseButtonClick(*this, ContentDialogArgs);
 
 			co_await ContentDialogArgs.wait_for_deferrals();
+
+			if (!ContentDialogArgs.Cancel() && m_closeRequestCallback)
+				m_closeRequestCallback(Microsoft::UI::Xaml::Controls::ContentDialogResult::None);
 		});
 
 		for (const auto& keyboardAccelerator : PrimaryButtonKeyboardAccelerators()) {

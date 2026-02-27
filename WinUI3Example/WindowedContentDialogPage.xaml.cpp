@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "WindowedContentDialogPage.xaml.h"
 #if __has_include("WindowedContentDialogPage.g.cpp")
 #include "WindowedContentDialogPage.g.cpp"
@@ -17,22 +17,23 @@ namespace winrt::WinUI3Example::implementation
 		//dialog.SetParent(MainWindow::MainWindowInstance, true, true);
 		//co_await dialog.ShowAsync();
 
-		WinUI3Package::WindowedContentDialog WindowedContentDialog;
-		WindowedContentDialog.Title(box_value(winrt::hstring(L"Title")));
-		WindowedContentDialog.Content(winrt::box_value(L"Content"));
-		WindowedContentDialog.PrimaryButtonText((winrt::hstring(L"PrimaryButton")));
-		WindowedContentDialog.SecondaryButtonText((winrt::hstring(L"SecondaryButton")));
-		WindowedContentDialog.CloseButtonText((winrt::hstring(L"CloseButton")));
+		WinUI3Package::WindowedContentDialog dialog;
 
-		WindowedContentDialog.HasTitleBar(true);
+		auto content = dialog.ContentDialogContent();
+		content.Title(box_value(winrt::hstring(L"Title")));
+		content.Content(winrt::box_value(L"Content"));
+		content.PrimaryButtonText(winrt::hstring(L"PrimaryButton"));
+		content.SecondaryButtonText(winrt::hstring(L"SecondaryButton"));
+		content.CloseButtonText(winrt::hstring(L"CloseButton"));
+		content.DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton::Primary);
 
-		WindowedContentDialog.DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton::Primary);
+		dialog.HasTitleBar(true);
 
 		WinUI3Package::UnderlaySystemBackdropOptions BackdropOptions = {};
 
-		WindowedContentDialog.UnderlaySystemBackdrop(BackdropOptions);
+		dialog.UnderlaySystemBackdrop(BackdropOptions);
 
-		co_await WindowedContentDialog.ShowAsync(MainWindow::MainWindowInstance);
+		co_await dialog.ShowAsync(MainWindow::MainWindowInstance);
 
 	}
 }

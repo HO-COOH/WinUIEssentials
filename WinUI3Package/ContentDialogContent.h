@@ -1,11 +1,15 @@
-﻿#pragma once
+#pragma once
 
 #include "ContentDialogContent.g.h"
+#include <functional>
 
 namespace winrt::WinUI3Package::implementation
 {
+	struct WindowedContentDialog;
+
 	struct ContentDialogContent : ContentDialogContentT<ContentDialogContent>
 	{
+		friend struct WindowedContentDialog;
 		ContentDialogContent();
 		~ContentDialogContent();
 
@@ -142,6 +146,8 @@ namespace winrt::WinUI3Package::implementation
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _PrimaryButtonStyleProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _SecondaryButtonStyleProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _CloseButtonStyleProperty;
+
+		std::function<void(Microsoft::UI::Xaml::Controls::ContentDialogResult)> m_closeRequestCallback;
 	};
 }
 

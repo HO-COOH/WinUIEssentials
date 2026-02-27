@@ -298,10 +298,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ContentDialogUtils.h" />
-    <ClInclude Include="ContentDialogWindow.xaml.h">
-      <DependentUpon>ContentDialogWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ContentDialogWindowButtonClickEventArgs.h">
       <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -593,8 +589,8 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="WindowContextMenuUtils.h" />
-    <ClInclude Include="WindowedContentDialog.h">
-      <DependentUpon>WindowedContentDialog.idl</DependentUpon>
+    <ClInclude Include="WindowedContentDialog.xaml.h">
+      <DependentUpon>WindowedContentDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="WindowEx.h">
@@ -651,10 +647,6 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ContentDialogUtils.cpp" />
-    <ClCompile Include="ContentDialogWindow.xaml.cpp">
-      <DependentUpon>ContentDialogWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ContentDialogWindowButtonClickEventArgs.cpp">
       <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -911,8 +903,8 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WindowContextMenuUtils.cpp" />
-    <ClCompile Include="WindowedContentDialog.cpp">
-      <DependentUpon>WindowedContentDialog.idl</DependentUpon>
+    <ClCompile Include="WindowedContentDialog.xaml.cpp">
+      <DependentUpon>WindowedContentDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WindowEx.cpp">
@@ -961,10 +953,6 @@
     </Midl>
     <Midl Include="ContentDialogContent.idl">
       <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ContentDialogWindow.idl">
-      <DependentUpon>ContentDialogWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Midl>
     <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
       <SubType>Designer</SubType>
@@ -1148,7 +1136,8 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowedContentDialog.idl">
-      <SubType>Designer</SubType>
+      <DependentUpon>WindowedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="WindowEx.idl">
       <SubType>Designer</SubType>
@@ -1159,9 +1148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ContentDialogContent_Resource.xaml" />
-    <Page Include="ContentDialogWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="FlyoutWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1178,6 +1164,9 @@
     <Page Include="SettingsCard_Resource.xaml" />
     <Page Include="SettingsExpander_Resource.xaml" />
     <Page Include="Shimmer_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WindowedContentDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
