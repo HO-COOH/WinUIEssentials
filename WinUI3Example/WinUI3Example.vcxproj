@@ -425,10 +425,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="GithubRequest.h" />
-    <ClInclude Include="GlyphsPage.xaml.h">
-      <DependentUpon>GlyphsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="GroupBoxPage.xaml.h">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -769,9 +765,6 @@
     <Page Include="FlyoutHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="GlyphsPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="GroupBoxPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1066,10 +1059,6 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="GithubRequest.cpp" />
-    <ClCompile Include="GlyphsPage.xaml.cpp">
-      <DependentUpon>GlyphsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="GroupBoxPage.xaml.cpp">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1462,10 +1451,6 @@
     </Midl>
     <Midl Include="FontInfo.idl">
       <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="GlyphsPage.idl">
-      <DependentUpon>GlyphsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Midl>
     <Midl Include="GroupBoxPage.idl">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>

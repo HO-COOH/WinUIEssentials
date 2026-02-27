@@ -38,9 +38,6 @@
     <Page Include="MarqueeTextPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="GlyphsPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="TitleBarPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -670,9 +667,6 @@
     <None Include="vcpkg.json" />
     <None Include="vcpkg-configuration.json" />
     <None Include="Package.StoreAssociation.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="DisplacementMapGenerator.hlsl">

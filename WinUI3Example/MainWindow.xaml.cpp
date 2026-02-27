@@ -22,7 +22,6 @@
 #include "SettingsExpanderPage.xaml.h"
 #include "DependentValuePage.xaml.h"
 #include "MarqueeTextPage.xaml.h"
-#include "GlyphsPage.xaml.h"
 #include "TitleBarPage.xaml.h"
 #include "ProgressBarExPage.xaml.h"
 #include "WindowExPage.xaml.h"

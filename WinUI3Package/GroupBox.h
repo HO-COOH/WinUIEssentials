@@ -12,6 +12,8 @@ namespace winrt::WinUI3Package::implementation
         //This really should be String, but it fucked up the compilation, because of https://github.com/microsoft/microsoft-ui-xaml/issues/8994
         winrt::hstring Header();
         void Header(winrt::hstring const& value);
+
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/GroupBox_Resource.xaml";
     private:
         winrt::hstring m_header;
     };

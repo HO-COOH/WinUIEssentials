@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "Segmented.g.h"
 #include "include/TemplateControlHelper.hpp"
@@ -11,6 +11,8 @@ namespace winrt::WinUI3Package::implementation
         Segmented();
 
         void OnApplyTemplate();
+
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/Segmented_Resource.xaml";
 
         winrt::Windows::Foundation::Numerics::float2 SelectedItemActualWidth();
         winrt::Windows::Foundation::Numerics::float2 SelectedItemOffset();

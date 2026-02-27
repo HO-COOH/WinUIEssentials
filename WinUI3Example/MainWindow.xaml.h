@@ -24,7 +24,6 @@ namespace winrt::WinUI3Example::implementation
     struct SettingsExpanderPage;
     struct DependentValuePage;
     struct MarqueeTextPage;
-    struct GlyphsPage;
     struct TitleBarPage;
     struct ProgressBarExPage;
     struct WindowExPage;
@@ -100,7 +99,6 @@ namespace winrt::WinUI3Example::implementation
             boost::hana::make_pair(L"DependentValue", boost::hana::type_c<WinUI3Example::implementation::DependentValuePage>),
             boost::hana::make_pair(L"Extensions", boost::hana::type_c<WinUI3Example::implementation::ExtensionsPage>),
             boost::hana::make_pair(L"FlyoutHelper", boost::hana::type_c<WinUI3Example::implementation::FlyoutHelperPage>),
-            boost::hana::make_pair(L"Glphys", boost::hana::type_c<WinUI3Example::implementation::GlyphsPage>),
             boost::hana::make_pair(L"GroupBox", boost::hana::type_c<WinUI3Example::implementation::GroupBoxPage>),
             //boost::hana::make_pair(L"IncrementalLoadingPage", boost::hana::type_c<WinUI3Example::implementation::IncrementalLoadingPage>),
             boost::hana::make_pair(L"InitializeWithWindowHelper", boost::hana::type_c<WinUI3Example::implementation::InitializeWithWindowHelperPage>),

@@ -1184,7 +1184,6 @@
     <Page Include="FlyoutWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Glyphs.xaml" />
     <Page Include="GroupBox_Resource.xaml" />
     <Page Include="HostBackdropVisual_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />

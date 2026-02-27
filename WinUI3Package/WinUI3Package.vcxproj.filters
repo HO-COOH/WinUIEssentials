@@ -85,9 +85,6 @@
     <ClInclude Include="include\ToastTemplates.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Glyphs.hpp">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="include\ToastBuilder.hpp">
       <Filter>include</Filter>
     </ClInclude>
@@ -300,6 +297,9 @@
     </ClInclude>
     <ClInclude Include="TenMicaDeviceLostException.h">
       <Filter>Backdrop\TenMica</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Glyphs.hpp">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,9 +608,6 @@
     <Midl Include="CustomBackdropBase.idl">
       <Filter>Backdrop</Filter>
     </Midl>
-    <Midl Include="NavigationViewItemHelper.idl">
-      <Filter>Controls\Helpers</Filter>
-    </Midl>
     <Midl Include="SliderHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
@@ -624,9 +621,6 @@
     </Page>
     <Page Include="SettingsCard_Resource.xaml">
       <Filter>Controls\SettingsCard</Filter>
-    </Page>
-    <Page Include="Glyphs.xaml">
-      <Filter>include</Filter>
     </Page>
     <Page Include="MarqueeText_Resource.xaml">
       <Filter>Controls\MarqueeText</Filter>
@@ -652,8 +646,5 @@
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

@@ -3,11 +3,13 @@
 #include "ModernStandardWindowContextMenu.g.h"
 #include <winrt/Microsoft.UI.Content.h>
 #include "MenuFlyoutItemPaddingWorkaroundWrapper.hpp"
+#include "TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
     struct ModernStandardWindowContextMenu : 
         ModernStandardWindowContextMenuT<ModernStandardWindowContextMenu>,
+        XamlResourceHelper<ModernStandardWindowContextMenu>,
         private MenuFlyoutItemPaddingWorkaroundWrapper
     {
         ModernStandardWindowContextMenu() = default;
@@ -15,6 +17,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::Window Window();
         void Window(winrt::Microsoft::UI::Xaml::Window const& value);
 
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/ModernStandardWindowContextMenu_Resource.xaml";
     private:
         static LRESULT CALLBACK subclassProc(
             HWND hwnd,

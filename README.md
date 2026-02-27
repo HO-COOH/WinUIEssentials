@@ -110,7 +110,7 @@ You can reference Github Action for detailed build steps.
 |NonResizableWindowWhiteBorderWorkaround | :x: | :white_check_mark: | WinRT component
 |ComboBoxHelper | :x: | :white_check_mark: | WinRT component
 |AutoSuggestBoxHelper | :x: | :white_check_mark: | WinRT component
-|WrapPanel | :x: | :white_check_mark: | WinRT | Panel
+|WrapPanel | :x: | :white_check_mark: | Panel
 |ToolTipHelper | :x: | :white_check_mark: | WinRT component
 |CommandBarHelper | :x: | :white_check_mark: | WinRT component
 |IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only
@@ -281,34 +281,6 @@ Font glyphs value for Segoe MDL2 Assets fonts. Usage:
 FontIcon().Glyph(Glyphs::GlobalNavButton);
 ```
 
-There is also a `Glyph` xaml resource dictionary, so you can use name instead of glyph. Usage:
-1. Add this to your `App.xaml` (UWP)
-```xml
-<Application.Resources>
-    <controls:XamlControlsResources>
-        <controls:XamlControlsResources.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///UWPPackage/Glyphs.xaml"/>
-            ...
-        </controls:XamlControlsResources.MergedDictionaries>
-    </controls:XamlControlsResources>
-</Application.Resources>
-```
-Add this to your `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/Glyphs.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Application.Resources>
-```
-2. Then use `StaticResource` with name to reference the glyph
-```xml
-<FontIcon Glyph="{StaticResource Send}"/>
-```
-
 ## CursorController --- *namespace `CursorController`*
 Xaml helper for controlling the cursor type when mouse enters. 
 Value for `Type` is [CoreCursorType enum](https://learn.microsoft.com/en-us/uwp/api/windows.ui.core.corecursortype?view=winrt-22621). Usage:
@@ -432,17 +404,6 @@ See the same class in [Community Tookit](https://github.com/CommunityToolkit/Win
     </controls:XamlControlsResources>
 </Application.Resources>
 ```
-- Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsCard_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Application.Resources>
-```
 
 > [!NOTE]
 > For WinUI3, add `#include #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>` to your `pch.h`
@@ -460,18 +421,6 @@ Add this to `App.xaml` (UWP)
             ...
         </controls:XamlControlsResources.MergedDictionaries>
     </controls:XamlControlsResources>
-</Application.Resources>
-```
-Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsCard_Resource.xaml"/>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsExpander_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
 </Application.Resources>
 ```
 
@@ -589,17 +538,6 @@ Add this to `App.xaml` (UWP)
             ...
         </controls:XamlControlsResources.MergedDictionaries>
     </controls:XamlControlsResources>
-</Application.Resources>
-```
-Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/ProgressBarEx_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
 </Application.Resources>
 ```
 
@@ -810,17 +748,6 @@ Usage:
     </controls:XamlControlsResources>
 </Application.Resources>
 ```
-- Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/Segmented_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Application.Resources>
-```
 
 ## CustomAcrylicBackdrop
 A customizable acrylic backdrop with bindable properties, and can be set as active when the window is inactive.
@@ -910,19 +837,7 @@ A modern XAML-based window context menu to replace the traditional win32 menu wh
 It supports uses on both `Essential:WindowEx` and a normal `Microsoft.UI.Xaml.Window`. 
 The icons are hard-coded glyphs so you get the same appearance on both Windows 10 & Windows 11.
 It also listens to window style changes, so it shows the correct menu item in whatever window styles your window have.
-To use it, first put a resource in your `App.xaml` `ResourceDictionary.MergedDictionary`
-```xml
-<Application>
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/ModernStandardWindowContextMenu_Resource.xaml" />
-                ...
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
-</Application>
-```
+
 - To use with a `essential:Window`, simply set it to `WindowEx.ContextMenu`
 ```xml
 <essential:WindowEx ...
