@@ -101,7 +101,9 @@ namespace winrt::WinUI3Example::implementation
 
 	void InitializeWithWindowHelperPage::FolderPickerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		WinUIEssentials::Windows::Storage::Pickers::FolderPicker{ MainWindow::Hwnd }.PickSingleFolderAsync();
+		WinUIEssentials::Windows::Storage::Pickers::FolderPicker folderPicker{ MainWindow::Hwnd };
+		folderPicker.FileTypeFilter().Append(L"*"); //You must do this, otherwise a crash on Windows 10
+		folderPicker.PickSingleFolderAsync();
 	}
 
 

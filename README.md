@@ -29,6 +29,10 @@ Example project build status:
 
 
 ## Usage
+> [!NOTE]
+> Update since WinEssential.WinUI3 1.5, you do NOT need to add control resources in `Application.Resources`!
+
+
 > [!WARNING]
 > Make sure to set your C++ language version to C++20 first!
 
