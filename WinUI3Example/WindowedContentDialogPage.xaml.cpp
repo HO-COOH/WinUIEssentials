@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "WindowedContentDialogPage.xaml.h"
 #if __has_include("WindowedContentDialogPage.g.cpp")
 #include "WindowedContentDialogPage.g.cpp"
@@ -26,8 +26,6 @@ namespace winrt::WinUI3Example::implementation
 		content.SecondaryButtonText(winrt::hstring(L"SecondaryButton"));
 		content.CloseButtonText(winrt::hstring(L"CloseButton"));
 		content.DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton::Primary);
-
-		dialog.HasTitleBar(true);
 
 		WinUI3Package::UnderlaySystemBackdropOptions BackdropOptions = {};
 

@@ -1119,7 +1119,9 @@
     <Midl Include="UIElementExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Underlay.idl" />
+    <Midl Include="SmokeLayerKind.idl" />
+    <Midl Include="UnderlayCoverMode.idl" />
+    <Midl Include="UnderlayMode.idl" />
     <Midl Include="UnderlaySmokeLayerOptions.idl">
       <SubType>Designer</SubType>
     </Midl>

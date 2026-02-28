@@ -1,5 +1,5 @@
-import "ContentDialogContent.idl";
-import "Underlay.idl";
+﻿import "ContentDialogContent.idl";
+import "UnderlayMode.idl";
 import "UnderlaySystemBackdropOptions.idl";
 
 namespace WinUI3Package
@@ -8,14 +8,6 @@ namespace WinUI3Package
     unsealed runtimeclass WindowedContentDialog : Microsoft.UI.Xaml.Window
     {
         WindowedContentDialog();
-
-        void Open();
-
-        void Hide();
-
-        void UpdateWindowSize();
-
-        void SetParent(Microsoft.UI.Xaml.Window parent, Boolean center);
 
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parent);
@@ -27,15 +19,7 @@ namespace WinUI3Package
 
         Microsoft.UI.Xaml.Controls.ContentDialogResult Result{ get; };
 
-        Boolean HasTitleBar;
-        Boolean IsResizable;
-
         WinUI3Package.UnderlayMode Underlay;
         WinUI3Package.UnderlaySystemBackdropOptions UnderlaySystemBackdrop;
-
-        Boolean CenterInParent;
-
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, Object> Loaded;
-        event Windows.Foundation.TypedEventHandler<WinUI3Package.WindowedContentDialog, Object> Opened;
     }
 }

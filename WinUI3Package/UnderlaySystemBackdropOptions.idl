@@ -1,4 +1,4 @@
-﻿import "Underlay.idl";
+﻿import "UnderlayCoverMode.idl";
 
 namespace WinUI3Package
 {

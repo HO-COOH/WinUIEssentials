@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "WindowedContentDialog.xaml.h"
 #if __has_include("WindowedContentDialog.g.cpp")
 #include "WindowedContentDialog.g.cpp"
@@ -133,31 +133,36 @@ namespace winrt::WinUI3Package::implementation
 
 		float scale = (float)content.XamlRoot().RasterizationScale();
 
-		appWindow.ResizeClient(Windows::Graphics::SizeInt32(
-			(int)(baseWidth * scale) + 1,
-			(int)(baseHeight * scale) + 1
-		));
-
-		if (_center)
+		Windows::Graphics::SizeInt32 const windowSize
 		{
-			auto selfSize = appWindow.Size();
-			if (auto parent = m_parent.get())
+			(int)(baseWidth * scale) + 1,
+			(int)((baseHeight + 32) * scale) + 1
+		};
+
+		if (auto parent = m_parent.get())
+		{
+			auto parentAppWindow = parent.AppWindow();
+			auto parentPos = parentAppWindow.Position();
+			auto parentSize = parentAppWindow.Size();
+			appWindow.MoveAndResize(Windows::Graphics::RectInt32
 			{
-				auto parentAppWindow = parent.AppWindow();
-				auto parentPos = parentAppWindow.Position();
-				auto parentSize = parentAppWindow.Size();
-				appWindow.Move(Windows::Graphics::PointInt32(
-					parentPos.X + (parentSize.Width - selfSize.Width) / 2,
-					parentPos.Y + (parentSize.Height - selfSize.Height) / 2));
-			}
-			else
+				parentPos.X + (parentSize.Width - windowSize.Width) / 2,
+				parentPos.Y + (parentSize.Height - windowSize.Height) / 2,
+				windowSize.Width,
+				windowSize.Height 
+			});
+		}
+		else
+		{
+			auto displayArea = Microsoft::UI::Windowing::DisplayArea::GetFromWindowId(appWindow.Id(), Microsoft::UI::Windowing::DisplayAreaFallback::Primary);
+			auto outerBounds = displayArea.OuterBounds();
+			appWindow.MoveAndResize(Windows::Graphics::RectInt32
 			{
-				auto displayArea = Microsoft::UI::Windowing::DisplayArea::GetFromWindowId(appWindow.Id(), Microsoft::UI::Windowing::DisplayAreaFallback::Primary);
-				auto outerBounds = displayArea.OuterBounds();
-				appWindow.Move(Windows::Graphics::PointInt32(
-					(outerBounds.Width - selfSize.Width) / 2,
-					(outerBounds.Height - selfSize.Height) / 2));
-			}
+				(outerBounds.Width - windowSize.Width) / 2,
+				(outerBounds.Height - windowSize.Height) / 2,
+				windowSize.Width,
+				windowSize.Height 
+			});
 		}
 
 	}
@@ -199,19 +204,11 @@ namespace winrt::WinUI3Package::implementation
 			content.CommandSpace().Background().Opacity(0.5);
 		}
 
-
 		DetermineTitleBarButtonForegroundColor();
-
-		DispatcherQueue().TryEnqueue([this]()
-			{
-				m_Loaded(*this, nullptr);
-			});
-
-		Open();
-
+		open();
 	}
 
-	void WindowedContentDialog::Open()
+	void WindowedContentDialog::open()
 	{
 		AppWindow().Show();
 
@@ -225,16 +222,8 @@ namespace winrt::WinUI3Package::implementation
 				m_OnOwnerWindowSizeChanged = parent.SizeChanged({ this, &WindowedContentDialog::OnOwnerWindowSizeChanged });
 			}
 		}
-
-		DispatcherQueue().TryEnqueue([this]()
-			{
-				m_Opened(*this, nullptr);
-			});
-	}
-
-	void WindowedContentDialog::Hide()
-	{
-		AppWindow().Hide();
+		
+		m_Opened(*this, nullptr);
 	}
 
 	void WindowedContentDialog::OnClosingRequestedBySystem()
@@ -283,51 +272,6 @@ namespace winrt::WinUI3Package::implementation
 		DispatcherQueue().TryEnqueue([this] {
 			Close();
 		});
-	}
-
-	void WindowedContentDialog::SetParent(Microsoft::UI::Xaml::Window const& parent, bool center)
-	{
-		_center = center;
-
-		if (m_parent.get() == parent) return;
-
-		SetModal(parent);
-	}
-
-	void WindowedContentDialog::HasTitleBar(bool value) {
-		m_hasTitleBar = value;
-		if (_presenter) _presenter.SetBorderAndTitleBar(true, value);
-	}
-	bool WindowedContentDialog::HasTitleBar() {
-		return m_hasTitleBar;
-	}
-
-	void WindowedContentDialog::IsResizable(bool value) {
-		m_isResizable = value;
-		if (_presenter) _presenter.IsResizable(value);
-	}
-	bool WindowedContentDialog::IsResizable() {
-
-		return m_isResizable;
-	}
-
-
-	winrt::event_token WindowedContentDialog::Loaded(Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable> const& handler)
-	{
-		return m_Loaded.add(handler);
-	}
-	void WindowedContentDialog::Loaded(winrt::event_token const& token)
-	{
-		m_Loaded.remove(token);
-	}
-
-	winrt::event_token WindowedContentDialog::Opened(Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable> const& handler)
-	{
-		return m_Opened.add(handler);
-	}
-	void WindowedContentDialog::Opened(winrt::event_token const& token)
-	{
-		m_Opened.remove(token);
 	}
 
 	winrt::hstring WindowedContentDialog::HeaderImageUri()
@@ -387,7 +331,7 @@ namespace winrt::WinUI3Package::implementation
 	// ShowAsync with parent
 	winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync(Microsoft::UI::Xaml::Window const& parent)
 	{
-		SetParent(parent, _center);
+		SetModal(parent);
 		SetupUnderlay();
 		co_return co_await ShowAsync();
 	}
@@ -547,15 +491,4 @@ namespace winrt::WinUI3Package::implementation
 	{
 		m_underlaySystemBackdrop = value;
 	}
-
-	bool WindowedContentDialog::CenterInParent() const
-	{
-		return _center;
-	}
-
-	void WindowedContentDialog::CenterInParent(bool value)
-	{
-		_center = value;
-	}
-
 }

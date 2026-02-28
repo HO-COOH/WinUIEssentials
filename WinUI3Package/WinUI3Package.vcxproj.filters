@@ -521,13 +521,19 @@
     <Midl Include="ContentDialogContent.idl">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Midl>
+    <Midl Include="SmokeLayerKind.idl">
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+    </Midl>
+    <Midl Include="UnderlayCoverMode.idl">
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+    </Midl>
+    <Midl Include="UnderlayMode.idl">
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+    </Midl>
     <Midl Include="UnderlaySmokeLayerOptions.idl">
-      <Filter>Controls\WindowedContentDialog</Filter>
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
     </Midl>
     <Midl Include="UnderlaySystemBackdropOptions.idl">
-      <Filter>Controls\WindowedContentDialog</Filter>
-    </Midl>
-    <Midl Include="Underlay.idl">
       <Filter>Controls\WindowedContentDialog\Underlay</Filter>
     </Midl>
   </ItemGroup>

@@ -8,8 +8,8 @@ namespace winrt::WinUI3Package::implementation
 	{
 		UnderlaySmokeLayerOptions();
 
-		WinUI3Package::WindowedContentDialogSmokeLayerKind SmokeLayerKind() const;
-		void SmokeLayerKind(WinUI3Package::WindowedContentDialogSmokeLayerKind value);
+		WinUI3Package::SmokeLayerKind SmokeLayerKind() const;
+		void SmokeLayerKind(WinUI3Package::SmokeLayerKind value);
 
 		Microsoft::UI::Xaml::UIElement CustomSmokeLayer() const;
 		void CustomSmokeLayer(Microsoft::UI::Xaml::UIElement const& value);
@@ -18,7 +18,7 @@ namespace winrt::WinUI3Package::implementation
 		void OpacityTransition(Microsoft::UI::Xaml::ScalarTransition const& value);
 
 	private:
-		WinUI3Package::WindowedContentDialogSmokeLayerKind _SmokeLayerKind{ WinUI3Package::WindowedContentDialogSmokeLayerKind::Darken };
+		WinUI3Package::SmokeLayerKind _SmokeLayerKind{ WinUI3Package::SmokeLayerKind::Darken };
 		Microsoft::UI::Xaml::UIElement _CustomSmokeLayer{ nullptr };
 		Microsoft::UI::Xaml::ScalarTransition _OpacityTransition;
 	};

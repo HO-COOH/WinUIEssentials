@@ -1,4 +1,4 @@
-﻿import "Underlay.idl";
+﻿import "SmokeLayerKind.idl";
 
 namespace WinUI3Package
 {
@@ -8,7 +8,7 @@ namespace WinUI3Package
     {
         UnderlaySmokeLayerOptions();
 
-        WinUI3Package.WindowedContentDialogSmokeLayerKind SmokeLayerKind;
+        SmokeLayerKind SmokeLayerKind;
         Microsoft.UI.Xaml.UIElement CustomSmokeLayer;
         Microsoft.UI.Xaml.ScalarTransition OpacityTransition;
     }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "WindowedContentDialog.g.h"
 
@@ -20,28 +20,11 @@ namespace winrt::WinUI3Package::implementation
 
 		void OnContentLoaded(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
-		void Open();
-
-		void Hide();
-
 		void OnClosingRequestedBySystem();
 
 		void OnClosingRequstedByCode();
 
 		void DetermineTitleBarButtonForegroundColor();
-		void SetParent(Microsoft::UI::Xaml::Window const& parent, bool center);
-
-		winrt::event_token Loaded(Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable> const& handler);
-		void Loaded(winrt::event_token const& token);
-
-		winrt::event_token Opened(Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable> const& handler);
-		void Opened(winrt::event_token const& token);
-
-		void HasTitleBar(bool hasTitleBar);
-		bool HasTitleBar();
-
-		void IsResizable(bool isResizable);
-		bool IsResizable();
 
 		winrt::hstring HeaderImageUri();
 		void HeaderImageUri(winrt::hstring const& Value);
@@ -57,11 +40,8 @@ namespace winrt::WinUI3Package::implementation
 
 		WinUI3Package::UnderlaySystemBackdropOptions UnderlaySystemBackdrop() const;
 		void UnderlaySystemBackdrop(WinUI3Package::UnderlaySystemBackdropOptions const& value);
-
-		bool CenterInParent() const;
-		void CenterInParent(bool value);
-
 	private:
+		void open();
 
 		void Result(const Microsoft::UI::Xaml::Controls::ContentDialogResult& value);
 		void CloseByButtonAction(Microsoft::UI::Xaml::Controls::ContentDialogResult result);
@@ -74,21 +54,14 @@ namespace winrt::WinUI3Package::implementation
 		int GetTitleBarOffset();
 		void OnOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args);
 
-		bool m_hasTitleBar = true;
-		bool m_isResizable;
-
 		winrt::hstring m_HeaderImageUri;
 
 		Microsoft::UI::Xaml::Media::Imaging::BitmapImage m_HeaderImage{ nullptr };
 
 		Microsoft::UI::Windowing::OverlappedPresenter _presenter{ nullptr };
 
-		bool _center = true;
-
-
 		Microsoft::UI::Xaml::Controls::ContentDialogResult _Result;
 
-		winrt::event<Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable>> m_Loaded;
 		winrt::event<Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable>> m_Opened;
 
 		winrt::event_token m_Closing;

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "UnderlaySmokeLayerOptions.h"
 #if __has_include("UnderlaySmokeLayerOptions.g.cpp")
 #include "UnderlaySmokeLayerOptions.g.cpp"
@@ -8,16 +8,16 @@ namespace winrt::WinUI3Package::implementation
 {
 	UnderlaySmokeLayerOptions::UnderlaySmokeLayerOptions() 
 	{
-		SmokeLayerKind(WinUI3Package::WindowedContentDialogSmokeLayerKind::Darken);
+		SmokeLayerKind(WinUI3Package::SmokeLayerKind::Darken);
 		_OpacityTransition.Duration(std::chrono::milliseconds(250));
 	}
 
-	WinUI3Package::WindowedContentDialogSmokeLayerKind UnderlaySmokeLayerOptions::SmokeLayerKind() const
+	WinUI3Package::SmokeLayerKind UnderlaySmokeLayerOptions::SmokeLayerKind() const
 	{
 		return _SmokeLayerKind;
 	}
 
-	void UnderlaySmokeLayerOptions::SmokeLayerKind(WinUI3Package::WindowedContentDialogSmokeLayerKind value)
+	void UnderlaySmokeLayerOptions::SmokeLayerKind(WinUI3Package::SmokeLayerKind value)
 	{
 		if (_SmokeLayerKind != value)
 		{
