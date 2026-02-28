@@ -368,6 +368,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="IconUtils.h" />
+    <ClInclude Include="include\AutoRevokeWorkaround.hpp" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\DependentValue.h">

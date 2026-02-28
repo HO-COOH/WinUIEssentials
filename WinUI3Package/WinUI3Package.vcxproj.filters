@@ -301,6 +301,9 @@
     <ClInclude Include="include\Glyphs.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\AutoRevokeWorkaround.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -646,5 +649,8 @@
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>
