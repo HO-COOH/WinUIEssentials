@@ -39,13 +39,13 @@ namespace winrt::WinUI3Package::implementation
 
 		contentImpl->m_imageSizeChangedCallback =
 			[this]() {
-				UpdateWindowSize();
+				updateWindowSize();
 			};
 
 		m_underlaySystemBackdrop = WinUI3Package::UnderlaySystemBackdropOptions();
 
 		m_ActualThemeChanged = content.ActualThemeChanged([&](auto&, auto&) {
-			DetermineTitleBarButtonForegroundColor();
+			determineTitleBarButtonForegroundColor();
 			});
 
 		m_Closing = appWindow.Closing([this](auto&, auto& args) {
@@ -53,7 +53,7 @@ namespace winrt::WinUI3Package::implementation
 			AppWindow().Closing(m_Closing);
 
 			Result(Microsoft::UI::Xaml::Controls::ContentDialogResult::None);
-			OnClosingRequestedBySystem();
+			onClosingRequestedBySystem();
 
 			m_windowWorkaround = nullptr;
 			DispatcherQueue().TryEnqueue([this] {
@@ -96,8 +96,8 @@ namespace winrt::WinUI3Package::implementation
 
 	}
 
-	void WindowedContentDialog::UpdateWindowSize() {
-
+	void WindowedContentDialog::updateWindowSize() 
+	{
 		auto content = ContentDialogContent();
 		auto appWindow = AppWindow();
 		auto desiredSize = content.DesiredSize();
@@ -143,7 +143,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void WindowedContentDialog::OnContentLoaded(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
-		UpdateWindowSize();
+		updateWindowSize();
 
 		auto content = ContentDialogContent();
 		auto systemBackdrop = SystemBackdrop();
@@ -178,7 +178,7 @@ namespace winrt::WinUI3Package::implementation
 			content.CommandSpace().Background().Opacity(0.5);
 		}
 
-		DetermineTitleBarButtonForegroundColor();
+		determineTitleBarButtonForegroundColor();
 		open();
 	}
 
@@ -200,7 +200,7 @@ namespace winrt::WinUI3Package::implementation
 		m_Opened(*this, nullptr);
 	}
 
-	void WindowedContentDialog::OnClosingRequestedBySystem()
+	void WindowedContentDialog::onClosingRequestedBySystem()
 	{
 		if (auto parent = m_parent.get()) {
 			parent.Activate();
@@ -208,7 +208,7 @@ namespace winrt::WinUI3Package::implementation
 		if (auto appWindow = AppWindow()) appWindow.Hide();
 	}
 
-	void WindowedContentDialog::OnClosingRequstedByCode()
+	void WindowedContentDialog::onClosingRequstedByCode()
 	{
 		if (auto parent = m_parent.get()) {
 			parent.Activate();
@@ -217,7 +217,7 @@ namespace winrt::WinUI3Package::implementation
 		if (auto appWindow = AppWindow()) appWindow.Hide();
 	}
 
-	void WindowedContentDialog::DetermineTitleBarButtonForegroundColor()
+	void WindowedContentDialog::determineTitleBarButtonForegroundColor()
 	{
 		auto titleBar = AppWindow().TitleBar();
 		switch (ContentDialogContent().ActualTheme())
@@ -240,7 +240,7 @@ namespace winrt::WinUI3Package::implementation
 
 		AppWindow().Closing(m_Closing);
 
-		OnClosingRequstedByCode();
+		onClosingRequstedByCode();
 
 		m_windowWorkaround = nullptr;
 		DispatcherQueue().TryEnqueue([this] {

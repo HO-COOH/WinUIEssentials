@@ -1,0 +1,8 @@
+﻿namespace WinUI3Package
+{
+    [default_interface]
+    runtimeclass ContentDialogContent_Resource : Microsoft.UI.Xaml.ResourceDictionary
+    {
+        ContentDialogContent_Resource();
+    }
+}

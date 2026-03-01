@@ -16,15 +16,7 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync();
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync(Microsoft::UI::Xaml::Window const& parent);
 
-		void UpdateWindowSize();
-
 		void OnContentLoaded(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e);
-
-		void OnClosingRequestedBySystem();
-
-		void OnClosingRequstedByCode();
-
-		void DetermineTitleBarButtonForegroundColor();
 
 		Microsoft::UI::Xaml::Controls::ContentDialogResult Result() const;
 		winrt::WinUI3Package::ContentDialogContent ContentDialogContent();
@@ -35,6 +27,14 @@ namespace winrt::WinUI3Package::implementation
 		WinUI3Package::UnderlaySystemBackdropOptions UnderlaySystemBackdrop() const;
 		void UnderlaySystemBackdrop(WinUI3Package::UnderlaySystemBackdropOptions const& value);
 	private:
+		void updateWindowSize();
+
+		void onClosingRequestedBySystem();
+
+		void onClosingRequstedByCode();
+
+		void determineTitleBarButtonForegroundColor();
+
 		void open();
 
 		void Result(const Microsoft::UI::Xaml::Controls::ContentDialogResult& value);
@@ -56,7 +56,6 @@ namespace winrt::WinUI3Package::implementation
 
 		winrt::event_token m_Closing;
 		winrt::event_token m_Closed;
-		winrt::event_token m_Activated;
 
 		winrt::event_token m_ActualThemeChanged;
 

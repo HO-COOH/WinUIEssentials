@@ -297,6 +297,10 @@
       <DependentUpon>ContentDialogContent.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ContentDialogContent_Resource.xaml.h">
+      <DependentUpon>ContentDialogContent_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ContentDialogUtils.h" />
     <ClInclude Include="ContentDialogWindowButtonClickEventArgs.h">
       <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
@@ -566,10 +570,6 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="UnderlaySmokeLayerOptions.h">
-      <DependentUpon>UnderlaySmokeLayerOptions.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="UnderlaySystemBackdropOptions.h">
       <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -644,6 +644,10 @@
     </ClCompile>
     <ClCompile Include="ContentDialogContent.cpp">
       <DependentUpon>ContentDialogContent.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ContentDialogContent_Resource.xaml.cpp">
+      <DependentUpon>ContentDialogContent_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ContentDialogUtils.cpp" />
@@ -882,10 +886,6 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="UnderlaySmokeLayerOptions.cpp">
-      <DependentUpon>UnderlaySmokeLayerOptions.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="UnderlaySystemBackdropOptions.cpp">
       <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -953,6 +953,10 @@
     </Midl>
     <Midl Include="ContentDialogContent.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ContentDialogContent_Resource.idl">
+      <DependentUpon>ContentDialogContent_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
       <SubType>Designer</SubType>
@@ -1122,9 +1126,6 @@
     <Midl Include="SmokeLayerKind.idl" />
     <Midl Include="UnderlayCoverMode.idl" />
     <Midl Include="UnderlayMode.idl" />
-    <Midl Include="UnderlaySmokeLayerOptions.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="UnderlaySystemBackdropOptions.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1149,7 +1150,9 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ContentDialogContent_Resource.xaml" />
+    <Page Include="ContentDialogContent_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="FlyoutWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

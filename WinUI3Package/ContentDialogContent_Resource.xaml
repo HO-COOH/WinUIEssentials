@@ -1,7 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
+    x:Class="WinUI3Package.ContentDialogContent_Resource"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WinUI3Package">
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:WinUI3Package"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
@@ -70,8 +75,11 @@
                                 Grid.Row="0"
                                 Width="0"
                                 Height="0"
-                                Visibility="Collapsed">
-                                <Image x:Name="HeaderImageElement" />
+                                Visibility="{x:Bind local:ContentDialogContent.ImageSourceToVisibility(HeaderImage), Mode=OneWay}">
+                                <Image
+                                    x:Name="HeaderImageElement"
+                                    ImageOpened="{x:Bind OnHeaderImageOpened}"
+                                    Source="{x:Bind HeaderImage, Mode=OneWay}" />
                             </Grid>
                             <Grid
                                 Grid.Row="1"
@@ -152,6 +160,7 @@
                                 <Button
                                     x:Name="PrimaryButton"
                                     HorizontalAlignment="Stretch"
+                                    Click="{x:Bind OnPrimaryButtonClicked}"
                                     Content="{TemplateBinding PrimaryButtonText}"
                                     ElementSoundMode="FocusOnly"
                                     IsEnabled="{TemplateBinding IsPrimaryButtonEnabled}"
@@ -160,6 +169,7 @@
                                 <Button
                                     x:Name="SecondaryButton"
                                     HorizontalAlignment="Stretch"
+                                    Click="{x:Bind OnSecondaryButtonClicked}"
                                     Content="{TemplateBinding SecondaryButtonText}"
                                     ElementSoundMode="FocusOnly"
                                     IsEnabled="{TemplateBinding IsSecondaryButtonEnabled}"
@@ -169,15 +179,12 @@
                                     x:Name="CloseButton"
                                     Grid.Column="4"
                                     HorizontalAlignment="Stretch"
+                                    Click="{x:Bind OnCloseButtonClicked}"
                                     Content="{TemplateBinding CloseButtonText}"
                                     ElementSoundMode="FocusOnly"
                                     IsTabStop="True"
                                     KeyboardAcceleratorPlacementMode="Hidden"
-                                    Style="{TemplateBinding CloseButtonStyle}">
-                                    <Button.KeyboardAccelerators>
-                                        <KeyboardAccelerator Key="Escape" />
-                                    </Button.KeyboardAccelerators>
-                                </Button>
+                                    Style="{TemplateBinding CloseButtonStyle}" />
                             </Grid>
                         </Grid>
 
@@ -285,5 +292,4 @@
     </Style>
 
     <Style BasedOn="{StaticResource DefaultContentDialogContentStyle}" TargetType="local:ContentDialogContent" />
-
 </ResourceDictionary>

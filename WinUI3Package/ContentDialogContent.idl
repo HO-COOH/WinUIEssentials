@@ -17,6 +17,13 @@ namespace WinUI3Package
         Microsoft.UI.Xaml.DataTemplate TitleTemplate;
 
         Microsoft.UI.Xaml.Media.ImageSource HeaderImage;
+        static Microsoft.UI.Xaml.DependencyProperty HeaderImageProperty{ get; };
+        static Microsoft.UI.Xaml.Visibility ImageSourceToVisibility(Microsoft.UI.Xaml.Media.ImageSource source);
+
+        void OnPrimaryButtonClicked(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
+        void OnSecondaryButtonClicked(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
+        void OnCloseButtonClicked(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
+        void OnHeaderImageOpened(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
 
         String PrimaryButtonText;
         String SecondaryButtonText;
@@ -37,10 +44,12 @@ namespace WinUI3Package
 
 
         static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty TitleTemplateProperty{ get; };
         static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonTextProperty{ get; };
         static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonTextProperty{ get; };
         static Microsoft.UI.Xaml.DependencyProperty CloseButtonTextProperty{ get; };
         static Microsoft.UI.Xaml.DependencyProperty IsPrimaryButtonEnabledProperty{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty IsSecondaryButtonEnabledProperty{ get; };
         static Microsoft.UI.Xaml.DependencyProperty DefaultButtonProperty{ get; };
         static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonStyleProperty{ get; };
         static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonStyleProperty{ get; };
