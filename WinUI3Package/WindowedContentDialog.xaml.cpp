@@ -1,10 +1,9 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "WindowedContentDialog.xaml.h"
 #if __has_include("WindowedContentDialog.g.cpp")
 #include "WindowedContentDialog.g.cpp"
 #endif
 #include <winrt/Microsoft.UI.Windowing.h>
-#include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include "ContentDialogUtils.h"
@@ -31,10 +30,16 @@ namespace winrt::WinUI3Package::implementation
 		m_windowWorkaround.Window(*this);
 
 		auto content = ContentDialogContent();
+		auto contentImpl = winrt::get_self<struct ContentDialogContent>(content);
 
-		winrt::get_self<struct ContentDialogContent>(content)->m_closeRequestCallback =
+		contentImpl->m_closeRequestCallback =
 			[this](Microsoft::UI::Xaml::Controls::ContentDialogResult result) {
 				CloseByButtonAction(result);
+			};
+
+		contentImpl->m_imageSizeChangedCallback =
+			[this]() {
+				UpdateWindowSize();
 			};
 
 		m_underlaySystemBackdrop = WinUI3Package::UnderlaySystemBackdropOptions();
@@ -60,11 +65,11 @@ namespace winrt::WinUI3Package::implementation
 
 			Closed(m_Closed);
 
-			WindowImage().ImageOpened(m_ImageOpened);
-
 			auto content = ContentDialogContent();
+			auto contentImpl = winrt::get_self<struct ContentDialogContent>(content);
 			content.ActualThemeChanged(m_ActualThemeChanged);
-			winrt::get_self<struct ContentDialogContent>(content)->m_closeRequestCallback = nullptr;
+			contentImpl->m_closeRequestCallback = nullptr;
+			contentImpl->m_imageSizeChangedCallback = nullptr;
 
 			CleanupUnderlay();
 
@@ -74,32 +79,7 @@ namespace winrt::WinUI3Package::implementation
 
 			});
 
-
-		content.Loaded({ this, &WindowedContentDialog::OnContentLoaded });;
-
-		m_ImageOpened = WindowImage().ImageOpened([this](IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
-			{
-				auto image = sender.as<Microsoft::UI::Xaml::Controls::Image>();
-
-				if (image)
-				{
-					auto bitmapImage = image.Source().as<Microsoft::UI::Xaml::Media::Imaging::BitmapImage>();
-					if (bitmapImage)
-					{
-						double width = bitmapImage.PixelWidth();
-						double height = bitmapImage.PixelHeight();
-
-
-						if (auto parentGrid = image.Parent().as<Microsoft::UI::Xaml::Controls::Grid>())
-						{
-							parentGrid.Width(width);
-							parentGrid.Height(height);
-						}
-
-						UpdateWindowSize();
-					}
-				}
-			});
+		content.Loaded({ this, &WindowedContentDialog::OnContentLoaded });
 
 	}
 
@@ -118,18 +98,12 @@ namespace winrt::WinUI3Package::implementation
 
 	void WindowedContentDialog::UpdateWindowSize() {
 
-		auto imageGrid = ImageGrid();
 		auto content = ContentDialogContent();
 		auto appWindow = AppWindow();
 		auto desiredSize = content.DesiredSize();
 
-		int baseWidth = imageGrid.Width() ?
-			(int)imageGrid.Width() :
-			(int)(desiredSize.Width + 1);
-
-		int baseHeight =
-			(int)(desiredSize.Height - 30) +
-			(int)imageGrid.Height();
+		int baseWidth = (int)(desiredSize.Width + 1);
+		int baseHeight = (int)(desiredSize.Height - 30);
 
 		float scale = (float)content.XamlRoot().RasterizationScale();
 
@@ -272,45 +246,6 @@ namespace winrt::WinUI3Package::implementation
 		DispatcherQueue().TryEnqueue([this] {
 			Close();
 		});
-	}
-
-	winrt::hstring WindowedContentDialog::HeaderImageUri()
-	{
-		return m_HeaderImageUri;
-	}
-
-	void WindowedContentDialog::HeaderImageUri(winrt::hstring const& Value)
-	{
-		if (m_HeaderImageUri != Value) {
-
-			m_HeaderImageUri = Value;
-
-			if (!Value.empty()) {
-
-				Microsoft::UI::Xaml::Media::Imaging::BitmapImage bitmapImage = {};
-				bitmapImage.UriSource(Windows::Foundation::Uri(m_HeaderImageUri));
-				WindowImage().Source(bitmapImage);
-				ContentDialogContent().IsHeaderImage(true);
-				ImageGrid().Visibility(Microsoft::UI::Xaml::Visibility::Visible);
-			}
-		}
-	}
-
-	winrt::Microsoft::UI::Xaml::Media::Imaging::BitmapImage WindowedContentDialog::HeaderImage()
-	{
-		return m_HeaderImage;
-	}
-
-	void WindowedContentDialog::HeaderImage(Microsoft::UI::Xaml::Media::Imaging::BitmapImage const& Value)
-	{
-		if (Value && m_HeaderImage != Value) {
-
-			m_HeaderImage = Value;
-
-			WindowImage().Source(Value);
-
-			ContentDialogContent().IsHeaderImage(true);
-		}
 	}
 
 	Microsoft::UI::Xaml::Controls::ContentDialogResult WindowedContentDialog::Result() const

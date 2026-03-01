@@ -5,6 +5,7 @@
 #endif
 
 #include <winrt/Microsoft.UI.Xaml.Input.h>
+#include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 
 #include "include/ScopedButtonDisabler.hpp"
 #include "ContentDialogWindowButtonClickEventArgs.h"
@@ -109,7 +110,7 @@ namespace winrt::WinUI3Package::implementation
 			buttonsVisibilityState = DetermineButtonsVisibilityState();
 			defaultButtonState = DetermineDefaultButtonState();
 
-			if (IsHeaderImage()) {
+			if (_IsHeaderImage) {
 				winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"CommandSpaceExpanded", false);
 			}
 
@@ -121,9 +122,6 @@ namespace winrt::WinUI3Package::implementation
 			isCustomMeasureFinishedAfterLoaded = false;
 
 		});
-
-		RightTapped({ this,&ContentDialogContent::m_ContentRightTapped });
-
 
 		m_PrimaryButtonKeyboardAccelerators = (winrt::single_threaded_vector<Microsoft::UI::Xaml::Input::KeyboardAccelerator>());
 		m_SecondaryButtonKeyboardAccelerators = (winrt::single_threaded_vector<Microsoft::UI::Xaml::Input::KeyboardAccelerator>());
@@ -143,10 +141,6 @@ namespace winrt::WinUI3Package::implementation
 	ContentDialogContent::~ContentDialogContent() {
 
 		Unloaded(m_OnUnloaded);
-
-		PrimaryButton.Click(m_OnPrimaryButtonClick);
-		SecondaryButton.Click(m_OnSecondaryButtonClick);
-		CloseButton.Click(m_OnCloseButtonClick);
 	}
 
 	void ContentDialogContent::OnApplyTemplate()
@@ -161,11 +155,39 @@ namespace winrt::WinUI3Package::implementation
 		SecondaryButton = GetTemplateChild(L"SecondaryButton").try_as<Microsoft::UI::Xaml::Controls::Button>();
 		CloseButton = GetTemplateChild(L"CloseButton").try_as<Microsoft::UI::Xaml::Controls::Button>();
 
-		if (IsHeaderImage()) {
+		m_ImageGrid = GetTemplateChild(L"ImageGrid").try_as<Microsoft::UI::Xaml::Controls::Grid>();
+		m_HeaderImageElement = GetTemplateChild(L"HeaderImageElement").try_as<Microsoft::UI::Xaml::Controls::Image>();
+
+		if (m_HeaderImageElement)
+		{
+			m_ImageOpened = m_HeaderImageElement.ImageOpened([this](winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const&)
+			{
+				auto image = sender.try_as<Microsoft::UI::Xaml::Controls::Image>();
+				if (image)
+				{
+					auto bitmapImage = image.Source().try_as<Microsoft::UI::Xaml::Media::Imaging::BitmapImage>();
+					if (bitmapImage && m_ImageGrid)
+					{
+						m_ImageGrid.Width(bitmapImage.PixelWidth());
+						m_ImageGrid.Height(bitmapImage.PixelHeight());
+
+						InvalidateMeasure();
+						UpdateLayout();
+
+						if (m_imageSizeChangedCallback)
+							m_imageSizeChangedCallback();
+					}
+				}
+			});
+
+			ApplyHeaderImage();
+		}
+
+		if (_IsHeaderImage) {
 			winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"CommandSpaceExpanded", false);
 		}
 
-		m_OnPrimaryButtonClick = PrimaryButton.Click([&](winrt::Windows::Foundation::IInspectable const& sender, auto&)->winrt::Windows::Foundation::IAsyncAction {
+		PrimaryButton.Click([&](winrt::Windows::Foundation::IInspectable const& sender, auto&)->winrt::Windows::Foundation::IAsyncAction {
 
 			ScopedButtonDisabler disabler{ sender, true };
 
@@ -180,7 +202,7 @@ namespace winrt::WinUI3Package::implementation
 
 		});
 
-		m_OnSecondaryButtonClick = SecondaryButton.Click([&](auto const& sender, auto&)->winrt::Windows::Foundation::IAsyncAction {
+		SecondaryButton.Click([&](auto const& sender, auto&)->winrt::Windows::Foundation::IAsyncAction {
 
 			ScopedButtonDisabler disabler{ sender, true };
 
@@ -194,7 +216,7 @@ namespace winrt::WinUI3Package::implementation
 				m_closeRequestCallback(Microsoft::UI::Xaml::Controls::ContentDialogResult::Secondary);
 		});
 
-		m_OnCloseButtonClick = CloseButton.Click([&](auto const& sender, auto&)->winrt::Windows::Foundation::IAsyncAction {
+		CloseButton.Click([&](auto const& sender, auto&)->winrt::Windows::Foundation::IAsyncAction {
 
 			ScopedButtonDisabler disabler{ sender, true };
 			auto ContentDialogArgs = WinUI3Package::ContentDialogWindowButtonClickEventArgs();
@@ -306,15 +328,23 @@ namespace winrt::WinUI3Package::implementation
 			+ countButtons * buttonLongestWidth
 			+ (countButtons - 1) * winrt::unbox_value<Microsoft::UI::Xaml::GridLength>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogButtonSpacing"))).Value;
 
-		double minWidth = std::max<double>(
-			unbox_value<double>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogMinWidth"))),
-			commandSpaceExpectedWidth
-		);
+		double imageWidth = 0.0;
+		if (m_ImageGrid && m_ImageGrid.Visibility() == Microsoft::UI::Xaml::Visibility::Visible && m_ImageGrid.Width() > 0)
+		{
+			imageWidth = m_ImageGrid.Width();
+		}
 
-		double maxWidth = std::max<double>(
+		double minWidth = std::max<double>({
+			unbox_value<double>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogMinWidth"))),
+			commandSpaceExpectedWidth,
+			imageWidth
+		});
+
+		double maxWidth = std::max<double>({
 			unbox_value<double>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogMaxWidth"))),
-			commandSpaceExpectedWidth
-		);
+			commandSpaceExpectedWidth,
+			imageWidth
+		});
 
 		if (availableSize.Width > (float)maxWidth)
 		{
@@ -451,7 +481,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void ContentDialogContent::AfterGotFocus()
 	{
-		if (IsHeaderImage()) return;
+		if (_IsHeaderImage) return;
 
 		winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, defaultButtonState, false);
 	}
@@ -459,7 +489,7 @@ namespace winrt::WinUI3Package::implementation
 	void ContentDialogContent::AfterLostFocus()
 	{
 
-		if (IsHeaderImage()) return;
+		if (_IsHeaderImage) return;
 
 		Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"NoDefaultButton", false);
 	}
@@ -519,17 +549,6 @@ namespace winrt::WinUI3Package::implementation
 	}
 
 
-	winrt::event_token ContentDialogContent::ContentRightTapped(Windows::Foundation::TypedEventHandler<Windows::Foundation::IInspectable, Microsoft::UI::Xaml::Input::RightTappedRoutedEventArgs> const& handler)
-	{
-		return m_ContentRightTapped.add(handler);
-	}
-
-	void ContentDialogContent::ContentRightTapped(winrt::event_token const& token)
-	{
-		m_ContentRightTapped.remove(token);
-	}
-
-
 	winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> ContentDialogContent::PrimaryButtonKeyboardAccelerators()
 	{
 		return m_PrimaryButtonKeyboardAccelerators;
@@ -574,16 +593,34 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	bool ContentDialogContent::IsHeaderImage() const
+	Microsoft::UI::Xaml::Media::ImageSource ContentDialogContent::HeaderImage()
 	{
-		return _IsHeaderImage;
+		return m_HeaderImage;
 	}
 
-	void ContentDialogContent::IsHeaderImage(const bool& value)
+	void ContentDialogContent::HeaderImage(Microsoft::UI::Xaml::Media::ImageSource const& value)
 	{
-		if (_IsHeaderImage != value)
+		if (m_HeaderImage != value)
 		{
-			_IsHeaderImage = value;
+			m_HeaderImage = value;
+			_IsHeaderImage = (value != nullptr);
+			ApplyHeaderImage();
+		}
+	}
+
+	void ContentDialogContent::ApplyHeaderImage()
+	{
+		if (m_HeaderImageElement && m_HeaderImage)
+		{
+			m_HeaderImageElement.Source(m_HeaderImage);
+			if (m_ImageGrid)
+			{
+				m_ImageGrid.Visibility(Microsoft::UI::Xaml::Visibility::Visible);
+			}
+			if (IsLoaded())
+			{
+				winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"CommandSpaceExpanded", false);
+			}
 		}
 	}
 

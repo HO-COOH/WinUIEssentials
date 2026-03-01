@@ -1,4 +1,4 @@
-﻿import "ContentDialogWindowButtonClickEventArgs.idl";
+import "ContentDialogWindowButtonClickEventArgs.idl";
 
 
 namespace WinUI3Package
@@ -16,8 +16,7 @@ namespace WinUI3Package
         Object Title;
         Microsoft.UI.Xaml.DataTemplate TitleTemplate;
 
-
-        Boolean IsHeaderImage;
+        Microsoft.UI.Xaml.Media.ImageSource HeaderImage;
 
         String PrimaryButtonText;
         String SecondaryButtonText;
@@ -47,8 +46,6 @@ namespace WinUI3Package
         static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonStyleProperty{ get; };
         static Microsoft.UI.Xaml.DependencyProperty CloseButtonStyleProperty{ get; };
 
-
-        event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.Input.RightTappedRoutedEventArgs> ContentRightTapped;
 
         event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> PrimaryButtonClick;
         event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;

@@ -52,7 +52,7 @@
       <Filter>Controls\Shimmer</Filter>
     </ClCompile>
     <ClCompile Include="ContentDialogUtils.cpp">
-      <Filter>Controls\WindowedContentDialog</Filter>
+      <Filter>Controls\WindowedContentDialog\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,12 +222,12 @@
     <ClInclude Include="Shimmer.DefaultGradientColor.h">
       <Filter>Controls\Shimmer</Filter>
     </ClInclude>
-    <ClInclude Include="ContentDialogUtils.h">
-      <Filter>Controls\WindowedContentDialog</Filter>
-    </ClInclude>
     <ClInclude Include="ModalWindowBase.hpp" />
     <ClInclude Include="WinUIAsyncEventArgs.hpp">
-      <Filter>Controls\WindowedContentDialog</Filter>
+      <Filter>Controls\WindowedContentDialog\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentDialogUtils.h">
+      <Filter>Controls\WindowedContentDialog\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +330,9 @@
     </Filter>
     <Filter Include="Controls\WindowedContentDialog\Underlay">
       <UniqueIdentifier>{c6e2dbf1-93c2-4c65-b282-62b80f67a990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog\Utils">
+      <UniqueIdentifier>{080447c9-e9d8-4be0-a7fe-2c418edc13fc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -515,9 +518,6 @@
     <Midl Include="ToolTipHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
-    <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
-      <Filter>Controls\WindowedContentDialog</Filter>
-    </Midl>
     <Midl Include="ContentDialogContent.idl">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Midl>
@@ -535,6 +535,9 @@
     </Midl>
     <Midl Include="UnderlaySystemBackdropOptions.idl">
       <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+    </Midl>
+    <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
+      <Filter>Controls\WindowedContentDialog\Utils</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

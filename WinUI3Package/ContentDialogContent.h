@@ -44,9 +44,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::event_token CloseButtonClick(winrt::Windows::Foundation::EventHandler<WinUI3Package::ContentDialogWindowButtonClickEventArgs> const& handler);
 		void CloseButtonClick(winrt::event_token const& token);
 
-		winrt::event_token ContentRightTapped(Windows::Foundation::TypedEventHandler<Windows::Foundation::IInspectable, Microsoft::UI::Xaml::Input::RightTappedRoutedEventArgs> const& handler);
-		void ContentRightTapped(winrt::event_token const& token);
-
 		static void OnButtonTextChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e);
 		static void OnDefaultButtonChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e);
 
@@ -54,8 +51,8 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> SecondaryButtonKeyboardAccelerators();
 		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> CloseButtonKeyboardAccelerators();
 
-		bool IsHeaderImage() const;
-		void IsHeaderImage(const bool& value);
+		Microsoft::UI::Xaml::Media::ImageSource HeaderImage();
+		void HeaderImage(Microsoft::UI::Xaml::Media::ImageSource const& value);
 
 		static winrt::Microsoft::UI::Xaml::DependencyProperty TitleProperty();
 		winrt::Windows::Foundation::IInspectable Title() const;
@@ -112,8 +109,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::event<Windows::Foundation::EventHandler<WinUI3Package::ContentDialogWindowButtonClickEventArgs>> m_SecondaryButtonClick;
 		winrt::event<Windows::Foundation::EventHandler<WinUI3Package::ContentDialogWindowButtonClickEventArgs>> m_CloseButtonClick;
 
-		winrt::event<Windows::Foundation::TypedEventHandler<Windows::Foundation::IInspectable, Microsoft::UI::Xaml::Input::RightTappedRoutedEventArgs>> m_ContentRightTapped;
-
 		Microsoft::UI::Xaml::UIElement m_TitleArea{ nullptr };
 		Microsoft::UI::Xaml::Controls::Grid m_DialogSpace{ nullptr };
 		Microsoft::UI::Xaml::Controls::Grid m_CommandSpace{ nullptr };
@@ -123,16 +118,17 @@ namespace winrt::WinUI3Package::implementation
 
 		winrt::event_token m_OnUnloaded;
 
-		winrt::event_token m_OnPrimaryButtonClick;
-		winrt::event_token m_OnSecondaryButtonClick;
-		winrt::event_token m_OnCloseButtonClick;
-
 		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> m_PrimaryButtonKeyboardAccelerators{ nullptr };
 		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> m_SecondaryButtonKeyboardAccelerators{ nullptr };
 		winrt::Windows::Foundation::Collections::IVector<Microsoft::UI::Xaml::Input::KeyboardAccelerator> m_CloseButtonKeyboardAccelerators{ nullptr };
 
-		// IsHeaderImage property field
-		bool _IsHeaderImage;
+		bool _IsHeaderImage{};
+
+		Microsoft::UI::Xaml::Media::ImageSource m_HeaderImage{ nullptr };
+
+		Microsoft::UI::Xaml::Controls::Grid m_ImageGrid{ nullptr };
+		Microsoft::UI::Xaml::Controls::Image m_HeaderImageElement{ nullptr };
+		winrt::event_token m_ImageOpened;
 
 		// Dependency property fields
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _TitleProperty;
@@ -148,6 +144,9 @@ namespace winrt::WinUI3Package::implementation
 		static winrt::Microsoft::UI::Xaml::DependencyProperty _CloseButtonStyleProperty;
 
 		std::function<void(Microsoft::UI::Xaml::Controls::ContentDialogResult)> m_closeRequestCallback;
+		std::function<void()> m_imageSizeChangedCallback;
+
+		void ApplyHeaderImage();
 	};
 }
 

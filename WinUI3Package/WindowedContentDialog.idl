@@ -1,4 +1,4 @@
-﻿import "ContentDialogContent.idl";
+import "ContentDialogContent.idl";
 import "UnderlayMode.idl";
 import "UnderlaySystemBackdropOptions.idl";
 
@@ -13,9 +13,6 @@ namespace WinUI3Package
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parent);
 
         WinUI3Package.ContentDialogContent ContentDialogContent{ get; };
-
-        Microsoft.UI.Xaml.Media.Imaging.BitmapImage HeaderImage;
-        String HeaderImageUri;
 
         Microsoft.UI.Xaml.Controls.ContentDialogResult Result{ get; };
 

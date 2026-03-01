@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "WindowedContentDialog.g.h"
 
@@ -26,12 +26,6 @@ namespace winrt::WinUI3Package::implementation
 
 		void DetermineTitleBarButtonForegroundColor();
 
-		winrt::hstring HeaderImageUri();
-		void HeaderImageUri(winrt::hstring const& Value);
-
-		Microsoft::UI::Xaml::Media::Imaging::BitmapImage HeaderImage();
-		void HeaderImage(Microsoft::UI::Xaml::Media::Imaging::BitmapImage const& Value);
-
 		Microsoft::UI::Xaml::Controls::ContentDialogResult Result() const;
 		winrt::WinUI3Package::ContentDialogContent ContentDialogContent();
 
@@ -54,10 +48,6 @@ namespace winrt::WinUI3Package::implementation
 		int GetTitleBarOffset();
 		void OnOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args);
 
-		winrt::hstring m_HeaderImageUri;
-
-		Microsoft::UI::Xaml::Media::Imaging::BitmapImage m_HeaderImage{ nullptr };
-
 		Microsoft::UI::Windowing::OverlappedPresenter _presenter{ nullptr };
 
 		Microsoft::UI::Xaml::Controls::ContentDialogResult _Result;
@@ -67,7 +57,6 @@ namespace winrt::WinUI3Package::implementation
 		winrt::event_token m_Closing;
 		winrt::event_token m_Closed;
 		winrt::event_token m_Activated;
-		winrt::event_token m_ImageOpened;
 
 		winrt::event_token m_ActualThemeChanged;
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Window
     x:Class="WinUI3Package.WindowedContentDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -10,16 +10,6 @@
     mc:Ignorable="d">
 
     <Grid x:Name="ContentDialogGrid">
-        <StackPanel>
-            <Grid
-                x:Name="ImageGrid"
-                Width="0"
-                Height="0"
-                Visibility="Collapsed">
-                <Image x:Name="WindowImage" />
-            </Grid>
-            <local:ContentDialogContent x:Name="ContentDialogContentControl" Loaded="OnContentLoaded" />
-        </StackPanel>
-
+        <local:ContentDialogContent x:Name="ContentDialogContentControl" Loaded="OnContentLoaded" />
     </Grid>
 </Window>
