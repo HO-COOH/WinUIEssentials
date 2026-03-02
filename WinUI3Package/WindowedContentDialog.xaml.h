@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "WindowedContentDialog.g.h"
 
@@ -9,6 +9,8 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+    struct ContentDialogContent;
+
     struct WindowedContentDialog : WindowedContentDialogT<WindowedContentDialog>, ModalWindowBase<WindowedContentDialog>
     {
 		WindowedContentDialog();
@@ -38,15 +40,15 @@ namespace winrt::WinUI3Package::implementation
 		void open();
 
 		void Result(const Microsoft::UI::Xaml::Controls::ContentDialogResult& value);
-		void CloseByButtonAction(Microsoft::UI::Xaml::Controls::ContentDialogResult result);
+		void closeByButtonAction(Microsoft::UI::Xaml::Controls::ContentDialogResult result);
 
-		void SetupUnderlay();
-		void SetupSmokeLayer();
-		void SetupSystemBackdrop();
-		void CleanupUnderlay();
-		void SizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window);
-		int GetTitleBarOffset();
-		void OnOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args);
+		void setupUnderlay();
+		void setupSmokeLayer();
+		void setupSystemBackdrop();
+		void cleanupUnderlay();
+		void sizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window);
+		int getTitleBarOffset();
+		void onOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args);
 
 		Microsoft::UI::Windowing::OverlappedPresenter _presenter{ nullptr };
 
@@ -65,9 +67,11 @@ namespace winrt::WinUI3Package::implementation
 		Microsoft::UI::Xaml::Controls::Primitives::Popup m_Popup{ nullptr };
 		Microsoft::UI::Xaml::Shapes::Rectangle m_SmokeLayerCache{ nullptr };
 		Microsoft::UI::Xaml::Controls::Border m_BackdropLayerCache{ nullptr };
-		winrt::event_token m_OnOwnerWindowSizeChanged;
+		winrt::Microsoft::UI::Xaml::Window::SizeChanged_revoker m_onOwnerWindowSizeChanged;
 
 		WinUI3Package::NonMaximizableWindowWorkaround m_windowWorkaround{ nullptr };
+
+		winrt::WinUI3Package::implementation::ContentDialogContent* m_contentImpl{ nullptr };
 
 		winrt::com_ptr<WinUIAsyncEventArgs> AsyncEventArgs = winrt::make_self<WinUIAsyncEventArgs>();
 		winrt::Windows::Foundation::Deferral Deferral{ nullptr };

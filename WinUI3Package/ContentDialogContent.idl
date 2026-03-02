@@ -9,12 +9,11 @@ namespace WinUI3Package
     {
         ContentDialogContent();
 
-        Microsoft.UI.Xaml.UIElement TitleArea;
-        Microsoft.UI.Xaml.Controls.Grid DialogSpace;
-        Microsoft.UI.Xaml.Controls.Grid CommandSpace;
-
         Object Title;
+        static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };
+
         Microsoft.UI.Xaml.DataTemplate TitleTemplate;
+        static Microsoft.UI.Xaml.DependencyProperty TitleTemplateProperty{ get; };
 
         Microsoft.UI.Xaml.Media.ImageSource HeaderImage;
         static Microsoft.UI.Xaml.DependencyProperty HeaderImageProperty{ get; };
@@ -26,35 +25,35 @@ namespace WinUI3Package
         void OnHeaderImageOpened(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
 
         String PrimaryButtonText;
+        static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonTextProperty{ get; };
+
         String SecondaryButtonText;
+        static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonTextProperty{ get; };
+
         String CloseButtonText;
+        static Microsoft.UI.Xaml.DependencyProperty CloseButtonTextProperty{ get; };
 
         Boolean IsPrimaryButtonEnabled;
+        static Microsoft.UI.Xaml.DependencyProperty IsPrimaryButtonEnabledProperty{ get; };
+
         Boolean IsSecondaryButtonEnabled;
+        static Microsoft.UI.Xaml.DependencyProperty IsSecondaryButtonEnabledProperty{ get; };
 
         Microsoft.UI.Xaml.Controls.ContentDialogButton DefaultButton;
+        static Microsoft.UI.Xaml.DependencyProperty DefaultButtonProperty{ get; };
 
         Microsoft.UI.Xaml.Style PrimaryButtonStyle;
+        static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonStyleProperty{ get; };
+
         Microsoft.UI.Xaml.Style SecondaryButtonStyle;
+        static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonStyleProperty{ get; };
+
         Microsoft.UI.Xaml.Style CloseButtonStyle;
+        static Microsoft.UI.Xaml.DependencyProperty CloseButtonStyleProperty{ get; };
 
         Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> PrimaryButtonKeyboardAccelerators{ get; };
         Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> SecondaryButtonKeyboardAccelerators{ get; };
         Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> CloseButtonKeyboardAccelerators{ get; };
-
-
-        static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty TitleTemplateProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonTextProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonTextProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty CloseButtonTextProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty IsPrimaryButtonEnabledProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty IsSecondaryButtonEnabledProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty DefaultButtonProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonStyleProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonStyleProperty{ get; };
-        static Microsoft.UI.Xaml.DependencyProperty CloseButtonStyleProperty{ get; };
-
 
         event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> PrimaryButtonClick;
         event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;

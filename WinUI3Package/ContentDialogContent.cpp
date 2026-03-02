@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ContentDialogContent.h"
 #if __has_include("ContentDialogContent.g.cpp")
 #include "ContentDialogContent.g.cpp"
@@ -33,21 +33,21 @@ namespace winrt::WinUI3Package::implementation
 			L"PrimaryButtonText",
 			xaml_typename<winrt::hstring>(),
 			xaml_typename<WinUI3Package::ContentDialogContent>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(L""), OnButtonTextChangedStatic });
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(L""), onButtonTextChangedStatic });
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::_SecondaryButtonTextProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"SecondaryButtonText",
 			xaml_typename<winrt::hstring>(),
 			xaml_typename<WinUI3Package::ContentDialogContent>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(L""), OnButtonTextChangedStatic });
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(L""), onButtonTextChangedStatic });
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::_CloseButtonTextProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"CloseButtonText",
 			xaml_typename<winrt::hstring>(),
 			xaml_typename<WinUI3Package::ContentDialogContent>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(L""), OnButtonTextChangedStatic });
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(L""), onButtonTextChangedStatic });
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::_IsPrimaryButtonEnabledProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
@@ -68,7 +68,7 @@ namespace winrt::WinUI3Package::implementation
 			L"DefaultButton",
 			xaml_typename<Microsoft::UI::Xaml::Controls::ContentDialogButton>(),
 			xaml_typename<WinUI3Package::ContentDialogContent>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(Microsoft::UI::Xaml::Controls::ContentDialogButton::Close), OnDefaultButtonChangedStatic });
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(Microsoft::UI::Xaml::Controls::ContentDialogButton::Close), onDefaultButtonChangedStatic });
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty ContentDialogContent::_PrimaryButtonStyleProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
@@ -96,18 +96,12 @@ namespace winrt::WinUI3Package::implementation
 			L"HeaderImage",
 			xaml_typename<Microsoft::UI::Xaml::Media::ImageSource>(),
 			xaml_typename<WinUI3Package::ContentDialogContent>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, OnHeaderImageChangedStatic });
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, onHeaderImageChangedStatic });
 	
 
 	ContentDialogContent::ContentDialogContent() {
 
 		DefaultStyleKey(box_value(winrt::xaml_typename<winrt::WinUI3Package::ContentDialogContent>()));
-
-		isCustomMeasureFinishedAfterLoaded = false;
-
-		PrimaryButtonStyle(ContentDialogUtils::DefaultButtonStyle());
-		SecondaryButtonStyle(ContentDialogUtils::DefaultButtonStyle());
-		CloseButtonStyle(ContentDialogUtils::DefaultButtonStyle());
 
 		IsPrimaryButtonEnabled(true);
 		IsSecondaryButtonEnabled(true);
@@ -123,26 +117,18 @@ namespace winrt::WinUI3Package::implementation
 
 		});
 
-		m_OnUnloaded = Unloaded([this](auto&, auto&) {
-
-
+		Unloaded([this](auto&, auto&) {
 			isCustomMeasureFinishedAfterLoaded = false;
-
 		});
-	}
-
-	ContentDialogContent::~ContentDialogContent() {
-
-		Unloaded(m_OnUnloaded);
 	}
 
 	void ContentDialogContent::OnApplyTemplate()
 	{
 		base_type::OnApplyTemplate();
 
-		TitleArea(GetTemplateChild(L"TitleArea").try_as<Microsoft::UI::Xaml::UIElement>());
-		DialogSpace(GetTemplateChild(L"DialogSpace").try_as<Microsoft::UI::Xaml::Controls::Grid>());
-		CommandSpace(GetTemplateChild(L"CommandSpace").try_as<Microsoft::UI::Xaml::Controls::Grid>());
+		m_TitleArea = GetTemplateChild(L"TitleArea").try_as<Microsoft::UI::Xaml::UIElement>();
+		m_DialogSpace = GetTemplateChild(L"DialogSpace").try_as<Microsoft::UI::Xaml::Controls::Grid>();
+		m_CommandSpace = GetTemplateChild(L"CommandSpace").try_as<Microsoft::UI::Xaml::Controls::Grid>();
 
 		PrimaryButton = GetTemplateChild(L"PrimaryButton").try_as<Microsoft::UI::Xaml::Controls::Button>();
 		SecondaryButton = GetTemplateChild(L"SecondaryButton").try_as<Microsoft::UI::Xaml::Controls::Button>();
@@ -154,22 +140,15 @@ namespace winrt::WinUI3Package::implementation
 			winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"CommandSpaceExpanded", false);
 		}
 
-		for (const auto& keyboardAccelerator : PrimaryButtonKeyboardAccelerators()) {
+		constexpr auto addKeyboardAccelerator = [](auto const& source, auto const& target)
+		{
+			for (auto const& key : source)
+				target.Append(key);
+		};
 
-			PrimaryButton.KeyboardAccelerators().Append(keyboardAccelerator);
-		}
-
-		for (const auto& keyboardAccelerator : SecondaryButtonKeyboardAccelerators()) {
-
-			SecondaryButton.KeyboardAccelerators().Append(keyboardAccelerator);
-		}
-
-		for (const auto& keyboardAccelerator : CloseButtonKeyboardAccelerators()) {
-
-			CloseButton.KeyboardAccelerators().Append(keyboardAccelerator);
-		}
-
-
+		addKeyboardAccelerator(PrimaryButtonKeyboardAccelerators(), PrimaryButton.KeyboardAccelerators());
+		addKeyboardAccelerator(SecondaryButtonKeyboardAccelerators(), SecondaryButton.KeyboardAccelerators());
+		addKeyboardAccelerator(CloseButtonKeyboardAccelerators(), CloseButton.KeyboardAccelerators());
 	}
 
 	Windows::Foundation::Size ContentDialogContent::MeasureOverride(Windows::Foundation::Size availableSize)
@@ -211,7 +190,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 
 		// 假设 CommandSpace 是一个具有 Padding 属性的元素
-		Microsoft::UI::Xaml::Thickness commandSpacePadding = CommandSpace().Padding();
+		Microsoft::UI::Xaml::Thickness commandSpacePadding = m_CommandSpace.Padding();
 		double commandSpaceExpectedWidth = commandSpacePadding.Left + commandSpacePadding.Right
 			+ countButtons * buttonLongestWidth
 			+ (countButtons - 1) * winrt::unbox_value<Microsoft::UI::Xaml::GridLength>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogButtonSpacing"))).Value;
@@ -367,33 +346,6 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void ContentDialogContent::TitleArea(Microsoft::UI::Xaml::UIElement const& Element)
-	{
-		m_TitleArea = Element;
-	}
-	winrt::Microsoft::UI::Xaml::UIElement ContentDialogContent::TitleArea()
-	{
-		return m_TitleArea;
-	}
-
-	void ContentDialogContent::DialogSpace(Microsoft::UI::Xaml::Controls::Grid const& grid)
-	{
-		m_DialogSpace = grid;
-	}
-	winrt::Microsoft::UI::Xaml::Controls::Grid ContentDialogContent::DialogSpace()
-	{
-		return m_DialogSpace;
-	}
-
-	void ContentDialogContent::CommandSpace(Microsoft::UI::Xaml::Controls::Grid const& grid)
-	{
-		m_CommandSpace = grid;
-	}
-	winrt::Microsoft::UI::Xaml::Controls::Grid ContentDialogContent::CommandSpace()
-	{
-		return m_CommandSpace;
-	}
-
 	winrt::event_token ContentDialogContent::PrimaryButtonClick(winrt::Windows::Foundation::EventHandler<WinUI3Package::ContentDialogWindowButtonClickEventArgs> const& handler)
 	{
 		return m_PrimaryButtonClick.add(handler);
@@ -439,11 +391,8 @@ namespace winrt::WinUI3Package::implementation
 		return m_CloseButtonKeyboardAccelerators;
 	}
 
-	void ContentDialogContent::OnButtonTextChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
+	void ContentDialogContent::onButtonTextChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
-		UNREFERENCED_PARAMETER(sender);
-		UNREFERENCED_PARAMETER(e);
-
 		auto self = get_self<ContentDialogContent>(sender.as<winrt::WinUI3Package::ContentDialogContent>());
 
 		if (self->IsLoaded())
@@ -453,11 +402,8 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void ContentDialogContent::OnDefaultButtonChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
+	void ContentDialogContent::onDefaultButtonChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
-		UNREFERENCED_PARAMETER(sender);
-		UNREFERENCED_PARAMETER(e);
-
 		auto self = get_self<ContentDialogContent>(sender.as<winrt::WinUI3Package::ContentDialogContent>());
 
 		if (self->IsLoaded())
@@ -488,9 +434,8 @@ namespace winrt::WinUI3Package::implementation
 		SetValue(_HeaderImageProperty, value);
 	}
 
-	void ContentDialogContent::OnHeaderImageChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
+	void ContentDialogContent::onHeaderImageChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
-		UNREFERENCED_PARAMETER(e);
 		auto self = get_self<ContentDialogContent>(sender.as<winrt::WinUI3Package::ContentDialogContent>());
 		self->_IsHeaderImage = (self->HeaderImage() != nullptr);
 		if (self->_IsHeaderImage && self->IsLoaded())
@@ -526,7 +471,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::fire_and_forget ContentDialogContent::OnPrimaryButtonClicked(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		ScopedButtonDisabler disabler{ sender, true };
+		ScopedButtonDisabler disabler{ sender };
 
 		auto ContentDialogArgs = WinUI3Package::ContentDialogWindowButtonClickEventArgs();
 
@@ -540,7 +485,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::fire_and_forget ContentDialogContent::OnSecondaryButtonClicked(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		ScopedButtonDisabler disabler{ sender, true };
+		ScopedButtonDisabler disabler{ sender };
 
 		auto ContentDialogArgs = WinUI3Package::ContentDialogWindowButtonClickEventArgs();
 
@@ -554,7 +499,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::fire_and_forget ContentDialogContent::OnCloseButtonClicked(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		ScopedButtonDisabler disabler{ sender, true };
+		ScopedButtonDisabler disabler{ sender };
 
 		auto ContentDialogArgs = WinUI3Package::ContentDialogWindowButtonClickEventArgs();
 		m_CloseButtonClick(*this, ContentDialogArgs);
@@ -575,7 +520,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<winrt::Windows::Foundation::IInspectable>(GetValue(_TitleProperty));
 	}
 
-	void ContentDialogContent::Title(const winrt::Windows::Foundation::IInspectable& value)
+	void ContentDialogContent::Title(winrt::Windows::Foundation::IInspectable const& value)
 	{
 		SetValue(_TitleProperty, winrt::box_value(value));
 	}
@@ -590,7 +535,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<Microsoft::UI::Xaml::DataTemplate>(GetValue(_TitleTemplateProperty));
 	}
 
-	void ContentDialogContent::TitleTemplate(const Microsoft::UI::Xaml::DataTemplate& value)
+	void ContentDialogContent::TitleTemplate(Microsoft::UI::Xaml::DataTemplate const& value)
 	{
 		SetValue(_TitleTemplateProperty, winrt::box_value(value));
 	}
@@ -605,7 +550,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<winrt::hstring>(GetValue(_PrimaryButtonTextProperty));
 	}
 
-	void ContentDialogContent::PrimaryButtonText(const winrt::hstring& value)
+	void ContentDialogContent::PrimaryButtonText(winrt::hstring const& value)
 	{
 		SetValue(_PrimaryButtonTextProperty, winrt::box_value(value));
 	}
@@ -620,7 +565,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<winrt::hstring>(GetValue(_SecondaryButtonTextProperty));
 	}
 
-	void ContentDialogContent::SecondaryButtonText(const winrt::hstring& value)
+	void ContentDialogContent::SecondaryButtonText(winrt::hstring const& value)
 	{
 		SetValue(_SecondaryButtonTextProperty, winrt::box_value(value));
 	}
@@ -635,7 +580,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<winrt::hstring>(GetValue(_CloseButtonTextProperty));
 	}
 
-	void ContentDialogContent::CloseButtonText(const winrt::hstring& value)
+	void ContentDialogContent::CloseButtonText(winrt::hstring const& value)
 	{
 		SetValue(_CloseButtonTextProperty, winrt::box_value(value));
 	}
@@ -650,7 +595,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<bool>(GetValue(_IsPrimaryButtonEnabledProperty));
 	}
 
-	void ContentDialogContent::IsPrimaryButtonEnabled(const bool& value)
+	void ContentDialogContent::IsPrimaryButtonEnabled(bool value)
 	{
 		SetValue(_IsPrimaryButtonEnabledProperty, winrt::box_value(value));
 	}
@@ -665,7 +610,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<bool>(GetValue(_IsSecondaryButtonEnabledProperty));
 	}
 
-	void ContentDialogContent::IsSecondaryButtonEnabled(const bool& value)
+	void ContentDialogContent::IsSecondaryButtonEnabled(bool value)
 	{
 		SetValue(_IsSecondaryButtonEnabledProperty, winrt::box_value(value));
 	}
@@ -680,7 +625,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<Microsoft::UI::Xaml::Controls::ContentDialogButton>(GetValue(_DefaultButtonProperty));
 	}
 
-	void ContentDialogContent::DefaultButton(const Microsoft::UI::Xaml::Controls::ContentDialogButton& value)
+	void ContentDialogContent::DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton value)
 	{
 		SetValue(_DefaultButtonProperty, winrt::box_value(value));
 	}
@@ -695,7 +640,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<Microsoft::UI::Xaml::Style>(GetValue(_PrimaryButtonStyleProperty));
 	}
 
-	void ContentDialogContent::PrimaryButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	void ContentDialogContent::PrimaryButtonStyle(Microsoft::UI::Xaml::Style const& value)
 	{
 		SetValue(_PrimaryButtonStyleProperty, winrt::box_value(value));
 	}
@@ -710,7 +655,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<Microsoft::UI::Xaml::Style>(GetValue(_SecondaryButtonStyleProperty));
 	}
 
-	void ContentDialogContent::SecondaryButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	void ContentDialogContent::SecondaryButtonStyle(Microsoft::UI::Xaml::Style const& value)
 	{
 		SetValue(_SecondaryButtonStyleProperty, winrt::box_value(value));
 	}
@@ -725,7 +670,7 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::unbox_value<Microsoft::UI::Xaml::Style>(GetValue(_CloseButtonStyleProperty));
 	}
 
-	void ContentDialogContent::CloseButtonStyle(const Microsoft::UI::Xaml::Style& value)
+	void ContentDialogContent::CloseButtonStyle(Microsoft::UI::Xaml::Style const& value)
 	{
 		SetValue(_CloseButtonStyleProperty, winrt::box_value(value));
 	}

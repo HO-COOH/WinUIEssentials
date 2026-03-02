@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "ContentDialogContent.g.h"
 #include <functional>
@@ -11,20 +11,10 @@ namespace winrt::WinUI3Package::implementation
 	{
 		friend struct WindowedContentDialog;
 		ContentDialogContent();
-		~ContentDialogContent();
 
 		void OnApplyTemplate();
 
 		Windows::Foundation::Size MeasureOverride(Windows::Foundation::Size availableSize);
-
-		void TitleArea(Microsoft::UI::Xaml::UIElement const& Element);
-		Microsoft::UI::Xaml::UIElement TitleArea();
-
-		void DialogSpace(Microsoft::UI::Xaml::Controls::Grid const& grid);
-		Microsoft::UI::Xaml::Controls::Grid DialogSpace();
-
-		void CommandSpace(Microsoft::UI::Xaml::Controls::Grid const& grid);
-		Microsoft::UI::Xaml::Controls::Grid CommandSpace();
 
 		winrt::event_token PrimaryButtonClick(winrt::Windows::Foundation::EventHandler<WinUI3Package::ContentDialogWindowButtonClickEventArgs> const& handler);
 		void PrimaryButtonClick(winrt::event_token const& token);
@@ -50,52 +40,52 @@ namespace winrt::WinUI3Package::implementation
 		winrt::fire_and_forget OnCloseButtonClicked(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e);
 		void OnHeaderImageOpened(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty TitleProperty();
 		winrt::Windows::Foundation::IInspectable Title() const;
-		void Title(const winrt::Windows::Foundation::IInspectable& value);
+		void Title(winrt::Windows::Foundation::IInspectable const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty TitleProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty TitleTemplateProperty();
 		Microsoft::UI::Xaml::DataTemplate TitleTemplate() const;
-		void TitleTemplate(const Microsoft::UI::Xaml::DataTemplate& value);
+		void TitleTemplate(Microsoft::UI::Xaml::DataTemplate const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty TitleTemplateProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty PrimaryButtonTextProperty();
 		winrt::hstring PrimaryButtonText() const;
-		void PrimaryButtonText(const winrt::hstring& value);
+		void PrimaryButtonText(winrt::hstring const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty PrimaryButtonTextProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty SecondaryButtonTextProperty();
 		winrt::hstring SecondaryButtonText() const;
-		void SecondaryButtonText(const winrt::hstring& value);
+		void SecondaryButtonText(winrt::hstring const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty SecondaryButtonTextProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty CloseButtonTextProperty();
 		winrt::hstring CloseButtonText() const;
-		void CloseButtonText(const winrt::hstring& value);
+		void CloseButtonText(winrt::hstring const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty CloseButtonTextProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty IsPrimaryButtonEnabledProperty();
 		bool IsPrimaryButtonEnabled() const;
-		void IsPrimaryButtonEnabled(const bool& value);
+		void IsPrimaryButtonEnabled(bool value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty IsPrimaryButtonEnabledProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty IsSecondaryButtonEnabledProperty();
 		bool IsSecondaryButtonEnabled() const;
-		void IsSecondaryButtonEnabled(const bool& value);
+		void IsSecondaryButtonEnabled(bool value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty IsSecondaryButtonEnabledProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty DefaultButtonProperty();
 		Microsoft::UI::Xaml::Controls::ContentDialogButton DefaultButton() const;
-		void DefaultButton(const Microsoft::UI::Xaml::Controls::ContentDialogButton& value);
+		void DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty DefaultButtonProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty PrimaryButtonStyleProperty();
 		Microsoft::UI::Xaml::Style PrimaryButtonStyle() const;
-		void PrimaryButtonStyle(const Microsoft::UI::Xaml::Style& value);
+		void PrimaryButtonStyle(Microsoft::UI::Xaml::Style const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty PrimaryButtonStyleProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty SecondaryButtonStyleProperty();
 		Microsoft::UI::Xaml::Style SecondaryButtonStyle() const;
-		void SecondaryButtonStyle(const Microsoft::UI::Xaml::Style& value);
+		void SecondaryButtonStyle(Microsoft::UI::Xaml::Style const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty SecondaryButtonStyleProperty();
 
-		static winrt::Microsoft::UI::Xaml::DependencyProperty CloseButtonStyleProperty();
 		Microsoft::UI::Xaml::Style CloseButtonStyle() const;
-		void CloseButtonStyle(const Microsoft::UI::Xaml::Style& value);
+		void CloseButtonStyle(Microsoft::UI::Xaml::Style const& value);
+		static winrt::Microsoft::UI::Xaml::DependencyProperty CloseButtonStyleProperty();
 
 	private:
-		bool isCustomMeasureFinishedAfterLoaded;
+		bool isCustomMeasureFinishedAfterLoaded{};
 
 		Microsoft::UI::Xaml::Controls::Button PrimaryButton{ nullptr };
 		Microsoft::UI::Xaml::Controls::Button SecondaryButton{ nullptr };
@@ -108,8 +98,6 @@ namespace winrt::WinUI3Package::implementation
 		Microsoft::UI::Xaml::UIElement m_TitleArea{ nullptr };
 		Microsoft::UI::Xaml::Controls::Grid m_DialogSpace{ nullptr };
 		Microsoft::UI::Xaml::Controls::Grid m_CommandSpace{ nullptr };
-
-		winrt::event_token m_OnUnloaded;
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> m_PrimaryButtonKeyboardAccelerators = winrt::single_threaded_vector<Microsoft::UI::Xaml::Input::KeyboardAccelerator>();
 		winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator> m_SecondaryButtonKeyboardAccelerators = winrt::single_threaded_vector<Microsoft::UI::Xaml::Input::KeyboardAccelerator>();
@@ -143,9 +131,9 @@ namespace winrt::WinUI3Package::implementation
 		winrt::hstring determineButtonsVisibilityState();
 		winrt::hstring determineDefaultButtonState();
 
-		static void OnHeaderImageChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e);
-		static void OnButtonTextChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e);
-		static void OnDefaultButtonChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e);
+		static void onHeaderImageChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+		static void onButtonTextChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+		static void onDefaultButtonChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 		static winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator getEscapeKey();
 
 	};

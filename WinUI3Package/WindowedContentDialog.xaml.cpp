@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "WindowedContentDialog.xaml.h"
 #if __has_include("WindowedContentDialog.g.cpp")
 #include "WindowedContentDialog.g.cpp"
@@ -30,14 +30,14 @@ namespace winrt::WinUI3Package::implementation
 		m_windowWorkaround.Window(*this);
 
 		auto content = ContentDialogContent();
-		auto contentImpl = winrt::get_self<struct ContentDialogContent>(content);
+		m_contentImpl = winrt::get_self<struct ContentDialogContent>(content);
 
-		contentImpl->m_closeRequestCallback =
+		m_contentImpl->m_closeRequestCallback =
 			[this](Microsoft::UI::Xaml::Controls::ContentDialogResult result) {
-				CloseByButtonAction(result);
+				closeByButtonAction(result);
 			};
 
-		contentImpl->m_imageSizeChangedCallback =
+		m_contentImpl->m_imageSizeChangedCallback =
 			[this]() {
 				updateWindowSize();
 			};
@@ -66,12 +66,11 @@ namespace winrt::WinUI3Package::implementation
 			Closed(m_Closed);
 
 			auto content = ContentDialogContent();
-			auto contentImpl = winrt::get_self<struct ContentDialogContent>(content);
 			content.ActualThemeChanged(m_ActualThemeChanged);
-			contentImpl->m_closeRequestCallback = nullptr;
-			contentImpl->m_imageSizeChangedCallback = nullptr;
+			m_contentImpl->m_closeRequestCallback = nullptr;
+			m_contentImpl->m_imageSizeChangedCallback = nullptr;
 
-			CleanupUnderlay();
+			cleanupUnderlay();
 
 			Content(nullptr);
 
@@ -148,7 +147,7 @@ namespace winrt::WinUI3Package::implementation
 		auto content = ContentDialogContent();
 		auto systemBackdrop = SystemBackdrop();
 
-		SetTitleBar(content.TitleArea());
+		SetTitleBar(m_contentImpl->m_TitleArea);
 
 		if (systemBackdrop == nullptr)
 		{
@@ -171,11 +170,11 @@ namespace winrt::WinUI3Package::implementation
 
 		if (systemBackdrop == nullptr || systemBackdrop.try_as<Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop>() != nullptr)
 		{
-			content.CommandSpace().Background().Opacity(1.0);
+			m_contentImpl->m_CommandSpace.Background().Opacity(1.0);
 		}
 		else
 		{
-			content.CommandSpace().Background().Opacity(0.5);
+			m_contentImpl->m_CommandSpace.Background().Opacity(0.5);
 		}
 
 		determineTitleBarButtonForegroundColor();
@@ -193,7 +192,7 @@ namespace winrt::WinUI3Package::implementation
 
 			if (auto parent = m_parent.get())
 			{
-				m_OnOwnerWindowSizeChanged = parent.SizeChanged({ this, &WindowedContentDialog::OnOwnerWindowSizeChanged });
+				m_onOwnerWindowSizeChanged = parent.SizeChanged(winrt::auto_revoke, { this, &WindowedContentDialog::onOwnerWindowSizeChanged });
 			}
 		}
 		
@@ -234,7 +233,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void WindowedContentDialog::CloseByButtonAction(Microsoft::UI::Xaml::Controls::ContentDialogResult result)
+	void WindowedContentDialog::closeByButtonAction(Microsoft::UI::Xaml::Controls::ContentDialogResult result)
 	{
 		Result(result);
 
@@ -267,12 +266,12 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync(Microsoft::UI::Xaml::Window const& parent)
 	{
 		SetModal(parent);
-		SetupUnderlay();
+		setupUnderlay();
 		co_return co_await ShowAsync();
 	}
 
 	// Underlay management
-	void WindowedContentDialog::SetupUnderlay()
+	void WindowedContentDialog::setupUnderlay()
 	{
 		auto parent = m_parent.get();
 		if (!parent) return;
@@ -280,15 +279,15 @@ namespace winrt::WinUI3Package::implementation
 		switch (m_underlay)
 		{
 		case WinUI3Package::UnderlayMode::SmokeLayer:
-			SetupSmokeLayer();
+			setupSmokeLayer();
 			break;
 		case WinUI3Package::UnderlayMode::SystemBackdrop:
-			SetupSystemBackdrop();
+			setupSystemBackdrop();
 			break;
 		}
 	}
 
-	void WindowedContentDialog::SetupSmokeLayer()
+	void WindowedContentDialog::setupSmokeLayer()
 	{
 		auto owner = m_parent.get();
 		if (!owner) return;
@@ -311,13 +310,13 @@ namespace winrt::WinUI3Package::implementation
 		brush.Color(ContentDialogUtils::SmokeFillColor());
 		darkLayer.Fill(brush);
 
-		SizeToXamlRoot(darkLayer, owner);
+		sizeToXamlRoot(darkLayer, owner);
 
 		m_Popup.Child(darkLayer);
 		m_SmokeLayerCache = darkLayer;
 	}
 
-	void WindowedContentDialog::SetupSystemBackdrop()
+	void WindowedContentDialog::setupSystemBackdrop()
 	{
 		auto owner = m_parent.get();
 		if (!owner) return;
@@ -328,7 +327,7 @@ namespace winrt::WinUI3Package::implementation
 		m_Popup = ContentDialogUtils::CreatePopup(
 			ownerContent.XamlRoot(),
 			m_underlaySystemBackdrop.CoverMode() == WinUI3Package::UnderlayCoverMode::Full,
-			GetTitleBarOffset());
+			getTitleBarOffset());
 
 		m_BackdropLayerCache = m_Popup.Child().try_as<Microsoft::UI::Xaml::Controls::Border>();
 		if (m_BackdropLayerCache)
@@ -337,24 +336,20 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void WindowedContentDialog::CleanupUnderlay()
+	void WindowedContentDialog::cleanupUnderlay()
 	{
 		if (m_Popup)
 		{
 			m_Popup.Child().Opacity(0.f);
 			m_Popup.IsOpen(false);
 			m_Popup.Child(nullptr);
-
-			if (auto parent = m_parent.get())
-				parent.SizeChanged(m_OnOwnerWindowSizeChanged);
-
 			m_Popup = nullptr;
 			m_SmokeLayerCache = nullptr;
 			m_BackdropLayerCache = nullptr;
 		}
 	}
 
-	void WindowedContentDialog::SizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window)
+	void WindowedContentDialog::sizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window)
 	{
 		if (!window || !window.Content() || !window.Content().XamlRoot()) return;
 
@@ -369,12 +364,12 @@ namespace winrt::WinUI3Package::implementation
 			element.Height(
 				m_underlaySystemBackdrop.CoverMode() == WinUI3Package::UnderlayCoverMode::Full
 				? window.Content().XamlRoot().Size().Height
-				: window.Content().XamlRoot().Size().Height - GetTitleBarOffset());
+				: window.Content().XamlRoot().Size().Height - getTitleBarOffset());
 			break;
 		}
 	}
 
-	int WindowedContentDialog::GetTitleBarOffset()
+	int WindowedContentDialog::getTitleBarOffset()
 	{
 		auto parent = m_parent.get();
 		if (!parent) return 0;
@@ -392,18 +387,18 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void WindowedContentDialog::OnOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args)
+	void WindowedContentDialog::onOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args)
 	{
 		auto parent = m_parent.get();
 		if (!parent) return;
 
 		if (m_SmokeLayerCache)
 		{
-			SizeToXamlRoot(m_SmokeLayerCache, parent);
+			sizeToXamlRoot(m_SmokeLayerCache, parent);
 		}
 		else if (m_BackdropLayerCache)
 		{
-			SizeToXamlRoot(m_BackdropLayerCache, parent);
+			sizeToXamlRoot(m_BackdropLayerCache, parent);
 		}
 	}
 

@@ -46,6 +46,8 @@
         <Setter Property="BorderBrush" Value="{ThemeResource ContentDialogBorderBrush}" />
         <Setter Property="IsTabStop" Value="True" />
         <Setter Property="PrimaryButtonStyle" Value="{ThemeResource DefaultButtonStyle}" />
+        <Setter Property="IsPrimaryButtonEnabled" Value="True" />
+        <Setter Property="IsSecondaryButtonEnabled" Value="True" />
         <Setter Property="SecondaryButtonStyle" Value="{ThemeResource DefaultButtonStyle}" />
         <Setter Property="CloseButtonStyle" Value="{ThemeResource DefaultButtonStyle}" />
         <Setter Property="CornerRadius" Value="0" />
