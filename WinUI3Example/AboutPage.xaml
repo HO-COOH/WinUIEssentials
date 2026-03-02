@@ -94,17 +94,65 @@
                         </Image>
                     </essential:SettingsCard.HeaderIcon>
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <HyperlinkButton
-                            Padding="0"
-                            BorderThickness="0"
-                            NavigateUri="https://www.nuget.org/packages/WinUIEssential.UWP">
-                            <Image Source="https://raster.shields.io/nuget/v/WinUIEssential.UWP.png?label=WinUIEssential.UWP" />
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="4" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontSize" Value="12" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style BasedOn="{StaticResource DefaultHyperlinkButtonStyle}" TargetType="HyperlinkButton">
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="CornerRadius" Value="4" />
+                            </Style>
+                            <Style TargetType="Viewbox">
+                                <Setter Property="Width" Value="12" />
+                                <Setter Property="Height" Value="12" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="4,0,0,0" />
+                            </Style>
+                            <x:String x:Key="DownloadGlyph">
+                                F1 M 3.125 11.25 C 3.125 11.080729 3.186849 10.934245 3.310547 10.810547 C 3.434245 10.68685 3.580729 10.625 3.75 10.625 C 3.919271 10.625 4.065755 10.68685 4.189453 10.810547 L 8.75 15.361328 L 8.75 0.625 C 8.75 0.45573 8.811849 0.309246 8.935547 0.185547 C 9.059244 0.06185 9.205729 0 9.375 0 C 9.544271 0 9.690755 0.06185 9.814453 0.185547 C 9.93815 0.309246 10 0.45573 10 0.625 L 10 15.361328 L 14.560547 10.810547 C 14.684244 10.68685 14.830729 10.625 15 10.625 C 15.169271 10.625 15.315755 10.68685 15.439453 10.810547 C 15.56315 10.934245 15.625 11.080729 15.625 11.25 C 15.625 11.419271 15.56315 11.565756 15.439453 11.689453 L 9.84375 17.285156 C 9.772135 17.356771 9.702148 17.410482 9.633789 17.446289 C 9.56543 17.482096 9.479166 17.5 9.375 17.5 C 9.270833 17.5 9.18457 17.482096 9.116211 17.446289 C 9.047852 17.410482 8.977864 17.356771 8.90625 17.285156 L 3.310547 11.689453 C 3.186849 11.565756 3.125 11.419271 3.125 11.25 Z M 15.625 18.75 C 15.79427 18.75 15.940754 18.81185 16.064453 18.935547 C 16.18815 19.059244 16.25 19.205729 16.25 19.375 C 16.25 19.544271 16.18815 19.690756 16.064453 19.814453 C 15.940754 19.93815 15.79427 20 15.625 20 L 3.125 20 C 2.955729 20 2.809245 19.93815 2.685547 19.814453 C 2.561849 19.690756 2.5 19.544271 2.5 19.375 C 2.5 19.205729 2.561849 19.059244 2.685547 18.935547 C 2.809245 18.81185 2.955729 18.75 3.125 18.75 Z
+                            </x:String>
+                        </StackPanel.Resources>
+                        <HyperlinkButton NavigateUri="https://www.nuget.org/packages/WinUIEssential.WinUI3">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Background="#5A5A5A">
+                                    <TextBlock Text="WinUIEssential.WinUI3" />
+                                </Border>
+                                <Border Background="#0273B3">
+                                    <TextBlock Text="{x:Bind WinUINugetPackageVersion, Mode=OneWay}" />
+                                </Border>
+                                <Border Background="#89B702">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Viewbox>
+                                            <PathIcon Data="{StaticResource DownloadGlyph}" Foreground="White" />
+                                        </Viewbox>
+
+                                        <TextBlock Text="{x:Bind WinUINugetPackageDownloads, Mode=OneWay}" />
+                                    </StackPanel>
+
+                                </Border>
+                            </StackPanel>
                         </HyperlinkButton>
-                        <HyperlinkButton
-                            Padding="0"
-                            BorderThickness="0"
-                            NavigateUri="https://www.nuget.org/packages/WinUIEssential.WinUI3">
-                            <Image Source="https://img.shields.io/nuget/v/WinUIEssential.WinUI3.png?label=WinUIEssential.WinUI3" />
+                        <HyperlinkButton NavigateUri="https://www.nuget.org/packages/WinUIEssential.UWP">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Background="#5A5A5A">
+                                    <TextBlock Text="WinUIEssential.UWP" />
+                                </Border>
+                                <Border Background="#0273B3">
+                                    <TextBlock Text="{x:Bind UWPNugetPackageVersion, Mode=OneWay}" />
+                                </Border>
+                                <Border Background="#89B702">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Viewbox>
+                                            <PathIcon Data="{StaticResource DownloadGlyph}" Foreground="White" />
+                                        </Viewbox>
+                                        <TextBlock Text="{x:Bind UWPNugetPackageDownloads, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
                         </HyperlinkButton>
                     </StackPanel>
                 </essential:SettingsCard>

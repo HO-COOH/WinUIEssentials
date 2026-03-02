@@ -18,6 +18,7 @@ namespace winrt::WinUI3Example::implementation
 		loadContributors();
 		loadRepoInfos();
 		loadCommitMessage();
+		loadNugetInfo();
 	}
 
 	winrt::hstring AboutPage::WASDKReleaseVersion()
@@ -77,6 +78,26 @@ namespace winrt::WinUI3Example::implementation
 	winrt::hstring AboutPage::CommitMessage()
 	{
 		return m_commitMessage;
+	}
+
+	winrt::hstring AboutPage::WinUINugetPackageVersion()
+	{
+		return m_winuiNugetPackageVersion;
+	}
+
+	int AboutPage::WinUINugetPackageDownloads()
+	{
+		return m_winuiNugetPackageDownloads;
+	}
+
+	winrt::hstring AboutPage::UWPNugetPackageVersion()
+	{
+		return m_uwpNugetPackageVersion;
+	}
+
+	int AboutPage::UWPNugetPackageDownloads()
+	{
+		return m_uwpNugetPackageDownloads;
 	}
 
 	void AboutPage::SettingsCard_Click(
@@ -160,6 +181,53 @@ namespace winrt::WinUI3Example::implementation
 			auto resultStr = co_await result.Content().ReadAsStringAsync();
 			m_commitMessage = winrt::Windows::Data::Json::JsonArray::Parse(resultStr).GetAt(0).GetObjectW().GetNamedObject(L"commit").GetNamedString(L"message");
 			raisePropertyChange(L"CommitMessage");
+		}
+		catch (...)
+		{
+		}
+	}
+
+	winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Data::Json::JsonObject> AboutPage::getNugetInfoFromId(std::wstring_view endPoint, std::wstring_view packageId)
+	{
+		auto url = std::format(L"{}?q=packageid:{}", endPoint, packageId);
+		auto nugetInfo = co_await client.GetStringAsync(winrt::Windows::Foundation::Uri{ url });
+		co_return winrt::Windows::Data::Json::JsonObject::Parse(nugetInfo).GetNamedArray(L"data").GetAt(0).GetObjectW();
+	}
+
+	winrt::fire_and_forget AboutPage::loadNugetInfoForWinUIPackage(std::wstring_view endPoint)
+	{
+		auto data = co_await getNugetInfoFromId(endPoint, L"WinUIEssential.WinUI3");
+		m_winuiNugetPackageVersion = data.GetNamedString(L"version");
+		m_winuiNugetPackageDownloads = data.GetNamedNumber(L"totalDownloads");
+		raisePropertyChange(L"WinUINugetPackageVersion");
+		raisePropertyChange(L"WinUINugetPackageDownloads");
+	}
+
+	winrt::fire_and_forget AboutPage::loadNugetInfoForUWPPackage(std::wstring_view endPoint)
+	{
+		auto data = co_await getNugetInfoFromId(endPoint, L"WinUIEssential.UWP");
+		m_uwpNugetPackageVersion = data.GetNamedString(L"version");
+		m_uwpNugetPackageDownloads = data.GetNamedNumber(L"totalDownloads");
+		raisePropertyChange(L"UWPNugetPackageVersion");
+		raisePropertyChange(L"UWPNugetPackageDownloads");
+	}
+
+	winrt::fire_and_forget AboutPage::loadNugetInfo()
+	{
+		try
+		{
+			auto result = co_await client.GetStringAsync(winrt::Windows::Foundation::Uri{ L"https://nuget.azure.cn/v3/index.json" });
+			auto resources = winrt::Windows::Data::Json::JsonObject::Parse(result).GetNamedArray(L"resources");
+			for (auto resource : resources)
+			{
+				auto object = resource.GetObjectW();
+				if (object.GetNamedString(L"@type") != L"SearchQueryService")
+					continue;
+				
+				auto endPoint = object.GetNamedString(L"@id");
+				loadNugetInfoForWinUIPackage(endPoint);
+				loadNugetInfoForUWPPackage(endPoint);
+			}
 		}
 		catch (...)
 		{

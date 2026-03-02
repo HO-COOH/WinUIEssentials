@@ -24,6 +24,11 @@ namespace WinUI3Example
         String UpdatedAt{ get; };
         String CommitMessage{ get; };
 
+        String WinUINugetPackageVersion{ get; };
+        Int32 WinUINugetPackageDownloads{ get; };
+        String UWPNugetPackageVersion{ get; };
+        Int32 UWPNugetPackageDownloads{ get; };
+
 		Windows.Foundation.Collections.IVector<Object> Contributors{ get; };
 
         Microsoft.UI.Xaml.Visibility IsLoadingContributors{ get; };

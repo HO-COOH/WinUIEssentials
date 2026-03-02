@@ -26,6 +26,12 @@ namespace winrt::WinUI3Example::implementation
         winrt::hstring UpdatedAt();
         winrt::hstring CommitMessage();
 
+        winrt::hstring WinUINugetPackageVersion();
+        int WinUINugetPackageDownloads();
+
+        winrt::hstring UWPNugetPackageVersion();
+        int UWPNugetPackageDownloads();
+
         void SettingsCard_Click(
             winrt::Windows::Foundation::IInspectable const& sender, 
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
@@ -37,11 +43,19 @@ namespace winrt::WinUI3Example::implementation
     private:
         std::optional<RepoInfo> m_repoInfo;
         winrt::hstring m_commitMessage;
+        winrt::hstring m_winuiNugetPackageVersion;
+        winrt::hstring m_uwpNugetPackageVersion;
+        int m_winuiNugetPackageDownloads{};
+        int m_uwpNugetPackageDownloads{};
         winrt::Windows::Web::Http::HttpClient client;
         bool m_isLoadingContributors = true;
         winrt::fire_and_forget loadContributors();
         winrt::fire_and_forget loadRepoInfos();
         winrt::fire_and_forget loadCommitMessage();
+        winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Data::Json::JsonObject> getNugetInfoFromId(std::wstring_view endPoint, std::wstring_view packageId);
+        winrt::fire_and_forget loadNugetInfoForWinUIPackage(std::wstring_view endPoint);
+        winrt::fire_and_forget loadNugetInfoForUWPPackage(std::wstring_view endPoint);
+        winrt::fire_and_forget loadNugetInfo();
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_contributors{ nullptr };
     public:
