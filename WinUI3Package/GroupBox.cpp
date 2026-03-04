@@ -6,11 +6,12 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Windows::Foundation::IInspectable GroupBox::Header()
+	winrt::hstring GroupBox::Header()
 	{
 		return m_header;
 	}
-	void GroupBox::Header(winrt::Windows::Foundation::IInspectable value)
+
+	void GroupBox::Header(winrt::hstring const& value)
 	{
 		m_header = value;
 	}

@@ -1,5 +1,6 @@
 ﻿import "ControlExampleSubstitution.idl";
 import "CodeSource.idl";
+import "Editor.idl";
 
 namespace WinUI3Example
 {
@@ -37,7 +38,9 @@ namespace WinUI3Example
 		Windows.Foundation.Collections.IVector<WinUI3Example.ControlExampleSubstitution> Substitutions;
 		static Microsoft.UI.Xaml.DependencyProperty SubstitutionsProperty{ get; };
 
-        static String GetStringFromComboBoxItem(Object value);
+        Windows.Foundation.Collections.IVector<Object> CodeItems{ get; };
+
+        static String UnboxString(Object value);
         static String BooleanToString(Boolean value);
     }
 }

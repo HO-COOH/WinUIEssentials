@@ -1,16 +1,19 @@
-﻿#pragma once
+#pragma once
 
 #include "Shimmer.g.h"
 #include <optional>
 #include "Shimmer.AnimationMember.h"
+#include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct Shimmer : ShimmerT<Shimmer>
+    struct Shimmer : ShimmerT<Shimmer>, TemplateControlHelper<Shimmer>
     {
         Shimmer() = default;
 
         bool IsLoading();
+
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/Shimmer_Resource.xaml";
         void IsLoading(bool value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty IsLoadingProperty();
 

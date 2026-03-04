@@ -12,9 +12,9 @@
         <essential:CustomAcrylicBackdrop
             EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}"
             FallbackColor="{x:Bind FallbackColorPicker.Color, Mode=OneWay}"
-            LuminosityOpacity="{x:Bind local:CustomAcrylicWindow.DoubleToSingle(LuminosityOpacitySlider.Value), Mode=OneWay}"
+            LuminosityOpacity="{x:Bind essential:Convert.DoubleToSingle(LuminosityOpacitySlider.Value), Mode=OneWay}"
             TintColor="{x:Bind TintColorPicker.Color, Mode=OneWay}"
-            TintOpacity="{x:Bind local:CustomAcrylicWindow.DoubleToSingle(TintOpacitySlider.Value), Mode=OneWay}" />
+            TintOpacity="{x:Bind essential:Convert.DoubleToSingle(TintOpacitySlider.Value), Mode=OneWay}" />
     </Window.SystemBackdrop>
 
     <ScrollViewer>

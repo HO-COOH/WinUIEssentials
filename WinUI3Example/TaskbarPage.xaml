@@ -37,7 +37,7 @@ Taskbar::SetProgressValue(MainHwnd(), {1});
                     </x:String>
                 </local:CodeSource.Code>
                 <local:CodeSource.Substitutions>
-                    <local:ControlExampleSubstitution Key="0" Value="{x:Bind local:ControlExample.GetStringFromComboBoxItem(StateComboBox.SelectedItem), Mode=OneWay}" />
+                    <local:ControlExampleSubstitution Key="0" Value="{x:Bind local:ControlExample.UnboxString(StateComboBox.SelectedItem), Mode=OneWay}" />
                     <local:ControlExampleSubstitution Key="1" Value="{x:Bind ProgressSlider.Value, Mode=OneWay}" />
                 </local:CodeSource.Substitutions>
             </local:CodeSource>

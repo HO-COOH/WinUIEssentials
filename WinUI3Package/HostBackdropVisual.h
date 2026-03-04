@@ -1,22 +1,24 @@
-﻿#pragma once
+#pragma once
 
 #include "HostBackdropVisual.g.h"
 #include <winrt/Windows.UI.Composition.h>
 #include <winrt/Microsoft.UI.Content.h>
-#include <winrt/Windows.System.h>
+#include "EnsureSystemDispatcherQueueController.hpp"
+#include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct HostBackdropVisual : HostBackdropVisualT<HostBackdropVisual>
+    struct HostBackdropVisual : HostBackdropVisualT<HostBackdropVisual>, EnsureSystemDispatcherQueueController<HostBackdropVisual>, TemplateControlHelper<HostBackdropVisual>
     {
         HostBackdropVisual();
 
         void OnApplyTemplate();
 
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/HostBackdropVisual_Resource.xaml";
+
     private:
         winrt::Microsoft::UI::Xaml::FrameworkElement m_acrylicContainer{ nullptr };
         winrt::Microsoft::UI::Content::ContentExternalOutputLink m_externalLink{ nullptr };
-        static winrt::Windows::System::DispatcherQueueController s_queue;
 
         constexpr static auto AcrylicContainer = L"AcrylicContainer";
 

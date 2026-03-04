@@ -281,6 +281,8 @@
       <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CombinedWallpaper.h" />
+    <ClInclude Include="CombinedWallpaperSurfaces.h" />
     <ClInclude Include="ComboBoxHelper.h">
       <DependentUpon>ComboBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -302,10 +304,15 @@
       <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Convert.h">
+      <DependentUpon>Convert.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ConverterGroup.h">
       <DependentUpon>ConverterGroup.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CrossFadeEffectInterop.h" />
     <ClInclude Include="CursorController.h">
       <DependentUpon>CursorController.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -314,14 +321,23 @@
       <DependentUpon>CustomAcrylicBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CustomBackdropBase.h">
+      <DependentUpon>CustomBackdropBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="CustomMicaBackdrop.h">
       <DependentUpon>CustomMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="D2D1DeviceContextState.h" />
     <ClInclude Include="DatePickerHelper.h">
       <DependentUpon>DatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="EffectInterop.hpp" />
+    <ClInclude Include="EffectPropertyHelper.h" />
+    <ClInclude Include="EffectPropertyMapping.h" />
+    <ClInclude Include="EnsureSystemDispatcherQueueController.hpp" />
     <ClInclude Include="EqualPanel.h">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -357,6 +373,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="IconUtils.h" />
+    <ClInclude Include="include\AutoRevokeWorkaround.hpp" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\DependentValue.h">
@@ -368,6 +385,7 @@
     <ClInclude Include="include\Handler.hpp" />
     <ClInclude Include="include\HwndHelper.hpp" />
     <ClInclude Include="include\IInitializeWithWindowHelper.hpp" />
+    <ClInclude Include="include\LayoutUpdateAwaiter.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
     <ClInclude Include="include\ScopedButtonDisabler.hpp" />
     <ClInclude Include="include\Taskbar.hpp" />
@@ -429,6 +447,10 @@
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NavigationViewHelper.h">
+      <DependentUpon>NavigationViewHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -486,6 +508,11 @@
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="RevealBrush.h" />
+    <ClInclude Include="RevealFocusPanel.h">
+      <DependentUpon>RevealFocusPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ReverseConverterBase.hpp" />
     <ClInclude Include="Segmented.h">
       <DependentUpon>Segmented.idl</DependentUpon>
@@ -529,6 +556,10 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SliderHelper.h">
+      <DependentUpon>SliderHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="StringToBoolConverter.h">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -540,6 +571,16 @@
     <ClInclude Include="TaskbarIconBase.h" />
     <ClInclude Include="TaskbarIconMessageWindow.h" />
     <ClInclude Include="TaskbarIconXamlEvents.h" />
+    <ClInclude Include="TenMicaBackdrop.h">
+      <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TenMicaConstants.h" />
+    <ClInclude Include="TenMicaDeviceLostException.h" />
+    <ClInclude Include="TenMicaEffect.h" />
+    <ClInclude Include="TenMicaEffectFactory.h" />
+    <ClInclude Include="TenMicaRegistryWatcher.h" />
+    <ClInclude Include="TenMicaWindowSubProc.hpp" />
     <ClInclude Include="ThemeAdaptiveIcon.h" />
     <ClInclude Include="ThemeSettings.h">
       <DependentUpon>ThemeSettings.idl</DependentUpon>
@@ -584,6 +625,8 @@
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WallpaperInfo.h" />
+    <ClInclude Include="WallpaperManager.h" />
     <ClInclude Include="WindowCaptionButtonThemeWorkaround.h">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -630,6 +673,8 @@
       <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="CombinedWallpaper.cpp" />
+    <ClCompile Include="CombinedWallpaperSurfaces.cpp" />
     <ClCompile Include="ComboBoxHelper.cpp">
       <DependentUpon>ComboBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -651,6 +696,10 @@
       <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Convert.cpp">
+      <DependentUpon>Convert.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ConverterGroup.cpp">
       <DependentUpon>ConverterGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -663,14 +712,20 @@
       <DependentUpon>CustomAcrylicBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="CustomBackdropBase.cpp">
+      <DependentUpon>CustomBackdropBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="CustomMicaBackdrop.cpp">
       <DependentUpon>CustomMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="D2D1DeviceContextState.cpp" />
     <ClCompile Include="DatePickerHelper.cpp">
       <DependentUpon>DatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="EffectPropertyHelper.cpp" />
     <ClCompile Include="EqualPanel.cpp">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -748,6 +803,10 @@
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NavigationViewHelper.cpp">
+      <DependentUpon>NavigationViewHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="NegateBoolConverter.cpp">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -804,6 +863,11 @@
       <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="RevealBrush.cpp" />
+    <ClCompile Include="RevealFocusPanel.cpp">
+      <DependentUpon>RevealFocusPanel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Segmented.cpp">
       <DependentUpon>Segmented.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -845,6 +909,10 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SliderHelper.cpp">
+      <DependentUpon>SliderHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="StringToBoolConverter.cpp">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -859,6 +927,13 @@
     </ClCompile>
     <ClCompile Include="TaskbarIconBase.cpp" />
     <ClCompile Include="TaskbarIconMessageWindow.cpp" />
+    <ClCompile Include="TenMicaBackdrop.cpp">
+      <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TenMicaEffect.cpp" />
+    <ClCompile Include="TenMicaEffectFactory.cpp" />
+    <ClCompile Include="TenMicaRegistryWatcher.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
     <ClCompile Include="ThemeSettings.cpp">
@@ -898,6 +973,7 @@
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WallpaperManager.cpp" />
     <ClCompile Include="WindowCaptionButtonThemeWorkaround.cpp">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -911,6 +987,7 @@
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WindowsVersion.cpp" />
     <ClCompile Include="WrapPanel.cpp">
       <DependentUpon>WrapPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -957,6 +1034,9 @@
     <Midl Include="ControlSizeTrigger.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Convert.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ConverterGroup.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -966,8 +1046,12 @@
     <Midl Include="CustomAcrylicBackdrop.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="CustomBackdropBase.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="CustomMicaBackdrop.idl">
       <SubType>Designer</SubType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </Midl>
     <Midl Include="DatePickerHelper.idl">
       <SubType>Designer</SubType>
@@ -1030,6 +1114,9 @@
       <DependentUpon>ModernStandardWindowContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="NavigationViewHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="NegateBoolConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1066,6 +1153,9 @@
     <Midl Include="ReferenceToBoolConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="RevealFocusPanel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Segmented.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1097,6 +1187,9 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="SliderHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="StringToBoolConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1104,6 +1197,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TaskbarIcon.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TenMicaBackdrop.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ThemeSettings.idl">
@@ -1153,7 +1249,6 @@
     <Page Include="FlyoutWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Glyphs.xaml" />
     <Page Include="GroupBox_Resource.xaml" />
     <Page Include="HostBackdropVisual_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />

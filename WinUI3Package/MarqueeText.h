@@ -1,15 +1,18 @@
-﻿#pragma once
+#pragma once
 
 #include "MarqueeText.g.h"
 #include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
+#include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct MarqueeText : MarqueeTextT<MarqueeText>
+    struct MarqueeText : MarqueeTextT<MarqueeText>, TemplateControlHelper<MarqueeText>
     {
         MarqueeText() = default;
 
         void OnApplyTemplate();
+
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/MarqueeText_Resource.xaml";
             
         double Speed();
         void Speed(double value);

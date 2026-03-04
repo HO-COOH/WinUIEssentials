@@ -57,6 +57,13 @@ namespace winrt::WinUI3Example::implementation
 		brokenWindow.Activate();
 		fixedWindow.Activate();
 	}
+	std::vector<winrt::Windows::Foundation::IInspectable> CaptionButtonThemeWorkaroundPage::Components()
+	{
+		return std::vector
+		{
+			winrt::box_value(winrt::WinUI3Example::ComponentInfo{.Name = L"CaptionButtonThemeWorkaround", .Xaml = false, .Idl = true, .H = true, .Cpp = true}),
+		};
+	}
 }
 
 

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "SettingsExpander.g.h"
 #include "include/TemplateControlHelper.hpp"
@@ -10,6 +10,8 @@ namespace winrt::WinUI3Package::implementation
         SettingsExpander();
 
         void OnApplyTemplate();
+
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/SettingsExpander_Resource.xaml";
 #pragma region Properties
         winrt::Windows::Foundation::IInspectable Header();
         void Header(winrt::Windows::Foundation::IInspectable header);

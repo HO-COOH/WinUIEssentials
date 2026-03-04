@@ -21,15 +21,10 @@ namespace winrt::WinUI3Example::implementation
     /// </summary>
     App::App()
     {
-        using namespace winrt;
-        using namespace Windows::Foundation;
-        using namespace Microsoft::UI::Xaml;
-        using namespace Microsoft::UI::Xaml::Controls;
-        using namespace Microsoft::UI::Xaml::Navigation;
         InitializeComponent();
 
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
-        UnhandledException([this](IInspectable const&, UnhandledExceptionEventArgs const& e)
+        UnhandledException([this](winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::UnhandledExceptionEventArgs const& e)
             {
                 if (IsDebuggerPresent())
                 {
@@ -38,7 +33,7 @@ namespace winrt::WinUI3Example::implementation
                 }
             });
 #else
-        UnhandledException([](IInspectable const&, UnhandledExceptionEventArgs const& e)
+        UnhandledException([](winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::UnhandledExceptionEventArgs const& e)
             {
                 MessageBox(nullptr, e.Message().data(), L"Unhandled exception", 0);
                 e.Handled(true);

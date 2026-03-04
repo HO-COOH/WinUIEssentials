@@ -11,38 +11,42 @@ class ThemeSettingsImpl
 public:
 	static bool AppsUseLightTheme()
 	{
-		return wil::reg::get_value_dword(
+		//If windows are not activated, personalization is disabled and this registry key will not exist
+		return wil::reg::try_get_value_dword(
 			HKEY_CURRENT_USER,
 			PersonalizeSubKey,
 			L"AppsUseLightTheme"
-		);
+		).value_or(true);
 	}
 
-	static bool ColorPrevalence()
+	//This is for "Show Accent Color on Start and taskbar"
+	static bool ShowAccentColorOnStartAndTaskbar()
 	{
-		return wil::reg::get_value_dword(
+		//It seems it always exists, but just in case
+		return wil::reg::try_get_value_dword(
 			HKEY_CURRENT_USER,
 			PersonalizeSubKey,
 			L"ColorPrevalence"
-		);
+		).value_or(false);
 	}
 
 	static bool EnableTransparency()
 	{
-		return wil::reg::get_value_dword(
+		return wil::reg::try_get_value_dword(
 			HKEY_CURRENT_USER,
 			PersonalizeSubKey,
 			L"EnableTransparency"
-		);
+		).value_or(true);
 	}
 
 	static bool SystemUsesLightTheme()
 	{
-		return wil::reg::get_value_dword(
+		//If windows are not activated, personalization is disabled and this registry key will not exist
+		return wil::reg::try_get_value_dword(
 			HKEY_CURRENT_USER,
 			PersonalizeSubKey,
 			L"SystemUsesLightTheme"
-		);
+		).value_or(true);
 	}
 
 	static DWORD AccentColor()
@@ -70,11 +74,11 @@ public:
 
 	static bool ShowAccentColorOnTitleBarsAndWindowBorders()
 	{
-		return static_cast<bool>(wil::reg::get_value_dword(
+		return wil::reg::try_get_value_dword(
 			HKEY_CURRENT_USER,
 			DWMSubKey,
 			L"ColorPrevalence"
-		));
+		).value_or(false);
 	}
 
 	class ColorHistoryCollection

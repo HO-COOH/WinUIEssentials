@@ -101,18 +101,21 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">&lt;essential:TaskbarIcon
-    x:Name=&quot;MainIcon&quot;
-    Guid=&quot;{x:Bind local:MainWindow.IconGuid}&quot;
-    Icon=&quot;ms-appx:///Assets/MainLogo.ico&quot;
-    ToolTip=&quot;WinUI3Example&apos;s icon tooltip&quot;&gt;
-    &lt;MenuFlyout&gt;
-        &lt;MenuFlyoutItem
-            x:Name=&quot;ExitItem&quot;
-            Click=&quot;ExitItem_Click&quot;
-            Text=&quot;Exit&quot; /&gt;
-    &lt;/MenuFlyout&gt;
-&lt;/essential:TaskbarIcon&gt;</x:String>
+                        <x:String xml:space="preserve">&lt;!-- Define this under any Resource--&gt;
+&lt;Page.Resources&gt;
+    &lt;essential:TaskbarIcon
+        x:Name=&quot;MainIcon&quot;
+        Guid=&quot;{x:Bind local:MainWindow.IconGuid}&quot;
+        Icon=&quot;ms-appx:///Assets/MainLogo.ico&quot;
+        ToolTip=&quot;WinUI3Example&apos;s icon tooltip&quot;&gt;
+        &lt;MenuFlyout&gt;
+            &lt;MenuFlyoutItem
+                x:Name=&quot;ExitItem&quot;
+                Click=&quot;ExitItem_Click&quot;
+                Text=&quot;Exit&quot; /&gt;
+        &lt;/MenuFlyout&gt;
+    &lt;/essential:TaskbarIcon&gt;
+&lt;/Page.Resources&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>

@@ -7,9 +7,10 @@
     xmlns:essential="using:WinUI3Package"
     xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:systemBackdrops="using:Microsoft.UI.Composition.SystemBackdrops"
     mc:Ignorable="d">
     <Window.SystemBackdrop>
-        <essential:CustomAcrylicBackdrop EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}" Kind="{x:Bind local:DefaultAcrylicWindow.ToAcrylicKind(KindComboBox.SelectedItem), Mode=OneWay}" />
+        <essential:CustomAcrylicBackdrop EnableWhenInactive="{x:Bind EnableSwitch.IsOn, Mode=OneWay}" Kind="{x:Bind (systemBackdrops:DesktopAcrylicKind)((ComboBoxItem)KindComboBox.SelectedItem).Tag, Mode=OneWay}" />
     </Window.SystemBackdrop>
 
     <StackPanel
@@ -21,10 +22,23 @@
             x:Name="KindComboBox"
             Header="Kind"
             SelectedIndex="0">
-            <x:String>Default</x:String>
-            <x:String>Base</x:String>
-            <x:String>Thin</x:String>
+            <ComboBoxItem Content="Default">
+                <ComboBoxItem.Tag>
+                    <systemBackdrops:DesktopAcrylicKind>Default</systemBackdrops:DesktopAcrylicKind>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Base">
+                <ComboBoxItem.Tag>
+                    <systemBackdrops:DesktopAcrylicKind>Base</systemBackdrops:DesktopAcrylicKind>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
+
+            <ComboBoxItem Content="Thin">
+                <ComboBoxItem.Tag>
+                    <systemBackdrops:DesktopAcrylicKind>Thin</systemBackdrops:DesktopAcrylicKind>
+                </ComboBoxItem.Tag>
+            </ComboBoxItem>
         </ComboBox>
     </StackPanel>
-
 </Window>

@@ -1,10 +1,11 @@
 ﻿#pragma once
 
 #include "SettingsCard.g.h"
+#include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SettingsCard : SettingsCardT<SettingsCard>
+    struct SettingsCard : SettingsCardT<SettingsCard>, TemplateControlHelper<SettingsCard>
     {
         SettingsCard() = default;
 
@@ -49,6 +50,8 @@ namespace winrt::WinUI3Package::implementation
 
         void OnPointerPressed(winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void OnPointerReleased(winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/SettingsCard_Resource.xaml";
     private:
         static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty m_descriptionProperty;

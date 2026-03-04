@@ -7,6 +7,8 @@ namespace winrt::WinUI3Example::implementation
     struct FlyoutHelperPage : FlyoutHelperPageT<FlyoutHelperPage>
     {
         FlyoutHelperPage() = default;
+
+        static std::vector<winrt::Windows::Foundation::IInspectable> Components();
     };
 }
 

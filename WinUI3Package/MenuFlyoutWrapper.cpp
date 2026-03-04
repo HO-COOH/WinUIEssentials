@@ -1,20 +1,40 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "MenuFlyoutWrapper.h"
 #include <winrt/Microsoft.UI.Xaml.h>
 #include "MenuFlyoutItemPaddingWorkaround.h"
 #include <shellscalingapi.h>
 #include <IconUtils.h>
+#include "ThemeSettingsImpl.hpp"
 
 MenuFlyoutWrapper::MenuFlyoutWrapper(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& flyout) : m_menu{flyout}
 {
 	m_menu.ShouldConstrainToRootBounds(false);
+}
 
-	//TODO: Fix theme
-	
-	//winrt::Microsoft::UI::Xaml::Style style{ winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutPresenter>() };
-	//winrt::Microsoft::UI::Xaml::Setter setter{ winrt::Microsoft::UI::Xaml::FrameworkElement::RequestedThemeProperty(), winrt::box_value(winrt::Microsoft::UI::Xaml::ElementTheme::Light) };
-	//style.Setters().Append(setter);
-	//m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>().MenuFlyoutPresenterStyle(style);
+void MenuFlyoutWrapper::applySystemTheme()
+{
+	m_menuHost.RequestedTheme(
+		ThemeSettingsImpl::SystemUsesLightTheme()
+			? winrt::Microsoft::UI::Xaml::ElementTheme::Light
+			: winrt::Microsoft::UI::Xaml::ElementTheme::Dark
+	);
+}
+
+void MenuFlyoutWrapper::Theme(winrt::Microsoft::UI::Xaml::ElementTheme value)
+{
+	MenuBase::Theme(value);
+	if (value == winrt::Microsoft::UI::Xaml::ElementTheme::Default)
+	{
+		applySystemTheme();
+		m_themeListenerToken = ThemeListener::Add([this]() {
+			applySystemTheme();
+		});
+	}
+	else
+	{
+		m_menuHost.RequestedTheme(value);
+		m_themeListenerToken.reset();
+	}
 }
 
 void MenuFlyoutWrapper::Show(POINT p)

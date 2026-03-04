@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Shimmer.h"
 #if __has_include("Shimmer.g.cpp")
 #include "Shimmer.g.cpp"

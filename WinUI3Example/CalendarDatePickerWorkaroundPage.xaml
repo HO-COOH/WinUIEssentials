@@ -12,6 +12,13 @@
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="Original CalendarDatePicker (from WinUI3 Gallery), you don't have Acrylic">
             <CalendarDatePicker Header="Calendar" PlaceholderText="Pick a date" />
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;CalendarDatePicker Header=&quot;Calendar&quot; PlaceholderText=&quot;Pick a date&quot; /&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Using CalendarDatePicker.AcrylicWorkaround, you got Acrylic">

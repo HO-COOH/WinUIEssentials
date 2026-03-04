@@ -121,7 +121,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Microsoft::UI::Xaml::ElementTheme TaskbarIcon::MenuTheme()
 	{
-		return winrt::Microsoft::UI::Xaml::ElementTheme();
+		return m_theme;
 	}
 
 	void TaskbarIcon::MenuTheme(winrt::Microsoft::UI::Xaml::ElementTheme value)

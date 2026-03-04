@@ -11,6 +11,8 @@ namespace winrt::WinUI3Example::implementation
         void CreateDefaultWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void CreateWorkaroundWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void CompareWindowsButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+
+        static std::vector<winrt::Windows::Foundation::IInspectable> Components();
     };
 }
 

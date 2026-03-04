@@ -1,20 +1,12 @@
-﻿namespace WinUI3Example
-{
-    enum Language
-    {
-        Xaml,
-        Cpp,
-        H,
-        Idl
-    };
+import "Language.idl";
 
-    [bindable]
+namespace WinUI3Example
+{
     [default_interface]
-    runtimeclass Editor : Microsoft.UI.Xaml.Controls.WebView2
+    runtimeclass Editor : Microsoft.UI.Xaml.Controls.UserControl
     {
         Editor();
-        Editor(String code, Language language);
-
         String Code;
+        Language CodeLanguage;
     }
 }

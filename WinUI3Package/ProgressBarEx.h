@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "ProgressBarEx.g.h"
 #include <include/TemplateControlHelper.hpp>
@@ -11,6 +11,8 @@ namespace winrt::WinUI3Package::implementation
         ProgressBarEx() = default;
 
         void OnApplyTemplate();
+
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/ProgressBarEx_Resource.xaml";
 
         winrt::Windows::UI::Color HighColor();
         void HighColor(winrt::Windows::UI::Color value);

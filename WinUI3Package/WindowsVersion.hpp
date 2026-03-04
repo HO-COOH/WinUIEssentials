@@ -1,4 +1,4 @@
-#ifndef __RTL_VERSION_H__
+﻿#ifndef __RTL_VERSION_H__
 #define __RTL_VERSION_H__
 
 #include <windows.h>
@@ -35,5 +35,7 @@ extern "C" {
 #ifdef  __cplusplus
 }
 #endif // __cplusplus
+
+OSVERSIONINFOEXW const& GetWindowsVersion();
 
 #endif // __RTL_VERSION_H__

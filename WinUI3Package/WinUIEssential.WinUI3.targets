@@ -43,11 +43,6 @@
             <IsWinMDFile>true</IsWinMDFile>
             <Implementation>WinUI3Package.dll</Implementation>
         </Reference>
-
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\Glyphs.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/Glyphs.xbf</TargetPath>
-        </ContentWithTargetPath>
         <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\GroupBox_Resource.xbf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/GroupBox_Resource.xbf</TargetPath>

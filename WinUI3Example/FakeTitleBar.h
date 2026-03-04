@@ -5,18 +5,21 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+    struct FlipWindow;
+
     struct FakeTitleBar : FakeTitleBarT<FakeTitleBar>
     {
-        FakeTitleBar()
-        {
-            DefaultStyleKey(winrt::box_value(winrt::xaml_typename<class_type>()));
-        }
+        FakeTitleBar();
+
+        void OnApplyTemplate();
 
         winrt::hstring Title();
+        void Title(winrt::hstring const& value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty TitleProperty();
+
+        FlipWindow* ParentWindow{};
     private:
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleProperty;
-        //winrt::hstring m_title{ L"Fake window" };
     };
 }
 

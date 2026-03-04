@@ -4,8 +4,5 @@
     runtimeclass SegmentedPage : Microsoft.UI.Xaml.Controls.Page
     {
         SegmentedPage();
-
-        static Microsoft.UI.Xaml.Controls.ListViewSelectionMode ConvertToSelectionMode(Object selectionMode);
-        static Microsoft.UI.Xaml.HorizontalAlignment ConvertToHorizontalAlignment(Object horizontalAlignment);
     }
 }

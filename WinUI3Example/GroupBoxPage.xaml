@@ -9,21 +9,388 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <local:ControlExample HeaderText="Simple GroupBox">
-        <essential:GroupBox Header="Me">
-            <Button>Button inside GroupBox</Button>
-        </essential:GroupBox>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
+        <local:ControlExample HeaderText="Simple GroupBox">
+            <essential:GroupBox Header="Me">
+                <Button>Button inside GroupBox</Button>
+            </essential:GroupBox>
 
-        <local:ControlExample.Xaml>
-            <local:CodeSource>
-                <local:CodeSource.Code>
-                    <x:String xml:space="preserve">&lt;essential:GroupBox Header=&quot;Me&quot;&gt;
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:GroupBox Header=&quot;Me&quot;&gt;
     &lt;Button&gt;Button inside GroupBox&lt;/Button&gt;
 &lt;/essential:GroupBox&gt;
-                    </x:String>
-                </local:CodeSource.Code>
-            </local:CodeSource>
-        </local:ControlExample.Xaml>
-    </local:ControlExample>
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
 
+        <local:ControlExample HeaderText="Comprehensive demo for recreating explorer's Folder Options ">
+            <Border
+                Width="450"
+                Padding="0"
+                Background="#F0F0F0"
+                BorderBrush="#858585"
+                BorderThickness="1"
+                CornerRadius="0"
+                RequestedTheme="Light">
+
+                <Border.Resources>
+                    <Style TargetType="RadioButton">
+                        <Setter Property="FontSize" Value="12" />
+                    </Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="12" />
+                    </Style>
+                    <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+                        <Setter Property="CornerRadius" Value="0" />
+                        <Setter Property="FontSize" Value="12" />
+                    </Style>
+                    <Style BasedOn="{StaticResource DefaultComboBoxStyle}" TargetType="ComboBox">
+                        <Setter Property="FontSize" Value="12" />
+                    </Style>
+                    <Style BasedOn="{StaticResource DefaultCheckBoxStyle}" TargetType="CheckBox">
+                        <Setter Property="FontSize" Value="12" />
+                    </Style>
+                </Border.Resources>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Tab strip  -->
+                    <StackPanel Margin="2,4,0,0" Orientation="Horizontal">
+                        <Border
+                            Padding="10,4"
+                            Background="#F0F0F0"
+                            BorderBrush="#858585"
+                            BorderThickness="1,1,1,0"
+                            CornerRadius="2,2,0,0">
+                            <TextBlock Text="General" />
+                        </Border>
+                        <Border
+                            Margin="2,2,0,2"
+                            Padding="10,4"
+                            Background="#D4D0C8"
+                            BorderBrush="#858585"
+                            BorderThickness="1,1,1,0"
+                            CornerRadius="2,2,0,0">
+                            <TextBlock Text="View" />
+                        </Border>
+                        <Border
+                            Margin="0,2,0,2"
+                            Padding="10,4"
+                            Background="#D4D0C8"
+                            BorderBrush="#858585"
+                            BorderThickness="1,1,1,0"
+                            CornerRadius="2,2,0,0">
+                            <TextBlock Text="Search" />
+                        </Border>
+                    </StackPanel>
+
+                    <!--  Main content area  -->
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="10,8,10,10"
+                        Spacing="10">
+
+                        <!--  Open File Explorer to  -->
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock VerticalAlignment="Center" Text="Open File Explorer to:" />
+                            <ComboBox MinWidth="160" SelectedIndex="0">
+                                <x:String>Quick access</x:String>
+                                <x:String>This PC</x:String>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <!--  Browse folders GroupBox  -->
+                        <essential:GroupBox
+                            Padding="10"
+                            FontSize="12"
+                            Header="Browse folders">
+                            <StackPanel Spacing="6">
+                                <RadioButton Content="Open each folder in the same window" IsChecked="True" />
+                                <RadioButton Content="Open each folder in its own window" GroupName="BrowseFolders" />
+                            </StackPanel>
+                        </essential:GroupBox>
+
+                        <!--  Click items as follows GroupBox  -->
+                        <essential:GroupBox
+                            Padding="10"
+                            FontSize="12"
+                            Header="Click items as follows">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon
+                                    Margin="0,0,10,0"
+                                    VerticalAlignment="Top"
+                                    FontSize="36"
+                                    Foreground="#4A6EA5"
+                                    Glyph="&#xED25;" />
+                                <StackPanel Grid.Column="1" Spacing="4">
+                                    <RadioButton
+                                        x:Name="SingleClickRadio"
+                                        Content="Single-click to open an item (point to select)"
+                                        GroupName="ClickItems" />
+                                    <RadioButton
+                                        Margin="24,0,0,0"
+                                        Content="Underline icon titles consistent with my browser"
+                                        GroupName="UnderlineOptions"
+                                        IsEnabled="{x:Bind SingleClickRadio.IsChecked.Value, Mode=OneWay}" />
+                                    <RadioButton
+                                        Margin="24,0,0,0"
+                                        Content="Underline icon titles only when I point at them"
+                                        IsEnabled="{x:Bind SingleClickRadio.IsChecked.Value, Mode=OneWay}" />
+                                    <RadioButton
+                                        Content="Double-click to open an item (single-click to select)"
+                                        GroupName="ClickItems"
+                                        IsChecked="True" />
+                                </StackPanel>
+                            </Grid>
+                        </essential:GroupBox>
+
+                        <!--  Privacy GroupBox  -->
+                        <essential:GroupBox
+                            Padding="10"
+                            FontSize="12"
+                            Header="Privacy">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon
+                                    Margin="0,0,10,0"
+                                    VerticalAlignment="Top"
+                                    FontSize="36"
+                                    Foreground="#4A6EA5"
+                                    Glyph="&#xE8D7;" />
+                                <StackPanel Grid.Column="1" Spacing="6">
+                                    <CheckBox Content="Show recently used files in Quick access" IsChecked="True" />
+                                    <CheckBox Content="Show frequently used folders in Quick access" IsChecked="True" />
+                                    <StackPanel
+                                        Margin="0,4,0,0"
+                                        Orientation="Horizontal"
+                                        Spacing="16">
+                                        <TextBlock VerticalAlignment="Center" Text="Clear File Explorer history" />
+                                        <Button
+                                            MinWidth="70"
+                                            HorizontalAlignment="Right"
+                                            Content="Clear"
+                                            CornerRadius="0"
+                                            FontSize="12" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </essential:GroupBox>
+                        <Button HorizontalAlignment="Right" Content="Restore Defaults" />
+                    </StackPanel>
+
+                    <!--  Bottom buttons  -->
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="0,0,10,12"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button MinWidth="80" Content="OK" />
+                        <Button MinWidth="80" Content="Cancel" />
+                        <Button MinWidth="80" Content="Apply" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Border
+    Width=&quot;450&quot;
+    Padding=&quot;0&quot;
+    Background=&quot;#F0F0F0&quot;
+    BorderBrush=&quot;#858585&quot;
+    BorderThickness=&quot;1&quot;
+    CornerRadius=&quot;0&quot;
+    RequestedTheme=&quot;Light&quot;&gt;
+
+    &lt;Border.Resources&gt;
+        &lt;Style TargetType=&quot;RadioButton&quot;&gt;
+            &lt;Setter Property=&quot;FontSize&quot; Value=&quot;12&quot; /&gt;
+        &lt;/Style&gt;
+        &lt;Style TargetType=&quot;TextBlock&quot;&gt;
+            &lt;Setter Property=&quot;FontSize&quot; Value=&quot;12&quot; /&gt;
+        &lt;/Style&gt;
+        &lt;Style BasedOn=&quot;{StaticResource DefaultButtonStyle}&quot; TargetType=&quot;Button&quot;&gt;
+            &lt;Setter Property=&quot;CornerRadius&quot; Value=&quot;0&quot; /&gt;
+            &lt;Setter Property=&quot;FontSize&quot; Value=&quot;12&quot; /&gt;
+        &lt;/Style&gt;
+        &lt;Style BasedOn=&quot;{StaticResource DefaultComboBoxStyle}&quot; TargetType=&quot;ComboBox&quot;&gt;
+            &lt;Setter Property=&quot;FontSize&quot; Value=&quot;12&quot; /&gt;
+        &lt;/Style&gt;
+        &lt;Style BasedOn=&quot;{StaticResource DefaultCheckBoxStyle}&quot; TargetType=&quot;CheckBox&quot;&gt;
+            &lt;Setter Property=&quot;FontSize&quot; Value=&quot;12&quot; /&gt;
+        &lt;/Style&gt;
+    &lt;/Border.Resources&gt;
+    &lt;Grid&gt;
+        &lt;Grid.RowDefinitions&gt;
+            &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+            &lt;RowDefinition Height=&quot;*&quot; /&gt;
+            &lt;RowDefinition Height=&quot;Auto&quot; /&gt;
+        &lt;/Grid.RowDefinitions&gt;
+
+        &lt;!--  Tab strip  --&gt;
+        &lt;StackPanel Margin=&quot;2,4,0,0&quot; Orientation=&quot;Horizontal&quot;&gt;
+            &lt;Border
+                Padding=&quot;10,4&quot;
+                Background=&quot;#F0F0F0&quot;
+                BorderBrush=&quot;#858585&quot;
+                BorderThickness=&quot;1,1,1,0&quot;
+                CornerRadius=&quot;2,2,0,0&quot;&gt;
+                &lt;TextBlock Text=&quot;General&quot; /&gt;
+            &lt;/Border&gt;
+            &lt;Border
+                Margin=&quot;2,2,0,2&quot;
+                Padding=&quot;10,4&quot;
+                Background=&quot;#D4D0C8&quot;
+                BorderBrush=&quot;#858585&quot;
+                BorderThickness=&quot;1,1,1,0&quot;
+                CornerRadius=&quot;2,2,0,0&quot;&gt;
+                &lt;TextBlock Text=&quot;View&quot; /&gt;
+            &lt;/Border&gt;
+            &lt;Border
+                Margin=&quot;0,2,0,2&quot;
+                Padding=&quot;10,4&quot;
+                Background=&quot;#D4D0C8&quot;
+                BorderBrush=&quot;#858585&quot;
+                BorderThickness=&quot;1,1,1,0&quot;
+                CornerRadius=&quot;2,2,0,0&quot;&gt;
+                &lt;TextBlock Text=&quot;Search&quot; /&gt;
+            &lt;/Border&gt;
+        &lt;/StackPanel&gt;
+
+        &lt;!--  Main content area  --&gt;
+        &lt;StackPanel
+            Grid.Row=&quot;1&quot;
+            Margin=&quot;10,8,10,10&quot;
+            Spacing=&quot;10&quot;&gt;
+
+            &lt;!--  Open File Explorer to  --&gt;
+            &lt;StackPanel Orientation=&quot;Horizontal&quot; Spacing=&quot;8&quot;&gt;
+                &lt;TextBlock VerticalAlignment=&quot;Center&quot; Text=&quot;Open File Explorer to:&quot; /&gt;
+                &lt;ComboBox MinWidth=&quot;160&quot; SelectedIndex=&quot;0&quot;&gt;
+                    &lt;x:String&gt;Quick access&lt;/x:String&gt;
+                    &lt;x:String&gt;This PC&lt;/x:String&gt;
+                &lt;/ComboBox&gt;
+            &lt;/StackPanel&gt;
+
+            &lt;!--  Browse folders GroupBox  --&gt;
+            &lt;essential:GroupBox
+                Padding=&quot;10&quot;
+                FontSize=&quot;12&quot;
+                Header=&quot;Browse folders&quot;&gt;
+                &lt;StackPanel Spacing=&quot;6&quot;&gt;
+                    &lt;RadioButton Content=&quot;Open each folder in the same window&quot; IsChecked=&quot;True&quot; /&gt;
+                    &lt;RadioButton Content=&quot;Open each folder in its own window&quot; GroupName=&quot;BrowseFolders&quot; /&gt;
+                &lt;/StackPanel&gt;
+            &lt;/essential:GroupBox&gt;
+
+            &lt;!--  Click items as follows GroupBox  --&gt;
+            &lt;essential:GroupBox
+                Padding=&quot;10&quot;
+                FontSize=&quot;12&quot;
+                Header=&quot;Click items as follows&quot;&gt;
+                &lt;Grid&gt;
+                    &lt;Grid.ColumnDefinitions&gt;
+                        &lt;ColumnDefinition Width=&quot;Auto&quot; /&gt;
+                        &lt;ColumnDefinition Width=&quot;*&quot; /&gt;
+                    &lt;/Grid.ColumnDefinitions&gt;
+                    &lt;FontIcon
+                        Margin=&quot;0,0,10,0&quot;
+                        VerticalAlignment=&quot;Top&quot;
+                        FontSize=&quot;36&quot;
+                        Foreground=&quot;#4A6EA5&quot;
+                        Glyph=&quot;&amp;#xED25;&quot; /&gt;
+                    &lt;StackPanel Grid.Column=&quot;1&quot; Spacing=&quot;4&quot;&gt;
+                        &lt;RadioButton
+                            x:Name=&quot;SingleClickRadio&quot;
+                            Content=&quot;Single-click to open an item (point to select)&quot;
+                            GroupName=&quot;ClickItems&quot; /&gt;
+                        &lt;RadioButton
+                            Margin=&quot;24,0,0,0&quot;
+                            Content=&quot;Underline icon titles consistent with my browser&quot;
+                            GroupName=&quot;UnderlineOptions&quot;
+                            IsEnabled=&quot;{x:Bind SingleClickRadio.IsChecked.Value, Mode=OneWay}&quot; /&gt;
+                        &lt;RadioButton
+                            Margin=&quot;24,0,0,0&quot;
+                            Content=&quot;Underline icon titles only when I point at them&quot;
+                            IsEnabled=&quot;{x:Bind SingleClickRadio.IsChecked.Value, Mode=OneWay}&quot; /&gt;
+                        &lt;RadioButton
+                            Content=&quot;Double-click to open an item (single-click to select)&quot;
+                            GroupName=&quot;ClickItems&quot;
+                            IsChecked=&quot;True&quot; /&gt;
+                    &lt;/StackPanel&gt;
+                &lt;/Grid&gt;
+            &lt;/essential:GroupBox&gt;
+
+            &lt;!--  Privacy GroupBox  --&gt;
+            &lt;essential:GroupBox
+                Padding=&quot;10&quot;
+                FontSize=&quot;12&quot;
+                Header=&quot;Privacy&quot;&gt;
+                &lt;Grid&gt;
+                    &lt;Grid.ColumnDefinitions&gt;
+                        &lt;ColumnDefinition Width=&quot;Auto&quot; /&gt;
+                        &lt;ColumnDefinition Width=&quot;*&quot; /&gt;
+                    &lt;/Grid.ColumnDefinitions&gt;
+                    &lt;FontIcon
+                        Margin=&quot;0,0,10,0&quot;
+                        VerticalAlignment=&quot;Top&quot;
+                        FontSize=&quot;36&quot;
+                        Foreground=&quot;#4A6EA5&quot;
+                        Glyph=&quot;&amp;#xE8D7;&quot; /&gt;
+                    &lt;StackPanel Grid.Column=&quot;1&quot; Spacing=&quot;6&quot;&gt;
+                        &lt;CheckBox Content=&quot;Show recently used files in Quick access&quot; IsChecked=&quot;True&quot; /&gt;
+                        &lt;CheckBox Content=&quot;Show frequently used folders in Quick access&quot; IsChecked=&quot;True&quot; /&gt;
+                        &lt;StackPanel
+                            Margin=&quot;0,4,0,0&quot;
+                            Orientation=&quot;Horizontal&quot;
+                            Spacing=&quot;16&quot;&gt;
+                            &lt;TextBlock VerticalAlignment=&quot;Center&quot; Text=&quot;Clear File Explorer history&quot; /&gt;
+                            &lt;Button
+                                MinWidth=&quot;70&quot;
+                                HorizontalAlignment=&quot;Right&quot;
+                                Content=&quot;Clear&quot;
+                                CornerRadius=&quot;0&quot;
+                                FontSize=&quot;12&quot; /&gt;
+                        &lt;/StackPanel&gt;
+                    &lt;/StackPanel&gt;
+                &lt;/Grid&gt;
+            &lt;/essential:GroupBox&gt;
+            &lt;Button HorizontalAlignment=&quot;Right&quot; Content=&quot;Restore Defaults&quot; /&gt;
+        &lt;/StackPanel&gt;
+
+        &lt;!--  Bottom buttons  --&gt;
+        &lt;StackPanel
+            Grid.Row=&quot;2&quot;
+            Margin=&quot;0,0,10,12&quot;
+            HorizontalAlignment=&quot;Right&quot;
+            Orientation=&quot;Horizontal&quot;
+            Spacing=&quot;8&quot;&gt;
+            &lt;Button MinWidth=&quot;80&quot; Content=&quot;OK&quot; /&gt;
+            &lt;Button MinWidth=&quot;80&quot; Content=&quot;Cancel&quot; /&gt;
+            &lt;Button MinWidth=&quot;80&quot; Content=&quot;Apply&quot; /&gt;
+        &lt;/StackPanel&gt;
+    &lt;/Grid&gt;
+&lt;/Border&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+    </StackPanel>
 </Page>

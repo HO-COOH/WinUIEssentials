@@ -22,7 +22,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool ThemeSettings::ColorPrevalence()
 	{
-		return ThemeSettingsImpl::ColorPrevalence();
+		return ThemeSettingsImpl::ShowAccentColorOnStartAndTaskbar();
 	}
 
 	bool ThemeSettings::EnableTransparency()

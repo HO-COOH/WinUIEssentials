@@ -7,8 +7,6 @@ namespace winrt::WinUI3Example::implementation
     struct DefaultMicaWindow : DefaultMicaWindowT<DefaultMicaWindow>
     {
         DefaultMicaWindow() = default;
-
-        static winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind ToMicaKind(winrt::Windows::Foundation::IInspectable const& selection);
     };
 }
 

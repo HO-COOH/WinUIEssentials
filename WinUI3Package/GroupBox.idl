@@ -7,6 +7,7 @@
         GroupBox();
 
         //This really should be String, but it fucked up the compilation, because of https://github.com/microsoft/microsoft-ui-xaml/issues/8994
-        Object Header;
+        //This type was original Object, and the above issue is fixed in winui3
+        String Header;
     }
 }

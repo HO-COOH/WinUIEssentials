@@ -38,9 +38,6 @@
     <Page Include="MarqueeTextPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="GlyphsPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="TitleBarPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -66,19 +63,19 @@
       <Filter>Pages\IncrementalLoadingVectorPage</Filter>
     </Page>
     <Page Include="CustomAcrylicWindow.xaml">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </Page>
     <Page Include="DefaultAcrylicWindow.xaml">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </Page>
     <Page Include="DefaultMicaWindow.xaml">
-      <Filter>Windows\Mica</Filter>
+      <Filter>Pages\BackdropPage\Mica</Filter>
     </Page>
     <Page Include="CustomMicaWindow.xaml">
-      <Filter>Windows\Mica</Filter>
+      <Filter>Pages\BackdropPage\Mica</Filter>
     </Page>
     <Page Include="TransparentWindowDemo.xaml">
-      <Filter>Windows\Transparent</Filter>
+      <Filter>Pages\BackdropPage\Transparent</Filter>
     </Page>
     <Page Include="ShimmerPage.xaml">
       <Filter>Pages</Filter>
@@ -212,12 +209,6 @@
     <Page Include="TimePickerHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="FlyoutHelperPage.xaml">
-      <Filter>Pages\FlyoutHelperPage</Filter>
-    </Page>
-    <Page Include="TestBackdropSwitch.xaml">
-      <Filter>Pages\BackdropPage</Filter>
-    </Page>
     <Page Include="ThemeToggleButton.xaml">
       <Filter>Helper</Filter>
     </Page>
@@ -232,6 +223,27 @@
     </Page>
     <Page Include="AboutPage.xaml">
       <Filter>Helper\AboutPage</Filter>
+    </Page>
+    <Page Include="NavigationViewHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="RevealFocusPage.xaml">
+      <Filter>Pages\RevealFocusPage</Filter>
+    </Page>
+    <Page Include="TenMicaPage.xaml">
+      <Filter>Pages\TenMicaPage</Filter>
+    </Page>
+    <Page Include="TenMicaBackdropWindow.xaml">
+      <Filter>Pages\TenMicaPage</Filter>
+    </Page>
+    <Page Include="Editor.xaml">
+      <Filter>Helper</Filter>
+    </Page>
+    <Page Include="SliderHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="FlyoutHelperPage.xaml">
+      <Filter>Pages</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -253,24 +265,18 @@
       <Filter>Pages\IncrementalLoadingVectorPage</Filter>
     </Midl>
     <Midl Include="CustomAcrylicWindow.idl">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </Midl>
     <Midl Include="DefaultAcrylicWindow.idl">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </Midl>
     <Midl Include="CustomMicaWindow.idl">
-      <Filter>Windows\Mica</Filter>
+      <Filter>Pages\BackdropPage\Mica</Filter>
     </Midl>
     <Midl Include="TemplateInformation.idl">
       <Filter>Pages\SwitchPresenterPage</Filter>
     </Midl>
-    <Midl Include="Editor.idl">
-      <Filter>Helper</Filter>
-    </Midl>
     <Midl Include="ControlExampleSubstitution.idl">
-      <Filter>Helper</Filter>
-    </Midl>
-    <Midl Include="NullToVisibilityConverter.idl">
       <Filter>Helper</Filter>
     </Midl>
     <Midl Include="CodeSource.idl">
@@ -315,12 +321,24 @@
     <Midl Include="WindowBackgroundHelper.idl">
       <Filter>Helper</Filter>
     </Midl>
+    <Midl Include="ComponentInfo.idl">
+      <Filter>Helper</Filter>
+    </Midl>
+    <Midl Include="Contact.idl">
+      <Filter>Pages\RevealFocusPage</Filter>
+    </Midl>
+    <Midl Include="RevealNavigationView.idl">
+      <Filter>Pages\RevealFocusPage</Filter>
+    </Midl>
+    <Midl Include="Language.idl">
+      <Filter>Helper</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="DefaultAcrylicWindow.cpp">
-      <Filter>Windows\Acrylic</Filter>
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
     </ClCompile>
     <ClCompile Include="UpdateChecker.cpp">
       <Filter>Helper</Filter>
@@ -329,12 +347,17 @@
       <Filter>Pages\Experimental</Filter>
     </ClCompile>
     <ClCompile Include="ExceptionDialog.cpp" />
-    <ClCompile Include="StoreUpdateChecker.cpp" />
     <ClCompile Include="GithubRequest.cpp">
       <Filter>Helper\AboutPage</Filter>
     </ClCompile>
     <ClCompile Include="RepoInfo.cpp">
       <Filter>Helper\AboutPage</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonAnimations.cpp">
+      <Filter>Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="StoreUpdateChecker.cpp">
+      <Filter>Helper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -360,6 +383,9 @@
     </ClInclude>
     <ClInclude Include="RepoInfo.h">
       <Filter>Helper\AboutPage</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonAnimations.h">
+      <Filter>Helper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -554,15 +580,6 @@
     <Filter Include="Pages\IncrementalLoadingVectorPage">
       <UniqueIdentifier>{d306ad37-ea85-49fe-a0bd-f0f7d586abbd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Windows\Acrylic">
-      <UniqueIdentifier>{c28f8164-e459-4aa6-85e3-97f3243c6584}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Mica">
-      <UniqueIdentifier>{8108e428-f2df-4b28-b61d-44e983de8a3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Windows\Transparent">
-      <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pages\SwitchPresenterPage">
       <UniqueIdentifier>{4294cce6-a971-4ba9-aec0-eaf915100848}</UniqueIdentifier>
     </Filter>
@@ -611,9 +628,6 @@
     <Filter Include="Pages\NonMaximizableWindowWorkaroundPage">
       <UniqueIdentifier>{37c0a14f-5f2d-4275-9300-3c2f8074c485}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pages\FlyoutHelperPage">
-      <UniqueIdentifier>{62cc26b7-a466-49c6-8f0b-1e89eb3bfec6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pages\Experimental\IconButton">
       <UniqueIdentifier>{8171ebc3-0fc2-452e-94b6-b3971d0b42ea}</UniqueIdentifier>
     </Filter>
@@ -622,6 +636,21 @@
     </Filter>
     <Filter Include="Helper\AboutPage">
       <UniqueIdentifier>{2ec57fb9-8c63-4648-b80b-38e5f8a98136}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\RevealFocusPage">
+      <UniqueIdentifier>{77f71352-8092-4f37-8e50-58c06b1417df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\BackdropPage\Acrylic">
+      <UniqueIdentifier>{c28f8164-e459-4aa6-85e3-97f3243c6584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\BackdropPage\Mica">
+      <UniqueIdentifier>{8108e428-f2df-4b28-b61d-44e983de8a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\BackdropPage\Transparent">
+      <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\TenMicaPage">
+      <UniqueIdentifier>{9552aa05-013e-4657-be0f-8a173ffba4a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -640,9 +669,6 @@
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
-  </ItemGroup>
-  <ItemGroup>
     <FxCompile Include="DisplacementMapGenerator.hlsl">
       <Filter>Pages\Experimental\Shaders</Filter>
     </FxCompile>
@@ -651,5 +677,8 @@
     <ResourceCompile Include="Resource.rc">
       <Filter>Assets</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

@@ -71,7 +71,9 @@ WinUIEssentials::Windows::Storage::Pickers::FileSavePicker picker{ MainWindow::H
 picker.FileTypeChoices().Insert(L&quot;Anything&quot;, winrt::single_threaded_vector(std::vector&lt;winrt::hstring&gt;{ L&quot;.txt&quot; }));
 picker.PickSaveFileAsync();
                             
-WinUIEssentials::Windows::Storage::Pickers::FolderPicker{ MainWindow::Hwnd }.PickSingleFolderAsync();
+WinUIEssentials::Windows::Storage::Pickers::FolderPicker folderPicker{ MainWindow::Hwnd };
+folderPicker.FileTypeFilter().Append(L&quot;*&quot;); //You must do this, otherwise a crash on Windows 10
+folderPicker.PickSingleFolderAsync();
                         </x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>

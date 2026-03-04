@@ -1,0 +1,8 @@
+﻿namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass NavigationViewHelperPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        NavigationViewHelperPage();
+    }
+}

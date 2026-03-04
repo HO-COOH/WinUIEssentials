@@ -29,6 +29,10 @@ Example project build status:
 
 
 ## Usage
+> [!NOTE]
+> Update since WinEssential.WinUI3 1.5, you do NOT need to add control resources in `Application.Resources`!
+
+
 > [!WARNING]
 > Make sure to set your C++ language version to C++20 first!
 
@@ -51,15 +55,17 @@ It should be useful until the [community toolkit](https://github.com/CommunityTo
 ## Build and contribute
 ### Build requirements
 - You need to have [vcpkg](https://vcpkg.io/en/) installed and integrate setup for msbuild. See [this documentation for guide](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started-msbuild?pivots=shell-powershell).
-- You need to have Visual Studio with `Desktop development with C++` and `WinUI Application development` workload installed.
-- You need to build both `Debug` and `Release` build to successfully build and debug the example project (this is intentional for not missing debug version of the package)
+- You need to have Visual Studio **2026** with `Desktop development with C++` and `WinUI Application development` workload installed. (2022 will NOT work, as we are using the `v145` C++ tools)
+- You need to build both `Debug` and `Release` build to successfully build and debug the example project (**this is intentional for not missing debug version of the package**)
+- >= Windows 10 17763 (Actually I mostly use Windows 10 17763 to ensure compatibility that WinUI3 claims to support)
 
 You can reference Github Action for detailed build steps.
 
 
 ### Contribute a new templated control
+0. **DO NOT submit a PR that's purely AI written WITHOUT your reviewing.** I will **NOT** review it.
 1. Create a control under the `Controls` folder, with the `ViewModel` file template, then you edit the `idl` as needed
-2. If the control has a `ResourceDictionary` xaml, add an entry in the `WinUIEssential.WinU3.targets` so that the `.xbf` file is properly copied (see the file for example) 
+2. If the control has a `ResourceDictionary` xaml, add an entry in the `WinUIEssential.WinU3.targets` so that the `.xbf` file is properly copied (see that file for example) 
 3. Please also consider adding a demo page for the control, and add it to `MainWindow.xaml.h` `MainWindow::s_page` (see the file for example)
 
 -----
@@ -82,6 +88,7 @@ You can reference Github Action for detailed build steps.
 |StringToBoolConverter | :white_check_mark: | :white_check_mark: | WinRT component
 |ReferenceToBoolConverter | :white_check_mark: | :white_check_mark: | WinRT component
 |ConverterGroup | :white_check_mark: | :white_check_mark: | WinRT component
+|Convert | :x: | :white_check_mark: | WinRT component
 |IsEqualStringTrigger| :white_check_mark: | :white_check_mark: | WinRT component
 |IsNullOrEmptyStateTrigger | :white_check_mark: | :white_check_mark: | WinRT component
 |ControlSizeTrigger | :white_check_mark: | :white_check_mark: | WinRT component
@@ -107,7 +114,7 @@ You can reference Github Action for detailed build steps.
 |NonResizableWindowWhiteBorderWorkaround | :x: | :white_check_mark: | WinRT component
 |ComboBoxHelper | :x: | :white_check_mark: | WinRT component
 |AutoSuggestBoxHelper | :x: | :white_check_mark: | WinRT component
-|WrapPanel | :x: | :white_check_mark: | WinRT | Panel
+|WrapPanel | :x: | :white_check_mark: | Panel
 |ToolTipHelper | :x: | :white_check_mark: | WinRT component
 |CommandBarHelper | :x: | :white_check_mark: | WinRT component
 |IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only
@@ -119,6 +126,10 @@ You can reference Github Action for detailed build steps.
 |FlyoutHelper | :x: | :white_check_mark: | WinRT component
 |CalendarDatePickerHelper | :x: | :white_check_mark: | WinRT component
 |ModalWindow | :x: | :white_check_mark: | WinRT component
+|NavigationViewHelper | :x: | :white_check_mark: | WinRT component
+|SliderHelper | :x: | :white_check_mark: | WinRT component
+|RevealFocusPanel | :x: | :white_check_mark: | Control
+|TenMica | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -274,34 +285,6 @@ Font glyphs value for Segoe MDL2 Assets fonts. Usage:
 FontIcon().Glyph(Glyphs::GlobalNavButton);
 ```
 
-There is also a `Glyph` xaml resource dictionary, so you can use name instead of glyph. Usage:
-1. Add this to your `App.xaml` (UWP)
-```xml
-<Application.Resources>
-    <controls:XamlControlsResources>
-        <controls:XamlControlsResources.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///UWPPackage/Glyphs.xaml"/>
-            ...
-        </controls:XamlControlsResources.MergedDictionaries>
-    </controls:XamlControlsResources>
-</Application.Resources>
-```
-Add this to your `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/Glyphs.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Application.Resources>
-```
-2. Then use `StaticResource` with name to reference the glyph
-```xml
-<FontIcon Glyph="{StaticResource Send}"/>
-```
-
 ## CursorController --- *namespace `CursorController`*
 Xaml helper for controlling the cursor type when mouse enters. 
 Value for `Type` is [CoreCursorType enum](https://learn.microsoft.com/en-us/uwp/api/windows.ui.core.corecursortype?view=winrt-22621). Usage:
@@ -358,6 +341,38 @@ namespace winrt::<MyProject>::implementation
    </essential:ConverterGroup>
   ```
 
+And most of the time when you are NOT using `ConverterGroup`, you should consider using the static functions in `Convert` class.
+All of the above converters have corresponding static functions in `Convert` that you can use with `x:Bind` directly. Here are the complete list.
+```
+runtimeclass Convert 
+{
+    static Single DoubleToSingle(Double value);
+    
+    static Boolean ContainerToBool(Windows.Foundation.Collections.IVector<Object> container);
+    static Boolean ReferenceToBool(Object value);
+    static Boolean StringToBool(String value);
+    static Boolean VisibilityToBool(Microsoft.UI.Xaml.Visibility value);
+
+    static Boolean ContainerToBoolReverse(Windows.Foundation.Collections.IVector<Object> container);
+    static Boolean ReferenceToBoolReverse(Object value);
+    static Boolean StringToBoolReverse(String value);
+    static Boolean VisibilityToBoolReverse(Microsoft.UI.Xaml.Visibility value);
+
+    static Microsoft.UI.Xaml.Visibility ContainerToVisibility(Windows.Foundation.Collections.IVector<Object> container);
+    static Microsoft.UI.Xaml.Visibility ReferenceToVisibility(Object value);
+    static Microsoft.UI.Xaml.Visibility StringToVisibility(String value);
+    static Microsoft.UI.Xaml.Visibility BoolToVisibility(Boolean value);
+    
+    static Microsoft.UI.Xaml.Visibility ContainerToVisibilityReverse(Windows.Foundation.Collections.IVector<Object> container);
+    static Microsoft.UI.Xaml.Visibility ReferenceToVisibilityReverse(Object value);
+    static Microsoft.UI.Xaml.Visibility StringToVisibilityReverse(String value);
+    static Microsoft.UI.Xaml.Visibility BoolToVisibilityReverse(Boolean value);
+
+    static Boolean ReverseBool(Boolean value);
+    static Microsoft.UI.Xaml.Visibility ReverseVisibility(Microsoft.UI.Xaml.Visibility value);
+}
+```
+
 ## BadgeGlyphs --- *namespace `BadgeGlyphs`*
 Helpers for creating badge notification xml.
 Usage:
@@ -393,17 +408,6 @@ See the same class in [Community Tookit](https://github.com/CommunityToolkit/Win
     </controls:XamlControlsResources>
 </Application.Resources>
 ```
-- Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsCard_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Application.Resources>
-```
 
 > [!NOTE]
 > For WinUI3, add `#include #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>` to your `pch.h`
@@ -421,18 +425,6 @@ Add this to `App.xaml` (UWP)
             ...
         </controls:XamlControlsResources.MergedDictionaries>
     </controls:XamlControlsResources>
-</Application.Resources>
-```
-Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsCard_Resource.xaml"/>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsExpander_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
 </Application.Resources>
 ```
 
@@ -550,17 +542,6 @@ Add this to `App.xaml` (UWP)
             ...
         </controls:XamlControlsResources.MergedDictionaries>
     </controls:XamlControlsResources>
-</Application.Resources>
-```
-Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/ProgressBarEx_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
 </Application.Resources>
 ```
 
@@ -771,17 +752,6 @@ Usage:
     </controls:XamlControlsResources>
 </Application.Resources>
 ```
-- Add this to `App.xaml` (WinUI3)
-```xml
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///WinUI3Package/Segmented_Resource.xaml"/>
-            ...
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Application.Resources>
-```
 
 ## CustomAcrylicBackdrop
 A customizable acrylic backdrop with bindable properties, and can be set as active when the window is inactive.
@@ -871,19 +841,7 @@ A modern XAML-based window context menu to replace the traditional win32 menu wh
 It supports uses on both `Essential:WindowEx` and a normal `Microsoft.UI.Xaml.Window`. 
 The icons are hard-coded glyphs so you get the same appearance on both Windows 10 & Windows 11.
 It also listens to window style changes, so it shows the correct menu item in whatever window styles your window have.
-To use it, first put a resource in your `App.xaml` `ResourceDictionary.MergedDictionary`
-```xml
-<Application>
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/ModernStandardWindowContextMenu_Resource.xaml" />
-                ...
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
-</Application>
-```
+
 - To use with a `essential:Window`, simply set it to `WindowEx.ContextMenu`
 ```xml
 <essential:WindowEx ...
@@ -1155,3 +1113,64 @@ A WinUI3 modal window (meaning that it has an owner window, and take its focus) 
     <TextBlock Text="This is a ModalWindow" />
 </essential:ModalWindow>
 ```
+
+## NavigationViewHelper
+The WinUI3's built-in `NavigationView` does not have Acrylic background with the dropdown menu and the overflow menu when it's at top. We fixed it for you. To use it, simply add `TimePickerHelper.AcrylicWorkaround="True"` as an attached property on your `NavigationView` when it has `PaneDisplayMode="Top"`.
+```xml
+<NavigationView
+    ...
+    essential:NavigationViewHelper.AcrylicWorkaround="True"
+    PaneDisplayMode="Top">
+
+    ...Other contents...
+</NavigationView>
+```
+|Before|After|
+|------|-----|
+|![](assets/navigationview-original.png)|![](assets/navigationview-fixed.png)|
+
+## SliderHelper
+The WinUI3's built-in `Slider` does not have Acrylic background on its tooltip. We fixed it for you. To use it, simply add `SliderHelper.AcrylicWorkaround="True"` as an attached property on your `Slider`.
+```xml
+<Slider
+    Width="200"
+    VerticalAlignment="Center"
+    essential:SliderHelper.AcrylicWorkaround="True" />
+```
+|Before|After|
+|------|-----|
+|![](assets/slider-original.png)|![](assets/slider-fixed.png)|
+
+
+## RevealFocusPanel
+Missing the good-ol Reveal Focus effect from UWP? We bring it back to you! For detailed usage, please download the [Example Gallery](https://apps.microsoft.com/detail/9PCC690BCMT9?hl=en-us&gl=US&ocid=pdpshare) and see for yourself!
+|Light|Dark|
+|-----|----|
+|![](assets/reveal1-light.gif)|![](assets/reveal1-dark.gif)|
+|![](assets/reveal2-light.gif)|![](assets/reveal2-dark.gif)|
+|![](assets/reveal3-light.gif)|![](assets/reveal3-dark.gif)|
+
+
+## TenMica
+Simulated [Mica effect](https://learn.microsoft.com/en-us/windows/apps/design/style/mica) for Windows 10 (that also works on Windows 11 if you want to force the effect even when the user disabled it in system settings). 
+This is a drop-in replacement for WinUI3's built-in `MicaBackdrop`, and it automatically handles:
+- Cross-screen window moving with different dpi
+- Wallpaper changes
+- Theme changes
+- Monitor changes
+- GPU driver reset / GPU changes
+- Works with software (no GPU) and hardware rendering
+
+```xml
+<Window ...>
+    <Window.SystemBackdrop>
+        <essential:TenMicaBackdrop BindThemeTo="{x:Bind RootGrid}" EnableWhenInactive="{x:Bind EnableInactiveSwitch.IsOn, Mode=OneWay}" />
+    </Window.SystemBackdrop>
+
+    ...
+</Window>
+```
+
+|Light|Dark|
+|-----|----|
+|![](assets/tenmica-light.png)|![](assets/tenmica-dark.png)|

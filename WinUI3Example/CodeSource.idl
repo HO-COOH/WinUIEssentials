@@ -1,4 +1,5 @@
 ﻿import "ControlExampleSubstitution.idl";
+import "Language.idl";
 
 namespace WinUI3Example
 {
@@ -9,6 +10,7 @@ namespace WinUI3Example
         CodeSource();
         
         String Code;
+        Language CodeLanguage{ get; };
         Windows.Foundation.Uri CodeUrl;
         Windows.Foundation.Uri FileUri;
 

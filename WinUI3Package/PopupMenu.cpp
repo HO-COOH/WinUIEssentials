@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "PopupMenu.h"
 #include "TaskbarIconMessageWindow.h"
 #include "IconUtils.h"

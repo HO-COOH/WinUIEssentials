@@ -4,6 +4,5 @@
     runtimeclass DefaultAcrylicWindow : Microsoft.UI.Xaml.Window
     {
         DefaultAcrylicWindow();
-        static Microsoft.UI.Composition.SystemBackdrops.DesktopAcrylicKind ToAcrylicKind(Object selection);
     }
 }

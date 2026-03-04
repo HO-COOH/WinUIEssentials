@@ -55,7 +55,13 @@
                             Grid.RowSpan="2"
                             Grid.Column="1"
                             Padding="3,1,3,0">
-                            <ContentPresenter Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header}" />
+                            <TextBlock
+                                FontFamily="{TemplateBinding FontFamily}"
+                                FontSize="{TemplateBinding FontSize}"
+                                FontStretch="{TemplateBinding FontStretch}"
+                                FontStyle="{TemplateBinding FontStyle}"
+                                FontWeight="{TemplateBinding FontWeight}"
+                                Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Header}" />
                         </Border>
                         <ContentPresenter
                             Grid.Row="2"

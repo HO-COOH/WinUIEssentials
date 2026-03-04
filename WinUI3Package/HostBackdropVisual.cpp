@@ -4,27 +4,9 @@
 #include "HostBackdropVisual.g.cpp"
 #endif
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
-#include <DispatcherQueue.h>
-#include <winrt/Windows.System.h>
 
 namespace winrt::WinUI3Package::implementation
 {
-	static winrt::Windows::System::DispatcherQueueController createSystemDispatcherQueueController()
-	{
-		DispatcherQueueOptions options
-		{
-			sizeof(DispatcherQueueOptions),
-			DQTYPE_THREAD_CURRENT,
-			DQTAT_COM_STA
-		};
-
-		::ABI::Windows::System::IDispatcherQueueController* ptr{ nullptr };
-		winrt::check_hresult(CreateDispatcherQueueController(options, &ptr));
-		return { ptr, take_ownership_from_abi };
-	}
-
-	winrt::Windows::System::DispatcherQueueController HostBackdropVisual::s_queue{ nullptr };
-
 	HostBackdropVisual::HostBackdropVisual()
 	{
 		RegisterPropertyChangedCallback(
@@ -56,10 +38,6 @@ namespace winrt::WinUI3Package::implementation
 			m_externalLink.PlacementVisual().Size(size);
 			return;
 		}
-
-		//create visual
-		if (!winrt::Windows::System::DispatcherQueue::GetForCurrentThread())
-			s_queue = createSystemDispatcherQueueController();
 
 		winrt::Windows::UI::Composition::Compositor compositor;
 		auto spriteVisual = compositor.CreateSpriteVisual();

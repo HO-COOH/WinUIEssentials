@@ -15,8 +15,8 @@
     <local:ControlExample HeaderText="MarqueeText">
         <essential:MarqueeText
             x:Name="Test"
-            Behavior="{x:Bind local:MarqueeTextPage.GetBehaviorFromIndex(MarqueeBehaviorComboBox.SelectedIndex), Mode=OneWay}"
-            Direction="{x:Bind local:MarqueeTextPage.GetDirectionFromIndex(MarqueeDirectionComboBox.SelectedIndex), Mode=OneWay}"
+            Behavior="{x:Bind (essential:MarqueeBehavior)((ComboBoxItem)MarqueeBehaviorComboBox.SelectedItem).Tag, Mode=OneWay}"
+            Direction="{x:Bind (essential:MarqueeDirection)((ComboBoxItem)MarqueeDirectionComboBox.SelectedItem).Tag, Mode=OneWay}"
             FontSize="{x:Bind FontSizeSlider.Value, Mode=OneWay}"
             IntervalSpace="{x:Bind SpaceIntervalSlider.Value, Mode=OneWay}"
             PauseOnHover="{x:Bind PauseOnHoverToggle.IsOn, Mode=OneWay}"
@@ -46,19 +46,52 @@
                     x:Name="MarqueeDirectionComboBox"
                     Header="Marquee Direction"
                     SelectedIndex="0">
-                    <x:String>Left</x:String>
-                    <x:String>Right</x:String>
-                    <x:String>Up</x:String>
-                    <x:String>Down</x:String>
+                    <ComboBoxItem Content="Left">
+                        <ComboBoxItem.Tag>
+                            <essential:MarqueeDirection>Left</essential:MarqueeDirection>
+                        </ComboBoxItem.Tag>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Content="Right">
+                        <ComboBoxItem.Tag>
+                            <essential:MarqueeDirection>Right</essential:MarqueeDirection>
+                        </ComboBoxItem.Tag>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Content="Up">
+                        <ComboBoxItem.Tag>
+                            <essential:MarqueeDirection>Up</essential:MarqueeDirection>
+                        </ComboBoxItem.Tag>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Content="Down">
+                        <ComboBoxItem.Tag>
+                            <essential:MarqueeDirection>Down</essential:MarqueeDirection>
+                        </ComboBoxItem.Tag>
+                    </ComboBoxItem>
                 </ComboBox>
 
                 <ComboBox
                     x:Name="MarqueeBehaviorComboBox"
                     Header="Marquee Behavior"
                     SelectedIndex="0">
-                    <x:String>Ticker</x:String>
-                    <x:String>Looping</x:String>
-                    <x:String>Bouncing</x:String>
+                    <ComboBoxItem Content="Ticker">
+                        <ComboBoxItem.Tag>
+                            <essential:MarqueeBehavior>Ticker</essential:MarqueeBehavior>
+                        </ComboBoxItem.Tag>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Content="Looping">
+                        <ComboBoxItem.Tag>
+                            <essential:MarqueeBehavior>Looping</essential:MarqueeBehavior>
+                        </ComboBoxItem.Tag>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem Content="Bouncing">
+                        <ComboBoxItem.Tag>
+                            <essential:MarqueeBehavior>Bouncing</essential:MarqueeBehavior>
+                        </ComboBoxItem.Tag>
+                    </ComboBoxItem>
                 </ComboBox>
 
                 <ToggleSwitch x:Name="PauseOnHoverToggle" Header="PauseOnHover" />
@@ -85,8 +118,8 @@
                     </x:String>
                 </local:CodeSource.Code>
                 <local:CodeSource.Substitutions>
-                    <local:ControlExampleSubstitution Key="0" Value="{x:Bind local:ControlExample.GetStringFromComboBoxItem(MarqueeBehaviorComboBox.SelectedItem), Mode=OneWay}" />
-                    <local:ControlExampleSubstitution Key="1" Value="{x:Bind local:ControlExample.GetStringFromComboBoxItem(MarqueeDirectionComboBox.SelectedItem), Mode=OneWay}" />
+                    <local:ControlExampleSubstitution Key="0" Value="{x:Bind local:ControlExample.UnboxString(((ComboBoxItem)MarqueeBehaviorComboBox.SelectedItem).Content), Mode=OneWay}" />
+                    <local:ControlExampleSubstitution Key="1" Value="{x:Bind local:ControlExample.UnboxString(((ComboBoxItem)MarqueeDirectionComboBox.SelectedItem).Content), Mode=OneWay}" />
                     <local:ControlExampleSubstitution Key="2" Value="{x:Bind FontSizeSlider.Value, Mode=OneWay}" />
                     <local:ControlExampleSubstitution Key="3" Value="{x:Bind SpaceIntervalSlider.Value, Mode=OneWay}" />
                     <local:ControlExampleSubstitution Key="4" Value="{x:Bind local:ControlExample.BooleanToString(PauseOnHoverToggle.IsOn), Mode=OneWay}" />

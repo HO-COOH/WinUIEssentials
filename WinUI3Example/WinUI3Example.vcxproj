@@ -171,7 +171,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj /Zc:__cplusplus</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -293,6 +293,7 @@
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ButtonAnimations.h" />
     <ClInclude Include="CalendarDatePickerWorkaroundPage.xaml.h">
       <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -315,6 +316,10 @@
     </ClInclude>
     <ClInclude Include="CommandBarHelperPage.xaml.h">
       <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Contact.h">
+      <DependentUpon>Contact.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ContributorItem.h">
@@ -374,8 +379,8 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Editor.h">
-      <DependentUpon>Editor.idl</DependentUpon>
+    <ClInclude Include="Editor.xaml.h">
+      <DependentUpon>Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="EffectToggleButton.xaml.h">
@@ -424,10 +429,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="GithubRequest.h" />
-    <ClInclude Include="GlyphsPage.xaml.h">
-      <DependentUpon>GlyphsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="GroupBoxPage.xaml.h">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -485,6 +486,10 @@
       <DependentUpon>NamedUrl.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NavigationViewHelperPage.xaml.h">
+      <DependentUpon>NavigationViewHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NonMaximizableWindowWithWorkaround.xaml.h">
       <DependentUpon>NonMaximizableWindowWithWorkaround.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -513,10 +518,6 @@
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="NullToVisibilityConverter.h">
-      <DependentUpon>NullToVisibilityConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="PageHeader.xaml.h">
       <DependentUpon>PageHeader.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -542,6 +543,14 @@
     </ClInclude>
     <ClInclude Include="RepoInfo.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RevealFocusPage.xaml.h">
+      <DependentUpon>RevealFocusPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="RevealNavigationView.h">
+      <DependentUpon>RevealNavigationView.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SampleModalWindow.xaml.h">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -564,6 +573,10 @@
     </ClInclude>
     <ClInclude Include="ShimmerPage.xaml.h">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="SliderHelperPage.xaml.h">
+      <DependentUpon>SliderHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="StandardWindowWithMenu.xaml.h">
@@ -592,8 +605,12 @@
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TestBackdropSwitch.xaml.h">
-      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
+    <ClInclude Include="TenMicaBackdropWindow.xaml.h">
+      <DependentUpon>TenMicaBackdropWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TenMicaPage.xaml.h">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TestWindow.xaml.h">
@@ -731,6 +748,9 @@
     <Page Include="DependentValuePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Editor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="EffectToggleButton.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -754,9 +774,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="FlyoutHelperPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="GlyphsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GroupBoxPage.xaml">
@@ -783,6 +800,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ModernStandardWindowContextMenuPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NavigationViewHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="NonMaximizableWindowWithWorkaround.xaml">
@@ -812,6 +832,9 @@
     <Page Include="ProgressBarExPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="RevealFocusPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SampleModalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -830,6 +853,9 @@
     <Page Include="ShimmerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SliderHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="StandardWindowWithMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -845,7 +871,10 @@
     <Page Include="TaskbarPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TestBackdropSwitch.xaml">
+    <Page Include="TenMicaBackdropWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TenMicaPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TestWindow.xaml">
@@ -914,6 +943,7 @@
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ButtonAnimations.cpp" />
     <ClCompile Include="CalendarDatePickerWorkaroundPage.xaml.cpp">
       <DependentUpon>CalendarDatePickerWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -936,6 +966,10 @@
     </ClCompile>
     <ClCompile Include="CommandBarHelperPage.xaml.cpp">
       <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Contact.cpp">
+      <DependentUpon>Contact.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ContributorItem.cpp">
@@ -993,8 +1027,8 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Editor.cpp">
-      <DependentUpon>Editor.idl</DependentUpon>
+    <ClCompile Include="Editor.xaml.cpp">
+      <DependentUpon>Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="EffectToggleButton.xaml.cpp">
@@ -1043,10 +1077,6 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="GithubRequest.cpp" />
-    <ClCompile Include="GlyphsPage.xaml.cpp">
-      <DependentUpon>GlyphsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="GroupBoxPage.xaml.cpp">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1104,6 +1134,10 @@
       <DependentUpon>NamedUrl.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NavigationViewHelperPage.xaml.cpp">
+      <DependentUpon>NavigationViewHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="NonMaximizableWindowWithWorkaround.xaml.cpp">
       <DependentUpon>NonMaximizableWindowWithWorkaround.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1130,10 +1164,6 @@
     </ClCompile>
     <ClCompile Include="NormalNonResizableNoBorderWindow.xaml.cpp">
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="NullToVisibilityConverter.cpp">
-      <DependentUpon>NullToVisibilityConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="PageHeader.xaml.cpp">
@@ -1163,6 +1193,14 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="RepoInfo.cpp" />
+    <ClCompile Include="RevealFocusPage.xaml.cpp">
+      <DependentUpon>RevealFocusPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="RevealNavigationView.cpp">
+      <DependentUpon>RevealNavigationView.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SampleModalWindow.xaml.cpp">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1187,6 +1225,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SliderHelperPage.xaml.cpp">
+      <DependentUpon>SliderHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="StandardWindowWithMenu.xaml.cpp">
       <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1208,8 +1250,12 @@
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TestBackdropSwitch.xaml.cpp">
-      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
+    <ClCompile Include="TenMicaBackdropWindow.xaml.cpp">
+      <DependentUpon>TenMicaBackdropWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TenMicaPage.xaml.cpp">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TestWindow.xaml.cpp">
@@ -1334,6 +1380,10 @@
       <DependentUpon>CommandBarHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ComponentInfo.idl" />
+    <Midl Include="Contact.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ContributorItem.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1384,7 +1434,8 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Editor.idl">
-      <SubType>Designer</SubType>
+      <DependentUpon>Editor.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="EffectToggleButton.idl">
       <DependentUpon>EffectToggleButton.xaml</DependentUpon>
@@ -1427,10 +1478,6 @@
     <Midl Include="FontInfo.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="GlyphsPage.idl">
-      <DependentUpon>GlyphsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="GroupBoxPage.idl">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1447,6 +1494,7 @@
       <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Language.idl" />
     <Midl Include="LineGraph.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1486,6 +1534,10 @@
     <Midl Include="NamedUrl.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="NavigationViewHelperPage.idl">
+      <DependentUpon>NavigationViewHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="NonMaximizableWindowWithWorkaround.idl">
       <DependentUpon>NonMaximizableWindowWithWorkaround.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1514,9 +1566,6 @@
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="NullToVisibilityConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="PageHeader.idl">
       <DependentUpon>PageHeader.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1530,6 +1579,13 @@
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="RevealFocusPage.idl">
+      <DependentUpon>RevealFocusPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="RevealNavigationView.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="SampleModalWindow.idl">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
@@ -1555,6 +1611,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="SliderHelperPage.idl">
+      <DependentUpon>SliderHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="StandardWindowWithMenu.idl">
       <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1578,8 +1638,12 @@
     <Midl Include="TemplateInformation.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="TestBackdropSwitch.idl">
-      <DependentUpon>TestBackdropSwitch.xaml</DependentUpon>
+    <Midl Include="TenMicaBackdropWindow.idl">
+      <DependentUpon>TenMicaBackdropWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TenMicaPage.idl">
+      <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TestWindow.idl">

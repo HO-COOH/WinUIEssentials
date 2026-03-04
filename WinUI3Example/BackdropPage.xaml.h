@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "BackdropPage.g.h"
-#include <winrt/Windows.UI.Xaml.Hosting.h>
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -18,6 +17,8 @@ namespace winrt::WinUI3Example::implementation
         void CreateTransparentButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void CreateMicaWithFallbackButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         //void SwitchBackdropButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+
+        static std::vector<winrt::Windows::Foundation::IInspectable> Components();
     };
 }
 

@@ -6,17 +6,10 @@
 #include <winrt/Microsoft.UI.Composition.SystemBackdrops.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Microsoft.UI.Interop.h>
-#include <winrt/Microsoft.UI.Content.h>
+#include "HwndHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_fallbackColorProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"FallbackColor",
-			winrt::xaml_typename<winrt::Windows::UI::Color>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
-		);
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_kindProperty =
 		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
@@ -24,37 +17,6 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_luminosityOpacityProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"LuminosityOpacity",
-			winrt::xaml_typename<float>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_tintColorProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"TintColor",
-			winrt::xaml_typename<winrt::Windows::UI::Color>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_tintOpacityProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"TintOpacity",
-			winrt::xaml_typename<float>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
-		);
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_enableWhenInactiveProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"EnableWhenInactive",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false) }
 		);
 
 	void CustomMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
@@ -70,7 +32,7 @@ namespace winrt::WinUI3Package::implementation
 		//Note: This method will be called before any Property setter get called.
 		//So we do not need to apply the properties in this method
 		makeMicaController(connectedTarget);
-		m_hwnd = reinterpret_cast<HWND>(xamlRoot.ContentIslandEnvironment().AppWindowId().Value);
+		m_hwnd = GetHwnd(xamlRoot);
 		BackdropWindowActiveStateWorkaroundHandler<CustomMicaBackdrop, subclassId>::Set(m_hwnd, this);
 
 		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);
@@ -90,30 +52,13 @@ namespace winrt::WinUI3Package::implementation
 		});
 	}
 
-	void CustomMicaBackdrop::OnDefaultSystemBackdropConfigurationChanged(
-		winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const&, 
-		winrt::Microsoft::UI::Xaml::XamlRoot const&)
+	void CustomMicaBackdrop::OnFallbackColorChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
-	}
-
-	winrt::Windows::UI::Color CustomMicaBackdrop::FallbackColor()
-	{
-		return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(FallbackColorProperty()));
-	}
-
-	void CustomMicaBackdrop::FallbackColor(winrt::Windows::UI::Color value)
-	{
-		SetValue(FallbackColorProperty(), winrt::box_value(value));
 		if (m_controller)
 		{
-			m_controller.FallbackColor(value);
+			m_controller.FallbackColor(winrt::unbox_value<winrt::Windows::UI::Color>(args.NewValue()));
 			m_overrideChecker = true;
 		}
-	}
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::FallbackColorProperty()
-	{
-		return s_fallbackColorProperty;
 	}
 
 	winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind CustomMicaBackdrop::Kind()
@@ -136,80 +81,36 @@ namespace winrt::WinUI3Package::implementation
 		return s_kindProperty;
 	}
 
-	float CustomMicaBackdrop::LuminosityOpacity()
+	void CustomMicaBackdrop::OnLuminosityOpacityChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
-		return winrt::unbox_value<float>(GetValue(LuminosityOpacityProperty()));
-	}
-
-	void CustomMicaBackdrop::LuminosityOpacity(float value)
-	{
-		SetValue(LuminosityOpacityProperty(), winrt::box_value(value));
 		if (m_controller)
 		{
-			m_controller.LuminosityOpacity(value);
+			m_controller.LuminosityOpacity(winrt::unbox_value<float>(args.NewValue()));
 			m_overrideChecker = true;
 		}
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::LuminosityOpacityProperty()
+	void CustomMicaBackdrop::OnTintColorChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
-		return s_luminosityOpacityProperty;
-	}
-
-	winrt::Windows::UI::Color CustomMicaBackdrop::TintColor()
-	{
-		return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(TintColorProperty()));
-	}
-
-	void CustomMicaBackdrop::TintColor(winrt::Windows::UI::Color value)
-	{
-		SetValue(TintColorProperty(), winrt::box_value(value));
 		if (m_controller)
 		{
-			m_controller.TintColor(value);
+			m_controller.TintColor(winrt::unbox_value<winrt::Windows::UI::Color>(args.NewValue()));
 			m_overrideChecker = true;
 		}
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::TintColorProperty()
+	void CustomMicaBackdrop::OnTintOpacityChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
-		return s_tintColorProperty;
-	}
-
-	float CustomMicaBackdrop::TintOpacity()
-	{
-		return winrt::unbox_value<float>(GetValue(TintOpacityProperty()));
-	}
-
-	void CustomMicaBackdrop::TintOpacity(float value)
-	{
-		SetValue(TintOpacityProperty(), winrt::box_value(value));
 		if (m_controller)
 		{
 			//Same with CustomAcrylicBackdrop.TintOpacity
 			m_controller.TintColor({});
-			m_controller.TintOpacity(value);
+			m_controller.TintOpacity(winrt::unbox_value<float>(args.NewValue()));
 			m_controller.TintColor(TintColor());
 			m_overrideChecker = true;
 		}
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::TintOpacityProperty()
-	{
-		return s_tintOpacityProperty;
-	}
-	bool CustomMicaBackdrop::EnableWhenInactive()
-	{
-		return winrt::unbox_value<bool>(GetValue(EnableWhenInactiveProperty()));
-	}
-	void CustomMicaBackdrop::EnableWhenInactive(bool value)
-	{
-		SetValue(EnableWhenInactiveProperty(), winrt::box_value(value));
-	}
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::EnableWhenInactiveProperty()
-	{
-		return s_enableWhenInactiveProperty;
-	}
 	winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme CustomMicaBackdrop::toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
 	{
 		switch (theme)

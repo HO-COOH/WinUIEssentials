@@ -22,6 +22,10 @@ namespace winrt::WinUI3Example::implementation
 
         std::function<void(std::wstring const& value)> ValueChanged;
         std::wstring FormatCode();
+
+        winrt::WinUI3Example::Language CodeLanguage();
+        
+        winrt::WinUI3Example::Language m_codeLanguage;
     private:
         winrt::hstring m_code;
         winrt::Windows::Foundation::Uri m_codeUrl{ nullptr };

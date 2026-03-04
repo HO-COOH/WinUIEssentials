@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.UI.Windowing.h>
@@ -22,6 +22,8 @@ public:
 	TransparentMenuFlyoutHost& operator=(TransparentMenuFlyoutHost&&) noexcept = default;
 
 	void Move(POINT p);
+
+	void RequestedTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 
 	operator winrt::Microsoft::UI::Xaml::FrameworkElement() const
 	{ 

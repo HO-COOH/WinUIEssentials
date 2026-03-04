@@ -11,5 +11,7 @@
 
         Double WindowWidth{ get; };
         Double WindowHeight{ get; };
+
+        Double AnimationDuration;
     }
 }

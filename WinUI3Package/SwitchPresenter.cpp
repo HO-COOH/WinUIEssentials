@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "SwitchPresenter.h"
 #if __has_include("SwitchPresenter.g.cpp")
 #include "SwitchPresenter.g.cpp"

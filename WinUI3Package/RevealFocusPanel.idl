@@ -1,0 +1,13 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass RevealFocusPanel : Microsoft.UI.Xaml.Controls.Grid // Grid allows ZIndex layering for overlay behind content
+    {
+        RevealFocusPanel();
+        
+        static Microsoft.UI.Xaml.DependencyProperty AttachToPanelProperty{ get; };
+        static void SetAttachToPanel(Microsoft.UI.Xaml.FrameworkElement element, RevealFocusPanel panel);
+        static RevealFocusPanel GetAttachToPanel(Microsoft.UI.Xaml.FrameworkElement element);
+    }
+}
