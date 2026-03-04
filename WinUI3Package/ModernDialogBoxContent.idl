@@ -1,13 +1,12 @@
-import "ContentDialogWindowButtonClickEventArgs.idl";
-
+﻿import "ContentDialogWindowButtonClickEventArgs.idl";
 
 namespace WinUI3Package
 {
     [bindable]
     [default_interface]
-    runtimeclass ContentDialogContent : Microsoft.UI.Xaml.Controls.ContentControl
+    runtimeclass ModernDialogBoxContent : Microsoft.UI.Xaml.Controls.ContentControl
     {
-        ContentDialogContent();
+        ModernDialogBoxContent();
 
         Object Title;
         static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };

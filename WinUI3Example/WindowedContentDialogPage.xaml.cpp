@@ -17,9 +17,9 @@ namespace winrt::WinUI3Example::implementation
 		//dialog.SetParent(MainWindow::MainWindowInstance, true, true);
 		//co_await dialog.ShowAsync();
 
-		WinUI3Package::WindowedContentDialog dialog;
+		WinUI3Package::ModernDialogBox dialog;
 
-		auto content = dialog.ContentDialogContent();
+		auto content = dialog.DialogContent();
 		content.Title(box_value(winrt::hstring(L"Title")));
 		content.Content(winrt::box_value(L"Content"));
 		content.PrimaryButtonText(winrt::hstring(L"PrimaryButton"));

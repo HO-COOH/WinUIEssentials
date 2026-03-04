@@ -536,7 +536,7 @@
     <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
       <Filter>Controls\WindowedContentDialog\Utils</Filter>
     </Midl>
-    <Midl Include="ContentDialogContent.idl">
+    <Midl Include="ModernDialogBoxContent.idl">
       <Filter>Controls\WindowedContentDialog\Content</Filter>
     </Midl>
   </ItemGroup>
@@ -577,10 +577,10 @@
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
     </Page>
-    <Page Include="WindowedContentDialog.xaml">
+    <Page Include="ModernDialogBox.xaml">
       <Filter>Controls\WindowedContentDialog</Filter>
     </Page>
-    <Page Include="ContentDialogContent_Resource.xaml">
+    <Page Include="ModernDialogBoxContent_Resource.xaml">
       <Filter>Controls\WindowedContentDialog\Content</Filter>
     </Page>
   </ItemGroup>

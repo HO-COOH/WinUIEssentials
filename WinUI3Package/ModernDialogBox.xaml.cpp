@@ -1,18 +1,20 @@
 ﻿#include "pch.h"
-#include "WindowedContentDialog.xaml.h"
-#if __has_include("WindowedContentDialog.g.cpp")
-#include "WindowedContentDialog.g.cpp"
+#include "ModernDialogBox.xaml.h"
+#if __has_include("ModernDialogBox.g.cpp")
+#include "ModernDialogBox.g.cpp"
 #endif
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include "ContentDialogUtils.h"
-#include "ContentDialogContent.h"
+#include "ModernDialogBoxContent.h"
 
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace winrt::WinUI3Package::implementation
 {
-	WindowedContentDialog::WindowedContentDialog() {
+	ModernDialogBox::ModernDialogBox() {
 
 		InitializeComponent();
 
@@ -29,17 +31,17 @@ namespace winrt::WinUI3Package::implementation
 		m_windowWorkaround.IsMaximizable(false);
 		m_windowWorkaround.Window(*this);
 
-		auto content = ContentDialogContent();
-		m_contentImpl = winrt::get_self<struct ContentDialogContent>(content);
+		auto content = DialogContent();
+		m_contentImpl = winrt::get_self<ModernDialogBoxContent>(content);
 
 		m_contentImpl->m_closeRequestCallback =
 			[this](Microsoft::UI::Xaml::Controls::ContentDialogResult result) {
-				closeByButtonAction(result);
+			closeByButtonAction(result);
 			};
 
 		m_contentImpl->m_imageSizeChangedCallback =
 			[this]() {
-				updateWindowSize();
+			updateWindowSize();
 			};
 
 		m_underlaySystemBackdrop = WinUI3Package::UnderlaySystemBackdropOptions();
@@ -65,7 +67,7 @@ namespace winrt::WinUI3Package::implementation
 
 			Closed(m_Closed);
 
-			auto content = ContentDialogContent();
+			auto content = DialogContent();
 			content.ActualThemeChanged(m_ActualThemeChanged);
 			m_contentImpl->m_closeRequestCallback = nullptr;
 			m_contentImpl->m_imageSizeChangedCallback = nullptr;
@@ -78,11 +80,11 @@ namespace winrt::WinUI3Package::implementation
 
 			});
 
-		content.Loaded({ this, &WindowedContentDialog::OnContentLoaded });
+		content.Loaded({ this, &ModernDialogBox::OnContentLoaded });
 
 	}
 
-	winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync()
+	winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ModernDialogBox::ShowAsync()
 	{
 
 		Deferral = AsyncEventArgs->GetDeferral();
@@ -95,9 +97,9 @@ namespace winrt::WinUI3Package::implementation
 
 	}
 
-	void WindowedContentDialog::updateWindowSize() 
+	void ModernDialogBox::updateWindowSize()
 	{
-		auto content = ContentDialogContent();
+		auto content = DialogContent();
 		auto appWindow = AppWindow();
 		auto desiredSize = content.DesiredSize();
 
@@ -118,33 +120,33 @@ namespace winrt::WinUI3Package::implementation
 			auto parentPos = parentAppWindow.Position();
 			auto parentSize = parentAppWindow.Size();
 			appWindow.MoveAndResize(Windows::Graphics::RectInt32
-			{
-				parentPos.X + (parentSize.Width - windowSize.Width) / 2,
-				parentPos.Y + (parentSize.Height - windowSize.Height) / 2,
-				windowSize.Width,
-				windowSize.Height 
-			});
+				{
+					parentPos.X + (parentSize.Width - windowSize.Width) / 2,
+					parentPos.Y + (parentSize.Height - windowSize.Height) / 2,
+					windowSize.Width,
+					windowSize.Height
+				});
 		}
 		else
 		{
 			auto displayArea = Microsoft::UI::Windowing::DisplayArea::GetFromWindowId(appWindow.Id(), Microsoft::UI::Windowing::DisplayAreaFallback::Primary);
 			auto outerBounds = displayArea.OuterBounds();
 			appWindow.MoveAndResize(Windows::Graphics::RectInt32
-			{
-				(outerBounds.Width - windowSize.Width) / 2,
-				(outerBounds.Height - windowSize.Height) / 2,
-				windowSize.Width,
-				windowSize.Height 
-			});
+				{
+					(outerBounds.Width - windowSize.Width) / 2,
+					(outerBounds.Height - windowSize.Height) / 2,
+					windowSize.Width,
+					windowSize.Height
+				});
 		}
 
 	}
 
-	void WindowedContentDialog::OnContentLoaded(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	void ModernDialogBox::OnContentLoaded(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
 		updateWindowSize();
 
-		auto content = ContentDialogContent();
+		auto content = DialogContent();
 		auto systemBackdrop = SystemBackdrop();
 
 		SetTitleBar(m_contentImpl->m_TitleArea);
@@ -181,7 +183,7 @@ namespace winrt::WinUI3Package::implementation
 		open();
 	}
 
-	void WindowedContentDialog::open()
+	void ModernDialogBox::open()
 	{
 		AppWindow().Show();
 
@@ -192,14 +194,12 @@ namespace winrt::WinUI3Package::implementation
 
 			if (auto parent = m_parent.get())
 			{
-				m_onOwnerWindowSizeChanged = parent.SizeChanged(winrt::auto_revoke, { this, &WindowedContentDialog::onOwnerWindowSizeChanged });
+				m_onOwnerWindowSizeChanged = parent.SizeChanged(winrt::auto_revoke, { this, &ModernDialogBox::onOwnerWindowSizeChanged });
 			}
 		}
-		
-		m_Opened(*this, nullptr);
 	}
 
-	void WindowedContentDialog::onClosingRequestedBySystem()
+	void ModernDialogBox::onClosingRequestedBySystem()
 	{
 		if (auto parent = m_parent.get()) {
 			parent.Activate();
@@ -207,7 +207,7 @@ namespace winrt::WinUI3Package::implementation
 		if (auto appWindow = AppWindow()) appWindow.Hide();
 	}
 
-	void WindowedContentDialog::onClosingRequstedByCode()
+	void ModernDialogBox::onClosingRequstedByCode()
 	{
 		if (auto parent = m_parent.get()) {
 			parent.Activate();
@@ -216,10 +216,10 @@ namespace winrt::WinUI3Package::implementation
 		if (auto appWindow = AppWindow()) appWindow.Hide();
 	}
 
-	void WindowedContentDialog::determineTitleBarButtonForegroundColor()
+	void ModernDialogBox::determineTitleBarButtonForegroundColor()
 	{
 		auto titleBar = AppWindow().TitleBar();
-		switch (ContentDialogContent().ActualTheme())
+		switch (DialogContent().ActualTheme())
 		{
 		case Microsoft::UI::Xaml::ElementTheme::Light: {
 			titleBar.ButtonForegroundColor(Microsoft::UI::Colors::Black());
@@ -233,7 +233,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void WindowedContentDialog::closeByButtonAction(Microsoft::UI::Xaml::Controls::ContentDialogResult result)
+	void ModernDialogBox::closeByButtonAction(Microsoft::UI::Xaml::Controls::ContentDialogResult result)
 	{
 		Result(result);
 
@@ -244,26 +244,26 @@ namespace winrt::WinUI3Package::implementation
 		m_windowWorkaround = nullptr;
 		DispatcherQueue().TryEnqueue([this] {
 			Close();
-		});
+			});
 	}
 
-	Microsoft::UI::Xaml::Controls::ContentDialogResult WindowedContentDialog::Result() const
+	Microsoft::UI::Xaml::Controls::ContentDialogResult ModernDialogBox::Result() const
 	{
 		return _Result;
 	}
 
-	winrt::WinUI3Package::ContentDialogContent WindowedContentDialog::ContentDialogContent()
+	winrt::WinUI3Package::ModernDialogBoxContent ModernDialogBox::DialogContent()
 	{
 		return ContentDialogContentControl();
 	}
 
-	void WindowedContentDialog::Result(const Microsoft::UI::Xaml::Controls::ContentDialogResult& value)
+	void ModernDialogBox::Result(const Microsoft::UI::Xaml::Controls::ContentDialogResult& value)
 	{
 		_Result = value;
 	}
 
 	// ShowAsync with parent
-	winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync(Microsoft::UI::Xaml::Window const& parent)
+	winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ModernDialogBox::ShowAsync(Microsoft::UI::Xaml::Window const& parent)
 	{
 		SetModal(parent);
 		setupUnderlay();
@@ -271,7 +271,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 
 	// Underlay management
-	void WindowedContentDialog::setupUnderlay()
+	void ModernDialogBox::setupUnderlay()
 	{
 		auto parent = m_parent.get();
 		if (!parent) return;
@@ -287,7 +287,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void WindowedContentDialog::setupSmokeLayer()
+	void ModernDialogBox::setupSmokeLayer()
 	{
 		auto owner = m_parent.get();
 		if (!owner) return;
@@ -297,7 +297,7 @@ namespace winrt::WinUI3Package::implementation
 
 		m_Popup = Microsoft::UI::Xaml::Controls::Primitives::Popup();
 		m_Popup.XamlRoot(ownerContent.XamlRoot());
-		m_Popup.RequestedTheme(ContentDialogContent().RequestedTheme());
+		m_Popup.RequestedTheme(DialogContent().RequestedTheme());
 
 		Microsoft::UI::Xaml::Shapes::Rectangle darkLayer{};
 		darkLayer.Opacity(0.0);
@@ -316,7 +316,7 @@ namespace winrt::WinUI3Package::implementation
 		m_SmokeLayerCache = darkLayer;
 	}
 
-	void WindowedContentDialog::setupSystemBackdrop()
+	void ModernDialogBox::setupSystemBackdrop()
 	{
 		auto owner = m_parent.get();
 		if (!owner) return;
@@ -336,7 +336,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void WindowedContentDialog::cleanupUnderlay()
+	void ModernDialogBox::cleanupUnderlay()
 	{
 		if (m_Popup)
 		{
@@ -349,7 +349,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void WindowedContentDialog::sizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window)
+	void ModernDialogBox::sizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window)
 	{
 		if (!window || !window.Content() || !window.Content().XamlRoot()) return;
 
@@ -369,7 +369,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	int WindowedContentDialog::getTitleBarOffset()
+	int ModernDialogBox::getTitleBarOffset()
 	{
 		auto parent = m_parent.get();
 		if (!parent) return 0;
@@ -387,7 +387,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void WindowedContentDialog::onOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args)
+	void ModernDialogBox::onOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args)
 	{
 		auto parent = m_parent.get();
 		if (!parent) return;
@@ -402,22 +402,22 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	WinUI3Package::UnderlayMode WindowedContentDialog::Underlay() const
+	WinUI3Package::UnderlayMode ModernDialogBox::Underlay() const
 	{
 		return m_underlay;
 	}
 
-	void WindowedContentDialog::Underlay(WinUI3Package::UnderlayMode const& value)
+	void ModernDialogBox::Underlay(WinUI3Package::UnderlayMode const& value)
 	{
 		m_underlay = value;
 	}
 
-	WinUI3Package::UnderlaySystemBackdropOptions WindowedContentDialog::UnderlaySystemBackdrop() const
+	WinUI3Package::UnderlaySystemBackdropOptions ModernDialogBox::UnderlaySystemBackdrop() const
 	{
 		return m_underlaySystemBackdrop;
 	}
 
-	void WindowedContentDialog::UnderlaySystemBackdrop(WinUI3Package::UnderlaySystemBackdropOptions const& value)
+	void ModernDialogBox::UnderlaySystemBackdrop(WinUI3Package::UnderlaySystemBackdropOptions const& value)
 	{
 		m_underlaySystemBackdrop = value;
 	}

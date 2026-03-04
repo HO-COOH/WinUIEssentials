@@ -1,17 +1,15 @@
 ﻿#pragma once
 
-#include "ContentDialogContent.g.h"
+#include "ModernDialogBoxContent.g.h"
 #include <functional>
 
 namespace winrt::WinUI3Package::implementation
 {
-	struct WindowedContentDialog;
+    struct ModernDialogBoxContent : ModernDialogBoxContentT<ModernDialogBoxContent>
+    {
+		friend struct ModernDialogBox;
 
-	struct ContentDialogContent : ContentDialogContentT<ContentDialogContent>
-	{
-		friend struct WindowedContentDialog;
-		ContentDialogContent();
-
+        ModernDialogBoxContent();
 		void OnApplyTemplate();
 
 		Windows::Foundation::Size MeasureOverride(Windows::Foundation::Size availableSize);
@@ -135,13 +133,12 @@ namespace winrt::WinUI3Package::implementation
 		static void onButtonTextChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 		static void onDefaultButtonChangedStatic(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 		static winrt::Microsoft::UI::Xaml::Input::KeyboardAccelerator getEscapeKey();
-
-	};
+    };
 }
 
 namespace winrt::WinUI3Package::factory_implementation
 {
-	struct ContentDialogContent : ContentDialogContentT<ContentDialogContent, implementation::ContentDialogContent>
-	{
-	};
+    struct ModernDialogBoxContent : ModernDialogBoxContentT<ModernDialogBoxContent, implementation::ModernDialogBoxContent>
+    {
+    };
 }

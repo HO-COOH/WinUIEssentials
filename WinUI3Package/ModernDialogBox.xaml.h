@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#include "WindowedContentDialog.g.h"
-
+#include "ModernDialogBox.g.h"
 #include <winrt/Microsoft.UI.Windowing.h>
 #include "ModalWindowBase.hpp"
 #include "NonMaximizableWindowWorkaround.h"
@@ -9,11 +8,11 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ContentDialogContent;
+	struct ModernDialogBoxContent;
 
-    struct WindowedContentDialog : WindowedContentDialogT<WindowedContentDialog>, ModalWindowBase<WindowedContentDialog>
-    {
-		WindowedContentDialog();
+	struct ModernDialogBox : ModernDialogBoxT<ModernDialogBox>, ModalWindowBase<ModernDialogBox>
+	{
+		ModernDialogBox();
 
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync();
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync(Microsoft::UI::Xaml::Window const& parent);
@@ -21,7 +20,7 @@ namespace winrt::WinUI3Package::implementation
 		void OnContentLoaded(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
 		Microsoft::UI::Xaml::Controls::ContentDialogResult Result() const;
-		winrt::WinUI3Package::ContentDialogContent ContentDialogContent();
+		winrt::WinUI3Package::ModernDialogBoxContent DialogContent();
 
 		WinUI3Package::UnderlayMode Underlay() const;
 		void Underlay(WinUI3Package::UnderlayMode const& value);
@@ -54,8 +53,6 @@ namespace winrt::WinUI3Package::implementation
 
 		Microsoft::UI::Xaml::Controls::ContentDialogResult _Result;
 
-		winrt::event<Windows::Foundation::TypedEventHandler<WinUI3Package::WindowedContentDialog, Windows::Foundation::IInspectable>> m_Opened;
-
 		winrt::event_token m_Closing;
 		winrt::event_token m_Closed;
 
@@ -71,17 +68,17 @@ namespace winrt::WinUI3Package::implementation
 
 		WinUI3Package::NonMaximizableWindowWorkaround m_windowWorkaround{ nullptr };
 
-		winrt::WinUI3Package::implementation::ContentDialogContent* m_contentImpl{ nullptr };
+		winrt::WinUI3Package::implementation::ModernDialogBoxContent* m_contentImpl{ nullptr };
 
 		winrt::com_ptr<WinUIAsyncEventArgs> AsyncEventArgs = winrt::make_self<WinUIAsyncEventArgs>();
 		winrt::Windows::Foundation::Deferral Deferral{ nullptr };
 
-    };
+	};
 }
 
 namespace winrt::WinUI3Package::factory_implementation
 {
-    struct WindowedContentDialog : WindowedContentDialogT<WindowedContentDialog, implementation::WindowedContentDialog>
+    struct ModernDialogBox : ModernDialogBoxT<ModernDialogBox, implementation::ModernDialogBox>
     {
     };
 }

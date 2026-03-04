@@ -1,0 +1,8 @@
+﻿namespace WinUI3Package
+{
+    [default_interface]
+    runtimeclass ModernDialogBoxContent_Resource : Microsoft.UI.Xaml.ResourceDictionary
+    {
+        ModernDialogBoxContent_Resource();
+    }
+}

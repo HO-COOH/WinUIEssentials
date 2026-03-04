@@ -1,18 +1,18 @@
-import "ContentDialogContent.idl";
-import "UnderlayMode.idl";
+﻿import "UnderlayMode.idl";
 import "UnderlaySystemBackdropOptions.idl";
+import "ModernDialogBoxContent.idl";
 
 namespace WinUI3Package
 {
     [default_interface]
-    unsealed runtimeclass WindowedContentDialog : Microsoft.UI.Xaml.Window
+    unsealed runtimeclass ModernDialogBox : Microsoft.UI.Xaml.Window
     {
-        WindowedContentDialog();
+        ModernDialogBox();
 
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parent);
 
-        WinUI3Package.ContentDialogContent ContentDialogContent{ get; };
+        WinUI3Package.ModernDialogBoxContent DialogContent{ get; };
 
         Microsoft.UI.Xaml.Controls.ContentDialogResult Result{ get; };
 
