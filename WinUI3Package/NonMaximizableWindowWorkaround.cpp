@@ -10,7 +10,15 @@ namespace winrt::WinUI3Package::implementation
 {
 	winrt::Microsoft::UI::Xaml::Window NonMaximizableWindowWorkaround::Window()
 	{
-		return m_window;
+		return m_window.get();
+	}
+
+	NonMaximizableWindowWorkaround::~NonMaximizableWindowWorkaround()
+	{
+		if (m_registered && m_hwnd)
+		{
+
+		}
 	}
 
 	void NonMaximizableWindowWorkaround::Window(winrt::Microsoft::UI::Xaml::Window const& value)
@@ -28,8 +36,11 @@ namespace winrt::WinUI3Package::implementation
 	void NonMaximizableWindowWorkaround::IsMaximizable(bool value)
 	{
 		m_isMaximizable = value;
-		if (m_window)
-			set();
+		if (m_window.get())
+		{
+			if (m_isMaximizable)
+				set();
+		}
 	}
 
 	void NonMaximizableWindowWorkaround::setSubClassIfNeeded()
@@ -49,11 +60,19 @@ namespace winrt::WinUI3Package::implementation
 		if (uIdSubclass != SubClassId)
 			return DefSubclassProc(hwnd, msg, wparam, lparam);
 
-		if(msg == WM_SYSCOMMAND && wparam == SC_MAXIMIZE)
+		if (msg == WM_SYSCOMMAND && wparam == SC_MAXIMIZE)
 		{
 			auto ptr = reinterpret_cast<NonMaximizableWindowWorkaround*>(dwRefData);
 			if (!*ptr->m_isMaximizable)
 				return 1;
+		}
+		if (msg == WM_NCDESTROY)
+		{
+			// Remove subclass before window is destroyed
+			RemoveWindowSubclass(hwnd, subclassProc, uIdSubclass);
+			auto ptr = reinterpret_cast<NonMaximizableWindowWorkaround*>(dwRefData);
+			ptr->m_registered = false;
+			return DefSubclassProc(hwnd, msg, wparam, lparam);
 		}
 
 		return DefSubclassProc(hwnd, msg, wparam, lparam);
@@ -61,7 +80,10 @@ namespace winrt::WinUI3Package::implementation
 
 	void NonMaximizableWindowWorkaround::set()
 	{
-		m_hwnd = GetHwnd(m_window);
+		auto window = m_window.get();
+		if (!window) 
+			return;
+		m_hwnd = GetHwnd(window);
 		SetWindowLongPtr(
 			m_hwnd,
 			GWL_STYLE,

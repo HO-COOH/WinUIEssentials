@@ -17,3 +17,8 @@ namespace winrt::WinUI3Example::implementation
     {
     }
 }
+
+void winrt::WinUI3Example::implementation::SampleModalWindow::ModalWindow_Activated(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args)
+{
+    OutputDebugString(L"Activated\n");
+}

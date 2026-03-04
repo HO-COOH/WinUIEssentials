@@ -1,0 +1,61 @@
+﻿import "ContentDialogWindowButtonClickEventArgs.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ModernDialogBoxContent : Microsoft.UI.Xaml.Controls.ContentControl
+    {
+        ModernDialogBoxContent();
+
+        Object Title;
+        static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };
+
+        Microsoft.UI.Xaml.DataTemplate TitleTemplate;
+        static Microsoft.UI.Xaml.DependencyProperty TitleTemplateProperty{ get; };
+
+        Microsoft.UI.Xaml.Media.ImageSource HeaderImage;
+        static Microsoft.UI.Xaml.DependencyProperty HeaderImageProperty{ get; };
+        static Microsoft.UI.Xaml.Visibility ImageSourceToVisibility(Microsoft.UI.Xaml.Media.ImageSource source);
+
+        void OnPrimaryButtonClicked(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
+        void OnSecondaryButtonClicked(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
+        void OnCloseButtonClicked(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
+        void OnHeaderImageOpened(Object sender, Microsoft.UI.Xaml.RoutedEventArgs e);
+
+        String PrimaryButtonText;
+        static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonTextProperty{ get; };
+
+        String SecondaryButtonText;
+        static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonTextProperty{ get; };
+
+        String CloseButtonText;
+        static Microsoft.UI.Xaml.DependencyProperty CloseButtonTextProperty{ get; };
+
+        Boolean IsPrimaryButtonEnabled;
+        static Microsoft.UI.Xaml.DependencyProperty IsPrimaryButtonEnabledProperty{ get; };
+
+        Boolean IsSecondaryButtonEnabled;
+        static Microsoft.UI.Xaml.DependencyProperty IsSecondaryButtonEnabledProperty{ get; };
+
+        Microsoft.UI.Xaml.Controls.ContentDialogButton DefaultButton;
+        static Microsoft.UI.Xaml.DependencyProperty DefaultButtonProperty{ get; };
+
+        Microsoft.UI.Xaml.Style PrimaryButtonStyle;
+        static Microsoft.UI.Xaml.DependencyProperty PrimaryButtonStyleProperty{ get; };
+
+        Microsoft.UI.Xaml.Style SecondaryButtonStyle;
+        static Microsoft.UI.Xaml.DependencyProperty SecondaryButtonStyleProperty{ get; };
+
+        Microsoft.UI.Xaml.Style CloseButtonStyle;
+        static Microsoft.UI.Xaml.DependencyProperty CloseButtonStyleProperty{ get; };
+
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> PrimaryButtonKeyboardAccelerators{ get; };
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> SecondaryButtonKeyboardAccelerators{ get; };
+        Windows.Foundation.Collections.IVector<Microsoft.UI.Xaml.Input.KeyboardAccelerator> CloseButtonKeyboardAccelerators{ get; };
+
+        event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> PrimaryButtonClick;
+        event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> SecondaryButtonClick;
+        event Windows.Foundation.EventHandler<ContentDialogWindowButtonClickEventArgs> CloseButtonClick;
+    }
+}

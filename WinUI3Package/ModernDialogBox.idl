@@ -1,0 +1,22 @@
+﻿import "UnderlayMode.idl";
+import "UnderlaySystemBackdropOptions.idl";
+import "ModernDialogBoxContent.idl";
+
+namespace WinUI3Package
+{
+    [default_interface]
+    unsealed runtimeclass ModernDialogBox : Microsoft.UI.Xaml.Window
+    {
+        ModernDialogBox();
+
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parent);
+
+        WinUI3Package.ModernDialogBoxContent DialogContent{ get; };
+
+        Microsoft.UI.Xaml.Controls.ContentDialogResult Result{ get; };
+
+        WinUI3Package.UnderlayMode Underlay;
+        WinUI3Package.UnderlaySystemBackdropOptions UnderlaySystemBackdrop;
+    }
+}

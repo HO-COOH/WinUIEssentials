@@ -1,0 +1,14 @@
+﻿import "UnderlayCoverMode.idl";
+
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass UnderlaySystemBackdropOptions 
+    {
+        UnderlaySystemBackdropOptions();
+
+        WinUI3Package.UnderlayCoverMode  CoverMode;
+        Microsoft.UI.Xaml.ScalarTransition OpacityTransition;
+    }
+}

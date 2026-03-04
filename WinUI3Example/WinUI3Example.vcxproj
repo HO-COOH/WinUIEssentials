@@ -399,6 +399,10 @@
       <DependentUpon>EssentialWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ExampleDialog.xaml.h">
+      <DependentUpon>ExampleDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ExceptionDialog.h" />
     <ClInclude Include="ExperimentPage.xaml.h">
       <DependentUpon>ExperimentPage.xaml</DependentUpon>
@@ -666,6 +670,10 @@
       <DependentUpon>WindowBackgroundHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WindowedContentDialogPage.xaml.h">
+      <DependentUpon>WindowedContentDialogPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WindowExPage.xaml.h">
       <DependentUpon>WindowExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -750,6 +758,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EssentialWindowWithMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExampleDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ExperimentPage.xaml">
@@ -899,6 +910,9 @@
     <Page Include="Win32TitleBar.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WindowedContentDialogPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="WindowExPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1031,6 +1045,10 @@
     </ClCompile>
     <ClCompile Include="EssentialWindowWithMenu.xaml.cpp">
       <DependentUpon>EssentialWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ExampleDialog.xaml.cpp">
+      <DependentUpon>ExampleDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ExceptionDialog.cpp" />
@@ -1301,6 +1319,10 @@
       <DependentUpon>WindowBackgroundHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WindowedContentDialogPage.xaml.cpp">
+      <DependentUpon>WindowedContentDialogPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="WindowExPage.xaml.cpp">
       <DependentUpon>WindowExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1428,6 +1450,10 @@
     </Midl>
     <Midl Include="EssentialWindowWithMenu.idl">
       <DependentUpon>EssentialWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ExampleDialog.idl">
+      <DependentUpon>ExampleDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ExperimentPage.idl">
@@ -1672,6 +1698,10 @@
     </Midl>
     <Midl Include="WindowBackgroundHelper.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="WindowedContentDialogPage.idl">
+      <DependentUpon>WindowedContentDialogPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="WindowExPage.idl">
       <DependentUpon>WindowExPage.xaml</DependentUpon>

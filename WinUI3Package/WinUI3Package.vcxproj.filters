@@ -51,6 +51,9 @@
     <ClCompile Include="Shimmer.AnimationMember.cpp">
       <Filter>Controls\Shimmer</Filter>
     </ClCompile>
+    <ClCompile Include="ContentDialogUtils.cpp">
+      <Filter>Controls\WindowedContentDialog\Utils</Filter>
+    </ClCompile>
     <ClCompile Include="RevealBrush.cpp">
       <Filter>Controls\RevealFocus</Filter>
     </ClCompile>
@@ -244,6 +247,12 @@
     <ClInclude Include="Shimmer.DefaultGradientColor.h">
       <Filter>Controls\Shimmer</Filter>
     </ClInclude>
+    <ClInclude Include="ModalWindowBase.hpp" />
+    <ClInclude Include="WinUIAsyncEventArgs.hpp">
+      <Filter>Controls\WindowedContentDialog\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentDialogUtils.h">
+      <Filter>Controls\WindowedContentDialog\Utils</Filter>
     <ClInclude Include="include\LayoutUpdateAwaiter.hpp">
       <Filter>include</Filter>
     </ClInclude>
@@ -400,6 +409,17 @@
     <Filter Include="Controls\Helpers">
       <UniqueIdentifier>{1e6dcb42-f11c-454a-ba47-4d5dc1735958}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\WindowedContentDialog">
+      <UniqueIdentifier>{25cd8eb6-3fd6-476a-a500-4a3441f22f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog\Underlay">
+      <UniqueIdentifier>{c6e2dbf1-93c2-4c65-b282-62b80f67a990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog\Utils">
+      <UniqueIdentifier>{080447c9-e9d8-4be0-a7fe-2c418edc13fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog\Content">
+      <UniqueIdentifier>{50f90cdf-9c1c-4972-8ec2-8dd45d4e0a25}</UniqueIdentifier>
     <Filter Include="Controls\RevealFocus">
       <UniqueIdentifier>{07cbeca9-02b9-4907-86bb-8c245f0f4577}</UniqueIdentifier>
     </Filter>
@@ -596,6 +616,23 @@
     <Midl Include="ToolTipHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
+    <Midl Include="SmokeLayerKind.idl">
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+    </Midl>
+    <Midl Include="UnderlayCoverMode.idl">
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+    </Midl>
+    <Midl Include="UnderlayMode.idl">
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+    </Midl>
+    <Midl Include="UnderlaySystemBackdropOptions.idl">
+      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+    </Midl>
+    <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
+      <Filter>Controls\WindowedContentDialog\Utils</Filter>
+    </Midl>
+    <Midl Include="ModernDialogBoxContent.idl">
+      <Filter>Controls\WindowedContentDialog\Content</Filter>
     <Midl Include="NavigationViewHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
@@ -648,6 +685,12 @@
     </Page>
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
+    </Page>
+    <Page Include="ModernDialogBox.xaml">
+      <Filter>Controls\WindowedContentDialog</Filter>
+    </Page>
+    <Page Include="ModernDialogBoxContent_Resource.xaml">
+      <Filter>Controls\WindowedContentDialog\Content</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
