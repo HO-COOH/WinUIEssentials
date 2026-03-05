@@ -424,6 +424,10 @@
       <DependentUpon>FlyoutHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="FontIconExtensionPage.xaml.h">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FontInfo.h">
       <DependentUpon>FontInfo.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -776,6 +780,9 @@
     <Page Include="FlyoutHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="FontIconExtensionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GroupBoxPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1070,6 +1077,10 @@
     </ClCompile>
     <ClCompile Include="FlyoutHelperPage.xaml.cpp">
       <DependentUpon>FlyoutHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="FontIconExtensionPage.xaml.cpp">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="FontInfo.cpp">
@@ -1473,6 +1484,10 @@
     </Midl>
     <Midl Include="FlyoutHelperPage.idl">
       <DependentUpon>FlyoutHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="FontIconExtensionPage.idl">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="FontInfo.idl">

@@ -1,0 +1,8 @@
+﻿namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass FontIconExtensionPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        FontIconExtensionPage();
+    }
+}
