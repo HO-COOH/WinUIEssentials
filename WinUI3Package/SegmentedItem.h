@@ -5,7 +5,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SegmentedItem : SegmentedItemT<SegmentedItem>, TemplateControlHelper<SegmentedItem>
+    struct SegmentedItem : SegmentedItemT<SegmentedItem>, TemplateControlHelper<SegmentedItem, false>
     {
         SegmentedItem() = default;
     };

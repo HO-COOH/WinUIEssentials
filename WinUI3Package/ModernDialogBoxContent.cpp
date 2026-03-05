@@ -99,9 +99,8 @@ namespace winrt::WinUI3Package::implementation
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, onHeaderImageChangedStatic });
 
 
-	ModernDialogBoxContent::ModernDialogBoxContent() {
-
-		DefaultStyleKey(box_value(winrt::xaml_typename<winrt::WinUI3Package::ModernDialogBoxContent>()));
+	ModernDialogBoxContent::ModernDialogBoxContent() 
+	{
 
 		IsPrimaryButtonEnabled(true);
 		IsSecondaryButtonEnabled(true);

@@ -245,6 +245,10 @@
     <Page Include="FlyoutHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="ExampleDialog.xaml" />
+    <Page Include="WindowedContentDialogPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

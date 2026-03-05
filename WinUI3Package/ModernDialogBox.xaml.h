@@ -27,6 +27,8 @@ namespace winrt::WinUI3Package::implementation
 
 		WinUI3Package::UnderlaySystemBackdropOptions UnderlaySystemBackdrop() const;
 		void UnderlaySystemBackdrop(WinUI3Package::UnderlaySystemBackdropOptions const& value);
+
+		constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/ModernDialogBox.xaml";
 	private:
 		void updateWindowSize();
 

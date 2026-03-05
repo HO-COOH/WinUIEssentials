@@ -54,6 +54,7 @@
 #include "RevealFocusPage.xaml.h"
 #include "TenMicaPage.xaml.h"
 #include "SliderHelperPage.xaml.h"
+#include "WindowedContentDialogPage.xaml.h"
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -115,15 +116,18 @@ namespace winrt::WinUI3Example::implementation
 	winrt::guid MainWindow::IconGuid()
 	{
 		// {733204C1-9F66-4E4E-A24C-CEA34294DA39}
-		return
-		{ 0x733204c1, 0x9f66, 0x4e4e, { 0xa2, 0x4c, 0xce, 0xa3, 0x42, 0x94, 0xda, 0x39 } };
+		GUID guid;
+		winrt::check_hresult(CoCreateGuid(&guid));
+		return guid;
+		//{ 0x733204c1, 0x9f66, 0x4e4e, { 0xa2, 0x4c, 0xce, 0xa3, 0x42, 0x94, 0xda, 0x41 } };
 	}
 
 	void winrt::WinUI3Example::implementation::MainWindow::ExitItem_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		ExitProcess(0);
+		//ExitProcess(0);
+		winrt::Microsoft::UI::Xaml::Application::Current().Exit();
 	}
 
 

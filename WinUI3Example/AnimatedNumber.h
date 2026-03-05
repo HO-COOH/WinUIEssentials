@@ -5,8 +5,10 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-    struct AnimatedNumber : AnimatedNumberT<AnimatedNumber>, TemplateControlHelper<AnimatedNumber>
+    struct AnimatedNumber : AnimatedNumberT<AnimatedNumber>, TemplateControlHelper<AnimatedNumber, false>
     {
+        friend struct TemplateControlHelper<AnimatedNumber, false>;
+        
         AnimatedNumber() = default;
 
         int32_t Value() { return 45; }
