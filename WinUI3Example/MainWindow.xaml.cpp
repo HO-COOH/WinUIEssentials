@@ -128,6 +128,7 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		//ExitProcess(0);
+		MainIcon().Remove();
 		winrt::Microsoft::UI::Xaml::Application::Current().Exit();
 	}
 

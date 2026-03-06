@@ -13,7 +13,7 @@ static auto GetD2D1Device()
 	D2D1_FACTORY_OPTIONS options{};
 	winrt::check_hresult(D2D1CreateFactory(
 		D2D1_FACTORY_TYPE_SINGLE_THREADED,
-		__uuidof(ID2D1Factory1),
+		IID_ID2D1Factory1,
 		&options,
 		d2dFactory.put_void()
 	));
