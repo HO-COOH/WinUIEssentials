@@ -15,6 +15,7 @@
     </Window.SystemBackdrop>
 
     <Grid x:Name="RootGrid">
+        <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind}" />
         <StackPanel
             HorizontalAlignment="Center"
             VerticalAlignment="Center"

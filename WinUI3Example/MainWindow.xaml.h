@@ -70,8 +70,6 @@ namespace winrt::WinUI3Example::implementation
 
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Pages();
 
-
-        static winrt::guid IconGuid();
         static HWND Hwnd;
 		static winrt::Microsoft::UI::Xaml::Window Window;
         static WinUI3Example::MainWindow MainWindowInstance;
