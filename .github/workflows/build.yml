@@ -1,13 +1,9 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Build example Release_ARM64
+name: Build
 
 on:
   push:
     branches: [ "master", "ci" ]
+  pull_request:
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -17,8 +13,13 @@ permissions:
   contents: write
 
 jobs:
-  build_Release_ARM64:
-    runs-on: windows-latest
+  build:
+    runs-on: windows-2025-vs2026
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration: [Debug_CI2, Release_CI2]
+        platform: [x86, x64, ARM, ARM64]
 
     steps:
     - uses: actions/checkout@v4
@@ -45,31 +46,38 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Build
+    - name: Build Debug
+      if: matrix.configuration == 'Debug_CI2'
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=Release_CI2 /p:Platform=ARM64 ${{env.SOLUTION_FILE_PATH}} -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:UapAppxPackageBuildMode=SideloadOnly -p:PackageCertificateKeyFile="${{github.workspace}}\UWPExample\UWPExample_TemporaryKey.pfx" -p:PackageCertificatePassword=""
+      run: msbuild /m /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Build Release
+      if: matrix.configuration == 'Release_CI2'
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} ${{env.SOLUTION_FILE_PATH}} -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:UapAppxPackageBuildMode=SideloadOnly -p:PackageCertificateKeyFile="${{github.workspace}}\UWPExample\UWPExample_TemporaryKey.pfx" -p:PackageCertificatePassword=""
 
     - name: Copy SideloadReadme
+      if: github.event_name == 'push' && matrix.configuration == 'Release_CI2'
       run: copy SideloadReadme.md AppPackages\SideloadReadme.md
 
     - name: Zip Archive
+      if: github.event_name == 'push' && matrix.configuration == 'Release_CI2'
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: Compress-Archive -Path "AppPackages" -DestinationPath "WinUIEssential.Example(ARM64).zip"
+      run: Compress-Archive -Path "AppPackages" -DestinationPath "WinUIEssential.Example(${{ matrix.platform }}).zip"
       shell: pwsh
 
     - name: Set tag
+      if: github.event_name == 'push' && matrix.configuration == 'Release_CI2'
       id: set-tag
       run: |
         $out = Get-Date -format "yyyy.MM.dd.HH"
         echo tag=$out >> $env:GITHUB_OUTPUT
 
     - name: Release
+      if: github.event_name == 'push' && matrix.configuration == 'Release_CI2'
       env:
         tag: ${{steps.set-tag.outputs.tag}}
       uses: softprops/action-gh-release@v2
       with:
-        files: WinUIEssential.Example(ARM64).zip
+        files: WinUIEssential.Example(${{ matrix.platform }}).zip
         tag_name: ${{steps.set-tag.outputs.tag}}
-      
