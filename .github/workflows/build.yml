@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ "master", "ci" ]
+    branches: [ "master", "ci", "ci/vs-2026" ]
   pull_request:
 
 env:
