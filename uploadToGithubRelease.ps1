@@ -1,1 +1,4 @@
-msbuild -m -p:Configuration=Release -p:Platform=x64 -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:UapAppxPackageBuildMode=SideloadOnly -p:PackageCertificateKeyFile="$PSScriptRoot\UWPExample\UWPExample_TemporaryKey.pfx" -p:PackageCertificatePassword=""
+$cert = New-SelfSignedCertificate -Type CodeSigningCert -Subject "CN=Peter" -KeyUsage DigitalSignature -FriendlyName "Temporary Certificate" -CertStoreLocation "Cert:\CurrentUser\My"
+$password = ConvertTo-SecureString -String "123" -Force -AsPlainText
+Export-PfxCertificate -Cert $cert -FilePath "$PSScriptRoot\UWPExample\UWPExample_TemporaryKey.pfx" -Password $password
+msbuild -m -p:Configuration=Release -p:Platform=x64 -p:GenerateAppxPackageOnBuild=true -p:AppxPackageSigningEnabled=true -p:UapAppxPackageBuildMode=SideloadOnly -p:AppxPackagePublisher="CN=Peter" -p:PackageCertificateThumbprint="$($cert.Thumbprint)" -p:PackageCertificateKeyFile=""
