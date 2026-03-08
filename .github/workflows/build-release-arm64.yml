@@ -1,0 +1,16 @@
+name: Build Release ARM64
+
+on:
+  push:
+    branches: [ "master", "ci", "ci/vs-2026" ]
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-template.yml
+    with:
+      configuration: Release_CI2
+      platform: ARM64
