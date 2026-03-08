@@ -468,10 +468,6 @@
     <ClInclude Include="NotifyIconData.h" />
     <ClInclude Include="OverrideChecker.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Placeholder.h">
-      <DependentUpon>Placeholder.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="PopupMenu.h" />
     <ClInclude Include="PopupMenuFlyout.h">
       <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
@@ -636,6 +632,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="WindowContextMenuUtils.h" />
+    <ClInclude Include="WindowedContentDialog.h">
+      <DependentUpon>WindowedContentDialog.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WindowEx.h">
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -825,10 +825,6 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Placeholder.cpp">
-      <DependentUpon>Placeholder.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="PopupMenu.cpp" />
     <ClCompile Include="PopupMenuFlyout.cpp">
       <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
@@ -983,6 +979,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WindowContextMenuUtils.cpp" />
+    <ClCompile Include="WindowedContentDialog.cpp">
+      <DependentUpon>WindowedContentDialog.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="WindowEx.cpp">
       <DependentUpon>WindowEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1126,9 +1126,6 @@
     <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Placeholder.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="PopupMenuFlyout.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1238,6 +1235,9 @@
     <Midl Include="WindowContextMenu.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="WindowedContentDialog.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="WindowEx.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1269,6 +1269,7 @@
     <Page Include="Shimmer_Resource.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WindowedContentDialog_Resource.xaml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

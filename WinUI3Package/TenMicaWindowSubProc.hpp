@@ -36,10 +36,10 @@ protected:
 				if (!(windowPos->flags & SWP_NOMOVE))
 				{
 					auto* pThis = getThis(dwRefData);
-				pThis->getDerivedThis()->updateBrushOffset(
-					windowPos->x + pThis->m_borderPadding,
-					windowPos->y + (IsZoomed(hwnd) ? pThis->m_borderPadding : 0)
-				);
+					pThis->getDerivedThis()->updateBrushOffset(
+						windowPos->x + pThis->m_borderPadding,
+						windowPos->y + (IsZoomed(hwnd) ? pThis->m_borderPadding : 0)
+					);
 				}
 				break;
 			}

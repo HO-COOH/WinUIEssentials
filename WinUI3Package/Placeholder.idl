@@ -1,9 +1,0 @@
-﻿namespace WinUI3Package
-{
-    [bindable]
-    [default_interface]
-    runtimeclass Placeholder 
-    {
-        Placeholder();
-    }
-}

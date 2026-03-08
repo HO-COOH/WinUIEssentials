@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "ModernDialogBoxContent.g.h"
 #include <functional>
@@ -6,7 +6,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ModernDialogBoxContent : ModernDialogBoxContentT<ModernDialogBoxContent>, TemplateControlHelper<ModernDialogBoxContent>
+    struct ModernDialogBoxContent : ModernDialogBoxContentT<ModernDialogBoxContent>, TemplateControlHelper<ModernDialogBoxContent, false>
     {
 		friend struct ModernDialogBox;
 
@@ -83,7 +83,7 @@ namespace winrt::WinUI3Package::implementation
 		void CloseButtonStyle(Microsoft::UI::Xaml::Style const& value);
 		static winrt::Microsoft::UI::Xaml::DependencyProperty CloseButtonStyleProperty();
 
-		constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/ModernDialogBoxContent_Resource.xaml";
+		// constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/ModernDialogBoxContent_Resource.xaml";
 	private:
 		bool isCustomMeasureFinishedAfterLoaded{};
 

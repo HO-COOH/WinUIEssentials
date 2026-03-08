@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "WindowCaptionButtonThemeWorkaround.h"
 #if __has_include("WindowCaptionButtonThemeWorkaround.g.cpp")
 #include "WindowCaptionButtonThemeWorkaround.g.cpp"
@@ -33,6 +33,14 @@ namespace winrt::WinUI3Package::implementation
 
     WindowCaptionButtonThemeWorkaround::WindowCaptionButtonThemeWorkaround()
     {
+        ActualThemeChanged([this](auto&&...) {
+            setCaptionButtonTheme(ActualTheme());
+        });
+    }
+
+	WindowCaptionButtonThemeWorkaround::WindowCaptionButtonThemeWorkaround(winrt::Microsoft::UI::Xaml::Window const& window) : m_titleBar{ window.AppWindow().TitleBar() }
+    {
+        setCaptionButtonTheme(ActualTheme());
         ActualThemeChanged([this](auto&&...) {
             setCaptionButtonTheme(ActualTheme());
         });
