@@ -775,7 +775,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="PropertySheet.props" />
-    <None Include="UWPExample_TemporaryKey.pfx" />
     <Text Include="readme.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>
