@@ -1,4 +1,4 @@
-![](MainLogo.png) 
+﻿![](MainLogo.png) 
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
@@ -24,7 +24,7 @@ Example project build status:
 |---|---|---|
 |x86| [![Build Debug x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Debug_CI2,%20x86))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml) | [![Build Release x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Release_CI2,%20x86))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml)
 |x64| [![Build Debug x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Debug_CI2,%20x64))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml) | [![Build Release x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Release_CI2,%20x64))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml)
-|ARM| [![Build Debug ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Debug_CI2,%20ARM))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml) | [![Build Release ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Release_CI2,%20ARM))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml)
+|~~ARM~~| ~~[![Build Debug ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Debug_CI2,%20ARM))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml)~~ | ~~[![Build Release ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Release_CI2,%20ARM))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml)~~
 |ARM64| [![Build Debug ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Debug_CI2,%20ARM64))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml) | [![Build Release ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Release_CI2,%20ARM64))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml)
 
 

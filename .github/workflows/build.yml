@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         configuration: [Debug_CI2, Release_CI2]
-        platform: [x86, x64, ARM, ARM64]
+        platform: [x86, x64, ARM64]
 
     steps:
     - uses: actions/checkout@v4
