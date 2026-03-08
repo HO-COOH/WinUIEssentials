@@ -10,14 +10,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <!--  Other merged dictionaries here  -->
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/ModernDialogBoxContent_Resource.xaml" />
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/GroupBox_Resource.xaml" />
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsCard_Resource.xaml" />
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsExpander_Resource.xaml" />
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/Glyphs.xaml" />
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/MarqueeText_Resource.xaml" />
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/ProgressBarEx_Resource.xaml" />
-                <ResourceDictionary Source="ms-appx:///WinUI3Package/Segmented_Resource.xaml" />
                 <ResourceDictionary Source="/IconButton_Resource.xaml" />
                 <ResourceDictionary Source="/FakeTitleBar_Resource.xaml" />
                 <ResourceDictionary Source="/AnimatedNumber_Resource.xaml" />

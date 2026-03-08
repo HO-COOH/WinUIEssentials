@@ -12,17 +12,6 @@
     TitleBarAutoDarkMode="True"
     mc:Ignorable="d">
 
-    <!--<essential:WindowEx.SystemBackdrop>
-        <essential:MicaBackdropWithFallback>
-            <essential:MicaBackdropWithFallback.Fallback>
-                <essential:TenMicaBackdrop BindThemeTo="{x:Bind RootGrid}" />
-            </essential:MicaBackdropWithFallback.Fallback>
-        </essential:MicaBackdropWithFallback>
-    </essential:WindowEx.SystemBackdrop>-->
-    <!--<essential:WindowEx.SystemBackdrop>
-        <DesktopAcrylicBackdrop />
-    </essential:WindowEx.SystemBackdrop>-->
-
     <Grid x:Name="RootGrid">
         <Grid.BackgroundTransition>
             <BrushTransition />
@@ -35,7 +24,6 @@
             <essential:ModernStandardWindowContextMenu x:Name="WindowMenu" Window="{x:Bind}" />
             <essential:TaskbarIcon
                 x:Name="MainIcon"
-                Guid="{x:Bind local:MainWindow.IconGuid}"
                 Icon="ms-appx:///Assets/MainLogo.ico"
                 ToolTip="WinUI3Example's icon tooltip">
                 <MenuFlyout>

@@ -1,7 +1,12 @@
 ﻿#pragma once
 #include <winrt/Windows.UI.Composition.h>
+#include <memory>
+
+class TenMicaEffectFactory;
+
 struct TenMicaEffect
 {
+	std::shared_ptr<TenMicaEffectFactory> m_factory;
 	winrt::Windows::UI::Composition::CompositionEffectBrush m_themeCrossFadeBrush{ nullptr };
 	winrt::Windows::UI::Composition::CompositionEffectBrush m_finalCrossFadeBrush{ nullptr };
 	winrt::Windows::UI::Composition::CompositionColorBrush m_inactiveBrush{ nullptr };

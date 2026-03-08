@@ -43,16 +43,16 @@ TenMicaEffect TenMicaEffectFactory::Get()
 	if (!themeCrossFadeEffectFactory)
 		createFactory();
 
-	auto& wallpaperManager = WallpaperManager::GetInstance();
-	std::ignore = wallpaperManager.UpdatedNeeded();
+	std::ignore = m_wallpaperManager.UpdatedNeeded();
 
 	TenMicaEffect effect
 	{
+		.m_factory = shared_from_this(),
 		.m_themeCrossFadeBrush = themeCrossFadeEffectFactory.CreateBrush(),
 		.m_finalCrossFadeBrush = finalEffectFactory.CreateBrush(),
 		.m_inactiveBrush = compositor.CreateColorBrush(TenMicaConstants::WinUI::LuminosityColorDark),
-		.m_lightBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, wallpaperManager, true),
-		.m_darkBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, wallpaperManager, false)
+		.m_lightBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, m_wallpaperManager, true),
+		.m_darkBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, m_wallpaperManager, false)
 	};
 
 	effect.m_themeCrossFadeBrush.SetSourceParameter(L"Light", effect.m_lightBrush);
@@ -67,23 +67,30 @@ TenMicaEffect TenMicaEffectFactory::Get()
 	return effect;
 }
 
-TenMicaEffectFactory& TenMicaEffectFactory::GetFactory()
+std::shared_ptr<TenMicaEffectFactory> TenMicaEffectFactory::GetFactory()
 {
-	thread_local TenMicaEffectFactory s_factory;
-	return s_factory;
+	thread_local std::weak_ptr<TenMicaEffectFactory> s_factory;
+	auto factory = s_factory.lock();
+	if (!factory)
+	{
+		factory = std::make_shared<TenMicaEffectFactory>();
+		s_factory = factory;
+	}
+
+	return factory;
 }
 
-void TenMicaEffectFactory::Redraw(WallpaperManager& wallpaperManager)
+void TenMicaEffectFactory::Redraw()
 {
-	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, true);
-	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, false);
+	m_wallpaperSurfaces.DrawToSurface(compositor, m_wallpaperManager, true);
+	m_wallpaperSurfaces.DrawToSurface(compositor, m_wallpaperManager, false);
 }
 
-void TenMicaEffectFactory::OnDeviceLost(TenMicaEffect& effectToReset, WallpaperManager& wallpaperManager)
+void TenMicaEffectFactory::OnDeviceLost(TenMicaEffect& effectToReset)
 {
 	m_wallpaperSurfaces = {};
-	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, true);
-	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, false);
+	m_wallpaperSurfaces.DrawToSurface(compositor, m_wallpaperManager, true);
+	m_wallpaperSurfaces.DrawToSurface(compositor, m_wallpaperManager, false);
 	effectToReset.m_lightBrush.Surface(m_wallpaperSurfaces.m_surfaceLight);
 	effectToReset.m_darkBrush.Surface(m_wallpaperSurfaces.m_surfaceDark);
 }

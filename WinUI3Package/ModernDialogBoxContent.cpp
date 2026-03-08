@@ -1,5 +1,6 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ModernDialogBoxContent.h"
+#include "ModernDialogBoxContent_Resource.xaml.h"
 #if __has_include("ModernDialogBoxContent.g.cpp")
 #include "ModernDialogBoxContent.g.cpp"
 #endif
@@ -99,9 +100,12 @@ namespace winrt::WinUI3Package::implementation
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, onHeaderImageChangedStatic });
 
 
-	ModernDialogBoxContent::ModernDialogBoxContent() {
-
-		DefaultStyleKey(box_value(winrt::xaml_typename<winrt::WinUI3Package::ModernDialogBoxContent>()));
+	ModernDialogBoxContent::ModernDialogBoxContent() 
+	{
+		[[maybe_unused]] static bool s_resourceLoaded = [] {
+			winrt::Microsoft::UI::Xaml::Application::Current().Resources().MergedDictionaries().Append(winrt::WinUI3Package::ModernDialogBoxContent_Resource());
+			return true;
+		}();
 
 		IsPrimaryButtonEnabled(true);
 		IsSecondaryButtonEnabled(true);

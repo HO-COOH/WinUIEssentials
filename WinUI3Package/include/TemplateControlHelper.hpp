@@ -3,12 +3,14 @@
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Microsoft.UI.Xaml.h>
 
-template<typename Self>
+template<typename Self, bool useXamlResource = true>
 struct XamlResourceHelper
 {
 	XamlResourceHelper()
 	{
-		if constexpr (requires { Self::ResourceUri; })
+		if constexpr (!useXamlResource)
+			return;
+		else if constexpr (requires { Self::ResourceUri; }) //this must be inside an else if branch, otherwise it will be evaluated even when useXamlResource is false
 		{
 			if constexpr (requires {Self::DefaultStyleResourceUri(); })
 				static_cast<Self*>(this)->DefaultStyleResourceUri(winrt::Windows::Foundation::Uri{ Self::ResourceUri });
@@ -22,7 +24,10 @@ struct XamlResourceHelper
 					return true;
 				}();
 			}
+			return;
 		}
+		else
+			static_assert(!sizeof(Self), "Did you forget to add a ResourceUri?");
 	}
 };
 
@@ -36,8 +41,8 @@ struct XamlResourceHelper
  * If Self contains a @c constexpr @c static @c wchar_t @c const* @c ResourceUri member,
  * the corresponding ResourceDictionary is automatically loaded into Application.Current.Resources.MergedDictionaries.
 */
-template<typename Self>
-struct TemplateControlHelper : public XamlResourceHelper<Self>
+template<typename Self, bool useXamlResource = true>
+struct TemplateControlHelper : public XamlResourceHelper<Self, useXamlResource>
 {
 	TemplateControlHelper()
 	{

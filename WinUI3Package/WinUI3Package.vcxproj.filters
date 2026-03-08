@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -52,7 +52,7 @@
       <Filter>Controls\Shimmer</Filter>
     </ClCompile>
     <ClCompile Include="ContentDialogUtils.cpp">
-      <Filter>Controls\WindowedContentDialog\Utils</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
     </ClCompile>
     <ClCompile Include="RevealBrush.cpp">
       <Filter>Controls\RevealFocus</Filter>
@@ -249,10 +249,11 @@
     </ClInclude>
     <ClInclude Include="ModalWindowBase.hpp" />
     <ClInclude Include="WinUIAsyncEventArgs.hpp">
-      <Filter>Controls\WindowedContentDialog\Utils</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
     </ClInclude>
     <ClInclude Include="ContentDialogUtils.h">
-      <Filter>Controls\WindowedContentDialog\Utils</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
+    </ClInclude>
     <ClInclude Include="include\LayoutUpdateAwaiter.hpp">
       <Filter>include</Filter>
     </ClInclude>
@@ -412,14 +413,6 @@
     <Filter Include="Controls\WindowedContentDialog">
       <UniqueIdentifier>{25cd8eb6-3fd6-476a-a500-4a3441f22f88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controls\WindowedContentDialog\Underlay">
-      <UniqueIdentifier>{c6e2dbf1-93c2-4c65-b282-62b80f67a990}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\WindowedContentDialog\Utils">
-      <UniqueIdentifier>{080447c9-e9d8-4be0-a7fe-2c418edc13fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\WindowedContentDialog\Content">
-      <UniqueIdentifier>{50f90cdf-9c1c-4972-8ec2-8dd45d4e0a25}</UniqueIdentifier>
     <Filter Include="Controls\RevealFocus">
       <UniqueIdentifier>{07cbeca9-02b9-4907-86bb-8c245f0f4577}</UniqueIdentifier>
     </Filter>
@@ -432,9 +425,23 @@
     <Filter Include="Backdrop\TenMica\Wallpaper">
       <UniqueIdentifier>{b2e95773-1b25-4166-8fd1-ecedb1cfa077}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\WindowedContentDialog\ModernDialogBox">
+      <UniqueIdentifier>{36993551-409a-495e-a10a-98b7e8c70f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog\ModernDialogBox\Content">
+      <UniqueIdentifier>{50f90cdf-9c1c-4972-8ec2-8dd45d4e0a25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog\ModernDialogBox\Underlay">
+      <UniqueIdentifier>{c6e2dbf1-93c2-4c65-b282-62b80f67a990}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog\ModernDialogBox\Utils">
+      <UniqueIdentifier>{080447c9-e9d8-4be0-a7fe-2c418edc13fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WindowedContentDialog\WindowedContentDialog">
+      <UniqueIdentifier>{d5820e1f-d67e-4647-80b6-7b6133307257}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Placeholder.idl" />
     <Midl Include="CursorController.idl" />
     <Midl Include="BoolToVisibilityConverter.idl">
       <Filter>Converters</Filter>
@@ -617,22 +624,23 @@
       <Filter>Controls\Helpers</Filter>
     </Midl>
     <Midl Include="SmokeLayerKind.idl">
-      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Underlay</Filter>
     </Midl>
     <Midl Include="UnderlayCoverMode.idl">
-      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Underlay</Filter>
     </Midl>
     <Midl Include="UnderlayMode.idl">
-      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Underlay</Filter>
     </Midl>
     <Midl Include="UnderlaySystemBackdropOptions.idl">
-      <Filter>Controls\WindowedContentDialog\Underlay</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Underlay</Filter>
     </Midl>
     <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
-      <Filter>Controls\WindowedContentDialog\Utils</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
     </Midl>
     <Midl Include="ModernDialogBoxContent.idl">
-      <Filter>Controls\WindowedContentDialog\Content</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Content</Filter>
+    </Midl>
     <Midl Include="NavigationViewHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
@@ -650,6 +658,9 @@
     </Midl>
     <Midl Include="SliderHelper.idl">
       <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="WindowedContentDialog.idl">
+      <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -686,11 +697,14 @@
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
     </Page>
-    <Page Include="ModernDialogBox.xaml">
-      <Filter>Controls\WindowedContentDialog</Filter>
-    </Page>
     <Page Include="ModernDialogBoxContent_Resource.xaml">
-      <Filter>Controls\WindowedContentDialog\Content</Filter>
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox\Content</Filter>
+    </Page>
+    <Page Include="ModernDialogBox.xaml">
+      <Filter>Controls\WindowedContentDialog\ModernDialogBox</Filter>
+    </Page>
+    <Page Include="WindowedContentDialog_Resource.xaml">
+      <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

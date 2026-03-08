@@ -9,8 +9,17 @@
     mc:Ignorable="d">
 
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
-        <local:ControlExample HeaderText="WindowedContentDialog">
+        <InfoBar
+            IsClosable="False"
+            Message="This component is still in demo only and not in package yet!"
+            Severity="Warning" />
+
+        <local:ControlExample HeaderText="ModernDialogBox">
             <Button Click="Button_Click">Create</Button>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WindowedContentDialog">
+            <Button Click="Button_Click_1">Create</Button>
         </local:ControlExample>
     </StackPanel>
 </Page>

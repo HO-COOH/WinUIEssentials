@@ -11,15 +11,13 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-	winrt::fire_and_forget WindowedContentDialogPage::Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	winrt::fire_and_forget WindowedContentDialogPage::Button_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		//WinUI3Example::ExampleDialog dialog;
-		//dialog.SetParent(MainWindow::MainWindowInstance, true, true);
-		//co_await dialog.ShowAsync();
 
 		WinUI3Package::ModernDialogBox dialog;
 
 		auto content = dialog.DialogContent();
+		content.HeaderImage(winrt::Microsoft::UI::Xaml::Media::Imaging::BitmapImage{ winrt::Windows::Foundation::Uri{L"ms-appx:///Assets/StoreLogo.png"} });
 		content.Title(box_value(winrt::hstring(L"Title")));
 		content.Content(winrt::box_value(L"Content"));
 		content.PrimaryButtonText(winrt::hstring(L"PrimaryButton"));
@@ -34,4 +32,18 @@ namespace winrt::WinUI3Example::implementation
 		co_await dialog.ShowAsync(MainWindow::MainWindowInstance);
 
 	}
+
+
+	winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		winrt::Microsoft::UI::Xaml::Controls::ContentDialog content;
+		content.Title(box_value(winrt::hstring(L"Title")));
+		content.Content(winrt::box_value(L"Content"));
+		content.PrimaryButtonText(winrt::hstring(L"PrimaryButton"));
+		content.SecondaryButtonText(winrt::hstring(L"SecondaryButton"));
+		content.CloseButtonText(winrt::hstring(L"CloseButton"));
+		content.DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton::Primary);
+		co_await WinUI3Package::WindowedContentDialog{ content }.ShowAsync(MainWindow::Window);
+	}
+
 }

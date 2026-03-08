@@ -3,13 +3,13 @@
 #include "TenMicaBackdrop.g.h"
 
 #include <winrt/Windows.UI.Composition.h>
-#include "WallpaperManager.h"
 #include "CustomBackdropBase.h"
 #include "TenMicaEffectFactory.h"
 #include "TenMicaWindowSubProc.hpp"
 #include "TenMicaRegistryWatcher.h"
 #include "EnsureSystemDispatcherQueueController.hpp"
 #include <optional>
+#include <memory>
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -38,8 +38,9 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Dispatching::DispatcherQueue m_queue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
         std::optional<TenMicaRegistryWatcher> m_registryWatcher;
         std::optional<TenMicaEffect> m_effect;
+        std::shared_ptr<TenMicaEffectFactory> m_factory{ TenMicaEffectFactory::GetFactory() };
         void getVirtualScreenXY();
-        void onDeviceReset(WallpaperManager& wallpaperManager);
+        void onDeviceReset();
         int m_virtualScreenX{};
         int m_virtualScreenY{};
     };

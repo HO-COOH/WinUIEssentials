@@ -149,8 +149,6 @@ namespace winrt::WinUI3Package::implementation
 		auto content = DialogContent();
 		auto systemBackdrop = SystemBackdrop();
 
-		SetTitleBar(m_contentImpl->m_TitleArea);
-
 		if (systemBackdrop == nullptr)
 		{
 			auto requestedTheme = content.RequestedTheme();
@@ -170,14 +168,7 @@ namespace winrt::WinUI3Package::implementation
 			}
 		}
 
-		if (systemBackdrop == nullptr || systemBackdrop.try_as<Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop>() != nullptr)
-		{
-			m_contentImpl->m_CommandSpace.Background().Opacity(1.0);
-		}
-		else
-		{
-			m_contentImpl->m_CommandSpace.Background().Opacity(0.5);
-		}
+		m_contentImpl->m_CommandSpace.Background().Opacity(systemBackdrop ? 0.5 : 1.0);
 
 		determineTitleBarButtonForegroundColor();
 		open();

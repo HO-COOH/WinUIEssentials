@@ -1,11 +1,12 @@
 ﻿#pragma once
 #include <winrt/Windows.UI.Composition.h>
+#include <memory>
 #include "CombinedWallpaperSurfaces.h"
 #include "TenMicaEffect.h"
 
-class WallpaperManager;
+#include "WallpaperManager.h"
 
-class TenMicaEffectFactory
+class TenMicaEffectFactory : public std::enable_shared_from_this<TenMicaEffectFactory>
 {
 	winrt::Windows::UI::Composition::Compositor compositor;
 
@@ -18,6 +19,7 @@ class TenMicaEffectFactory
 
 	void createFactory();
 public:
+	WallpaperManager m_wallpaperManager;
 
 	winrt::Windows::UI::Composition::ScalarKeyFrameAnimation m_crossFadeForwardAnimation = compositor.CreateScalarKeyFrameAnimation();
 	winrt::Windows::UI::Composition::ScalarKeyFrameAnimation m_crossFadeBackwardAnimation = compositor.CreateScalarKeyFrameAnimation();
@@ -25,7 +27,7 @@ public:
 	TenMicaEffectFactory();
 
 	[[nodiscard]] TenMicaEffect Get();
-	[[nodiscard]] static TenMicaEffectFactory& GetFactory();
-	void Redraw(WallpaperManager& wallpaperManager);
-	void OnDeviceLost(TenMicaEffect& effectToReset, WallpaperManager& wallpaperManager);
+	[[nodiscard]] static std::shared_ptr<TenMicaEffectFactory> GetFactory();
+	void Redraw();
+	void OnDeviceLost(TenMicaEffect& effectToReset);
 };

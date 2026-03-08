@@ -24,6 +24,9 @@ namespace winrt::WinUI3Package::implementation
     }
     void ModernStandardWindowContextMenu::Window(winrt::Microsoft::UI::Xaml::Window const& value)
     {
+		if (m_xamlRoot == value)
+            return;
+
         m_xamlRoot = value;
         m_converter = winrt::Microsoft::UI::Content::ContentCoordinateConverter::CreateForWindowId(value.AppWindow().Id());
         m_parent = GetHwnd(value);

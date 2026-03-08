@@ -9,6 +9,10 @@
     Title="ModernDialogBox"
     mc:Ignorable="d">
 
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop />
+    </Window.SystemBackdrop>
+
     <Grid x:Name="ContentDialogGrid">
         <local:ModernDialogBoxContent x:Name="ContentDialogContentControl" Loaded="OnContentLoaded" />
     </Grid>

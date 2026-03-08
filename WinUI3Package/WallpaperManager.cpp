@@ -110,11 +110,3 @@ DESKTOP_WALLPAPER_POSITION WallpaperManager::Position()
     return position;
 }
 
-static std::optional<WallpaperManager> s_instance;
-WallpaperManager& WallpaperManager::GetInstance(bool recreate)
-{
-    if (!s_instance || recreate)
-        s_instance.emplace();
-
-    return *s_instance;
-}

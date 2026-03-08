@@ -5,6 +5,7 @@
     runtimeclass WindowCaptionButtonThemeWorkaround : Microsoft.UI.Xaml.Controls.Control
     {
         WindowCaptionButtonThemeWorkaround();
+	    WindowCaptionButtonThemeWorkaround(Microsoft.UI.Xaml.Window window);
         
         Microsoft.UI.Xaml.Window Window;
     }

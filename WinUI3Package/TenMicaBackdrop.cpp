@@ -79,13 +79,12 @@ namespace winrt::WinUI3Package::implementation
 		{
 			if (auto strong = weakThis.get())
 			{
-				auto& wallpaperManager = WallpaperManager::GetInstance();
-				if (!wallpaperManager.UpdatedNeeded())
+				if (!strong->m_factory->m_wallpaperManager.UpdatedNeeded())
 					return;
 
 				try
 				{
-					TenMicaEffectFactory::GetFactory().Redraw(wallpaperManager);
+					strong->m_factory->Redraw();
 				}
 				catch (TenMicaDeviceLostException const&)
 				{
@@ -104,13 +103,12 @@ namespace winrt::WinUI3Package::implementation
 			{
 				try
 				{
-					strong->onDeviceReset(WallpaperManager::GetInstance());
+					strong->onDeviceReset();
 				}
 				catch (TenMicaDeviceLostException const&)
 				{
-					auto& wallpaperManager = WallpaperManager::GetInstance(true);
-					std::ignore = wallpaperManager.UpdatedNeeded();
-					strong->onDeviceReset(wallpaperManager);
+					std::ignore = strong->m_factory->m_wallpaperManager.UpdatedNeeded();
+					strong->onDeviceReset();
 				}
 			}
 		});
@@ -119,7 +117,7 @@ namespace winrt::WinUI3Package::implementation
 	TenMicaEffect& TenMicaBackdrop::getEffect()
 	{
 		if (!m_effect)
-			m_effect.emplace(TenMicaEffectFactory::GetFactory().Get());
+			m_effect.emplace(m_factory->Get());
 		
 		return *m_effect;
 	}
@@ -130,9 +128,9 @@ namespace winrt::WinUI3Package::implementation
 		m_virtualScreenY = GetSystemMetrics(SM_YVIRTUALSCREEN);
 	}
 
-	void TenMicaBackdrop::onDeviceReset(WallpaperManager& wallpaperManager)
+	void TenMicaBackdrop::onDeviceReset()
 	{
-		TenMicaEffectFactory::GetFactory().OnDeviceLost(getEffect(), wallpaperManager);
+		m_factory->OnDeviceLost(getEffect());
 		RECT windowRect;
 		winrt::check_bool(GetWindowRect(m_hwnd, &windowRect));
 		updateBrushOffset(windowRect.left, windowRect.top);
