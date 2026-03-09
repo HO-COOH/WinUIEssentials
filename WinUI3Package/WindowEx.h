@@ -104,9 +104,6 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Windowing::AppWindow AppWindow();
         uint64_t Hwnd();
 
-        winrt::Microsoft::UI::Xaml::UIElement WindowContent();
-        void WindowContent(winrt::Microsoft::UI::Xaml::UIElement value);
-
         /*For transparent backdrop*/
         void Transparent(bool value);
 
@@ -180,6 +177,7 @@ namespace winrt::WinUI3Package::implementation
         Optional<int, INT_MAX> m_maxWidth;
         Optional<int, INT_MAX> m_maxHeight;
         HWND m_hwnd{};
+        HBRUSH m_backgroundBlackBrush = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
         winrt::hstring m_icon;
 
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_contextMenu{ nullptr };

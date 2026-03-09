@@ -20,6 +20,7 @@
 #pragma comment (lib, "dwmapi.lib")
 // Compiles with -lntdll
 #include <winrt/Microsoft.UI.Content.h>
+#include <wil/resource.h>
 
 
 namespace winrt::WinUI3Package::implementation
@@ -558,8 +559,7 @@ namespace winrt::WinUI3Package::implementation
         RECT rect{};
         if (GetClientRect(hwnd, &rect))
         {
-            auto brush = CreateSolidBrush({});
-            FillRect(hdc, &rect, brush);
+            FillRect(hdc, &rect, m_backgroundBlackBrush);
             return true;
         }
         return true;
