@@ -1,11 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include "DatePickerHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct DatePickerHelper : DatePickerHelperT<DatePickerHelper>, EnsureDependencyProperty<DatePickerHelper>
+    struct DatePickerHelper : DatePickerHelperT<DatePickerHelper>
     {
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
         static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::DatePicker const& datePicker);

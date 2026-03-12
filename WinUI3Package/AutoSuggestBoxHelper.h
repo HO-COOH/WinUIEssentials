@@ -1,14 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include "AutoSuggestBoxHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct AutoSuggestBoxHelper : AutoSuggestBoxHelperT<AutoSuggestBoxHelper>, EnsureDependencyProperty<AutoSuggestBoxHelper>
+    struct AutoSuggestBoxHelper : AutoSuggestBoxHelperT<AutoSuggestBoxHelper>
     {
-        AutoSuggestBoxHelper() = default;
-
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
         static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& autoSuggestBox);
         static void SetAcrylicWorkaround(

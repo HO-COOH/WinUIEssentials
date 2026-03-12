@@ -1,14 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include "ComboBoxHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ComboBoxHelper : ComboBoxHelperT<ComboBoxHelper>, EnsureDependencyProperty<ComboBoxHelper>
+    struct ComboBoxHelper : ComboBoxHelperT<ComboBoxHelper>
     {
-        ComboBoxHelper() = default;
-
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
         static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::ComboBox const& comboBox);
         static void SetAcrylicWorkaround(

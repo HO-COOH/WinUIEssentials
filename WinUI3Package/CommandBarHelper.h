@@ -1,11 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include "CommandBarHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct CommandBarHelper : CommandBarHelperT<CommandBarHelper>, EnsureDependencyProperty<CommandBarHelper>
+    struct CommandBarHelper : CommandBarHelperT<CommandBarHelper>
     {
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
 		static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::CommandBar const& commandBar);

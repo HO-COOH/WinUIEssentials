@@ -1,14 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include "SliderHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SliderHelper : SliderHelperT<SliderHelper>, EnsureDependencyProperty<SliderHelper>
+    struct SliderHelper : SliderHelperT<SliderHelper>
     {
-		SliderHelper() = default;
-
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
 		static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Slider const& slider);
 		static void SetAcrylicWorkaround(

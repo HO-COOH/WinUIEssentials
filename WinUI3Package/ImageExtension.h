@@ -1,15 +1,12 @@
 ﻿#pragma once
 
 #include "ImageExtension.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ImageExtension : ImageExtensionT<ImageExtension>, EnsureDependencyProperty<ImageExtension>
+    struct ImageExtension : ImageExtensionT<ImageExtension>
     {
-        static void EnsureDependencyProperties();
-
         static winrt::Microsoft::UI::Xaml::DependencyProperty FallbackSourceProperty();
         
         static void SetFallbackSource(

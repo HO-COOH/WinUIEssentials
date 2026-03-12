@@ -1,11 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include "FlyoutHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-	struct FlyoutHelper : FlyoutHelperT<FlyoutHelper>, EnsureDependencyProperty<FlyoutHelper>
+	struct FlyoutHelper : FlyoutHelperT<FlyoutHelper>
     {
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
 		static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Flyout const& flyout);

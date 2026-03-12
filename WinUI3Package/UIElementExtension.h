@@ -1,11 +1,10 @@
 ﻿#pragma once
 
 #include "UIElementExtension.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct UIElementExtension : UIElementExtensionT<UIElementExtension>, EnsureDependencyProperty<UIElementExtension>
+    struct UIElementExtension : UIElementExtensionT<UIElementExtension>
     {
         static winrt::Microsoft::UI::Xaml::DependencyProperty ClipToBoundsProperty();
         static bool GetClipToBounds(winrt::Microsoft::UI::Xaml::UIElement element);
