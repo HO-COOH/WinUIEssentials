@@ -1,11 +1,10 @@
 #pragma once
 
 #include "ComboBoxHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ComboBoxHelper : ComboBoxHelperT<ComboBoxHelper>, EnsureDependencyProperty<ComboBoxHelper>
+    struct ComboBoxHelper : ComboBoxHelperT<ComboBoxHelper>
     {
         ComboBoxHelper() = default;
 

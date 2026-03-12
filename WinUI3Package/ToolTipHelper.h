@@ -1,11 +1,10 @@
 #pragma once
 
 #include "ToolTipHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ToolTipHelper : ToolTipHelperT<ToolTipHelper>, EnsureDependencyProperty<ToolTipHelper>
+    struct ToolTipHelper : ToolTipHelperT<ToolTipHelper>
     {
         ToolTipHelper() = default;
 

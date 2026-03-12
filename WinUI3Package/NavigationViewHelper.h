@@ -1,11 +1,10 @@
 #pragma once
 
 #include "NavigationViewHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct NavigationViewHelper : NavigationViewHelperT<NavigationViewHelper>, EnsureDependencyProperty<NavigationViewHelper>
+    struct NavigationViewHelper : NavigationViewHelperT<NavigationViewHelper>
     {
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
         static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& navigationView);

@@ -1,11 +1,10 @@
 #pragma once
 
 #include "SliderHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SliderHelper : SliderHelperT<SliderHelper>, EnsureDependencyProperty<SliderHelper>
+    struct SliderHelper : SliderHelperT<SliderHelper>
     {
 		SliderHelper() = default;
 

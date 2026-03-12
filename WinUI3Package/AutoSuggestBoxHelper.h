@@ -1,11 +1,10 @@
 #pragma once
 
 #include "AutoSuggestBoxHelper.g.h"
-#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct AutoSuggestBoxHelper : AutoSuggestBoxHelperT<AutoSuggestBoxHelper>, EnsureDependencyProperty<AutoSuggestBoxHelper>
+    struct AutoSuggestBoxHelper : AutoSuggestBoxHelperT<AutoSuggestBoxHelper>
     {
         AutoSuggestBoxHelper() = default;
 
