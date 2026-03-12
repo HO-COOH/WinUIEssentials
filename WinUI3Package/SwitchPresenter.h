@@ -1,11 +1,13 @@
 ﻿#pragma once
 
 #include "SwitchPresenter.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SwitchPresenter : SwitchPresenterT<SwitchPresenter>
+    struct SwitchPresenter : SwitchPresenterT<SwitchPresenter>, EnsureDependencyProperty<SwitchPresenter>
     {
+        static void EnsureDependencyProperties();
         SwitchPresenter();
 
         WinUI3Package::Case CurrentCase();
@@ -21,9 +23,9 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty ValueProperty();
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_currentCaseProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_switchCasesProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_valueProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_currentCaseProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_switchCasesProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_valueProperty = nullptr;
 
         static void onSwitchCasesChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& d,

@@ -8,29 +8,28 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty SwitchPresenter::s_currentCaseProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void SwitchPresenter::EnsureDependencyProperties()
+	{
+		if (s_currentCaseProperty) return;
+		s_currentCaseProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"CurrentCase",
 			winrt::xaml_typename<WinUI3Package::Case>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty SwitchPresenter::s_switchCasesProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_switchCasesProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"SwitchCases",
 			winrt::xaml_typename<WinUI3Package::CaseCollection>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &SwitchPresenter::onSwitchCasesChanged }
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty SwitchPresenter::s_valueProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_valueProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Value",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &SwitchPresenter::onValueChanged }
 		);
+	}
 
 	SwitchPresenter::SwitchPresenter()
 	{

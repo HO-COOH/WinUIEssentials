@@ -1,14 +1,16 @@
-#pragma once
+﻿#pragma once
 
 #include "Shimmer.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include <optional>
 #include "Shimmer.AnimationMember.h"
 #include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct Shimmer : ShimmerT<Shimmer>, TemplateControlHelper<Shimmer>
+    struct Shimmer : ShimmerT<Shimmer>, TemplateControlHelper<Shimmer>, EnsureDependencyProperty<Shimmer>
     {
+        static void EnsureDependencyProperties();
         Shimmer() = default;
 
         bool IsLoading();
@@ -19,7 +21,7 @@ namespace winrt::WinUI3Package::implementation
 
         void OnApplyTemplate();
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isLoadingProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_isLoadingProperty = nullptr;
         winrt::Microsoft::UI::Xaml::FrameworkElement m_animationContainer{ nullptr };
         winrt::Microsoft::UI::Xaml::FrameworkElement::SizeChanged_revoker m_animationSizeChangedRevoker;
         void startAnimation();

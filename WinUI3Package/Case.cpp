@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Case.h"
 #if __has_include("Case.g.cpp")
 #include "Case.g.cpp"
@@ -6,29 +6,28 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty Case::s_contentProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void Case::EnsureDependencyProperties()
+	{
+		if (s_contentProperty) return;
+		s_contentProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Content",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty Case::s_isDefaultProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_isDefaultProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"IsDefault",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty Case::s_valueProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_valueProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Value",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
+	}
 
 	winrt::Windows::Foundation::IInspectable Case::Content()
 	{

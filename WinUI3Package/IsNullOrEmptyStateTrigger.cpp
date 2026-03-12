@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "IsNullOrEmptyStateTrigger.h"
 #if __has_include("IsNullOrEmptyStateTrigger.g.cpp")
 #include "IsNullOrEmptyStateTrigger.g.cpp"
@@ -7,13 +7,10 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	IsNullOrEmptyStateTrigger::IsNullOrEmptyStateTrigger()
+	void IsNullOrEmptyStateTrigger::EnsureDependencyProperties()
 	{
-		updateTrigger();
-	}
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty IsNullOrEmptyStateTrigger::m_valueProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		if (m_valueProperty) return;
+		m_valueProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Value",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<WinUI3Package::IsNullOrEmptyStateTrigger>(),
@@ -21,7 +18,13 @@ namespace winrt::WinUI3Package::implementation
 				nullptr,
 				&IsNullOrEmptyStateTrigger::onValuePropertyChanged
 			}
-	);
+		);
+	}
+
+	IsNullOrEmptyStateTrigger::IsNullOrEmptyStateTrigger()
+	{
+		updateTrigger();
+	}
 
 	winrt::Windows::Foundation::IInspectable IsNullOrEmptyStateTrigger::Value()
 	{

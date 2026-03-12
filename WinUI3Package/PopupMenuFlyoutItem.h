@@ -1,12 +1,14 @@
 ﻿#pragma once
 
 #include "PopupMenuFlyoutItem.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include "PopupMenuFlyoutItemBase.h"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct PopupMenuFlyoutItem : PopupMenuFlyoutItemT<PopupMenuFlyoutItem, PopupMenuFlyoutItemBase>
+    struct PopupMenuFlyoutItem : PopupMenuFlyoutItemT<PopupMenuFlyoutItem, PopupMenuFlyoutItemBase>, EnsureDependencyProperty<PopupMenuFlyoutItem>
     {
+        static void EnsureDependencyProperties();
         PopupMenuFlyoutItem() = default;
 
 #pragma region Inheirted from PopupMenuFlyoutItemBase
@@ -32,10 +34,10 @@ namespace winrt::WinUI3Package::implementation
         winrt::event_token Click(winrt::Microsoft::UI::Xaml::RoutedEventHandler const& handler);
         void Click(winrt::event_token const& token);
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_commandProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_commandParameterProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_commandProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_commandParameterProperty = nullptr;
 
         winrt::event<winrt::Microsoft::UI::Xaml::RoutedEventHandler> m_clickEvent;
 

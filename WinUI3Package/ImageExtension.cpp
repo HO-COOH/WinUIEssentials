@@ -7,17 +7,17 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty ImageExtension::s_fallbackProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+    winrt::Microsoft::UI::Xaml::DependencyProperty ImageExtension::FallbackSourceProperty()
+    {
+        static auto s_fallbackProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
             L"FallbackSource",
             winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Media::ImageSource>(),
             winrt::xaml_typename<class_type>(),
             nullptr
         );
-    winrt::Microsoft::UI::Xaml::DependencyProperty ImageExtension::FallbackSourceProperty()
-    {
         return s_fallbackProperty;
     }
+
     void ImageExtension::SetFallbackSource(
         winrt::Microsoft::UI::Xaml::DependencyObject const& image,
         winrt::Microsoft::UI::Xaml::Media::ImageSource const& source)

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "RadioPopupMenuFlyoutItem.h"
 #if __has_include("RadioPopupMenuFlyoutItem.g.cpp")
 #include "RadioPopupMenuFlyoutItem.g.cpp"
@@ -7,21 +7,22 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty RadioPopupMenuFlyoutItem::s_isCheckedProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void RadioPopupMenuFlyoutItem::EnsureDependencyProperties()
+	{
+		if (s_isCheckedProperty) return;
+		s_isCheckedProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"IsChecked",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty RadioPopupMenuFlyoutItem::s_groupNameProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_groupNameProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"GroupName",
 			winrt::xaml_typename<winrt::hstring>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
+	}
 
 	winrt::WinUI3Package::PopupMenuFlyoutItemType RadioPopupMenuFlyoutItem::Type()
 	{

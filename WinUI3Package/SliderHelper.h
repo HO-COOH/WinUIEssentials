@@ -1,10 +1,11 @@
-﻿#pragma once
+#pragma once
 
 #include "SliderHelper.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SliderHelper : SliderHelperT<SliderHelper>
+    struct SliderHelper : SliderHelperT<SliderHelper>, EnsureDependencyProperty<SliderHelper>
     {
 		SliderHelper() = default;
 
@@ -16,7 +17,6 @@ namespace winrt::WinUI3Package::implementation
 		);
 
 	private:
-		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
 		static void applyThumbAcrylic(winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb const& thumb);
 

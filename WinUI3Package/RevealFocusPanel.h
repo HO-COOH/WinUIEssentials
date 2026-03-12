@@ -1,14 +1,16 @@
 ﻿#pragma once
 
 #include "RevealFocusPanel.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include <winrt/Microsoft.UI.Composition.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include "RevealBrush.h"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct RevealFocusPanel : RevealFocusPanelT<RevealFocusPanel>
+    struct RevealFocusPanel : RevealFocusPanelT<RevealFocusPanel>, EnsureDependencyProperty<RevealFocusPanel>
     {
+        static void EnsureDependencyProperties();
         RevealFocusPanel();
 
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AttachToPanelProperty();
@@ -20,7 +22,7 @@ namespace winrt::WinUI3Package::implementation
             winrt::Microsoft::UI::Xaml::FrameworkElement const& element
         );
     private:
-		static winrt::Microsoft::UI::Xaml::DependencyProperty s_attachToPanelProperty;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_attachToPanelProperty = nullptr;
         static void onAttachToPanelChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& d,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e

@@ -1,12 +1,14 @@
 ﻿#pragma once
 
 #include "SettingsCard.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SettingsCard : SettingsCardT<SettingsCard>, TemplateControlHelper<SettingsCard>
+    struct SettingsCard : SettingsCardT<SettingsCard>, TemplateControlHelper<SettingsCard>, EnsureDependencyProperty<SettingsCard>
     {
+        static void EnsureDependencyProperties();
         SettingsCard() = default;
 
 #pragma region Overrides
@@ -53,14 +55,14 @@ namespace winrt::WinUI3Package::implementation
 
         constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/SettingsCard_Resource.xaml";
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_descriptionProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerIconProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_actionIconProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_actionIconToolTipProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_isClickEnabledProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_isActionIconVisibleProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_contentAlignmentProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_descriptionProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerIconProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_actionIconProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_actionIconToolTipProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_isClickEnabledProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_isActionIconVisibleProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_contentAlignmentProperty = nullptr;
 
         void onIsClickEnabledChanged();
         void onActionIconChanged();

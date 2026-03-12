@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CustomMicaBackdrop.h"
 #if __has_include("CustomMicaBackdrop.g.cpp")
 #include "CustomMicaBackdrop.g.cpp"
@@ -10,14 +10,17 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_kindProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void CustomMicaBackdrop::EnsureDependencyProperties()
+	{
+		if (s_kindProperty) return;
+		s_kindProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Kind",
 			winrt::xaml_typename<winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
 		);
+	}
+
 
 	void CustomMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{

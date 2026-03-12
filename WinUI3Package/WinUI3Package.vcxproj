@@ -380,6 +380,7 @@
       <DependentUpon>include\DependentValue.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />
     <ClInclude Include="include\Handler.hpp" />

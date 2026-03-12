@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "RevealFocusPanel.h"
 #if __has_include("RevealFocusPanel.g.cpp")
 #include "RevealFocusPanel.g.cpp"
@@ -10,18 +10,23 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::s_attachToPanelProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"AttachToPanel",
-			winrt::xaml_typename<class_type>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
-				nullptr,
-				&RevealFocusPanel::onAttachToPanelChanged
-			}
-		);
+	void RevealFocusPanel::EnsureDependencyProperties()
+	{
+		if (s_attachToPanelProperty) 
+            return;
 
-	RevealFocusPanel::RevealFocusPanel()
+		s_attachToPanelProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+		    L"AttachToPanel",
+		    winrt::xaml_typename<class_type>(),
+		    winrt::xaml_typename<class_type>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{
+		        nullptr,
+		        &RevealFocusPanel::onAttachToPanelChanged
+		    }
+		);
+	}
+
+    RevealFocusPanel::RevealFocusPanel()
 	{
         m_compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
         Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });

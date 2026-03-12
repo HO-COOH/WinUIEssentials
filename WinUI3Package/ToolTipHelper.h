@@ -1,10 +1,11 @@
-﻿#pragma once
+#pragma once
 
 #include "ToolTipHelper.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ToolTipHelper : ToolTipHelperT<ToolTipHelper>
+    struct ToolTipHelper : ToolTipHelperT<ToolTipHelper>, EnsureDependencyProperty<ToolTipHelper>
     {
         ToolTipHelper() = default;
 
@@ -16,7 +17,6 @@ namespace winrt::WinUI3Package::implementation
         );
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
         static void acrylicWorkaroundChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& object,

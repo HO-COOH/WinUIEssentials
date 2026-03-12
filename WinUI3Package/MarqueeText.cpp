@@ -6,80 +6,76 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty MarqueeText::m_speedProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Speed",
-            winrt::xaml_typename<double>(),
-            winrt::xaml_typename<WinUI3Package::MarqueeText>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(32.), &MarqueeText::propertyChanged }
-    );
+	void MarqueeText::EnsureDependencyProperties()
+	{
+		if (m_speedProperty) 
+            return;
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty MarqueeText::m_repeatBehaviorProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"RepeatBehavior",
-            winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Media::Animation::RepeatBehavior>(),
-            winrt::xaml_typename<WinUI3Package::MarqueeText>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(
-                    winrt::Microsoft::UI::Xaml::Media::Animation::RepeatBehaviorHelper::Forever()
-                ),
-                &MarqueeText::propertyChanged
-            }
-    );
+		m_speedProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"Speed",
+		    winrt::xaml_typename<double>(),
+		    winrt::xaml_typename<WinUI3Package::MarqueeText>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(32.), &MarqueeText::propertyChanged }
+		);
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty MarqueeText::m_behaviorProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Behavior",
-            winrt::xaml_typename<WinUI3Package::MarqueeBehavior>(),
-            winrt::xaml_typename<WinUI3Package::MarqueeText>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(WinUI3Package::MarqueeBehavior{}),
+		m_repeatBehaviorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"RepeatBehavior",
+		    winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Media::Animation::RepeatBehavior>(),
+		    winrt::xaml_typename<WinUI3Package::MarqueeText>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{
+		        winrt::box_value(winrt::Microsoft::UI::Xaml::Media::Animation::RepeatBehaviorHelper::Forever()),
+		        &MarqueeText::propertyChanged
+		    }
+		);
+
+		m_behaviorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"Behavior",
+		    winrt::xaml_typename<WinUI3Package::MarqueeBehavior>(),
+		    winrt::xaml_typename<WinUI3Package::MarqueeText>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{
+		        winrt::box_value(WinUI3Package::MarqueeBehavior{}), 
                 &MarqueeText::behaviorPropertyChanged
             }
-    );
+		);
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty MarqueeText::m_directionProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Direction",
-            winrt::xaml_typename<WinUI3Package::MarqueeDirection>(),
-            winrt::xaml_typename<WinUI3Package::MarqueeText>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(WinUI3Package::MarqueeDirection::Left),
-                &MarqueeText::directionPropertyChanged
+		m_directionProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"Direction",
+		    winrt::xaml_typename<WinUI3Package::MarqueeDirection>(),
+		    winrt::xaml_typename<WinUI3Package::MarqueeText>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{ 
+                winrt::box_value(WinUI3Package::MarqueeDirection::Left), 
+                &MarqueeText::directionPropertyChanged 
             }
-    );
+		);
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty MarqueeText::m_textProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Text",
-            winrt::xaml_typename<winrt::hstring>(),
-            winrt::xaml_typename<WinUI3Package::MarqueeText>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(L"")
-            }
-    );
+		m_textProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"Text",
+		    winrt::xaml_typename<winrt::hstring>(),
+		    winrt::xaml_typename<WinUI3Package::MarqueeText>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{
+		        winrt::box_value(L"")
+		    }
+		);
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty MarqueeText::m_pauseOnHoverProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"PauseOnHover",
-            winrt::xaml_typename<winrt::hstring>(),
-            winrt::xaml_typename<WinUI3Package::MarqueeText>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(false),
-                &MarqueeText::pauseOnHoverChanged
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty MarqueeText::m_intervalSpaceProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"IntervalSpace",
-            winrt::xaml_typename<double>(),
-            winrt::xaml_typename<WinUI3Package::MarqueeText>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(64.),
-                &MarqueeText::spaceIntervalChanged
-            }
-    );
+		m_pauseOnHoverProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"PauseOnHover",
+		    winrt::xaml_typename<winrt::hstring>(),
+		    winrt::xaml_typename<WinUI3Package::MarqueeText>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{
+		        winrt::box_value(false),
+		        &MarqueeText::pauseOnHoverChanged
+		    }
+		);
+		m_intervalSpaceProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"IntervalSpace",
+		    winrt::xaml_typename<double>(),
+		    winrt::xaml_typename<WinUI3Package::MarqueeText>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{
+		        winrt::box_value(64.),
+		        &MarqueeText::spaceIntervalChanged
+		    }
+		);
+	}
 
     void MarqueeText::OnApplyTemplate()
     {

@@ -9,8 +9,10 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty Shimmer::s_isLoadingProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void Shimmer::EnsureDependencyProperties()
+	{
+		if (s_isLoadingProperty) return;
+		s_isLoadingProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"IsLoading",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
@@ -23,6 +25,7 @@ namespace winrt::WinUI3Package::implementation
 				}
 			}
 		);
+	}
 
 	bool Shimmer::IsLoading()
 	{

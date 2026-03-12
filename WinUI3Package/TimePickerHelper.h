@@ -1,10 +1,11 @@
-﻿#pragma once
+#pragma once
 
 #include "TimePickerHelper.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct TimePickerHelper : TimePickerHelperT<TimePickerHelper>
+    struct TimePickerHelper : TimePickerHelperT<TimePickerHelper>, EnsureDependencyProperty<TimePickerHelper>
     {
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
         static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::TimePicker const& timePicker);
@@ -14,7 +15,6 @@ namespace winrt::WinUI3Package::implementation
         );
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
         static void acrylicWorkaroundChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& object,

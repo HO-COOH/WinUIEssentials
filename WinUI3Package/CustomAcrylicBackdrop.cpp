@@ -10,23 +10,24 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_kindProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void CustomAcrylicBackdrop::EnsureDependencyProperties()
+	{
+		if (s_kindProperty) return;
+		s_kindProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Kind",
 			winrt::xaml_typename<winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{winrt::box_value(winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind::Default)}
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind::Default) }
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_requestedThemeProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_requestedThemeProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"RequestedTheme",
 			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::ElementTheme>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Microsoft::UI::Xaml::ElementTheme::Default), &CustomAcrylicBackdrop::onThemePropertyChanged}
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Microsoft::UI::Xaml::ElementTheme::Default), &CustomAcrylicBackdrop::onThemePropertyChanged }
 		);
+	}
+
+
 
 	void CustomAcrylicBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{

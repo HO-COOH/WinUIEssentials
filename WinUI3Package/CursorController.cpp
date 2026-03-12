@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CursorController.h"
 #if __has_include("CursorController.g.cpp")
 #include "CursorController.g.cpp"
@@ -10,24 +10,27 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty CursorController::s_typeProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-		L"Type",
-		winrt::xaml_typename<winrt::Windows::UI::Core::CoreCursorType>(),
-		winrt::xaml_typename<winrt::WinUI3Package::CursorController>(),
-		winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Windows::UI::Core::CoreCursorType::Arrow), &CursorController::CursorChanged }
-	);
 	winrt::Microsoft::UI::Xaml::DependencyProperty CursorController::TypeProperty()
 	{
+		static auto s_typeProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+			L"Type",
+			winrt::xaml_typename<winrt::Windows::UI::Core::CoreCursorType>(),
+			winrt::xaml_typename<winrt::WinUI3Package::CursorController>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Windows::UI::Core::CoreCursorType::Arrow), &CursorController::CursorChanged }
+		);
 		return s_typeProperty;
 	}
+
 	void CursorController::SetType(winrt::Microsoft::UI::Xaml::UIElement obj, winrt::Windows::UI::Core::CoreCursorType type)
 	{
-		obj.SetValue(s_typeProperty, winrt::box_value(type));
+		obj.SetValue(TypeProperty(), winrt::box_value(type));
 	}
+
 	winrt::Windows::UI::Core::CoreCursorType CursorController::GetType(winrt::Microsoft::UI::Xaml::UIElement obj)
 	{
-		return winrt::unbox_value< winrt::Windows::UI::Core::CoreCursorType>(obj.GetValue(s_typeProperty));
+		return winrt::unbox_value< winrt::Windows::UI::Core::CoreCursorType>(obj.GetValue(TypeProperty()));
 	}
+
 	void CursorController::CursorChanged(winrt::Microsoft::UI::Xaml::DependencyObject obj, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
 	{
 		auto element = obj.try_as<winrt::Microsoft::UI::Xaml::UIElement>();
