@@ -1,13 +1,15 @@
 ﻿#pragma once
 
 #include "CustomAcrylicBackdrop.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include "CustomBackdropBase.h"
 #include "OverrideChecker.h"
 #include "BackdropWindowActiveStateWorkaroundHandler.hpp"
 namespace winrt::WinUI3Package::implementation
 {
-    struct CustomAcrylicBackdrop : CustomAcrylicBackdropT<CustomAcrylicBackdrop, CustomBackdropBase>
+    struct CustomAcrylicBackdrop : CustomAcrylicBackdropT<CustomAcrylicBackdrop, CustomBackdropBase>, EnsureDependencyProperty<CustomAcrylicBackdrop>
     {
+        static void EnsureDependencyProperties();
         CustomAcrylicBackdrop() = default;
 
         void OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget);
@@ -51,8 +53,8 @@ namespace winrt::WinUI3Package::implementation
 
 
 
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_requestedThemeProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_requestedThemeProperty = nullptr;
         static winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 
         //workaround for m_configuration not able to send inactive state when switching to other window created in the same app package

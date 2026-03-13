@@ -9,32 +9,19 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::s_acrylicWorkaroundProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"AcrylicWorkaround",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata
-			{
-				winrt::box_value(false),
-				winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::acrylicWorkaroundChanged)
-			}
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::s_clipToBoundsProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"ClipToBounds",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata
-			{
-				winrt::box_value(false),
-				winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::clipToBoundsChanged)
-			}
-		);
-
 	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::AcrylicWorkaroundProperty()
 	{
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty = 
+			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+				L"AcrylicWorkaround",
+				winrt::xaml_typename<bool>(),
+				winrt::xaml_typename<class_type>(),
+				winrt::Microsoft::UI::Xaml::PropertyMetadata
+				{
+					winrt::box_value(false),
+					winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::acrylicWorkaroundChanged)
+				}
+			);
 		return s_acrylicWorkaroundProperty;
 	}
 
@@ -50,6 +37,17 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::ClipToBoundsProperty()
 	{
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_clipToBoundsProperty = 
+			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+					L"ClipToBounds",
+					winrt::xaml_typename<bool>(),
+					winrt::xaml_typename<class_type>(),
+					winrt::Microsoft::UI::Xaml::PropertyMetadata
+					{
+					winrt::box_value(false),
+					winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::clipToBoundsChanged)
+					}
+					);
 		return s_clipToBoundsProperty;
 	}
 

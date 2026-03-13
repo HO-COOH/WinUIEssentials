@@ -1,13 +1,15 @@
 ﻿#pragma once
 
 #include "IconButton.g.h"
+#include <EnsureDependencyProperty.hpp>
 #include <optional>
 #include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
 
 namespace winrt::WinUI3Example::implementation
 {
-    struct IconButton : IconButtonT<IconButton>
+    struct IconButton : IconButtonT<IconButton>, EnsureDependencyProperty<IconButton>
     {
+        static void EnsureDependencyProperties();
         IconButton();
 
         void OnApplyTemplate();
@@ -33,8 +35,8 @@ namespace winrt::WinUI3Example::implementation
             winrt::Microsoft::UI::Xaml::DependencyObject d,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs args
         );
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_iconProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_isExpandedProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_iconProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_isExpandedProperty = nullptr;
         winrt::Microsoft::UI::Xaml::Media::Animation::Storyboard m_storyboard{ nullptr };
         winrt::Microsoft::UI::Xaml::Media::Animation::DoubleAnimation m_widthAnimation{ nullptr };
         winrt::Microsoft::UI::Xaml::Controls::ContentPresenter m_iconContent{ nullptr };

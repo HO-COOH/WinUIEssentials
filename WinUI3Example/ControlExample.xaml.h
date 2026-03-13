@@ -1,10 +1,12 @@
 ﻿#pragma once
 #include "ControlExample.g.h"
+#include <EnsureDependencyProperty.hpp>
 
 namespace winrt::WinUI3Example::implementation
 {
-    struct ControlExample : ControlExampleT<ControlExample>
+    struct ControlExample : ControlExampleT<ControlExample>, EnsureDependencyProperty<ControlExample>
     {
+        static void EnsureDependencyProperties();
 		ControlExample();
 
 		winrt::hstring HeaderText();
@@ -48,15 +50,15 @@ namespace winrt::WinUI3Example::implementation
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> CodeItems();
 	private:
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerTextProperty;
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_exampleProperty;
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_optionsProperty;
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_outputProperty;
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_xamlProperty;
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_idlProperty;
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty;
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_cppProperty;
-		static winrt::Microsoft::UI::Xaml::DependencyProperty m_substitutionsProperty;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerTextProperty = nullptr;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_exampleProperty = nullptr;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_optionsProperty = nullptr;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_outputProperty = nullptr;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_xamlProperty = nullptr;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_idlProperty = nullptr;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_cppProperty = nullptr;
+		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_substitutionsProperty = nullptr;
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_codeItems = winrt::single_threaded_vector<winrt::Windows::Foundation::IInspectable>();
 
 		void makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language);
@@ -89,6 +91,6 @@ namespace winrt::WinUI3Example::implementation
 namespace winrt::WinUI3Example::factory_implementation
 {
     struct ControlExample : ControlExampleT<ControlExample, implementation::ControlExample>
-    {
+	{
     };
 }

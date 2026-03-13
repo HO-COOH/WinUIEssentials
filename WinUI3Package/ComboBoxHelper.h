@@ -6,8 +6,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct ComboBoxHelper : ComboBoxHelperT<ComboBoxHelper>
     {
-        ComboBoxHelper() = default;
-
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
         static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::ComboBox const& comboBox);
         static void SetAcrylicWorkaround(
@@ -16,7 +14,6 @@ namespace winrt::WinUI3Package::implementation
         );
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
         static void acrylicWorkaroundChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& object,

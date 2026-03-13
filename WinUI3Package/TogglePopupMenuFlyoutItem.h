@@ -2,12 +2,14 @@
 
 #include "PopupMenuFlyoutItem.h"
 #include "TogglePopupMenuFlyoutItem.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include "PopupMenuFlyoutItemImplBase.h"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct TogglePopupMenuFlyoutItem : TogglePopupMenuFlyoutItemT<TogglePopupMenuFlyoutItem, PopupMenuFlyoutItem>
+    struct TogglePopupMenuFlyoutItem : TogglePopupMenuFlyoutItemT<TogglePopupMenuFlyoutItem, PopupMenuFlyoutItem>, EnsureDependencyProperty<TogglePopupMenuFlyoutItem>
     {
+        static void EnsureDependencyProperties();
         TogglePopupMenuFlyoutItem() = default;
 
 #pragma region Inheirted from PopupMenuFlyoutItemBase
@@ -18,7 +20,7 @@ namespace winrt::WinUI3Package::implementation
         void IsChecked(bool value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty IsCheckedProperty();
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty = nullptr;
     };
 }
 

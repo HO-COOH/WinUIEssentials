@@ -1,11 +1,13 @@
 ﻿#pragma once
 
 #include "ControlSizeTrigger.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ControlSizeTrigger : ControlSizeTriggerT<ControlSizeTrigger>
+    struct ControlSizeTrigger : ControlSizeTriggerT<ControlSizeTrigger>, EnsureDependencyProperty<ControlSizeTrigger>
     {
+        static void EnsureDependencyProperties();
         ControlSizeTrigger() = default;
 
 #pragma region Properties
@@ -36,12 +38,12 @@ namespace winrt::WinUI3Package::implementation
 
         bool IsActive();
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_canTriggerProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_maxWidthProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_minWidthProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_maxHeightProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_minHeightProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_targetElementProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_canTriggerProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_maxWidthProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_minWidthProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_maxHeightProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_minHeightProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_targetElementProperty = nullptr;
         bool m_isActive{};
         void updateTrigger();
         winrt::event_token m_onTargetElementSizeChanged;

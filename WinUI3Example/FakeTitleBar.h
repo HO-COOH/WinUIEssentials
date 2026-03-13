@@ -1,14 +1,16 @@
 ﻿#pragma once
 
 #include "FakeTitleBar.g.h"
+#include <EnsureDependencyProperty.hpp>
 #include <TemplateControlHelper.hpp>
 
 namespace winrt::WinUI3Example::implementation
 {
     struct FlipWindow;
 
-    struct FakeTitleBar : FakeTitleBarT<FakeTitleBar>
+    struct FakeTitleBar : FakeTitleBarT<FakeTitleBar>, EnsureDependencyProperty<FakeTitleBar>
     {
+        static void EnsureDependencyProperties();
         FakeTitleBar();
 
         void OnApplyTemplate();
@@ -19,7 +21,7 @@ namespace winrt::WinUI3Example::implementation
 
         FlipWindow* ParentWindow{};
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_titleProperty = nullptr;
     };
 }
 

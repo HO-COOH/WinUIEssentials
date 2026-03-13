@@ -1,13 +1,15 @@
-#pragma once
+﻿#pragma once
 
 #include "ProgressBarEx.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include <include/TemplateControlHelper.hpp>
 #include <winrt/Microsoft.UI.Composition.h>
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct ProgressBarEx : ProgressBarExT<ProgressBarEx>, TemplateControlHelper<ProgressBarEx>
+    struct ProgressBarEx : ProgressBarExT<ProgressBarEx>, TemplateControlHelper<ProgressBarEx>, EnsureDependencyProperty<ProgressBarEx>
     {
+        static void EnsureDependencyProperties();
         ProgressBarEx() = default;
 
         void OnApplyTemplate();
@@ -41,10 +43,10 @@ namespace winrt::WinUI3Package::implementation
         //winrt::Microsoft::UI::Composition::Vector2KeyFrameAnimation m_valueAnimation{ nullptr };
 
         void setSpriteSize();
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_highColorProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_baseColorProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_percentProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_valueProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_highColorProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_baseColorProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_percentProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_valueProperty = nullptr;
 
         static constexpr winrt::Windows::UI::Color DefaultHighColor{ 255, 0, 255, 0 };
         static constexpr winrt::Windows::UI::Color DefaultBaseColor{ 100, 0, 255, 0 };

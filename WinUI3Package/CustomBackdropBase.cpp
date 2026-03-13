@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CustomBackdropBase.h"
 #if __has_include("CustomBackdropBase.g.cpp")
 #include "CustomBackdropBase.g.cpp"
@@ -6,47 +6,40 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_enableWhenInactiveProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"EnableWhenInactive",
-            winrt::xaml_typename<bool>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false) }
-        );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_fallbackColorProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"FallbackColor",
-            winrt::xaml_typename<winrt::Windows::UI::Color>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Windows::UI::Color{}), &CustomBackdropBase::onFallbackColorChanged}
-        );
-
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_luminosityOpacityProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"LuminosityOpacity",
-            winrt::xaml_typename<float>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{winrt::box_value(0.f), &CustomBackdropBase::onLuminosityOpacityChanged}
-        );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_tintColorProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"TintColor",
-            winrt::xaml_typename<winrt::Windows::UI::Color>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Windows::UI::Color{}), &CustomBackdropBase::onTintColorChanged }
-        );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_tintOpacityProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"TintOpacity",
-            winrt::xaml_typename<float>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{winrt::box_value(0.f), &CustomBackdropBase::onTintOpacityChanged}
-        );
-
+	void CustomBackdropBase::EnsureDependencyProperties()
+	{
+		if (s_enableWhenInactiveProperty) return;
+		s_enableWhenInactiveProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"EnableWhenInactive",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false) }
+		);
+		s_fallbackColorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"FallbackColor",
+			winrt::xaml_typename<winrt::Windows::UI::Color>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Windows::UI::Color{}), &CustomBackdropBase::onFallbackColorChanged }
+		);
+		s_luminosityOpacityProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"LuminosityOpacity",
+			winrt::xaml_typename<float>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.f), &CustomBackdropBase::onLuminosityOpacityChanged }
+		);
+		s_tintColorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"TintColor",
+			winrt::xaml_typename<winrt::Windows::UI::Color>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Windows::UI::Color{}), &CustomBackdropBase::onTintColorChanged }
+		);
+		s_tintOpacityProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"TintOpacity",
+			winrt::xaml_typename<float>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.f), &CustomBackdropBase::onTintOpacityChanged }
+		);
+	}
 
     bool CustomBackdropBase::EnableWhenInactive()
     {

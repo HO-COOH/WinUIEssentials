@@ -11,7 +11,6 @@ namespace winrt::WinUI3Package::implementation
         static void SetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::CalendarDatePicker const& picker, bool value);
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
         static void acrylicWorkaroundChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& object,

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "TogglePopupMenuFlyoutItem.h"
 #include "PopupMenuFlyoutItem.h"
 #include "PopupMenuFlyoutItem.g.h"
@@ -8,13 +8,16 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty TogglePopupMenuFlyoutItem::s_isCheckedProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void TogglePopupMenuFlyoutItem::EnsureDependencyProperties()
+	{
+		if (s_isCheckedProperty) return;
+		s_isCheckedProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"IsChecked",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
+	}
 
 	winrt::WinUI3Package::PopupMenuFlyoutItemType TogglePopupMenuFlyoutItem::Type()
 	{

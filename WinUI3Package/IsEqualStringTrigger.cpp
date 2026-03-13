@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "IsEqualStringTrigger.h"
 #if __has_include("IsEqualStringTrigger.g.cpp")
 #include "IsEqualStringTrigger.g.cpp"
@@ -6,26 +6,22 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty IsEqualStringTrigger::m_fromProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void IsEqualStringTrigger::EnsureDependencyProperties()
+	{
+		if (m_fromProperty) return;
+		m_fromProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Value",
 			winrt::xaml_typename<winrt::hstring>(),
 			winrt::xaml_typename<WinUI3Package::IsEqualStringTrigger>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
-				nullptr, &IsEqualStringTrigger::onValuePropertyChanged }
-	);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty IsEqualStringTrigger::m_toProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &IsEqualStringTrigger::onValuePropertyChanged }
+		);
+		m_toProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"To",
 			winrt::xaml_typename<winrt::hstring>(),
 			winrt::xaml_typename<WinUI3Package::IsEqualStringTrigger>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
-				nullptr, &IsEqualStringTrigger::onValuePropertyChanged }
-	);
-
-
-
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &IsEqualStringTrigger::onValuePropertyChanged }
+		);
+	}
 
 	winrt::hstring IsEqualStringTrigger::From()
 	{

@@ -1,11 +1,13 @@
 ﻿#pragma once
 
 #include "DependentValue.g.h"
+#include "../include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct DependentValue : DependentValueT<DependentValue>
+    struct DependentValue : DependentValueT<DependentValue>, EnsureDependencyProperty<DependentValue>
     {
+        static void EnsureDependencyProperties();
         DependentValue() = default;
 
         static winrt::Microsoft::UI::Xaml::DependencyProperty ValueProperty();
@@ -17,7 +19,7 @@ namespace winrt::WinUI3Package::implementation
         void ValueChanged(winrt::event_token const& token);
     private:
         winrt::event<winrt::Windows::Foundation::EventHandler<double>> m_valueChanged;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_valueProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
     };
 }
 

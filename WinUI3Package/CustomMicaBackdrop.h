@@ -1,14 +1,16 @@
 ﻿#pragma once
 
 #include "CustomMicaBackdrop.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include "OverrideChecker.h"
 #include "BackdropWindowActiveStateWorkaroundHandler.hpp"
 #include "CustomBackdropBase.h"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct CustomMicaBackdrop : CustomMicaBackdropT<CustomMicaBackdrop, CustomBackdropBase>
+    struct CustomMicaBackdrop : CustomMicaBackdropT<CustomMicaBackdrop, CustomBackdropBase>, EnsureDependencyProperty<CustomMicaBackdrop>
     {
+        static void EnsureDependencyProperties();
         CustomMicaBackdrop() = default;
 
         void OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget);
@@ -47,7 +49,7 @@ namespace winrt::WinUI3Package::implementation
 
         OverrideChecker m_overrideChecker;
 
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty = nullptr;
 
         static winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 

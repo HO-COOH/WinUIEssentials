@@ -8,35 +8,39 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty EqualPanel::s_horizontalSpacingProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"HorizontalSpacing",
-            winrt::xaml_typename<double>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0) }
-    );
+	void EqualPanel::EnsureDependencyProperties()
+	{
+		if (s_horizontalSpacingProperty) 
+            return;
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty EqualPanel::s_verticalSpacingProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"VerticalSpacing",
-            winrt::xaml_typename<double>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0) }
-    );
+		s_horizontalSpacingProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"HorizontalSpacing",
+		    winrt::xaml_typename<double>(),
+		    winrt::xaml_typename<class_type>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0) }
+		);
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty EqualPanel::s_orientationProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_verticalSpacingProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		    L"VerticalSpacing",
+		    winrt::xaml_typename<double>(),
+		    winrt::xaml_typename<class_type>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0) }
+		);
+
+        s_orientationProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
             L"Orientation",
             winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::Orientation>(),
             winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+            winrt::Microsoft::UI::Xaml::PropertyMetadata
+            {
                 winrt::box_value(winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal),
                 [](winrt::Microsoft::UI::Xaml::DependencyObject obj, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs args)
                 {
                     winrt::get_self<EqualPanel>(obj.as<class_type>())->UpdateLayout();
                 }
             }
-    );
+        );
+	}
 
     EqualPanel::EqualPanel()
     {

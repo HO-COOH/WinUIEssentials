@@ -1,13 +1,15 @@
-#pragma once
+﻿#pragma once
 
 #include "MarqueeText.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
 #include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct MarqueeText : MarqueeTextT<MarqueeText>, TemplateControlHelper<MarqueeText>
+    struct MarqueeText : MarqueeTextT<MarqueeText>, TemplateControlHelper<MarqueeText>, EnsureDependencyProperty<MarqueeText>
     {
+        static void EnsureDependencyProperties();
         MarqueeText() = default;
 
         void OnApplyTemplate();
@@ -46,13 +48,13 @@ namespace winrt::WinUI3Package::implementation
         void Resume();
         void Reset();
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_speedProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_repeatBehaviorProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_behaviorProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_directionProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_textProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_pauseOnHoverProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_intervalSpaceProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_speedProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_repeatBehaviorProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_behaviorProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_directionProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_textProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_pauseOnHoverProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_intervalSpaceProperty = nullptr;
 
         //https://github.com/CommunityToolkit/Labs-Windows/blob/main/components/MarqueeText/src/MarqueeText.Properties.cs
         static void propertyChanged(

@@ -5,7 +5,7 @@
 namespace winrt::WinUI3Package::implementation
 {
 	struct FlyoutHelper : FlyoutHelperT<FlyoutHelper>
-	{
+    {
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
 		static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Flyout const& flyout);
 		static void SetAcrylicWorkaround(
@@ -14,7 +14,6 @@ namespace winrt::WinUI3Package::implementation
 		);
 
 	private:
-		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
 		static void acrylicWorkaroundChanged(
 			winrt::Microsoft::UI::Xaml::DependencyObject const& object,

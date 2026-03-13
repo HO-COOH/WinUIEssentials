@@ -9,8 +9,10 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty ComboBoxHelper::s_acrylicWorkaroundProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+	winrt::Microsoft::UI::Xaml::DependencyProperty ComboBoxHelper::AcrylicWorkaroundProperty()
+	{
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty = 
+			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
 			L"AcrylicWorkaround",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
@@ -19,9 +21,6 @@ namespace winrt::WinUI3Package::implementation
 				&ComboBoxHelper::acrylicWorkaroundChanged
 			}
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ComboBoxHelper::AcrylicWorkaroundProperty()
-	{
 		return s_acrylicWorkaroundProperty;
 	}
 

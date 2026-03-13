@@ -1,11 +1,13 @@
 ﻿#pragma once
 
 #include "WrapPanel.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct WrapPanel : WrapPanelT<WrapPanel>
+    struct WrapPanel : WrapPanelT<WrapPanel>, EnsureDependencyProperty<WrapPanel>
     {
+        static void EnsureDependencyProperties();
         WrapPanel() = default;
 
         double HorizontalSpacing();
@@ -23,9 +25,9 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::Size MeasureOverride(winrt::Windows::Foundation::Size availableSize);
         winrt::Windows::Foundation::Size ArrangeOverride(winrt::Windows::Foundation::Size finalSize);
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_horizontalSpacingProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_verticalSpacingProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_orientationProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_horizontalSpacingProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_verticalSpacingProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_orientationProperty = nullptr;
 
         static void propertyChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& d,
