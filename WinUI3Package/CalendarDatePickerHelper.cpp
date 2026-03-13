@@ -9,7 +9,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-winrt::Microsoft::UI::Xaml::DependencyProperty CalendarDatePickerHelper::AcrylicWorkaroundProperty()
+    winrt::Microsoft::UI::Xaml::DependencyProperty CalendarDatePickerHelper::AcrylicWorkaroundProperty()
     {
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty = 
             winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
