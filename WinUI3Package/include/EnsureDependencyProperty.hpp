@@ -1,14 +1,15 @@
 ﻿#pragma once
 
 template <typename Derived>
-struct EnsureDependencyProperty
+class EnsureDependencyProperty
 {
+    static inline bool s_registered = false;
+public:
     EnsureDependencyProperty()
     {
-        static bool registered = [this] {
-            Derived::EnsureDependencyProperties();
-            return true;
-        }();
+        if (s_registered)
+            return;
+        Derived::EnsureDependencyProperties();
     }
 };
 
