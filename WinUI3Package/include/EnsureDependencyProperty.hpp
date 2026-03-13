@@ -10,6 +10,7 @@ public:
         if (s_registered)
             return;
         Derived::EnsureDependencyProperties();
+        s_registered = true;
     }
 };
 
