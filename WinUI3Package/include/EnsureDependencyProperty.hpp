@@ -5,7 +5,10 @@ struct EnsureDependencyProperty
 {
     EnsureDependencyProperty()
     {
-        Derived::EnsureDependencyProperties();
+        static bool registered = [this] {
+            Derived::EnsureDependencyProperties();
+            return true;
+        }();
     }
 };
 

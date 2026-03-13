@@ -15,7 +15,7 @@ winrt::Microsoft::UI::Xaml::DependencyProperty UIElementExtension::ClipToBoundsP
 					winrt::xaml_typename<bool>(),
 					winrt::xaml_typename<class_type>(),
 					winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &UIElementExtension::onClipToBoundsPropertyChanged }
-					);
+		);
 		return s_clipToBoundsProperty;
 	}
     bool UIElementExtension::GetClipToBounds(winrt::Microsoft::UI::Xaml::UIElement element)
