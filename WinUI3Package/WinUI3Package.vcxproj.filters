@@ -135,7 +135,7 @@
       <Filter>Backdrop</Filter>
     </ClInclude>
     <ClInclude Include="UnsupportedImageTypeError.hpp">
-      <Filter>Controls\ImageExtension</Filter>
+      <Filter>Extensions\ImageExtension</Filter>
     </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
@@ -332,9 +332,6 @@
     <Filter Include="Triggers">
       <UniqueIdentifier>{3cc9cab8-b17a-4fce-806e-769d99c0084d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MarkupExtensions">
-      <UniqueIdentifier>{877a96cc-8fdd-4e4b-af4d-f103a2fbdef1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls">
       <UniqueIdentifier>{64af69c0-57c7-4bf9-877e-c252bcb5167a}</UniqueIdentifier>
     </Filter>
@@ -370,9 +367,6 @@
     </Filter>
     <Filter Include="Controls\Shimmer">
       <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\ImageExtension">
-      <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
     </Filter>
     <Filter Include="Controls\SwitchPresenter">
       <UniqueIdentifier>{68605443-f197-4fb3-b27c-1de2fb958f55}</UniqueIdentifier>
@@ -440,9 +434,17 @@
     <Filter Include="Controls\WindowedContentDialog\WindowedContentDialog">
       <UniqueIdentifier>{d5820e1f-d67e-4647-80b6-7b6133307257}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extensions">
+      <UniqueIdentifier>{faf10c80-d343-4915-8fe8-b3b8012bfcb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extensions\ImageExtension">
+      <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extensions\MarkupExtensions">
+      <UniqueIdentifier>{877a96cc-8fdd-4e4b-af4d-f103a2fbdef1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="CursorController.idl" />
     <Midl Include="BoolToVisibilityConverter.idl">
       <Filter>Converters</Filter>
     </Midl>
@@ -471,7 +473,7 @@
       <Filter>Triggers</Filter>
     </Midl>
     <Midl Include="FontIconExtension.idl">
-      <Filter>MarkupExtensions</Filter>
+      <Filter>Extensions\MarkupExtensions</Filter>
     </Midl>
     <Midl Include="include\DependentValue.idl" />
     <Midl Include="GroupBox.idl">
@@ -491,9 +493,6 @@
     </Midl>
     <Midl Include="ProgressBarEx.idl">
       <Filter>Controls\ProgressBarEx</Filter>
-    </Midl>
-    <Midl Include="UIElementExtension.idl">
-      <Filter>Controls</Filter>
     </Midl>
     <Midl Include="EqualPanel.idl">
       <Filter>Controls\Segmented</Filter>
@@ -532,7 +531,7 @@
       <Filter>Controls\Shimmer</Filter>
     </Midl>
     <Midl Include="ImageExtension.idl">
-      <Filter>Controls\ImageExtension</Filter>
+      <Filter>Extensions\ImageExtension</Filter>
     </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>
@@ -661,6 +660,15 @@
     </Midl>
     <Midl Include="WindowedContentDialog.idl">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
+    </Midl>
+    <Midl Include="TypeNameExtension.idl">
+      <Filter>Extensions\MarkupExtensions</Filter>
+    </Midl>
+    <Midl Include="UIElementExtension.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="CursorController.idl">
+      <Filter>Extensions</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

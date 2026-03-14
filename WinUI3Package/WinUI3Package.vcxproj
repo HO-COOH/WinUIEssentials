@@ -608,6 +608,10 @@
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TypeNameExtension.h">
+      <DependentUpon>TypeNameExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="UIElementExtension.h">
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -958,6 +962,10 @@
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TypeNameExtension.cpp">
+      <DependentUpon>TypeNameExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="UIElementExtension.cpp">
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1216,6 +1224,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TransparentWindow.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TypeNameExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="UIElementExtension.idl">

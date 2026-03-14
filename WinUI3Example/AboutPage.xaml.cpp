@@ -19,6 +19,9 @@ namespace winrt::WinUI3Example::implementation
 		loadRepoInfos();
 		loadCommitMessage();
 		loadNugetInfo();
+
+		InitializeComponent();
+		addImplicitAnimationToLoading();
 	}
 
 	winrt::hstring AboutPage::WASDKReleaseVersion()
@@ -234,11 +237,37 @@ namespace winrt::WinUI3Example::implementation
 		}
 	}
 
+	void AboutPage::addImplicitAnimationToLoading()
+	{
+		auto m_compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
+		
+		auto opacityAnimation = m_compositor.CreateScalarKeyFrameAnimation();
+		opacityAnimation.InsertKeyFrame(0.0f, 1.0f);
+		opacityAnimation.InsertKeyFrame(1.0f, 0.0f);
+		opacityAnimation.Target(L"Opacity");
+
+		auto accelerateEasing = winrt::Microsoft::UI::Composition::CompositionEasingFunction::CreateExponentialEasingFunction(
+			m_compositor,
+			winrt::Microsoft::UI::Composition::CompositionEasingFunctionMode::In,
+			4.5f
+		);
+
+		auto offsetAnimation = m_compositor.CreateScalarKeyFrameAnimation();
+		offsetAnimation.InsertKeyFrame(0.f, 0.f);
+		offsetAnimation.InsertExpressionKeyFrame(1.f, L"this.Target.Size.X / 3", accelerateEasing);
+		offsetAnimation.Target(L"Offset.X");
+
+		auto group = m_compositor.CreateAnimationGroup();
+		group.Add(opacityAnimation);
+		group.Add(offsetAnimation);
+
+		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetImplicitHideAnimation(LoadingContributorPanel(), group);
+	}
+
 	void winrt::WinUI3Example::implementation::AboutPage::Image_ImageOpened(
 		winrt::Windows::Foundation::IInspectable const& sender, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Parent().as<winrt::WinUI3Package::Shimmer>().IsLoading(false);
 	}
-
 }
