@@ -179,12 +179,6 @@
     <Page Include="ToolTipHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="BackdropPage.xaml">
-      <Filter>Pages\BackdropPage</Filter>
-    </Page>
-    <Page Include="MicaBackdropWithFallbackWindow.xaml">
-      <Filter>Pages\BackdropPage</Filter>
-    </Page>
     <Page Include="NonResizableWindowWhiteBorderWorkaroundPage.xaml">
       <Filter>Pages\NonResizableWindowWhiteBorderWorkaroundPage</Filter>
     </Page>
@@ -231,10 +225,10 @@
       <Filter>Pages\RevealFocusPage</Filter>
     </Page>
     <Page Include="TenMicaPage.xaml">
-      <Filter>Pages\TenMicaPage</Filter>
+      <Filter>Pages\BackdropPage\TenMicaPage</Filter>
     </Page>
     <Page Include="TenMicaBackdropWindow.xaml">
-      <Filter>Pages\TenMicaPage</Filter>
+      <Filter>Pages\BackdropPage\TenMicaPage</Filter>
     </Page>
     <Page Include="Editor.xaml">
       <Filter>Helper</Filter>
@@ -251,6 +245,21 @@
     </Page>
     <Page Include="FontIconExtensionPage.xaml">
       <Filter>Pages</Filter>
+    </Page>
+    <Page Include="AcrylicBackdropsPage.xaml">
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
+    </Page>
+    <Page Include="MicaBackdropsPage.xaml">
+      <Filter>Pages\BackdropPage\Mica</Filter>
+    </Page>
+    <Page Include="MicaBackdropWithFallbackWindow.xaml">
+      <Filter>Pages\BackdropPage\Mica</Filter>
+    </Page>
+    <Page Include="TransparentBackdropPage.xaml">
+      <Filter>Pages\BackdropPage\Transparent</Filter>
+    </Page>
+    <Page Include="MicaBackdropWithTenMicaFallback.xaml">
+      <Filter>Pages\BackdropPage\TenMicaPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -318,9 +327,6 @@
     </Midl>
     <Midl Include="LineGraph.idl">
       <Filter>Pages\Experimental\LineGraph</Filter>
-    </Midl>
-    <Midl Include="BackdropPage.idl">
-      <Filter>Pages\BackdropPage</Filter>
     </Midl>
     <Midl Include="IconButton.idl">
       <Filter>Pages\Experimental\IconButton</Filter>
@@ -656,7 +662,7 @@
     <Filter Include="Pages\BackdropPage\Transparent">
       <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pages\TenMicaPage">
+    <Filter Include="Pages\BackdropPage\TenMicaPage">
       <UniqueIdentifier>{9552aa05-013e-4657-be0f-8a173ffba4a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

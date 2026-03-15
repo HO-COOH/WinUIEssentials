@@ -27,8 +27,26 @@
     &lt;Grid x:Name=&quot;RootGrid&quot;&gt;
         ...Elements...
     &lt;/Grid&gt;
-&lt;/Window&gt;
-                        </x:String>
+&lt;/Window&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="The recommended usage is to wrap TenMica under essential:MicaBackdropWithFallback so it falls back automatically on Windows 10 and you do not need to do anything, while keeping the UX the same on both operating system.">
+            <Button Click="Button_Click">Create</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window ...&gt;
+    &lt;Window.SystemBackdrop&gt;
+        &lt;essential:MicaBackdropWithFallback&gt;
+            &lt;essential:MicaBackdropWithFallback.Fallback&gt;
+                &lt;essential:TenMicaBackdrop/&gt;
+            &lt;/essential:MicaBackdropWithFallback.Fallback&gt;
+        &lt;/essential:MicaBackdropWithFallback&gt;
+    &lt;/Window.SystemBackdrop&gt;
+&lt;/Window&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>

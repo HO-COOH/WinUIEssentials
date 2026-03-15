@@ -10,13 +10,18 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-
     void TenMicaPage::Button_Click_1(
-        winrt::Windows::Foundation::IInspectable const& sender, 
-        winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+        winrt::Windows::Foundation::IInspectable const&, 
+        winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
         winrt::WinUI3Example::TenMicaBackdropWindow{}.Activate();
     }
 
-}
+    void TenMicaPage::Button_Click(
+        winrt::Windows::Foundation::IInspectable const&, 
+        winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+    {
+        winrt::WinUI3Example::MicaBackdropWithTenMicaFallback{}.Activate();
+    }
 
+}
