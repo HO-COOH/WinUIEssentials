@@ -48,6 +48,8 @@ namespace winrt::WinUI3Example::implementation
 		static winrt::hstring UnboxString(winrt::Windows::Foundation::IInspectable const& value);
 		static winrt::hstring BooleanToString(bool value);
 
+
+		void AddImplicitIconAnimations();
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> CodeItems();
 	private:
 		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerTextProperty = nullptr;

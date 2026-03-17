@@ -44,40 +44,47 @@ winrt::Microsoft::UI::Xaml::DependencyProperty AutoSuggestBoxHelper::AcrylicWork
 		if (!acrylicWorkaround)
 			return;
 		
+		winrt::Microsoft::UI::Xaml::ResourceDictionary res;
+		res.Source(winrt::Windows::Foundation::Uri{ L"ms-appx:///WinUI3Package/AutoSuggestBoxAcrylicWorkaroundStyle.xaml" });
+
+		//winrt::Microsoft::UI::Xaml::Application::Current().Resources().MergedDictionaries().Append(res);
 		auto autoSuggestBox = object.as<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox>();
-		auto layoutUpdatedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox::LayoutUpdated_revoker>();
-		*layoutUpdatedRevoker = autoSuggestBox.LayoutUpdated(winrt::auto_revoke, [autoSuggestBoxRef = winrt::make_weak(autoSuggestBox), layoutUpdatedRevoker](auto&&...)
-		{
-			auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(
-				autoSuggestBoxRef.get().as<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox>(), 
-				L"SuggestionsPopup"
-			);
-			if (!popup) 
-				return;
+		//autoSuggestBox.DefaultStyleResourceUri(winrt::Windows::Foundation::Uri{ L"ms-appx:///WinUI3Package/AutoSuggestBoxAcrylicWorkaroundStyle.xaml" });
+		autoSuggestBox.Style(res.Lookup(winrt::box_value(L"MyStyle")).as<winrt::Microsoft::UI::Xaml::Style>());
+
+		//auto layoutUpdatedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox::LayoutUpdated_revoker>();
+		//*layoutUpdatedRevoker = autoSuggestBox.LayoutUpdated(winrt::auto_revoke, [autoSuggestBoxRef = winrt::make_weak(autoSuggestBox), layoutUpdatedRevoker](auto&&...)
+		//{
+		//	auto popup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(
+		//		autoSuggestBoxRef.get().as<winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox>(), 
+		//		L"SuggestionsPopup"
+		//	);
+		//	if (!popup) 
+		//		return;
 
 
-			auto borderRef = popup.FindName(L"SuggestionsContainer");
-			if (!borderRef)
-				return;
+		//	auto borderRef = popup.FindName(L"SuggestionsContainer");
+		//	if (!borderRef)
+		//		return;
 
-			layoutUpdatedRevoker->revoke();
-			auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
-			border.Padding({});
-			border.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
+		//	layoutUpdatedRevoker->revoke();
+		//	auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
+		//	border.Padding({});
+		//	border.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
 
-			
-			auto borderLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::Border::Loaded_revoker>();
-			*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [borderLoadedRevoker](auto const& borderRef, auto&&)
-			{
-				borderLoadedRevoker->revoke();
-				
-				auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
-				auto originalChild = border.Child();
-				winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
-				border.Child(scrollGrid);
-				scrollGrid.Children().ReplaceAll({ AcrylicVisualWithBoundedCornerRadius{border}, originalChild});
-			});
-		});
+		//	
+		//	auto borderLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::Border::Loaded_revoker>();
+		//	*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [borderLoadedRevoker](auto const& borderRef, auto&&)
+		//	{
+		//		borderLoadedRevoker->revoke();
+		//		
+		//		auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
+		//		auto originalChild = border.Child();
+		//		winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
+		//		border.Child(scrollGrid);
+		//		scrollGrid.Children().ReplaceAll({ AcrylicVisualWithBoundedCornerRadius{border}, originalChild});
+		//	});
+		//});
 
 	}
 }

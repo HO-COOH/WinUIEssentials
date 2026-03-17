@@ -314,6 +314,7 @@
     <ClInclude Include="include\AutoRevokeWorkaround.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\EnsureDependencyProperty.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -670,6 +671,9 @@
     <Midl Include="CursorController.idl">
       <Filter>Extensions</Filter>
     </Midl>
+    <Midl Include="FrameworkElementExtension.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">
@@ -713,6 +717,9 @@
     </Page>
     <Page Include="WindowedContentDialog_Resource.xaml">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
+    </Page>
+    <Page Include="AutoSuggestBoxAcrylicWorkaroundStyle.xaml">
+      <Filter>Controls\Helpers</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

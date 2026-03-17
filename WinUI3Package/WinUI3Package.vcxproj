@@ -354,6 +354,10 @@
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="FrameworkElementExtension.h">
+      <DependentUpon>FrameworkElementExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="GdiInitializeHelper.h" />
     <ClInclude Include="GeneratedIconSource.h">
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
@@ -747,6 +751,10 @@
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="FrameworkElementExtension.cpp">
+      <DependentUpon>FrameworkElementExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="GdiInitializeHelper.cpp" />
     <ClCompile Include="GeneratedIconSource.cpp">
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
@@ -1078,6 +1086,9 @@
     <Midl Include="FontIconExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="FrameworkElementExtension.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="GeneratedIconSource.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1258,6 +1269,7 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AutoSuggestBoxAcrylicWorkaroundStyle.xaml" />
     <Page Include="FlyoutWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

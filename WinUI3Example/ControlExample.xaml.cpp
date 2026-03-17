@@ -5,9 +5,7 @@
 #endif
 #include "CodeSource.h"
 #include <winrt/Microsoft.Web.WebView2.Core.h>
-
-using namespace winrt;
-using namespace Microsoft::UI::Xaml;
+#include <winrt/Microsoft.UI.Composition.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -77,6 +75,7 @@ namespace winrt::WinUI3Example::implementation
 	ControlExample::ControlExample()
 	{
 		Substitutions(winrt::single_threaded_vector<winrt::WinUI3Example::ControlExampleSubstitution>());
+		AddImplicitIconAnimations();
 	}
 
 	winrt::hstring ControlExample::HeaderText()
@@ -250,6 +249,54 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Microsoft::UI::Xaml::DependencyObject const&,
 		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
+	}
+
+	void ControlExample::AddImplicitIconAnimations()
+	{
+		auto compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
+
+		auto makeHideAnimationForIndex = [&compositor](int index)
+		{
+			auto offsetAnimation = compositor.CreateScalarKeyFrameAnimation();
+			offsetAnimation.InsertKeyFrame(0, 0);
+			offsetAnimation.InsertExpressionKeyFrame(1.f, L"this.Target.Size.Y");
+			offsetAnimation.DelayTime(std::chrono::milliseconds{ index * 50 });
+			offsetAnimation.DelayBehavior(winrt::Microsoft::UI::Composition::AnimationDelayBehavior::SetInitialValueBeforeDelay);
+			offsetAnimation.Target(L"Translation.Y");
+			offsetAnimation.Duration(std::chrono::milliseconds{ 4000 });
+			return offsetAnimation;
+		};
+
+		auto makeShowAnimationForIndex = [&compositor](int index)
+		{
+			auto offsetAnimation = compositor.CreateScalarKeyFrameAnimation();
+			offsetAnimation.InsertExpressionKeyFrame(0.f, L"this.Target.Size.Y");
+			offsetAnimation.InsertKeyFrame(1.f, 0);
+			offsetAnimation.DelayTime(std::chrono::milliseconds{ index * 50 });
+			offsetAnimation.DelayBehavior(winrt::Microsoft::UI::Composition::AnimationDelayBehavior::SetInitialValueBeforeDelay);
+			offsetAnimation.Target(L"Translation.Y");
+			offsetAnimation.Duration(std::chrono::milliseconds{ 4000 });
+			return offsetAnimation;
+		};
+
+		int index{};
+
+		auto addAnimations = [&](auto const& element)
+		{
+			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(element, true);
+			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetImplicitShowAnimation(element, makeShowAnimationForIndex(index));
+			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetImplicitHideAnimation(element, makeHideAnimationForIndex(index));
+			++index;
+		};
+
+		if (Xaml())
+			addAnimations(XamlHeaderIcon());
+		if (Idl())
+			addAnimations(IdlHeaderIcon());
+		if (Header())
+			addAnimations(HHeaderIcon());
+		if (Cpp())
+			addAnimations(CppHeaderIcon());
 	}
 
 	winrt::Microsoft::UI::Xaml::Controls::PathIcon ControlExample::languageHeader(winrt::WinUI3Example::Language language)

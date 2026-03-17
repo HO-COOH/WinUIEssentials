@@ -1,0 +1,17 @@
+﻿namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass FrameworkElementExtension
+    {
+        FrameworkElementExtension();
+
+        static Windows.UI.Xaml.Interop.TypeName GetAncestorType(Microsoft.UI.Xaml.FrameworkElement element);
+        static void SetAncestorType(Microsoft.UI.Xaml.FrameworkElement element, Windows.UI.Xaml.Interop.TypeName type);
+        static Microsoft.UI.Xaml.DependencyProperty AncestorTypeProperty{ get; };
+
+        static Object GetAncestor(Microsoft.UI.Xaml.DependencyObject obj);
+        static void SetAncestor(Microsoft.UI.Xaml.DependencyObject obj, Object value);
+        static Microsoft.UI.Xaml.DependencyProperty AncestorProperty{ get; };
+    }
+}
