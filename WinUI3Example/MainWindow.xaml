@@ -8,6 +8,7 @@
     xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Activated="WindowEx_Activated"
+    Closed="WindowEx_Closed"
     Icon="Assets/MainLogo.ico"
     TitleBarAutoDarkMode="True"
     mc:Ignorable="d">
@@ -22,17 +23,7 @@
         </Grid.RowDefinitions>
         <Grid.Resources>
             <essential:ModernStandardWindowContextMenu x:Name="WindowMenu" Window="{x:Bind}" />
-            <essential:TaskbarIcon
-                x:Name="MainIcon"
-                Icon="ms-appx:///Assets/MainLogo.ico"
-                ToolTip="WinUI3Example's icon tooltip">
-                <MenuFlyout>
-                    <MenuFlyoutItem
-                        x:Name="ExitItem"
-                        Click="ExitItem_Click"
-                        Text="Exit" />
-                </MenuFlyout>
-            </essential:TaskbarIcon>
+
 
             <Style x:Key="ModifiedNavigationViewStyle" TargetType="NavigationView">
                 <Setter Property="PaneToggleButtonStyle" Value="{StaticResource PaneToggleButtonStyle}" />
@@ -710,6 +701,18 @@
                 </Setter>
             </Style>
         </Grid.Resources>
+        <essential:TaskbarIcon
+                x:Name="MainIcon"
+                Guid="{x:Bind local:MainWindow.IconGuid}"
+                Icon="ms-appx:///Assets/MainLogo.ico"
+                ToolTip="WinUI3Example's icon tooltip">
+            <MenuFlyout>
+                <MenuFlyoutItem
+                        x:Name="ExitItem"
+                        Click="ExitItem_Click"
+                        Text="Exit" />
+            </MenuFlyout>
+        </essential:TaskbarIcon>
         <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind}" />
         <local:WindowBackgroundHelper x:Name="WindowBackgroundHelper" Window="{x:Bind}" />
         <Grid x:Name="AppTitleBar" Height="32">

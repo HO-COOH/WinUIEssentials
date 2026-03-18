@@ -6,9 +6,6 @@
     <ClCompile Include="TaskbarIconMessageWindow.cpp">
       <Filter>TaskbarIcon</Filter>
     </ClCompile>
-    <ClCompile Include="GuidWrapper.cpp">
-      <Filter>TaskbarIcon</Filter>
-    </ClCompile>
     <ClCompile Include="ThemeListenerMessageWindow.cpp">
       <Filter>utils</Filter>
     </ClCompile>
@@ -147,9 +144,6 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="TaskbarIconMessageWindow.h">
-      <Filter>TaskbarIcon</Filter>
-    </ClInclude>
-    <ClInclude Include="GuidWrapper.h">
       <Filter>TaskbarIcon</Filter>
     </ClInclude>
     <ClInclude Include="IconUtils.h">
@@ -314,6 +308,7 @@
     <ClInclude Include="include\AutoRevokeWorkaround.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\EnsureDependencyProperty.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -388,9 +383,6 @@
     </Filter>
     <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu">
       <UniqueIdentifier>{a57a64f7-5943-42d6-96e1-f147b28b7dd3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TaskbarIcon\FlyoutContent">
-      <UniqueIdentifier>{a9f9a5fb-d972-4f90-96a8-f5ac13843b97}</UniqueIdentifier>
     </Filter>
     <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml">
       <UniqueIdentifier>{12901af6-4941-4188-bb1b-692d288fcf68}</UniqueIdentifier>
@@ -692,9 +684,6 @@
     </Page>
     <Page Include="HostBackdropVisual_Resource.xaml">
       <Filter>Controls\AcrylicVisual</Filter>
-    </Page>
-    <Page Include="FlyoutWindow.xaml">
-      <Filter>TaskbarIcon\FlyoutContent</Filter>
     </Page>
     <Page Include="ModernStandardWindowContextMenu.xaml">
       <Filter>Windows</Filter>

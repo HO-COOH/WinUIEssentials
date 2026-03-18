@@ -39,6 +39,7 @@ namespace winrt::WinUI3Example::implementation
                 e.Handled(true);
             });
 #endif
+        AppInstance = this;
     }
 
 

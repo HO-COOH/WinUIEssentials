@@ -10,5 +10,6 @@ namespace WinUI3Example
 
         //Microsoft.UI.Xaml.ElementTheme Theme{ get; };
         static Windows.Foundation.Uri GetXamlUrl(String name);
+        static Guid IconGuid{ get; };
     }
 }

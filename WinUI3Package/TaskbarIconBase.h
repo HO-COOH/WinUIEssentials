@@ -26,6 +26,7 @@ struct TaskbarIconEvents;
  */
 class TaskbarIconBase
 {
+	bool m_show{};
 protected:
 	NotifyIconData m_iconData;
 	std::variant<std::monostate, MenuFlyoutWrapper, PopupMenu> m_menu;

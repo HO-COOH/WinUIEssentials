@@ -8,8 +8,9 @@
 #include <optional>
 
 /**
- * @brief This class wraps up a `Microsoft.UI.Xaml.Controls.MenuFlyout` with a `TransparentMenuFlyoutHost` to show the menu
+ * @brief This class wraps up a `FlyoutBase` (MenuFlyout or Flyout) with a `TransparentMenuFlyoutHost` to show the menu
  *  The menu will be show at the specified point, with the call to `Show(point)`
+ *  For `MenuFlyout`, the padding workaround is applied on first show.
  */
 class MenuFlyoutWrapper : public MenuBase, private MenuFlyoutItemPaddingWorkaroundWrapper
 {

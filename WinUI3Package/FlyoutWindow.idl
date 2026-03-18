@@ -1,9 +1,0 @@
-﻿namespace WinUI3Package
-{
-    [default_interface]
-    runtimeclass FlyoutWindow : Microsoft.UI.Xaml.Window
-    {
-        FlyoutWindow();
-        Int32 MyProperty;
-    }
-}

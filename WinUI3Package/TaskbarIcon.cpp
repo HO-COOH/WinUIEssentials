@@ -29,21 +29,11 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::guid TaskbarIcon::Guid()
 	{
-		return m_guid;
+		return winrt::unbox_value<winrt::guid>(GetValue(s_guidProperty));
 	}
 	void TaskbarIcon::Guid(winrt::guid value)
 	{
-		std::visit([value, this](auto&& icon) {
-			using IconType = std::remove_reference_t<decltype(icon)>;
-			if constexpr (!std::is_same_v<IconType, std::monostate>)
-			{
-				icon.Guid(value);
-			}
-			else
-			{
-				m_guid = value;
-			}
-			}, m_icon);
+		SetValue(s_guidProperty, winrt::box_value(value));
 	}
 	WinUI3Package::GeneratedIconSource TaskbarIcon::IconSource()
 	{
@@ -150,14 +140,7 @@ namespace winrt::WinUI3Package::implementation
 	void TaskbarIcon::Remove()
 	{
 		m_showCalled = false;
-		std::visit([this](auto&& icon)
-		{
-			using IconType = std::remove_reference_t<decltype(icon)>;
-			if constexpr (!std::is_same_v<IconType, std::monostate>)
-			{
-				icon.Remove();
-			}
-		}, m_icon);
+		m_icon.emplace<std::monostate>();
 	}
 	winrt::event_token TaskbarIcon::LeftPressed(WinUI3Package::SignalDelegate const& handler)
 	{
@@ -199,12 +182,45 @@ namespace winrt::WinUI3Package::implementation
 	void TaskbarIcon::PopupContent(winrt::Microsoft::UI::Xaml::UIElement value)
 	{
 	}
+	void TaskbarIcon::EnsureDependencyProperties()
+	{
+		s_guidProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Guid",
+			winrt::xaml_typename<winrt::guid>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				[](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::IDependencyPropertyChangedEventArgs const& arg)
+				{
+					auto self = winrt::get_self<TaskbarIcon>(d.as<class_type>());
+					std::visit([value = winrt::unbox_value<winrt::guid>(arg.NewValue()), self](auto&& icon) 
+					{
+						using IconType = std::remove_reference_t<decltype(icon)>;
+						if constexpr (!std::is_same_v<IconType, std::monostate>)
+						{
+							icon.Guid(value);
+						}
+						else
+						{
+							self->m_guid = value;
+						}
+					}, self->m_icon);
+				}
+			}
+		);
+	}
+	winrt::Microsoft::UI::Xaml::DependencyProperty TaskbarIcon::GuidProperty()
+	{
+		return s_guidProperty;
+	}
+
 	ThemeAdaptiveIcon& TaskbarIcon::getThemeAdaptiveIcon()
 	{
 		if (m_icon.index() == 0)
 			m_icon.emplace<1>().SetEvents(m_events);
 		return std::get<1>(m_icon);
 	}
+
 	NormalTaskbarIcon& TaskbarIcon::getNormalIcon()
 	{
 		if (m_icon.index() == 0)

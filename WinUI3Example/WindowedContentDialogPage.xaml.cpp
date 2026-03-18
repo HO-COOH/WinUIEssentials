@@ -3,7 +3,7 @@
 #if __has_include("WindowedContentDialogPage.g.cpp")
 #include "WindowedContentDialogPage.g.cpp"
 #endif
-#include "MainWindow.xaml.h"
+#include "App.xaml.h"
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -29,7 +29,7 @@ namespace winrt::WinUI3Example::implementation
 
 		dialog.UnderlaySystemBackdrop(BackdropOptions);
 
-		co_await dialog.ShowAsync(MainWindow::MainWindowInstance);
+		co_await dialog.ShowAsync(App::AppInstance->window);
 
 	}
 
@@ -43,7 +43,7 @@ namespace winrt::WinUI3Example::implementation
 		content.SecondaryButtonText(winrt::hstring(L"SecondaryButton"));
 		content.CloseButtonText(winrt::hstring(L"CloseButton"));
 		content.DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton::Primary);
-		co_await WinUI3Package::WindowedContentDialog{ content }.ShowAsync(MainWindow::Window);
+		co_await WinUI3Package::WindowedContentDialog{ content }.ShowAsync(App::AppInstance->window);
 	}
 
 }

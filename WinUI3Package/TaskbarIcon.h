@@ -1,17 +1,16 @@
 ﻿#pragma once
 
 #include "TaskbarIcon.g.h"
-
-#include "GuidWrapper.h"
 #include "ThemeAdaptiveIcon.h"
 #include "NormalTaskbarIcon.h"
 #include <variant>
 #include <winrt/Windows.Storage.h>
 #include "TaskbarIconXamlEvents.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct TaskbarIcon : TaskbarIconT<TaskbarIcon>
+    struct TaskbarIcon : TaskbarIconT<TaskbarIcon>, EnsureDependencyProperty<TaskbarIcon>
     {
         TaskbarIcon() = default;
 
@@ -69,8 +68,12 @@ namespace winrt::WinUI3Package::implementation
 
         winrt::Microsoft::UI::Xaml::UIElement PopupContent();
         void PopupContent(winrt::Microsoft::UI::Xaml::UIElement value);
+
+        static void EnsureDependencyProperties();
+        static winrt::Microsoft::UI::Xaml::DependencyProperty GuidProperty();
     private:
         WinUI3Package::GeneratedIconSource m_iconSource{ nullptr };
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_guidProperty{ nullptr };
 
         ThemeAdaptiveIcon& getThemeAdaptiveIcon();
         NormalTaskbarIcon& getNormalIcon();

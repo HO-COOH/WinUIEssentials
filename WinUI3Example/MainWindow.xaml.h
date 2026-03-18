@@ -22,16 +22,19 @@ namespace winrt::WinUI3Example::implementation
             winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
 
         static HWND Hwnd;
-        static winrt::Microsoft::UI::Xaml::Window Window;
-        static WinUI3Example::MainWindow MainWindowInstance;
 
         void ExitItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void WindowEx_Activated(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args);
+        void WindowEx_Closed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowEventArgs const& args);
         void FooterMenuItemsHost_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         winrt::Windows::Foundation::IAsyncAction MoreButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void PageSourceContentButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
         static winrt::Windows::Foundation::Uri GetXamlUrl(winrt::hstring const& name);
+        constexpr static winrt::guid IconGuid()
+        {
+            return { 0xe2063928, 0xbee9, 0x4635, { 0xb2, 0xbf, 0x61, 0x12, 0x4d, 0xef, 0x18, 0xa2 } };
+        }
 
         // Stored animations for reversible playback
         ButtonAnimations m_sourceButtonAnimations;

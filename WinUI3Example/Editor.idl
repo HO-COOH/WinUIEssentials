@@ -1,4 +1,4 @@
-import "Language.idl";
+﻿import "Language.idl";
 
 namespace WinUI3Example
 {

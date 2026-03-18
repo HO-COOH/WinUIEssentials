@@ -22,8 +22,16 @@ namespace winrt::WinUI3Example::implementation
         bool IsNormalIconWithPopupMenuAdded();
         bool IsThemeAdaptiveIconWithXamlMenuAdded();
         bool IsThemeAdaptiveIconWithPopupMenuAdded();
-        static bool BoolAnd(bool v1, bool v2);
-        static bool NegateBool(bool v);
+        
+        constexpr static bool BoolAnd(bool v1, bool v2)
+        {
+            return v1 && v2;
+        }
+
+        constexpr static bool NegateBool(bool v)
+        {
+            return !v;
+        }
 
         int LeftPressedCount();
         int LeftDoublePressedCount();
@@ -48,6 +56,7 @@ namespace winrt::WinUI3Example::implementation
     public:
         void ThemeAdaptiveIconWithPopupMenuAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void ToggleSwitch_Toggled(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void ToggleSwitch_Toggled_1(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

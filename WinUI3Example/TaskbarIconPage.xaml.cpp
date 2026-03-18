@@ -6,6 +6,7 @@
 
 #include "TaskbarIconSource.xaml.h"
 #include "MainWindow.xaml.h"
+#include "App.xaml.h"
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -131,16 +132,6 @@ namespace winrt::WinUI3Example::implementation
 		return m_isThemeAdaptiveIconWithPopupMenuAdded;
 	}
 
-	bool TaskbarIconPage::BoolAnd(bool v1, bool v2)
-	{
-		return v1 && v2;
-	}
-
-	bool TaskbarIconPage::NegateBool(bool v)
-	{
-		return !v;
-	}
-
 	int TaskbarIconPage::LeftPressedCount()
 	{
 		return m_leftPressedCount;
@@ -219,12 +210,17 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::Foundation::IInspectable const& sender, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		auto toggleSwitch = sender.as<winrt::Microsoft::UI::Xaml::Controls::ToggleSwitch>();
-		if (toggleSwitch.IsOn())
-			winrt::get_self<MainWindow>(MainWindow::MainWindowInstance)->MainIcon().Show();
+		sender.as<winrt::Microsoft::UI::Xaml::Controls::ToggleSwitch>().IsOn() ?
+			winrt::get_self<MainWindow>(App::AppInstance->window)->MainIcon().Show() :
+			winrt::get_self<MainWindow>(App::AppInstance->window)->MainIcon().Remove();
+	}
+
+	void TaskbarIconPage::ToggleSwitch_Toggled_1(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		if (sender.as<winrt::Microsoft::UI::Xaml::Controls::ToggleSwitch>().IsOn())
+			TaskbarIconWithFlyout().Show();
 		else
-			winrt::get_self<MainWindow>(MainWindow::MainWindowInstance)->MainIcon().Remove();
+			TaskbarIconWithFlyout().Remove();
 	}
 
 }
-

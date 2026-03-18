@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Editor.xaml.h"
 #if __has_include("Editor.g.cpp")
 #include "Editor.g.cpp"
@@ -49,6 +49,13 @@ namespace winrt::WinUI3Example::implementation
 )", m_code.data(), languageString());
     }
 
+	void Editor::WebView2_Closed(
+		winrt::Microsoft::UI::Xaml::Controls::WebView2 const&,
+		winrt::Windows::Foundation::IInspectable const&)
+	{
+		m_closed = true;
+	}
+
 	void Editor::WebView2_CoreWebView2Initialized(
 		winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender, 
 		winrt::Microsoft::UI::Xaml::Controls::CoreWebView2InitializedEventArgs const& args)
@@ -66,12 +73,15 @@ namespace winrt::WinUI3Example::implementation
         {
                 if (auto strongThis = weakThis.get())
                 {
-                    if (!strongThis->m_code.empty())
+                    if (!strongThis->m_closed && !strongThis->m_code.empty())
                     {
                         auto coreWebView = sender.CoreWebView2();
                         co_await coreWebView.ExecuteScriptAsync(js);
-                        strongThis->Height(measureHeight(strongThis->m_code));
-                        strongThis->LoadingProgress().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+                        if (auto s = weakThis.get(); s && !s->m_closed)
+                        {
+                            s->Height(measureHeight(s->m_code));
+                            s->LoadingProgress().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+                        }
                     }
                 }
         });
@@ -96,4 +106,9 @@ namespace winrt::WinUI3Example::implementation
     {
         m_language = value;
     }
+}
+
+void winrt::WinUI3Example::implementation::Editor::EditorWebView_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+{
+    m_closed = true;
 }

@@ -346,10 +346,6 @@
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="FlyoutWindow.xaml.h">
-      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="FontIconExtension.h">
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -363,7 +359,6 @@
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="GuidWrapper.h" />
     <ClInclude Include="HostBackdropVisual.h">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -739,10 +734,6 @@
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="FlyoutWindow.xaml.cpp">
-      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="FontIconExtension.cpp">
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -756,7 +747,6 @@
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="GuidWrapper.cpp" />
     <ClCompile Include="HostBackdropVisual.cpp">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1071,10 +1061,6 @@
     <Midl Include="FlyoutHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="FlyoutWindow.idl">
-      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="FontIconExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1258,9 +1244,6 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="FlyoutWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="GroupBox_Resource.xaml" />
     <Page Include="HostBackdropVisual_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />

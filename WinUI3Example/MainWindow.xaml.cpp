@@ -10,6 +10,7 @@
 #include <HwndHelper.hpp>
 #include <wil/cppwinrt.h>
 #include <LayoutUpdateAwaiter.hpp>
+#include <winrt/Microsoft.UI.Xaml.Media.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -17,14 +18,10 @@
 namespace winrt::WinUI3Example::implementation
 {
 	HWND MainWindow::Hwnd;
-	winrt::Microsoft::UI::Xaml::Window MainWindow::Window{ nullptr };
-	WinUI3Example::MainWindow MainWindow::MainWindowInstance{ nullptr };
 
 	MainWindow::MainWindow()
 	{
 		Hwnd = GetHwnd(*this);
-		Window = *this;
-		MainWindowInstance = *this;
 		ExtendsContentIntoTitleBar(true);
 		InitializeComponent();
 		if (!WebView2Helper::IsWebView2Installed())
@@ -56,6 +53,24 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Microsoft::UI::Xaml::Application::Current().Exit();
 	}
 
+
+	static void CloseAllWebViews(winrt::Microsoft::UI::Xaml::DependencyObject const& root)
+	{
+		if (auto webview = root.try_as<winrt::Microsoft::UI::Xaml::Controls::WebView2>())
+		{
+			webview.Close();
+			return;
+		}
+		auto count = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChildrenCount(root);
+		for (int i = 0; i < count; ++i)
+			CloseAllWebViews(winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(root, i));
+	}
+
+	void MainWindow::WindowEx_Closed(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::WindowEventArgs const&)
+	{
+		CloseAllWebViews(Content());
+		MainIcon().Remove();
+	}
 
 	void MainWindow::WindowEx_Activated(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args)
 	{

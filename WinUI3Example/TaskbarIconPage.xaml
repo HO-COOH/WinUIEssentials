@@ -15,7 +15,6 @@
             x:Name="TaskbarIcon"
             LeftDoublePressed="TaskbarIcon_LeftDoublePressed"
             LeftPressed="TaskbarIcon_LeftPressed"
-            MenuTheme="Default"
             PointerHover="TaskbarIcon_PointerHover"
             RightPressed="TaskbarIcon_RightPressed">
             <MenuFlyout>
@@ -87,6 +86,18 @@
             </essential:PopupMenuFlyout>
         </essential:TaskbarIcon>
 
+        <essential:TaskbarIcon x:Name="TaskbarIconWithFlyout" Icon="ms-appx:///Assets/MainLogo.ico">
+            <Flyout essential:FlyoutHelper.AcrylicWorkaround="True">
+                <StackPanel>
+                    <TextBlock
+                        Margin="0,0,0,12"
+                        Style="{ThemeResource BaseTextBlockStyle}"
+                        Text="All items will be removed. Do you want to continue?" />
+                    <Button Content="Yes, empty my cart" />
+                </StackPanel>
+            </Flyout>
+        </essential:TaskbarIcon>
+
         <Style BasedOn="{StaticResource DefaultRadioButtonStyle}" TargetType="RadioButton">
             <Setter Property="MinHeight" Value="200" />
         </Style>
@@ -140,6 +151,13 @@
                     </DropDownButton.Flyout>
                 </DropDownButton>
             </local:ControlExample.Options>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="TaskbarIcon with Flyout">
+            <ToggleSwitch
+                Header="Show tray icon with Flyout"
+                IsOn="False"
+                Toggled="ToggleSwitch_Toggled_1" />
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Create a taskbar icon that adapts to Windows light/dark theme">
