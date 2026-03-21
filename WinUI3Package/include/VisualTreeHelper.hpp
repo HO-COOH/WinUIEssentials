@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 
@@ -18,15 +18,16 @@ namespace VisualTreeHelper
 	{
 		if (!parent) return nullptr;
 
-		//if the current element satisfy the condition
-		if (auto current = parent.try_as<T>(); current && current.Name() == name)
-			return current;
-
 		//recursively check the visual children of the current element
 		auto const childrenCount = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChildrenCount(parent);
 		for (auto i = 0; i < childrenCount; ++i)
 		{
-			if (auto result = FindVisualChildByName<T>(winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(parent, i), name))
+			auto child = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(parent, i);
+			//if the current element satisfy the condition
+			if (auto current = child.try_as<T>(); current && current.Name() == name)
+				return current;
+
+			if (auto result = FindVisualChildByName<T>(child, name))
 				return result;
 		}
 
@@ -45,15 +46,16 @@ namespace VisualTreeHelper
 	{
 		if (!parent) return nullptr;
 
-		//if the current element satisfy the condition
-		if (auto current = parent.try_as<T>())
-			return current;
-
 		//recursively check the visual children of the current element
 		auto const childrenCount = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChildrenCount(parent);
 		for (auto i = 0; i < childrenCount; ++i)
 		{
-			if (auto result = FindVisualChildByType<T>(winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(parent, i)))
+			auto child = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(parent, i);
+			//if the current element satisfy the condition
+			if (auto current = child.try_as<T>())
+				return current;
+
+			if (auto result = FindVisualChildByType<T>(child))
 				return result;
 		}
 

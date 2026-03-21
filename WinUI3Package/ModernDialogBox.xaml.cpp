@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ModernDialogBox.xaml.h"
 #if __has_include("ModernDialogBox.g.cpp")
 #include "ModernDialogBox.g.cpp"
@@ -101,18 +101,17 @@ namespace winrt::WinUI3Package::implementation
 	{
 		auto content = DialogContent();
 		auto appWindow = AppWindow();
-		auto desiredSize = content.DesiredSize();
 
-		int baseWidth = (int)(desiredSize.Width + 1);
-		int baseHeight = (int)(desiredSize.Height - 30);
+		constexpr float maxDimension = 100000.0f;
+		content.Measure({ maxDimension, maxDimension });
+		auto desiredSize = content.DesiredSize();
 
 		float scale = (float)content.XamlRoot().RasterizationScale();
 
-		Windows::Graphics::SizeInt32 const windowSize
-		{
-			(int)(baseWidth * scale) + 1,
-			(int)((baseHeight + 32) * scale) + 1
-		};
+		int clientWidth = static_cast<int>(std::ceil(desiredSize.Width * scale));
+		int clientHeight = static_cast<int>(std::ceil(desiredSize.Height * scale));
+
+		Windows::Graphics::SizeInt32 const windowSize{ clientWidth, clientHeight };
 
 		if (auto parent = m_parent.get())
 		{

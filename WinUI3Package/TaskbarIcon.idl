@@ -13,6 +13,7 @@ namespace WinUI3Package
         
         /*Tooltip*/
         String ToolTip;
+        static Microsoft.UI.Xaml.DependencyProperty ToolTipProperty{ get; };
 
         Guid Guid;
         static Microsoft.UI.Xaml.DependencyProperty GuidProperty{ get; };

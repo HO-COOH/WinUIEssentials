@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "MenuBase.h"
 #include "TransparentMenuFlyoutHost.h"
@@ -16,7 +16,6 @@ class MenuFlyoutWrapper : public MenuBase, private MenuFlyoutItemPaddingWorkarou
 {
 	winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase m_menu;
 	TransparentMenuFlyoutHost m_menuHost;
-	std::optional<ThemeListener::Token> m_themeListenerToken;
 
 	void applySystemTheme();
 public:

@@ -399,7 +399,6 @@
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
     <ClInclude Include="include\WebView2Helper.hpp" />
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
-    <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp" />
     <ClInclude Include="IsEqualStateTrigger.h">
       <DependentUpon>IsEqualStateTrigger.idl</DependentUpon>
       <SubType>Code</SubType>

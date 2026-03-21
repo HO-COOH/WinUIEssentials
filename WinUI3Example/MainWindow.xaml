@@ -702,15 +702,15 @@
             </Style>
         </Grid.Resources>
         <essential:TaskbarIcon
-                x:Name="MainIcon"
-                Guid="{x:Bind local:MainWindow.IconGuid}"
-                Icon="ms-appx:///Assets/MainLogo.ico"
-                ToolTip="WinUI3Example's icon tooltip">
+            x:Name="MainIcon"
+            Guid="{x:Bind local:MainWindow.IconGuid}"
+            Icon="ms-appx:///Assets/MainLogo.ico"
+            ToolTip="WinUI3Example's icon tooltip">
             <MenuFlyout>
                 <MenuFlyoutItem
-                        x:Name="ExitItem"
-                        Click="ExitItem_Click"
-                        Text="Exit" />
+                    x:Name="ExitItem"
+                    Click="ExitItem_Click"
+                    Text="Exit" />
             </MenuFlyout>
         </essential:TaskbarIcon>
         <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind}" />
@@ -854,6 +854,7 @@
                         <NavigationViewItem Content="NonResizableWindowWhiteBorderWorkaround" Tag="{essential:TypeName Type=local:NonResizableWindowWhiteBorderWorkaroundPage}" />
                         <NavigationViewItem Content="NonMaximizableWindowWorkaround" Tag="{essential:TypeName Type=local:NonMaximizableWindowWorkaroundPage}" />
                         <NavigationViewItem Content="WindowEx" Tag="{essential:TypeName Type=local:WindowExPage}" />
+                        <NavigationViewItem Content="WindowedContentDialog" Tag="{essential:TypeName Type=local:WindowedContentDialogPage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 

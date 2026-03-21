@@ -16,6 +16,8 @@ TaskbarIconBase::TaskbarIconBase() : m_messageWindow{*this}
 TaskbarIconBase& TaskbarIconBase::ToolTip(std::wstring_view value)
 {
 	m_iconData.szTip(value);
+	if (m_show)
+		m_iconData.Modify();
 	return *this;
 }
 
@@ -60,6 +62,11 @@ void TaskbarIconBase::SetEvents(TaskbarIconXamlEvents& events)
 void TaskbarIconBase::SetTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
 {
 	m_theme = theme;
+	std::visit([value = m_theme](auto&& menu) {
+		using MenuType = std::remove_reference_t<decltype(menu)>;
+		if constexpr (!std::is_same_v<MenuType, std::monostate>)
+			menu.Theme(value);
+	}, m_menu);
 }
 
 void TaskbarIconBase::OnWM_CONTEXTMENU(WPARAM wparam, LPARAM lparam)

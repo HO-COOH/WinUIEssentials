@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
     x:Class="WinUI3Package.ModernDialogBoxContent_Resource"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -52,7 +52,6 @@
         <Setter Property="SecondaryButtonStyle" Value="{ThemeResource DefaultButtonStyle}" />
         <Setter Property="CloseButtonStyle" Value="{ThemeResource DefaultButtonStyle}" />
         <Setter Property="CornerRadius" Value="0" />
-        <Setter Property="MinWidth" Value="{StaticResource ContentDialogMinWidth}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ModernDialogBoxContent">
@@ -70,7 +69,7 @@
                         <Grid x:Name="DialogSpace">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid
@@ -178,6 +177,10 @@
                                     IsEnabled="{TemplateBinding IsSecondaryButtonEnabled}"
                                     IsTabStop="True"
                                     Style="{TemplateBinding SecondaryButtonStyle}" />
+                                <Border
+                                    x:Name="FirstSpacerElement"
+                                    Grid.Column="1"
+                                    MinWidth="0" />
                                 <Button
                                     x:Name="CloseButton"
                                     Grid.Column="4"
@@ -271,7 +274,8 @@
                                         <Setter Target="SecondSpacer.Width" Value="20" />
                                         <Setter Target="CloseColumn.Width" Value="Auto" />
 
-                                        <!--  修改按钮的列位置和对齐方式  -->
+                                        <Setter Target="FirstSpacerElement.MinWidth" Value="20" />
+
                                         <Setter Target="PrimaryButton.(Grid.Column)" Value="0" />
                                         <Setter Target="PrimaryButton.HorizontalAlignment" Value="Left" />
 

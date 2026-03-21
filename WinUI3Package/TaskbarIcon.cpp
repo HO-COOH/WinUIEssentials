@@ -8,23 +8,30 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	TaskbarIcon::TaskbarIcon()
+	{
+		RegisterPropertyChangedCallback(
+			winrt::Microsoft::UI::Xaml::FrameworkElement::RequestedThemeProperty(),
+			[this](auto&& sender, winrt::Microsoft::UI::Xaml::DependencyProperty const& property)
+			{
+				MenuTheme(winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(GetValue(property)));
+			}
+		);
+	}
+
 	winrt::hstring TaskbarIcon::ToolTip()
 	{
-		throw GetterNotImplemented{ L"TaskbarIcon.ToolTip" };
+		return winrt::unbox_value<winrt::hstring>(GetValue(s_tooltipProperty));
 	}
+
 	void TaskbarIcon::ToolTip(winrt::hstring const& value)
 	{
-		std::visit([value, this](auto&& icon) {
-			using IconType = std::remove_reference_t<decltype(icon)>;
-			if constexpr (!std::is_same_v<IconType, std::monostate>)
-			{
-				icon.ToolTip(value);
-			}
-			else
-			{
-				m_tooltip = value;
-			}
-		}, m_icon);
+		SetValue(s_tooltipProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty TaskbarIcon::ToolTipProperty()
+	{
+		return s_tooltipProperty;
 	}
 
 	winrt::guid TaskbarIcon::Guid()
@@ -34,14 +41,6 @@ namespace winrt::WinUI3Package::implementation
 	void TaskbarIcon::Guid(winrt::guid value)
 	{
 		SetValue(s_guidProperty, winrt::box_value(value));
-	}
-	WinUI3Package::GeneratedIconSource TaskbarIcon::IconSource()
-	{
-		return m_iconSource;
-	}
-	void TaskbarIcon::IconSource(WinUI3Package::GeneratedIconSource value)
-	{
-		m_iconSource = value;
 	}
 	void TaskbarIcon::Icon(winrt::Windows::Foundation::Uri value)
 	{
@@ -117,6 +116,11 @@ namespace winrt::WinUI3Package::implementation
 	void TaskbarIcon::MenuTheme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 	{
 		m_theme = value;
+		std::visit([theme = m_theme](auto&& icon) {
+			using IconType = std::remove_reference_t<decltype(icon)>;
+			if constexpr (!std::is_same_v<IconType, std::monostate>)
+				icon.SetTheme(theme);
+		}, m_icon);
 	}
 
 	void TaskbarIcon::Show()
@@ -175,13 +179,7 @@ namespace winrt::WinUI3Package::implementation
 	{
 		m_events.m_pointerHover.remove(handler);
 	}
-	winrt::Microsoft::UI::Xaml::UIElement TaskbarIcon::PopupContent()
-	{
-		return winrt::Microsoft::UI::Xaml::UIElement{ nullptr };
-	}
-	void TaskbarIcon::PopupContent(winrt::Microsoft::UI::Xaml::UIElement value)
-	{
-	}
+
 	void TaskbarIcon::EnsureDependencyProperties()
 	{
 		s_guidProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
@@ -190,22 +188,17 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{
 				nullptr,
-				[](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::IDependencyPropertyChangedEventArgs const& arg)
-				{
-					auto self = winrt::get_self<TaskbarIcon>(d.as<class_type>());
-					std::visit([value = winrt::unbox_value<winrt::guid>(arg.NewValue()), self](auto&& icon) 
-					{
-						using IconType = std::remove_reference_t<decltype(icon)>;
-						if constexpr (!std::is_same_v<IconType, std::monostate>)
-						{
-							icon.Guid(value);
-						}
-						else
-						{
-							self->m_guid = value;
-						}
-					}, self->m_icon);
-				}
+				&TaskbarIcon::onGuidChanged
+			}
+		);
+
+		s_tooltipProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ToolTip",
+			winrt::xaml_typename<winrt::hstring>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				&TaskbarIcon::onToolTipChanged
 			}
 		);
 	}
@@ -226,5 +219,39 @@ namespace winrt::WinUI3Package::implementation
 		if (m_icon.index() == 0)
 			m_icon.emplace<2>().SetEvents(m_events);
 		return std::get<2>(m_icon);
+	}
+
+	void TaskbarIcon::onToolTipChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg)
+	{
+		auto self = winrt::get_self<TaskbarIcon>(d.as<class_type>());
+		std::visit([value = winrt::unbox_value<winrt::hstring>(arg.NewValue()), self](auto&& icon)
+		{
+			using IconType = std::remove_reference_t<decltype(icon)>;
+			if constexpr (!std::is_same_v<IconType, std::monostate>)
+			{
+				icon.ToolTip(value);
+			}
+			else
+			{
+				self->m_tooltip = value;
+			}
+		}, self->m_icon);
+	}
+
+	void TaskbarIcon::onGuidChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg)
+	{
+		auto self = winrt::get_self<TaskbarIcon>(d.as<class_type>());
+		std::visit([value = winrt::unbox_value<winrt::guid>(arg.NewValue()), self](auto&& icon)
+		{
+			using IconType = std::remove_reference_t<decltype(icon)>;
+			if constexpr (!std::is_same_v<IconType, std::monostate>)
+			{
+				icon.Guid(value);
+			}
+			else
+			{
+				self->m_guid = value;
+			}
+		}, self->m_icon);
 	}
 }

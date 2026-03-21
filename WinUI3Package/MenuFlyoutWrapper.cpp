@@ -23,18 +23,7 @@ void MenuFlyoutWrapper::applySystemTheme()
 void MenuFlyoutWrapper::Theme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 {
 	MenuBase::Theme(value);
-	if (value == winrt::Microsoft::UI::Xaml::ElementTheme::Default)
-	{
-		applySystemTheme();
-		m_themeListenerToken = ThemeListener::Add([this]() {
-			applySystemTheme();
-		});
-	}
-	else
-	{
-		m_menuHost.RequestedTheme(value);
-		m_themeListenerToken.reset();
-	}
+	m_menuHost.RequestedTheme(value);
 }
 
 void MenuFlyoutWrapper::Show(POINT p)

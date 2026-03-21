@@ -205,9 +205,6 @@
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp">
       <Filter>TaskbarIcon\Errors</Filter>
     </ClInclude>
-    <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp">
-      <Filter>TaskbarIcon\Errors</Filter>
-    </ClInclude>
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h">
       <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClInclude>
