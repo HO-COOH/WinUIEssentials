@@ -119,7 +119,12 @@ namespace winrt::WinUI3Package::implementation
 	{
 		for (auto item : navigationView.MenuItems())
 		{
-			auto navigationViewItem = item.as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
+			auto navigationViewItem = item.try_as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
+			if (!navigationViewItem)
+				continue;
+			//MenuItem is IInspectable, but in reality it may be any subclass of NavigationViewItemBase
+			//see https://learn.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.navigationviewitembase?view=windows-app-sdk-1.8
+
 			auto rootGrid = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(navigationViewItem, 0);
 			if (!rootGrid)
 				continue;
