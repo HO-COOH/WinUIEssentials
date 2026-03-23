@@ -743,7 +743,7 @@
                 Grid.Column="2"
                 VerticalAlignment="Center"
                 Style="{StaticResource CaptionTextBlockStyle}"
-                Text="WinUIEssentials.WinUI3Example" />
+                Text="{x:Bind local:MainWindow.WindowTitle}" />
 
             <!--<AutoSuggestBox
                 x:Name="TitleBarSearchBox"

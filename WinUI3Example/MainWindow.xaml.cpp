@@ -120,4 +120,13 @@ namespace winrt::WinUI3Example::implementation
 		return winrt::Windows::Foundation::Uri{ std::format(L"https://github.com/HO-COOH/WinUIEssentials/blob/master/WinUI3Package/{}.xaml", name) };
 	}
 
+	winrt::hstring MainWindow::WindowTitle()
+	{
+#if (defined DEBUG) || (defined _DEBUG)
+		return L"WinUIEssentials.WinUI3Example(Dev)";
+#else
+		return L"WinUIEssentials.WinUI3Example";
+#endif
+	}
+
 }

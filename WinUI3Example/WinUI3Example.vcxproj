@@ -265,8 +265,13 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup Condition="'$(WindowsPackageType)'!='None' and Exists('Package.appxmanifest')">
+  <ItemGroup Condition="'$(WindowsPackageType)'!='None' and Exists('Package.appxmanifest') and '$(Configuration)'=='Release'">
     <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup Condition="'$(WindowsPackageType)'!='None' and Exists('Package.Dev.appxmanifest') and '$(Configuration)'!='Release'">
+    <AppxManifest Include="Package.Dev.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
   </ItemGroup>

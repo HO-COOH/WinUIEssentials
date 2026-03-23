@@ -33,9 +33,13 @@ namespace winrt::WinUI3Example::implementation
         static winrt::Windows::Foundation::Uri GetXamlUrl(winrt::hstring const& name);
         constexpr static winrt::guid IconGuid()
         {
+#if (defined DEBUG) || (defined _DEBUG)
             return { 0xe2063928, 0xbee9, 0x4635, { 0xb2, 0xbf, 0x61, 0x12, 0x4d, 0xef, 0x18, 0xa2 } };
+#else
+            return { 0x50fb17d, 0xd467, 0x49ce, { 0xa0, 0xb7, 0x81, 0x87, 0x52, 0x7a, 0x9c, 0x81 } };
+#endif
         }
-
+        static winrt::hstring WindowTitle();
         // Stored animations for reversible playback
         ButtonAnimations m_sourceButtonAnimations;
         bool m_isExpanded = false;

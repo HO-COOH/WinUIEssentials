@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinUIEssential.WinUI3</id>
-        <version>1.5.0</version>
+        <version>1.6.0</version>
         <title>WinUIEssential(WinUI3)</title>
         <authors>Peter</authors>
         <owners></owners>
@@ -32,12 +32,15 @@
         <file src="..\x64\Debug\WinUI3Package\WinUI3Package.dll" target="lib/native/Debug/x64"/>
         <file src="..\x64\Debug\WinUI3Package\WinUI3Package.pri" target="lib/native/Debug/x64"/>
         <file src="..\x64\Debug\WinUI3Package\WinUI3Package\*.*" target="lib/native/Debug/x64/WinUI3Package"/>
+		<file src="*.h" target="src"/>
+		<file src="*.cpp" target="src"/>
+		<file src="..\x64\Debug\WinUI3Package\WinUI3Package.pdb" target="lib/native/Debug/x64"/>
 
         <file src="..\x64\Release\WinUI3Package\WinUI3Package.winmd" target="lib/native/Release/x64"/>
         <file src="..\x64\Release\WinUI3Package\WinUI3Package.dll" target="lib/native/Release/x64"/>
         <file src="..\x64\Release\WinUI3Package\WinUI3Package.pri" target="lib/native/Release/x64"/>
         <file src="..\x64\Release\WinUI3Package\WinUI3Package\*.*" target="lib/native/Release/x64/WinUI3Package"/>
-
+		<file src="..\x64\Release\WinUI3Package\WinUI3Package.pdb" target="lib/native/Release/x64"/>
 
         <!-- Meta -->
         <file src="..\MainLogo.png" target="assets\"/>

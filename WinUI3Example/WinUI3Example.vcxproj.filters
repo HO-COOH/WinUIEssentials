@@ -665,12 +665,20 @@
     <Filter Include="Pages\BackdropPage\TenMicaPage">
       <UniqueIdentifier>{9552aa05-013e-4657-be0f-8a173ffba4a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manifests">
+      <UniqueIdentifier>{c324f92e-6d88-4076-a551-0d172774d95d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" />
+    <AppxManifest Include="Package.Dev.appxmanifest">
+      <Filter>Manifests</Filter>
+    </AppxManifest>
+    <AppxManifest Include="Package.appxmanifest">
+      <Filter>Manifests</Filter>
+    </AppxManifest>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
