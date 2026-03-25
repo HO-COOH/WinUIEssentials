@@ -77,9 +77,9 @@ namespace winrt::WinUI3Package::implementation
 			auto flyout = button.Flyout().as<winrt::Microsoft::UI::Xaml::Controls::Flyout>();
 
 			auto newStyle = getStyle(flyout.FlyoutPresenterStyle());
-
 			flyout.FlyoutPresenterStyle(newStyle);
-			flyout.Opening(&onFlyoutOpened);
+			flyout.ShouldConstrainToRootBounds(false);
+			flyout.SystemBackdrop(Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop());
 			modifyNavigationViewItems(navigationView, newStyle);
 			loadedRevoker->revoke();
 		});
@@ -138,6 +138,8 @@ namespace winrt::WinUI3Package::implementation
 				continue;
 
 			flyout.FlyoutPresenterStyle(newStyle);
+			flyout.ShouldConstrainToRootBounds(false);
+			flyout.SystemBackdrop(Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop());
 			flyout.Opening(&onFlyoutOpened);
 		}
 	}
@@ -176,7 +178,8 @@ namespace winrt::WinUI3Package::implementation
 		{
 			if (auto targetProperty = setter.as<winrt::Microsoft::UI::Xaml::Setter>().Property();
 				targetProperty == winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty() ||
-				targetProperty == winrt::Microsoft::UI::Xaml::Controls::Control::PaddingProperty())
+				targetProperty == winrt::Microsoft::UI::Xaml::Controls::Control::PaddingProperty() ||
+				targetProperty == winrt::Microsoft::UI::Xaml::FrameworkElement::MarginProperty())
 			{
 				setters.Append(setter);
 			}

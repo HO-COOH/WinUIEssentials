@@ -173,11 +173,18 @@ namespace winrt::WinUI3Package::implementation
         revealFocusPanel->m_ellipseCenterExpressionAnimation.SetReferenceParameter(L"localProperty", localProperty);
 
 
-        child.LayoutUpdated([localProperty, child, panel](auto&&...) {
+        child.LayoutUpdated([localProperty, childRef = winrt::make_weak(child), panelRef = winrt::make_weak(panel)](auto&&...) 
+        {
+            auto child = childRef.get();
+            if (!child)
+                return;
+            auto panel = panelRef.get();
+            if (!panel)
+                return;
+
             auto transform = child.TransformToVisual(panel).TransformPoint({});
             localProperty.InsertVector2(L"elementPosition", transform);
         });
-
 
         brush.StartAnimation(L"EllipseCenter", revealFocusPanel->m_ellipseCenterExpressionAnimation);
 
