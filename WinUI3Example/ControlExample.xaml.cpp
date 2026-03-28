@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ControlExample.xaml.h"
 #if __has_include("ControlExample.g.cpp")
 #include "ControlExample.g.cpp"
@@ -222,6 +222,26 @@ namespace winrt::WinUI3Example::implementation
 		m_codeItems.Append(code);
 	}
 
+	void ControlExample::createAnimations(winrt::Microsoft::UI::Composition::Compositor const& compositor)
+	{
+		for (int i = 0; i < std::size(m_iconShowAnimation); ++i)
+		{
+			std::chrono::milliseconds const delay{ 50 * i };
+			m_iconShowAnimation[i] = compositor.CreateScalarKeyFrameAnimation();
+			m_iconShowAnimation[i].InsertExpressionKeyFrame(0.f, L"this.Target.Size.Y * 1.5");
+			m_iconShowAnimation[i].InsertKeyFrame(1.f, 0);
+			m_iconShowAnimation[i].DelayTime(delay);
+			m_iconShowAnimation[i].Target(L"Translation.Y");
+
+			m_iconHideAnimation[i] = compositor.CreateScalarKeyFrameAnimation();
+			m_iconHideAnimation[i].InsertKeyFrame(0.f, 0);
+			m_iconHideAnimation[i].InsertExpressionKeyFrame(1.f, L"this.Target.Size.Y * 1.5");
+			m_iconHideAnimation[i].DelayTime(delay);
+			m_iconHideAnimation[i].DelayBehavior(winrt::Microsoft::UI::Composition::AnimationDelayBehavior::SetInitialValueBeforeDelay);
+			m_iconHideAnimation[i].Target(L"Translation.Y");
+		}
+	}
+
 	void ControlExample::onXamlChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
 		auto self = getSelf(d);
@@ -298,6 +318,45 @@ namespace winrt::WinUI3Example::implementation
 	void ControlExample::Expander_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		sender.as<winrt::Microsoft::UI::Xaml::Controls::Expander>().IsExpanded(false);
+
+		if (!m_iconShowAnimation[0])
+			createAnimations(winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread());
+	}
+
+	void ControlExample::startExpanderIconAnimations(winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation const(&animations)[4])
+	{
+		if (!m_iconShowAnimation[0])
+			return;
+
+		int i = 0;
+		auto addAnimation = [&animations, &i](winrt::Microsoft::UI::Xaml::Controls::Viewbox const& icon)
+		{
+			//this animation must be played on the visual, not the control itself
+			//as the expression "this.Target.Size.Y" will complain when using on a normal control
+			auto visual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(icon);
+			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(icon, true);
+			visual.StartAnimation(L"Translation.Y", animations[i]);
+			++i;
+		};
+
+		if (Xaml())
+			addAnimation(XamlIcon());
+		if (Idl())
+			addAnimation(IdlIcon());
+		if (Header())
+			addAnimation(HIcon());
+		if (Cpp())
+			addAnimation(CppIcon());
+	}
+
+	void ControlExample::Expander_Expanding(winrt::Microsoft::UI::Xaml::Controls::Expander const&, winrt::Microsoft::UI::Xaml::Controls::ExpanderExpandingEventArgs const&)
+	{
+		startExpanderIconAnimations(m_iconHideAnimation);
+	}
+
+	void ControlExample::Expander_Collapsed(winrt::Microsoft::UI::Xaml::Controls::Expander const&, winrt::Microsoft::UI::Xaml::Controls::ExpanderCollapsedEventArgs const&)
+	{
+		startExpanderIconAnimations(m_iconShowAnimation);
 	}
 
 }

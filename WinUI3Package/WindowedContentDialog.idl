@@ -1,12 +1,13 @@
 ﻿namespace WinUI3Package
 {
+    [contentproperty("Content")]
     [default_interface]
-    runtimeclass WindowedContentDialog
+    unsealed runtimeclass WindowedContentDialog
     {
         WindowedContentDialog();
 	    WindowedContentDialog(Microsoft.UI.Xaml.Controls.ContentDialog contentDialog);
 
-        Microsoft.UI.Xaml.Controls.ContentDialog Content{ get; };
+        Microsoft.UI.Xaml.Controls.ContentDialog Content;
 
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parentWindow);

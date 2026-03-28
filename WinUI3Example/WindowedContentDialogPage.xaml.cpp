@@ -33,17 +33,21 @@ namespace winrt::WinUI3Example::implementation
 
 	}
 
-
 	winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		winrt::Microsoft::UI::Xaml::Controls::ContentDialog content;
-		content.Title(box_value(winrt::hstring(L"Title")));
-		content.Content(winrt::box_value(L"Content"));
-		content.PrimaryButtonText(winrt::hstring(L"PrimaryButton"));
-		content.SecondaryButtonText(winrt::hstring(L"SecondaryButton"));
-		content.CloseButtonText(winrt::hstring(L"CloseButton"));
-		content.DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton::Primary);
-		co_await WinUI3Package::WindowedContentDialog{ content }.ShowAsync(App::AppInstance->window);
+		auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(App::AppInstance->window);
+		switch (result)
+		{
+			case winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult::None: 
+				WindowedContentDialogResult().Text(L"Clicked: None");
+				break;
+			case winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult::Primary: 
+				WindowedContentDialogResult().Text(L"Clicked: Primary");
+				break;
+			case winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult::Secondary: 
+				WindowedContentDialogResult().Text(L"Clicked: Secondary");
+				break;
+		}
 	}
 
 }

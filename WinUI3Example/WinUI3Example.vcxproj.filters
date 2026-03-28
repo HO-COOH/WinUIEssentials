@@ -240,9 +240,6 @@
       <Filter>Pages</Filter>
     </Page>
     <Page Include="ExampleDialog.xaml" />
-    <Page Include="WindowedContentDialogPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="FontIconExtensionPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -260,6 +257,12 @@
     </Page>
     <Page Include="MicaBackdropWithTenMicaFallback.xaml">
       <Filter>Pages\BackdropPage\TenMicaPage</Filter>
+    </Page>
+    <Page Include="WindowedContentDialogPage.xaml">
+      <Filter>Pages\WindowedContentDialogPage</Filter>
+    </Page>
+    <Page Include="SampleWindowedContentDialog.xaml">
+      <Filter>Pages\WindowedContentDialogPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -668,14 +671,14 @@
     <Filter Include="Manifests">
       <UniqueIdentifier>{c324f92e-6d88-4076-a551-0d172774d95d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pages\WindowedContentDialogPage">
+      <UniqueIdentifier>{75b54b22-26dd-42af-b6ba-403b943e280d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.Dev.appxmanifest">
-      <Filter>Manifests</Filter>
-    </AppxManifest>
     <AppxManifest Include="Package.appxmanifest">
       <Filter>Manifests</Filter>
     </AppxManifest>

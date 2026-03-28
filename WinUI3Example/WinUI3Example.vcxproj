@@ -573,6 +573,10 @@
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SampleWindowedContentDialog.xaml.h">
+      <DependentUpon>SampleWindowedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ScopedButtonDisablerPage.xaml.h">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -869,6 +873,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SampleModalWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SampleWindowedContentDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ScopedButtonDisablerPage.xaml">
@@ -1252,6 +1259,10 @@
     </ClCompile>
     <ClCompile Include="SampleModalWindow.xaml.cpp">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SampleWindowedContentDialog.xaml.cpp">
+      <DependentUpon>SampleWindowedContentDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ScopedButtonDisablerPage.xaml.cpp">
@@ -1657,6 +1668,10 @@
     </Midl>
     <Midl Include="SampleModalWindow.idl">
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SampleWindowedContentDialog.idl">
+      <DependentUpon>SampleWindowedContentDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ScopedButtonDisablerPage.idl">

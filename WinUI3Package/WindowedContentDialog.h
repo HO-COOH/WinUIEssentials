@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "WindowedContentDialog.g.h"
 namespace winrt::WinUI3Package::implementation
@@ -9,16 +9,21 @@ namespace winrt::WinUI3Package::implementation
 		WindowedContentDialog(winrt::Microsoft::UI::Xaml::Controls::ContentDialog const& m_dialog);
 
         winrt::Microsoft::UI::Xaml::Controls::ContentDialog Content();
+        void Content(winrt::Microsoft::UI::Xaml::Controls::ContentDialog const& value);
 
         winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync();
         winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync(winrt::Microsoft::UI::Xaml::Window parentWindow);
-
     private:
         winrt::Microsoft::UI::Xaml::Window m_window;
         winrt::Microsoft::UI::Xaml::Controls::Grid m_placeholder;
-        winrt::Microsoft::UI::Xaml::Controls::ContentDialog m_dialog;
+        winrt::Microsoft::UI::Xaml::Controls::ContentDialog m_dialog{ nullptr };
+        bool m_isClosingByCode{ false };
         winrt::Windows::Graphics::SizeInt32 getDesiredWindowSize();
         void setContent();
+        void centerAndResizeWindow(
+            winrt::Microsoft::UI::Windowing::AppWindow const& appWindow,
+            winrt::Microsoft::UI::Xaml::Window const& parentWindow
+        );
     };
 }
 
