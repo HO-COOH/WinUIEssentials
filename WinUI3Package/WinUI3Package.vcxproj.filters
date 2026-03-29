@@ -432,6 +432,9 @@
     <Filter Include="Extensions\MarkupExtensions">
       <UniqueIdentifier>{877a96cc-8fdd-4e4b-af4d-f103a2fbdef1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Backdrop\CustomizableBackdrops">
+      <UniqueIdentifier>{885452a6-0434-4471-a419-1c300c3dfbbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="BoolToVisibilityConverter.idl">
@@ -497,12 +500,6 @@
     </Midl>
     <Midl Include="SegmentedMarginConverter.idl">
       <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="CustomAcrylicBackdrop.idl">
-      <Filter>Backdrop</Filter>
-    </Midl>
-    <Midl Include="CustomMicaBackdrop.idl">
-      <Filter>Backdrop</Filter>
     </Midl>
     <Midl Include="HostBackdropVisual.idl">
       <Filter>Controls\AcrylicVisual</Filter>
@@ -641,9 +638,6 @@
     <Midl Include="TenMicaBackdrop.idl">
       <Filter>Backdrop\TenMica</Filter>
     </Midl>
-    <Midl Include="CustomBackdropBase.idl">
-      <Filter>Backdrop</Filter>
-    </Midl>
     <Midl Include="SliderHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
@@ -658,6 +652,15 @@
     </Midl>
     <Midl Include="CursorController.idl">
       <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="CustomMicaBackdrop.idl">
+      <Filter>Backdrop\CustomizableBackdrops</Filter>
+    </Midl>
+    <Midl Include="CustomBackdropBase.idl">
+      <Filter>Backdrop\CustomizableBackdrops</Filter>
+    </Midl>
+    <Midl Include="CustomAcrylicBackdrop.idl">
+      <Filter>Backdrop\CustomizableBackdrops</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

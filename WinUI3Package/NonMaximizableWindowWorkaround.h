@@ -7,6 +7,8 @@ namespace winrt::WinUI3Package::implementation
     struct NonMaximizableWindowWorkaround : NonMaximizableWindowWorkaroundT<NonMaximizableWindowWorkaround>
     {
         NonMaximizableWindowWorkaround() = default;
+		NonMaximizableWindowWorkaround(winrt::Microsoft::UI::Xaml::Window const& window, bool m_isMaximizable);
+
         ~NonMaximizableWindowWorkaround();
 
         winrt::Microsoft::UI::Xaml::Window Window();

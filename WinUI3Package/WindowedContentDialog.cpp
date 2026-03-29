@@ -56,12 +56,16 @@ namespace winrt::WinUI3Package::implementation
       
         auto appWindow = m_window.AppWindow();
         appWindow.ResizeClient(getDesiredWindowSize());
-
-        if (parentWindow)
-            centerAndResizeWindow(appWindow, parentWindow);
-
-        appWindow.Presenter().as<winrt::Microsoft::UI::Windowing::OverlappedPresenter>().IsModal(true);
+		auto presenter = appWindow.Presenter().as<winrt::Microsoft::UI::Windowing::OverlappedPresenter>();
+		presenter.IsResizable(false);
         
+        if (parentWindow)
+        {
+            centerWindowInParent(appWindow, parentWindow);
+            presenter.IsModal(true);
+            m_window.Closed([parentWindow](auto&&...) { parentWindow.Activate(); });
+        }
+
         //This will NOT leak
         appWindow.Closing([strongThis = get_strong()](auto&&, auto&& args)
         {
@@ -86,8 +90,7 @@ namespace winrt::WinUI3Package::implementation
         m_isClosingByCode = true;
         m_window.Close();
         m_isClosingByCode = false;
-        if (parentWindow)
-            parentWindow.Activate();
+
         co_return result;
     }
 
@@ -172,19 +175,27 @@ namespace winrt::WinUI3Package::implementation
         m_window.SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{});
         m_window.Content(m_placeholder);
         m_window.ExtendsContentIntoTitleBar(true);
+		m_nonResizableWorkaround.Window(m_window);
     }
 
-    void WindowedContentDialog::centerAndResizeWindow(winrt::Microsoft::UI::Windowing::AppWindow const& appWindow, winrt::Microsoft::UI::Xaml::Window const& parentWindow)
+    void WindowedContentDialog::centerWindowInParent(winrt::Microsoft::UI::Windowing::AppWindow const& appWindow, winrt::Microsoft::UI::Xaml::Window const& parentWindow)
     {
         auto const parentHwnd = GetHwnd(parentWindow);
-        SetWindowLongPtr(GetHwnd(m_window), GWLP_HWNDPARENT, reinterpret_cast<LONG_PTR>(parentHwnd));
+		auto const selfHwnd = GetHwnd(m_window);
+        SetWindowLongPtr(selfHwnd, GWLP_HWNDPARENT, reinterpret_cast<LONG_PTR>(parentHwnd));
         RECT parentRect;
         GetWindowRect(parentHwnd, &parentRect);
 
         auto const windowSize = appWindow.Size();
-        auto const x = parentRect.left + (parentRect.right - parentRect.left - windowSize.Width) / 2;
-        auto const y = parentRect.top + (parentRect.bottom - parentRect.top - windowSize.Height) / 2;
+        RECT windowRect
+        {
+            .left = parentRect.left + (parentRect.right - parentRect.left - windowSize.Width) / 2,
+            .top = parentRect.top + (parentRect.bottom - parentRect.top - windowSize.Height) / 2
+        };
+        windowRect.right = windowRect.left + windowSize.Width;
+        windowRect.bottom = windowRect.top + windowSize.Height;
+        windowRect = ClampWindowRect(windowRect);
 
-        appWindow.Move({ x, y });
+        appWindow.Move({ windowRect.left, windowRect.top });
     }
 }

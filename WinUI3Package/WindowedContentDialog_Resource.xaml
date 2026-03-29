@@ -7,7 +7,7 @@
     <Style x:Key="WindowedContentDialogStyle" TargetType="ContentDialog">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Foreground" Value="{ThemeResource ContentDialogForeground}" />
-        <Setter Property="Background" Value="{ThemeResource ContentDialogBackground}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="{ThemeResource ContentDialogBorderWidth}" />
         <Setter Property="BorderBrush" Value="{ThemeResource ContentDialogBorderBrush}" />
         <Setter Property="IsTabStop" Value="False" />
@@ -35,9 +35,7 @@
                                 <Border.RenderTransform>
                                     <ScaleTransform x:Name="ScaleTransform" />
                                 </Border.RenderTransform>
-                                <Grid
-                                    x:Name="DialogSpace"
-                                    CornerRadius="0">
+                                <Grid x:Name="DialogSpace" CornerRadius="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />

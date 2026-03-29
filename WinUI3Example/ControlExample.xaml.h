@@ -59,14 +59,14 @@ namespace winrt::WinUI3Example::implementation
 		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
 		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_cppProperty = nullptr;
 		static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_substitutionsProperty = nullptr;
-		static inline winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_iconShowAnimation[4]{ nullptr, nullptr, nullptr, nullptr };
-		static inline winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_iconHideAnimation[4]{ nullptr, nullptr, nullptr, nullptr };
+		static inline winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_iconShowAnimation{ nullptr };
+		static inline winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation m_iconHideAnimation{ nullptr };
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_codeItems = winrt::single_threaded_vector<winrt::Windows::Foundation::IInspectable>();
 
 		void makePivotItem(winrt::WinUI3Example::CodeSource const& code, winrt::WinUI3Example::Language language);
 
 		void createAnimations(winrt::Microsoft::UI::Composition::Compositor const& compositor);
-		void startExpanderIconAnimations(winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation const (&animations)[4]);
+		void startExpanderIconAnimations(winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation& animation);
 
 		static void onXamlChanged(
 			winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
