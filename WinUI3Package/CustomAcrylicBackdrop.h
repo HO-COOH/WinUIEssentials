@@ -1,22 +1,31 @@
-﻿#pragma once
+#pragma once
 
 #include "CustomAcrylicBackdrop.g.h"
 #include "include/EnsureDependencyProperty.hpp"
 #include "CustomBackdropBase.h"
 #include "OverrideChecker.h"
 #include "BackdropWindowActiveStateWorkaroundHandler.hpp"
+#include "CustomBackdropImplBase.hpp"
 namespace winrt::WinUI3Package::implementation
 {
-    struct CustomAcrylicBackdrop : CustomAcrylicBackdropT<CustomAcrylicBackdrop, CustomBackdropBase>, EnsureDependencyProperty<CustomAcrylicBackdrop>
+    struct CustomAcrylicBackdrop :
+        CustomAcrylicBackdropT<CustomAcrylicBackdrop, CustomBackdropBase>,
+        EnsureDependencyProperty<CustomAcrylicBackdrop>,
+        CustomBackdropImplBase<CustomAcrylicBackdrop, 100>
     {
+        friend class CustomBackdropImplBase<CustomAcrylicBackdrop, 100>;
+
         static void EnsureDependencyProperties();
         CustomAcrylicBackdrop() = default;
 
-        void OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget);
-
         void OnTargetConnected(
-            winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, 
-            winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot);
+            winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget,
+            winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot
+        ) override;
+
+        void OnTargetDisconnected(
+            winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget
+        ) override;
 
         winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind Kind();
         void Kind(winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind value);
@@ -41,13 +50,7 @@ namespace winrt::WinUI3Package::implementation
         );
         #pragma endregion
     private:
-        HWND m_hwnd{};
-        winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration m_configuration{ nullptr };
         winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicController m_controller{ nullptr };
-
-        WNDPROC m_oldProc{};
-        LONG_PTR m_oldUserData{};
-        winrt::Microsoft::UI::Xaml::XamlRoot::Changed_revoker m_xamlRootChangedRevoker;
 
         OverrideChecker m_overrideChecker;
 
@@ -55,15 +58,12 @@ namespace winrt::WinUI3Package::implementation
 
         static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty = nullptr;
         static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_requestedThemeProperty = nullptr;
-        static winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
-
-        //workaround for m_configuration not able to send inactive state when switching to other window created in the same app package
-        constexpr static UINT_PTR subclassId = 100;
-        friend class BackdropWindowActiveStateWorkaroundHandler<CustomAcrylicBackdrop, subclassId>;
-
-        void changeTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
-        void makeAcrylicController(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& target);
-        void disposeAcrylicController();
+        static void onKindPropertyChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& backdrop,
+            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args
+        );
+        void makeController(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& target);
+        void disposeController();
 
         static void onThemePropertyChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& backdrop,

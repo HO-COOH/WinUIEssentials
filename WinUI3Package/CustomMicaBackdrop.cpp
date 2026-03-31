@@ -6,10 +6,23 @@
 #include <winrt/Microsoft.UI.Composition.SystemBackdrops.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Microsoft.UI.Interop.h>
-#include "HwndHelper.hpp"
+
 
 namespace winrt::WinUI3Package::implementation
 {
+	void CustomMicaBackdrop::OnTargetConnected(
+		winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget,
+		winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
+	{
+		CustomBackdropImplBase<CustomMicaBackdrop, 101>::OnTargetConnected(connectedTarget, xamlRoot);
+	}
+
+	void CustomMicaBackdrop::OnTargetDisconnected(
+		winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
+	{
+		CustomBackdropImplBase<CustomMicaBackdrop, 101>::OnTargetDisconnected(connectedTarget);
+	}
+
 	void CustomMicaBackdrop::EnsureDependencyProperties()
 	{
 		if (s_kindProperty) return;
@@ -17,42 +30,8 @@ namespace winrt::WinUI3Package::implementation
 			L"Kind",
 			winrt::xaml_typename<winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind::Base), &CustomMicaBackdrop::onKindPropertyChanged }
 		);
-	}
-
-
-	void CustomMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
-	{
-		disposeMicaController();
-		BackdropWindowActiveStateWorkaroundHandler<CustomMicaBackdrop, subclassId>::Unset(m_hwnd);
-	}
-
-	void CustomMicaBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
-	{
-		m_configuration = {};
-
-		//Note: This method will be called before any Property setter get called.
-		//So we do not need to apply the properties in this method
-		makeMicaController(connectedTarget);
-		m_hwnd = GetHwnd(xamlRoot);
-		BackdropWindowActiveStateWorkaroundHandler<CustomMicaBackdrop, subclassId>::Set(m_hwnd, this);
-
-		m_oldUserData = GetWindowLongPtr(m_hwnd, GWLP_USERDATA);
-		
-
-		m_xamlRootChangedRevoker = xamlRoot.Changed(winrt::auto_revoke, [this](winrt::Microsoft::UI::Xaml::XamlRoot const& root, auto&&)
-		{
-			if (auto content = root.Content(); content != nullptr)
-			{
-				auto element = content.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
-				changeTheme(content.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().ActualTheme());
-				element.ActualThemeChanged([this](winrt::Microsoft::UI::Xaml::FrameworkElement const& element, auto&&...)
-					{
-						changeTheme(element.ActualTheme());
-					});
-			}
-		});
 	}
 
 	void CustomMicaBackdrop::OnFallbackColorChanged(winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
@@ -72,11 +51,6 @@ namespace winrt::WinUI3Package::implementation
 	void CustomMicaBackdrop::Kind(winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind value)
 	{
 		SetValue(KindProperty(), winrt::box_value(value));
-		if (m_controller)
-		{
-			m_overrideChecker.ThrowIfHasOverride("Kind");
-			m_controller.Kind(value);
-		}
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::KindProperty()
@@ -114,24 +88,18 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme CustomMicaBackdrop::toBackdropTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
+	void CustomMicaBackdrop::onKindPropertyChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
-		switch (theme)
+		auto self = winrt::get_self<CustomMicaBackdrop>(sender.as<class_type>());
+		if (self->m_controller)
 		{
-		case winrt::Microsoft::UI::Xaml::ElementTheme::Default:
-			return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Default;
-		case winrt::Microsoft::UI::Xaml::ElementTheme::Light:
-			return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Light;
-		case winrt::Microsoft::UI::Xaml::ElementTheme::Dark:
-			return winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Dark;
+			self->m_overrideChecker.ThrowIfHasOverride("Kind");
+			self->m_controller.Kind(winrt::unbox_value<winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind>(args.NewValue()));
 		}
 	}
 
-	void CustomMicaBackdrop::changeTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
-	{
-		m_configuration.Theme(toBackdropTheme(theme));
-	}
-	void CustomMicaBackdrop::makeMicaController(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& target)
+
+	void CustomMicaBackdrop::makeController(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& target)
 	{
 		m_controller = {};
 		m_controller.AddSystemBackdropTarget(target);
@@ -155,7 +123,7 @@ namespace winrt::WinUI3Package::implementation
 		if (auto tintOpacity = ReadLocalValue(TintOpacityProperty()); tintOpacity != unsetValue)
 			m_controller.TintOpacity(winrt::unbox_value<float>(tintOpacity));
 	}
-	void CustomMicaBackdrop::disposeMicaController()
+	void CustomMicaBackdrop::disposeController()
 	{
 		m_controller.Close();
 		m_controller = nullptr;

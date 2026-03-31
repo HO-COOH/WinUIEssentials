@@ -306,6 +306,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\EnsureDependencyProperty.hpp" />
+    <ClInclude Include="CustomBackdropImplBase.hpp">
+      <Filter>Backdrop\CustomizableBackdrops</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />

@@ -325,6 +325,7 @@
       <DependentUpon>CustomBackdropBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CustomBackdropImplBase.hpp" />
     <ClInclude Include="CustomMicaBackdrop.h">
       <DependentUpon>CustomMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
