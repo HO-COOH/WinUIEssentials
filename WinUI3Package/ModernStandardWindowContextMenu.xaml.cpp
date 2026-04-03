@@ -93,42 +93,54 @@ namespace winrt::WinUI3Package::implementation
 
     void ModernStandardWindowContextMenu::setMenuItemText()
     {
-        constexpr auto standardWindowContextMenuItemCount = 7;
-        constexpr auto nonResizableWindowContextMenuItemCount = 2;
-
         wil::unique_hmenu systemMenu{ GetSystemMenu(m_parent, false) };
         auto const systemMenuItemCount = GetMenuItemCount(systemMenu.get());
         
-        switch (systemMenuItemCount)
+        std::vector<MENUITEMINFOW> items;
+        for (int i = 0; i < systemMenuItemCount; ++i)
         {
-            case standardWindowContextMenuItemCount:
-                MoveItem().Text(getMenuItemText(systemMenu.get(), 1).data());
-                SizeItem().Text(getMenuItemText(systemMenu.get(), 2).data());
-                MinimizeItem().Text(getMenuItemText(systemMenu.get(), 3).data());
-                MaximizeItem().Text(getMenuItemText(systemMenu.get(), 4).data());
-                // we don't repeat ourself, so no break here
-                [[fallthrough]];
-            case nonResizableWindowContextMenuItemCount:
-            {
-                RestoreItem().Text(getMenuItemText(systemMenu.get(), 0).data());
-                auto closeItemTextOriginal = getMenuItemText(systemMenu.get(), 6);
-                std::wstring_view view{ closeItemTextOriginal.data() };
-                auto const index = view.find(L'\t') + 1;
-                closeItemTextOriginal[index] = {};
-                CloseItem().Text(view.substr(0, index));
-                break;
-            }
-            default:
-            {
-                throw WinUIEssentialError<winrt::hresult_invalid_argument>
-                {
-                    L"Invalid number of window context menu item."
-                    L"A valid window context menu should only contain 2 (non-resizable window) / 7 (standard window) items"
-                    L"This might be a bug of WinUIEssential. Please report!"
-                };
-            }
+            MENUITEMINFOW item{ .cbSize = sizeof(item), .fMask = MIIM_BITMAP | MIIM_FTYPE };
+            winrt::check_bool(GetMenuItemInfoW(systemMenu.get(), i, true, &item));
+            items.push_back(item);
         }
 
+        if (systemMenuItemCount >= nonResizableWindowContextMenuItemCount)
+        {
+            //restore
+            //close
+            RestoreItem().Text(getMenuItemText(systemMenu.get(), 0).data());
+            auto closeItemTextOriginal = getMenuItemText(systemMenu.get(), systemMenuItemCount - 1); //last item should be close
+            std::wstring_view view{ closeItemTextOriginal.data() };
+            auto const index = view.find(L'\t') + 1;
+            closeItemTextOriginal[index] = {};
+            CloseItem().Text(view.substr(0, index));
+        }
+        else
+        {
+            //less than 2 items? How is it possible
+            throw WinUIEssentialError<winrt::hresult_invalid_argument>
+            {
+                L"Invalid number of window context menu item."
+                L"A valid window context menu should at least contain 2 items (non-resizable window)."
+                L"And they most like should only contain 2 (non-resizable window) / 5 (standard window) items."
+                L"This might be a bug of WinUIEssential. Please report!"
+            };
+        }
+
+        if (systemMenuItemCount >= standardWindowContextMenuItemCount)
+        {
+            //move
+            //size
+            //minimize
+			//maximize
+            MoveItem().Text(getMenuItemText(systemMenu.get(), 1).data());
+            SizeItem().Text(getMenuItemText(systemMenu.get(), 2).data());
+            MinimizeItem().Text(getMenuItemText(systemMenu.get(), 3).data());
+            MaximizeItem().Text(getMenuItemText(systemMenu.get(), 4).data());
+        }
+        
+		if (systemMenuItemCount > standardWindowContextMenuItemCount)
+			addAdditionalItems(systemMenu.get(), systemMenuItemCount);
     }
 
     std::array<wchar_t, 64> ModernStandardWindowContextMenu::getMenuItemText(HMENU hMenu, UINT item)
@@ -161,6 +173,19 @@ namespace winrt::WinUI3Package::implementation
 		MaximizeItem().Visibility(visibility);
 		MinimizeItem().Visibility(visibility);
         Separator().Visibility(visibility);
+    }
+
+    void ModernStandardWindowContextMenu::addAdditionalItems(HMENU hMenu, int itemsCount)
+    {
+        auto items = Items();
+        //there are more than 7 items in system menu, append them before "Close"
+        for (int i = standardWindowContextMenuItemCount - 1; i < itemsCount - 1; ++i)
+        {
+            auto text = getMenuItemText(hMenu, i);
+            winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem item;
+            item.Text(text.data());
+            items.InsertAt(items.Size() - 1, item);
+        }
     }
 
     void ModernStandardWindowContextMenu::RestoreItem_Click(

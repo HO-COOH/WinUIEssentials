@@ -44,6 +44,10 @@ namespace winrt::WinUI3Package::implementation
 
         //isResizable only changes when `WM_STYLECHANGED`, which does not happens frequently, so we don't cache them
         void isResizable(bool value);
+
+		void addAdditionalItems(HMENU hMenu, int itemsCount);
+        constexpr static auto standardWindowContextMenuItemCount = 7;
+        constexpr static auto nonResizableWindowContextMenuItemCount = 2;
     public:
         void RestoreItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void MoveItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
