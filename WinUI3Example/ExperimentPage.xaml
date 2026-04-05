@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="WinUI3Example.ExperimentPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -11,12 +11,6 @@
 
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <TextBlock Text="Experimental functionalities and application-specific functionalities that are not really applicable for every applications go here!" />
-
-        <local:ControlExample HeaderText="Create a window with xaml caption context menu">
-            <Button x:Name="TestWindowBtn" Click="TestWindowBtn_Click">
-                Create a window
-            </Button>
-        </local:ControlExample>
 
         <local:ControlExample HeaderText="Fully self-drawn transparent window demo">
             <Button x:Name="SelfDrawnWindowButton" Click="SelfDrawnWindowButton_Click">Click to show window</Button>
@@ -45,7 +39,27 @@
         </local:ControlExample>
 
         <local:ControlExample HeaderText="Animated digit">
-            <local:AnimatedNumber Value="100" />
+
+            <StackPanel Orientation="Vertical" Spacing="8">
+                <Slider
+                    x:Name="AnimatedValue"
+                    Width="500"
+                    Maximum="300"
+                    Minimum="0"
+                    Value="50" />
+                <local:AnimatedNumber FontSize="32" Value="{x:Bind essential:Convert.DoubleToInt32(AnimatedValue.Value), Mode=OneWay}" />
+
+                <TextBlock Text="Current Time:" />
+                <!--  Add a clock with HH:MM:SS using AnimatedNumber  -->
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <local:AnimatedNumber x:Name="HourNumber" FontSize="32" />
+                    <TextBlock FontSize="32" Text=":" VerticalAlignment="Center" />
+                    <local:AnimatedNumber x:Name="MinuteNumber" FontSize="32" />
+                    <TextBlock FontSize="32" Text=":" VerticalAlignment="Center" />
+                    <local:AnimatedNumber x:Name="SecondNumber" FontSize="32" />
+                </StackPanel>
+            </StackPanel>
+
         </local:ControlExample>
 
         <local:ControlExample HeaderText="AcrylicVisual">

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "ExperimentPage.g.h"
 #include <winrt/Microsoft.UI.Composition.h>
@@ -7,14 +7,14 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ExperimentPage : ExperimentPageT<ExperimentPage>
     {
-        ExperimentPage() = default;
+        ExperimentPage();
+        ~ExperimentPage();
+
+        void OnTick(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
+
         void SelfDrawnWindowButton_Click(
             winrt::Windows::Foundation::IInspectable const&, 
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const&);
-
-        void TestWindowBtn_Click(
-            winrt::Windows::Foundation::IInspectable const& sender, 
-            winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
        
         void FlipWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void ButtonMorph_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
@@ -28,6 +28,8 @@ namespace winrt::WinUI3Example::implementation
 
         void NormalInnerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void ToggleInnerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+
+        winrt::Microsoft::UI::Xaml::DispatcherTimer m_timer;
 
         winrt::Microsoft::UI::Composition::CompositionAnimationGroup buttonAnimationGroup{ nullptr };
         winrt::Microsoft::UI::Composition::CompositionAnimationGroup progressBarAnimationGroup{ nullptr };

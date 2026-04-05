@@ -287,8 +287,16 @@
       <DependentUpon>AcrylicBackdropsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="AnimatedDigit.h">
+      <DependentUpon>AnimatedDigit.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="AnimatedNumber.h">
       <DependentUpon>AnimatedNumber.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="AnimatedNumber_Resource.h">
+      <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="AutoSuggestBoxHelperPage.xaml.h">
@@ -635,10 +643,6 @@
       <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TestWindow.xaml.h">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ThemeListenerPage.xaml.h">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -721,7 +725,9 @@
     <Page Include="AcrylicBackdropsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AnimatedNumber_Resource.xaml" />
+    <Page Include="AnimatedNumber_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AutoSuggestBoxHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -917,9 +923,6 @@
     <Page Include="TenMicaPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TestWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ThemeListenerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -975,8 +978,16 @@
       <DependentUpon>AcrylicBackdropsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="AnimatedDigit.cpp">
+      <DependentUpon>AnimatedDigit.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="AnimatedNumber.cpp">
       <DependentUpon>AnimatedNumber.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="AnimatedNumber_Resource.cpp">
+      <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="AutoSuggestBoxHelperPage.xaml.cpp">
@@ -1318,10 +1329,6 @@
       <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TestWindow.xaml.cpp">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ThemeListenerPage.xaml.cpp">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1409,8 +1416,15 @@
       <DependentUpon>AcrylicBackdropsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="AnimatedDigit.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="AnimatedNumber.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="AnimatedNumber_Resource.idl">
+      <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="App.idl">
       <SubType>Code</SubType>
@@ -1727,10 +1741,6 @@
     </Midl>
     <Midl Include="TenMicaPage.idl">
       <DependentUpon>TenMicaPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="TestWindow.idl">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ThemeListenerPage.idl">

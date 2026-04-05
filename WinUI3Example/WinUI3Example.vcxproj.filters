@@ -107,9 +107,6 @@
     <Page Include="ColorTile.xaml">
       <Filter>Pages\ThemeListenerPage</Filter>
     </Page>
-    <Page Include="TestWindow.xaml">
-      <Filter>Pages\Experimental</Filter>
-    </Page>
     <Page Include="ModernStandardWindowContextMenuPage.xaml">
       <Filter>Pages\ModernStandardWindowContextMenuPage</Filter>
     </Page>
@@ -139,9 +136,6 @@
     </Page>
     <Page Include="FakeTitleBar_Resource.xaml">
       <Filter>Pages\Experimental\FakeWin32</Filter>
-    </Page>
-    <Page Include="AnimatedNumber_Resource.xaml">
-      <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Page>
     <Page Include="WrapPanelPage.xaml">
       <Filter>Pages\WrapPanelPage</Filter>
@@ -264,6 +258,9 @@
     <Page Include="SampleWindowedContentDialog.xaml">
       <Filter>Pages\WindowedContentDialogPage</Filter>
     </Page>
+    <Page Include="AnimatedNumber_Resource.xaml">
+      <Filter>Pages\Experimental\AnimatedNumber</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -348,6 +345,9 @@
     </Midl>
     <Midl Include="Language.idl">
       <Filter>Helper</Filter>
+    </Midl>
+    <Midl Include="AnimatedDigit.idl">
+      <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -679,9 +679,7 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <Filter>Manifests</Filter>
-    </AppxManifest>
+    <AppxManifest Include="Package.Dev.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -11,6 +11,11 @@ namespace winrt::WinUI3Package::implementation
             return static_cast<float>(value);
         }
 
+        constexpr static int DoubleToInt32(double value) noexcept
+        {
+            return static_cast<int>(value);
+        }
+
         static bool ContainerToBool(Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> const& container);
         static bool ReferenceToBool(Windows::Foundation::IInspectable const& value);
         static bool StringToBool(hstring const& value);

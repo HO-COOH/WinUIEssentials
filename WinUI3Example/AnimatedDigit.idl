@@ -1,0 +1,15 @@
+namespace WinUI3Example
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AnimatedDigit : Microsoft.UI.Xaml.Controls.Control, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        AnimatedDigit();
+        
+        Int32 Value;
+
+        String CurrentValue{ get; };
+        String NextValue{ get; };
+        static Windows.Foundation.IReference<Double> Negative(Double value);
+    }
+}

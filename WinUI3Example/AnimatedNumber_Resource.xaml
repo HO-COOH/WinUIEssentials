@@ -1,43 +1,207 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary
+    x:Class="WinUI3Example.AnimatedNumber_Resource"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:essential="using:WinUI3Package"
-    xmlns:local="using:WinUI3Example">
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Style TargetType="local:AnimatedDigit">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:AnimatedDigit">
+                    <Grid essential:UIElementExtension.ClipToBounds="True">
+                        <Grid.Resources>
+                            <Duration x:Key="DigitAnimationDuration">0:0:0.3</Duration>
+                            <Duration x:Key="OpacityAnimationDuration">0:0:0.250</Duration>
+                            <ExponentialEase
+                                x:Key="DigitTranslationEasing"
+                                EasingMode="EaseOut"
+                                Exponent="5" />
+                            <ExponentialEase
+                                x:Key="OpacityEasing"
+                                EasingMode="EaseOut"
+                                Exponent="7" />
+                            <x:Double x:Key="ScaleStart">0.7</x:Double>
+                        </Grid.Resources>
+
+                        <TextBlock
+                            x:Name="CurrentDigit"
+                            RenderTransformOrigin="0.5,0.5"
+                            Text="{x:Bind CurrentValue, Mode=OneWay}">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform x:Name="CurrentDigitTranslate" />
+                                    <ScaleTransform x:Name="CurrentDigitScale" />
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+
+                        <TextBlock
+                            x:Name="NextDigit"
+                            RenderTransformOrigin="0.5,0.5"
+                            Text="{x:Bind NextValue, Mode=OneWay}">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform x:Name="NextDigitTranslate" />
+                                    <ScaleTransform x:Name="NextDigitScale" />
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="IncreaseState">
+                                    <Storyboard>
+                                        <!--  Digit translation animations  -->
+                                        <DoubleAnimation
+                                            x:Name="IncreaseCurrentDigitTranslateAnimation"
+                                            EasingFunction="{StaticResource DigitTranslationEasing}"
+                                            Storyboard.TargetName="CurrentDigitTranslate"
+                                            Storyboard.TargetProperty="Y"
+                                            Duration="{StaticResource DigitAnimationDuration}" />
+                                        <DoubleAnimation
+                                            x:Name="IncreaseNextDigitTranslateAnimation"
+                                            EasingFunction="{StaticResource DigitTranslationEasing}"
+                                            Storyboard.TargetName="NextDigitTranslate"
+                                            Storyboard.TargetProperty="Y"
+                                            Duration="{StaticResource DigitAnimationDuration}" />
+
+                                        <!--  Digit opacity animations, add a slight effect to fade in / out  -->
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="CurrentDigit"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="1"
+                                            To="0"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="NextDigit"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0"
+                                            To="1"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+
+                                        <!--  Scale Animation, the effect is not good, comment them out temporarily  -->
+
+                                        <!--<DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="CurrentDigitScale"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            From="1"
+                                            To="{StaticResource ScaleStart}"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="CurrentDigitScale"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            From="1"
+                                            To="{StaticResource ScaleStart}"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="NextDigitScale"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            From="{StaticResource ScaleStart}"
+                                            To="1"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="NextDigitScale"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            From="{StaticResource ScaleStart}"
+                                            To="1"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />-->
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="DecreaseState">
+                                    <Storyboard>
+                                        <!--  Same as above, but just reversed  -->
+                                        <DoubleAnimation
+                                            x:Name="DecreaseCurrentDigitTranslateAnimation"
+                                            EasingFunction="{StaticResource DigitTranslationEasing}"
+                                            Storyboard.TargetName="CurrentDigitTranslate"
+                                            Storyboard.TargetProperty="Y"
+                                            Duration="{StaticResource DigitAnimationDuration}" />
+
+                                        <DoubleAnimation
+                                            x:Name="DecreaseNextDigitTranslateAnimation"
+                                            EasingFunction="{StaticResource DigitTranslationEasing}"
+                                            Storyboard.TargetName="NextDigitTranslate"
+                                            Storyboard.TargetProperty="Y"
+                                            Duration="{StaticResource DigitAnimationDuration}" />
+
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="CurrentDigit"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="0"
+                                            To="1"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="NextDigit"
+                                            Storyboard.TargetProperty="Opacity"
+                                            From="1"
+                                            To="0"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+
+                                        <!--<DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="CurrentDigitScale"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            From="{StaticResource ScaleStart}"
+                                            To="1"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="CurrentDigitScale"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            From="{StaticResource ScaleStart}"
+                                            To="1"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="NextDigitScale"
+                                            Storyboard.TargetProperty="ScaleX"
+                                            From="1"
+                                            To="{StaticResource ScaleStart}"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />
+                                        <DoubleAnimation
+                                            EasingFunction="{StaticResource OpacityEasing}"
+                                            Storyboard.TargetName="NextDigitScale"
+                                            Storyboard.TargetProperty="ScaleY"
+                                            From="1"
+                                            To="{StaticResource ScaleStart}"
+                                            Duration="{StaticResource OpacityAnimationDuration}" />-->
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="local:AnimatedNumber">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:AnimatedNumber">
-                    <ItemsControl ItemsSource="{Binding Digits, RelativeSource={RelativeSource Mode=TemplatedParent}}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid x:Name="RootGrid">
-                                    <TextBlock x:Name="Text" Text="{Binding}" />
-                                    <VisualStateManager.VisualStateGroups>
-                                        <VisualStateGroup x:Name="ValueStates">
-                                            <VisualState x:Name="IncreaseState">
-                                                <VisualState.Setters>
-                                                    <Setter Target="RootGrid.Background">
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="Red" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </VisualState.Setters>
-                                                <VisualState.StateTriggers>
-                                                    <essential:IsEqualStateTrigger Value="{Binding}">
-                                                        <essential:IsEqualStateTrigger.To>
-                                                            <x:Int32>1</x:Int32>
-                                                        </essential:IsEqualStateTrigger.To>
-                                                    </essential:IsEqualStateTrigger>
-                                                </VisualState.StateTriggers>
-                                            </VisualState>
-                                        </VisualStateGroup>
-                                    </VisualStateManager.VisualStateGroups>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <StackPanel
+                        x:Name="RootPanel"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                        <StackPanel.ChildrenTransitions>
+                            <EntranceThemeTransition />
+                            <RepositionThemeTransition />
+                        </StackPanel.ChildrenTransitions>
+                    </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -6,7 +6,5 @@
     {
         AnimatedNumber();
         Int32 Value;
-
-        Windows.Foundation.Collections.IObservableVector<Int32> Digits{ get; };
     }
 }

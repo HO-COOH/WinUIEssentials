@@ -43,7 +43,7 @@ namespace winrt::WinUI3Package::implementation
 
     bool CustomBackdropBase::EnableWhenInactive()
     {
-        return winrt::unbox_value<bool>(GetValue(EnableWhenInactiveProperty()));
+        return winrt::unbox_value_or(GetValue(EnableWhenInactiveProperty()), false);
     }
 
     void CustomBackdropBase::EnableWhenInactive(bool value)
