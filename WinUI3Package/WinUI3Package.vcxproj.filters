@@ -79,6 +79,9 @@
       <Filter>Backdrop\TenMica</Filter>
     </ClCompile>
     <ClCompile Include="WindowsVersion.cpp" />
+    <ClCompile Include="UnderlayElement.cpp">
+      <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -308,6 +311,9 @@
     <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="CustomBackdropImplBase.hpp">
       <Filter>Backdrop\CustomizableBackdrops</Filter>
+    </ClInclude>
+    <ClInclude Include="UnderlayElement.h">
+      <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

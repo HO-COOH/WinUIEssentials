@@ -13,6 +13,7 @@ namespace winrt::WinUI3Package::implementation
         private MenuFlyoutItemPaddingWorkaroundWrapper
     {
         ModernStandardWindowContextMenu() = default;
+        ModernStandardWindowContextMenu(winrt::Microsoft::UI::Xaml::Window const& value);
 
         winrt::Microsoft::UI::Xaml::Window Window();
         void Window(winrt::Microsoft::UI::Xaml::Window const& value);

@@ -1,4 +1,6 @@
-﻿namespace WinUI3Package
+﻿import "UnderlayMode.idl";
+
+namespace WinUI3Package
 {
     [contentproperty("Content")]
     [default_interface]
@@ -11,5 +13,9 @@
 
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
         Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parentWindow);
+        Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(
+            Microsoft.UI.Xaml.Window parentWindow,
+            UnderlayMode underlay
+        );
     }
 }

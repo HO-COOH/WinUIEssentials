@@ -268,10 +268,10 @@ namespace winrt::WinUI3Package::implementation
 
 		switch (m_underlay)
 		{
-		case WinUI3Package::UnderlayMode::SmokeLayer:
+		case WinUI3Package::UnderlayMode::Smoke:
 			setupSmokeLayer();
 			break;
-		case WinUI3Package::UnderlayMode::SystemBackdrop:
+		case WinUI3Package::UnderlayMode::Blur:
 			setupSystemBackdrop();
 			break;
 		}
@@ -347,10 +347,10 @@ namespace winrt::WinUI3Package::implementation
 
 		switch (m_underlay)
 		{
-		case WinUI3Package::UnderlayMode::SmokeLayer:
+		case WinUI3Package::UnderlayMode::Smoke:
 			element.Height(window.Content().XamlRoot().Size().Height);
 			break;
-		case WinUI3Package::UnderlayMode::SystemBackdrop:
+		case WinUI3Package::UnderlayMode::Blur:
 			element.Height(
 				m_underlaySystemBackdrop.CoverMode() == WinUI3Package::UnderlayCoverMode::Full
 				? window.Content().XamlRoot().Size().Height

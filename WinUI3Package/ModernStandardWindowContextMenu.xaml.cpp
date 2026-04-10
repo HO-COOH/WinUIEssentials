@@ -18,10 +18,17 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+    ModernStandardWindowContextMenu::ModernStandardWindowContextMenu(winrt::Microsoft::UI::Xaml::Window const& value)
+    {
+        InitializeComponent();
+        Window(value);
+    }
+
     winrt::Microsoft::UI::Xaml::Window ModernStandardWindowContextMenu::Window()
     {
         return m_xamlRoot;
     }
+
     void ModernStandardWindowContextMenu::Window(winrt::Microsoft::UI::Xaml::Window const& value)
     {
 		if (m_xamlRoot == value)

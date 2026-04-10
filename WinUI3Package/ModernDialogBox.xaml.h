@@ -60,7 +60,7 @@ namespace winrt::WinUI3Package::implementation
 
 		winrt::event_token m_ActualThemeChanged;
 
-		WinUI3Package::UnderlayMode m_underlay{ WinUI3Package::UnderlayMode::SmokeLayer };
+		WinUI3Package::UnderlayMode m_underlay{ WinUI3Package::UnderlayMode::Smoke };
 		WinUI3Package::UnderlaySystemBackdropOptions m_underlaySystemBackdrop{ nullptr };
 
 		Microsoft::UI::Xaml::Controls::Primitives::Popup m_Popup{ nullptr };

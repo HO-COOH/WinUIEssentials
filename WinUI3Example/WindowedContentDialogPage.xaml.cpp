@@ -35,7 +35,10 @@ namespace winrt::WinUI3Example::implementation
 
 	winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(App::AppInstance->window);
+		auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(
+			App::AppInstance->window, 
+			winrt::unbox_value<winrt::WinUI3Package::UnderlayMode>(UnderlayModeComboBox().SelectedItem().as<winrt::Microsoft::UI::Xaml::Controls::ComboBoxItem>().Tag())
+		);
 		switch (result)
 		{
 			case winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult::None: 

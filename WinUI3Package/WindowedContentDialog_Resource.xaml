@@ -20,7 +20,6 @@
                 <ControlTemplate TargetType="ContentDialog">
                     <Border x:Name="Container">
                         <Grid x:Name="LayoutRoot" Visibility="Collapsed">
-                            <Rectangle x:Name="SmokeLayerBackground" Fill="{ThemeResource ContentDialogSmokeFill}" />
                             <Border
                                 x:Name="BackgroundElement"
                                 MinWidth="{ThemeResource ContentDialogMinWidth}"
@@ -40,6 +39,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
+                                    <local:AcrylicVisual Grid.RowSpan="2" />
                                     <ScrollViewer
                                         x:Name="ContentScrollViewer"
                                         HorizontalScrollBarVisibility="Disabled"
@@ -98,7 +98,7 @@
                                         Padding="{ThemeResource ContentDialogPadding}"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Bottom"
-                                        Background="{TemplateBinding Background}"
+                                        Background="Transparent"
                                         XYFocusKeyboardNavigation="Enabled">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition x:Name="PrimaryColumn" Width="*" />

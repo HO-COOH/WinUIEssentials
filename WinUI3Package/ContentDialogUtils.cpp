@@ -45,37 +45,44 @@ namespace ContentDialogUtils
 		popup.ShouldConstrainToRootBounds(false);
 
 		// Create the overlay Border
-		winrt::Microsoft::UI::Xaml::Controls::Border overlay = {};
-		overlay.HorizontalAlignment(winrt::Microsoft::UI::Xaml::HorizontalAlignment::Stretch);
-		overlay.VerticalAlignment(winrt::Microsoft::UI::Xaml::VerticalAlignment::Stretch);
-		overlay.Width(xamlRoot.Size().Width);
-		overlay.Height(isFullCover ? xamlRoot.Size().Height : xamlRoot.Size().Height - verticalOffset);
-		overlay.Opacity(0.0);
+		//winrt::Microsoft::UI::Xaml::Controls::Border overlay;
+		//overlay.HorizontalAlignment(winrt::Microsoft::UI::Xaml::HorizontalAlignment::Stretch);
+		//overlay.VerticalAlignment(winrt::Microsoft::UI::Xaml::VerticalAlignment::Stretch);
+		//overlay.Width(xamlRoot.Size().Width);
+		//overlay.Height(isFullCover ? xamlRoot.Size().Height : xamlRoot.Size().Height - verticalOffset);
+		//overlay.Opacity(1.0);
 
-		if (isFullCover)
-		{
-			overlay.CornerRadius(winrt::Microsoft::UI::Xaml::CornerRadiusHelper::FromUniformRadius(8));
-			popup.Margin(winrt::Microsoft::UI::Xaml::ThicknessHelper::FromUniformLength(0));
-		}
-		else
-		{
-			if (verticalOffset == 0)
-			{
-				overlay.CornerRadius(winrt::Microsoft::UI::Xaml::CornerRadiusHelper::FromUniformRadius(8));
-			}
-			else
-			{
-				overlay.CornerRadius(winrt::Microsoft::UI::Xaml::CornerRadiusHelper::FromRadii(0, 0, 8, 8));
-			}
-			popup.Margin(winrt::Microsoft::UI::Xaml::ThicknessHelper::FromLengths(0, verticalOffset, 0, 0));
-		}
+		//if (isFullCover)
+		//{
+		//	overlay.CornerRadius(winrt::Microsoft::UI::Xaml::CornerRadiusHelper::FromUniformRadius(8));
+		//	popup.Margin(winrt::Microsoft::UI::Xaml::ThicknessHelper::FromUniformLength(0));
+		//}
+		//else
+		//{
+		//	if (verticalOffset == 0)
+		//	{
+		//		overlay.CornerRadius(winrt::Microsoft::UI::Xaml::CornerRadiusHelper::FromUniformRadius(8));
+		//	}
+		//	else
+		//	{
+		//		overlay.CornerRadius(winrt::Microsoft::UI::Xaml::CornerRadiusHelper::FromRadii(0, 0, 8, 8));
+		//	}
+		//	popup.Margin(winrt::Microsoft::UI::Xaml::ThicknessHelper::FromLengths(0, verticalOffset, 0, 0));
+		//}
 
 
 		// Set system backdrop
 		//PopupBackdropManager::TrySetSystemBackdrop(popup, backdropType);
 
 		// Set the child and return
-		popup.Child(overlay);
+		//popup.Child(overlay);
+
+		auto size = xamlRoot.Size();
+		winrt::WinUI3Package::HostBackdropVisual visual;
+		popup.VerticalOffset(32);
+		visual.Width(size.Width);
+		visual.Height(size.Height - 32);
+		popup.Child(visual);
 		return popup;
 
 	}

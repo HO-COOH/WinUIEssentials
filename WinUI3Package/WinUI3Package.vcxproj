@@ -170,15 +170,6 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">nuget.exe pack</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">nuget.exe pack</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nuget.exe pack</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
@@ -552,6 +543,7 @@
       <DependentUpon>SliderHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="UnderlayElement.h" />
     <ClInclude Include="StringToBoolConverter.h">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -960,6 +952,7 @@
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="UnderlayElement.cpp" />
     <ClCompile Include="UnderlaySystemBackdropOptions.cpp">
       <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
       <SubType>Code</SubType>

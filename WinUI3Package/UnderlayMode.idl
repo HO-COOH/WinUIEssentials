@@ -3,7 +3,7 @@
     enum UnderlayMode
     {
         None,
-        SmokeLayer,
-        SystemBackdrop
+        Smoke,
+        Blur
     };
 }

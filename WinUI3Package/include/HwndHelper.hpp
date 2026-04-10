@@ -46,21 +46,21 @@ inline RECT ClampWindowRect(RECT windowRect)
 
     const LONG windowWidth = windowRect.right - windowRect.left;
     const LONG windowHeight = windowRect.bottom - windowRect.top;
-    const LONG monitorWidth = monitorInfo.rcMonitor.right - monitorInfo.rcMonitor.left;
-    const LONG monitorHeight = monitorInfo.rcMonitor.bottom - monitorInfo.rcMonitor.top;
+    const LONG monitorWidth = monitorInfo.rcWork.right - monitorInfo.rcWork.left;
+    const LONG monitorHeight = monitorInfo.rcWork.bottom - monitorInfo.rcWork.top;
 
     LONG newLeft = windowRect.left;
     LONG newTop = windowRect.top;
 
     if (windowWidth >= monitorWidth)
-        newLeft = monitorInfo.rcMonitor.left;
+        newLeft = monitorInfo.rcWork.left;
     else
-        newLeft = std::clamp(windowRect.left, monitorInfo.rcMonitor.left, monitorInfo.rcMonitor.right - windowWidth);
+        newLeft = std::clamp(windowRect.left, monitorInfo.rcWork.left, monitorInfo.rcWork.right - windowWidth);
 
     if (windowHeight >= monitorHeight)
-        newTop = monitorInfo.rcMonitor.top;
+        newTop = monitorInfo.rcWork.top;
     else
-        newTop = std::clamp(windowRect.top, monitorInfo.rcMonitor.top, monitorInfo.rcMonitor.bottom - windowHeight);
+        newTop = std::clamp(windowRect.top, monitorInfo.rcWork.top, monitorInfo.rcWork.bottom - windowHeight);
 
     windowRect.left = newLeft;
     windowRect.top = newTop;

@@ -40,6 +40,10 @@ namespace winrt::WinUI3Package::implementation
 				m_configuration.Theme(elementThemeToBackdropTheme(RequestedTheme()));
 				m_controller.SetSystemBackdropConfiguration(m_configuration);
 			});
+		ActualThemeChanged([this](auto&&...) {
+			m_configuration.Theme(elementThemeToBackdropTheme(ActualTheme()));
+			m_controller.SetSystemBackdropConfiguration(m_configuration);
+		});
 		auto compositor = winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread();
 		m_backdropLink = winrt::Microsoft::UI::Content::ContentExternalBackdropLink::Create(compositor);
 		m_backdropLink.ExternalBackdropBorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);

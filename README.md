@@ -130,6 +130,7 @@ You can reference Github Action for detailed build steps.
 |SliderHelper | :x: | :white_check_mark: | WinRT component
 |RevealFocusPanel | :x: | :white_check_mark: | Control
 |TenMica | :x: | :white_check_mark: | WinRT component
+|WindowedContentDialog | :x: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -1174,3 +1175,27 @@ This is a drop-in replacement for WinUI3's built-in `MicaBackdrop`, and it autom
 |Light|Dark|
 |-----|----|
 |![](assets/tenmica-light.png)|![](assets/tenmica-dark.png)|
+
+## WindowedContentDialog
+`ContentDialog` but shown inside a window that has exactly the same `ShowAsync()` api that you are familiar with.
+- If you `ShowAsync()` with a parent window, it automatically center (but clamped to visible monitor area) inside the parent, theme synced with the parent, and you can also specify the underlay (with a nice animation)
+- If you `ShowAsync()` without a parent window, it shows as a free top-level window.
+
+```idl
+Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
+Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parentWindow);
+Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(
+    Microsoft.UI.Xaml.Window parentWindow,
+    UnderlayMode underlay
+);
+```
+|UnderlayMode|
+|------------|
+|None|
+|Blur|
+|Smoke|
+
+
+|Smoke|Blur|
+|-----|----|
+|![](assets/windowed-dialog-smoke.png)|![](assets/windowed-dialog-blur.png)
