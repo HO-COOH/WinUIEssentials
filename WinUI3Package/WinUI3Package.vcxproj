@@ -1238,7 +1238,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml" />
-    <Page Include="HostBackdropVisual_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />
     <Page Include="ModernDialogBox.xaml">
       <SubType>Designer</SubType>

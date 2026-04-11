@@ -75,10 +75,6 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/Segmented_Resource.xbf</TargetPath>
         </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\HostBackdropVisual_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/HostBackdropVisual_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
         <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\Shimmer_Resource.xbf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/Shimmer_Resource.xbf</TargetPath>
@@ -91,6 +87,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/ModernStandardWindowContextMenu.xbf</TargetPath>
         </ContentWithTargetPath>
+		<ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\WindowedContentDialog_Resource.xbf">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>WinUI3Package/WindowedContentDialog_Resource.xbf</TargetPath>
+		</ContentWithTargetPath>
     </ItemGroup>
 
     <!--Debug ARM64-->
@@ -123,10 +123,6 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/Segmented_Resource.xbf</TargetPath>
         </ContentWithTargetPath>
-        <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\WinUI3Package\HostBackdropVisual_Resource.xbf">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <TargetPath>WinUI3Package/HostBackdropVisual_Resource.xbf</TargetPath>
-        </ContentWithTargetPath>
         <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\WinUI3Package\Shimmer_Resource.xbf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/Shimmer_Resource.xbf</TargetPath>
@@ -139,6 +135,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/ModernStandardWindowContextMenu.xbf</TargetPath>
         </ContentWithTargetPath>
+		<ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\WinUI3Package\WindowedContentDialog_Resource.xbf">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>WinUI3Package/WindowedContentDialog_Resource.xbf</TargetPath>
+		</ContentWithTargetPath>
     </ItemGroup>
 
 </Project>

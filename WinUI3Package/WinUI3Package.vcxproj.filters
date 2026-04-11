@@ -691,9 +691,6 @@
     <Page Include="Segmented_Resource.xaml">
       <Filter>Controls\Segmented</Filter>
     </Page>
-    <Page Include="HostBackdropVisual_Resource.xaml">
-      <Filter>Controls\AcrylicVisual</Filter>
-    </Page>
     <Page Include="ModernStandardWindowContextMenu.xaml">
       <Filter>Windows</Filter>
     </Page>

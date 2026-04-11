@@ -8,16 +8,12 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct HostBackdropVisual : HostBackdropVisualT<HostBackdropVisual>, EnsureSystemDispatcherQueueController<HostBackdropVisual>, TemplateControlHelper<HostBackdropVisual>
+    struct HostBackdropVisual : HostBackdropVisualT<HostBackdropVisual>, EnsureSystemDispatcherQueueController<HostBackdropVisual>
     {
         HostBackdropVisual();
-
-        void OnApplyTemplate();
-
         constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/HostBackdropVisual_Resource.xaml";
 
     private:
-        winrt::Microsoft::UI::Xaml::FrameworkElement m_acrylicContainer{ nullptr };
         winrt::Microsoft::UI::Content::ContentExternalOutputLink m_externalLink{ nullptr };
 
         constexpr static auto AcrylicContainer = L"AcrylicContainer";
