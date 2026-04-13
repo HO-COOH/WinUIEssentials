@@ -25,8 +25,9 @@ namespace winrt::WinUI3Example::implementation
 			currentValue(value);
 			m_isFirst = false;
 		}
-		else
+		else if (isdigit(value))
 		{
+			//only animate if is digit
 			double fontSize = FontSize();
 			if (value > m_value)
 			{
@@ -65,6 +66,12 @@ namespace winrt::WinUI3Example::implementation
 				winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"DecreaseState", true);
 			}
 		}
+		else
+		{
+			winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, L"Normal", true);
+			currentValue(value);
+			nextValue(-1);
+		}
 		m_value = value;
 	}
 
@@ -73,14 +80,23 @@ namespace winrt::WinUI3Example::implementation
 		return m_value;
 	}
 
+	inline bool shouldShowAsDigit(int value)
+	{
+		return isdigit(value) || value == L'-';
+	}
+
 	winrt::hstring AnimatedDigit::CurrentValue()
 	{
-		return m_currentValue == -1 ? L"" : winrt::to_hstring(m_currentValue);
+		return m_currentValue == -1 ?
+			L"" :
+			winrt::hstring{ static_cast<wchar_t>(m_currentValue) };
 	}
 
 	winrt::hstring AnimatedDigit::NextValue()
 	{
-		return m_nextValue == -1 ? L"" : winrt::to_hstring(m_nextValue);
+		return m_nextValue == -1 ?
+			L"" :
+			winrt::hstring{ static_cast<wchar_t>(m_nextValue) };
 	}
 
 	void AnimatedDigit::currentValue(int value)

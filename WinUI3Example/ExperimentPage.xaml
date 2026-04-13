@@ -42,12 +42,23 @@
 
             <StackPanel Orientation="Vertical" Spacing="8">
                 <Slider
-                    x:Name="AnimatedValue"
+                    x:Name="AnimatedIntValue"
                     Width="500"
+                    Header="Animated integer"
                     Maximum="300"
                     Minimum="0"
+                    Value="100" />
+                <local:AnimatedNumber FontSize="32" Value="{x:Bind essential:Convert.DoubleToString(AnimatedIntValue.Value, 0), Mode=OneWay}" />
+
+                <Slider
+                    x:Name="AnimatedValue"
+                    Width="500"
+                    Header="Animated floating point number"
+                    Maximum="100"
+                    Minimum="-100"
+                    StepFrequency="0.2"
                     Value="50" />
-                <local:AnimatedNumber FontSize="32" Value="{x:Bind essential:Convert.DoubleToInt32(AnimatedValue.Value), Mode=OneWay}" />
+                <local:AnimatedNumber FontSize="32" Value="{x:Bind essential:Convert.DoubleToString(AnimatedValue.Value, 1), Mode=OneWay}" />
 
                 <TextBlock Text="Current Time:" />
                 <!--  Add a clock with HH:MM:SS using AnimatedNumber  -->

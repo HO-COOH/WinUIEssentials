@@ -6,6 +6,8 @@
     {
 		static Single DoubleToSingle(Double value);
         static Int32 DoubleToInt32(Double value);
+        static String DoubleToString(Double value);
+        static String DoubleToString(Double value, Int32 precision);
         
         static Boolean ContainerToBool(Windows.Foundation.Collections.IVector<Object> container);
         static Boolean ReferenceToBool(Object value);

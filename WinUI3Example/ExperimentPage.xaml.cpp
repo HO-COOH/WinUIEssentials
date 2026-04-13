@@ -55,9 +55,9 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::Globalization::Calendar calendar;
 		calendar.SetToNow();
 
-		HourNumber().Value(calendar.Hour());
-		MinuteNumber().Value(calendar.Minute());
-		SecondNumber().Value(calendar.Second());
+		HourNumber().Value(winrt::to_hstring(calendar.Hour()));
+		MinuteNumber().Value(winrt::to_hstring(calendar.Minute()));
+		SecondNumber().Value(winrt::to_hstring(calendar.Second()));
 	}
 
 	void ExperimentPage::SelfDrawnWindowButton_Click(

@@ -5,6 +5,6 @@
     runtimeclass AnimatedNumber : Microsoft.UI.Xaml.Controls.Control
     {
         AnimatedNumber();
-        Int32 Value;
+        String Value;
     }
 }

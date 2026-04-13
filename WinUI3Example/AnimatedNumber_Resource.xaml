@@ -26,11 +26,12 @@
                                 Exponent="7" />
                             <x:Double x:Key="ScaleStart">0.7</x:Double>
                         </Grid.Resources>
-
                         <TextBlock
                             x:Name="CurrentDigit"
+                            Opacity="1"
                             RenderTransformOrigin="0.5,0.5"
-                            Text="{x:Bind CurrentValue, Mode=OneWay}">
+                            Text="{x:Bind CurrentValue, Mode=OneWay}"
+                            Visibility="Visible">
                             <TextBlock.RenderTransform>
                                 <TransformGroup>
                                     <TranslateTransform x:Name="CurrentDigitTranslate" />
@@ -41,8 +42,10 @@
 
                         <TextBlock
                             x:Name="NextDigit"
+                            Opacity="0"
                             RenderTransformOrigin="0.5,0.5"
-                            Text="{x:Bind NextValue, Mode=OneWay}">
+                            Text="{x:Bind NextValue, Mode=OneWay}"
+                            Visibility="Collapsed">
                             <TextBlock.RenderTransform>
                                 <TransformGroup>
                                     <TranslateTransform x:Name="NextDigitTranslate" />
@@ -56,6 +59,13 @@
                                 <VisualState x:Name="Normal" />
                                 <VisualState x:Name="IncreaseState">
                                     <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CurrentDigit" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NextDigit" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
                                         <!--  Digit translation animations  -->
                                         <DoubleAnimation
                                             x:Name="IncreaseCurrentDigitTranslateAnimation"
@@ -120,6 +130,13 @@
                                 </VisualState>
                                 <VisualState x:Name="DecreaseState">
                                     <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="CurrentDigit" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NextDigit" Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
+                                            <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="Collapsed" />
+                                        </ObjectAnimationUsingKeyFrames>
                                         <!--  Same as above, but just reversed  -->
                                         <DoubleAnimation
                                             x:Name="DecreaseCurrentDigitTranslateAnimation"
@@ -195,10 +212,9 @@
                 <ControlTemplate TargetType="local:AnimatedNumber">
                     <StackPanel
                         x:Name="RootPanel"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         Orientation="Horizontal">
                         <StackPanel.ChildrenTransitions>
-                            <EntranceThemeTransition />
                             <RepositionThemeTransition />
                         </StackPanel.ChildrenTransitions>
                     </StackPanel>

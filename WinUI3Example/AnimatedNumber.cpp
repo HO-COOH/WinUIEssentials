@@ -6,19 +6,19 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-	void AnimatedNumber::Value(int32_t value)
+	winrt::hstring AnimatedNumber::Value()
+	{
+		return m_value;
+	}
+
+	void AnimatedNumber::Value(winrt::hstring const& value)
 	{
 		m_value = value;
 		if (m_rootPanel == 0)
 			return;
 
-		boost::container::small_vector<int, 10> result;
-		if (value == 0)
-			result.push_back(0);
-		else
-			getDigit(value, result);
+		auto const digitCount = value.size();
 
-		auto const digitCount = result.size();
 		auto splitted = m_rootPanel.Children();
 		auto childCount = splitted.Size();
 		while (digitCount > childCount)
@@ -36,8 +36,8 @@ namespace winrt::WinUI3Example::implementation
 		for (auto i = 0; i < digitCount; ++i)
 		{
 			auto digit = splitted.GetAt(i).as<AnimatedDigit>();
-			if (result[i] != digit.Value())
-				digit.Value(result[i]);
+			if (value[i] != digit.Value())
+				digit.Value(value[i]);
 		}
 	}
 
@@ -45,7 +45,7 @@ namespace winrt::WinUI3Example::implementation
 	{
 		base_type::OnApplyTemplate();
 		m_rootPanel = GetTemplateChild(L"RootPanel").as<winrt::Microsoft::UI::Xaml::Controls::Panel>();
-		if (m_value)
-			Value(*m_value);
+		if (!m_value.empty())
+			Value(m_value);
 	}
 }

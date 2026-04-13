@@ -241,7 +241,6 @@
     <ClInclude Include="Shimmer.DefaultGradientColor.h">
       <Filter>Controls\Shimmer</Filter>
     </ClInclude>
-    <ClInclude Include="ModalWindowBase.hpp" />
     <ClInclude Include="WinUIAsyncEventArgs.hpp">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
     </ClInclude>
@@ -308,12 +307,17 @@
     <ClInclude Include="include\AutoRevokeWorkaround.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="CustomBackdropImplBase.hpp">
       <Filter>Backdrop\CustomizableBackdrops</Filter>
     </ClInclude>
     <ClInclude Include="UnderlayElement.h">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnsureDependencyProperty.hpp">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="ModalWindowBase.hpp">
+      <Filter>Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

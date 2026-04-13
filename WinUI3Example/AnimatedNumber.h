@@ -2,7 +2,6 @@
 
 #include "AnimatedNumber.g.h"
 #include <TemplateControlHelper.hpp>
-#include <boost/container/small_vector.hpp>
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -12,25 +11,13 @@ namespace winrt::WinUI3Example::implementation
         
         AnimatedNumber() = default;
 
-        constexpr int32_t Value()
-        {
-            return *m_value;
-        }
-
-        void Value(int32_t value);
+        winrt::hstring Value();
+        void Value(winrt::hstring const& value);
 
         void OnApplyTemplate();
     private:
         winrt::Microsoft::UI::Xaml::Controls::Panel m_rootPanel{ nullptr };
-        std::optional<int> m_value;
-        static void getDigit(int value, auto& container)
-        {
-            if (value > 0)
-            {
-                getDigit(value / 10, container);
-                container.push_back(value % 10);
-            }
-        }
+        winrt::hstring m_value;
     };
 }
 
