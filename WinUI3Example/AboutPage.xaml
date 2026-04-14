@@ -40,7 +40,7 @@
                     </essential:SettingsCard.HeaderIcon>
                     <essential:SettingsCard.Header>
                         <StackPanel Orientation="Horizontal" Spacing="20">
-                            <TextBlock Text="Go to the repro" />
+                            <TextBlock Text="Go to the repo" />
                             <essential:Shimmer
                                 Height="20"
                                 MinWidth="200"
