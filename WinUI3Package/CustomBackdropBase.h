@@ -56,12 +56,18 @@ namespace winrt::WinUI3Package::implementation
         );
         #pragma endregion
     private:
+        bool m_enableWhenInactive{ false };
+
         static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_enableWhenInactiveProperty = nullptr;
         static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_fallbackColorProperty = nullptr;
         static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_luminosityOpacityProperty = nullptr;
         static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_tintColorProperty = nullptr;
         static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_tintOpacityProperty = nullptr;
 
+        static void onEnableWhenInactiveChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& d,
+            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args
+        );
         static void onFallbackColorChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& d,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args

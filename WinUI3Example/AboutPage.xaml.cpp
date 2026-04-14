@@ -21,7 +21,10 @@ namespace winrt::WinUI3Example::implementation
 		loadNugetInfo();
 
 		InitializeComponent();
-		addImplicitAnimationToLoading();
+
+		auto m_compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
+		addImplicitAnimationToLoading(m_compositor);
+		addHeartbeatAnimation(m_compositor);
 	}
 
 	winrt::hstring AboutPage::WASDKReleaseVersion()
@@ -237,31 +240,50 @@ namespace winrt::WinUI3Example::implementation
 		}
 	}
 
-	void AboutPage::addImplicitAnimationToLoading()
+	void AboutPage::addImplicitAnimationToLoading(winrt::Microsoft::UI::Composition::Compositor const& compositor)
 	{
-		auto m_compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
-		
-		auto opacityAnimation = m_compositor.CreateScalarKeyFrameAnimation();
+		auto opacityAnimation = compositor.CreateScalarKeyFrameAnimation();
 		opacityAnimation.InsertKeyFrame(0.0f, 1.0f);
 		opacityAnimation.InsertKeyFrame(1.0f, 0.0f);
 		opacityAnimation.Target(L"Opacity");
 
 		auto accelerateEasing = winrt::Microsoft::UI::Composition::CompositionEasingFunction::CreateExponentialEasingFunction(
-			m_compositor,
+			compositor,
 			winrt::Microsoft::UI::Composition::CompositionEasingFunctionMode::In,
 			4.5f
 		);
 
-		auto offsetAnimation = m_compositor.CreateScalarKeyFrameAnimation();
+		auto offsetAnimation = compositor.CreateScalarKeyFrameAnimation();
 		offsetAnimation.InsertKeyFrame(0.f, 0.f);
 		offsetAnimation.InsertExpressionKeyFrame(1.f, L"this.Target.Size.X / 3", accelerateEasing);
 		offsetAnimation.Target(L"Offset.X");
 
-		auto group = m_compositor.CreateAnimationGroup();
+		auto group = compositor.CreateAnimationGroup();
 		group.Add(opacityAnimation);
 		group.Add(offsetAnimation);
 
 		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetImplicitHideAnimation(LoadingContributorPanel(), group);
+	}
+
+	void AboutPage::addHeartbeatAnimation(winrt::Microsoft::UI::Composition::Compositor const& compositor)
+	{
+		constexpr auto overshooot = 0.15f;
+
+		auto scaleAnimation = compositor.CreateVector2KeyFrameAnimation();
+		auto bounceEasing = winrt::Microsoft::UI::Composition::CompositionEasingFunction::CreateBackEasingFunction(compositor, winrt::Microsoft::UI::Composition::CompositionEasingFunctionMode::Out, 1);
+
+		scaleAnimation.InsertKeyFrame(0.15f, { 1.f + overshooot, 1.f + overshooot }, bounceEasing);
+		scaleAnimation.InsertKeyFrame(0.3f, { 1.f - overshooot / 2.f, 1.f - overshooot / 2.f }, bounceEasing);
+		scaleAnimation.InsertKeyFrame(0.45f, { 1.f, 1.f }, bounceEasing);
+		scaleAnimation.IterationBehavior(winrt::Microsoft::UI::Composition::AnimationIterationBehavior::Forever);
+		scaleAnimation.Duration(std::chrono::milliseconds{ 1500 });
+		scaleAnimation.Target(L"Scale.XY");
+
+		auto centerAnimation = compositor.CreateExpressionAnimation(L"Vector2(this.Target.Size.X / 2.0f, this.Target.Size.Y / 2.0f)");
+
+		auto visual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(HeartIcon());
+		visual.StartAnimation(L"CenterPoint.XY", centerAnimation);
+		visual.StartAnimation(L"Scale.XY", scaleAnimation);
 	}
 
 	void winrt::WinUI3Example::implementation::AboutPage::Image_ImageOpened(

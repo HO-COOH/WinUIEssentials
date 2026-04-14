@@ -13,7 +13,7 @@ namespace winrt::WinUI3Package::implementation
 			L"EnableWhenInactive",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false) }
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &CustomBackdropBase::onEnableWhenInactiveChanged }
 		);
 		s_fallbackColorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"FallbackColor",
@@ -43,11 +43,14 @@ namespace winrt::WinUI3Package::implementation
 
     bool CustomBackdropBase::EnableWhenInactive()
     {
-        return winrt::unbox_value_or(GetValue(EnableWhenInactiveProperty()), false);
+        //This might be called when the DependencyProperty is not ready, so GetValue(EnableWhenInactiveProperty) causes a crash
+        //We MUST cache it
+        return m_enableWhenInactive;
     }
 
     void CustomBackdropBase::EnableWhenInactive(bool value)
     {
+        m_enableWhenInactive = value;
         SetValue(EnableWhenInactiveProperty(), winrt::box_value(value));
     }
 
@@ -118,6 +121,12 @@ namespace winrt::WinUI3Package::implementation
     void CustomBackdropBase::onFallbackColorChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
     {
         winrt::get_self<CustomBackdropBase>(d.as<class_type>())->OnFallbackColorChanged(args);
+    }
+
+    void CustomBackdropBase::onEnableWhenInactiveChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
+    {
+        auto const value = winrt::unbox_value_or(args.NewValue(), false);
+        winrt::get_self<CustomBackdropBase>(d.as<class_type>())->m_enableWhenInactive = value;
     }
 
     void CustomBackdropBase::onLuminosityOpacityChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
