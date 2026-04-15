@@ -1,7 +1,8 @@
 ﻿#pragma once
-#include <wil/registry.h>
+#include "TenMicaRegistry.h"
 #include <atomic>
 #include <thread>
+#include <boost/container/small_vector.hpp>
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -12,15 +13,33 @@ namespace winrt::WinUI3Package::implementation
 //meaning a registry watcher will NOT work!
 class TenMicaRegistryWatcher
 {
-	std::wstring WallPaperValue = getWallpaperValue();
+public:
+	struct WatchValue
+	{
+		bool wallpaper{};
+		bool background{};
+		bool transcodedImageCache{};
+	};
+
+	TenMicaRegistryWatcher(winrt::WinUI3Package::implementation::TenMicaBackdrop* impl, WatchValue watchValue);
+	~TenMicaRegistryWatcher();
+
+private:
+	using SmallVector = boost::container::small_vector<std::vector<uint8_t>, TenMicaRegistry::MonitorCountEstimate>;
+
+	std::wstring WallPaperValue = TenMicaRegistry::Wallpaper();
+	std::wstring BackgroundValue = TenMicaRegistry::BackgroundValue();
+	SmallVector transcodedImagesValue = TenMicaRegistry::TranscodedImageCaches();
+
+
 	winrt::WinUI3Package::implementation::TenMicaBackdrop* m_impl{};
 	std::atomic_bool m_requestStop = false;
+	WatchValue m_watchValue;
 	std::jthread m_thread;
 
-	static std::wstring getWallpaperValue();
+	bool wallpaperChanged();
+	bool transcodedImageChanged();
+	bool backgroundChanged();
 
 	void threadProc();
-public:
-	TenMicaRegistryWatcher(winrt::WinUI3Package::implementation::TenMicaBackdrop* impl);
-	~TenMicaRegistryWatcher();
 };

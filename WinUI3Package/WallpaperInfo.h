@@ -8,5 +8,6 @@ struct WallpaperInfo
 {
 	winrt::com_ptr<IWICFormatConverter> wallpaper;
 	wil::unique_cotaskmem_string path;
+	COLORREF solidColor{};
 	RECT rect;
 };

@@ -543,6 +543,7 @@
       <DependentUpon>SliderHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TenMicaRegistry.h" />
     <ClInclude Include="UnderlayElement.h" />
     <ClInclude Include="StringToBoolConverter.h">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
@@ -916,6 +917,7 @@
     </ClCompile>
     <ClCompile Include="TenMicaEffect.cpp" />
     <ClCompile Include="TenMicaEffectFactory.cpp" />
+    <ClCompile Include="TenMicaRegistry.cpp" />
     <ClCompile Include="TenMicaRegistryWatcher.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />

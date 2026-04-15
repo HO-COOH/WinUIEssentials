@@ -75,12 +75,15 @@
     <ClCompile Include="TenMicaEffect.cpp">
       <Filter>Backdrop\TenMica</Filter>
     </ClCompile>
-    <ClCompile Include="TenMicaRegistryWatcher.cpp">
-      <Filter>Backdrop\TenMica</Filter>
-    </ClCompile>
     <ClCompile Include="WindowsVersion.cpp" />
     <ClCompile Include="UnderlayElement.cpp">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="TenMicaRegistryWatcher.cpp">
+      <Filter>Backdrop\TenMica\Registry</Filter>
+    </ClCompile>
+    <ClCompile Include="TenMicaRegistry.cpp">
+      <Filter>Backdrop\TenMica\Registry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,9 +295,6 @@
     <ClInclude Include="WallpaperInfo.h">
       <Filter>Backdrop\TenMica\Wallpaper</Filter>
     </ClInclude>
-    <ClInclude Include="TenMicaRegistryWatcher.h">
-      <Filter>Backdrop\TenMica</Filter>
-    </ClInclude>
     <ClInclude Include="EnsureSystemDispatcherQueueController.hpp">
       <Filter>Backdrop</Filter>
     </ClInclude>
@@ -318,6 +318,12 @@
     </ClInclude>
     <ClInclude Include="ModalWindowBase.hpp">
       <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="TenMicaRegistryWatcher.h">
+      <Filter>Backdrop\TenMica\Registry</Filter>
+    </ClInclude>
+    <ClInclude Include="TenMicaRegistry.h">
+      <Filter>Backdrop\TenMica\Registry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +453,9 @@
     </Filter>
     <Filter Include="Backdrop\CustomizableBackdrops">
       <UniqueIdentifier>{885452a6-0434-4471-a419-1c300c3dfbbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backdrop\TenMica\Registry">
+      <UniqueIdentifier>{7216e9cb-26fe-4e59-818e-39fdc16de5fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
