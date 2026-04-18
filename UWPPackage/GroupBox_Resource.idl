@@ -1,0 +1,8 @@
+namespace UWPPackage
+{
+    [default_interface]
+    runtimeclass GroupBox_Resource : Windows.UI.Xaml.ResourceDictionary
+    {
+        GroupBox_Resource();
+    }
+}

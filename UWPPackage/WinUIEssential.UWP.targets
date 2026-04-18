@@ -80,12 +80,12 @@
         </Link>
     </ItemDefinitionGroup> -->
 
-    <PropertyGroup>
+    <!--<PropertyGroup>
         <BeforeMidlCompileTargets>
             $(BeforeMidlCompileTargets);
             AddDesktopExtension
         </BeforeMidlCompileTargets>
-    </PropertyGroup>
+    </PropertyGroup>-->
 
     <UsingTask TaskName="AddDesktopExtension" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
         <ParameterGroup>

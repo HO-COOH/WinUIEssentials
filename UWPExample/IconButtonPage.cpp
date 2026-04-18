@@ -10,11 +10,11 @@ namespace winrt::UWPExample::implementation
 {
 	void IconButtonPage::NormalInnerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e)
 	{
-		NormalButton().Content(winrt::box_value(L"Clicked"));
+		//NormalButton().Content(winrt::box_value(L"Clicked"));
 	}
 
 	void IconButtonPage::ToggleInnerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e)
 	{
-		ToggleButton().Content(winrt::box_value(L"Clicked"));
+		//ToggleButton().Content(winrt::box_value(L"Clicked"));
 	}
 }

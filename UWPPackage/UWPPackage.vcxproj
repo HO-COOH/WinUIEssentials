@@ -224,7 +224,36 @@
     <Import Project="$([Microsoft.Build.Utilities.ToolLocationHelper]::GetPlatformExtensionSDKLocation(`WindowsDesktop, Version=10.0.26100.0`, $(TargetPlatformIdentifier), $(TargetPlatformVersion),  $(SDKReferenceDirectoryRoot), $(SDKExtensionDirectoryRoot), $(SDKReferenceRegistryRoot)))\DesignTime\CommonConfiguration\Neutral\WindowsDesktop.props" Condition="exists('$([Microsoft.Build.Utilities.ToolLocationHelper]::GetPlatformExtensionSDKLocation(`WindowsDesktop, Version=10.0.26100.0`, $(TargetPlatformIdentifier), $(TargetPlatformVersion),  $(SDKReferenceDirectoryRoot), $(SDKExtensionDirectoryRoot), $(SDKReferenceRegistryRoot)))\DesignTime\CommonConfiguration\Neutral\WindowsDesktop.props')" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">
+    <MultiProcMIDL>true</MultiProcMIDL>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -253,13 +282,16 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">nuget.exe pack</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">nuget.exe pack</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">nuget.exe pack</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nuget.exe pack</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
@@ -441,8 +473,8 @@
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="IconButton.h">
-      <DependentUpon>IconButton.idl</DependentUpon>
+    <ClInclude Include="GroupBox_Resource.h">
+      <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ImageExtension.h">
@@ -466,6 +498,10 @@
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MarqueeText_Resource.h">
+      <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="NegateBoolConverter.h">
       <DependentUpon>NegateBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -478,6 +514,10 @@
     </ClInclude>
     <ClInclude Include="ProgressBarEx.h">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ProgressBarEx_Resource.h">
+      <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ReferenceToBoolConverter.h">
@@ -501,8 +541,16 @@
       <DependentUpon>SegmentedMarginConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Segmented_Resource.h">
+      <DependentUpon>Segmented_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SettingsCard.h">
       <DependentUpon>SettingsCard.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="SettingsCard_Resource.h">
+      <DependentUpon>SettingsCard_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="SettingsCommandEx.h">
@@ -521,12 +569,20 @@
       <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SettingsExpander_Resource.h">
+      <DependentUpon>SettingsExpander_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SettingsPaneEx.h">
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Shimmer.h">
       <DependentUpon>Shimmer.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Shimmer_Resource.h">
+      <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="StringToBoolConverter.h">
@@ -596,8 +652,8 @@
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="IconButton.cpp">
-      <DependentUpon>IconButton.idl</DependentUpon>
+    <ClCompile Include="GroupBox_Resource.cpp">
+      <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ImageExtension.cpp">
@@ -606,6 +662,10 @@
     </ClCompile>
     <ClCompile Include="MarqueeText.cpp">
       <DependentUpon>MarqueeText.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="MarqueeText_Resource.cpp">
+      <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="NegateBoolConverter.cpp">
@@ -623,6 +683,10 @@
     </ClCompile>
     <ClCompile Include="ProgressBarEx.cpp">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ProgressBarEx_Resource.cpp">
+      <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ReferenceToBoolConverter.cpp">
@@ -645,8 +709,16 @@
       <DependentUpon>SegmentedMarginConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Segmented_Resource.cpp">
+      <DependentUpon>Segmented_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SettingsCard.cpp">
       <DependentUpon>SettingsCard.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SettingsCard_Resource.cpp">
+      <DependentUpon>SettingsCard_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="SettingsCommandEx.cpp">
@@ -665,12 +737,20 @@
       <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SettingsExpander_Resource.cpp">
+      <DependentUpon>SettingsExpander_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SettingsPaneEx.cpp">
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Shimmer.cpp">
       <DependentUpon>Shimmer.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Shimmer_Resource.cpp">
+      <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="StringToBoolConverter.cpp">
@@ -737,14 +817,19 @@
     <Midl Include="GroupBox.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="IconButton.idl">
-      <SubType>Designer</SubType>
+    <Midl Include="GroupBox_Resource.idl">
+      <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="ImageExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MarqueeText.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="MarqueeText_Resource.idl">
+      <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="NegateBoolConverter.idl">
       <SubType>Designer</SubType>
@@ -754,6 +839,10 @@
     </Midl>
     <Midl Include="ProgressBarEx.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ProgressBarEx_Resource.idl">
+      <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="ReferenceToBoolConverter.idl">
       <SubType>Designer</SubType>
@@ -770,8 +859,16 @@
     <Midl Include="SegmentedMarginConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Segmented_Resource.idl">
+      <DependentUpon>Segmented_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="SettingsCard.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="SettingsCard_Resource.idl">
+      <DependentUpon>SettingsCard_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="SettingsCommandEx.idl">
       <SubType>Designer</SubType>
@@ -785,11 +882,19 @@
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="SettingsExpander_Resource.idl">
+      <DependentUpon>SettingsExpander_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="SettingsPaneEx.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Shimmer.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Shimmer_Resource.idl">
+      <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="StringToBoolConverter.idl">
       <SubType>Designer</SubType>
@@ -808,28 +913,30 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Glyphs.xaml" />
-    <Page Include="GroupBox_Resource.xaml" />
-    <Page Include="IconButton_Resource.xaml">
-      <DeploymentContent>true</DeploymentContent>
-    </Page>
-    <Page Include="MarqueeText_Resource.xaml" />
-    <Page Include="ProgressBarEx_Resource.xaml" />
-    <Page Include="Segmented_Resource.xaml">
-      <DeploymentContent>true</DeploymentContent>
-    </Page>
-    <Page Include="SettingsCard_Resource.xaml">
-      <DeploymentContent>true</DeploymentContent>
-    </Page>
-    <Page Include="SettingsExpander_Resource.xaml">
-      <DeploymentContent>true</DeploymentContent>
-    </Page>
-    <Page Include="Shimmer_Resource.xaml">
-      <DeploymentContent>true</DeploymentContent>
-    </Page>
+    <SDKReference Include="WindowsDesktop, Version=10.0.26100.0" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="WindowsDesktop, Version=10.0.26100.0" />
+    <Page Include="GroupBox_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MarqueeText_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ProgressBarEx_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Segmented_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SettingsCard_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SettingsExpander_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Shimmer_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

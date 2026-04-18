@@ -1,9 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ResourceDictionary
+﻿<ResourceDictionary
+    x:Class="UWPPackage.MarqueeText_Resource"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:UWPPackage"
-    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
     <Style TargetType="local:MarqueeText">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="VerticalAlignment" Value="Top" />
@@ -26,20 +29,20 @@
                                 </StackPanel.RenderTransform>
                                 <TextBlock
                                     x:Name="Segment1"
-                                    win:FontStretch="{TemplateBinding FontStretch}"
                                     CharacterSpacing="{TemplateBinding CharacterSpacing}"
                                     FontFamily="{TemplateBinding FontFamily}"
                                     FontSize="{TemplateBinding FontSize}"
+                                    FontStretch="{TemplateBinding FontStretch}"
                                     FontStyle="{TemplateBinding FontStyle}"
                                     FontWeight="{TemplateBinding FontWeight}"
                                     Foreground="{TemplateBinding Foreground}"
                                     Text="{TemplateBinding Text}" />
                                 <TextBlock
                                     x:Name="Segment2"
-                                    win:FontStretch="{TemplateBinding FontStretch}"
                                     CharacterSpacing="{TemplateBinding CharacterSpacing}"
                                     FontFamily="{TemplateBinding FontFamily}"
                                     FontSize="{TemplateBinding FontSize}"
+                                    FontStretch="{TemplateBinding FontStretch}"
                                     FontStyle="{TemplateBinding FontStyle}"
                                     FontWeight="{TemplateBinding FontWeight}"
                                     Foreground="{TemplateBinding Foreground}"

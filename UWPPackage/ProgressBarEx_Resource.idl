@@ -1,0 +1,8 @@
+namespace UWPPackage
+{
+    [default_interface]
+    runtimeclass ProgressBarEx_Resource : Windows.UI.Xaml.ResourceDictionary
+    {
+        ProgressBarEx_Resource();
+    }
+}
