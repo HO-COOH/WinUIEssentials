@@ -12,7 +12,7 @@
 	<Identity
 	  Name="HO-COOH.WinUIEssentials.WinUI3ExampleDev"
 	  Publisher="CN=0000973C-93A8-4716-8C14-5EC442A69DBE"
-	  Version="1.3.4.0" />
+	  Version="1.3.5.0" />
 
 	<mp:PhoneIdentity PhoneProductId="037CF910-3B2F-4B77-8AA5-4C18AC6AC768" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

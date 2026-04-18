@@ -223,6 +223,8 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::IInspectable const&, 
         winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
+        //This is necessary to workaround https://github.com/microsoft/microsoft-ui-xaml/issues/11068
+        Hide();
 		SendMessage(m_parent, WM_SYSCOMMAND, SC_MINIMIZE, 0);
     }
 
