@@ -5,15 +5,16 @@
 #endif
 #include "App.xaml.h"
 
+#include <include/ScopedButtonDisabler.hpp>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace winrt::WinUI3Example::implementation
 {
-	winrt::fire_and_forget WindowedContentDialogPage::Button_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
-	{
-
+	winrt::fire_and_forget WindowedContentDialogPage::Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{		
+    	ScopedButtonDisabler disabler{ sender };
 		WinUI3Package::ModernDialogBox dialog;
 
 		auto content = dialog.DialogContent();
@@ -33,8 +34,9 @@ namespace winrt::WinUI3Example::implementation
 
 	}
 
-	winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
+		ScopedButtonDisabler disabler{ sender };
 		auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(
 			App::AppInstance->window, 
 			winrt::unbox_value<winrt::WinUI3Package::UnderlayMode>(UnderlayModeComboBox().SelectedItem().as<winrt::Microsoft::UI::Xaml::Controls::ComboBoxItem>().Tag())
