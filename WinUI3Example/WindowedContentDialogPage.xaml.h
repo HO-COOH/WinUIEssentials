@@ -9,6 +9,7 @@ namespace winrt::WinUI3Example::implementation
         WindowedContentDialogPage() = default;
         winrt::fire_and_forget Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         winrt::fire_and_forget Button_Click_1(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        static winrt::hstring GetWindowedContentDialogSampleCppSource(winrt::WinUI3Package::UnderlayMode mode);
     };
 }
 

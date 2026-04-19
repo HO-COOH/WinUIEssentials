@@ -75,11 +75,7 @@
             </local:ControlExample.Xaml>
 
             <local:ControlExample.Cpp>
-                <local:CodeSource>
-                    <local:CodeSource.Code>
-                        <x:String xml:space="preserve">co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(App::AppInstance->window);</x:String>
-                    </local:CodeSource.Code>
-                </local:CodeSource>
+                <local:CodeSource Code="{x:Bind local:WindowedContentDialogPage.GetWindowedContentDialogSampleCppSource((essential:UnderlayMode)((ComboBoxItem)UnderlayModeComboBox.SelectedItem).Tag), Mode=OneWay}" />
             </local:ControlExample.Cpp>
         </local:ControlExample>
     </StackPanel>

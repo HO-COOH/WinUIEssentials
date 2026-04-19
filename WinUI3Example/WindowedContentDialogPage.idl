@@ -4,5 +4,7 @@
     runtimeclass WindowedContentDialogPage : Microsoft.UI.Xaml.Controls.Page
     {
         WindowedContentDialogPage();
+
+        static String GetWindowedContentDialogSampleCppSource(WinUI3Package.UnderlayMode mode);
     }
 }

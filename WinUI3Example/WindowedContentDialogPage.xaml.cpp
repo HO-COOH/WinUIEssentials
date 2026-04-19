@@ -55,4 +55,35 @@ namespace winrt::WinUI3Example::implementation
 		}
 	}
 
+	winrt::hstring WindowedContentDialogPage::GetWindowedContentDialogSampleCppSource(winrt::WinUI3Package::UnderlayMode mode)
+	{
+		switch (mode)
+		{
+			case winrt::WinUI3Package::UnderlayMode::None:
+				return LR"(winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+{
+	ScopedButtonDisabler disabler{ sender };
+	auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(App::AppInstance->window);
+})";
+			case winrt::WinUI3Package::UnderlayMode::Blur:
+				return LR"(winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+{
+	ScopedButtonDisabler disabler{ sender };
+	auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(
+		App::AppInstance->window, 
+		winrt::WinUI3Package::UnderlayMode::Blur
+	);
+})";
+			case winrt::WinUI3Package::UnderlayMode::Smoke:
+				return LR"(winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+{
+	ScopedButtonDisabler disabler{ sender };
+	auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(
+		App::AppInstance->window, 
+		winrt::WinUI3Package::UnderlayMode::Smoke
+	);
+})";
+		}
+	}
+
 }

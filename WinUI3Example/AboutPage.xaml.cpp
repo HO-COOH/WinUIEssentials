@@ -132,6 +132,7 @@ namespace winrt::WinUI3Example::implementation
 	{
 		try
 		{
+			auto strongThis = get_strong();
 			auto result = co_await client.SendRequestAsync(GithubRequest{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials/contributors" });
 			auto resultStr = co_await result.Content().ReadAsStringAsync();
 
@@ -164,6 +165,7 @@ namespace winrt::WinUI3Example::implementation
 	{
 		try
 		{
+			auto strongThis = get_strong();
 			auto result = co_await client.SendRequestAsync(GithubRequest{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials" });
 			auto resultStr = co_await result.Content().ReadAsStringAsync();
 
@@ -183,6 +185,7 @@ namespace winrt::WinUI3Example::implementation
 	{
 		try
 		{
+			auto strongThis = get_strong();
 			auto result = co_await client.SendRequestAsync(GithubRequest{ L"https://api.github.com/repos/HO-COOH/WinUIEssentials/commits?per_page=1" });
 			auto resultStr = co_await result.Content().ReadAsStringAsync();
 			m_commitMessage = winrt::Windows::Data::Json::JsonArray::Parse(resultStr).GetAt(0).GetObjectW().GetNamedObject(L"commit").GetNamedString(L"message");
@@ -222,6 +225,7 @@ namespace winrt::WinUI3Example::implementation
 	{
 		try
 		{
+			auto strongThis = get_strong();
 			auto result = co_await client.GetStringAsync(winrt::Windows::Foundation::Uri{ L"https://nuget.azure.cn/v3/index.json" });
 			auto resources = winrt::Windows::Data::Json::JsonObject::Parse(result).GetNamedArray(L"resources");
 			for (auto resource : resources)
