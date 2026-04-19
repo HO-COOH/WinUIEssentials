@@ -8,6 +8,7 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include "ContentDialogUtils.h"
 #include "ModernDialogBoxContent.h"
+#include <HwndHelper.hpp>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -257,6 +258,19 @@ namespace winrt::WinUI3Package::implementation
 	{
 		SetModal(parent);
 		setupUnderlay();
+
+		if (parent)
+		{
+			auto presenter = parent.AppWindow().Presenter().try_as<Microsoft::UI::Windowing::OverlappedPresenter>();
+
+			if (presenter && presenter.State() == Microsoft::UI::Windowing::OverlappedPresenterState::Minimized)
+			{
+				presenter.Restore();
+
+				SwitchToThisWindow(GetHwnd(*this), TRUE);
+			}
+		}
+		
 		co_return co_await ShowAsync();
 	}
 
