@@ -28,7 +28,12 @@ namespace winrt::WinUI3Example::implementation
     }
     void CodeSource::Code(winrt::hstring const& value)
     {
+        if (m_code == value)
+            return;
+
         m_code = value;
+        if (ValueChanged)
+            ValueChanged(FormatCode());
     }
     winrt::Windows::Foundation::Uri CodeSource::CodeUrl()
     {

@@ -10,6 +10,8 @@ namespace winrt::WinUI3Example::implementation
 
         winrt::hstring Code();
         void Code(winrt::hstring const& value);
+        winrt::fire_and_forget UpdateEditorCode();
+        void Editor_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void WebView2_CoreWebView2Initialized(winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender, winrt::Microsoft::UI::Xaml::Controls::CoreWebView2InitializedEventArgs const& args);
         void WebView2_Closed(winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender, winrt::Windows::Foundation::IInspectable const& args);
         
@@ -26,7 +28,8 @@ namespace winrt::WinUI3Example::implementation
         static std::wstring_view rtrim(std::wstring_view str);
         static winrt::hstring stripEmptyLine(winrt::hstring const& value);
         
-        std::wstring getJavascript();
+        std::wstring getCreateEditorJavascript() const;
+        std::wstring getSetCodeJavascript() const;
         constexpr wchar_t const* languageString() const
         {
             switch (m_language)
@@ -44,6 +47,7 @@ namespace winrt::WinUI3Example::implementation
         }
         
         winrt::hstring m_code;
+        bool m_editorReady{};
     public:
         void EditorWebView_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
