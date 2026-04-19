@@ -63,7 +63,7 @@ namespace winrt::WinUI3Package::implementation
 			m_window.Closed([parentWindow](auto&&...) { parentWindow.Activate(); });
 			syncThemeToParent(parentWindow);
 
-			if (presenter && presenter.State() == Microsoft::UI::Windowing::OverlappedPresenterState::Minimized)
+			if (presenter.State() == Microsoft::UI::Windowing::OverlappedPresenterState::Minimized)
 			{
 				presenter.Restore();
 
