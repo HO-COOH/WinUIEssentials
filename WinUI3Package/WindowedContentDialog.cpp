@@ -56,13 +56,22 @@ namespace winrt::WinUI3Package::implementation
 		auto presenter = appWindow.Presenter().as<winrt::Microsoft::UI::Windowing::OverlappedPresenter>();
 		presenter.IsResizable(false);
         
-        if (parentWindow)
-        {
-            centerWindowInParent(appWindow, parentWindow);
-            presenter.IsModal(true);
-            m_window.Closed([parentWindow](auto&&...) { parentWindow.Activate(); });
-            syncThemeToParent(parentWindow);
-        }
+		if (parentWindow)
+		{
+			auto presenter = parentWindow.AppWindow().Presenter().try_as<Microsoft::UI::Windowing::OverlappedPresenter>();
+
+			if (presenter && presenter.State() == Microsoft::UI::Windowing::OverlappedPresenterState::Minimized)
+			{
+				presenter.Restore();
+
+				SwitchToThisWindow(GetHwnd(m_window), TRUE);
+			}
+
+			centerWindowInParent(appWindow, parentWindow);
+			presenter.IsModal(true);
+			m_window.Closed([parentWindow](auto&&...) { parentWindow.Activate(); });
+			syncThemeToParent(parentWindow);
+		}
 
         //This will NOT leak
         appWindow.Closing([strongThis = get_strong()](auto&&, auto&& args)
