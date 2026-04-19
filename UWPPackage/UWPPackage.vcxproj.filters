@@ -169,9 +169,6 @@
     <Midl Include="MarqueeText.idl">
       <Filter>Controls\MarqueeText</Filter>
     </Midl>
-    <Midl Include="IconButton.idl">
-      <Filter>Controls\IconButton</Filter>
-    </Midl>
     <Midl Include="ProgressBarEx.idl">
       <Filter>Controls\ProgressBarEx</Filter>
     </Midl>
@@ -222,14 +219,8 @@
     <Page Include="SettingsExpander_Resource.xaml">
       <Filter>Controls\SettingsExpander</Filter>
     </Page>
-    <Page Include="Glyphs.xaml">
-      <Filter>include</Filter>
-    </Page>
     <Page Include="MarqueeText_Resource.xaml">
       <Filter>Controls\MarqueeText</Filter>
-    </Page>
-    <Page Include="IconButton_Resource.xaml">
-      <Filter>Controls\IconButton</Filter>
     </Page>
     <Page Include="ProgressBarEx_Resource.xaml">
       <Filter>Controls\ProgressBarEx</Filter>

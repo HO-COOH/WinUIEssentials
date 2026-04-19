@@ -7,11 +7,13 @@ namespace winrt::UWPExample::implementation
 {
     struct MainPage : MainPageT<MainPage>
     {
-        MainPage() = default;
+        MainPage();
 
         void NavigationView_SelectionChanged(
             winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender,
             winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
+
+        static winrt::hstring WindowTitle();
 
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Pages()
         {

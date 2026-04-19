@@ -2,7 +2,7 @@
 
 #include "TypeNameExtension.g.h"
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
     struct TypeNameExtension : TypeNameExtensionT<TypeNameExtension>
     {
@@ -13,19 +13,21 @@ namespace winrt::WinUI3Package::implementation
 		void Type(winrt::Windows::UI::Xaml::Interop::TypeName const& value);
 
         winrt::Windows::Foundation::IInspectable ProvideValue();
+
+#if defined Build_WinUIPackage
         winrt::Windows::Foundation::IInspectable ProvideValue(
-            winrt::Microsoft::UI::Xaml::IXamlServiceProvider provider
+            winrt::WindowsNamespace::UI::Xaml::IXamlServiceProvider provider
         )
         {
             return ProvideValue();
         }
-
+#endif
     private:
         winrt::Windows::UI::Xaml::Interop::TypeName m_type;
     };
 }
 
-namespace winrt::WinUI3Package::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct TypeNameExtension : TypeNameExtensionT<TypeNameExtension, implementation::TypeNameExtension>
     {

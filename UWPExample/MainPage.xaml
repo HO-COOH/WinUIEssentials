@@ -3,16 +3,101 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:UWPPackage"
     xmlns:local="using:UWPExample"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
-    <muxc:NavigationView
-        IsSettingsVisible="False"
-        MenuItemsSource="{x:Bind Pages}"
-        SelectionChanged="NavigationView_SelectionChanged">
-        <Frame x:Name="ContentFrame" />
-    </muxc:NavigationView>
+
+    <Grid x:Name="RootGrid" Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}">
+        <Grid.BackgroundTransition>
+            <BrushTransition />
+        </Grid.BackgroundTransition>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar" Height="32">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn" Width="10" />
+                <ColumnDefinition x:Name="IconColumn" Width="Auto" />
+                <ColumnDefinition x:Name="TitleColumn" Width="Auto" />
+                <ColumnDefinition x:Name="LeftDragColumn" Width="*" />
+                <!--<ColumnDefinition
+                    x:Name="SearchColumn"
+                    Width="4*"
+                    MinWidth="220" />-->
+
+                <ColumnDefinition
+                    x:Name="RightDragColumn"
+                    Width="*"
+                    MinWidth="32" />
+            </Grid.ColumnDefinitions>
+            <Image
+                x:Name="TitleBarIcon"
+                Grid.Column="1"
+                Width="16"
+                Height="16"
+                Margin="8,0,16,0"
+                Source="ms-appx:///Assets/StoreLogo.png" />
+            <TextBlock
+                x:Name="TitleBarTextBlock"
+                Grid.Column="2"
+                VerticalAlignment="Center"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{x:Bind local:MainPage.WindowTitle}" />
+        </Grid>
+
+        <muxc:NavigationView
+            Grid.Row="1"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            SelectionChanged="NavigationView_SelectionChanged">
+            <muxc:NavigationView.MenuItems>
+
+                <muxc:NavigationViewItem Content="Controls">
+                    <muxc:NavigationViewItem.Icon>
+                        <PathIcon
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="F1 M 2.451172 20 C 2.125651 20 1.814779 19.933268 1.518555 19.799805 C 1.222331 19.666342 0.961914 19.487305 0.737305 19.262695 C 0.512695 19.038086 0.333659 18.77767 0.200195 18.481445 C 0.066732 18.185221 0 17.87435 0 17.548828 L 0 2.451172 C 0 2.125652 0.066732 1.814779 0.200195 1.518555 C 0.333659 1.222332 0.512695 0.961914 0.737305 0.737305 C 0.961914 0.512695 1.222331 0.33366 1.518555 0.200195 C 1.814779 0.066732 2.125651 0 2.451172 0 L 17.548828 0 C 17.874348 0 18.185221 0.066732 18.481445 0.200195 C 18.777668 0.33366 19.038086 0.512695 19.262695 0.737305 C 19.487305 0.961914 19.66634 1.222332 19.799805 1.518555 C 19.933268 1.814779 20 2.125652 20 2.451172 L 20 17.548828 C 20 17.87435 19.933268 18.185221 19.799805 18.481445 C 19.66634 18.77767 19.487305 19.038086 19.262695 19.262695 C 19.038086 19.487305 18.777668 19.666342 18.481445 19.799805 C 18.185221 19.933268 17.874348 20 17.548828 20 Z M 17.5 18.75 C 17.675781 18.75 17.838541 18.717447 17.988281 18.652344 C 18.13802 18.58724 18.269855 18.497721 18.383789 18.383789 C 18.497721 18.269857 18.587238 18.138021 18.652344 17.988281 C 18.717447 17.838541 18.75 17.675781 18.75 17.5 L 18.75 2.5 C 18.75 2.33073 18.717447 2.169598 18.652344 2.016602 C 18.587238 1.863607 18.497721 1.730145 18.383789 1.616211 C 18.269855 1.502279 18.136393 1.412762 17.983398 1.347656 C 17.830402 1.282553 17.66927 1.25 17.5 1.25 L 2.5 1.25 C 2.324219 1.25 2.161458 1.282553 2.011719 1.347656 C 1.861979 1.412762 1.730143 1.502279 1.616211 1.616211 C 1.502279 1.730145 1.41276 1.86198 1.347656 2.011719 C 1.282552 2.161459 1.25 2.324219 1.25 2.5 L 1.25 17.5 C 1.25 17.675781 1.282552 17.84017 1.347656 17.993164 C 1.41276 18.146158 1.500651 18.277994 1.611328 18.388672 C 1.722005 18.49935 1.853841 18.58724 2.006836 18.652344 C 2.159831 18.717447 2.324219 18.75 2.5 18.75 Z M 3.75 9.375 C 3.75 9.205729 3.811849 9.059245 3.935547 8.935547 C 4.059245 8.81185 4.205729 8.75 4.375 8.75 C 4.544271 8.75 4.690755 8.81185 4.814453 8.935547 L 8.125 12.236328 L 15.185547 5.185547 C 15.309244 5.06185 15.455729 5.000001 15.625 5 C 15.79427 5.000001 15.940754 5.06185 16.064453 5.185547 C 16.18815 5.309245 16.25 5.455729 16.25 5.625 C 16.25 5.794271 16.18815 5.940756 16.064453 6.064453 L 8.564453 13.564453 C 8.440755 13.688151 8.294271 13.75 8.125 13.75 C 7.955729 13.75 7.809245 13.688151 7.685547 13.564453 L 3.935547 9.814453 C 3.811849 9.690756 3.75 9.544271 3.75 9.375 Z " />
+                    </muxc:NavigationViewItem.Icon>
+                    <muxc:NavigationViewItem.MenuItems>
+                        <muxc:NavigationViewItem Content="GroupBox" Tag="{essential:TypeName Type=local:GroupBoxPage}" />
+                        <muxc:NavigationViewItem Content="MarqueeText" Tag="{essential:TypeName Type=local:MarqueeContainerPage}" />
+                        <muxc:NavigationViewItem Content="ProgressBarEx" Tag="{essential:TypeName Type=local:ProgressBarExPage}" />
+                        <muxc:NavigationViewItem Content="Segmented" Tag="{essential:TypeName Type=local:SegmentedPage}" />
+                        <muxc:NavigationViewItem Content="SettingsCard" Tag="{essential:TypeName Type=local:SettingsCardPage}" />
+                        <muxc:NavigationViewItem Content="SettingsExpander" Tag="{essential:TypeName Type=local:SettingsExpanderPage}" />
+                        <muxc:NavigationViewItem Content="Shimmer" Tag="{essential:TypeName Type=local:ShimmerPage}" />
+                        <muxc:NavigationViewItem Content="SwitchPresenter" Tag="{essential:TypeName Type=local:SwitchPresenterPage}" />
+                    </muxc:NavigationViewItem.MenuItems>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem Content="Extensions">
+                    <muxc:NavigationViewItem.Icon>
+                        <PathIcon
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="F1 M 18.125 2.5 C 18.378906 2.5 18.619791 2.548828 18.847656 2.646484 C 19.07552 2.744141 19.275715 2.879232 19.448242 3.051758 C 19.620768 3.224285 19.755859 3.42448 19.853516 3.652344 C 19.951172 3.880209 20 4.121094 20 4.375 L 20 8.125 C 20 8.378906 19.951172 8.619792 19.853516 8.847656 C 19.755859 9.075521 19.620768 9.275717 19.448242 9.448242 C 19.275715 9.620769 19.07552 9.755859 18.847656 9.853516 C 18.619791 9.951172 18.378906 10 18.125 10 L 14.375 10 C 14.121094 10 13.880208 9.951172 13.652344 9.853516 C 13.424479 9.755859 13.224283 9.620769 13.051758 9.448242 C 12.879231 9.275717 12.744141 9.075521 12.646484 8.847656 C 12.548828 8.619792 12.5 8.378906 12.5 8.125 L 12.5 6.25 L 11.708984 6.25 C 11.552734 6.25 11.416016 6.302084 11.298828 6.40625 C 11.181641 6.510417 11.113281 6.63737 11.09375 6.787109 L 10.146484 13.388672 C 10.113932 13.616537 10.042317 13.829753 9.931641 14.02832 C 9.820963 14.226889 9.682617 14.397787 9.516602 14.541016 C 9.350586 14.684245 9.163411 14.79655 8.955078 14.87793 C 8.746744 14.959311 8.525391 15 8.291016 15 L 7.5 15 L 7.5 15.625 C 7.5 15.878906 7.451171 16.119791 7.353516 16.347656 C 7.255859 16.575521 7.120768 16.775717 6.948242 16.948242 C 6.775716 17.120768 6.575521 17.255859 6.347656 17.353516 C 6.119791 17.451172 5.878906 17.5 5.625 17.5 L 1.875 17.5 C 1.621094 17.5 1.380208 17.451172 1.152344 17.353516 C 0.924479 17.255859 0.724284 17.120768 0.551758 16.948242 C 0.379232 16.775717 0.244141 16.575521 0.146484 16.347656 C 0.048828 16.119791 0 15.878906 0 15.625 L 0 11.875 C 0 11.621094 0.048828 11.380209 0.146484 11.152344 C 0.244141 10.924479 0.379232 10.724284 0.551758 10.551758 C 0.724284 10.379232 0.924479 10.244141 1.152344 10.146484 C 1.380208 10.048828 1.621094 10 1.875 10 L 5.625 10 C 5.878906 10 6.119791 10.048828 6.347656 10.146484 C 6.575521 10.244141 6.775716 10.379232 6.948242 10.551758 C 7.120768 10.724284 7.255859 10.924479 7.353516 11.152344 C 7.451171 11.380209 7.5 11.621094 7.5 11.875 L 7.5 13.75 L 8.291016 13.75 C 8.447266 13.75 8.583984 13.697917 8.701172 13.59375 C 8.818359 13.489584 8.886719 13.362631 8.90625 13.212891 L 9.853516 6.611328 C 9.886067 6.383464 9.957682 6.170248 10.068359 5.97168 C 10.179036 5.773113 10.317383 5.602215 10.483398 5.458984 C 10.649414 5.315756 10.836588 5.203451 11.044922 5.12207 C 11.253255 5.040691 11.474609 5.000001 11.708984 5 L 12.5 5 L 12.5 4.375 C 12.5 4.121094 12.548828 3.880209 12.646484 3.652344 C 12.744141 3.42448 12.879231 3.224285 13.051758 3.051758 C 13.224283 2.879232 13.424479 2.744141 13.652344 2.646484 C 13.880208 2.548828 14.121094 2.5 14.375 2.5 Z M 18.75 4.375 C 18.75 4.20573 18.68815 4.059246 18.564453 3.935547 C 18.440754 3.81185 18.29427 3.75 18.125 3.75 L 14.375 3.75 C 14.205729 3.75 14.059244 3.81185 13.935547 3.935547 C 13.811849 4.059246 13.75 4.20573 13.75 4.375 L 13.75 8.125 C 13.75 8.294271 13.811849 8.440756 13.935547 8.564453 C 14.059244 8.688151 14.205729 8.75 14.375 8.75 L 18.125 8.75 C 18.29427 8.75 18.440754 8.688151 18.564453 8.564453 C 18.68815 8.440756 18.75 8.294271 18.75 8.125 Z M 6.25 11.875 C 6.25 11.705729 6.188151 11.559245 6.064453 11.435547 C 5.940755 11.31185 5.794271 11.25 5.625 11.25 L 1.875 11.25 C 1.705729 11.25 1.559245 11.31185 1.435547 11.435547 C 1.311849 11.559245 1.25 11.705729 1.25 11.875 L 1.25 15.625 C 1.25 15.794271 1.311849 15.940756 1.435547 16.064453 C 1.559245 16.188152 1.705729 16.25 1.875 16.25 L 5.625 16.25 C 5.794271 16.25 5.940755 16.188152 6.064453 16.064453 C 6.188151 15.940756 6.25 15.794271 6.25 15.625 Z " />
+                    </muxc:NavigationViewItem.Icon>
+                    <muxc:NavigationViewItem.MenuItems>
+                        <muxc:NavigationViewItem Content="CursorController" Tag="{essential:TypeName Type=local:CursorControllerPage}" />
+                        <muxc:NavigationViewItem Content="UIElementExtension" Tag="{essential:TypeName Type=local:UIElementExtensionsPage}" />
+                    </muxc:NavigationViewItem.MenuItems>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem Content="Badge" Tag="{essential:TypeName Type=local:BadgePage}" />
+                <muxc:NavigationViewItem Content="Converters" Tag="{essential:TypeName Type=local:ConvertersPage}" />
+                <muxc:NavigationViewItem Content="DependentValue" Tag="{essential:TypeName Type=local:DependentValuePage}" />
+                <muxc:NavigationViewItem Content="Toasts" Tag="{essential:TypeName Type=local:ToastPage}" />
+                <muxc:NavigationViewItem Content="Triggers" Tag="{essential:TypeName Type=local:TriggersPage}" />
+                <muxc:NavigationViewItem Content="ScopedButtonDisabler" Tag="{essential:TypeName Type=local:ScopedButtonDisablerPage}" />
+            </muxc:NavigationView.MenuItems>
+            <Frame x:Name="ContentFrame" />
+        </muxc:NavigationView>
+    </Grid>
 </Page>

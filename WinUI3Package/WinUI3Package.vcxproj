@@ -100,6 +100,7 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
+    <Import Project="..\SharedComponent\SharedComponent.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -162,7 +163,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>BuildWinUIEssential;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WindowsNamespace=Microsoft;PackageRoot=WinUI3Package;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
@@ -170,10 +171,19 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>BuildWinUIEssential;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WindowsNamespace=Microsoft;PackageRoot=WinUI3Package;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp20</LanguageStandard>
@@ -193,10 +203,19 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">
       </Command>
     </PostBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>BuildWinUIEssential;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WindowsNamespace=Microsoft;PackageRoot=WinUI3Package;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
@@ -217,10 +236,19 @@
     <PostBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nuget.exe pack</Command>
     </PostBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>BuildWinUIEssential;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WindowsNamespace=Microsoft;PackageRoot=WinUI3Package;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp20</LanguageStandard>
@@ -244,6 +272,15 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
       </Command>
     </PostBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AcrylicVisual.h">
@@ -293,10 +330,6 @@
     </ClInclude>
     <ClInclude Include="ControlSizeTrigger.h">
       <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Convert.h">
-      <DependentUpon>Convert.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ConverterGroup.h">
@@ -596,10 +629,6 @@
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TypeNameExtension.h">
-      <DependentUpon>TypeNameExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="UIElementExtension.h">
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -687,10 +716,6 @@
     </ClCompile>
     <ClCompile Include="ControlSizeTrigger.cpp">
       <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Convert.cpp">
-      <DependentUpon>Convert.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ConverterGroup.cpp">
@@ -946,10 +971,6 @@
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TypeNameExtension.cpp">
-      <DependentUpon>TypeNameExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="UIElementExtension.cpp">
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1026,9 +1047,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ControlSizeTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Convert.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ConverterGroup.idl">
@@ -1205,9 +1223,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TransparentWindow.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="TypeNameExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="UIElementExtension.idl">

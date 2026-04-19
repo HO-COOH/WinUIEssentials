@@ -13,24 +13,7 @@
             <IsWinMDFile>true</IsWinMDFile>
             <Implementation>UWPPackage.dll</Implementation>
         </Reference>
-        
-        <!-- <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\GroupBox_Resource.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page>
-        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\SettingsCard_Resource.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page>
-        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\SettingsExpander_Resource.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page>
-        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\MarqueeText_Resource.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page>
-        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\Glyphs.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page> -->
-
-        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\Glyphs.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+       
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\GroupBox_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\SettingsCard_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\SettingsExpander_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
@@ -47,7 +30,6 @@
             <Implementation>UWPPackage.dll</Implementation>
         </Reference>
 
-        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\Glyphs.xbf" CopyToOutputDirectory="PreserveNewest"></None>
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\GroupBox_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\SettingsCard_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\SettingsExpander_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
@@ -55,30 +37,67 @@
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\ProgressBarEx_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
         <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\Segmented_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
 
-        <!--This is unable to build when uploaded to nuget.org. It seems to copy the whole 'package' folder into the output directory-->
-        <!-- <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\GroupBox_Resource.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page>
-        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\SettingsCard_Resource.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page>
-        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\SettingsExpander_Resource.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page>
-        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\MarqueeText_Resource.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page>
-        <Page Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\Glyphs.xaml">
-            <DeploymentContent>true</DeploymentContent>
-        </Page> -->
     </ItemGroup>
 
-    <!-- lib -->
-    <!-- <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-        <Link>
-            <AdditionalDependencies>$(MSBuildThisFileDirectory)..\..\lib\native\$(Configuration)\$(Platform)\UWPPackage.lib;%(AdditionalDependencies)</AdditionalDependencies>
-        </Link>
-    </ItemDefinitionGroup> -->
+    <!--Release ARM64-->
+    <ItemGroup Condition="'$(UseDebugLibraries)'=='False' And '$(Platform)'=='ARM64'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\ARM64\UWPPackage.winmd">
+            <IsWinMDFile>true</IsWinMDFile>
+            <Implementation>UWPPackage.dll</Implementation>
+        </Reference>
+
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\ARM64\GroupBox_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\ARM64\SettingsCard_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\ARM64\SettingsExpander_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\ARM64\MarqueeText_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\ARM64\ProgressBarEx_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\ARM64\Segmented_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+    </ItemGroup>
+
+    <!--Debug ARM64-->
+    <ItemGroup Condition="'$(UseDebugLibraries)'=='True' And '$(Platform)'=='ARM64'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\UWPPackage.winmd">
+            <IsWinMDFile>true</IsWinMDFile>
+            <Implementation>UWPPackage.dll</Implementation>
+        </Reference>
+
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\GroupBox_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\SettingsCard_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\SettingsExpander_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\MarqueeText_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\ProgressBarEx_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\Segmented_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+    </ItemGroup>
+
+    <!--Release Win32-->
+    <ItemGroup Condition="'$(UseDebugLibraries)'=='False' And '$(Platform)'=='Win32'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\Win32\UWPPackage.winmd">
+            <IsWinMDFile>true</IsWinMDFile>
+            <Implementation>UWPPackage.dll</Implementation>
+        </Reference>
+
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\Win32\GroupBox_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\Win32\SettingsCard_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\Win32\SettingsExpander_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\Win32\MarqueeText_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\Win32\ProgressBarEx_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Release\Win32\Segmented_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+    </ItemGroup>
+
+    <!--Debug Win32-->
+    <ItemGroup Condition="'$(UseDebugLibraries)'=='True' And '$(Platform)'=='Win32'">
+        <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\Win32\UWPPackage.winmd">
+            <IsWinMDFile>true</IsWinMDFile>
+            <Implementation>UWPPackage.dll</Implementation>
+        </Reference>
+
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\Win32\GroupBox_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\Win32\SettingsCard_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\Win32\SettingsExpander_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\Win32\MarqueeText_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\Win32\ProgressBarEx_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+        <None Update="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\Win32\Segmented_Resource.xbf" CopyToOutputDirectory="PreserveNewest"></None>
+    </ItemGroup>
 
     <!--<PropertyGroup>
         <BeforeMidlCompileTargets>

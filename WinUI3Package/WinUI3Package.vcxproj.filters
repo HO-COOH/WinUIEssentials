@@ -654,9 +654,6 @@
     <Midl Include="RevealFocusPanel.idl">
       <Filter>Controls\RevealFocus</Filter>
     </Midl>
-    <Midl Include="Convert.idl">
-      <Filter>Converters</Filter>
-    </Midl>
     <Midl Include="TenMicaBackdrop.idl">
       <Filter>Backdrop\TenMica</Filter>
     </Midl>
@@ -665,9 +662,6 @@
     </Midl>
     <Midl Include="WindowedContentDialog.idl">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
-    </Midl>
-    <Midl Include="TypeNameExtension.idl">
-      <Filter>Extensions\MarkupExtensions</Filter>
     </Midl>
     <Midl Include="UIElementExtension.idl">
       <Filter>Extensions</Filter>

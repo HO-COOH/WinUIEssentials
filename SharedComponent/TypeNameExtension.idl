@@ -1,9 +1,9 @@
-﻿namespace WinUI3Package
+﻿namespace PackageRoot
 {
     [bindable]
     [default_interface]
 	[contentproperty("Type")]
-	runtimeclass TypeNameExtension : Microsoft.UI.Xaml.Markup.MarkupExtension
+	runtimeclass TypeNameExtension : WindowsNamespace.UI.Xaml.Markup.MarkupExtension
     {
         TypeNameExtension();
 	    TypeNameExtension(Windows.UI.Xaml.Interop.TypeName type);

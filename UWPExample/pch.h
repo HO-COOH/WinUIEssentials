@@ -18,3 +18,5 @@
 #include <winrt/Windows.UI.Popups.h>
 #include <WinUIIncludes.hpp>
 #include <winrt/Windows.UI.Xaml.Documents.h>
+#include <winrt/Windows.ApplicationModel.Core.h>
+#include <winrt/Windows.UI.ViewManagement.h>

@@ -4,6 +4,7 @@
     runtimeclass MainPage : Windows.UI.Xaml.Controls.Page
     {
         MainPage();
+        static String WindowTitle{ get; };
         Windows.Foundation.Collections.IVector<Object> Pages{ get; };
     }
 }

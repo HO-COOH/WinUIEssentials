@@ -4,7 +4,7 @@
 #include "TypeNameExtension.g.cpp"
 #endif
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
 	TypeNameExtension::TypeNameExtension(winrt::Windows::UI::Xaml::Interop::TypeName const& type) : m_type{type}
 	{

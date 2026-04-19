@@ -1,4 +1,5 @@
 #pragma once
+#include <winrt/Windows.UI.Xaml.Controls.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 /**
  * @brief Helper class for calling `DefaultStyleKey` for your templated control
@@ -13,6 +14,10 @@ struct TemplateControlHelper
 	TemplateControlHelper()
 	{
 		using ProjectionType = Self::class_type;
-		static_cast<Self*>(this)->DefaultStyleKey(winrt::box_value(winrt::xaml_typename<ProjectionType>()));
+		static_cast<Self*>(this)
+			->SetValue(
+				winrt::Windows::UI::Xaml::Controls::Control::DefaultStyleKeyProperty(),
+				winrt::box_value(winrt::xaml_typename<ProjectionType>())
+			);
 	}
 };
