@@ -11,8 +11,10 @@ namespace winrt::WinUI3Example::implementation
     {
         App();
 
+        static inline App* AppInstance{};
+
         void OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
 
-		winrt::Microsoft::UI::Xaml::Window window{ nullptr };
+		winrt::WinUI3Example::MainWindow window{ nullptr };
     };
 }

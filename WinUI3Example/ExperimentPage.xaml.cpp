@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ExperimentPage.xaml.h"
 #if __has_include("ExperimentPage.g.cpp")
 #include "ExperimentPage.g.cpp"
@@ -9,7 +9,7 @@
 #include "MorphAnimationHelper.h"
 #include <ppltasks.h>
 #include <pplawait.h>
-
+#include <winrt/Windows.Globalization.h>
 
 static void restoreVisual(winrt::Microsoft::UI::Composition::Visual const& visual, winrt::Microsoft::UI::Composition::CompositionAnimationGroup const& animationGroup, bool isSourceToTarget = true)
 {
@@ -31,12 +31,33 @@ static winrt::Windows::Foundation::IAsyncAction waitForLayoutUpdateAsync(winrt::
 
 namespace winrt::WinUI3Example::implementation
 {
-
-	void ExperimentPage::TestWindowBtn_Click(
-		winrt::Windows::Foundation::IInspectable const&,
-		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	ExperimentPage::ExperimentPage()
 	{
-		winrt::WinUI3Example::TestWindow{}.Activate();
+		InitializeComponent();
+
+		m_timer.Interval(std::chrono::seconds(1));
+		m_timer.Tick({ this, &ExperimentPage::OnTick });
+		m_timer.Start();
+
+		OnTick(nullptr, nullptr);
+	}
+
+	ExperimentPage::~ExperimentPage()
+	{
+		if (m_timer)
+		{
+			m_timer.Stop();
+		}
+	}
+
+	void ExperimentPage::OnTick(winrt::Windows::Foundation::IInspectable const&, winrt::Windows::Foundation::IInspectable const&)
+	{
+		winrt::Windows::Globalization::Calendar calendar;
+		calendar.SetToNow();
+
+		HourNumber().Value(winrt::to_hstring(calendar.Hour()));
+		MinuteNumber().Value(winrt::to_hstring(calendar.Minute()));
+		SecondNumber().Value(winrt::to_hstring(calendar.Second()));
 	}
 
 	void ExperimentPage::SelfDrawnWindowButton_Click(

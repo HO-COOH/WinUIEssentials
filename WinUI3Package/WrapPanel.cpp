@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "WrapPanel.h"
 #if __has_include("WrapPanel.g.cpp")
 #include "WrapPanel.g.cpp"
@@ -6,32 +6,31 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty WrapPanel::s_horizontalSpacingProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void WrapPanel::EnsureDependencyProperties()
+	{
+		if (s_horizontalSpacingProperty) return;
+		s_horizontalSpacingProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"HorizontalSpacing",
 			winrt::xaml_typename<double>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0), &WrapPanel::propertyChanged }
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty WrapPanel::s_verticalSpacingProperty = 
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_verticalSpacingProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"VerticalSpacing",
 			winrt::xaml_typename<double>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0), &WrapPanel::propertyChanged }
-	);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty WrapPanel::s_orientationProperty = 
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		);
+		s_orientationProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Orientation",
 			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::Orientation>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ 
-					winrt::box_value(winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal), 
-					&WrapPanel::propertyChanged 
-				}
-	);
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				winrt::box_value(winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal),
+				&WrapPanel::propertyChanged
+			}
+		);
+	}
 
 	double WrapPanel::HorizontalSpacing()
 	{

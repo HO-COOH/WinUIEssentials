@@ -5,6 +5,7 @@
     runtimeclass NonMaximizableWindowWorkaround 
     {
         NonMaximizableWindowWorkaround();
+        NonMaximizableWindowWorkaround(Microsoft.UI.Xaml.Window window, Boolean isMaximizable);
 
         Microsoft.UI.Xaml.Window Window;
         Boolean IsMaximizable;

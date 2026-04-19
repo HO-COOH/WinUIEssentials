@@ -1,0 +1,8 @@
+namespace UWPPackage
+{
+    [default_interface]
+    runtimeclass SettingsExpander_Resource : Windows.UI.Xaml.ResourceDictionary
+    {
+        SettingsExpander_Resource();
+    }
+}

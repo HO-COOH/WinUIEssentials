@@ -7,8 +7,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct ImageExtension : ImageExtensionT<ImageExtension>
     {
-        ImageExtension() = default;
-
         static winrt::Microsoft::UI::Xaml::DependencyProperty FallbackSourceProperty();
         
         static void SetFallbackSource(
@@ -18,8 +16,6 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::Media::ImageSource GetFallbackSource(
             winrt::Microsoft::UI::Xaml::DependencyObject const& image
         );
-
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_fallbackProperty;
     };
 }
 

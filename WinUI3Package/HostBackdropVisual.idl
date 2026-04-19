@@ -2,7 +2,7 @@
 {
     [bindable]
     [default_interface]
-    unsealed runtimeclass HostBackdropVisual : Microsoft.UI.Xaml.Controls.ContentControl
+    unsealed runtimeclass HostBackdropVisual : Microsoft.UI.Xaml.Controls.Control
     {
         HostBackdropVisual();
     }

@@ -284,7 +284,6 @@
   <ItemGroup>
     <None Include="PropertySheet.props" />
     <None Include="packages.config" />
-    <None Include="UWPExample_TemporaryKey.pfx" />
     <None Include="Monaco.html">
       <Filter>Helper</Filter>
     </None>

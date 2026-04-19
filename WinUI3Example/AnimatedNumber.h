@@ -11,16 +11,13 @@ namespace winrt::WinUI3Example::implementation
         
         AnimatedNumber() = default;
 
-        int32_t Value() { return 45; }
-        void Value(int32_t value) {}
-
-        winrt::Windows::Foundation::Collections::IObservableVector<int> Digits();
+        winrt::hstring Value();
+        void Value(winrt::hstring const& value);
 
         void OnApplyTemplate();
-
-        friend class TemplateControlHelper<AnimatedNumber>;
     private:
-        winrt::Windows::Foundation::Collections::IObservableVector<int> m_digits = winrt::single_threaded_observable_vector<int>({1,2,3,4});
+        winrt::Microsoft::UI::Xaml::Controls::Panel m_rootPanel{ nullptr };
+        winrt::hstring m_value;
     };
 }
 

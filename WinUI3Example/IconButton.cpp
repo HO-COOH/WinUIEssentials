@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "IconButton.h"
 #if __has_include("IconButton.g.cpp")
 #include "IconButton.g.cpp"
@@ -7,21 +7,22 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty IconButton::m_iconProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void IconButton::EnsureDependencyProperties()
+	{
+		if (m_iconProperty) return;
+		m_iconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Icon",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-	winrt::Microsoft::UI::Xaml::DependencyProperty IconButton::m_isExpandedProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_isExpandedProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"IsExpanded",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &IconButton::isExpandedPropertyChanged }
 		);
-
+	}
 
 	IconButton::IconButton()
 	{

@@ -9,32 +9,19 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::s_acrylicWorkaroundProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"AcrylicWorkaround",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata
-			{
-				winrt::box_value(false),
-				winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::acrylicWorkaroundChanged)
-			}
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::s_clipToBoundsProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"ClipToBounds",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata
-			{
-				winrt::box_value(false),
-				winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::clipToBoundsChanged)
-			}
-		);
-
 	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::AcrylicWorkaroundProperty()
 	{
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty = 
+			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+				L"AcrylicWorkaround",
+				winrt::xaml_typename<bool>(),
+				winrt::xaml_typename<class_type>(),
+				winrt::Microsoft::UI::Xaml::PropertyMetadata
+				{
+					winrt::box_value(false),
+					winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::acrylicWorkaroundChanged)
+				}
+			);
 		return s_acrylicWorkaroundProperty;
 	}
 
@@ -50,6 +37,17 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::ClipToBoundsProperty()
 	{
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_clipToBoundsProperty = 
+			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+					L"ClipToBounds",
+					winrt::xaml_typename<bool>(),
+					winrt::xaml_typename<class_type>(),
+					winrt::Microsoft::UI::Xaml::PropertyMetadata
+					{
+					winrt::box_value(false),
+					winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&NavigationViewHelper::clipToBoundsChanged)
+					}
+					);
 		return s_clipToBoundsProperty;
 	}
 
@@ -79,9 +77,9 @@ namespace winrt::WinUI3Package::implementation
 			auto flyout = button.Flyout().as<winrt::Microsoft::UI::Xaml::Controls::Flyout>();
 
 			auto newStyle = getStyle(flyout.FlyoutPresenterStyle());
-
 			flyout.FlyoutPresenterStyle(newStyle);
-			flyout.Opening(&onFlyoutOpened);
+			flyout.ShouldConstrainToRootBounds(false);
+			flyout.SystemBackdrop(Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop());
 			modifyNavigationViewItems(navigationView, newStyle);
 			loadedRevoker->revoke();
 		});
@@ -121,7 +119,12 @@ namespace winrt::WinUI3Package::implementation
 	{
 		for (auto item : navigationView.MenuItems())
 		{
-			auto navigationViewItem = item.as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
+			auto navigationViewItem = item.try_as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
+			if (!navigationViewItem)
+				continue;
+			//MenuItem is IInspectable, but in reality it may be any subclass of NavigationViewItemBase
+			//see https://learn.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.controls.navigationviewitembase?view=windows-app-sdk-1.8
+
 			auto rootGrid = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(navigationViewItem, 0);
 			if (!rootGrid)
 				continue;
@@ -135,6 +138,8 @@ namespace winrt::WinUI3Package::implementation
 				continue;
 
 			flyout.FlyoutPresenterStyle(newStyle);
+			flyout.ShouldConstrainToRootBounds(false);
+			flyout.SystemBackdrop(Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop());
 			flyout.Opening(&onFlyoutOpened);
 		}
 	}
@@ -173,7 +178,8 @@ namespace winrt::WinUI3Package::implementation
 		{
 			if (auto targetProperty = setter.as<winrt::Microsoft::UI::Xaml::Setter>().Property();
 				targetProperty == winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty() ||
-				targetProperty == winrt::Microsoft::UI::Xaml::Controls::Control::PaddingProperty())
+				targetProperty == winrt::Microsoft::UI::Xaml::Controls::Control::PaddingProperty() ||
+				targetProperty == winrt::Microsoft::UI::Xaml::FrameworkElement::MarginProperty())
 			{
 				setters.Append(setter);
 			}

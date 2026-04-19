@@ -3,9 +3,24 @@
 #if __has_include("Convert.g.cpp")
 #include "Convert.g.cpp"
 #endif
+#include <algorithm>
+#include <iomanip>
+#include <sstream>
 
 namespace winrt::WinUI3Package::implementation
 {
+    winrt::hstring Convert::DoubleToString(double value)
+    {
+        return winrt::to_hstring(value);
+    }
+
+    winrt::hstring Convert::DoubleToString(double value, int32_t precision)
+    {
+        std::wostringstream stream;
+        stream << std::fixed << std::setprecision((std::max)(0, precision)) << value;
+        return winrt::hstring{ stream.str() };
+    }
+
     bool Convert::ContainerToBool(Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> const& container)
     {
         return container && container.Size() > 0;

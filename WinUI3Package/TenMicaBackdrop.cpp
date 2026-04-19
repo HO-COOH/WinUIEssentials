@@ -44,8 +44,12 @@ namespace winrt::WinUI3Package::implementation
 		winrt::check_bool(GetWindowRect(hwnd, &windowRect));
 		updateBrushOffset(windowRect.left, windowRect.top);
 		addSubClass(hwnd);
-		if (GetWindowsVersion().dwMajorVersion >= 22000)
-			m_registryWatcher.emplace(this);
+		m_registryWatcher.emplace(
+			this, 
+			GetWindowsVersion().dwMajorVersion >= 22000 ? 
+			TenMicaRegistryWatcher::WatchValue{true, true, true} :
+			TenMicaRegistryWatcher::WatchValue{.background = true, .transcodedImageCache = true}
+		);
     }
 
 	void TenMicaBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)

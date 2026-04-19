@@ -1,28 +1,26 @@
 ﻿#pragma once
 
 #include "TaskbarIcon.g.h"
-
-#include "GuidWrapper.h"
 #include "ThemeAdaptiveIcon.h"
 #include "NormalTaskbarIcon.h"
 #include <variant>
 #include <winrt/Windows.Storage.h>
 #include "TaskbarIconXamlEvents.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct TaskbarIcon : TaskbarIconT<TaskbarIcon>
+    struct TaskbarIcon : TaskbarIconT<TaskbarIcon>, EnsureDependencyProperty<TaskbarIcon>
     {
-        TaskbarIcon() = default;
+        TaskbarIcon();
 
         winrt::hstring ToolTip();
         void ToolTip(winrt::hstring const& value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty ToolTipProperty();
 
         winrt::guid Guid();
         void Guid(winrt::guid value);
-
-        WinUI3Package::GeneratedIconSource IconSource();
-        void IconSource(WinUI3Package::GeneratedIconSource value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty GuidProperty();
 
         winrt::Windows::Foundation::Uri Icon() { return nullptr; }
         void Icon(winrt::Windows::Foundation::Uri value);
@@ -67,10 +65,10 @@ namespace winrt::WinUI3Package::implementation
         void RightPressed(winrt::event_token const& token);
         void PointerHover(winrt::event_token const& handler);
 
-        winrt::Microsoft::UI::Xaml::UIElement PopupContent();
-        void PopupContent(winrt::Microsoft::UI::Xaml::UIElement value);
+        static void EnsureDependencyProperties();
     private:
-        WinUI3Package::GeneratedIconSource m_iconSource{ nullptr };
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_tooltipProperty{ nullptr };
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_guidProperty{ nullptr };
 
         ThemeAdaptiveIcon& getThemeAdaptiveIcon();
         NormalTaskbarIcon& getNormalIcon();
@@ -93,6 +91,16 @@ namespace winrt::WinUI3Package::implementation
             if (m_showCalled)
                 Show();
         }
+
+        static void onToolTipChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& d,
+            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg
+        );
+
+        static void onGuidChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& d,
+            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg
+        );
     };
 }
 

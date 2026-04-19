@@ -7,7 +7,7 @@
     <Style x:Key="WindowedContentDialogStyle" TargetType="ContentDialog">
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         <Setter Property="Foreground" Value="{ThemeResource ContentDialogForeground}" />
-        <Setter Property="Background" Value="{ThemeResource ContentDialogBackground}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="{ThemeResource ContentDialogBorderWidth}" />
         <Setter Property="BorderBrush" Value="{ThemeResource ContentDialogBorderBrush}" />
         <Setter Property="IsTabStop" Value="False" />
@@ -20,7 +20,6 @@
                 <ControlTemplate TargetType="ContentDialog">
                     <Border x:Name="Container">
                         <Grid x:Name="LayoutRoot" Visibility="Collapsed">
-                            <Rectangle x:Name="SmokeLayerBackground" Fill="{ThemeResource ContentDialogSmokeFill}" />
                             <Border
                                 x:Name="BackgroundElement"
                                 MinWidth="{ThemeResource ContentDialogMinWidth}"
@@ -35,13 +34,12 @@
                                 <Border.RenderTransform>
                                     <ScaleTransform x:Name="ScaleTransform" />
                                 </Border.RenderTransform>
-                                <Grid
-                                    x:Name="DialogSpace"
-                                    CornerRadius="0">
+                                <Grid x:Name="DialogSpace" CornerRadius="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
+                                    <local:AcrylicVisual Grid.RowSpan="2" />
                                     <ScrollViewer
                                         x:Name="ContentScrollViewer"
                                         HorizontalScrollBarVisibility="Disabled"
@@ -100,7 +98,7 @@
                                         Padding="{ThemeResource ContentDialogPadding}"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Bottom"
-                                        Background="{TemplateBinding Background}"
+                                        Background="Transparent"
                                         XYFocusKeyboardNavigation="Enabled">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition x:Name="PrimaryColumn" Width="*" />

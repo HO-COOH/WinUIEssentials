@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ProgressBarEx.h"
 #if __has_include("ProgressBarEx.g.cpp")
 #include "ProgressBarEx.g.cpp"
@@ -6,55 +6,61 @@
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty ProgressBarEx::s_highColorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-        L"HighColor",
-        winrt::xaml_typename<winrt::Windows::UI::Color>(),
-        winrt::xaml_typename<class_type>(),
-        winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultHighColor),
-            [](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
-            {
-                auto self = winrt::get_self<ProgressBarEx>(d.as<class_type>());
-                if (!self->m_compositor)
-                    return;
+	void ProgressBarEx::EnsureDependencyProperties()
+	{
+		if (s_highColorProperty) return;
+		s_highColorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"HighColor",
+			winrt::xaml_typename<winrt::Windows::UI::Color>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				winrt::box_value(DefaultHighColor),
+				[](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+				{
+					auto self = winrt::get_self<ProgressBarEx>(d.as<class_type>());
+					if (!self->m_compositor)
+						return;
 
-                auto highColor = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
-                self->m_gradients[1].Color(highColor);
-                self->m_gradients[2].Color(highColor);
-            }
-        }
-    );
+					auto highColor = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+					self->m_gradients[1].Color(highColor);
+					self->m_gradients[2].Color(highColor);
+				}
+			}
+		);
+		s_baseColorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"BaseColor",
+			winrt::xaml_typename<winrt::Windows::UI::Color>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				winrt::box_value(DefaultBaseColor),
+				[](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+				{
+					auto self = winrt::get_self<ProgressBarEx>(d.as<class_type>());
+					if (!self->m_compositor)
+						return;
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty ProgressBarEx::s_baseColorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-        L"BaseColor",
-        winrt::xaml_typename<winrt::Windows::UI::Color>(),
-        winrt::xaml_typename<class_type>(),
-        winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(DefaultBaseColor),
-            [](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
-            {
-                auto self = winrt::get_self<ProgressBarEx>(d.as<class_type>());
-                if (!self->m_compositor)
-                    return;
-
-                auto baseColor = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
-                self->m_gradients[0].Color(baseColor);
-                self->m_gradients[3].Color(baseColor);
-            }
-        }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty ProgressBarEx::s_percentProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-        L"Percent",
-        winrt::xaml_typename<double>(),
-        winrt::xaml_typename<class_type>(),
-        winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0), &ProgressBarEx::onPercentPropertyChanged }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty ProgressBarEx::s_valueProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-        L"Value",
-        winrt::xaml_typename<double>(),
-        winrt::xaml_typename<class_type>(),
-        nullptr
-    );
+					auto baseColor = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+					self->m_gradients[0].Color(baseColor);
+					self->m_gradients[3].Color(baseColor);
+				}
+			}
+		);
+		s_percentProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Percent",
+			winrt::xaml_typename<double>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				winrt::box_value(0.0),
+				&ProgressBarEx::onPercentPropertyChanged
+			}
+		);
+		s_valueProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Value",
+			winrt::xaml_typename<double>(),
+			winrt::xaml_typename<class_type>(),
+			nullptr
+		);
+	}
 
     void ProgressBarEx::OnApplyTemplate()
     {

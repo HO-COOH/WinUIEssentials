@@ -170,15 +170,6 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">nuget.exe pack</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">nuget.exe pack</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">nuget.exe pack</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
@@ -325,6 +316,7 @@
       <DependentUpon>CustomBackdropBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CustomBackdropImplBase.hpp" />
     <ClInclude Include="CustomMicaBackdrop.h">
       <DependentUpon>CustomMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -346,10 +338,6 @@
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="FlyoutWindow.xaml.h">
-      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="FontIconExtension.h">
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -363,7 +351,6 @@
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="GuidWrapper.h" />
     <ClInclude Include="HostBackdropVisual.h">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -380,6 +367,7 @@
       <DependentUpon>include\DependentValue.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />
     <ClInclude Include="include\Handler.hpp" />
@@ -403,7 +391,6 @@
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
     <ClInclude Include="include\WebView2Helper.hpp" />
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
-    <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp" />
     <ClInclude Include="IsEqualStateTrigger.h">
       <DependentUpon>IsEqualStateTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -556,6 +543,8 @@
       <DependentUpon>SliderHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TenMicaRegistry.h" />
+    <ClInclude Include="UnderlayElement.h" />
     <ClInclude Include="StringToBoolConverter.h">
       <DependentUpon>StringToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -605,6 +594,10 @@
     <ClInclude Include="TransparentMenuFlyoutHost.h" />
     <ClInclude Include="TransparentWindow.h">
       <DependentUpon>TransparentWindow.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TypeNameExtension.h">
+      <DependentUpon>TypeNameExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="UIElementExtension.h">
@@ -734,10 +727,6 @@
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="FlyoutWindow.xaml.cpp">
-      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="FontIconExtension.cpp">
       <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -751,7 +740,6 @@
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="GuidWrapper.cpp" />
     <ClCompile Include="HostBackdropVisual.cpp">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -929,6 +917,7 @@
     </ClCompile>
     <ClCompile Include="TenMicaEffect.cpp" />
     <ClCompile Include="TenMicaEffectFactory.cpp" />
+    <ClCompile Include="TenMicaRegistry.cpp" />
     <ClCompile Include="TenMicaRegistryWatcher.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
@@ -957,10 +946,15 @@
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TypeNameExtension.cpp">
+      <DependentUpon>TypeNameExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="UIElementExtension.cpp">
       <DependentUpon>UIElementExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="UnderlayElement.cpp" />
     <ClCompile Include="UnderlaySystemBackdropOptions.cpp">
       <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1061,10 +1055,6 @@
     </Midl>
     <Midl Include="FlyoutHelper.idl">
       <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="FlyoutWindow.idl">
-      <DependentUpon>FlyoutWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Midl>
     <Midl Include="FontIconExtension.idl">
       <SubType>Designer</SubType>
@@ -1217,6 +1207,9 @@
     <Midl Include="TransparentWindow.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="TypeNameExtension.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="UIElementExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1246,11 +1239,7 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="FlyoutWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="GroupBox_Resource.xaml" />
-    <Page Include="HostBackdropVisual_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />
     <Page Include="ModernDialogBox.xaml">
       <SubType>Designer</SubType>

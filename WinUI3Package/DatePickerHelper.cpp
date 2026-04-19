@@ -9,21 +9,20 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty DatePickerHelper::s_acrylicWorkaroundProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-            L"AcrylicWorkaround",
-            winrt::xaml_typename<bool>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                nullptr,
-                &DatePickerHelper::acrylicWorkaroundChanged
-            }
-        );
-
     winrt::Microsoft::UI::Xaml::DependencyProperty DatePickerHelper::AcrylicWorkaroundProperty()
     {
-        return s_acrylicWorkaroundProperty;
-    }
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty = 
+			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+		        L"AcrylicWorkaround",
+				winrt::xaml_typename<bool>(),
+				winrt::xaml_typename<class_type>(),
+				winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				    nullptr,
+					&DatePickerHelper::acrylicWorkaroundChanged
+				}
+			);
+		return s_acrylicWorkaroundProperty;
+	}
 
     bool DatePickerHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::DatePicker const& datePicker)
     {

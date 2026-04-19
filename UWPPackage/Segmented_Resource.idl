@@ -1,0 +1,8 @@
+namespace UWPPackage
+{
+    [default_interface]
+    runtimeclass Segmented_Resource : Windows.UI.Xaml.ResourceDictionary
+    {
+        Segmented_Resource();
+    }
+}

@@ -1,9 +1,7 @@
 ﻿#include "pch.h"
 #include "TaskbarIconBase.h"
-#include "GuidWrapper.h"
 #include "TaskbarIconMessageWindow.h"
 #include <windowsx.h>
-#include "InvalidXamlMenuFlyoutTypeError.hpp"
 
 PopupMenu& TaskbarIconBase::getPopupMenu()
 {
@@ -12,13 +10,14 @@ PopupMenu& TaskbarIconBase::getPopupMenu()
 
 TaskbarIconBase::TaskbarIconBase() : m_messageWindow{*this}
 {
-	m_iconData.guidItem(GuidWrapper{});
 	m_iconData.hWnd(m_messageWindow.Get());
 }
 
 TaskbarIconBase& TaskbarIconBase::ToolTip(std::wstring_view value)
 {
 	m_iconData.szTip(value);
+	if (m_show)
+		m_iconData.Modify();
 	return *this;
 }
 
@@ -32,11 +31,16 @@ void TaskbarIconBase::Show()
 {
 	m_iconData.uCallbackMessage(CallbackMessage);
 	m_iconData.Add();
+	m_show = true;
 }
 
 void TaskbarIconBase::Remove()
 {
-	m_iconData.Delete();
+	if (m_show)
+	{
+		m_iconData.Delete();
+		m_show = false;
+	}
 }
 
 void TaskbarIconBase::SetMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutBase const& xamlMenu)
@@ -44,12 +48,10 @@ void TaskbarIconBase::SetMenu(winrt::Microsoft::UI::Xaml::Controls::Primitives::
 	if (m_menu.index() != 0)
 		return;
 
-	if (auto xamlMenuFlyout = xamlMenu.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>())
-		m_menu.emplace<MenuFlyoutWrapper>(xamlMenuFlyout).Theme(m_theme);
-	else if (auto popupMenuFlyout = xamlMenu.try_as<winrt::WinUI3Package::PopupMenuFlyout>())
+	if (auto popupMenuFlyout = xamlMenu.try_as<winrt::WinUI3Package::PopupMenuFlyout>())
 		m_menu.emplace<PopupMenu>(popupMenuFlyout).Theme(m_theme);
 	else
-		throw InvalidXamlMenuFlyoutTypeError{};
+		m_menu.emplace<MenuFlyoutWrapper>(xamlMenu).Theme(m_theme);
 }
 
 void TaskbarIconBase::SetEvents(TaskbarIconXamlEvents& events)
@@ -60,6 +62,11 @@ void TaskbarIconBase::SetEvents(TaskbarIconXamlEvents& events)
 void TaskbarIconBase::SetTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme)
 {
 	m_theme = theme;
+	std::visit([value = m_theme](auto&& menu) {
+		using MenuType = std::remove_reference_t<decltype(menu)>;
+		if constexpr (!std::is_same_v<MenuType, std::monostate>)
+			menu.Theme(value);
+	}, m_menu);
 }
 
 void TaskbarIconBase::OnWM_CONTEXTMENU(WPARAM wparam, LPARAM lparam)

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "PopupMenuFlyoutItemBase.h"
 #if __has_include("PopupMenuFlyoutItemBase.g.cpp")
 #include "PopupMenuFlyoutItemBase.g.cpp"
@@ -6,20 +6,22 @@
 #include "PopupMenu.h"
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItemBase::s_visibilityProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void PopupMenuFlyoutItemBase::EnsureDependencyProperties()
+	{
+		if (s_visibilityProperty) return;
+		s_visibilityProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Visibility",
 			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Visibility>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItemBase::s_isEnabledProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_isEnabledProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"IsEnabled",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
 			{ winrt::box_value(true), nullptr }
 		);
+	}
 
 	winrt::Microsoft::UI::Xaml::Visibility PopupMenuFlyoutItemBase::Visibility()
 	{

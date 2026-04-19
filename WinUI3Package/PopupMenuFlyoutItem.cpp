@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "PopupMenuFlyoutItem.h"
 #if __has_include("PopupMenuFlyoutItem.g.cpp")
 #include "PopupMenuFlyoutItem.g.cpp"
@@ -10,35 +10,34 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_iconProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void PopupMenuFlyoutItem::EnsureDependencyProperties()
+	{
+		if (s_iconProperty) return;
+		s_iconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Icon",
 			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::IconElement>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_textProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_textProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Text",
 			winrt::xaml_typename<winrt::hstring>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_commandProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_commandProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Command",
 			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Input::ICommand>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_commandParameterProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_commandParameterProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"CommandParameter",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
+	}
 
 	winrt::WinUI3Package::PopupMenuFlyoutItemType PopupMenuFlyoutItem::Type()
 	{

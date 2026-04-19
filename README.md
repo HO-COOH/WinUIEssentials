@@ -1,4 +1,4 @@
-﻿![](MainLogo.png) 
+![](MainLogo.png) 
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
@@ -22,10 +22,10 @@ Example project build status:
 
 |Platform|Debug|Release|
 |---|---|---|
-|x86| [![Build example Debug_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x86.yml) | [![Build example Release_x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x86.yml)
-|x64| [![Build example Debug_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_x64.yml) | [![Build example Release_x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_x64.yml)
-|ARM| [![Build example Debug_ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM.yml) | [![Build example Release_ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM.yml)
-|ARM64| [![Build example Debug_ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Debug_ARM64.yml) | [![Build example Release_ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/msbuild_Release_ARM64.yml)
+|x86| [![Build Debug x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-debug-x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-debug-x86.yml) | [![Build Release x86](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-release-x86.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-release-x86.yml)
+|x64| [![Build Debug x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-debug-x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-debug-x64.yml) | [![Build Release x64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-release-x64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-release-x64.yml)
+|~~ARM~~| ~~[![Build Debug ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Debug_CI2,%20ARM))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml)~~ | ~~[![Build Release ARM](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml/badge.svg?job=build%20(Release_CI2,%20ARM))](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build.yml)~~
+|ARM64| [![Build Debug ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-debug-arm64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-debug-arm64.yml) | [![Build Release ARM64](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-release-arm64.yml/badge.svg)](https://github.com/HO-COOH/WinUIEssentials/actions/workflows/build-release-arm64.yml)
 
 
 ## Usage
@@ -130,6 +130,7 @@ You can reference Github Action for detailed build steps.
 |SliderHelper | :x: | :white_check_mark: | WinRT component
 |RevealFocusPanel | :x: | :white_check_mark: | Control
 |TenMica | :x: | :white_check_mark: | WinRT component
+|WindowedContentDialog | :x: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -1174,3 +1175,27 @@ This is a drop-in replacement for WinUI3's built-in `MicaBackdrop`, and it autom
 |Light|Dark|
 |-----|----|
 |![](assets/tenmica-light.png)|![](assets/tenmica-dark.png)|
+
+## WindowedContentDialog
+`ContentDialog` but shown inside a window that has exactly the same `ShowAsync()` api that you are familiar with.
+- If you `ShowAsync()` with a parent window, it automatically center (but clamped to visible monitor area) inside the parent, theme synced with the parent, and you can also specify the underlay (with a nice animation)
+- If you `ShowAsync()` without a parent window, it shows as a free top-level window.
+
+```idl
+Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync();
+Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(Microsoft.UI.Xaml.Window parentWindow);
+Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResult> ShowAsync(
+    Microsoft.UI.Xaml.Window parentWindow,
+    UnderlayMode underlay
+);
+```
+|UnderlayMode|
+|------------|
+|None|
+|Blur|
+|Smoke|
+
+
+|Smoke|Blur|
+|-----|----|
+|![](assets/windowed-dialog-smoke.png)|![](assets/windowed-dialog-blur.png)

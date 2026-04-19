@@ -5,6 +5,7 @@
 	runtimeclass ModernStandardWindowContextMenu : Microsoft.UI.Xaml.Controls.MenuFlyout
     {
         ModernStandardWindowContextMenu();
+        ModernStandardWindowContextMenu(Microsoft.UI.Xaml.Window window);
 
         Microsoft.UI.Xaml.Window Window;
     }

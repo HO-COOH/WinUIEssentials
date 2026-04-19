@@ -56,7 +56,8 @@ namespace winrt::WinUI3Example::implementation
         winrt::fire_and_forget loadNugetInfoForWinUIPackage(std::wstring_view endPoint);
         winrt::fire_and_forget loadNugetInfoForUWPPackage(std::wstring_view endPoint);
         winrt::fire_and_forget loadNugetInfo();
-
+        void addImplicitAnimationToLoading(winrt::Microsoft::UI::Composition::Compositor const& compositor);
+        void addHeartbeatAnimation(winrt::Microsoft::UI::Composition::Compositor const& compositor);
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_contributors{ nullptr };
     public:
         void Image_ImageOpened(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

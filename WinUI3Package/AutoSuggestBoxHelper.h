@@ -6,8 +6,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct AutoSuggestBoxHelper : AutoSuggestBoxHelperT<AutoSuggestBoxHelper>
     {
-        AutoSuggestBoxHelper() = default;
-
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
         static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& autoSuggestBox);
         static void SetAcrylicWorkaround(
@@ -16,7 +14,6 @@ namespace winrt::WinUI3Package::implementation
         );
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
         static void acrylicWorkaroundChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& object,

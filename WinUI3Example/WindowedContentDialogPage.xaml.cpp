@@ -3,7 +3,7 @@
 #if __has_include("WindowedContentDialogPage.g.cpp")
 #include "WindowedContentDialogPage.g.cpp"
 #endif
-#include "MainWindow.xaml.h"
+#include "App.xaml.h"
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -29,21 +29,28 @@ namespace winrt::WinUI3Example::implementation
 
 		dialog.UnderlaySystemBackdrop(BackdropOptions);
 
-		co_await dialog.ShowAsync(MainWindow::MainWindowInstance);
+		co_await dialog.ShowAsync(App::AppInstance->window);
 
 	}
 
-
 	winrt::fire_and_forget WindowedContentDialogPage::Button_Click_1(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		winrt::Microsoft::UI::Xaml::Controls::ContentDialog content;
-		content.Title(box_value(winrt::hstring(L"Title")));
-		content.Content(winrt::box_value(L"Content"));
-		content.PrimaryButtonText(winrt::hstring(L"PrimaryButton"));
-		content.SecondaryButtonText(winrt::hstring(L"SecondaryButton"));
-		content.CloseButtonText(winrt::hstring(L"CloseButton"));
-		content.DefaultButton(Microsoft::UI::Xaml::Controls::ContentDialogButton::Primary);
-		co_await WinUI3Package::WindowedContentDialog{ content }.ShowAsync(MainWindow::Window);
+		auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(
+			App::AppInstance->window, 
+			winrt::unbox_value<winrt::WinUI3Package::UnderlayMode>(UnderlayModeComboBox().SelectedItem().as<winrt::Microsoft::UI::Xaml::Controls::ComboBoxItem>().Tag())
+		);
+		switch (result)
+		{
+			case winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult::None: 
+				WindowedContentDialogResult().Text(L"Clicked: None");
+				break;
+			case winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult::Primary: 
+				WindowedContentDialogResult().Text(L"Clicked: Primary");
+				break;
+			case winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult::Secondary: 
+				WindowedContentDialogResult().Text(L"Clicked: Secondary");
+				break;
+		}
 	}
 
 }

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ControlExample.xaml.h"
 #if __has_include("ControlExample.g.cpp")
 #include "ControlExample.g.cpp"
@@ -14,77 +14,65 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_headerTextProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+	void ControlExample::EnsureDependencyProperties()
+	{
+		if (m_headerTextProperty) return;
+
+		m_headerTextProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"HeaderText",
 			winrt::xaml_typename<winrt::hstring>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_exampleProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_exampleProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Example",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_optionsProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_optionsProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Options",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_outputProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_outputProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Output",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_xamlProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_xamlProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Xaml",
 			winrt::xaml_typename<winrt::WinUI3Example::CodeSource>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &ControlExample::onXamlChanged }
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_idlProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_idlProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Idl",
 			winrt::xaml_typename<winrt::WinUI3Example::CodeSource>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &ControlExample::onIdlChanged }
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_cppProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_cppProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Cpp",
 			winrt::xaml_typename<winrt::WinUI3Example::CodeSource>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &ControlExample::onCppChanged }
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_headerProperty = 
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_headerProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Header",
 			winrt::xaml_typename<winrt::WinUI3Example::CodeSource>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &ControlExample::onHeaderChanged }
 		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty ControlExample::m_substitutionsProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_substitutionsProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Substitutions",
 			winrt::xaml_typename<winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Example::ControlExampleSubstitution>>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
+	}
 
 	ControlExample::ControlExample()
 	{
@@ -234,33 +222,47 @@ namespace winrt::WinUI3Example::implementation
 		m_codeItems.Append(code);
 	}
 
-	void ControlExample::onXamlChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	void ControlExample::createAnimations(winrt::Microsoft::UI::Composition::Compositor const& compositor)
+	{
+		m_iconShowAnimation = compositor.CreateScalarKeyFrameAnimation();
+		m_iconShowAnimation.InsertExpressionKeyFrame(0.f, L"this.Target.Size.Y * 1.5");
+		m_iconShowAnimation.InsertKeyFrame(1.f, 0);
+		m_iconShowAnimation.Target(L"Translation.Y");
+
+		m_iconHideAnimation = compositor.CreateScalarKeyFrameAnimation();
+		m_iconHideAnimation.InsertKeyFrame(0.f, 0);
+		m_iconHideAnimation.InsertExpressionKeyFrame(1.f, L"this.Target.Size.Y * 1.5");
+		m_iconHideAnimation.DelayBehavior(winrt::Microsoft::UI::Composition::AnimationDelayBehavior::SetInitialValueBeforeDelay);
+		m_iconHideAnimation.Target(L"Translation.Y");
+	}
+
+	void ControlExample::onXamlChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
 		auto self = getSelf(d);
 		self->makePivotItem(self->Xaml(), winrt::WinUI3Example::Language::Xaml);
 	}
 
-	void ControlExample::onIdlChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	void ControlExample::onIdlChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
 		auto self = getSelf(d);
 		self->makePivotItem(self->Idl(), winrt::WinUI3Example::Language::Idl);
 	}
 
-	void ControlExample::onHeaderChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	void ControlExample::onHeaderChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
 		auto self = getSelf(d);
 		self->makePivotItem(self->Header(), winrt::WinUI3Example::Language::H);
 	}
 
-	void ControlExample::onCppChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	void ControlExample::onCppChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
 		auto self = getSelf(d);
 		self->makePivotItem(self->Cpp(), winrt::WinUI3Example::Language::Cpp);
 	}
 
 	void ControlExample::onSubstitutionsChanged(
-		winrt::Microsoft::UI::Xaml::DependencyObject const& d,
-		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+		winrt::Microsoft::UI::Xaml::DependencyObject const&,
+		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
 	}
 
@@ -307,9 +309,48 @@ namespace winrt::WinUI3Example::implementation
 		return m_codeItems;
 	}
 
-	void ControlExample::Expander_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	void ControlExample::Expander_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		sender.as<winrt::Microsoft::UI::Xaml::Controls::Expander>().IsExpanded(false);
+
+		if (!m_iconShowAnimation)
+			createAnimations(winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread());
+	}
+
+	void ControlExample::startExpanderIconAnimations(winrt::Microsoft::UI::Composition::ScalarKeyFrameAnimation& animation)
+	{
+		if (!m_iconShowAnimation)
+			return;
+
+		auto addAnimation = [&animation, i = 0](winrt::Microsoft::UI::Xaml::Controls::Viewbox const& icon) mutable
+		{
+			//this animation must be played on the visual, not the control itself
+			//as the expression "this.Target.Size.Y" will complain when using on a normal control
+			auto visual = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(icon);
+			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(icon, true);
+			animation.DelayTime(std::chrono::milliseconds{ 50 * i });
+			visual.StartAnimation(L"Translation.Y", animation);
+			++i;
+		};
+
+		if (Xaml())
+			addAnimation(XamlIcon());
+		if (Idl())
+			addAnimation(IdlIcon());
+		if (Header())
+			addAnimation(HIcon());
+		if (Cpp())
+			addAnimation(CppIcon());
+	}
+
+	void ControlExample::Expander_Expanding(winrt::Microsoft::UI::Xaml::Controls::Expander const&, winrt::Microsoft::UI::Xaml::Controls::ExpanderExpandingEventArgs const&)
+	{
+		startExpanderIconAnimations(m_iconHideAnimation);
+	}
+
+	void ControlExample::Expander_Collapsed(winrt::Microsoft::UI::Xaml::Controls::Expander const&, winrt::Microsoft::UI::Xaml::Controls::ExpanderCollapsedEventArgs const&)
+	{
+		startExpanderIconAnimations(m_iconShowAnimation);
 	}
 
 }

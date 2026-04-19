@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Application
     x:Class="WinUI3Example.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -12,7 +12,7 @@
                 <!--  Other merged dictionaries here  -->
                 <ResourceDictionary Source="/IconButton_Resource.xaml" />
                 <ResourceDictionary Source="/FakeTitleBar_Resource.xaml" />
-                <ResourceDictionary Source="/AnimatedNumber_Resource.xaml" />
+                <local:AnimatedNumber_Resource />
             </ResourceDictionary.MergedDictionaries>
 
             <ResourceDictionary.ThemeDictionaries>

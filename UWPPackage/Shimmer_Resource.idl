@@ -1,0 +1,8 @@
+namespace UWPPackage
+{
+    [default_interface]
+    runtimeclass Shimmer_Resource : Windows.UI.Xaml.ResourceDictionary
+    {
+        Shimmer_Resource();
+    }
+}

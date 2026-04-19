@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "WindowEx.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 #include <unordered_map>
@@ -22,8 +23,9 @@ namespace winrt::WinUI3Package::implementation
         std::optional<bool> m_hasTitleBar;
         std::optional<bool> m_hasBorder;
     };
-    struct WindowEx : WindowExT<WindowEx>
+    struct WindowEx : WindowExT<WindowEx>, EnsureDependencyProperty<WindowEx>
     {
+        static void EnsureDependencyProperties();
         WindowEx();
 
 #pragma region MinimumSize
@@ -104,9 +106,6 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Windowing::AppWindow AppWindow();
         uint64_t Hwnd();
 
-        winrt::Microsoft::UI::Xaml::UIElement WindowContent();
-        void WindowContent(winrt::Microsoft::UI::Xaml::UIElement value);
-
         /*For transparent backdrop*/
         void Transparent(bool value);
 
@@ -127,8 +126,8 @@ namespace winrt::WinUI3Package::implementation
         }
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_nonClientRegionKindProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_rootWindowProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_nonClientRegionKindProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_rootWindowProperty = nullptr;
         static inline std::unordered_map<HWND, std::list<winrt::weak_ref<winrt::Microsoft::UI::Xaml::FrameworkElement>>> s_allWindows;
         static std::unordered_map<HWND, winrt::event_token> s_windowResizeRevokers;
         template<typename T, T Sentinel>
@@ -180,6 +179,7 @@ namespace winrt::WinUI3Package::implementation
         Optional<int, INT_MAX> m_maxWidth;
         Optional<int, INT_MAX> m_maxHeight;
         HWND m_hwnd{};
+        HBRUSH m_backgroundBlackBrush = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
         winrt::hstring m_icon;
 
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_contextMenu{ nullptr };

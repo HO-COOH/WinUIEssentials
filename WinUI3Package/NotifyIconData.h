@@ -8,115 +8,103 @@
 /**
  * @brief Wrapper for win32 `NOTIFYICONDATAW`
  */
-class NotifyIconData
+struct NotifyIconData : private NOTIFYICONDATA
 {
-	NOTIFYICONDATA m_data
+	constexpr NotifyIconData()
 	{
-		.cbSize = sizeof(m_data),
-		.uVersion = NOTIFYICON_VERSION
-	};
-
-	void assertId()
-	{
-#if defined (_DEBUG) || defined (DEBUG)
-		bool const useHwndWithId = (m_data.hWnd != HWND{} && m_data.uID != UINT{});
-		bool const useGuid = (m_data.guidItem != GUID{});
-		assert(
-			(useHwndWithId && !useGuid) ||
-			(!useHwndWithId && useGuid)
-		);
-#endif
+		cbSize = sizeof(NOTIFYICONDATA);
+		uVersion = NOTIFYICON_VERSION;
 	}
-public:
+
 	constexpr NotifyIconData& hWnd(HWND value)
 	{
-		m_data.hWnd = value;
+		NOTIFYICONDATA::hWnd = value;
 		return *this;
 	}
 
 	constexpr NotifyIconData& uID(UINT value)
 	{
-		m_data.uID = value;
+		NOTIFYICONDATA::uID = value;
 		return *this;
 	}
 
 	constexpr NotifyIconData& uCallbackMessage(UINT value)
 	{
-		m_data.uCallbackMessage = value;
-		m_data.uFlags |= NIF_MESSAGE;
+		NOTIFYICONDATA::uCallbackMessage = value;
+		NOTIFYICONDATA::uFlags |= NIF_MESSAGE;
 		return *this;
 	}
 
 	constexpr NotifyIconData& hIcon(HICON value)
 	{
-		m_data.hIcon = value;
-		m_data.uFlags |= NIF_ICON;
+		NOTIFYICONDATA::hIcon = value;
+		NOTIFYICONDATA::uFlags |= NIF_ICON;
 		return *this;
 	}
 
 	constexpr NotifyIconData& szTip(std::wstring_view value)
 	{
-		assert(value.size() <= std::size(m_data.szTip) - 1);
-		std::ranges::copy(value, m_data.szTip);
-		m_data.uFlags |= NIF_TIP;
+		assert(value.size() <= std::size(NOTIFYICONDATA::szTip) - 1);
+		std::ranges::copy(value, NOTIFYICONDATA::szTip);
+		NOTIFYICONDATA::uFlags |= NIF_TIP;
 		return *this;
 	}
 
 	constexpr NotifyIconData& guidItem(GUID const& value)
 	{
-		m_data.guidItem = value;
-		m_data.uFlags |= NIF_GUID;
+		NOTIFYICONDATA::guidItem = value;
+		NOTIFYICONDATA::uFlags |= NIF_GUID;
 		return *this;
 	}
 
 	constexpr GUID guidItem() const
 	{
-		return m_data.guidItem;
+		return NOTIFYICONDATA::guidItem;
 	}
 
 	constexpr NotifyIconData& szInfoTitle(std::wstring_view value)
 	{
-		assert(value.size() <= std::size(m_data.szInfoTitle) - 1);
-		std::ranges::copy(value, m_data.szInfoTitle);
-		m_data.uFlags |= NIF_INFO;
+		assert(value.size() <= std::size(NOTIFYICONDATA::szInfoTitle) - 1);
+		std::ranges::copy(value, NOTIFYICONDATA::szInfoTitle);
+		NOTIFYICONDATA::uFlags |= NIF_INFO;
 		return *this;
 	}
 
 	constexpr NotifyIconData& dwInfoFlags(DWORD value)
 	{
-		m_data.dwInfoFlags = value;
+		NOTIFYICONDATA::dwInfoFlags = value;
 		return *this;
 	}
 
 	constexpr NotifyIconData& hBalloonIcon(HICON value)
 	{
-		m_data.hBalloonIcon = value;
-		m_data.dwInfoFlags |= NIIF_USER;
+		NOTIFYICONDATA::hBalloonIcon = value;
+		NOTIFYICONDATA::dwInfoFlags |= NIIF_USER;
 		return *this;
 	}
 
 	void Add()
 	{
-		winrt::check_bool(Shell_NotifyIcon(NIM_ADD, &m_data));
+		winrt::check_bool(Shell_NotifyIcon(NIM_ADD, this));
 	}
 
 	void Modify()
 	{
-		winrt::check_bool(Shell_NotifyIcon(NIM_MODIFY, &m_data));
+		winrt::check_bool(Shell_NotifyIcon(NIM_MODIFY, this));
 	}
 
 	void Delete()
 	{
-		winrt::check_bool(Shell_NotifyIcon(NIM_DELETE, &m_data));
+		winrt::check_bool(Shell_NotifyIcon(NIM_DELETE, this));
 	}
 
 	void SetFocus()
 	{
-		winrt::check_bool(Shell_NotifyIcon(NIM_SETFOCUS, &m_data));
+		winrt::check_bool(Shell_NotifyIcon(NIM_SETFOCUS, this));
 	}
 
 	void SetVersion()
 	{
-		winrt::check_bool(Shell_NotifyIcon(NIM_SETVERSION, &m_data));
+		winrt::check_bool(Shell_NotifyIcon(NIM_SETVERSION, this));
 	}
 };

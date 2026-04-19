@@ -1,12 +1,14 @@
-#pragma once
+﻿#pragma once
 
 #include "SettingsExpander.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SettingsExpander : SettingsExpanderT<SettingsExpander>, TemplateControlHelper<SettingsExpander>
+    struct SettingsExpander : SettingsExpanderT<SettingsExpander>, TemplateControlHelper<SettingsExpander>, EnsureDependencyProperty<SettingsExpander>
     {
+        static void EnsureDependencyProperties();
         SettingsExpander();
 
         void OnApplyTemplate();
@@ -71,17 +73,17 @@ namespace winrt::WinUI3Package::implementation
 #pragma endregion
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_contentProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_descriptionProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_headerIconProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_itemsHeaderProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_itemsFooterProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_isExpandedProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_itemsProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_itemsSourceProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_itemTemplateProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_itemContainerStyleSelectorProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_contentProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_descriptionProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerIconProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_itemsHeaderProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_itemsFooterProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_isExpandedProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_itemsProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_itemsSourceProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_itemTemplateProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_itemContainerStyleSelectorProperty = nullptr;
 
         winrt::event<WinUI3Package::SignalDelegate> m_expandedEvent;
         winrt::event<WinUI3Package::SignalDelegate> m_collapsedEvent;

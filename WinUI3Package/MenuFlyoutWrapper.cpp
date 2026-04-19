@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "MenuFlyoutWrapper.h"
 #include <winrt/Microsoft.UI.Xaml.h>
 #include "MenuFlyoutItemPaddingWorkaround.h"
@@ -23,18 +23,7 @@ void MenuFlyoutWrapper::applySystemTheme()
 void MenuFlyoutWrapper::Theme(winrt::Microsoft::UI::Xaml::ElementTheme value)
 {
 	MenuBase::Theme(value);
-	if (value == winrt::Microsoft::UI::Xaml::ElementTheme::Default)
-	{
-		applySystemTheme();
-		m_themeListenerToken = ThemeListener::Add([this]() {
-			applySystemTheme();
-		});
-	}
-	else
-	{
-		m_menuHost.RequestedTheme(value);
-		m_themeListenerToken.reset();
-	}
+	m_menuHost.RequestedTheme(value);
 }
 
 void MenuFlyoutWrapper::Show(POINT p)
@@ -45,5 +34,8 @@ void MenuFlyoutWrapper::Show(POINT p)
 	auto offset = Utils::ScaleForDpi(24, dpiX);
 	p.x = max(0, p.x - offset);
 	m_menuHost.Move(p);
-	ShowAtImpl(m_menu.as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>(), m_menuHost);
+	if (auto menuFlyout = m_menu.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>())
+		ShowAtImpl(menuFlyout, m_menuHost);
+	else
+		m_menu.ShowAt(static_cast<winrt::Microsoft::UI::Xaml::FrameworkElement>(m_menuHost));
 }

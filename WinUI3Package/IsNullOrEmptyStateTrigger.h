@@ -1,11 +1,13 @@
 ﻿#pragma once
 
 #include "IsNullOrEmptyStateTrigger.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct IsNullOrEmptyStateTrigger : IsNullOrEmptyStateTriggerT<IsNullOrEmptyStateTrigger>
+    struct IsNullOrEmptyStateTrigger : IsNullOrEmptyStateTriggerT<IsNullOrEmptyStateTrigger>, EnsureDependencyProperty<IsNullOrEmptyStateTrigger>
     {
+        static void EnsureDependencyProperties();
         IsNullOrEmptyStateTrigger();
 
         winrt::Windows::Foundation::IInspectable Value();
@@ -13,7 +15,7 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty ValueProperty();
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_valueProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
         static void onValuePropertyChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject d,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const e);

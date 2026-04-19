@@ -6,9 +6,6 @@
     <ClCompile Include="TaskbarIconMessageWindow.cpp">
       <Filter>TaskbarIcon</Filter>
     </ClCompile>
-    <ClCompile Include="GuidWrapper.cpp">
-      <Filter>TaskbarIcon</Filter>
-    </ClCompile>
     <ClCompile Include="ThemeListenerMessageWindow.cpp">
       <Filter>utils</Filter>
     </ClCompile>
@@ -78,10 +75,16 @@
     <ClCompile Include="TenMicaEffect.cpp">
       <Filter>Backdrop\TenMica</Filter>
     </ClCompile>
-    <ClCompile Include="TenMicaRegistryWatcher.cpp">
-      <Filter>Backdrop\TenMica</Filter>
-    </ClCompile>
     <ClCompile Include="WindowsVersion.cpp" />
+    <ClCompile Include="UnderlayElement.cpp">
+      <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
+    </ClCompile>
+    <ClCompile Include="TenMicaRegistryWatcher.cpp">
+      <Filter>Backdrop\TenMica\Registry</Filter>
+    </ClCompile>
+    <ClCompile Include="TenMicaRegistry.cpp">
+      <Filter>Backdrop\TenMica\Registry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -135,7 +138,7 @@
       <Filter>Backdrop</Filter>
     </ClInclude>
     <ClInclude Include="UnsupportedImageTypeError.hpp">
-      <Filter>Controls\ImageExtension</Filter>
+      <Filter>Extensions\ImageExtension</Filter>
     </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
@@ -147,9 +150,6 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="TaskbarIconMessageWindow.h">
-      <Filter>TaskbarIcon</Filter>
-    </ClInclude>
-    <ClInclude Include="GuidWrapper.h">
       <Filter>TaskbarIcon</Filter>
     </ClInclude>
     <ClInclude Include="IconUtils.h">
@@ -211,9 +211,6 @@
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp">
       <Filter>TaskbarIcon\Errors</Filter>
     </ClInclude>
-    <ClInclude Include="InvalidXamlMenuFlyoutTypeError.hpp">
-      <Filter>TaskbarIcon\Errors</Filter>
-    </ClInclude>
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h">
       <Filter>TaskbarIcon\TaskbarIconMenu\XamlMenu</Filter>
     </ClInclude>
@@ -247,7 +244,6 @@
     <ClInclude Include="Shimmer.DefaultGradientColor.h">
       <Filter>Controls\Shimmer</Filter>
     </ClInclude>
-    <ClInclude Include="ModalWindowBase.hpp" />
     <ClInclude Include="WinUIAsyncEventArgs.hpp">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
     </ClInclude>
@@ -299,9 +295,6 @@
     <ClInclude Include="WallpaperInfo.h">
       <Filter>Backdrop\TenMica\Wallpaper</Filter>
     </ClInclude>
-    <ClInclude Include="TenMicaRegistryWatcher.h">
-      <Filter>Backdrop\TenMica</Filter>
-    </ClInclude>
     <ClInclude Include="EnsureSystemDispatcherQueueController.hpp">
       <Filter>Backdrop</Filter>
     </ClInclude>
@@ -313,6 +306,24 @@
     </ClInclude>
     <ClInclude Include="include\AutoRevokeWorkaround.hpp">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomBackdropImplBase.hpp">
+      <Filter>Backdrop\CustomizableBackdrops</Filter>
+    </ClInclude>
+    <ClInclude Include="UnderlayElement.h">
+      <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnsureDependencyProperty.hpp">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="ModalWindowBase.hpp">
+      <Filter>Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="TenMicaRegistryWatcher.h">
+      <Filter>Backdrop\TenMica\Registry</Filter>
+    </ClInclude>
+    <ClInclude Include="TenMicaRegistry.h">
+      <Filter>Backdrop\TenMica\Registry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -331,9 +342,6 @@
     </Filter>
     <Filter Include="Triggers">
       <UniqueIdentifier>{3cc9cab8-b17a-4fce-806e-769d99c0084d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MarkupExtensions">
-      <UniqueIdentifier>{877a96cc-8fdd-4e4b-af4d-f103a2fbdef1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Controls">
       <UniqueIdentifier>{64af69c0-57c7-4bf9-877e-c252bcb5167a}</UniqueIdentifier>
@@ -371,9 +379,6 @@
     <Filter Include="Controls\Shimmer">
       <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controls\ImageExtension">
-      <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls\SwitchPresenter">
       <UniqueIdentifier>{68605443-f197-4fb3-b27c-1de2fb958f55}</UniqueIdentifier>
     </Filter>
@@ -394,9 +399,6 @@
     </Filter>
     <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu">
       <UniqueIdentifier>{a57a64f7-5943-42d6-96e1-f147b28b7dd3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TaskbarIcon\FlyoutContent">
-      <UniqueIdentifier>{a9f9a5fb-d972-4f90-96a8-f5ac13843b97}</UniqueIdentifier>
     </Filter>
     <Filter Include="TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml">
       <UniqueIdentifier>{12901af6-4941-4188-bb1b-692d288fcf68}</UniqueIdentifier>
@@ -440,9 +442,23 @@
     <Filter Include="Controls\WindowedContentDialog\WindowedContentDialog">
       <UniqueIdentifier>{d5820e1f-d67e-4647-80b6-7b6133307257}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extensions">
+      <UniqueIdentifier>{faf10c80-d343-4915-8fe8-b3b8012bfcb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extensions\ImageExtension">
+      <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extensions\MarkupExtensions">
+      <UniqueIdentifier>{877a96cc-8fdd-4e4b-af4d-f103a2fbdef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backdrop\CustomizableBackdrops">
+      <UniqueIdentifier>{885452a6-0434-4471-a419-1c300c3dfbbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backdrop\TenMica\Registry">
+      <UniqueIdentifier>{7216e9cb-26fe-4e59-818e-39fdc16de5fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="CursorController.idl" />
     <Midl Include="BoolToVisibilityConverter.idl">
       <Filter>Converters</Filter>
     </Midl>
@@ -471,7 +487,7 @@
       <Filter>Triggers</Filter>
     </Midl>
     <Midl Include="FontIconExtension.idl">
-      <Filter>MarkupExtensions</Filter>
+      <Filter>Extensions\MarkupExtensions</Filter>
     </Midl>
     <Midl Include="include\DependentValue.idl" />
     <Midl Include="GroupBox.idl">
@@ -492,9 +508,6 @@
     <Midl Include="ProgressBarEx.idl">
       <Filter>Controls\ProgressBarEx</Filter>
     </Midl>
-    <Midl Include="UIElementExtension.idl">
-      <Filter>Controls</Filter>
-    </Midl>
     <Midl Include="EqualPanel.idl">
       <Filter>Controls\Segmented</Filter>
     </Midl>
@@ -509,12 +522,6 @@
     </Midl>
     <Midl Include="SegmentedMarginConverter.idl">
       <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="CustomAcrylicBackdrop.idl">
-      <Filter>Backdrop</Filter>
-    </Midl>
-    <Midl Include="CustomMicaBackdrop.idl">
-      <Filter>Backdrop</Filter>
     </Midl>
     <Midl Include="HostBackdropVisual.idl">
       <Filter>Controls\AcrylicVisual</Filter>
@@ -532,7 +539,7 @@
       <Filter>Controls\Shimmer</Filter>
     </Midl>
     <Midl Include="ImageExtension.idl">
-      <Filter>Controls\ImageExtension</Filter>
+      <Filter>Extensions\ImageExtension</Filter>
     </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>
@@ -653,14 +660,29 @@
     <Midl Include="TenMicaBackdrop.idl">
       <Filter>Backdrop\TenMica</Filter>
     </Midl>
-    <Midl Include="CustomBackdropBase.idl">
-      <Filter>Backdrop</Filter>
-    </Midl>
     <Midl Include="SliderHelper.idl">
       <Filter>Controls\Helpers</Filter>
     </Midl>
     <Midl Include="WindowedContentDialog.idl">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
+    </Midl>
+    <Midl Include="TypeNameExtension.idl">
+      <Filter>Extensions\MarkupExtensions</Filter>
+    </Midl>
+    <Midl Include="UIElementExtension.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="CursorController.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="CustomMicaBackdrop.idl">
+      <Filter>Backdrop\CustomizableBackdrops</Filter>
+    </Midl>
+    <Midl Include="CustomBackdropBase.idl">
+      <Filter>Backdrop\CustomizableBackdrops</Filter>
+    </Midl>
+    <Midl Include="CustomAcrylicBackdrop.idl">
+      <Filter>Backdrop\CustomizableBackdrops</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -681,12 +703,6 @@
     </Page>
     <Page Include="Segmented_Resource.xaml">
       <Filter>Controls\Segmented</Filter>
-    </Page>
-    <Page Include="HostBackdropVisual_Resource.xaml">
-      <Filter>Controls\AcrylicVisual</Filter>
-    </Page>
-    <Page Include="FlyoutWindow.xaml">
-      <Filter>TaskbarIcon\FlyoutContent</Filter>
     </Page>
     <Page Include="ModernStandardWindowContextMenu.xaml">
       <Filter>Windows</Filter>

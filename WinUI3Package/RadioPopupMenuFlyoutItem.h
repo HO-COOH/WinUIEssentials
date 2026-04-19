@@ -2,14 +2,16 @@
 
 #include "PopupMenuFlyoutItem.h"
 #include "RadioPopupMenuFlyoutItem.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 #include "PopupMenuFlyoutItemImplBase.h"
 
 class RadioPopupMenuItemGroup;
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct RadioPopupMenuFlyoutItem : RadioPopupMenuFlyoutItemT<RadioPopupMenuFlyoutItem, PopupMenuFlyoutItem>
+    struct RadioPopupMenuFlyoutItem : RadioPopupMenuFlyoutItemT<RadioPopupMenuFlyoutItem, PopupMenuFlyoutItem>, EnsureDependencyProperty<RadioPopupMenuFlyoutItem>
     {
+        static void EnsureDependencyProperties();
         RadioPopupMenuFlyoutItem() = default;
 
 #pragma region Inheirted from PopupMenuFlyoutItemBase
@@ -26,8 +28,8 @@ namespace winrt::WinUI3Package::implementation
 
         void SetGroupHelper(RadioPopupMenuItemGroup& groupHelper);
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_groupNameProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_groupNameProperty = nullptr;
         RadioPopupMenuItemGroup* m_groupHelper{ nullptr };
     };
 }

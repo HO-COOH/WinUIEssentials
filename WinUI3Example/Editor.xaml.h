@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Editor.g.h"
 
@@ -11,6 +11,7 @@ namespace winrt::WinUI3Example::implementation
         winrt::hstring Code();
         void Code(winrt::hstring const& value);
         void WebView2_CoreWebView2Initialized(winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender, winrt::Microsoft::UI::Xaml::Controls::CoreWebView2InitializedEventArgs const& args);
+        void WebView2_Closed(winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender, winrt::Windows::Foundation::IInspectable const& args);
         
         winrt::WinUI3Example::Language CodeLanguage();
         void CodeLanguage(winrt::WinUI3Example::Language value);
@@ -19,6 +20,7 @@ namespace winrt::WinUI3Example::implementation
 
 
     private:
+        bool m_closed{};
         static double measureHeight(winrt::hstring const& value);
         static std::wstring_view ltrim(std::wstring_view str);
         static std::wstring_view rtrim(std::wstring_view str);
@@ -42,6 +44,8 @@ namespace winrt::WinUI3Example::implementation
         }
         
         winrt::hstring m_code;
+    public:
+        void EditorWebView_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

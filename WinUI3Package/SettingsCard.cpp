@@ -7,104 +7,89 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::m_headerProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Header",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                nullptr,
-                [](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
-                {
-                    winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onHeaderChanged();
-                }
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::m_descriptionProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Description",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                nullptr,
-                [](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
-                {
-                    winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onDescriptionChanged();
-                }
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::m_headerIconProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"HeaderIcon",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                nullptr,
-                [](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
-                {
-                    winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onHeaderIconChanged();
-                }
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::m_actionIconProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"ActionIcon",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(winrt::hstring{L"\ue974"})
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::m_actionIconToolTipProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"ActionIconToolTip",
-            winrt::xaml_typename<winrt::hstring>(),
-            winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::m_isClickEnabledProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"IsClickEnabled",
-            winrt::xaml_typename<bool>(),
-            winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(false),
-                [](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
-                {
-                    winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onIsClickEnabledChanged();
-                }
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::m_isActionIconVisibleProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"IsActionIconVisible",
-            winrt::xaml_typename<bool>(),
-            winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(true),
-                [](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
-                {
-                    winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onActionIconChanged();
-                }
-
-
-
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::m_contentAlignmentProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"ContentAlignment",
-            winrt::xaml_typename<WinUI3Package::ContentAlignment>(),
-            winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(WinUI3Package::ContentAlignment::Right) }
-    );
+	void SettingsCard::EnsureDependencyProperties()
+	{
+		if (m_headerProperty) 
+            return;
+		m_headerProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Header",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				{
+					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onHeaderChanged();
+				}
+			}
+		);
+		m_descriptionProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Description",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				{
+					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onDescriptionChanged();
+				}
+			}
+		);
+		m_headerIconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"HeaderIcon",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				{
+					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onHeaderIconChanged();
+				}
+			}
+		);
+		m_actionIconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ActionIcon",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::hstring{ L"\ue974" }) }
+		);
+		m_actionIconToolTipProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ActionIconToolTip",
+			winrt::xaml_typename<winrt::hstring>(),
+			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
+		);
+		m_isClickEnabledProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"IsClickEnabled",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				winrt::box_value(false),
+				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				{
+					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onIsClickEnabledChanged();
+				}
+			}
+		);
+		m_isActionIconVisibleProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"IsActionIconVisible",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				winrt::box_value(true),
+				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				{
+					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onActionIconChanged();
+				}
+			}
+		);
+		m_contentAlignmentProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ContentAlignment",
+			winrt::xaml_typename<WinUI3Package::ContentAlignment>(),
+			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(WinUI3Package::ContentAlignment::Right) }
+		);
+	}
 
     void SettingsCard::OnApplyTemplate()
     {

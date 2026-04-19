@@ -13,12 +13,15 @@ namespace winrt::WinUI3Package::implementation
 		return m_window.get();
 	}
 
+	NonMaximizableWindowWorkaround::NonMaximizableWindowWorkaround(winrt::Microsoft::UI::Xaml::Window const& window, bool m_isMaximizable) : m_hwnd(GetHwnd(window)), m_isMaximizable(m_isMaximizable)
+	{
+		set();
+	}
+
 	NonMaximizableWindowWorkaround::~NonMaximizableWindowWorkaround()
 	{
 		if (m_registered && m_hwnd)
-		{
-
-		}
+			RemoveWindowSubclass(m_hwnd, subclassProc, SubClassId);
 	}
 
 	void NonMaximizableWindowWorkaround::Window(winrt::Microsoft::UI::Xaml::Window const& value)

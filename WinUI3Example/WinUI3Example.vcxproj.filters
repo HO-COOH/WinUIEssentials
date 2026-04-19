@@ -107,9 +107,6 @@
     <Page Include="ColorTile.xaml">
       <Filter>Pages\ThemeListenerPage</Filter>
     </Page>
-    <Page Include="TestWindow.xaml">
-      <Filter>Pages\Experimental</Filter>
-    </Page>
     <Page Include="ModernStandardWindowContextMenuPage.xaml">
       <Filter>Pages\ModernStandardWindowContextMenuPage</Filter>
     </Page>
@@ -139,9 +136,6 @@
     </Page>
     <Page Include="FakeTitleBar_Resource.xaml">
       <Filter>Pages\Experimental\FakeWin32</Filter>
-    </Page>
-    <Page Include="AnimatedNumber_Resource.xaml">
-      <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Page>
     <Page Include="WrapPanelPage.xaml">
       <Filter>Pages\WrapPanelPage</Filter>
@@ -178,12 +172,6 @@
     </Page>
     <Page Include="ToolTipHelperPage.xaml">
       <Filter>Pages</Filter>
-    </Page>
-    <Page Include="BackdropPage.xaml">
-      <Filter>Pages\BackdropPage</Filter>
-    </Page>
-    <Page Include="MicaBackdropWithFallbackWindow.xaml">
-      <Filter>Pages\BackdropPage</Filter>
     </Page>
     <Page Include="NonResizableWindowWhiteBorderWorkaroundPage.xaml">
       <Filter>Pages\NonResizableWindowWhiteBorderWorkaroundPage</Filter>
@@ -231,10 +219,10 @@
       <Filter>Pages\RevealFocusPage</Filter>
     </Page>
     <Page Include="TenMicaPage.xaml">
-      <Filter>Pages\TenMicaPage</Filter>
+      <Filter>Pages\BackdropPage\TenMicaPage</Filter>
     </Page>
     <Page Include="TenMicaBackdropWindow.xaml">
-      <Filter>Pages\TenMicaPage</Filter>
+      <Filter>Pages\BackdropPage\TenMicaPage</Filter>
     </Page>
     <Page Include="Editor.xaml">
       <Filter>Helper</Filter>
@@ -246,11 +234,32 @@
       <Filter>Pages</Filter>
     </Page>
     <Page Include="ExampleDialog.xaml" />
-    <Page Include="WindowedContentDialogPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="FontIconExtensionPage.xaml">
       <Filter>Pages</Filter>
+    </Page>
+    <Page Include="AcrylicBackdropsPage.xaml">
+      <Filter>Pages\BackdropPage\Acrylic</Filter>
+    </Page>
+    <Page Include="MicaBackdropsPage.xaml">
+      <Filter>Pages\BackdropPage\Mica</Filter>
+    </Page>
+    <Page Include="MicaBackdropWithFallbackWindow.xaml">
+      <Filter>Pages\BackdropPage\Mica</Filter>
+    </Page>
+    <Page Include="TransparentBackdropPage.xaml">
+      <Filter>Pages\BackdropPage\Transparent</Filter>
+    </Page>
+    <Page Include="MicaBackdropWithTenMicaFallback.xaml">
+      <Filter>Pages\BackdropPage\TenMicaPage</Filter>
+    </Page>
+    <Page Include="WindowedContentDialogPage.xaml">
+      <Filter>Pages\WindowedContentDialogPage</Filter>
+    </Page>
+    <Page Include="SampleWindowedContentDialog.xaml">
+      <Filter>Pages\WindowedContentDialogPage</Filter>
+    </Page>
+    <Page Include="AnimatedNumber_Resource.xaml">
+      <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -319,9 +328,6 @@
     <Midl Include="LineGraph.idl">
       <Filter>Pages\Experimental\LineGraph</Filter>
     </Midl>
-    <Midl Include="BackdropPage.idl">
-      <Filter>Pages\BackdropPage</Filter>
-    </Midl>
     <Midl Include="IconButton.idl">
       <Filter>Pages\Experimental\IconButton</Filter>
     </Midl>
@@ -339,6 +345,9 @@
     </Midl>
     <Midl Include="Language.idl">
       <Filter>Helper</Filter>
+    </Midl>
+    <Midl Include="AnimatedDigit.idl">
+      <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -656,15 +665,21 @@
     <Filter Include="Pages\BackdropPage\Transparent">
       <UniqueIdentifier>{65923a10-f685-4af3-8417-b006c2d962dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pages\TenMicaPage">
+    <Filter Include="Pages\BackdropPage\TenMicaPage">
       <UniqueIdentifier>{9552aa05-013e-4657-be0f-8a173ffba4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manifests">
+      <UniqueIdentifier>{c324f92e-6d88-4076-a551-0d172774d95d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\WindowedContentDialogPage">
+      <UniqueIdentifier>{75b54b22-26dd-42af-b6ba-403b943e280d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" />
+    <AppxManifest Include="Package.Dev.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

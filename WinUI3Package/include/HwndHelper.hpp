@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <algorithm>
 #include <microsoft.ui.xaml.window.h>
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Microsoft.UI.h>
@@ -31,4 +32,60 @@ inline HWND GetHwnd(winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
     //    .AppWindowId()
     //    .Value;
     return reinterpret_cast<HWND>(xamlRoot.ContentIslandEnvironment().AppWindowId().Value);
+}
+
+inline RECT ClampWindowRect(RECT windowRect)
+{
+    HMONITOR monitor = MonitorFromRect(&windowRect, MONITOR_DEFAULTTONEAREST);
+    if (!monitor)
+        return windowRect;
+
+    MONITORINFO monitorInfo{ .cbSize = sizeof(monitorInfo) };
+    if (!GetMonitorInfoW(monitor, &monitorInfo))
+        return windowRect;
+
+    const LONG windowWidth = windowRect.right - windowRect.left;
+    const LONG windowHeight = windowRect.bottom - windowRect.top;
+    const LONG monitorWidth = monitorInfo.rcWork.right - monitorInfo.rcWork.left;
+    const LONG monitorHeight = monitorInfo.rcWork.bottom - monitorInfo.rcWork.top;
+
+    LONG newLeft = windowRect.left;
+    LONG newTop = windowRect.top;
+
+    if (windowWidth >= monitorWidth)
+        newLeft = monitorInfo.rcWork.left;
+    else
+        newLeft = std::clamp(windowRect.left, monitorInfo.rcWork.left, monitorInfo.rcWork.right - windowWidth);
+
+    if (windowHeight >= monitorHeight)
+        newTop = monitorInfo.rcWork.top;
+    else
+        newTop = std::clamp(windowRect.top, monitorInfo.rcWork.top, monitorInfo.rcWork.bottom - windowHeight);
+
+    windowRect.left = newLeft;
+    windowRect.top = newTop;
+    windowRect.right = newLeft + windowWidth;
+    windowRect.bottom = newTop + windowHeight;
+    return windowRect;
+}
+
+inline void EnsureWindowVisible(HWND hwnd)
+{
+    RECT windowRect{};
+    if (!GetWindowRect(hwnd, &windowRect))
+        return;
+
+    RECT visibleRect = ClampWindowRect(windowRect);
+    if (visibleRect.left == windowRect.left && visibleRect.top == windowRect.top)
+        return;
+
+    SetWindowPos(
+        hwnd,
+        nullptr,
+        visibleRect.left,
+        visibleRect.top,
+        0,
+        0,
+        SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_NOSIZE | SWP_NOZORDER
+    );
 }

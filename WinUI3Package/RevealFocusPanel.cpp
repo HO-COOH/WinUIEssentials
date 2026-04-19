@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "RevealFocusPanel.h"
 #if __has_include("RevealFocusPanel.g.cpp")
 #include "RevealFocusPanel.g.cpp"
@@ -10,18 +10,23 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::s_attachToPanelProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"AttachToPanel",
-			winrt::xaml_typename<class_type>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
-				nullptr,
-				&RevealFocusPanel::onAttachToPanelChanged
-			}
-		);
+	void RevealFocusPanel::EnsureDependencyProperties()
+	{
+		if (s_attachToPanelProperty) 
+            return;
 
-	RevealFocusPanel::RevealFocusPanel()
+		s_attachToPanelProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+		    L"AttachToPanel",
+		    winrt::xaml_typename<class_type>(),
+		    winrt::xaml_typename<class_type>(),
+		    winrt::Microsoft::UI::Xaml::PropertyMetadata{
+		        nullptr,
+		        &RevealFocusPanel::onAttachToPanelChanged
+		    }
+		);
+	}
+
+    RevealFocusPanel::RevealFocusPanel()
 	{
         m_compositor = winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
         Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
@@ -168,11 +173,18 @@ namespace winrt::WinUI3Package::implementation
         revealFocusPanel->m_ellipseCenterExpressionAnimation.SetReferenceParameter(L"localProperty", localProperty);
 
 
-        child.LayoutUpdated([localProperty, child, panel](auto&&...) {
+        child.LayoutUpdated([localProperty, childRef = winrt::make_weak(child), panelRef = winrt::make_weak(panel)](auto&&...) 
+        {
+            auto child = childRef.get();
+            if (!child)
+                return;
+            auto panel = panelRef.get();
+            if (!panel)
+                return;
+
             auto transform = child.TransformToVisual(panel).TransformPoint({});
             localProperty.InsertVector2(L"elementPosition", transform);
         });
-
 
         brush.StartAnimation(L"EllipseCenter", revealFocusPanel->m_ellipseCenterExpressionAnimation);
 

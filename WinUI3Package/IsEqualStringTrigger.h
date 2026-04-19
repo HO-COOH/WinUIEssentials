@@ -1,11 +1,13 @@
 ﻿#pragma once
 
 #include "IsEqualStringTrigger.g.h"
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct IsEqualStringTrigger : IsEqualStringTriggerT<IsEqualStringTrigger>
+    struct IsEqualStringTrigger : IsEqualStringTriggerT<IsEqualStringTrigger>, EnsureDependencyProperty<IsEqualStringTrigger>
     {
+        static void EnsureDependencyProperties();
         IsEqualStringTrigger() = default;
 
         winrt::hstring From();
@@ -17,8 +19,8 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty ToProperty();
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_fromProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty m_toProperty;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_fromProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_toProperty = nullptr;
 
         static void onValuePropertyChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject d,

@@ -1,0 +1,13 @@
+name: Build Debug ARM64
+
+on:
+  push:
+    branches: [ "master", "ci", "ci/vs-2026" ]
+  pull_request:
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-template.yml
+    with:
+      configuration: Debug_CI2
+      platform: ARM64

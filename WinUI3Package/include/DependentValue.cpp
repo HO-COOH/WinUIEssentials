@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "DependentValue.h"
 #if __has_include("DependentValue.g.cpp")
 #include "DependentValue.g.cpp"
@@ -6,17 +6,22 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty DependentValue::m_valueProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Value",
-            winrt::xaml_typename<double>(),
-            winrt::xaml_typename<winrt::WinUI3Package::DependentValue>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0),
-            [](winrt::Microsoft::UI::Xaml::DependencyObject obj, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs args)
-            {
-                obj.as<winrt::WinUI3Package::DependentValue>().Value(winrt::unbox_value<double>(args.NewValue()));
-            } }
-    );
+	void DependentValue::EnsureDependencyProperties()
+	{
+		if (m_valueProperty) return;
+		m_valueProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Value",
+			winrt::xaml_typename<double>(),
+			winrt::xaml_typename<winrt::WinUI3Package::DependentValue>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				winrt::box_value(0.0),
+				[](winrt::Microsoft::UI::Xaml::DependencyObject obj, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs args)
+				{
+					obj.as<winrt::WinUI3Package::DependentValue>().Value(winrt::unbox_value<double>(args.NewValue()));
+				}
+			}
+		);
+	}
 
     winrt::Microsoft::UI::Xaml::DependencyProperty DependentValue::ValueProperty()
     {

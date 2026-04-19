@@ -14,7 +14,6 @@ namespace winrt::WinUI3Package::implementation
         );
 
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
         static bool modifyDatePickerFlyoutPresenter(
             winrt::Microsoft::UI::Xaml::Controls::DatePickerFlyoutPresenter const& presenter

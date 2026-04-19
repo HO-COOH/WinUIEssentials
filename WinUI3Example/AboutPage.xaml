@@ -40,7 +40,7 @@
                     </essential:SettingsCard.HeaderIcon>
                     <essential:SettingsCard.Header>
                         <StackPanel Orientation="Horizontal" Spacing="20">
-                            <TextBlock Text="Go to the repro" />
+                            <TextBlock Text="Go to the repo" />
                             <essential:Shimmer
                                 Height="20"
                                 MinWidth="200"
@@ -163,15 +163,41 @@
                     Header="Contributors (double click to go to their website!)">
                     <essential:SettingsCard.HeaderIcon>
                         <PathIcon
+                            x:Name="HeartIcon"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Data="F1 M 18.447266 2.802734 C 18.792316 3.147787 19.080402 3.525391 19.311523 3.935547 C 19.542643 4.345703 19.715168 4.772136 19.829102 5.214844 C 19.943033 5.657553 20 6.108399 20 6.567383 C 20 7.026368 19.943033 7.475587 19.829102 7.915039 C 19.715168 8.354492 19.542643 8.779297 19.311523 9.189453 C 19.080402 9.599609 18.792316 9.977214 18.447266 10.322266 L 10 18.759766 L 1.552734 10.322266 C 1.207682 9.977214 0.919596 9.599609 0.688477 9.189453 C 0.457357 8.779297 0.284831 8.354492 0.170898 7.915039 C 0.056966 7.475587 0 7.026368 0 6.567383 C 0 6.108399 0.056966 5.657553 0.170898 5.214844 C 0.284831 4.772136 0.457357 4.345703 0.688477 3.935547 C 0.919596 3.525391 1.207682 3.147787 1.552734 2.802734 C 2.060547 2.301434 2.636719 1.917318 3.28125 1.650391 C 3.925781 1.383465 4.602864 1.25 5.3125 1.25 C 6.022135 1.25 6.699219 1.383465 7.34375 1.650391 C 7.988281 1.917318 8.564453 2.301434 9.072266 2.802734 L 10 3.740234 L 10.927734 2.802734 C 11.435547 2.301434 12.011719 1.917318 12.65625 1.650391 C 13.30078 1.383465 13.977863 1.25 14.6875 1.25 C 15.397135 1.25 16.074219 1.383465 16.71875 1.650391 C 17.363281 1.917318 17.939453 2.301434 18.447266 2.802734 Z " />
                     </essential:SettingsCard.HeaderIcon>
                     <Grid>
                         <GridView x:Name="ContributorsGridView" ItemsSource="{x:Bind Contributors, Mode=OneWay}">
+                            <GridView.ItemContainerTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition
+                                        FromHorizontalOffset="100"
+                                        FromVerticalOffset="0"
+                                        IsStaggeringEnabled="False" />
+                                </TransitionCollection>
+                            </GridView.ItemContainerTransitions>
                             <GridView.ItemTemplate>
                                 <DataTemplate x:DataType="local:ContributorItem">
-                                    <StackPanel DoubleTapped="{x:Bind OpenWebsite}" IsDoubleTapEnabled="True">
+                                    <StackPanel
+                                        x:Name="Content"
+                                        DoubleTapped="{x:Bind OpenWebsite}"
+                                        IsDoubleTapEnabled="True">
+                                        <StackPanel.Triggers>
+                                            <EventTrigger>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetName="Content"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            From="0"
+                                                            To="1"
+                                                            Duration="0:0:0.3" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </StackPanel.Triggers>
                                         <essential:Shimmer CornerRadius="4" IsLoading="True">
                                             <Image
                                                 Width="100"

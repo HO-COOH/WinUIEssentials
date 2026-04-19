@@ -10,9 +10,11 @@
 
     <Grid>
         <WebView2
+            x:Name="EditorWebView"
             CoreWebView2Initialized="WebView2_CoreWebView2Initialized"
             DefaultBackgroundColor="Transparent"
-            Source="about:blank" />
+            Source="about:blank"
+            Unloaded="EditorWebView_Unloaded" />
 
         <ProgressBar
             x:Name="LoadingProgress"

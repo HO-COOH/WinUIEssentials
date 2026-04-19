@@ -265,8 +265,13 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup Condition="'$(WindowsPackageType)'!='None' and Exists('Package.appxmanifest')">
+  <ItemGroup Condition="'$(WindowsPackageType)'!='None' and Exists('Package.appxmanifest') and '$(Configuration)'=='Release'">
     <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup Condition="'$(WindowsPackageType)'!='None' and Exists('Package.Dev.appxmanifest') and '$(Configuration)'!='Release'">
+    <AppxManifest Include="Package.Dev.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
   </ItemGroup>
@@ -278,16 +283,25 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="AcrylicBackdropsPage.xaml.h">
+      <DependentUpon>AcrylicBackdropsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="AnimatedDigit.h">
+      <DependentUpon>AnimatedDigit.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="AnimatedNumber.h">
       <DependentUpon>AnimatedNumber.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="AnimatedNumber_Resource.h">
+      <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="AutoSuggestBoxHelperPage.xaml.h">
       <DependentUpon>AutoSuggestBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="BackdropPage.xaml.h">
-      <DependentUpon>BackdropPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="BadgePage.xaml.h">
       <DependentUpon>BadgePage.xaml</DependentUpon>
@@ -461,8 +475,16 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MicaBackdropsPage.xaml.h">
+      <DependentUpon>MicaBackdropsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MicaBackdropWithFallbackWindow.xaml.h">
       <DependentUpon>MicaBackdropWithFallbackWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="MicaBackdropWithTenMicaFallback.xaml.h">
+      <DependentUpon>MicaBackdropWithTenMicaFallback.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ModalWindowPage.xaml.h">
@@ -559,6 +581,10 @@
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SampleWindowedContentDialog.xaml.h">
+      <DependentUpon>SampleWindowedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ScopedButtonDisablerPage.xaml.h">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -617,10 +643,6 @@
       <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TestWindow.xaml.h">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ThemeListenerPage.xaml.h">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -643,6 +665,10 @@
     </ClInclude>
     <ClInclude Include="ToolTipHelperPage.xaml.h">
       <DependentUpon>ToolTipHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TransparentBackdropPage.xaml.h">
+      <DependentUpon>TransparentBackdropPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TransparentWindowDemo.xaml.h">
@@ -696,11 +722,15 @@
     <Page Include="AboutPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AnimatedNumber_Resource.xaml" />
+    <Page Include="AcrylicBackdropsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AnimatedNumber_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AutoSuggestBoxHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="BackdropPage.xaml" />
     <Page Include="BadgePage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -800,7 +830,13 @@
     <Page Include="MarqueeTextPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MicaBackdropsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MicaBackdropWithFallbackWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MicaBackdropWithTenMicaFallback.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ModalWindowPage.xaml">
@@ -845,6 +881,9 @@
     <Page Include="SampleModalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SampleWindowedContentDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ScopedButtonDisablerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -884,9 +923,6 @@
     <Page Include="TenMicaPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TestWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="ThemeListenerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -903,6 +939,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToolTipHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TransparentBackdropPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TransparentWindowDemo.xaml">
@@ -935,16 +974,25 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="AcrylicBackdropsPage.xaml.cpp">
+      <DependentUpon>AcrylicBackdropsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="AnimatedDigit.cpp">
+      <DependentUpon>AnimatedDigit.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="AnimatedNumber.cpp">
       <DependentUpon>AnimatedNumber.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="AnimatedNumber_Resource.cpp">
+      <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="AutoSuggestBoxHelperPage.xaml.cpp">
       <DependentUpon>AutoSuggestBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="BackdropPage.xaml.cpp">
-      <DependentUpon>BackdropPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="BadgePage.xaml.cpp">
       <DependentUpon>BadgePage.xaml</DependentUpon>
@@ -1116,8 +1164,16 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="MicaBackdropsPage.xaml.cpp">
+      <DependentUpon>MicaBackdropsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MicaBackdropWithFallbackWindow.xaml.cpp">
       <DependentUpon>MicaBackdropWithFallbackWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="MicaBackdropWithTenMicaFallback.xaml.cpp">
+      <DependentUpon>MicaBackdropWithTenMicaFallback.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ModalWindowPage.xaml.cpp">
@@ -1216,6 +1272,10 @@
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SampleWindowedContentDialog.xaml.cpp">
+      <DependentUpon>SampleWindowedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ScopedButtonDisablerPage.xaml.cpp">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1269,10 +1329,6 @@
       <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TestWindow.xaml.cpp">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ThemeListenerPage.xaml.cpp">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1299,6 +1355,10 @@
     </ClCompile>
     <ClCompile Include="ToolTipHelperPage.xaml.cpp">
       <DependentUpon>ToolTipHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TransparentBackdropPage.xaml.cpp">
+      <DependentUpon>TransparentBackdropPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TransparentWindowDemo.xaml.cpp">
@@ -1352,8 +1412,19 @@
       <DependentUpon>AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="AcrylicBackdropsPage.idl">
+      <DependentUpon>AcrylicBackdropsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="AnimatedDigit.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="AnimatedNumber.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="AnimatedNumber_Resource.idl">
+      <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="App.idl">
       <SubType>Code</SubType>
@@ -1363,7 +1434,6 @@
       <DependentUpon>AutoSuggestBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="BackdropPage.idl" />
     <Midl Include="BadgePage.idl">
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1525,8 +1595,16 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="MicaBackdropsPage.idl">
+      <DependentUpon>MicaBackdropsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="MicaBackdropWithFallbackWindow.idl">
       <DependentUpon>MicaBackdropWithFallbackWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="MicaBackdropWithTenMicaFallback.idl">
+      <DependentUpon>MicaBackdropWithTenMicaFallback.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ModalWindowPage.idl">
@@ -1606,6 +1684,10 @@
       <DependentUpon>SampleModalWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="SampleWindowedContentDialog.idl">
+      <DependentUpon>SampleWindowedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ScopedButtonDisablerPage.idl">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1661,10 +1743,6 @@
       <DependentUpon>TenMicaPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="TestWindow.idl">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="ThemeListenerPage.idl">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1687,6 +1765,10 @@
     </Midl>
     <Midl Include="ToolTipHelperPage.idl">
       <DependentUpon>ToolTipHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TransparentBackdropPage.idl">
+      <DependentUpon>TransparentBackdropPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TransparentWindowDemo.idl">
@@ -1864,7 +1946,7 @@
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnableManifest>true</VcpkgEnableManifest>
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
-    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

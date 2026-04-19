@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass AnimatedNumber_Resource : Microsoft.UI.Xaml.ResourceDictionary
+    {
+        AnimatedNumber_Resource();
+    }
+}

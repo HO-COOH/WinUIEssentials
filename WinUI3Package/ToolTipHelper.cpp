@@ -6,19 +6,18 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty ToolTipHelper::s_acrylicWorkaroundProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"AcrylicWorkaround",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
-				nullptr, 
-				&ToolTipHelper::acrylicWorkaroundChanged
-			}
-		);
-
 	winrt::Microsoft::UI::Xaml::DependencyProperty ToolTipHelper::AcrylicWorkaroundProperty()
 	{
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty = 
+			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+				L"AcrylicWorkaround",
+				winrt::xaml_typename<bool>(),
+				winrt::xaml_typename<class_type>(),
+				winrt::Microsoft::UI::Xaml::PropertyMetadata{
+					nullptr, 
+					&ToolTipHelper::acrylicWorkaroundChanged
+				}
+			);
 		return s_acrylicWorkaroundProperty;
 	}
 

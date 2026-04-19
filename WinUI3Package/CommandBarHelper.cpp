@@ -9,22 +9,21 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty CommandBarHelper::s_acrylicWorkaroundProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"AcrylicWorkaround",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::CommandBar>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&CommandBarHelper::acrylicWorkaroundChanged) }
-		);
-
 	winrt::Microsoft::UI::Xaml::DependencyProperty CommandBarHelper::AcrylicWorkaroundProperty()
 	{
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty = 
+			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+				L"AcrylicWorkaround",
+				winrt::xaml_typename<bool>(),
+				winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::CommandBar>(),
+				winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), winrt::Microsoft::UI::Xaml::PropertyChangedCallback(&CommandBarHelper::acrylicWorkaroundChanged) }
+			);
 		return s_acrylicWorkaroundProperty;
 	}
 
 	bool CommandBarHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::CommandBar const& commandBar)
 	{
-		return winrt::unbox_value<bool>(commandBar.GetValue(s_acrylicWorkaroundProperty));
+		return winrt::unbox_value<bool>(commandBar.GetValue(AcrylicWorkaroundProperty()));
 	}
 
 	void CommandBarHelper::SetAcrylicWorkaround(
@@ -32,7 +31,7 @@ namespace winrt::WinUI3Package::implementation
 		bool value
 	)
 	{
-		commandBar.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
+		commandBar.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
 	}
 
 	void CommandBarHelper::acrylicWorkaroundChanged(

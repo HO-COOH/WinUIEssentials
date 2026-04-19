@@ -17,8 +17,6 @@ namespace winrt::WinUI3Package::implementation
         static bool GetClipToBounds(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& element);
         static void SetClipToBounds(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& element, bool value);
     private:
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_clipToBoundsProperty;
 
         static void acrylicWorkaroundChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& object,

@@ -193,11 +193,13 @@ namespace winrt::WinUI3Package::implementation
 			countButtons++;
 		}
 
-		// 假设 CommandSpace 是一个具有 Padding 属性的元素
 		Microsoft::UI::Xaml::Thickness commandSpacePadding = m_CommandSpace.Padding();
+		double buttonSpacing = countButtons > 1
+			? winrt::unbox_value<Microsoft::UI::Xaml::GridLength>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogButtonSpacing"))).Value
+			: 0.0;
 		double commandSpaceExpectedWidth = commandSpacePadding.Left + commandSpacePadding.Right
 			+ countButtons * buttonLongestWidth
-			+ (countButtons - 1) * winrt::unbox_value<Microsoft::UI::Xaml::GridLength>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogButtonSpacing"))).Value;
+			+ (countButtons - 1) * buttonSpacing;
 
 		double imageWidth = 0.0;
 		if (m_ImageGrid && m_ImageGrid.Visibility() == Microsoft::UI::Xaml::Visibility::Visible && m_ImageGrid.Width() > 0)
@@ -205,15 +207,10 @@ namespace winrt::WinUI3Package::implementation
 			imageWidth = m_ImageGrid.Width();
 		}
 
-		double minWidth = std::max<double>({
-			unbox_value<double>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogMinWidth"))),
-			commandSpaceExpectedWidth,
-			imageWidth
-			});
+		double minWidth = std::max<double>(commandSpaceExpectedWidth, imageWidth);
 
 		double maxWidth = std::max<double>({
 			unbox_value<double>(Microsoft::UI::Xaml::Application::Current().Resources().Lookup(box_value(L"ContentDialogMaxWidth"))),
-			commandSpaceExpectedWidth,
 			imageWidth
 			});
 
@@ -224,7 +221,7 @@ namespace winrt::WinUI3Package::implementation
 
 		Windows::Foundation::Size desiredSize = base_type::MeasureOverride(availableSize);
 
-		if (desiredSize.Width < minWidth)
+		if (desiredSize.Width < (float)minWidth)
 		{
 			desiredSize.Width = (float)minWidth;
 		}

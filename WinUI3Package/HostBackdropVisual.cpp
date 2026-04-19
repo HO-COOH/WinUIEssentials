@@ -17,13 +17,7 @@ namespace winrt::WinUI3Package::implementation
 			winrt::Microsoft::UI::Xaml::FrameworkElement::MarginProperty(),
 			{ this, &HostBackdropVisual::paddingChanged }
 		);
-	}
-
-	void HostBackdropVisual::OnApplyTemplate()
-	{
-		m_acrylicContainer = GetTemplateChild(AcrylicContainer).as<decltype(m_acrylicContainer)>();
-		m_acrylicContainer.SizeChanged({ this, &HostBackdropVisual::sizeChanged });
-
+		SizeChanged({ this, &HostBackdropVisual::sizeChanged });
 	}
 
 	void HostBackdropVisual::sizeChanged(
@@ -59,7 +53,7 @@ namespace winrt::WinUI3Package::implementation
 		//auto placementVisual = m_externalLink.PlacementVisual();
 		//placementVisual.Clip(compositor.CreateGeometricClip(m_clipGeometry));
 		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(
-			m_acrylicContainer,
+			*this,
 			m_externalLink.PlacementVisual()
 		);
 	}

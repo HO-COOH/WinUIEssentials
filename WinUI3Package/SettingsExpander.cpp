@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "SettingsExpander.h"
 #if __has_include("SettingsExpander.g.cpp")
 #include "SettingsExpander.g.cpp"
@@ -6,111 +6,93 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_headerIconProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"HeaderIcon",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            Microsoft::UI::Xaml::PropertyMetadata::Create(winrt::Windows::Foundation::IInspectable{})
-        );
+	void SettingsExpander::EnsureDependencyProperties()
+	{
+		if (m_headerIconProperty) return;
+		m_headerIconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"HeaderIcon",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			Microsoft::UI::Xaml::PropertyMetadata::Create(winrt::Windows::Foundation::IInspectable{})
+		);
+		m_contentProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Content",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			Microsoft::UI::Xaml::PropertyMetadata::Create(winrt::Windows::Foundation::IInspectable{})
+		);
+		m_descriptionProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Description",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			{ nullptr }
+		);
+		m_itemsFooterProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ItemsFooter",
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::UIElement>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			{ nullptr }
+		);
+		m_isExpandedProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"IsExpanded",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				winrt::box_value(false),
+				[](winrt::Microsoft::UI::Xaml::DependencyObject d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
+				{
+					winrt::get_self<SettingsExpander>(d.as<WinUI3Package::SettingsExpander>())->onIsExpandedPropertyChanged(
+						winrt::unbox_value<bool>(e.OldValue()),
+						winrt::unbox_value<bool>(e.NewValue())
+					);
+				}
+			}
+		);
+		m_headerProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Header",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			{ nullptr }
+		);
+		m_itemsHeaderProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ItemsHeader",
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::UIElement>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			{ nullptr }
+		);
+		m_itemsProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Items",
+			winrt::xaml_typename<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				&SettingsExpander::onItemsConnectedPropertyChanged
+			}
+		);
+		m_itemsSourceProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ItemsSource",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				&SettingsExpander::onItemsConnectedPropertyChanged
+			}
+		);
+		m_itemTemplateProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ItemTemplate",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
+		);
+		m_itemContainerStyleSelectorProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ItemContainerStyleSelector",
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::StyleSelector>(),
+			winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
+		);
+	}
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_contentProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Content",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            Microsoft::UI::Xaml::PropertyMetadata::Create(winrt::Windows::Foundation::IInspectable{})
-        );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_descriptionProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Description",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            { nullptr }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_itemsFooterProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"ItemsFooter",
-            winrt::xaml_typename<winrt::Microsoft::UI::Xaml::UIElement>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            { nullptr }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_isExpandedProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"IsExpanded",
-            winrt::xaml_typename<bool>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            Microsoft::UI::Xaml::PropertyMetadata{
-                winrt::box_value(false),
-                [](winrt::Microsoft::UI::Xaml::DependencyObject d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs e)
-                {
-                    winrt::get_self<SettingsExpander>(d.as<WinUI3Package::SettingsExpander>())->onIsExpandedPropertyChanged(
-                        winrt::unbox_value<bool>(e.OldValue()),
-                        winrt::unbox_value<bool>(e.NewValue())
-                    );
-                }
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_headerProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Header",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            { nullptr }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_itemsHeaderProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"ItemsHeader",
-            winrt::xaml_typename<winrt::Microsoft::UI::Xaml::UIElement>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            { nullptr }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_itemsProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"Items",
-            winrt::xaml_typename<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                nullptr,
-                &SettingsExpander::onItemsConnectedPropertyChanged
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_itemsSourceProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"ItemsSource",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                nullptr,
-                &SettingsExpander::onItemsConnectedPropertyChanged
-            }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_itemTemplateProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"ItemTemplate",
-            winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
-    );
-
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsExpander::m_itemContainerStyleSelectorProperty =
-        winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"ItemContainerStyleSelector",
-            winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::StyleSelector>(),
-            winrt::xaml_typename<WinUI3Package::SettingsExpander>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
-    );
-
-
-    //header
+//header
     winrt::Windows::Foundation::IInspectable SettingsExpander::Header()
     {
         return GetValue(m_headerProperty);
