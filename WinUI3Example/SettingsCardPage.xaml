@@ -27,7 +27,10 @@
             </essential:SettingsCard>
 
             <local:ControlExample.Options>
-                <ToggleSwitch x:Name="IsCardEnabled" Header="Is Enabled" />
+                <ToggleSwitch
+                    x:Name="IsCardEnabled"
+                    Header="Is Enabled"
+                    IsEnabled="True" />
             </local:ControlExample.Options>
 
             <local:ControlExample.Xaml>

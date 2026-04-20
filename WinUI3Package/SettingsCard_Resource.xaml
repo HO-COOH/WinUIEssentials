@@ -96,48 +96,6 @@
             <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
             <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
             <Setter Property="FocusVisualMargin" Value="-3" />
-            <!--<Setter Property="local:StyleExtensions.Resources">
-             <Setter.Value>
-                 <ResourceDictionary>
-            -->
-            <!--  Making sure ToggleSwitches are right-aligned by default  -->
-            <!--
-                     <Style BasedOn="{StaticResource RightAlignedCompactToggleSwitchStyle}"
-                            TargetType="ToggleSwitch" />
-            -->
-            <!--  Overriding the MinWidth of various types of controls so they neatly align  -->
-            <!--
-                     <Style BasedOn="{StaticResource DefaultSliderStyle}"
-                            TargetType="Slider">
-                         <Style.Setters>
-                             <Setter Property="MinWidth" Value="{ThemeResource SettingsCardContentMinWidth}" />
-                         </Style.Setters>
-                     </Style>
-                     <Style BasedOn="{StaticResource DefaultComboBoxStyle}"
-                            TargetType="ComboBox">
-                         <Style.Setters>
-                             <Setter Property="MinWidth" Value="{ThemeResource SettingsCardContentMinWidth}" />
-                         </Style.Setters>
-                     </Style>
-                     <Style BasedOn="{StaticResource DefaultTextBoxStyle}"
-                            TargetType="TextBox">
-                         <Style.Setters>
-                             <Setter Property="MinWidth" Value="{ThemeResource SettingsCardContentMinWidth}" />
-                         </Style.Setters>
-                     </Style>
-
-            -->
-            <!--  NumberBox is not recognized?  -->
-            <!--<Style
-                         TargetType="NumberBox">
-                         <Style.Setters>
-                             <Setter Property="MinWidth" Value="{StaticResource SettingsCardContentMinWidth}" />
-                         </Style.Setters>
-                     </Style>-->
-            <!--
-                 </ResourceDictionary>
-             </Setter.Value>
-         </Setter>-->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="local:SettingsCard">

@@ -59,6 +59,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/SettingsCard_Resource.xbf</TargetPath>
         </ContentWithTargetPath>
+		<ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\SettingsCard_ContentResource.xbf">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>WinUI3Package/SettingsCard_ContentResource.xbf</TargetPath>
+		</ContentWithTargetPath>
         <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\x64\WinUI3Package\SettingsExpander_Resource.xbf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/SettingsExpander_Resource.xbf</TargetPath>
@@ -107,6 +111,10 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/SettingsCard_Resource.xbf</TargetPath>
         </ContentWithTargetPath>
+		<ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\WinUI3Package\SettingsCard_ContentResource.xbf">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<TargetPath>WinUI3Package/SettingsCard_ContentResource.xbf</TargetPath>
+		</ContentWithTargetPath>
         <ContentWithTargetPath Include="$(MSBuildThisFileDirectory)..\..\lib\native\Debug\ARM64\WinUI3Package\SettingsExpander_Resource.xbf">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <TargetPath>WinUI3Package/SettingsExpander_Resource.xbf</TargetPath>

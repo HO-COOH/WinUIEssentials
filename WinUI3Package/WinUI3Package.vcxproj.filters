@@ -716,6 +716,9 @@
     <Page Include="WindowedContentDialog_Resource.xaml">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
     </Page>
+    <Page Include="SettingsCard_ContentResource.xaml">
+      <Filter>Controls\SettingsCard</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />

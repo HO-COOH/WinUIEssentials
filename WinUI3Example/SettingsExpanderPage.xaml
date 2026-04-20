@@ -26,7 +26,10 @@
             <local:ControlExample.Options>
                 <StackPanel Spacing="5">
                     <ToggleSwitch x:Name="IsCardExpanded" Header="Is Expanded" />
-                    <ToggleSwitch x:Name="IsCardEnabled" Header="Is Enabled" />
+                    <ToggleSwitch
+                        x:Name="IsCardEnabled"
+                        Header="Is Enabled"
+                        IsOn="True" />
                 </StackPanel>
             </local:ControlExample.Options>
 
@@ -546,6 +549,7 @@ winrt::Microsoft::UI::Xaml::DataTemplate MyDataModelTemplateSelector::SelectTemp
 
         <local:ControlExample HeaderText="Settings page example">
             <StackPanel
+                MinWidth="800"
                 MaxWidth="1000"
                 HorizontalAlignment="Stretch"
                 Spacing="4">
@@ -627,6 +631,7 @@ winrt::Microsoft::UI::Xaml::DataTemplate MyDataModelTemplateSelector::SelectTemp
                         <x:String xml:space="preserve">
 &lt;StackPanel
     MaxWidth=&quot;1000&quot;
+    MinWidth=&quot;800&quot;
     HorizontalAlignment=&quot;Stretch&quot;
     Spacing=&quot;4&quot;&gt;
     &lt;TextBlock Style=&quot;{StaticResource SettingsSectionHeaderTextBlockStyle}&quot; Text=&quot;Section 1&quot; /&gt;

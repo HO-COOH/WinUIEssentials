@@ -52,6 +52,7 @@ namespace winrt::WinUI3Package::implementation
 
         void OnPointerPressed(winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void OnPointerReleased(winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+		void OnContentChanged(winrt::Windows::Foundation::IInspectable const& oldContent, winrt::Windows::Foundation::IInspectable const& newContent);
 
         constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/SettingsCard_Resource.xaml";
     private:

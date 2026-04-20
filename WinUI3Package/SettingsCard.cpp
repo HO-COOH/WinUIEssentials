@@ -239,6 +239,20 @@ namespace winrt::WinUI3Package::implementation
         }
     }
 
+    void SettingsCard::OnContentChanged(winrt::Windows::Foundation::IInspectable const& oldContent, winrt::Windows::Foundation::IInspectable const& newContent)
+    {
+        if (!newContent)
+            return;
+
+        auto frameworkElement = newContent.try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+        if (!frameworkElement)
+            return;
+
+        winrt::Microsoft::UI::Xaml::ResourceDictionary thisResource;
+        thisResource.Source(winrt::Windows::Foundation::Uri{ L"ms-appx:///WinUI3Package/SettingsCard_ContentResource.xaml" });
+
+        frameworkElement.Resources().MergedDictionaries().Append(thisResource);
+    }
 
     void SettingsCard::onIsClickEnabledChanged()
     {
