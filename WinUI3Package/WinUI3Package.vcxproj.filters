@@ -457,6 +457,9 @@
     <Filter Include="Backdrop\TenMica\Registry">
       <UniqueIdentifier>{7216e9cb-26fe-4e59-818e-39fdc16de5fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Table">
+      <UniqueIdentifier>{ca66292d-9641-43d0-ac4a-56dd47f0f243}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="BoolToVisibilityConverter.idl">
@@ -718,6 +721,9 @@
     </Page>
     <Page Include="SettingsCard_ContentResource.xaml">
       <Filter>Controls\SettingsCard</Filter>
+    </Page>
+    <Page Include="Table.xaml">
+      <Filter>Controls\Table</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

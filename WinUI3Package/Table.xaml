@@ -1,0 +1,19 @@
+﻿<SwapChainPanel
+    x:Class="WinUI3Package.Table"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:WinUI3Package"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    SizeChanged="SwapChainPanel_SizeChanged"
+    mc:Ignorable="d">
+
+    <Border BorderBrush="White" BorderThickness="0.5" />
+
+    <Button
+        x:Name="Button"
+        HorizontalAlignment="Center"
+        Click="ClickHandler">
+        Click Me
+    </Button>
+</SwapChainPanel>

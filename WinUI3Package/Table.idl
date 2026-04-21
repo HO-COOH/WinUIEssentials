@@ -1,0 +1,8 @@
+namespace WinUI3Package
+{
+    [default_interface]
+    runtimeclass Table : Microsoft.UI.Xaml.Controls.SwapChainPanel
+    {
+        Table();
+    }
+}

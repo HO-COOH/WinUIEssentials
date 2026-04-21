@@ -7,6 +7,12 @@
     <Filter Include="TypeName">
       <UniqueIdentifier>{c18403aa-7856-4d98-afce-ffd254679fee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectN">
+      <UniqueIdentifier>{408c74e2-a7c9-406c-ae56-b46063283fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table">
+      <UniqueIdentifier>{e506b876-c0d2-4849-a045-8fc33027d5c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -23,6 +29,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h">
       <Filter>TypeName</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DirectN.h">
+      <Filter>DirectN</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h">
+      <Filter>DirectN</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h">
+      <Filter>Table</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -30,6 +51,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp">
       <Filter>TypeName</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DirectN.cpp">
+      <Filter>DirectN</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SwapChainInterop.cpp">
+      <Filter>DirectN</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp">
+      <Filter>Table</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

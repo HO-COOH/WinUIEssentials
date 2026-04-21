@@ -261,6 +261,9 @@
     <Page Include="AnimatedNumber_Resource.xaml">
       <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Page>
+    <Page Include="TablePage.xaml">
+      <Filter>Pages\TablePage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -673,6 +676,9 @@
     </Filter>
     <Filter Include="Pages\WindowedContentDialogPage">
       <UniqueIdentifier>{75b54b22-26dd-42af-b6ba-403b943e280d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\TablePage">
+      <UniqueIdentifier>{0f298be6-f64c-4889-b35a-fccce0a22aba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

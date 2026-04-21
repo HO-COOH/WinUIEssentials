@@ -616,6 +616,10 @@
     </ClInclude>
     <ClInclude Include="StoreUpdateChecker.h" />
     <ClInclude Include="SystemBackdropType.h" />
+    <ClInclude Include="TablePage.xaml.h">
+      <DependentUpon>TablePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TaskbarIconPage.xaml.h">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -904,6 +908,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StandardWindowWithMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TablePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarIconPage.xaml">
@@ -1308,6 +1315,10 @@
     <ClCompile Include="StoreUpdateChecker.cpp" />
     <ClCompile Include="SwitchPresenterPage.xaml.cpp">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TablePage.xaml.cpp">
+      <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TaskbarIconPage.xaml.cpp">
@@ -1719,6 +1730,10 @@
     </Midl>
     <Midl Include="SwitchPresenterPage.idl">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TablePage.idl">
+      <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TaskbarIconPage.idl">
