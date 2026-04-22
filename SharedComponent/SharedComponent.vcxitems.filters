@@ -61,5 +61,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp">
       <Filter>Table</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 #include "Table.g.h"
 #include "SwapChainInterop.h"
 #include "DirectN.h"
+#include "TableTestData.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -21,6 +22,7 @@ namespace winrt::WinUI3Package::implementation
 
         //text
         winrt::com_ptr<IDWriteTextFormat> m_headerTextFormat;
+		winrt::com_ptr<IDWriteTextFormat> m_cellTextFormat;
 
         //brushes
         winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;
@@ -29,6 +31,9 @@ namespace winrt::WinUI3Package::implementation
         float m_scrollOffsetX{};
         float m_scrollOffsetY{};
         int m_sortColumnIndex{ -1 };
+
+        //data
+		TableTestData m_data;
 
         void draw();
         void drawHeader();

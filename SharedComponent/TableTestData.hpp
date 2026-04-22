@@ -1,9 +1,11 @@
 #pragma once
+#include <string>
+#include <random>
 
-namespace TableTestData
+class TableTestData
 {
     // First names
-    constexpr wchar_t const* FirstNames[] =
+    static constexpr wchar_t const* FirstNames[] =
     {
         L"James", L"Mary", L"Robert", L"Patricia", L"Michael", L"Jennifer", L"William", L"Linda", L"David", L"Barbara",
         L"Richard", L"Elizabeth", L"Joseph", L"Susan", L"Thomas", L"Jessica", L"Charles", L"Sarah", L"Christopher", L"Karen",
@@ -15,7 +17,7 @@ namespace TableTestData
     };
 
     // Last names
-    constexpr wchar_t const* LastNames[] =
+    static constexpr wchar_t const* LastNames[] =
     {
         L"Smith", L"Johnson", L"Williams", L"Brown", L"Jones", L"Garcia", L"Miller", L"Davis", L"Rodriguez", L"Martinez",
         L"Hernandez", L"Lopez", L"Gonzalez", L"Wilson", L"Anderson", L"Thomas", L"Taylor", L"Moore", L"Jackson", L"Martin",
@@ -27,7 +29,7 @@ namespace TableTestData
     };
 
     // Job titles
-    constexpr wchar_t const* JobTitles[] =
+    static constexpr wchar_t const* JobTitles[] =
     {
         L"Software Developer", L"Manager", L"Sales Representative", L"Accountant", L"Analyst",
         L"Engineer", L"Designer", L"Teacher", L"Consultant", L"Executive",
@@ -39,7 +41,7 @@ namespace TableTestData
     };
 
     // Department names
-    constexpr wchar_t const* Departments[] =
+    static constexpr wchar_t const* Departments[] =
     {
         L"Sales", L"Marketing", L"Engineering", L"Finance", L"Human Resources",
         L"Operations", L"IT", L"Legal", L"Research", L"Development",
@@ -48,14 +50,14 @@ namespace TableTestData
     };
 
     // Street suffixes
-    constexpr wchar_t const* StreetSuffixes[] =
+    static constexpr wchar_t const* StreetSuffixes[] =
     {
         L"Street", L"Avenue", L"Road", L"Boulevard", L"Drive", L"Lane", L"Court", L"Circle",
         L"Way", L"Parkway", L"Plaza", L"Square", L"Trail", L"Ridge", L"Hill", L"Oak"
     };
 
     // Cities
-    constexpr wchar_t const* Cities[] =
+    static constexpr wchar_t const* Cities[] =
     {
         L"New York", L"Los Angeles", L"Chicago", L"Houston", L"Phoenix",
         L"Philadelphia", L"San Antonio", L"San Diego", L"Dallas", L"San Jose",
@@ -64,7 +66,7 @@ namespace TableTestData
     };
 
     // States
-    constexpr wchar_t const* States[] =
+    static constexpr wchar_t const* States[] =
     {
         L"AL", L"AK", L"AZ", L"AR", L"CA", L"CO", L"CT", L"DE", L"FL", L"GA",
         L"HI", L"ID", L"IL", L"IN", L"IA", L"KS", L"KY", L"LA", L"ME", L"MD",
@@ -73,28 +75,58 @@ namespace TableTestData
         L"SD", L"TN", L"TX", L"UT", L"VT", L"VA", L"WA", L"WV", L"WI", L"WY"
     };
 
-    constexpr wchar_t const* Regions[] =
+    static constexpr wchar_t const* Regions[] =
     {
         L"East", L"West", L"North", L"South"
     };
 
     // Genders
-    constexpr wchar_t const* Genders[] =
+    static constexpr wchar_t const* Genders[] =
     {
         L"Male", L"Female", L"Non-binary", L"Genderfluid", L"Agender",
         L"Bigender", L"Genderqueer", L"Two-Spirit", L"Prefer not to say"
     };
 
     // Avatar seeds
-    constexpr wchar_t const* AvatarSeeds[] =
+    static constexpr wchar_t const* AvatarSeeds[] =
     {
         L"avatar1", L"avatar2", L"avatar3", L"avatar4", L"avatar5",
         L"avatar6", L"avatar7", L"avatar8", L"avatar9", L"avatar10"
     };
 
-    constexpr wchar_t const* Columns[] =
+	std::mt19937 m_eng{ std::random_device{}() };
+public:
+    static constexpr wchar_t const* Columns[] =
     {
         L"Id", L"First Name", L"Last Name", L"Email", L"Gender", L"Dob", L"Active At", L"Is Active",
         L"Department", L"Designation", L"Address"
     };
-}
+
+    class Data
+    {
+        TableTestData& m_parent;
+        int m_row;
+    public:
+        constexpr Data(TableTestData& parent, int row) : m_parent{parent}, m_row{row}
+        {
+        }
+
+        std::wstring operator[](int column);
+    };
+
+    friend class Data;
+
+    constexpr Data operator[](int row)
+    {
+        return Data{*this, row};
+    }
+
+    constexpr int Count() const
+    {
+        return static_cast<int>((std::min)({
+            std::size(TableTestData::FirstNames),
+            std::size(TableTestData::LastNames),
+            std::size(TableTestData::Departments),
+        }));
+    }
+};

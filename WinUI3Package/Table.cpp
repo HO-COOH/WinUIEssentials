@@ -3,7 +3,6 @@
 #if __has_include("Table.g.cpp")
 #include "Table.g.cpp"
 #endif
-#include "TableTestData.hpp"
 #include "TableConstants.hpp"
 #include "D2DPrimitiveHelper.h"
 
@@ -30,7 +29,16 @@ namespace winrt::WinUI3Package::implementation
             L"en-US",
             m_headerTextFormat.put()
         ));
-
+        winrt::check_hresult(m_dwriteFactory->CreateTextFormat(
+            L"Segoe UI",
+            nullptr,
+            DWRITE_FONT_WEIGHT_NORMAL,
+            DWRITE_FONT_STYLE_NORMAL,
+            DWRITE_FONT_STRETCH_NORMAL,
+            TableConstants::CellFontSize,
+            L"en-US",
+            m_cellTextFormat.put()
+        ));
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), m_textBrush.put()));
     }
 
@@ -93,6 +101,32 @@ namespace winrt::WinUI3Package::implementation
 
     void Table::drawRows()
     {
+		auto const rawRowHeight = TableConstants::RowHeight * m_swapChain.Scale;
+
+        int const first = (std::max)(0, static_cast<int>(m_scrollOffsetY / rawRowHeight));
+        int const last = (std::min)(m_data.Count() - 1, static_cast<int>((m_scrollOffsetY + m_swapChain.CurrentSize.Height * m_swapChain.Scale) / rawRowHeight));
+        for (int row = first; row <= last; ++row)
+        {
+            auto rowData = m_data[row];
+            for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
+            {
+				auto columnData = rowData[column];
+                winrt::com_ptr<IDWriteTextLayout> layout;
+                winrt::check_hresult(m_dwriteFactory->CreateTextLayout(
+                    columnData.data(),
+                    columnData.size(),
+                    m_cellTextFormat.get(),
+                    200,
+                    rawRowHeight,
+                    layout.put()
+                ));
+                m_d2dContext->DrawTextLayout(
+                    D2D1::Point2F(column * 200.f - m_scrollOffsetX, row * rawRowHeight - m_scrollOffsetY + 30),
+                    layout.get(),
+                    m_textBrush.get()
+				);
+            }
+        }
     }
 
 
