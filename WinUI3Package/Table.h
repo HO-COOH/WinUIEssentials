@@ -4,6 +4,7 @@
 #include "SwapChainInterop.h"
 #include "DirectN.h"
 #include "TableTestData.hpp"
+#include "TextLayoutCache.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -23,6 +24,7 @@ namespace winrt::WinUI3Package::implementation
         //text
         winrt::com_ptr<IDWriteTextFormat> m_headerTextFormat;
 		winrt::com_ptr<IDWriteTextFormat> m_cellTextFormat;
+        TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
 
         //brushes
         winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;

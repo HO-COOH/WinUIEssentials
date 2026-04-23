@@ -44,6 +44,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h">
       <Filter>Table</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h">
+      <Filter>Table</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -62,6 +65,9 @@
       <Filter>Table</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp">
       <Filter>Table</Filter>
     </ClCompile>
   </ItemGroup>

@@ -39,6 +39,7 @@ namespace winrt::WinUI3Package::implementation
             L"en-US",
             m_cellTextFormat.put()
         ));
+		m_textLayoutCache.SetFormat(m_cellTextFormat.get());
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), m_textBrush.put()));
     }
 
@@ -108,24 +109,23 @@ namespace winrt::WinUI3Package::implementation
         for (int row = first; row <= last; ++row)
         {
             auto rowData = m_data[row];
+            auto const rowY = row * rawRowHeight - m_scrollOffsetY + 30;
             for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
             {
 				auto columnData = rowData[column];
-                winrt::com_ptr<IDWriteTextLayout> layout;
-                winrt::check_hresult(m_dwriteFactory->CreateTextLayout(
-                    columnData.data(),
-                    columnData.size(),
-                    m_cellTextFormat.get(),
-                    200,
-                    rawRowHeight,
-                    layout.put()
-                ));
                 m_d2dContext->DrawTextLayout(
-                    D2D1::Point2F(column * 200.f - m_scrollOffsetX, row * rawRowHeight - m_scrollOffsetY + 30),
-                    layout.get(),
+                    D2D1::Point2F(column * 200.f - m_scrollOffsetX, rowY),
+                    m_textLayoutCache.GetOrCreate(row, column, columnData, 200, rawRowHeight),
                     m_textBrush.get()
 				);
             }
+            D2DPrimitiveHelper::DrawHorizontalLine(
+                m_d2dContext.get(),
+                0,
+                m_swapChain.CurrentSize.Width * m_swapChain.Scale,
+                (row + 1) * rawRowHeight,
+                m_textBrush.get()
+			);
         }
     }
 
