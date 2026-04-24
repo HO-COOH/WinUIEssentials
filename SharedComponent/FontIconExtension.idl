@@ -1,0 +1,18 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass FontIconExtension : WinUINamespace.UI.Xaml.Markup.MarkupExtension
+    {
+        FontIconExtension();
+
+        Double FontSize;
+        Windows.UI.Text.FontWeight FontWeight;
+        WinUINamespace.UI.Xaml.Media.FontFamily FontFamily;
+        Windows.UI.Text.FontStyle FontStyle;
+        WinUINamespace.UI.Xaml.Media.Brush Foreground;
+        String Glyph;
+        Boolean IsTextScaleFactorEnabled;
+        Boolean MirroredWhenRightToLeft;
+    }
+}

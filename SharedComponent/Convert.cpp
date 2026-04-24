@@ -47,33 +47,33 @@ namespace winrt::PackageRoot::implementation
         return !StringToBool(value);
     }
 
-    winrt::WindowsNamespace::UI::Xaml::Visibility Convert::ContainerToVisibility(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& container)
+    winrt::WinUINamespace::UI::Xaml::Visibility Convert::ContainerToVisibility(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& container)
     {
-        return ContainerToBool(container) ? winrt::WindowsNamespace::UI::Xaml::Visibility::Visible : winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed;
+        return ContainerToBool(container) ? winrt::WinUINamespace::UI::Xaml::Visibility::Visible : winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed;
     }
 
-    winrt::WindowsNamespace::UI::Xaml::Visibility Convert::ReferenceToVisibility(winrt::Windows::Foundation::IInspectable const& value)
+    winrt::WinUINamespace::UI::Xaml::Visibility Convert::ReferenceToVisibility(winrt::Windows::Foundation::IInspectable const& value)
     {
-        return ReferenceToBool(value) ? winrt::WindowsNamespace::UI::Xaml::Visibility::Visible : winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed;
+        return ReferenceToBool(value) ? winrt::WinUINamespace::UI::Xaml::Visibility::Visible : winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed;
     }
 
-    winrt::WindowsNamespace::UI::Xaml::Visibility Convert::StringToVisibility(winrt::hstring const& value)
+    winrt::WinUINamespace::UI::Xaml::Visibility Convert::StringToVisibility(winrt::hstring const& value)
     {
-        return StringToBool(value) ? winrt::WindowsNamespace::UI::Xaml::Visibility::Visible : winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed;
+        return StringToBool(value) ? winrt::WinUINamespace::UI::Xaml::Visibility::Visible : winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed;
     }
 
-    winrt::WindowsNamespace::UI::Xaml::Visibility Convert::ContainerToVisibilityReverse(winrt::Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> const& container)
+    winrt::WinUINamespace::UI::Xaml::Visibility Convert::ContainerToVisibilityReverse(winrt::Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> const& container)
     {
-        return ContainerToBool(container) ? winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed : winrt::WindowsNamespace::UI::Xaml::Visibility::Visible;
+        return ContainerToBool(container) ? winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed : winrt::WinUINamespace::UI::Xaml::Visibility::Visible;
     }
 
-    winrt::WindowsNamespace::UI::Xaml::Visibility Convert::ReferenceToVisibilityReverse(winrt::Windows::Foundation::IInspectable const& value)
+    winrt::WinUINamespace::UI::Xaml::Visibility Convert::ReferenceToVisibilityReverse(winrt::Windows::Foundation::IInspectable const& value)
     {
-        return ReferenceToBool(value) ? winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed : winrt::WindowsNamespace::UI::Xaml::Visibility::Visible;
+        return ReferenceToBool(value) ? winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed : winrt::WinUINamespace::UI::Xaml::Visibility::Visible;
     }
 
-    winrt::WindowsNamespace::UI::Xaml::Visibility Convert::StringToVisibilityReverse(winrt::hstring const& value)
+    winrt::WinUINamespace::UI::Xaml::Visibility Convert::StringToVisibilityReverse(winrt::hstring const& value)
     {
-        return StringToBool(value) ? winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed : winrt::WindowsNamespace::UI::Xaml::Visibility::Visible;
+        return StringToBool(value) ? winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed : winrt::WinUINamespace::UI::Xaml::Visibility::Visible;
     }
 }

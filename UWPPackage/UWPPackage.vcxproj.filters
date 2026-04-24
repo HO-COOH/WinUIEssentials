@@ -7,9 +7,6 @@
     <Filter Include="Controls">
       <UniqueIdentifier>{db76334f-9dff-4acb-8cdb-6fdfead70be6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Converters">
-      <UniqueIdentifier>{858a7c4a-4e66-4978-9d25-d86fd71e33eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Triggers">
       <UniqueIdentifier>{521fd732-a0d4-4420-a284-7ff5c1997bb0}</UniqueIdentifier>
     </Filter>
@@ -21,9 +18,6 @@
     </Filter>
     <Filter Include="Controls\SettingsExpander">
       <UniqueIdentifier>{87ccb50b-6d50-446a-a638-27eac1a5aa15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MarkupExtensions">
-      <UniqueIdentifier>{1e4a702c-c96e-4162-ad75-929772ca9eda}</UniqueIdentifier>
     </Filter>
     <Filter Include="Controls\MarqueeText">
       <UniqueIdentifier>{f1a74a3a-dc24-4185-9aaa-86e8cdaf5c89}</UniqueIdentifier>
@@ -42,9 +36,6 @@
     </Filter>
     <Filter Include="Controls\ImageExtension">
       <UniqueIdentifier>{71beeb28-f6d1-4c22-b38e-760d83045a30}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\SwitchPresenter">
-      <UniqueIdentifier>{8805dcd9-e3ce-4055-a631-7799eb34defc}</UniqueIdentifier>
     </Filter>
     <Filter Include="internal">
       <UniqueIdentifier>{ec564620-58dd-4f36-923a-e71ffee9a97f}</UniqueIdentifier>
@@ -67,9 +58,6 @@
     </ClInclude>
     <ClInclude Include="include\ToastTemplates.hpp">
       <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="ReverseConverterBase.hpp">
-      <Filter>Converters</Filter>
     </ClInclude>
     <ClInclude Include="include\PropertyChangeHelper.hpp">
       <Filter>include</Filter>
@@ -96,9 +84,6 @@
     <ClInclude Include="include\BuiltInUris.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="UnsupportedImageTypeError.hpp">
-      <Filter>Controls\ImageExtension</Filter>
-    </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
     </ClInclude>
@@ -120,25 +105,6 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Placeholder.idl" />
-    <Midl Include="CursorController.idl" />
-    <Midl Include="BoolToVisibilityConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ContainerToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="StringToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ReferenceToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ConverterGroup.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="NegateBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
     <Midl Include="Triggers\IsEqualStateTrigger.idl">
       <Filter>Triggers</Filter>
     </Midl>
@@ -163,17 +129,11 @@
       <Filter>Controls\SettingsExpander</Filter>
     </Midl>
     <Midl Include="DependentValue.idl" />
-    <Midl Include="FontIconExtension.idl">
-      <Filter>MarkupExtensions</Filter>
-    </Midl>
     <Midl Include="MarqueeText.idl">
       <Filter>Controls\MarqueeText</Filter>
     </Midl>
     <Midl Include="ProgressBarEx.idl">
       <Filter>Controls\ProgressBarEx</Filter>
-    </Midl>
-    <Midl Include="UIElementExtension.idl">
-      <Filter>Controls</Filter>
     </Midl>
     <Midl Include="EqualPanel.idl">
       <Filter>Controls\Segmented</Filter>
@@ -193,20 +153,8 @@
     <Midl Include="Shimmer.idl">
       <Filter>Controls\Shimmer</Filter>
     </Midl>
-    <Midl Include="ImageExtension.idl">
-      <Filter>Controls\ImageExtension</Filter>
-    </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="SwitchPresenter.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
-    </Midl>
-    <Midl Include="Case.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
-    </Midl>
-    <Midl Include="CaseCollection.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

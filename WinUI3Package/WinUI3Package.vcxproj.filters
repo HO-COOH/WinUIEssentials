@@ -94,9 +94,6 @@
     <ClInclude Include="include\ToastBuilder.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="ReverseConverterBase.hpp">
-      <Filter>Converters</Filter>
-    </ClInclude>
     <ClInclude Include="include\PropertyChangeHelper.hpp">
       <Filter>include</Filter>
     </ClInclude>
@@ -136,9 +133,6 @@
     </ClInclude>
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp">
       <Filter>Backdrop</Filter>
-    </ClInclude>
-    <ClInclude Include="UnsupportedImageTypeError.hpp">
-      <Filter>Extensions\ImageExtension</Filter>
     </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
@@ -337,9 +331,6 @@
     <Filter Include="include">
       <UniqueIdentifier>{f8d8d370-4f18-4c11-a8c6-6145dcde80da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Converters">
-      <UniqueIdentifier>{705ed3e6-dfae-492b-ae3c-1b4f2e9acecc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Triggers">
       <UniqueIdentifier>{3cc9cab8-b17a-4fce-806e-769d99c0084d}</UniqueIdentifier>
     </Filter>
@@ -378,9 +369,6 @@
     </Filter>
     <Filter Include="Controls\Shimmer">
       <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\SwitchPresenter">
-      <UniqueIdentifier>{68605443-f197-4fb3-b27c-1de2fb958f55}</UniqueIdentifier>
     </Filter>
     <Filter Include="internal">
       <UniqueIdentifier>{7249024f-ebd8-419d-8c91-235bb32e1b45}</UniqueIdentifier>
@@ -442,15 +430,6 @@
     <Filter Include="Controls\WindowedContentDialog\WindowedContentDialog">
       <UniqueIdentifier>{d5820e1f-d67e-4647-80b6-7b6133307257}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Extensions">
-      <UniqueIdentifier>{faf10c80-d343-4915-8fe8-b3b8012bfcb0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Extensions\ImageExtension">
-      <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Extensions\MarkupExtensions">
-      <UniqueIdentifier>{877a96cc-8fdd-4e4b-af4d-f103a2fbdef1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Backdrop\CustomizableBackdrops">
       <UniqueIdentifier>{885452a6-0434-4471-a419-1c300c3dfbbe}</UniqueIdentifier>
     </Filter>
@@ -459,24 +438,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="BoolToVisibilityConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ContainerToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ConverterGroup.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="NegateBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ReferenceToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="StringToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
     <Midl Include="ControlSizeTrigger.idl">
       <Filter>Triggers</Filter>
     </Midl>
@@ -485,9 +446,6 @@
     </Midl>
     <Midl Include="IsNullOrEmptyStateTrigger.idl">
       <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="FontIconExtension.idl">
-      <Filter>Extensions\MarkupExtensions</Filter>
     </Midl>
     <Midl Include="include\DependentValue.idl" />
     <Midl Include="GroupBox.idl">
@@ -538,20 +496,8 @@
     <Midl Include="Shimmer.idl">
       <Filter>Controls\Shimmer</Filter>
     </Midl>
-    <Midl Include="ImageExtension.idl">
-      <Filter>Extensions\ImageExtension</Filter>
-    </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="SwitchPresenter.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
-    </Midl>
-    <Midl Include="Case.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
-    </Midl>
-    <Midl Include="CaseCollection.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
     </Midl>
     <Midl Include="GeneratedIconSource.idl">
       <Filter>TaskbarIcon</Filter>
@@ -663,12 +609,6 @@
     <Midl Include="WindowedContentDialog.idl">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
     </Midl>
-    <Midl Include="UIElementExtension.idl">
-      <Filter>Extensions</Filter>
-    </Midl>
-    <Midl Include="CursorController.idl">
-      <Filter>Extensions</Filter>
-    </Midl>
     <Midl Include="CustomMicaBackdrop.idl">
       <Filter>Backdrop\CustomizableBackdrops</Filter>
     </Midl>
@@ -719,8 +659,5 @@
     <Page Include="SettingsCard_ContentResource.xaml">
       <Filter>Controls\SettingsCard</Filter>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
   </ItemGroup>
 </Project>

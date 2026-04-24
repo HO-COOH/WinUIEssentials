@@ -7,6 +7,12 @@
     <Filter Include="TypeName">
       <UniqueIdentifier>{c18403aa-7856-4d98-afce-ffd254679fee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SwitchPresenter">
+      <UniqueIdentifier>{cffca7e2-d098-490a-95d6-fc5d30c97956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Extensions">
+      <UniqueIdentifier>{327375bf-94f2-4271-89a3-1e31946d17a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -14,6 +20,43 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl">
       <Filter>TypeName</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)CaseCollection.idl">
+      <Filter>SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SwitchPresenter.idl">
+      <Filter>SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Case.idl">
+      <Filter>SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)NegateBoolConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ConverterGroup.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)StringToBoolConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)CursorController.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ImageExtension.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)FontIconExtension.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)UIElementExtension.idl">
+      <Filter>Extensions</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -23,6 +66,46 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h">
       <Filter>TypeName</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CaseCollection.h">
+      <Filter>SwitchPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SwitchPresenter.h">
+      <Filter>SwitchPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Case.h">
+      <Filter>SwitchPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NegateBoolConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ConverterGroup.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringToBoolConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReverseConverterBase.hpp">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CursorController.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FontIconExtension.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIElementExtension.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -30,6 +113,43 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp">
       <Filter>TypeName</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SwitchPresenter.cpp">
+      <Filter>SwitchPresenter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Case.cpp">
+      <Filter>SwitchPresenter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CaseCollection.cpp">
+      <Filter>SwitchPresenter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NegateBoolConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ConverterGroup.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringToBoolConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CursorController.cpp">
+      <Filter>Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ImageExtension.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FontIconExtension.cpp">
+      <Filter>Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIElementExtension.cpp">
+      <Filter>Extensions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

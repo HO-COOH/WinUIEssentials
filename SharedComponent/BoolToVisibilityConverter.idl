@@ -1,0 +1,14 @@
+﻿namespace PackageRoot
+{
+    /**
+     * @brief This class convert bool -> Visibility
+     * @details true -> Visible, false -> Collapsed
+     * @if converterParameter is specified as "Reverse", convert true -> Collapsed, false -> Visible
+    */
+    [default_interface]
+    runtimeclass BoolToVisibilityConverter : WinUINamespace.UI.Xaml.Data.IValueConverter
+    {
+        BoolToVisibilityConverter();
+        Boolean Reverse;
+    }
+}
