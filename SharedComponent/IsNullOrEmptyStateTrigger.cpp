@@ -3,18 +3,22 @@
 #if __has_include("IsNullOrEmptyStateTrigger.g.cpp")
 #include "IsNullOrEmptyStateTrigger.g.cpp"
 #endif
+#if defined Build_WinUIPackage
 #include <winrt/Microsoft.UI.Xaml.Interop.h>
+#else
+#include <winrt/Windows.UI.Xaml.Interop.h>
+#endif
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
 	void IsNullOrEmptyStateTrigger::EnsureDependencyProperties()
 	{
 		if (m_valueProperty) return;
-		m_valueProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_valueProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"Value",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-			winrt::xaml_typename<WinUI3Package::IsNullOrEmptyStateTrigger>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+			winrt::xaml_typename<PackageRoot::IsNullOrEmptyStateTrigger>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				nullptr,
 				&IsNullOrEmptyStateTrigger::onValuePropertyChanged
 			}
@@ -36,14 +40,14 @@ namespace winrt::WinUI3Package::implementation
 		SetValue(m_valueProperty, value);
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty IsNullOrEmptyStateTrigger::ValueProperty()
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty IsNullOrEmptyStateTrigger::ValueProperty()
 	{
 		return m_valueProperty;
 	}
 
-	void IsNullOrEmptyStateTrigger::onValuePropertyChanged(winrt::Microsoft::UI::Xaml::DependencyObject d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const e)
+	void IsNullOrEmptyStateTrigger::onValuePropertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const e)
 	{
-		winrt::get_self<IsNullOrEmptyStateTrigger>(d.as<WinUI3Package::IsNullOrEmptyStateTrigger>())->updateTrigger();
+		winrt::get_self<IsNullOrEmptyStateTrigger>(d.as<PackageRoot::IsNullOrEmptyStateTrigger>())->updateTrigger();
 	}
 
 	void IsNullOrEmptyStateTrigger::updateTrigger()
@@ -54,7 +58,7 @@ namespace winrt::WinUI3Package::implementation
 		if (!val)
 			return;
 
-		if (auto valNotifyCollection = val.try_as<winrt::Microsoft::UI::Xaml::Interop::INotifyCollectionChanged>())
+		if (auto valNotifyCollection = val.try_as<winrt::WinUINamespace::UI::Xaml::Interop::INotifyCollectionChanged>())
 		{
 			valNotifyCollection.CollectionChanged([weakThis = get_weak()](auto sender, auto)
 				{

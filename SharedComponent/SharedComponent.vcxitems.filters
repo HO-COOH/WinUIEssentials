@@ -13,6 +13,18 @@
     <Filter Include="Extensions">
       <UniqueIdentifier>{327375bf-94f2-4271-89a3-1e31946d17a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Triggers">
+      <UniqueIdentifier>{84ed1ee2-9f0e-4b31-bd1b-8c7b0a8ebf7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WrapPanel">
+      <UniqueIdentifier>{069cba29-5d44-4957-b63b-8191e5b273ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal">
+      <UniqueIdentifier>{155cc2f9-fa28-4099-b25a-92b147541d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DependentValue">
+      <UniqueIdentifier>{b99f07e3-4752-4b22-a901-08b4635add30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -57,6 +69,21 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)UIElementExtension.idl">
       <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)WrapPanel.idl">
+      <Filter>WrapPanel</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)DependentValue.idl">
+      <Filter>DependentValue</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +133,24 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)UIElementExtension.h">
       <Filter>Extensions</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.h">
+      <Filter>Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.h">
+      <Filter>Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.h">
+      <Filter>Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WrapPanel.h">
+      <Filter>WrapPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ObjectCompare.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h">
+      <Filter>DependentValue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -150,6 +195,24 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)UIElementExtension.cpp">
       <Filter>Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.cpp">
+      <Filter>Triggers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.cpp">
+      <Filter>Triggers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.cpp">
+      <Filter>Triggers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WrapPanel.cpp">
+      <Filter>WrapPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ObjectCompare.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DependentValue.cpp">
+      <Filter>DependentValue</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

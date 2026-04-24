@@ -3,7 +3,7 @@
 #include "IsNullOrEmptyStateTrigger.g.h"
 #include "include/EnsureDependencyProperty.hpp"
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
     struct IsNullOrEmptyStateTrigger : IsNullOrEmptyStateTriggerT<IsNullOrEmptyStateTrigger>, EnsureDependencyProperty<IsNullOrEmptyStateTrigger>
     {
@@ -12,20 +12,20 @@ namespace winrt::WinUI3Package::implementation
 
         winrt::Windows::Foundation::IInspectable Value();
         void Value(winrt::Windows::Foundation::IInspectable value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty ValueProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ValueProperty();
 
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
         static void onValuePropertyChanged(
-            winrt::Microsoft::UI::Xaml::DependencyObject d,
-            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const e);
+            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const e);
 
         void updateTrigger();
         static bool isNullOrEmpty(winrt::Windows::Foundation::IInspectable val);
     };
 }
 
-namespace winrt::WinUI3Package::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct IsNullOrEmptyStateTrigger : IsNullOrEmptyStateTriggerT<IsNullOrEmptyStateTrigger, implementation::IsNullOrEmptyStateTrigger>
     {

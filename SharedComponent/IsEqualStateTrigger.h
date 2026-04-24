@@ -3,7 +3,7 @@
 #include "IsEqualStateTrigger.g.h"
 #include "include/EnsureDependencyProperty.hpp"
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
     struct IsEqualStateTrigger : IsEqualStateTriggerT<IsEqualStateTrigger>, EnsureDependencyProperty<IsEqualStateTrigger>
     {
@@ -12,25 +12,25 @@ namespace winrt::WinUI3Package::implementation
 
         winrt::Windows::Foundation::IInspectable Value();
         void Value(winrt::Windows::Foundation::IInspectable value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty ValueProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ValueProperty();
 
         winrt::Windows::Foundation::IInspectable To();
         void To(winrt::Windows::Foundation::IInspectable value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty ToProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ToProperty();
 
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_toProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_toProperty = nullptr;
 
         static void onValuePropertyChanged(
-            winrt::Microsoft::UI::Xaml::DependencyObject d,
-            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
         void updateTrigger();
     };
 }
 
-namespace winrt::WinUI3Package::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct IsEqualStateTrigger : IsEqualStateTriggerT<IsEqualStateTrigger, implementation::IsEqualStateTrigger>
     {

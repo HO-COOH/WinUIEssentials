@@ -1,14 +1,16 @@
 ﻿#pragma once
 
 #include "DependentValue.g.h"
+#include "../include/EnsureDependencyProperty.hpp"
 
-namespace winrt::UWPPackage::implementation
+namespace winrt::PackageRoot::implementation
 {
-    struct DependentValue : DependentValueT<DependentValue>
+    struct DependentValue : DependentValueT<DependentValue>, EnsureDependencyProperty<DependentValue>
     {
+        static void EnsureDependencyProperties();
         DependentValue() = default;
 
-        static winrt::Windows::UI::Xaml::DependencyProperty ValueProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ValueProperty();
 
         double Value();
         void Value(double value);
@@ -17,11 +19,11 @@ namespace winrt::UWPPackage::implementation
         void ValueChanged(winrt::event_token const& token);
     private:
         winrt::event<winrt::Windows::Foundation::EventHandler<double>> m_valueChanged;
-        static winrt::Windows::UI::Xaml::DependencyProperty m_valueProperty;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
     };
 }
 
-namespace winrt::UWPPackage::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct DependentValue : DependentValueT<DependentValue, implementation::DependentValue>
     {

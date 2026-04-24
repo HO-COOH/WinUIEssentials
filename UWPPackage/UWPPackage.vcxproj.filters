@@ -7,9 +7,6 @@
     <Filter Include="Controls">
       <UniqueIdentifier>{db76334f-9dff-4acb-8cdb-6fdfead70be6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Triggers">
-      <UniqueIdentifier>{521fd732-a0d4-4420-a284-7ff5c1997bb0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls\GroupBox">
       <UniqueIdentifier>{71f464d0-b5c2-4933-ac17-7298cebef74b}</UniqueIdentifier>
     </Filter>
@@ -37,16 +34,10 @@
     <Filter Include="Controls\ImageExtension">
       <UniqueIdentifier>{71beeb28-f6d1-4c22-b38e-760d83045a30}</UniqueIdentifier>
     </Filter>
-    <Filter Include="internal">
-      <UniqueIdentifier>{ec564620-58dd-4f36-923a-e71ffee9a97f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="ObjectCompare.cpp">
-      <Filter>internal</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -87,9 +78,6 @@
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectCompare.h">
-      <Filter>internal</Filter>
-    </ClInclude>
     <ClInclude Include="include\ScopedButtonDisabler.hpp">
       <Filter>include</Filter>
     </ClInclude>
@@ -104,16 +92,6 @@
     <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Placeholder.idl" />
-    <Midl Include="Triggers\IsEqualStateTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="Triggers\IsNullOrEmptyStateTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="ControlSizeTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
     <Midl Include="GroupBox.idl">
       <Filter>Controls\GroupBox</Filter>
     </Midl>
@@ -128,7 +106,6 @@
     <Midl Include="SettingsExpander.idl">
       <Filter>Controls\SettingsExpander</Filter>
     </Midl>
-    <Midl Include="DependentValue.idl" />
     <Midl Include="MarqueeText.idl">
       <Filter>Controls\MarqueeText</Filter>
     </Midl>

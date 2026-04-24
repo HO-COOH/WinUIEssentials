@@ -39,9 +39,6 @@
     <ClCompile Include="RadioPopupMenuItemGroup.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectCompare.cpp">
-      <Filter>internal</Filter>
-    </ClCompile>
     <ClCompile Include="WindowContextMenuUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
@@ -136,9 +133,6 @@
     </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectCompare.h">
-      <Filter>internal</Filter>
     </ClInclude>
     <ClInclude Include="include\WebView2Helper.hpp">
       <Filter>include</Filter>
@@ -331,9 +325,6 @@
     <Filter Include="include">
       <UniqueIdentifier>{f8d8d370-4f18-4c11-a8c6-6145dcde80da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Triggers">
-      <UniqueIdentifier>{3cc9cab8-b17a-4fce-806e-769d99c0084d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls">
       <UniqueIdentifier>{64af69c0-57c7-4bf9-877e-c252bcb5167a}</UniqueIdentifier>
     </Filter>
@@ -438,16 +429,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="ControlSizeTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="IsEqualStateTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="IsNullOrEmptyStateTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="include\DependentValue.idl" />
     <Midl Include="GroupBox.idl">
       <Filter>Controls\GroupBox</Filter>
     </Midl>
@@ -536,9 +517,6 @@
     <Midl Include="VersionInfo.idl" />
     <Midl Include="AcrylicVisual.idl">
       <Filter>Controls\AcrylicVisual</Filter>
-    </Midl>
-    <Midl Include="WrapPanel.idl">
-      <Filter>Controls</Filter>
     </Midl>
     <Midl Include="ModalWindow.idl">
       <Filter>Windows</Filter>

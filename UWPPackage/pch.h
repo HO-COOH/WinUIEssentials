@@ -23,3 +23,8 @@
 #include "StringToBoolConverter.h"
 #include "ReferenceToBoolConverter.h"
 #include "FontIconExtension.h"
+#include "ControlSizeTrigger.h"
+#include "IsEqualStateTrigger.h"
+#include "IsNullOrEmptyStateTrigger.h"
+#include "WrapPanel.h"
+#include "DependentValue.h"

@@ -489,14 +489,6 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ControlSizeTrigger.h">
-      <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="DependentValue.h">
-      <DependentUpon>DependentValue.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="EqualPanel.h">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -531,12 +523,7 @@
       <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ObjectCompare.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Placeholder.h">
-      <DependentUpon>Placeholder.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ProgressBarEx.h">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -605,24 +592,8 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Triggers\IsEqualStateTrigger.h">
-      <DependentUpon>Triggers\IsEqualStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Triggers\IsNullOrEmptyStateTrigger.h">
-      <DependentUpon>Triggers\IsNullOrEmptyStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ControlSizeTrigger.cpp">
-      <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="DependentValue.cpp">
-      <DependentUpon>DependentValue.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="EqualPanel.cpp">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -643,15 +614,10 @@
       <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ObjectCompare.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Placeholder.cpp">
-      <DependentUpon>Placeholder.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ProgressBarEx.cpp">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -720,14 +686,6 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Triggers\IsEqualStateTrigger.cpp">
-      <DependentUpon>Triggers\IsEqualStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Triggers\IsNullOrEmptyStateTrigger.cpp">
-      <DependentUpon>Triggers\IsNullOrEmptyStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".nuspec" />
@@ -739,12 +697,6 @@
     <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="ControlSizeTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="DependentValue.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="EqualPanel.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -761,9 +713,6 @@
     <Midl Include="MarqueeText_Resource.idl">
       <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="Placeholder.idl">
-      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ProgressBarEx.idl">
       <SubType>Designer</SubType>
@@ -820,12 +769,6 @@
     <Midl Include="Shimmer_Resource.idl">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="Triggers\IsEqualStateTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Triggers\IsNullOrEmptyStateTrigger.idl">
-      <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>
   <ItemGroup>

@@ -21,51 +21,68 @@
     <Midl Include="$(MSBuildThisFileDirectory)Case.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)CaseCollection.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ConverterGroup.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)CursorController.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)DependentValue.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)FontIconExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ImageExtension.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NegateBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)StringToBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SwitchPresenter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)UIElementExtension.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)WrapPanel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Case.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CaseCollection.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ConverterGroup.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CursorController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DependentValue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FontIconExtension.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ImageExtension.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NegateBoolConverter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ObjectCompare.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StringToBoolConverter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SwitchPresenter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIElementExtension.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)WrapPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Case.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CaseCollection.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ConverterGroup.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CursorController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FontIconExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NegateBoolConverter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ObjectCompare.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReverseConverterBase.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringToBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SwitchPresenter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIElementExtension.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)WrapPanel.h" />
   </ItemGroup>
 </Project>

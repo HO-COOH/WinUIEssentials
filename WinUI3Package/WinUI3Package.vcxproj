@@ -312,10 +312,6 @@
       <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ControlSizeTrigger.h">
-      <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="CrossFadeEffectInterop.h" />
     <ClInclude Include="CustomAcrylicBackdrop.h">
       <DependentUpon>CustomAcrylicBackdrop.idl</DependentUpon>
@@ -364,10 +360,6 @@
     <ClInclude Include="include\AutoRevokeWorkaround.hpp" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
-    <ClInclude Include="include\DependentValue.h">
-      <DependentUpon>include\DependentValue.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />
@@ -392,14 +384,6 @@
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
     <ClInclude Include="include\WebView2Helper.hpp" />
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
-    <ClInclude Include="IsEqualStateTrigger.h">
-      <DependentUpon>IsEqualStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="IsNullOrEmptyStateTrigger.h">
-      <DependentUpon>IsNullOrEmptyStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp" />
     <ClInclude Include="MarqueeText.h">
       <DependentUpon>MarqueeText.idl</DependentUpon>
@@ -447,7 +431,6 @@
       <DependentUpon>NonResizableWindowWhiteBorderWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ObjectCompare.h" />
     <ClInclude Include="NormalTaskbarIcon.h" />
     <ClInclude Include="NotifyIconData.h" />
     <ClInclude Include="OverrideChecker.h" />
@@ -611,10 +594,6 @@
     <ClInclude Include="WindowsVersion.hpp" />
     <ClInclude Include="WinUIAsyncEventArgs.hpp" />
     <ClInclude Include="WinUIEssentialError.hpp" />
-    <ClInclude Include="WrapPanel.h">
-      <DependentUpon>WrapPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AcrylicVisual.cpp">
@@ -642,10 +621,6 @@
     <ClCompile Include="ContentDialogUtils.cpp" />
     <ClCompile Include="ContentDialogWindowButtonClickEventArgs.cpp">
       <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ControlSizeTrigger.cpp">
-      <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="CustomAcrylicBackdrop.cpp">
@@ -688,18 +663,6 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="IconUtils.cpp" />
-    <ClCompile Include="include\DependentValue.cpp">
-      <DependentUpon>include\DependentValue.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="IsEqualStateTrigger.cpp">
-      <DependentUpon>IsEqualStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="IsNullOrEmptyStateTrigger.cpp">
-      <DependentUpon>IsNullOrEmptyStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="MarqueeText.cpp">
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -742,7 +705,6 @@
       <DependentUpon>NonResizableWindowWhiteBorderWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ObjectCompare.cpp" />
     <ClCompile Include="NormalTaskbarIcon.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -897,10 +859,6 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WindowsVersion.cpp" />
-    <ClCompile Include="WrapPanel.cpp">
-      <DependentUpon>WrapPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".nuspec" />
@@ -926,9 +884,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ControlSizeTrigger.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="CustomAcrylicBackdrop.idl">
@@ -957,15 +912,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="HostBackdropVisual.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="include\DependentValue.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="IsEqualStateTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="IsNullOrEmptyStateTrigger.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MarqueeText.idl">
@@ -1102,9 +1048,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowEx.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="WrapPanel.idl">
       <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>

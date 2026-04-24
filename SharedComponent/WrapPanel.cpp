@@ -4,29 +4,29 @@
 #include "WrapPanel.g.cpp"
 #endif
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
 	void WrapPanel::EnsureDependencyProperties()
 	{
 		if (s_horizontalSpacingProperty) return;
-		s_horizontalSpacingProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_horizontalSpacingProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"HorizontalSpacing",
 			winrt::xaml_typename<double>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0), &WrapPanel::propertyChanged }
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0), &WrapPanel::propertyChanged }
 		);
-		s_verticalSpacingProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_verticalSpacingProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"VerticalSpacing",
 			winrt::xaml_typename<double>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0), &WrapPanel::propertyChanged }
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(0.0), &WrapPanel::propertyChanged }
 		);
-		s_orientationProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		s_orientationProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"Orientation",
-			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::Orientation>(),
+			winrt::xaml_typename<winrt::WinUINamespace::UI::Xaml::Controls::Orientation>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
-				winrt::box_value(winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
+				winrt::box_value(winrt::WinUINamespace::UI::Xaml::Controls::Orientation::Horizontal),
 				&WrapPanel::propertyChanged
 			}
 		);
@@ -42,7 +42,7 @@ namespace winrt::WinUI3Package::implementation
 		SetValue(s_horizontalSpacingProperty, winrt::box_value(value));
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty WrapPanel::HorizontalSpacingProperty()
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty WrapPanel::HorizontalSpacingProperty()
 	{
 		return s_horizontalSpacingProperty;
 	}
@@ -57,22 +57,22 @@ namespace winrt::WinUI3Package::implementation
 		SetValue(s_verticalSpacingProperty, winrt::box_value(value));
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty WrapPanel::VerticalSpacingProperty()
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty WrapPanel::VerticalSpacingProperty()
 	{
 		return s_verticalSpacingProperty;
 	}
 
-	winrt::Microsoft::UI::Xaml::Controls::Orientation WrapPanel::Orientation()
+	winrt::WinUINamespace::UI::Xaml::Controls::Orientation WrapPanel::Orientation()
 	{
-		return winrt::unbox_value<winrt::Microsoft::UI::Xaml::Controls::Orientation>(GetValue(s_orientationProperty));
+		return winrt::unbox_value<winrt::WinUINamespace::UI::Xaml::Controls::Orientation>(GetValue(s_orientationProperty));
 	}
 
-	void WrapPanel::Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation value)
+	void WrapPanel::Orientation(winrt::WinUINamespace::UI::Xaml::Controls::Orientation value)
 	{
 		SetValue(s_orientationProperty, winrt::box_value(value));
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty WrapPanel::OrientationProperty()
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty WrapPanel::OrientationProperty()
 	{
 		return s_orientationProperty;
 	}
@@ -91,7 +91,7 @@ namespace winrt::WinUI3Package::implementation
 			child.Measure(availableSize);
 			auto childDesiredSize = child.DesiredSize();
 
-			if (orientation == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal)
+			if (orientation == winrt::WinUINamespace::UI::Xaml::Controls::Orientation::Horizontal)
 			{
 				if (currentLineSize + childDesiredSize.Width > availableSize.Width)
 				{
@@ -117,7 +117,7 @@ namespace winrt::WinUI3Package::implementation
 				currentLineHeight = max(currentLineHeight, childDesiredSize.Width);
 			}
 		}
-		if (orientation == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal)
+		if (orientation == winrt::WinUINamespace::UI::Xaml::Controls::Orientation::Horizontal)
 		{
 			//desiredSize.Width = currentLineSize - horizontalSpacing;
 			desiredSize.Height += currentLineHeight;
@@ -142,7 +142,7 @@ namespace winrt::WinUI3Package::implementation
 		for (auto const& child : Children())
 		{
 			auto childDesiredSize = child.DesiredSize();
-			if (orientation == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal)
+			if (orientation == winrt::WinUINamespace::UI::Xaml::Controls::Orientation::Horizontal)
 			{
 				if (currentLineSize + childDesiredSize.Width > finalSize.Width)
 				{
@@ -175,7 +175,7 @@ namespace winrt::WinUI3Package::implementation
 		return finalSize;
 	}
 
-	void WrapPanel::propertyChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& sender, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
+	void WrapPanel::propertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& sender, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
 		if (auto panel = sender.try_as<WrapPanel>())
 		{

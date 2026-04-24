@@ -5,22 +5,22 @@
 #endif
 #include "ObjectCompare.h"
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
 	void IsEqualStateTrigger::EnsureDependencyProperties()
 	{
 		if (m_valueProperty) return;
-		m_valueProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_valueProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"Value",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-			winrt::xaml_typename<WinUI3Package::IsEqualStateTrigger>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &IsEqualStateTrigger::onValuePropertyChanged }
+			winrt::xaml_typename<PackageRoot::IsEqualStateTrigger>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &IsEqualStateTrigger::onValuePropertyChanged }
 		);
-		m_toProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_toProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"To",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-			winrt::xaml_typename<WinUI3Package::IsEqualStateTrigger>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &IsEqualStateTrigger::onValuePropertyChanged }
+			winrt::xaml_typename<PackageRoot::IsEqualStateTrigger>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &IsEqualStateTrigger::onValuePropertyChanged }
 		);
 	}
 
@@ -34,7 +34,7 @@ namespace winrt::WinUI3Package::implementation
 		SetValue(m_valueProperty, value);
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty IsEqualStateTrigger::ValueProperty()
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty IsEqualStateTrigger::ValueProperty()
 	{
 		return m_valueProperty;
 	}
@@ -49,16 +49,16 @@ namespace winrt::WinUI3Package::implementation
 		SetValue(m_toProperty, value);
 	}
 
-	winrt::Microsoft::UI::Xaml::DependencyProperty IsEqualStateTrigger::ToProperty()
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty IsEqualStateTrigger::ToProperty()
 	{
 		return m_toProperty;
 	}
 
 	void IsEqualStateTrigger::onValuePropertyChanged(
-		winrt::Microsoft::UI::Xaml::DependencyObject d,
-		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+		winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
-		winrt::get_self<IsEqualStateTrigger>(d.as<WinUI3Package::IsEqualStateTrigger>())->updateTrigger();
+		winrt::get_self<IsEqualStateTrigger>(d.as<PackageRoot::IsEqualStateTrigger>())->updateTrigger();
 	}
 
 	void IsEqualStateTrigger::updateTrigger()
