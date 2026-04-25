@@ -12,13 +12,5 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    int32_t TablePage::MyProperty()
-    {
-        throw hresult_not_implemented();
-    }
 
-    void TablePage::MyProperty(int32_t /* value */)
-    {
-        throw hresult_not_implemented();
-    }
 }

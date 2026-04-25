@@ -9,5 +9,5 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <essential:Table Width="1000" Height="1000" />
+    <essential:Table VerticalAlignment="Stretch" />
 </Page>

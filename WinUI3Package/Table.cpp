@@ -5,12 +5,15 @@
 #endif
 #include "TableConstants.hpp"
 #include "D2DPrimitiveHelper.h"
+#include <winrt/Microsoft.UI.Input.h>
+#include <timeapi.h>
 
 namespace winrt::WinUI3Package::implementation
 {
-    Table::Table()
+    Table::Table() : m_smoothScrollThread{ [this](std::stop_token st) {scrollThreadProc(st); } }
     {
         InitializeComponent();
+        m_dispatcherQueue = DispatcherQueue();
 
         //graphics devices
 		m_swapChain.Set(m_d3dDevice.get(), *this);
@@ -43,11 +46,110 @@ namespace winrt::WinUI3Package::implementation
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), m_textBrush.put()));
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x0F / static_cast<float>(0xFF)), m_backgroundBrush.put()));
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x2F / static_cast<float>(0xFF)), m_alternateBackgroundBrush.put()));
+
+        //get ui elements
+        m_scrollBar = VerticalScrollBar();
     }
 
     void Table::ClickHandler(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
         Button().Content(box_value(L"Clicked"));
+    }
+
+    void Table::updateVerticalScrollBar()
+    {
+        auto const viewportHeight = getViewportHeight();
+
+        if (viewportHeight <= 0)
+            return hideVerticalScrollBar();
+
+		auto const totalHeight = m_data.Count() * TableConstants::RowHeight;
+		auto const maxScroll = (std::max)(0.f, totalHeight - viewportHeight);
+        
+        if (maxScroll <= 0)
+            hideVerticalScrollBar();
+
+		m_scrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+		m_scrollBar.Maximum(maxScroll);
+		m_scrollBar.ViewportSize(viewportHeight);
+		m_scrollBar.LargeChange(viewportHeight);
+		m_scrollBar.SmallChange(TableConstants::RowHeight);
+		m_isUpdatingScrollBarInCode = true;
+		m_scrollBar.Value(m_scrollOffsetY);
+		m_isUpdatingScrollBarInCode = false;
+    }
+
+    void Table::hideVerticalScrollBar()
+    {
+		m_scrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+    }
+
+    void Table::stopSmoothScroll()
+    {
+        m_isScrolling = false;
+        m_scrollEvent.notify_one();
+    }
+
+    void Table::startSmoothScroll(float targetY)
+    {
+        m_isScrolling = true;
+		m_smoothScrollTargetY = targetY;
+        {
+			std::lock_guard lock{ m_scrollMutex };
+			m_scrollRequest.startY = m_scrollOffsetY;
+			m_scrollRequest.endY = targetY;
+			m_scrollRequest.startTime = std::chrono::steady_clock::now();
+			m_scrollRequest.isPending = true;
+        }
+		m_scrollEvent.notify_one();
+    }
+
+    float Table::getViewportHeight() const
+    {
+        return m_swapChain.CurrentSize.Height - TableConstants::RowHeight;
+    }
+
+    void Table::scrollThreadProc(std::stop_token stopToken)
+    {
+        while (!stopToken.stop_requested())
+        {
+            ScrollRequest request;
+            {
+				std::unique_lock lock{ m_scrollMutex };
+                m_scrollEvent.wait(lock, [this] {return m_scrollRequest.isPending; });
+				request = m_scrollRequest;
+                m_scrollRequest.isPending = false;
+            }
+
+            timeBeginPeriod(1);
+            while (!stopToken.stop_requested())
+            {
+				auto elapsed = std::chrono::steady_clock::now() - request.startTime;
+                auto const progress = std::clamp(std::chrono::duration<double>(elapsed).count() / std::chrono::duration<double>(TableConstants::SmoothScrollDuration).count(), 0.0, 1.0);
+                auto const eased = 1.0 - std::pow(1.0 - progress, 5.0);
+				auto const done = progress >= 1.0;
+				auto const newY = done? request.endY : request.startY + (request.endY - request.startY) * static_cast<float>(eased);
+                m_dispatcherQueue.TryEnqueue([this, newY] {
+                    if (!m_isScrolling)
+                        return;
+
+                    m_scrollOffsetY = newY;
+                    draw();
+                });
+                if (done)
+                {
+                    m_isScrolling = false;
+                    break;
+                }
+
+                {
+                    //sleep to avoid flooding dispatcher
+                    std::unique_lock lock{ m_scrollMutex };
+                    m_scrollEvent.wait_for(lock, std::chrono::milliseconds{ 4 }, [this] {return m_scrollRequest.isPending; });
+                }
+            }
+            timeEndPeriod(1);
+        }
     }
 
     void Table::draw()
@@ -56,11 +158,14 @@ namespace winrt::WinUI3Package::implementation
             return;
 
         m_d2dContext->BeginDraw();
+        m_d2dContext->Clear(D2D1::ColorF(0, 0));
         drawRows();
         drawHeader();
         m_d2dContext->EndDraw();
         DXGI_PRESENT_PARAMETERS presentParameters{};
         winrt::check_hresult(m_swapChain->Present1(0, DXGI_PRESENT_RESTART, &presentParameters));
+
+        updateVerticalScrollBar();
     }
 
     void Table::drawHeader()
@@ -157,6 +262,40 @@ namespace winrt::WinUI3Package::implementation
         m_swapChain.SizeChanged(*this, e);
 		m_swapChain.SetTarget(m_d2dContext.get());
         draw();
+    }
+
+    void Table::VerticalScrollBar_ValueChanged(
+        winrt::Windows::Foundation::IInspectable const&, 
+        winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e)
+    {
+        if (m_isUpdatingScrollBarInCode)
+            return;
+
+        if (m_isScrolling)
+            stopSmoothScroll();
+
+		m_scrollOffsetY = static_cast<float>(e.NewValue());
+        draw();
+    }
+
+    void Table::SwapChainPanel_PointerWheelChanged(
+        winrt::Windows::Foundation::IInspectable const&, 
+        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    {
+		auto const pointerPoint = e.GetCurrentPoint(*this);
+		auto const wheelDelta = -pointerPoint.Properties().MouseWheelDelta(); //the MouseWheelDelta is positive when scrolling up, but we want to scroll up when the wheel delta is negative, so we negate it here
+        
+        constexpr static auto numWheelStepRow = 3;
+		auto const wheelStepY = TableConstants::RowHeight * numWheelStepRow; //one wheel step scrolls 3 rows
+        
+        constexpr static auto wheelStepDelta = 120;
+        auto const scrollY = wheelDelta / wheelStepDelta * wheelStepY; //number of steps of wheel * step Y 
+        
+        auto const baseY = m_isScrolling ? m_smoothScrollTargetY : m_scrollOffsetY;
+		auto const maxY = m_data.Count() * TableConstants::RowHeight - getViewportHeight();
+		auto const targetY = std::clamp(baseY + scrollY, 0.f, maxY);
+		startSmoothScroll(targetY);
+        e.Handled(true);
     }
 
 }

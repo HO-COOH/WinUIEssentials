@@ -872,11 +872,9 @@
             </NavigationView.MenuItems>
             <Grid>
                 <ScrollViewer>
-                    <Frame
-                        x:Name="ContentFrame"
-                        Margin="10,10,20,10"
-                        VerticalAlignment="Top" />
+                    <Frame x:Name="ContentFrame" Margin="10,10,20,10" />
                 </ScrollViewer>
+
 
                 <Button
                     x:Name="MoreButton"

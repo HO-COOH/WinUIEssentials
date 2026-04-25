@@ -5,6 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:WinUI3Package"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives"
+    VerticalAlignment="Stretch"
+    PointerWheelChanged="SwapChainPanel_PointerWheelChanged"
     SizeChanged="SwapChainPanel_SizeChanged"
     mc:Ignorable="d">
 
@@ -16,4 +19,15 @@
         Click="ClickHandler">
         Click Me
     </Button>
+
+    <primitives:ScrollBar
+        x:Name="VerticalScrollBar"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Stretch"
+        IndicatorMode="MouseIndicator"
+        Maximum="100"
+        Minimum="0"
+        ValueChanged="VerticalScrollBar_ValueChanged"
+        ViewportSize="30"
+        Value="0" />
 </SwapChainPanel>
