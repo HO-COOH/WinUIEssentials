@@ -64,8 +64,8 @@ You can reference Github Action for detailed build steps.
 
 ### Contribute a new templated control
 0. **DO NOT submit a PR that's purely AI written WITHOUT your reviewing.** I will **NOT** review it.
-1. Create a control under the `Controls` folder, with the `ViewModel` file template, then you edit the `idl` as needed
-2. If the control has a `ResourceDictionary` xaml, add an entry in the `WinUIEssential.WinU3.targets` so that the `.xbf` file is properly copied (see that file for example) 
+1. If it is a templated control, create a control with the `ViewModel` file template and a `ResourceDictionary` xaml file
+2. Add an entry in the `WinUIEssential.WinU3.targets` so that the `.xbf` file is properly copied (see that file for example) 
 3. Please also consider adding a demo page for the control, and add it to `MainWindow.xaml.h` `MainWindow::s_page` (see the file for example)
 
 -----
@@ -74,7 +74,6 @@ You can reference Github Action for detailed build steps.
 |--|--|--|--|
 |WinUIIncludes| :white_check_mark: | :x: | Header only
 |TemplateControlHelper| :white_check_mark: | :white_check_mark: | Header only
-|Glyphs| :white_check_mark: | :white_check_mark: | Header only + Xaml only
 |BadgeGlyphs| :white_check_mark: | :white_check_mark: | Header only
 |ToastTemplates| :white_check_mark: | :white_check_mark: | Header only
 |ToastBuilder | :white_check_mark: | :white_check_mark: | Header only
@@ -88,7 +87,7 @@ You can reference Github Action for detailed build steps.
 |StringToBoolConverter | :white_check_mark: | :white_check_mark: | WinRT component
 |ReferenceToBoolConverter | :white_check_mark: | :white_check_mark: | WinRT component
 |ConverterGroup | :white_check_mark: | :white_check_mark: | WinRT component
-|Convert | :x: | :white_check_mark: | WinRT component
+|Convert | :white_check_mark: | :white_check_mark: | WinRT component
 |IsEqualStringTrigger| :white_check_mark: | :white_check_mark: | WinRT component
 |IsNullOrEmptyStateTrigger | :white_check_mark: | :white_check_mark: | WinRT component
 |ControlSizeTrigger | :white_check_mark: | :white_check_mark: | WinRT component
@@ -108,13 +107,13 @@ You can reference Github Action for detailed build steps.
 |CustomAcrylicBackdrop | :x: | :white_check_mark: | Backdrop
 |Shimmer | :white_check_mark: | :white_check_mark: | Control
 |ImageExtension | :white_check_mark: | :white_check_mark: | WinRT component
-|SwitchPresenter | :x: | * :white_check_mark: | Control
+|SwitchPresenter | :white_check_mark: | :white_check_mark: | Control
 |ModernStandardWindowContextMenu| :x: | * :white_check_mark: | WinRT component
 |WindowContextMenu | :x: | :white_check_mark: | WinRT component
 |NonResizableWindowWhiteBorderWorkaround | :x: | :white_check_mark: | WinRT component
 |ComboBoxHelper | :x: | :white_check_mark: | WinRT component
 |AutoSuggestBoxHelper | :x: | :white_check_mark: | WinRT component
-|WrapPanel | :x: | :white_check_mark: | Panel
+|WrapPanel | :white_check_mark: | :white_check_mark: | Panel
 |ToolTipHelper | :x: | :white_check_mark: | WinRT component
 |CommandBarHelper | :x: | :white_check_mark: | WinRT component
 |IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only

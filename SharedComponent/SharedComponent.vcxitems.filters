@@ -63,7 +63,6 @@
     <Midl Include="$(MSBuildThisFileDirectory)CursorController.idl">
       <Filter>Extensions</Filter>
     </Midl>
-    <Midl Include="$(MSBuildThisFileDirectory)ImageExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)FontIconExtension.idl">
       <Filter>Extensions</Filter>
     </Midl>
@@ -84,6 +83,9 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)DependentValue.idl">
       <Filter>DependentValue</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ImageExtension.idl">
+      <Filter>Extensions</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +128,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CursorController.h">
       <Filter>Extensions</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FontIconExtension.h">
       <Filter>Extensions</Filter>
     </ClInclude>
@@ -150,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h">
       <Filter>DependentValue</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h">
+      <Filter>Extensions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -189,7 +193,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)CursorController.cpp">
       <Filter>Extensions</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ImageExtension.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FontIconExtension.cpp">
       <Filter>Extensions</Filter>
     </ClCompile>
@@ -213,6 +216,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DependentValue.cpp">
       <Filter>DependentValue</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ImageExtension.cpp">
+      <Filter>Extensions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
