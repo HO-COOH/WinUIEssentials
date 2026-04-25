@@ -1,0 +1,11 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass CursorController : WinUINamespace.UI.Xaml.DependencyObject
+    {
+        static WinUINamespace.UI.Xaml.DependencyProperty TypeProperty{get; };
+        static Windows.UI.Core.CoreCursorType GetType(WinUINamespace.UI.Xaml.UIElement obj);
+        static void SetType(WinUINamespace.UI.Xaml.UIElement obj, Windows.UI.Core.CoreCursorType type);
+    }
+}

@@ -1,0 +1,15 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass IsEqualStateTrigger : WinUINamespace.UI.Xaml.StateTriggerBase
+    {
+        IsEqualStateTrigger();
+
+        Object Value;
+        static WinUINamespace.UI.Xaml.DependencyProperty ValueProperty{ get; };
+
+        Object To;
+        static WinUINamespace.UI.Xaml.DependencyProperty ToProperty{ get; };
+    }
+}

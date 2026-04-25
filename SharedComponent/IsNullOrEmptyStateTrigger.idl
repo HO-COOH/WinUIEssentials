@@ -1,0 +1,11 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass IsNullOrEmptyStateTrigger : WinUINamespace.UI.Xaml.StateTriggerBase
+    {
+        IsNullOrEmptyStateTrigger();
+        Object Value;
+        static WinUINamespace.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

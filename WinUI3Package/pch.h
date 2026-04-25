@@ -29,4 +29,20 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
+
+#include "Case.h"
+#include "CaseCollection.h"
+#include "SwitchPresenter.h"
 #include "TypeNameExtension.h"
+#include "BoolToVisibilityConverter.h"
+#include "ContainerToBoolConverter.h"
+#include "ConverterGroup.h"
+#include "NegateBoolConverter.h"
+#include "StringToBoolConverter.h"
+#include "ReferenceToBoolConverter.h"
+#include "FontIconExtension.h"
+#include "ControlSizeTrigger.h"
+#include "IsEqualStateTrigger.h"
+#include "IsNullOrEmptyStateTrigger.h"
+#include "WrapPanel.h"
+#include "DependentValue.h"

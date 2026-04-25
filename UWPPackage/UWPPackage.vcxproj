@@ -288,7 +288,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WindowsNamespace=Windows;PackageRoot=UWPPackage;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
@@ -310,18 +310,18 @@
       </Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WindowsNamespace=Windows;PackageRoot=UWPPackage;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
@@ -344,13 +344,13 @@
       </Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI'">
@@ -380,7 +380,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WindowsNamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
@@ -403,18 +403,18 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nuget.exe pack</Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WindowsNamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
@@ -441,18 +441,18 @@
       </Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WindowsNamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">stdcpp20</LanguageStandard>
@@ -479,67 +479,27 @@
       </Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI|x64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI|x64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM64'">PackageRoot=UWPPackage;WindowsNamespace=Windows</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM64'">PackageRoot=UWPPackage;WinUINamespace=Windows</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BoolToVisibilityConverter.h">
-      <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Case.h">
-      <DependentUpon>Case.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="CaseCollection.h">
-      <DependentUpon>CaseCollection.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ContainerToBoolConverter.h">
-      <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ControlSizeTrigger.h">
-      <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ConverterGroup.h">
-      <DependentUpon>ConverterGroup.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="CursorController.h">
-      <DependentUpon>CursorController.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="DependentValue.h">
-      <DependentUpon>DependentValue.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="EqualPanel.h">
       <DependentUpon>EqualPanel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Export.h" />
-    <ClInclude Include="FontIconExtension.h">
-      <DependentUpon>FontIconExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="GroupBox.h">
       <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="GroupBox_Resource.h">
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ImageExtension.h">
-      <DependentUpon>ImageExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="include\BadgeGlyphs.hpp" />
@@ -563,16 +523,7 @@
       <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="NegateBoolConverter.h">
-      <DependentUpon>NegateBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ObjectCompare.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Placeholder.h">
-      <DependentUpon>Placeholder.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ProgressBarEx.h">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -581,11 +532,6 @@
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ReferenceToBoolConverter.h">
-      <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ReverseConverterBase.hpp" />
     <ClInclude Include="Segmented.h">
       <DependentUpon>Segmented.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -646,67 +592,10 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="StringToBoolConverter.h">
-      <DependentUpon>StringToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SwitchPresenter.h">
-      <DependentUpon>SwitchPresenter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Triggers\IsEqualStateTrigger.h">
-      <DependentUpon>Triggers\IsEqualStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Triggers\IsNullOrEmptyStateTrigger.h">
-      <DependentUpon>Triggers\IsNullOrEmptyStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="UIElementExtension.h">
-      <DependentUpon>UIElementExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="UnsupportedImageTypeError.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BoolToVisibilityConverter.cpp">
-      <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Case.cpp">
-      <DependentUpon>Case.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="CaseCollection.cpp">
-      <DependentUpon>CaseCollection.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ContainerToBoolConverter.cpp">
-      <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ControlSizeTrigger.cpp">
-      <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ConverterGroup.cpp">
-      <DependentUpon>ConverterGroup.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="CursorController.cpp">
-      <DependentUpon>CursorController.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="DependentValue.cpp">
-      <DependentUpon>DependentValue.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="EqualPanel.cpp">
       <DependentUpon>EqualPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="FontIconExtension.cpp">
-      <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="GroupBox.cpp">
@@ -717,10 +606,6 @@
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ImageExtension.cpp">
-      <DependentUpon>ImageExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="MarqueeText.cpp">
       <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -729,29 +614,16 @@
       <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="NegateBoolConverter.cpp">
-      <DependentUpon>NegateBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ObjectCompare.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="Placeholder.cpp">
-      <DependentUpon>Placeholder.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ProgressBarEx.cpp">
       <DependentUpon>ProgressBarEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ProgressBarEx_Resource.cpp">
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ReferenceToBoolConverter.cpp">
-      <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Segmented.cpp">
@@ -814,26 +686,6 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="StringToBoolConverter.cpp">
-      <DependentUpon>StringToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SwitchPresenter.cpp">
-      <DependentUpon>SwitchPresenter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Triggers\IsEqualStateTrigger.cpp">
-      <DependentUpon>Triggers\IsEqualStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Triggers\IsNullOrEmptyStateTrigger.cpp">
-      <DependentUpon>Triggers\IsNullOrEmptyStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="UIElementExtension.cpp">
-      <DependentUpon>UIElementExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".nuspec" />
@@ -845,34 +697,7 @@
     <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="BoolToVisibilityConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Case.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="CaseCollection.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ContainerToBoolConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ControlSizeTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ConverterGroup.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="CursorController.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="DependentValue.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="EqualPanel.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="FontIconExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="GroupBox.idl">
@@ -882,9 +707,6 @@
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="ImageExtension.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="MarqueeText.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -892,21 +714,12 @@
       <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="NegateBoolConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Placeholder.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="ProgressBarEx.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ProgressBarEx_Resource.idl">
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="ReferenceToBoolConverter.idl">
-      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Segmented.idl">
       <SubType>Designer</SubType>
@@ -956,21 +769,6 @@
     <Midl Include="Shimmer_Resource.idl">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="StringToBoolConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SwitchPresenter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Triggers\IsEqualStateTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Triggers\IsNullOrEmptyStateTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="UIElementExtension.idl">
-      <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>
   <ItemGroup>

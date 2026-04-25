@@ -8,7 +8,23 @@
 #include <winrt/Windows.UI.Xaml.Markup.h>
 #include <winrt/Windows.UI.Xaml.Input.h>
 #include "include/WinUIIncludes.hpp"
-#include "TypeNameExtension.h"
 #include <winrt/Windows.UI.Xaml.Controls.h>
 #include <winrt/Windows.UI.Xaml.Controls.Primitives.h>
 #include <winrt/Windows.UI.Xaml.Media.Animation.h>
+
+#include "Case.h"
+#include "CaseCollection.h"
+#include "SwitchPresenter.h"
+#include "TypeNameExtension.h"
+#include "BoolToVisibilityConverter.h"
+#include "ContainerToBoolConverter.h"
+#include "ConverterGroup.h"
+#include "NegateBoolConverter.h"
+#include "StringToBoolConverter.h"
+#include "ReferenceToBoolConverter.h"
+#include "FontIconExtension.h"
+#include "ControlSizeTrigger.h"
+#include "IsEqualStateTrigger.h"
+#include "IsNullOrEmptyStateTrigger.h"
+#include "WrapPanel.h"
+#include "DependentValue.h"

@@ -1,0 +1,9 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass NegateBoolConverter : WinUINamespace.UI.Xaml.Data.IValueConverter
+    {
+        NegateBoolConverter();
+    }
+}

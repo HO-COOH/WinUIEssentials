@@ -1,9 +1,0 @@
-﻿namespace UWPPackage
-{
-    [bindable]
-    [default_interface]
-    runtimeclass CaseCollection : Windows.UI.Xaml.DependencyObjectCollection
-    {
-        CaseCollection();
-    }
-}
