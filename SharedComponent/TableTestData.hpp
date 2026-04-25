@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <random>
+#include <dwrite.h>
 
 class TableTestData
 {
@@ -114,11 +115,31 @@ public:
         std::wstring operator[](int column);
     };
 
+    struct Header
+    {
+        struct Column
+        {
+            wchar_t const* Content;
+			DWRITE_TEXT_ALIGNMENT HorizontalAlignment;
+			DWRITE_PARAGRAPH_ALIGNMENT VerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+        };
+
+        constexpr Column operator[](int column) const
+        {
+            return Column{ TableTestData::Columns[column], column == 0 ? DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_CENTER : DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_LEADING };
+		}
+    };
+
     friend class Data;
 
     constexpr Data operator[](int row)
     {
         return Data{*this, row};
+    }
+
+    constexpr Header Header() const
+    {
+        return {};
     }
 
     constexpr int Count() const

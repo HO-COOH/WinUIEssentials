@@ -41,6 +41,8 @@ namespace winrt::WinUI3Package::implementation
         ));
 		m_textLayoutCache.SetFormat(m_cellTextFormat.get());
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), m_textBrush.put()));
+		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x0F / static_cast<float>(0xFF)), m_backgroundBrush.put()));
+		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x2F / static_cast<float>(0xFF)), m_alternateBackgroundBrush.put()));
     }
 
     void Table::ClickHandler(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
@@ -109,21 +111,41 @@ namespace winrt::WinUI3Package::implementation
         for (int row = first; row <= last; ++row)
         {
             auto rowData = m_data[row];
-            auto const rowY = row * rawRowHeight - m_scrollOffsetY + 30;
+            auto const rowY = (row + 1) * rawRowHeight - m_scrollOffsetY;
+
+            //draw background
+            D2D1_ROUNDED_RECT const rect
+            {
+                .rect = D2D1::RectF(0, rowY, m_swapChain.CurrentSize.Width * m_swapChain.Scale, rowY + rawRowHeight),
+                .radiusX = TableConstants::CornerRadius * m_swapChain.Scale,
+                .radiusY = TableConstants::CornerRadius * m_swapChain.Scale
+            };
+            m_d2dContext->FillRoundedRectangle(
+                &rect,
+                (row % 2 == 0) ? m_backgroundBrush.get() : m_alternateBackgroundBrush.get()
+            );
+
+            //draw columns
             for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
             {
-				auto columnData = rowData[column];
+				auto const& header = m_data.Header()[column];
+                auto columnData = rowData[column];
+                auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData, 200, rawRowHeight);
+                winrt::check_hresult(layoutCache->SetParagraphAlignment(header.VerticalAlignment));
+                winrt::check_hresult(layoutCache->SetTextAlignment(header.HorizontalAlignment));
                 m_d2dContext->DrawTextLayout(
                     D2D1::Point2F(column * 200.f - m_scrollOffsetX, rowY),
-                    m_textLayoutCache.GetOrCreate(row, column, columnData, 200, rawRowHeight),
+                    layoutCache,
                     m_textBrush.get()
 				);
             }
+
+            //draw line
             D2DPrimitiveHelper::DrawHorizontalLine(
                 m_d2dContext.get(),
                 0,
                 m_swapChain.CurrentSize.Width * m_swapChain.Scale,
-                (row + 1) * rawRowHeight,
+                rowY + rawRowHeight,
                 m_textBrush.get()
 			);
         }

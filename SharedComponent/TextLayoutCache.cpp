@@ -39,6 +39,7 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column, std::wstrin
 	));
 	constexpr DWRITE_TRIMMING trimmingOption{ .granularity = DWRITE_TRIMMING_GRANULARITY::DWRITE_TRIMMING_GRANULARITY_CHARACTER };
 	winrt::check_hresult(cache.layout->SetTrimming(&trimmingOption, m_trimming.get()));
+	//winrt::check_hresult(cache.layout->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER));
 	return cache.layout.get();
 }
 

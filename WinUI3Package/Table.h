@@ -28,6 +28,8 @@ namespace winrt::WinUI3Package::implementation
 
         //brushes
         winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;
+		winrt::com_ptr<ID2D1SolidColorBrush> m_backgroundBrush;
+		winrt::com_ptr<ID2D1SolidColorBrush> m_alternateBackgroundBrush;
 
         //scrolling
         float m_scrollOffsetX{};
