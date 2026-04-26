@@ -48,8 +48,8 @@ namespace winrt::WinUI3Package::implementation
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x2F / static_cast<float>(0xFF)), m_alternateBackgroundBrush.put()));
 
         //get ui elements
-        m_verticalScrollBar = VerticalScrollBar();
-		m_horizontalScrollBar = HorizontalScrollBar();
+        m_verticalScrollBarCache.Set(VerticalScrollBar());
+		m_horizontalScrollBarCache.Set(HorizontalScrollBar());
     }
 
     void Table::ClickHandler(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
@@ -66,18 +66,18 @@ namespace winrt::WinUI3Package::implementation
 
 		auto const totalHeight = m_data.Count() * TableConstants::RowHeight;
 		auto const maxScroll = (std::max)(0.f, totalHeight - viewportHeight);
-        
+
         if (maxScroll <= 0)
             return hideVerticalScrollBar();
 
-		m_verticalScrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
-		m_verticalScrollBar.Maximum(maxScroll);
-		m_verticalScrollBar.ViewportSize(viewportHeight);
-		m_verticalScrollBar.LargeChange(viewportHeight);
-		m_verticalScrollBar.SmallChange(TableConstants::RowHeight);
-		m_isUpdatingVerticalScrollBarInCode = true;
-		m_verticalScrollBar.Value(m_scrollOffsetY);
-		m_isUpdatingVerticalScrollBarInCode = false;
+        m_verticalScrollBarCache.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+        m_verticalScrollBarCache.Maximum(maxScroll);
+        m_verticalScrollBarCache.ViewportSize(viewportHeight);
+        m_verticalScrollBarCache.LargeChange(viewportHeight);
+        m_verticalScrollBarCache.SmallChange(TableConstants::RowHeight);
+        m_isUpdatingVerticalScrollBarInCode = true;
+        m_verticalScrollBarCache.Value(m_scrollOffsetY);
+        m_isUpdatingVerticalScrollBarInCode = false;
     }
 
     void Table::updateHorizontalScrollBar()
@@ -92,24 +92,24 @@ namespace winrt::WinUI3Package::implementation
 		if (maxScroll <= 0)
             return hideHorizontalScrollBar();
 
-		m_horizontalScrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
-		m_horizontalScrollBar.Maximum(maxScroll);
-		m_horizontalScrollBar.ViewportSize(viewportWidth);
-		m_horizontalScrollBar.LargeChange(viewportWidth);
-		m_horizontalScrollBar.SmallChange(TableConstants::ColumnWidth);
-		m_isUpdatingHorizontalScrollBarInCode = true;
-		m_horizontalScrollBar.Value(m_scrollOffsetX);
+        m_horizontalScrollBarCache.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+        m_horizontalScrollBarCache.Maximum(maxScroll);
+        m_horizontalScrollBarCache.ViewportSize(viewportWidth);
+        m_horizontalScrollBarCache.LargeChange(viewportWidth);
+        m_horizontalScrollBarCache.SmallChange(TableConstants::ColumnWidth);
+        m_isUpdatingHorizontalScrollBarInCode = true;
+        m_horizontalScrollBarCache.Value(m_scrollOffsetX);
         m_isUpdatingHorizontalScrollBarInCode = false;
     }
 
     void Table::hideVerticalScrollBar()
     {
-		m_verticalScrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+        m_verticalScrollBarCache.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
     }
 
     void Table::hideHorizontalScrollBar()
     {
-		m_horizontalScrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+        m_horizontalScrollBarCache.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
     }
 
     void Table::stopSmoothScroll()
@@ -149,7 +149,9 @@ namespace winrt::WinUI3Package::implementation
             ScrollRequest request;
             {
 				std::unique_lock lock{ m_scrollMutex };
-                m_scrollEvent.wait(lock, [this] {return m_scrollRequest.isPending; });
+                m_scrollEvent.wait(lock, [this, &stopToken] {return m_scrollRequest.isPending || stopToken.stop_requested(); });
+                if (stopToken.stop_requested())
+                    break;
 				request = m_scrollRequest;
                 m_scrollRequest.isPending = false;
             }
@@ -169,16 +171,25 @@ namespace winrt::WinUI3Package::implementation
                     m_scrollOffsetY = newY;
                     draw();
                 });
-                if (done)
+
+                bool pickedUpNewRequest = false;
+                {
+                    //sleep to avoid flooding dispatcher, and pick up any new request that arrived
+                    std::unique_lock lock{ m_scrollMutex };
+                    if (!done)
+                        m_scrollEvent.wait_for(lock, std::chrono::milliseconds{ 4 }, [this] {return m_scrollRequest.isPending; });
+                    if (m_scrollRequest.isPending)
+                    {
+                        request = m_scrollRequest;
+                        m_scrollRequest.isPending = false;
+                        pickedUpNewRequest = true;
+                    }
+                }
+
+                if (done && !pickedUpNewRequest)
                 {
                     m_isScrolling = false;
                     break;
-                }
-
-                {
-                    //sleep to avoid flooding dispatcher
-                    std::unique_lock lock{ m_scrollMutex };
-                    m_scrollEvent.wait_for(lock, std::chrono::milliseconds{ 4 }, [this] {return m_scrollRequest.isPending; });
                 }
             }
             timeEndPeriod(1);
@@ -204,8 +215,10 @@ namespace winrt::WinUI3Package::implementation
 
     void Table::drawHeader()
     {
-		auto const rawWidth = m_swapChain.CurrentSize.Width * m_swapChain.Scale;
-		auto currentX = -m_scrollOffsetX;
+		auto const scale = m_swapChain.Scale;
+		auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
+		auto const rawColumnWidth = TableConstants::ColumnWidth * scale;
+		auto currentX = -m_scrollOffsetX * scale;
         for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
         {
             if (currentX >= rawWidth)
@@ -216,28 +229,28 @@ namespace winrt::WinUI3Package::implementation
                 static_cast<uint32_t>(std::wstring_view{ TableTestData::Columns[column] }.size()),
                 m_headerTextFormat.get(),
                 D2D1_RECT_F
-                { 
-                    .left = currentX, 
-                    .top = 0, 
-                    .right = currentX + TableConstants::ColumnWidth, 
-                    .bottom = 30 
+                {
+                    .left = currentX,
+                    .top = 0,
+                    .right = currentX + rawColumnWidth,
+                    .bottom = 30 * scale
                 },
                 m_textBrush.get()
 			);
 
 			if (m_sortColumnIndex == column)
             {
-                
+                //draw sort indicator here
             }
 
             D2DPrimitiveHelper::DrawVerticalLine(
                 m_d2dContext.get(),
-                currentX + TableConstants::ColumnWidth - 1,
-                4,
-                4 + TableConstants::HeaderFontSize,
+                currentX + rawColumnWidth - 1,
+                4 * scale,
+                (4 + TableConstants::HeaderFontSize) * scale,
                 m_textBrush.get()
             );
-            currentX += TableConstants::ColumnWidth;
+            currentX += rawColumnWidth;
         }
     }
 
@@ -265,15 +278,17 @@ namespace winrt::WinUI3Package::implementation
             );
 
             //draw columns
+            auto const rawColumnWidth = TableConstants::ColumnWidth * m_swapChain.Scale;
+            auto const rawScrollOffsetX = m_scrollOffsetX * m_swapChain.Scale;
             for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
             {
 				auto const& header = m_data.Header()[column];
                 auto const& columnData = rowData[column];
-                auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData, 200, rawRowHeight);
+                auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData, rawColumnWidth, rawRowHeight);
                 winrt::check_hresult(layoutCache->SetParagraphAlignment(header.VerticalAlignment));
                 winrt::check_hresult(layoutCache->SetTextAlignment(header.HorizontalAlignment));
                 m_d2dContext->DrawTextLayout(
-                    D2D1::Point2F(column * 200.f - m_scrollOffsetX, rowY),
+                    D2D1::Point2F(column * rawColumnWidth - rawScrollOffsetX, rowY),
                     layoutCache,
                     m_textBrush.get()
 				);

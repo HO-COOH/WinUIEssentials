@@ -7,7 +7,7 @@
 #include "TextLayoutCache.h"
 #include <mutex>
 #include <condition_variable>
-#include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
+#include "CachedScrollBar.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -41,11 +41,15 @@ namespace winrt::WinUI3Package::implementation
         float m_scrollOffsetY{};
         float m_smoothScrollTargetY{};
         int m_sortColumnIndex{ -1 };
-        winrt::Microsoft::UI::Xaml::Controls::Primitives::ScrollBar m_verticalScrollBar{ nullptr };
-		winrt::Microsoft::UI::Xaml::Controls::Primitives::ScrollBar m_horizontalScrollBar{ nullptr };
         bool m_isUpdatingVerticalScrollBarInCode{};
 		bool m_isUpdatingHorizontalScrollBarInCode{};
         std::atomic_bool m_isScrolling{};
+
+        //cached scrollbar state — avoid calling the ScrollBar getters (slow DP lookups)
+        //and avoid dirtying layout by writing properties that haven't changed
+
+        CachedScrollBar m_verticalScrollBarCache;
+        CachedScrollBar m_horizontalScrollBarCache;
 		void updateVerticalScrollBar();
         void updateHorizontalScrollBar();
 		void hideVerticalScrollBar();
