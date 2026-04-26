@@ -52,9 +52,9 @@ std::wstring TableTestData::Data::getRandomData(int column)
     }
 }
 
-std::wstring TableTestData::Data::operator[](int column)
+std::wstring const& TableTestData::Data::operator[](int column)
 {
-    if(m_result.empty())
-		m_result = getRandomData(column);
-    return m_result;
+    if(m_result[column].empty())
+		m_result[column] = getRandomData(column);
+    return m_result[column];
 }

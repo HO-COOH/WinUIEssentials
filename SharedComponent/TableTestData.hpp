@@ -96,6 +96,7 @@ class TableTestData
     };
 
 	std::mt19937 m_eng{ std::random_device{}() };
+
 public:
     static constexpr wchar_t const* Columns[] =
     {
@@ -107,14 +108,14 @@ public:
     {
         TableTestData& m_parent;
         int m_row;
-        std::wstring m_result;
+        std::wstring m_result[std::size(Columns)];
 		std::wstring getRandomData(int column);
     public:
         constexpr Data(TableTestData& parent, int row) : m_parent{parent}, m_row{row}
         {
         }
 
-        std::wstring operator[](int column);
+        std::wstring const& operator[](int column);
     };
 
     struct Header
@@ -134,9 +135,15 @@ public:
 
     friend class Data;
 
-    constexpr Data operator[](int row)
+private:
+    std::vector<Data> m_rows;
+public:
+
+    Data& operator[](int row)
     {
-        return Data{*this, row};
+        if (m_rows.size() <= row)
+            m_rows.push_back(Data{ *this, row });
+        return m_rows[row];
     }
 
     constexpr Header Header() const

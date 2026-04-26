@@ -30,4 +30,16 @@
         ValueChanged="VerticalScrollBar_ValueChanged"
         ViewportSize="30"
         Value="0" />
+
+    <primitives:ScrollBar
+        x:Name="HorizontalScrollBar"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Bottom"
+        IndicatorMode="MouseIndicator"
+        Maximum="100"
+        Minimum="0"
+        Orientation="Horizontal"
+        ValueChanged="HorizontalScrollBar_ValueChanged"
+        ViewportSize="30"
+        Value="0" />
 </SwapChainPanel>

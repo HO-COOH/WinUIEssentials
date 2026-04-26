@@ -41,14 +41,19 @@ namespace winrt::WinUI3Package::implementation
         float m_scrollOffsetY{};
         float m_smoothScrollTargetY{};
         int m_sortColumnIndex{ -1 };
-        winrt::Microsoft::UI::Xaml::Controls::Primitives::ScrollBar m_scrollBar{ nullptr };
-        bool m_isUpdatingScrollBarInCode{};
+        winrt::Microsoft::UI::Xaml::Controls::Primitives::ScrollBar m_verticalScrollBar{ nullptr };
+		winrt::Microsoft::UI::Xaml::Controls::Primitives::ScrollBar m_horizontalScrollBar{ nullptr };
+        bool m_isUpdatingVerticalScrollBarInCode{};
+		bool m_isUpdatingHorizontalScrollBarInCode{};
         std::atomic_bool m_isScrolling{};
 		void updateVerticalScrollBar();
+        void updateHorizontalScrollBar();
 		void hideVerticalScrollBar();
+		void hideHorizontalScrollBar();
         void stopSmoothScroll();
 		void startSmoothScroll(float targetY);
         float getViewportHeight() const;
+		float getViewportWidth() const;
         void scrollThreadProc(std::stop_token stopToken);
 
         struct ScrollRequest
@@ -74,6 +79,7 @@ namespace winrt::WinUI3Package::implementation
     public:
        
         void SwapChainPanel_PointerWheelChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+        void HorizontalScrollBar_ValueChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e);
     };
 }
 

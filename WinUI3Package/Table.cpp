@@ -48,7 +48,8 @@ namespace winrt::WinUI3Package::implementation
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x2F / static_cast<float>(0xFF)), m_alternateBackgroundBrush.put()));
 
         //get ui elements
-        m_scrollBar = VerticalScrollBar();
+        m_verticalScrollBar = VerticalScrollBar();
+		m_horizontalScrollBar = HorizontalScrollBar();
     }
 
     void Table::ClickHandler(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
@@ -67,21 +68,48 @@ namespace winrt::WinUI3Package::implementation
 		auto const maxScroll = (std::max)(0.f, totalHeight - viewportHeight);
         
         if (maxScroll <= 0)
-            hideVerticalScrollBar();
+            return hideVerticalScrollBar();
 
-		m_scrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
-		m_scrollBar.Maximum(maxScroll);
-		m_scrollBar.ViewportSize(viewportHeight);
-		m_scrollBar.LargeChange(viewportHeight);
-		m_scrollBar.SmallChange(TableConstants::RowHeight);
-		m_isUpdatingScrollBarInCode = true;
-		m_scrollBar.Value(m_scrollOffsetY);
-		m_isUpdatingScrollBarInCode = false;
+		m_verticalScrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+		m_verticalScrollBar.Maximum(maxScroll);
+		m_verticalScrollBar.ViewportSize(viewportHeight);
+		m_verticalScrollBar.LargeChange(viewportHeight);
+		m_verticalScrollBar.SmallChange(TableConstants::RowHeight);
+		m_isUpdatingVerticalScrollBarInCode = true;
+		m_verticalScrollBar.Value(m_scrollOffsetY);
+		m_isUpdatingVerticalScrollBarInCode = false;
+    }
+
+    void Table::updateHorizontalScrollBar()
+    {
+		auto const viewportWidth = getViewportWidth();
+
+		if (viewportWidth <= 0)
+            return hideHorizontalScrollBar();
+
+        auto const totalWidth = std::size(TableTestData::Columns) * TableConstants::ColumnWidth;
+        auto const maxScroll = (std::max)(0.f, totalWidth - viewportWidth);
+		if (maxScroll <= 0)
+            return hideHorizontalScrollBar();
+
+		m_horizontalScrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+		m_horizontalScrollBar.Maximum(maxScroll);
+		m_horizontalScrollBar.ViewportSize(viewportWidth);
+		m_horizontalScrollBar.LargeChange(viewportWidth);
+		m_horizontalScrollBar.SmallChange(TableConstants::ColumnWidth);
+		m_isUpdatingHorizontalScrollBarInCode = true;
+		m_horizontalScrollBar.Value(m_scrollOffsetX);
+        m_isUpdatingHorizontalScrollBarInCode = false;
     }
 
     void Table::hideVerticalScrollBar()
     {
-		m_scrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+		m_verticalScrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+    }
+
+    void Table::hideHorizontalScrollBar()
+    {
+		m_horizontalScrollBar.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
     }
 
     void Table::stopSmoothScroll()
@@ -106,7 +134,12 @@ namespace winrt::WinUI3Package::implementation
 
     float Table::getViewportHeight() const
     {
-        return m_swapChain.CurrentSize.Height - TableConstants::RowHeight;
+        return m_swapChain.CurrentSize.Height - TableConstants::RowHeight; //minus header size
+    }
+
+    float Table::getViewportWidth() const
+    {
+        return m_swapChain.CurrentSize.Width;
     }
 
     void Table::scrollThreadProc(std::stop_token stopToken)
@@ -166,6 +199,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::check_hresult(m_swapChain->Present1(0, DXGI_PRESENT_RESTART, &presentParameters));
 
         updateVerticalScrollBar();
+        updateHorizontalScrollBar();
     }
 
     void Table::drawHeader()
@@ -185,7 +219,7 @@ namespace winrt::WinUI3Package::implementation
                 { 
                     .left = currentX, 
                     .top = 0, 
-                    .right = currentX + 200, 
+                    .right = currentX + TableConstants::ColumnWidth, 
                     .bottom = 30 
                 },
                 m_textBrush.get()
@@ -198,12 +232,12 @@ namespace winrt::WinUI3Package::implementation
 
             D2DPrimitiveHelper::DrawVerticalLine(
                 m_d2dContext.get(),
-                currentX + 199,
+                currentX + TableConstants::ColumnWidth - 1,
                 4,
                 4 + TableConstants::HeaderFontSize,
                 m_textBrush.get()
             );
-            currentX += 200;
+            currentX += TableConstants::ColumnWidth;
         }
     }
 
@@ -215,7 +249,7 @@ namespace winrt::WinUI3Package::implementation
         int const last = (std::min)(m_data.Count() - 1, static_cast<int>((m_scrollOffsetY + m_swapChain.CurrentSize.Height * m_swapChain.Scale) / rawRowHeight));
         for (int row = first; row <= last; ++row)
         {
-            auto rowData = m_data[row];
+            auto& rowData = m_data[row];
             auto const rowY = (row + 1) * rawRowHeight - m_scrollOffsetY;
 
             //draw background
@@ -234,7 +268,7 @@ namespace winrt::WinUI3Package::implementation
             for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
             {
 				auto const& header = m_data.Header()[column];
-                auto columnData = rowData[column];
+                auto const& columnData = rowData[column];
                 auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData, 200, rawRowHeight);
                 winrt::check_hresult(layoutCache->SetParagraphAlignment(header.VerticalAlignment));
                 winrt::check_hresult(layoutCache->SetTextAlignment(header.HorizontalAlignment));
@@ -268,7 +302,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::IInspectable const&, 
         winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e)
     {
-        if (m_isUpdatingScrollBarInCode)
+        if (m_isUpdatingVerticalScrollBarInCode)
             return;
 
         if (m_isScrolling)
@@ -293,9 +327,24 @@ namespace winrt::WinUI3Package::implementation
         
         auto const baseY = m_isScrolling ? m_smoothScrollTargetY : m_scrollOffsetY;
 		auto const maxY = m_data.Count() * TableConstants::RowHeight - getViewportHeight();
-		auto const targetY = std::clamp(baseY + scrollY, 0.f, maxY);
-		startSmoothScroll(targetY);
+        if (maxY >= 0)
+        {
+            auto const targetY = std::clamp(baseY + scrollY, 0.f, maxY);
+            startSmoothScroll(targetY);
+        }
         e.Handled(true);
+    }
+
+
+    void Table::HorizontalScrollBar_ValueChanged(
+        winrt::Windows::Foundation::IInspectable const& sender, 
+        winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e)
+    {
+        if (m_isUpdatingHorizontalScrollBarInCode)
+            return;
+
+        m_scrollOffsetX = static_cast<float>(e.NewValue());
+        draw();
     }
 
 }

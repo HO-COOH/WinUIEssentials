@@ -6,6 +6,7 @@ namespace TableConstants
 	constexpr float CellFontSize = 18.f;
 	constexpr float SortIndicatorWidth = 16.f;
 	constexpr float RowHeight = 36.f;
+	constexpr float ColumnWidth = 200.f;
 	constexpr float CornerRadius = 8.f;
 	constexpr std::chrono::milliseconds SmoothScrollDuration{ 250 };
 }
