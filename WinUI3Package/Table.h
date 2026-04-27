@@ -8,6 +8,9 @@
 #include <mutex>
 #include <condition_variable>
 #include "CachedScrollBar.h"
+#include "ScrollRequest.h"
+#include "ResizeRequest.h"
+#include "TableConstants.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -35,6 +38,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;
 		winrt::com_ptr<ID2D1SolidColorBrush> m_backgroundBrush;
 		winrt::com_ptr<ID2D1SolidColorBrush> m_alternateBackgroundBrush;
+        winrt::com_ptr<ID2D1SolidColorBrush> m_pillBrush;
 
         //scrolling
         float m_scrollOffsetX{};
@@ -44,9 +48,6 @@ namespace winrt::WinUI3Package::implementation
         bool m_isUpdatingVerticalScrollBarInCode{};
 		bool m_isUpdatingHorizontalScrollBarInCode{};
         std::atomic_bool m_isScrolling{};
-
-        //cached scrollbar state — avoid calling the ScrollBar getters (slow DP lookups)
-        //and avoid dirtying layout by writing properties that haven't changed
 
         CachedScrollBar m_verticalScrollBarCache;
         CachedScrollBar m_horizontalScrollBarCache;
@@ -59,31 +60,37 @@ namespace winrt::WinUI3Package::implementation
         float getViewportHeight() const;
 		float getViewportWidth() const;
         void scrollThreadProc(std::stop_token stopToken);
-
-        struct ScrollRequest
-        {
-            float startY;
-            float endY;
-            std::chrono::steady_clock::time_point startTime;
-            bool isPending = false;
-        };
         ScrollRequest m_scrollRequest;
-
-		std::mutex m_scrollMutex;
-        std::condition_variable m_scrollEvent;
-        std::jthread m_smoothScrollThread;
 
 
         //data
-		TableTestData m_data;
+        TableTestData m_data;
+
+        //resizing
+        int m_hoveredResizeColumn = TableConstants::ResizeColumnIndexNone;
+        ResizeRequest m_resizeRequest;
+        std::vector<float> m_columnWidths;
+        int getResizeColumnIndex(float x);
+        D2D1_ROUNDED_RECT getResizePillRect(int column);
+
+
+		std::mutex m_scrollMutex;
+        std::condition_variable_any m_scrollEvent;
+        std::jthread m_smoothScrollThread;
 
         void draw();
         void drawHeader();
         void drawRows();
+
+        void setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape cursorShape);
+        void resetCursor();
     public:
        
         void SwapChainPanel_PointerWheelChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void HorizontalScrollBar_ValueChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e);
+        void SwapChainPanel_PointerMoved(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+        void SwapChainPanel_PointerPressed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+        void SwapChainPanel_PointerReleased(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };
 }
 

@@ -7,10 +7,11 @@
 #include "D2DPrimitiveHelper.h"
 #include <winrt/Microsoft.UI.Input.h>
 #include <timeapi.h>
+#include <numeric>
 
 namespace winrt::WinUI3Package::implementation
 {
-    Table::Table() : m_smoothScrollThread{ [this](std::stop_token st) {scrollThreadProc(st); } }
+    Table::Table() : m_columnWidths(m_data.Count(), TableConstants::ColumnWidth), m_smoothScrollThread{[this](std::stop_token st) {scrollThreadProc(st); }}
     {
         InitializeComponent();
         m_dispatcherQueue = DispatcherQueue();
@@ -46,6 +47,7 @@ namespace winrt::WinUI3Package::implementation
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), m_textBrush.put()));
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x0F / static_cast<float>(0xFF)), m_backgroundBrush.put()));
 		winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x2F / static_cast<float>(0xFF)), m_alternateBackgroundBrush.put()));
+        winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(0x4cc2ff), m_pillBrush.put()));
 
         //get ui elements
         m_verticalScrollBarCache.Set(VerticalScrollBar());
@@ -87,7 +89,7 @@ namespace winrt::WinUI3Package::implementation
 		if (viewportWidth <= 0)
             return hideHorizontalScrollBar();
 
-        auto const totalWidth = std::size(TableTestData::Columns) * TableConstants::ColumnWidth;
+        auto const totalWidth = std::accumulate(m_columnWidths.begin(), m_columnWidths.begin() + std::size(TableTestData::Columns), 0.f);
         auto const maxScroll = (std::max)(0.f, totalWidth - viewportWidth);
 		if (maxScroll <= 0)
             return hideHorizontalScrollBar();
@@ -149,7 +151,7 @@ namespace winrt::WinUI3Package::implementation
             ScrollRequest request;
             {
 				std::unique_lock lock{ m_scrollMutex };
-                m_scrollEvent.wait(lock, [this, &stopToken] {return m_scrollRequest.isPending || stopToken.stop_requested(); });
+                m_scrollEvent.wait(lock, stopToken, [this] {return m_scrollRequest.isPending; });
                 if (stopToken.stop_requested())
                     break;
 				request = m_scrollRequest;
@@ -196,6 +198,46 @@ namespace winrt::WinUI3Package::implementation
         }
     }
 
+    int Table::getResizeColumnIndex(float x)
+    {
+        /*
+            |---Column 1 ---|---Column 2 --|
+                |-------------------------|
+                        viewport
+            |---| m_scrollOffsetX
+        */
+        
+        float currentColumnEndX = -m_scrollOffsetX;
+        for (int i = 0; i < m_data.Count(); ++i)
+        {
+            currentColumnEndX += m_columnWidths[i];
+            if (std::abs(x - currentColumnEndX) <= TableConstants::ResizeHotZoneDelta)
+                return i;
+        }
+
+        return TableConstants::ResizeColumnIndexNone;
+    }
+
+    D2D1_ROUNDED_RECT Table::getResizePillRect(int column)
+    {
+        auto const columnEndX = std::accumulate(m_columnWidths.begin(), m_columnWidths.begin() + column + 1, -m_scrollOffsetX);
+        auto const rawColumnEndX = columnEndX * m_swapChain.Scale;
+        auto const left = rawColumnEndX -TableConstants::ResizeHotZoneDelta * m_swapChain.Scale;
+
+        return D2D1_ROUNDED_RECT
+        {
+            .rect = D2D_RECT_F
+            {
+                .left = left,
+                .top = TableConstants::PillPadding * m_swapChain.Scale,
+                .right = left + TableConstants::ResizeHotZoneDelta * m_swapChain.Scale,
+                .bottom = (TableConstants::RowHeight - TableConstants::PillPadding) * m_swapChain.Scale
+            },
+            .radiusX = TableConstants::PillCornerRadius * m_swapChain.Scale,
+            .radiusY = TableConstants::PillCornerRadius * m_swapChain.Scale
+        };
+    }
+
     void Table::draw()
     {
         if (m_swapChain.CurrentSize.Width <= 0 || m_swapChain.CurrentSize.Height <= 0)
@@ -217,13 +259,10 @@ namespace winrt::WinUI3Package::implementation
     {
 		auto const scale = m_swapChain.Scale;
 		auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
-		auto const rawColumnWidth = TableConstants::ColumnWidth * scale;
 		auto currentX = -m_scrollOffsetX * scale;
         for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
         {
-            if (currentX >= rawWidth)
-                break;
-
+            auto const rawColumnWidth = m_columnWidths[column] * scale;
             m_d2dContext->DrawTextW(
                 TableTestData::Columns[column],
                 static_cast<uint32_t>(std::wstring_view{ TableTestData::Columns[column] }.size()),
@@ -241,6 +280,12 @@ namespace winrt::WinUI3Package::implementation
 			if (m_sortColumnIndex == column)
             {
                 //draw sort indicator here
+            }
+
+            if (m_hoveredResizeColumn != TableConstants::ResizeColumnIndexNone)
+            {
+                auto const pillRect = getResizePillRect(m_hoveredResizeColumn);
+                m_d2dContext->FillRoundedRectangle(&pillRect, m_pillBrush.get());
             }
 
             D2DPrimitiveHelper::DrawVerticalLine(
@@ -278,20 +323,22 @@ namespace winrt::WinUI3Package::implementation
             );
 
             //draw columns
-            auto const rawColumnWidth = TableConstants::ColumnWidth * m_swapChain.Scale;
-            auto const rawScrollOffsetX = m_scrollOffsetX * m_swapChain.Scale;
+            auto const scale = m_swapChain.Scale;
+            auto currentX = -m_scrollOffsetX * scale;
             for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
             {
+                auto const rawColumnWidth = m_columnWidths[column] * scale;
 				auto const& header = m_data.Header()[column];
                 auto const& columnData = rowData[column];
                 auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData, rawColumnWidth, rawRowHeight);
                 winrt::check_hresult(layoutCache->SetParagraphAlignment(header.VerticalAlignment));
                 winrt::check_hresult(layoutCache->SetTextAlignment(header.HorizontalAlignment));
                 m_d2dContext->DrawTextLayout(
-                    D2D1::Point2F(column * rawColumnWidth - rawScrollOffsetX, rowY),
+                    D2D1::Point2F(currentX, rowY),
                     layoutCache,
                     m_textBrush.get()
 				);
+                currentX += rawColumnWidth;
             }
 
             //draw line
@@ -305,6 +352,15 @@ namespace winrt::WinUI3Package::implementation
         }
     }
 
+    void Table::setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape cursorShape)
+    {
+        ProtectedCursor(winrt::Microsoft::UI::Input::InputSystemCursor::Create(cursorShape));
+    }
+
+    void Table::resetCursor()
+    {
+        ProtectedCursor(nullptr);
+    }
 
     void Table::SwapChainPanel_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
     {
@@ -331,8 +387,8 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::IInspectable const&, 
         winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
-		auto const pointerPoint = e.GetCurrentPoint(*this);
-		auto const wheelDelta = -pointerPoint.Properties().MouseWheelDelta(); //the MouseWheelDelta is positive when scrolling up, but we want to scroll up when the wheel delta is negative, so we negate it here
+		auto const currentPoint = e.GetCurrentPoint(*this);
+		auto const wheelDelta = -currentPoint.Properties().MouseWheelDelta(); //the MouseWheelDelta is positive when scrolling up, but we want to scroll up when the wheel delta is negative, so we negate it here
         
         constexpr static auto numWheelStepRow = 3;
 		auto const wheelStepY = TableConstants::RowHeight * numWheelStepRow; //one wheel step scrolls 3 rows
@@ -352,7 +408,7 @@ namespace winrt::WinUI3Package::implementation
 
 
     void Table::HorizontalScrollBar_ValueChanged(
-        winrt::Windows::Foundation::IInspectable const& sender, 
+        winrt::Windows::Foundation::IInspectable const&, 
         winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e)
     {
         if (m_isUpdatingHorizontalScrollBarInCode)
@@ -360,6 +416,93 @@ namespace winrt::WinUI3Package::implementation
 
         m_scrollOffsetX = static_cast<float>(e.NewValue());
         draw();
+    }
+
+    void Table::SwapChainPanel_PointerMoved(
+        winrt::Windows::Foundation::IInspectable const& sender, 
+        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    {
+        auto const currentPoint = e.GetCurrentPoint(*this);
+        auto const [x, y] = currentPoint.Position();
+
+        if (y <= TableConstants::RowHeight)
+        {
+            //resizing
+            if (m_resizeRequest)
+            {
+                /*
+                        |-----Column-----|
+                                       |-|-|   resize hotzone
+                                         m_resizeStartX
+                                       |<->| resize hot-zone
+
+                    After resizing
+                        |-----Column-----|---|
+                                         m_resizeStartX
+                                         |---| delta = x - m_resizeStartX
+                        |<------------------>|
+                                         m_resizeStartWidth + delta
+                */
+
+                auto const delta = x - m_resizeRequest.m_resizeStartX;
+                auto const newColumnWidth = (std::max)(TableConstants::MinColumnWidth, m_resizeRequest.m_resizeStartWidth + delta);
+                m_columnWidths[m_resizeRequest.m_resizeColumnIndex] = newColumnWidth;
+                draw();
+                return;
+            }
+
+            //is inside resize-hotzone
+            if (auto const resizeColumnIndex = getResizeColumnIndex(x); resizeColumnIndex != m_hoveredResizeColumn)
+            {
+                m_hoveredResizeColumn = resizeColumnIndex;
+                if (resizeColumnIndex != TableConstants::ResizeColumnIndexNone)
+                    setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape::SizeWestEast);
+                else
+                    resetCursor();
+                draw();
+                return;
+            }
+
+            return;
+        }
+
+        //not in header row
+        if (m_hoveredResizeColumn != TableConstants::ResizeColumnIndexNone)
+        {
+            m_hoveredResizeColumn = TableConstants::ResizeColumnIndexNone;
+            resetCursor();
+            draw();
+        }
+    }
+
+
+    void Table::SwapChainPanel_PointerPressed(
+        winrt::Windows::Foundation::IInspectable const&, 
+        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    {
+        auto const currentPoint = e.GetCurrentPoint(*this);
+        auto const [x, y] = currentPoint.Position();
+
+        //is resize column
+        if (y >= TableConstants::RowHeight)
+            return;
+
+        //calculate resize column index
+        auto const resizeColumnIndex = getResizeColumnIndex(x);
+        if (resizeColumnIndex == TableConstants::ResizeColumnIndexNone)
+            return;
+        m_resizeRequest = true;
+        m_resizeRequest.m_resizeColumnIndex = resizeColumnIndex;
+        m_resizeRequest.m_resizeStartX = x;
+        m_resizeRequest.m_resizeStartWidth = m_columnWidths[resizeColumnIndex];
+        return;
+    }
+
+    void Table::SwapChainPanel_PointerReleased(
+        winrt::Windows::Foundation::IInspectable const&, 
+        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    {
+        m_resizeRequest = false;
     }
 
 }
