@@ -36,6 +36,7 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <WindowsAppSdkAutoInitialize>false</WindowsAppSdkAutoInitialize>
+    <CppWinRTVerbosity>low</CppWinRTVerbosity>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
