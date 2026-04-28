@@ -22,7 +22,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DirectN.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)HighResTimer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SwapChainInterop.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp" />
@@ -32,10 +34,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DirectN.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Easing.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)HighResTimer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ResizeRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScrollRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />

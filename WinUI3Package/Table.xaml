@@ -14,8 +14,6 @@
     SizeChanged="SwapChainPanel_SizeChanged"
     mc:Ignorable="d">
 
-    <Border BorderBrush="White" BorderThickness="0.5" />
-
     <Button
         x:Name="Button"
         HorizontalAlignment="Center"

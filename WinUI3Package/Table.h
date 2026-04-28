@@ -1,14 +1,8 @@
 ﻿#pragma once
 
 #include "Table.g.h"
-#include "SwapChainInterop.h"
-#include "DirectN.h"
-#include "TableTestData.hpp"
-#include "TextLayoutCache.h"
-#include <mutex>
-#include <condition_variable>
+#include "TableD2DContent.h"
 #include "CachedScrollBar.h"
-#include "ScrollRequest.h"
 #include "ResizeRequest.h"
 #include "TableConstants.hpp"
 
@@ -21,76 +15,36 @@ namespace winrt::WinUI3Package::implementation
         void ClickHandler(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args);
         void SwapChainPanel_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e);
         void VerticalScrollBar_ValueChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e);
-    private:
-		winrt::com_ptr<ID3D11Device> m_d3dDevice = DirectN::CreateD3D11Device();
-		winrt::com_ptr<ID2D1DeviceContext> m_d2dContext;
-        winrt::com_ptr<IDWriteFactory>  m_dwriteFactory = DirectN::CreateDWriteFactory();
-
-        SwapChainInterop m_swapChain;
-		winrt::Microsoft::UI::Dispatching::DispatcherQueue m_dispatcherQueue{ nullptr };
-
-        //text
-        winrt::com_ptr<IDWriteTextFormat> m_headerTextFormat;
-		winrt::com_ptr<IDWriteTextFormat> m_cellTextFormat;
-        TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
-
-        //brushes
-        winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;
-		winrt::com_ptr<ID2D1SolidColorBrush> m_backgroundBrush;
-		winrt::com_ptr<ID2D1SolidColorBrush> m_alternateBackgroundBrush;
-        winrt::com_ptr<ID2D1SolidColorBrush> m_pillBrush;
-
-        //scrolling
-        float m_scrollOffsetX{};
-        float m_scrollOffsetY{};
-        float m_smoothScrollTargetY{};
-        int m_sortColumnIndex{ -1 };
-        bool m_isUpdatingVerticalScrollBarInCode{};
-		bool m_isUpdatingHorizontalScrollBarInCode{};
-        std::atomic_bool m_isScrolling{};
-
-        CachedScrollBar m_verticalScrollBarCache;
-        CachedScrollBar m_horizontalScrollBarCache;
-		void updateVerticalScrollBar();
-        void updateHorizontalScrollBar();
-		void hideVerticalScrollBar();
-		void hideHorizontalScrollBar();
-        void stopSmoothScroll();
-		void startSmoothScroll(float targetY);
-        float getViewportHeight() const;
-		float getViewportWidth() const;
-        void scrollThreadProc(std::stop_token stopToken);
-        ScrollRequest m_scrollRequest;
-
-
-        //data
-        TableTestData m_data;
-
-        //resizing
-        int m_hoveredResizeColumn = TableConstants::ResizeColumnIndexNone;
-        ResizeRequest m_resizeRequest;
-        std::vector<float> m_columnWidths;
-        int getResizeColumnIndex(float x);
-        D2D1_ROUNDED_RECT getResizePillRect(int column);
-
-
-		std::mutex m_scrollMutex;
-        std::condition_variable_any m_scrollEvent;
-        std::jthread m_smoothScrollThread;
-
-        void draw();
-        void drawHeader();
-        void drawRows();
-
-        void setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape cursorShape);
-        void resetCursor();
-    public:
-       
-        void SwapChainPanel_PointerWheelChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void HorizontalScrollBar_ValueChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e);
+        void SwapChainPanel_PointerWheelChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void SwapChainPanel_PointerMoved(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void SwapChainPanel_PointerPressed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void SwapChainPanel_PointerReleased(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+
+        void updateVerticalScrollBar(float scrollOffsetY);
+    private:
+        TableD2DContent m_d2dContent;
+
+        //Request a redraw and immediately refresh the scrollbars.
+        //UI-thread only.
+        void requestDraw();
+
+        //scrollbars (XAML - UI thread only)
+        CachedScrollBar m_verticalScrollBarCache;
+        CachedScrollBar m_horizontalScrollBarCache;
+        bool m_isUpdatingVerticalScrollBarInCode{};
+        bool m_isUpdatingHorizontalScrollBarInCode{};
+
+        void updateHorizontalScrollBar(float scrollOffsetX);
+        void updateScrollBars();
+        void hideVerticalScrollBar();
+        void hideHorizontalScrollBar();
+
+        //resizing
+        ResizeRequest m_resizeRequest;
+
+        void setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape cursorShape);
+        void resetCursor();
     };
 }
 

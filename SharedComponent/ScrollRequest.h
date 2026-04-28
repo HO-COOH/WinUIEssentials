@@ -1,4 +1,5 @@
-#pragma once
+﻿#pragma once
+#include <atomic>
 #include <chrono>
 
 struct ScrollRequest
@@ -6,5 +7,14 @@ struct ScrollRequest
     float startY;
     float endY;
     std::chrono::steady_clock::time_point startTime;
-    bool isPending = false;
+    std::atomic<bool> isPending{ false };
+
+    double Progress() const
+    {
+        auto const elapsed = std::chrono::steady_clock::now() - startTime;
+        return std::clamp(
+            std::chrono::duration<double>(elapsed).count() / std::chrono::duration<double>(TableConstants::SmoothScrollDuration).count(),
+            0.0, 1.0
+        );
+    }
 };

@@ -56,6 +56,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ResizeRequest.h">
       <Filter>Table</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HighResTimer.h">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Easing.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -80,6 +89,12 @@
       <Filter>Table</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CachedScrollBar.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HighResTimer.cpp">
       <Filter>Table</Filter>
     </ClCompile>
   </ItemGroup>
