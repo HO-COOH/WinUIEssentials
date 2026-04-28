@@ -115,7 +115,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared" />
+  <ImportGroup Label="Shared">
+    <Import Project="..\SharedExampleComponent\SharedExampleComponent.vcxitems" Label="Shared" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -177,7 +179,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIExample;PackageRoot=WinUI3Example;WinUINamespace=Microsoft;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
@@ -194,10 +196,19 @@
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIExample;PackageRoot=WinUI3Example;WinUINamespace=Microsoft;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp20</LanguageStandard>
@@ -214,10 +225,19 @@
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIExample;PackageRoot=WinUI3Example;WinUINamespace=Microsoft;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
@@ -232,10 +252,19 @@
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIExample;PackageRoot=WinUI3Example;WinUINamespace=Microsoft;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp20</LanguageStandard>
@@ -250,6 +279,15 @@
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(SolutionDir)$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(SolutionDir)$(Platform)\$(Configuration)\WinUI3Package\WinUI3Package.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=WinUI3Example;WinUINamespace=Microsoft</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI'">
     <ClCompile>
@@ -317,10 +355,6 @@
       <DependentUpon>CaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="CodeSource.h">
-      <DependentUpon>CodeSource.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ColorTile.xaml.h">
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -337,16 +371,8 @@
       <DependentUpon>Contact.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ContributorItem.h">
-      <DependentUpon>ContributorItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ControlExample.xaml.h">
       <DependentUpon>ControlExample.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ControlExampleSubstitution.h">
-      <DependentUpon>ControlExampleSubstitution.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ConvertersPage.xaml.h">
@@ -507,10 +533,6 @@
     </ClInclude>
     <ClInclude Include="MyGridData.h">
       <DependentUpon>MyGridData.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="NamedUrl.h">
-      <DependentUpon>NamedUrl.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="NavigationViewHelperPage.xaml.h">
@@ -1008,10 +1030,6 @@
       <DependentUpon>CaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="CodeSource.cpp">
-      <DependentUpon>CodeSource.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ColorTile.xaml.cpp">
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1026,18 +1044,6 @@
     </ClCompile>
     <ClCompile Include="Contact.cpp">
       <DependentUpon>Contact.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ContributorItem.cpp">
-      <DependentUpon>ContributorItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ControlExample.xaml.cpp">
-      <DependentUpon>ControlExample.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ControlExampleSubstitution.cpp">
-      <DependentUpon>ControlExampleSubstitution.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ConvertersPage.xaml.cpp">
@@ -1081,10 +1087,6 @@
     </ClCompile>
     <ClCompile Include="DependentValuePage.xaml.cpp">
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Editor.xaml.cpp">
-      <DependentUpon>Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="EffectToggleButton.xaml.cpp">
@@ -1196,10 +1198,6 @@
     </ClCompile>
     <ClCompile Include="MyGridData.cpp">
       <DependentUpon>MyGridData.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="NamedUrl.cpp">
-      <DependentUpon>NamedUrl.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="NavigationViewHelperPage.xaml.cpp">
@@ -1447,9 +1445,6 @@
       <DependentUpon>CaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="CodeSource.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="ColorTile.idl">
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1464,16 +1459,6 @@
     </Midl>
     <Midl Include="ComponentInfo.idl" />
     <Midl Include="Contact.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ContributorItem.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ControlExample.idl">
-      <DependentUpon>ControlExample.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="ControlExampleSubstitution.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ConvertersPage.idl">
@@ -1513,10 +1498,6 @@
     </Midl>
     <Midl Include="DependentValuePage.idl">
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="Editor.idl">
-      <DependentUpon>Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="EffectToggleButton.idl">
@@ -1580,7 +1561,6 @@
       <DependentUpon>InitializeWithWindowHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="Language.idl" />
     <Midl Include="LineGraph.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1623,9 +1603,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MyGridData.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="NamedUrl.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="NavigationViewHelperPage.idl">

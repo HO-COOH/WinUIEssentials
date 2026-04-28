@@ -292,12 +292,6 @@
     <Midl Include="TemplateInformation.idl">
       <Filter>Pages\SwitchPresenterPage</Filter>
     </Midl>
-    <Midl Include="ControlExampleSubstitution.idl">
-      <Filter>Helper</Filter>
-    </Midl>
-    <Midl Include="CodeSource.idl">
-      <Filter>Helper</Filter>
-    </Midl>
     <Midl Include="FontInfo.idl">
       <Filter>Pages\ComboBoxHelperPage</Filter>
     </Midl>
@@ -309,12 +303,6 @@
     </Midl>
     <Midl Include="PhotoDataItemWithDimension.idl">
       <Filter>Pages\WrapPanelPage</Filter>
-    </Midl>
-    <Midl Include="NamedUrl.idl">
-      <Filter>Helper</Filter>
-    </Midl>
-    <Midl Include="ContributorItem.idl">
-      <Filter>Helper</Filter>
     </Midl>
     <Midl Include="ElementThemeToStringConverter.idl">
       <Filter>Helper</Filter>
@@ -342,9 +330,6 @@
     </Midl>
     <Midl Include="RevealNavigationView.idl">
       <Filter>Pages\RevealFocusPage</Filter>
-    </Midl>
-    <Midl Include="Language.idl">
-      <Filter>Helper</Filter>
     </Midl>
     <Midl Include="AnimatedDigit.idl">
       <Filter>Pages\Experimental\AnimatedNumber</Filter>

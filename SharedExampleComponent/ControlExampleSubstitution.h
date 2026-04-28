@@ -3,7 +3,7 @@
 #include "ControlExampleSubstitution.g.h"
 #include <functional>
 
-namespace winrt::WinUI3Example::implementation
+namespace winrt::PackageRoot::implementation
 {
     struct ControlExampleSubstitution : ControlExampleSubstitutionT<ControlExampleSubstitution>
     {
@@ -26,7 +26,7 @@ namespace winrt::WinUI3Example::implementation
     };
 }
 
-namespace winrt::WinUI3Example::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct ControlExampleSubstitution : ControlExampleSubstitutionT<ControlExampleSubstitution, implementation::ControlExampleSubstitution>
     {

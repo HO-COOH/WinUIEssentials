@@ -2,7 +2,7 @@
 
 #include "NamedUrl.g.h"
 
-namespace winrt::WinUI3Example::implementation
+namespace winrt::PackageRoot::implementation
 {
     struct NamedUrl : NamedUrlT<NamedUrl>
     {
@@ -20,7 +20,7 @@ namespace winrt::WinUI3Example::implementation
     };
 }
 
-namespace winrt::WinUI3Example::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct NamedUrl : NamedUrlT<NamedUrl, implementation::NamedUrl>
     {

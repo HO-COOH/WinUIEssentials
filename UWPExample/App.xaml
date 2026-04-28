@@ -93,8 +93,9 @@
     </Application.Resources>-->
 
     <Application.Resources>
-        <controls:XamlControlsResources>
-            <controls:XamlControlsResources.MergedDictionaries>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <controls:XamlControlsResources />
                 <ResourceDictionary Source="ms-appx:///UWPPackage/GroupBox_Resource.xaml" />
                 <ResourceDictionary Source="ms-appx:///UWPPackage/SettingsCard_Resource.xaml" />
                 <ResourceDictionary Source="ms-appx:///UWPPackage/SettingsExpander_Resource.xaml" />
@@ -105,8 +106,19 @@
                 <ResourceDictionary Source="ms-appx:///UWPPackage/Segmented_Resource.xaml" />
                 <ResourceDictionary Source="ms-appx:///UWPPackage/Shimmer_Resource.xaml" />
                 <!--  Other app resources here  -->
+            </ResourceDictionary.MergedDictionaries>
 
-            </controls:XamlControlsResources.MergedDictionaries>
-        </controls:XamlControlsResources>
+            <Style x:Key="ControlExamplesStackPanelStyle" TargetType="StackPanel">
+                <Setter Property="Spacing" Value="5" />
+                <Setter Property="ChildrenTransitions">
+                    <Setter.Value>
+                        <TransitionCollection>
+                            <EntranceThemeTransition FromVerticalOffset="50" />
+                            <RepositionThemeTransition IsStaggeringEnabled="False" />
+                        </TransitionCollection>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

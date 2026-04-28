@@ -4,7 +4,7 @@
 #include "NamedUrl.g.cpp"
 #endif
 
-namespace winrt::WinUI3Example::implementation
+namespace winrt::PackageRoot::implementation
 {
 	winrt::hstring NamedUrl::Name()
 	{

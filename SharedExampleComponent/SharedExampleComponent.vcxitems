@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{aa25d908-061e-4b17-a03c-004aaeeb6840}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CodeSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ContributorItem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ControlExample.xaml.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NamedUrl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CodeSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ContributorItem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ControlExample.xaml.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NamedUrl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="$(MSBuildThisFileDirectory)CodeSource.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)ContributorItem.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)ControlExample.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)Editor.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)NamedUrl.idl" />
+  </ItemGroup>
+</Project>

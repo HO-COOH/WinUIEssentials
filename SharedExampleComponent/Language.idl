@@ -1,4 +1,4 @@
-namespace WinUI3Example
+namespace PackageRoot
 {
     enum Language
     {

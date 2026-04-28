@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+
     <Page.Resources>
         <Style TargetType="Rectangle">
             <Setter Property="Width" Value="50" />
@@ -23,33 +24,103 @@
         </essential:ConverterGroup>
     </Page.Resources>
 
-    <StackPanel
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
-        Orientation="Vertical">
-        <TextBlock Text="BoolToVisibilityConverter" />
-        <StackPanel Orientation="Horizontal">
-            <ToggleSwitch
-                x:Name="VisibleToggle1"
-                OffContent="Collapsed"
-                OnContent="Visible" />
-            <!--<Rectangle Fill="Blue" Visibility="{x:Bind VisibleToggle1.IsOn, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>-->
-            <Rectangle Fill="Blue" Visibility="{x:Bind essential:Convert.BoolToVisibility(VisibleToggle1.IsOn), Mode=OneWay}" />
-        </StackPanel>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
 
-        <TextBlock Text="BoolToVisibilityConverterReverse" />
-        <StackPanel Orientation="Horizontal">
-            <ToggleSwitch
-                x:Name="VisibleToggle2"
-                OffContent="Visible"
-                OnContent="Collapsed" />
+        <local:ControlExample HeaderText="BoolToVisibilityConverter">
+            <Rectangle Fill="Blue" Visibility="{x:Bind VisibleToggle1.IsOn, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <local:ControlExample.Options>
+                <ToggleSwitch
+                    x:Name="VisibleToggle1"
+                    Header="Toggle to show/hide the rect"
+                    OffContent="Collapsed"
+                    OnContent="Visible" />
+            </local:ControlExample.Options>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Page.Resources&gt;        
+    &lt;essential:BoolToVisibilityConverter x:Key=&quot;BoolToVisibilityConverter&quot; /&gt;
+&lt;/Page.Resources&gt;
+                            
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind VisibleToggle1.IsOn, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}&quot; /&gt;
+
+&lt;!-- Or equivalent --&gt;
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind essential:Convert.BoolToVisibility(VisibleToggle1.IsOn), Mode=OneWay}&quot; /&gt;
+                            
+&lt;ToggleSwitch
+    x:Name=&quot;VisibleToggle1&quot;
+    Header=&quot;Toggle to show/hide the rect&quot;
+    OffContent=&quot;Collapsed&quot;
+    OnContent=&quot;Visible&quot; /&gt;
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="BoolToVisibilityConverter Reversed">
             <Rectangle Fill="Blue" Visibility="{x:Bind VisibleToggle2.IsOn, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}" />
-        </StackPanel>
+            <local:ControlExample.Options>
+                <ToggleSwitch
+                    x:Name="VisibleToggle2"
+                    Header="Toggle to show/hide the rect"
+                    OffContent="Visible"
+                    OnContent="Collapsed" />
+            </local:ControlExample.Options>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Page.Resources&gt;
+    &lt;essential:BoolToVisibilityConverter x:Key=&quot;BoolToVisibilityConverter&quot; /&gt;
+&lt;/Page.Resources&gt;
+                            
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind VisibleToggle1.IsOn, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Reverse}&quot; /&gt;
+                            
+&lt;!-- Or equivalent --&gt;
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind essential:Convert.BoolToVisibilityReverse(VisibleToggle1.IsOn), Mode=OneWay}&quot; /&gt;
+                            
+&lt;ToggleSwitch
+    x:Name=&quot;VisibleToggle1&quot;
+    Header=&quot;Toggle to show/hide the rect&quot;
+    OffContent=&quot;Collapsed&quot;
+    OnContent=&quot;Visible&quot; /&gt;
+                </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
 
-        <TextBlock Text="StringToBoolConverter + BoolToVisibilityConverter" />
-        <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="InputString" Width="200" />
+        <local:ControlExample HeaderText="Grouped converters: StringToBoolConverter + BoolToVisibilityConverter">
             <Rectangle Fill="Blue" Visibility="{x:Bind InputString.Text, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}" />
-        </StackPanel>
+            <local:ControlExample.Options>
+                <TextBox
+                    x:Name="InputString"
+                    Width="200"
+                    Header="Enter text to make the rect visible" />
+            </local:ControlExample.Options>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Page.Resources&gt;       
+    &lt;essential:ConverterGroup x:Key=&quot;StringToVisibilityConverter&quot;&gt;
+        &lt;essential:StringToBoolConverter /&gt;
+        &lt;essential:BoolToVisibilityConverter /&gt;
+    &lt;/essential:ConverterGroup&gt;
+&lt;/Page.Resources&gt;
+
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind InputString.Text, Mode=OneWay, Converter={StaticResource StringToVisibilityConverter}}&quot; /&gt;
+                            
+&lt;!-- Or equivalent --&gt;
+&lt;Rectangle Fill=&quot;Blue&quot; Visibility=&quot;{x:Bind essential:Convert.StringToVisibility(InputString.Text), Mode=OneWay}&quot; /&gt;
+                            
+&lt;TextBox
+    x:Name=&quot;InputString&quot;
+    Width=&quot;200&quot;
+    Header=&quot;Enter text to make the rect visible&quot; /&gt;      
+                        </x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
     </StackPanel>
 </Page>

@@ -2,7 +2,7 @@
 
 #include "ContributorItem.g.h"
 
-namespace winrt::WinUI3Example::implementation
+namespace winrt::PackageRoot::implementation
 {
     struct ContributorItem : ContributorItemT<ContributorItem>
     {
@@ -26,7 +26,7 @@ namespace winrt::WinUI3Example::implementation
     };
 }
 
-namespace winrt::WinUI3Example::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct ContributorItem : ContributorItemT<ContributorItem, implementation::ContributorItem>
     {

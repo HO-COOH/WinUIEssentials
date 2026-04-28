@@ -1,0 +1,22 @@
+﻿<UserControl
+    x:Class="UWPExample.Editor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:UWPExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+    <Grid>
+        <muxc:WebView2
+            x:Name="EditorWebView"
+            CoreWebView2Initialized="WebView2_CoreWebView2Initialized"
+            Source="about:blank"
+            Unloaded="EditorWebView_Unloaded" />
+
+        <ProgressBar
+            x:Name="LoadingProgress"
+            Width="200"
+            IsIndeterminate="True" />
+    </Grid>
+</UserControl>

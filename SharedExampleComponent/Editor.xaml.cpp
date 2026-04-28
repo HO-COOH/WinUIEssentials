@@ -10,7 +10,7 @@
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace winrt::WinUI3Example::implementation
+namespace winrt::PackageRoot::implementation
 {
 
     double Editor::measureHeight(winrt::hstring const& value)
@@ -77,7 +77,7 @@ namespace winrt::WinUI3Example::implementation
             if (!m_closed)
             {
                 Height(measureHeight(m_code));
-                LoadingProgress().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+                LoadingProgress().Visibility(winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed);
             }
         }
         catch (...)
@@ -87,13 +87,13 @@ namespace winrt::WinUI3Example::implementation
 
     void Editor::Editor_Loaded(
         winrt::Windows::Foundation::IInspectable const&,
-        winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+        winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const&)
     {
         m_closed = false;
-        if (auto codeSource = DataContext().try_as<winrt::WinUI3Example::CodeSource>())
+        if (auto codeSource = DataContext().try_as<winrt::PackageRoot::CodeSource>())
         {
             auto weakThis = get_weak();
-            auto codeSourceImpl = winrt::get_self<winrt::WinUI3Example::implementation::CodeSource>(codeSource);
+            auto codeSourceImpl = winrt::get_self<winrt::PackageRoot::implementation::CodeSource>(codeSource);
             codeSourceImpl->ValueChanged = [weakThis](std::wstring const& value)
             {
                 if (auto self = weakThis.get())
@@ -114,7 +114,7 @@ namespace winrt::WinUI3Example::implementation
 	}
 
 	void Editor::WebView2_CoreWebView2Initialized(
-		winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender, 
+		winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender,
 		winrt::Microsoft::UI::Xaml::Controls::CoreWebView2InitializedEventArgs const& args)
 	{
         auto coreWebView = sender.CoreWebView2();
@@ -125,7 +125,7 @@ namespace winrt::WinUI3Example::implementation
         );
         sender.Source(winrt::Windows::Foundation::Uri{ L"https://local/Monaco.html" });
         sender.NavigationCompleted([weakThis = get_weak()](
-            winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender, 
+            winrt::Microsoft::UI::Xaml::Controls::WebView2 const& sender,
             winrt::Microsoft::Web::WebView2::Core::CoreWebView2NavigationCompletedEventArgs const& args)->winrt::Windows::Foundation::IAsyncAction
         {
                 if (auto strongThis = weakThis.get())
@@ -138,7 +138,7 @@ namespace winrt::WinUI3Example::implementation
                         {
                             strongThis->m_editorReady = true;
                             strongThis->Height(measureHeight(strongThis->m_code));
-                            strongThis->LoadingProgress().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+                            strongThis->LoadingProgress().Visibility(winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed);
                         }
                     }
                     else if (!strongThis->m_closed)
@@ -160,19 +160,20 @@ namespace winrt::WinUI3Example::implementation
         UpdateEditorCode();
     }
 
-    winrt::WinUI3Example::Language Editor::CodeLanguage()
+    winrt::PackageRoot::Language Editor::CodeLanguage()
     {
         return m_language;
     }
 
-    void Editor::CodeLanguage(winrt::WinUI3Example::Language value)
+    void Editor::CodeLanguage(winrt::PackageRoot::Language value)
     {
         m_language = value;
     }
-}
 
-void winrt::WinUI3Example::implementation::Editor::EditorWebView_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
-{
-    m_closed = true;
-    m_editorReady = false;
+    void Editor::EditorWebView_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e)
+    {
+        m_closed = true;
+        m_editorReady = false;
+    }
+
 }

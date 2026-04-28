@@ -1,4 +1,4 @@
-﻿namespace WinUI3Example
+﻿namespace PackageRoot
 {
     //idl struct cannot contain non-value type
     //So we must make a runtimeclass

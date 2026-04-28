@@ -4,7 +4,7 @@
 #include "ControlExampleSubstitution.g.cpp"
 #endif
 
-namespace winrt::WinUI3Example::implementation
+namespace winrt::PackageRoot::implementation
 {
     winrt::hstring ControlExampleSubstitution::Key()
     {

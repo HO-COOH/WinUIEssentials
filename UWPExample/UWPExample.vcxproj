@@ -114,6 +114,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\SharedExampleComponent\SharedExampleComponent.vcxitems" Label="Shared" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -179,7 +182,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;PackageRoot=UWPExample;WinUINamespace=Windows;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
@@ -208,10 +211,19 @@
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
@@ -240,10 +252,19 @@
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
@@ -273,10 +294,19 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
     </PostBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
@@ -306,6 +336,15 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
       </Command>
     </PostBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BadgePage.h">
@@ -314,6 +353,10 @@
     </ClInclude>
     <ClInclude Include="CharmBarPage.h">
       <DependentUpon>CharmBarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ControlExample.h">
+      <DependentUpon>ControlExample.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ConvertersPage.h">
@@ -326,6 +369,10 @@
     </ClInclude>
     <ClInclude Include="DependentValuePage.h">
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <DependentUpon>Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="GlyphsPage.h">
@@ -438,6 +485,9 @@
     <Page Include="CharmBarPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ControlExample.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ConvertersPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -445,6 +495,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DependentValuePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Editor.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GlyphsPage.xaml">

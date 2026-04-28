@@ -71,6 +71,12 @@
     <Page Include="ScopedButtonDisablerPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="Editor.xaml">
+      <Filter>Helper</Filter>
+    </Page>
+    <Page Include="ControlExample.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

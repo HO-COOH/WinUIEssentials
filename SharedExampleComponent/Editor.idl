@@ -1,9 +1,9 @@
 ﻿import "Language.idl";
 
-namespace WinUI3Example
+namespace PackageRoot
 {
     [default_interface]
-    runtimeclass Editor : Microsoft.UI.Xaml.Controls.UserControl
+    runtimeclass Editor : WinUINamespace.UI.Xaml.Controls.UserControl
     {
         Editor();
         String Code;

@@ -5,7 +5,7 @@
 #endif
 #include <winrt/Windows.System.h>
 
-namespace winrt::WinUI3Example::implementation
+namespace winrt::PackageRoot::implementation
 {
     ContributorItem::ContributorItem(
         winrt::hstring name, 

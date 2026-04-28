@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{d532ca24-a609-41e7-be6f-0f13d5ece9ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CodeSource">
+      <UniqueIdentifier>{3223027a-2ad5-45e4-ad26-b49d6020403b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NamedUrl">
+      <UniqueIdentifier>{1183c0dc-b79d-43c1-8ef6-5b782b602347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ControlExampleSubstitution">
+      <UniqueIdentifier>{caf9d155-9eb6-408d-8290-1ce7cbe1e6f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContributorItem">
+      <UniqueIdentifier>{83a4e384-38e9-4f1e-a347-d9babeb983b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ControlExample">
+      <UniqueIdentifier>{083904ad-53db-4c43-873e-dccc1912f2fe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CodeSource.h">
+      <Filter>CodeSource</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NamedUrl.h">
+      <Filter>NamedUrl</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.h">
+      <Filter>ControlExampleSubstitution</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ContributorItem.h">
+      <Filter>ContributorItem</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ControlExample.xaml.h">
+      <Filter>ControlExample</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="$(MSBuildThisFileDirectory)Editor.idl">
+      <Filter>Editor</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)CodeSource.idl">
+      <Filter>CodeSource</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)NamedUrl.idl">
+      <Filter>NamedUrl</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.idl">
+      <Filter>ControlExampleSubstitution</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ContributorItem.idl">
+      <Filter>ContributorItem</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ControlExample.idl">
+      <Filter>ControlExample</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CodeSource.cpp">
+      <Filter>CodeSource</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NamedUrl.cpp">
+      <Filter>NamedUrl</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.cpp">
+      <Filter>ControlExampleSubstitution</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ContributorItem.cpp">
+      <Filter>ContributorItem</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ControlExample.xaml.cpp">
+      <Filter>ControlExample</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

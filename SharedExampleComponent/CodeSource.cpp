@@ -5,12 +5,12 @@
 #endif
 #include "ControlExampleSubstitution.h"
 
-namespace winrt::WinUI3Example::implementation
+namespace winrt::PackageRoot::implementation
 {
     CodeSource::CodeSource()
     {
         m_substitutions.VectorChanged([this](
-            winrt::Windows::Foundation::Collections::IObservableVector<winrt::WinUI3Example::ControlExampleSubstitution> const& sender, 
+            winrt::Windows::Foundation::Collections::IObservableVector<winrt::PackageRoot::ControlExampleSubstitution> const& sender, 
             winrt::Windows::Foundation::Collections::IVectorChangedEventArgs const& arg)
         {
             if (arg.CollectionChange() == winrt::Windows::Foundation::Collections::CollectionChange::ItemInserted)
@@ -51,7 +51,7 @@ namespace winrt::WinUI3Example::implementation
     {
         m_fileUri = value;
     }
-    winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Example::ControlExampleSubstitution> CodeSource::Substitutions()
+    winrt::Windows::Foundation::Collections::IVector<winrt::PackageRoot::ControlExampleSubstitution> CodeSource::Substitutions()
     {
         return m_substitutions;
     }
@@ -108,7 +108,7 @@ namespace winrt::WinUI3Example::implementation
             assert(false);
         }
     }
-    winrt::WinUI3Example::Language CodeSource::CodeLanguage()
+    winrt::PackageRoot::Language CodeSource::CodeLanguage()
     {
         return m_codeLanguage;
     }

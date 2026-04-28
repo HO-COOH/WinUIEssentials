@@ -1,7 +1,7 @@
 ﻿import "ControlExampleSubstitution.idl";
 import "Language.idl";
 
-namespace WinUI3Example
+namespace PackageRoot
 {
     [bindable]
     [default_interface]
@@ -14,6 +14,6 @@ namespace WinUI3Example
         Windows.Foundation.Uri CodeUrl;
         Windows.Foundation.Uri FileUri;
 
-        Windows.Foundation.Collections.IVector<WinUI3Example.ControlExampleSubstitution> Substitutions{ get; };
+        Windows.Foundation.Collections.IVector<PackageRoot.ControlExampleSubstitution> Substitutions{ get; };
     }
 }

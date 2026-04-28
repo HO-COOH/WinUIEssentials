@@ -1,8 +1,8 @@
-﻿namespace WinUI3Example
+﻿namespace PackageRoot
 {
     [bindable]
     [default_interface]
-    runtimeclass ControlExampleSubstitution : Microsoft.UI.Xaml.DependencyObject
+    runtimeclass ControlExampleSubstitution : WinUINamespace.UI.Xaml.DependencyObject
     {
         ControlExampleSubstitution();
         
