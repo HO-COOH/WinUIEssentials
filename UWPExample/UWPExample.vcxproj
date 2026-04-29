@@ -347,6 +347,10 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AboutPage.h">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="BadgePage.h">
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -375,6 +379,14 @@
       <DependentUpon>Editor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ExtensionsPage.h">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="FontIconExtensionPage.h">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="GlyphsPage.h">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -385,10 +397,6 @@
     </ClInclude>
     <ClInclude Include="IconButtonPage.h">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ImageExtensionPage.h">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="MarqueeContainerPage.h">
@@ -458,10 +466,6 @@
       <DependentUpon>TriggersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="UIElementExtensionsPage.h">
-      <DependentUpon>UIElementExtensionsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="UriGroup.h">
       <DependentUpon>UriGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -479,6 +483,9 @@
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AboutPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BadgePage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -500,6 +507,12 @@
     <Page Include="Editor.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ExtensionsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FontIconExtensionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GlyphsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -507,9 +520,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="IconButtonPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ImageExtensionPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
@@ -549,9 +559,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TriggersPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UIElementExtensionsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UriPage.xaml">
@@ -638,6 +645,14 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ExtensionsPage.cpp">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="FontIconExtensionPage.cpp">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="GlyphsPage.cpp">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -648,10 +663,6 @@
     </ClCompile>
     <ClCompile Include="IconButtonPage.cpp">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ImageExtensionPage.cpp">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MarqueeContainerPage.cpp">
@@ -724,10 +735,6 @@
       <DependentUpon>TriggersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="UIElementExtensionsPage.cpp">
-      <DependentUpon>UIElementExtensionsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="UriGroup.cpp">
       <DependentUpon>UriGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -765,6 +772,14 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ExtensionsPage.idl">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="FontIconExtensionPage.idl">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="GlyphsPage.idl">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -775,10 +790,6 @@
     </Midl>
     <Midl Include="IconButtonPage.idl">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="ImageExtensionPage.idl">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MainPage.idl">
@@ -839,10 +850,6 @@
     </Midl>
     <Midl Include="TriggersPage.idl">
       <DependentUpon>TriggersPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="UIElementExtensionsPage.idl">
-      <DependentUpon>UIElementExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="UriGroup.idl">

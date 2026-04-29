@@ -488,10 +488,6 @@
       <DependentUpon>SegmentedMarginConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="SettingsCard.h">
-      <DependentUpon>SettingsCard.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="SettingsExpander.h">
       <DependentUpon>SettingsExpander.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -761,10 +757,6 @@
       <DependentUpon>SegmentedMarginConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="SettingsCard.cpp">
-      <DependentUpon>SettingsCard.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="SettingsExpander.cpp">
       <DependentUpon>SettingsExpander.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -981,9 +973,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="SegmentedMarginConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SettingsCard.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="SettingsExpander.idl">

@@ -6,11 +6,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ExtensionsPage : ExtensionsPageT<ExtensionsPage>
     {
-        ExtensionsPage()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        ExtensionsPage() = default;
 
         void SuccessLoadButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void FailedLoadButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

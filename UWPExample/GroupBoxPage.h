@@ -6,11 +6,7 @@ namespace winrt::UWPExample::implementation
 {
     struct GroupBoxPage : GroupBoxPageT<GroupBoxPage>
     {
-        GroupBoxPage() 
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        GroupBoxPage() = default;
     };
 }
 

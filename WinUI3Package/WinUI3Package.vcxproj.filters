@@ -432,9 +432,6 @@
     <Midl Include="GroupBox.idl">
       <Filter>Controls\GroupBox</Filter>
     </Midl>
-    <Midl Include="SettingsCard.idl">
-      <Filter>Controls\SettingsCard</Filter>
-    </Midl>
     <Midl Include="SettingsExpander.idl">
       <Filter>Controls\SettingsExpander</Filter>
     </Midl>

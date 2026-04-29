@@ -8,5 +8,8 @@
         
         Boolean IsLoading;
         static Windows.UI.Xaml.DependencyProperty IsLoadingProperty{ get; };
+
+        Windows.UI.Xaml.Media.GradientStopCollection GradientStops;
+        static Windows.UI.Xaml.DependencyProperty GradientStopsProperty{ get; };
     }
 }

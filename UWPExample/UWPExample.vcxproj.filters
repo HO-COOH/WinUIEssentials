@@ -2,9 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Page Include="MainPage.xaml" />
-    <Page Include="CursorControllerPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="ConvertersPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -47,9 +44,6 @@
     <Page Include="ProgressBarExPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="UIElementExtensionsPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="SegmentedPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -57,9 +51,6 @@
       <Filter>Pages\UriPage</Filter>
     </Page>
     <Page Include="ShimmerPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
-    <Page Include="ImageExtensionPage.xaml">
       <Filter>Pages</Filter>
     </Page>
     <Page Include="SwitchPresenterPage.xaml">
@@ -76,6 +67,18 @@
     </Page>
     <Page Include="ControlExample.xaml">
       <Filter>Helper</Filter>
+    </Page>
+    <Page Include="ExtensionsPage.xaml">
+      <Filter>Pages\Extensions</Filter>
+    </Page>
+    <Page Include="CursorControllerPage.xaml">
+      <Filter>Pages\Extensions</Filter>
+    </Page>
+    <Page Include="FontIconExtensionPage.xaml">
+      <Filter>Pages\Extensions</Filter>
+    </Page>
+    <Page Include="AboutPage.xaml">
+      <Filter>Helper\AboutPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +288,12 @@
     </Filter>
     <Filter Include="Helper">
       <UniqueIdentifier>{991ea252-e95f-4a62-a036-a09606998058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\Extensions">
+      <UniqueIdentifier>{7e494fb5-5f13-417c-966a-9bd27c9e273a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helper\AboutPage">
+      <UniqueIdentifier>{6dde1ef5-83f7-47a4-a932-d14dee013dde}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

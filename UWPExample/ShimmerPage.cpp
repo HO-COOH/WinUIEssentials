@@ -9,4 +9,8 @@ using namespace Windows::UI::Xaml;
 
 namespace winrt::UWPExample::implementation
 {
+	void ShimmerPage::Image_ImageOpened(winrt::Windows::Foundation::IInspectable const&, winrt::Windows::UI::Xaml::RoutedEventArgs const&)
+	{
+		testShimmer().IsLoading(false);
+	}
 }

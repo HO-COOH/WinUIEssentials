@@ -1,8 +1,0 @@
-﻿namespace UWPExample
-{
-    [default_interface]
-    runtimeclass ImageExtensionPage : Windows.UI.Xaml.Controls.Page
-    {
-        ImageExtensionPage();
-    }
-}

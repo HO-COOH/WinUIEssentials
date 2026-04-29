@@ -1,9 +1,9 @@
 ﻿import "ContributorItem.idl";
 
-namespace WinUI3Example
+namespace PackageRoot
 {
     [default_interface]
-	runtimeclass AboutPage : Microsoft.UI.Xaml.Controls.Page, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+	runtimeclass AboutPage : WinUINamespace.UI.Xaml.Controls.Page, WinUINamespace.UI.Xaml.Data.INotifyPropertyChanged
     {
         AboutPage();
 
@@ -31,7 +31,9 @@ namespace WinUI3Example
 
 		Windows.Foundation.Collections.IVector<Object> Contributors{ get; };
 
-        Microsoft.UI.Xaml.Visibility IsLoadingContributors{ get; };
+        WinUINamespace.UI.Xaml.Visibility IsLoadingContributors{ get; };
         Boolean IsLoadingRepoInfo{ get; };
+
+        void UnloadObject(WinUINamespace.UI.Xaml.DependencyObject object);
     }
 }

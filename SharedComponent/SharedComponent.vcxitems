@@ -32,6 +32,7 @@
     <Midl Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NegateBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsCard.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)StringToBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SwitchPresenter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl" />
@@ -55,6 +56,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NegateBoolConverter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ObjectCompare.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsCard.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StringToBoolConverter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SwitchPresenter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp" />
@@ -79,6 +81,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ObjectCompare.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReverseConverterBase.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsCard.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringToBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SwitchPresenter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />

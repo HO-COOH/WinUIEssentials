@@ -3,91 +3,90 @@
 #if __has_include("SettingsCard.g.cpp")
 #include "SettingsCard.g.cpp"
 #endif
-#include <winrt/Microsoft.UI.Xaml.Input.h>
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
 	void SettingsCard::EnsureDependencyProperties()
 	{
 		if (m_headerProperty) 
             return;
-		m_headerProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_headerProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"Header",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+			winrt::xaml_typename<PackageRoot::SettingsCard>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				nullptr,
-				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
 				{
-					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onHeaderChanged();
+					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onHeaderChanged();
 				}
 			}
 		);
-		m_descriptionProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_descriptionProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"Description",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+			winrt::xaml_typename<PackageRoot::SettingsCard>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				nullptr,
-				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
 				{
-					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onDescriptionChanged();
+					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onDescriptionChanged();
 				}
 			}
 		);
-		m_headerIconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_headerIconProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"HeaderIcon",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+			winrt::xaml_typename<PackageRoot::SettingsCard>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				nullptr,
-				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
 				{
-					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onHeaderIconChanged();
+					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onHeaderIconChanged();
 				}
 			}
 		);
-		m_actionIconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_actionIconProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"ActionIcon",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
-			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::hstring{ L"\ue974" }) }
+			winrt::xaml_typename<PackageRoot::SettingsCard>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::hstring{ L"\ue974" }) }
 		);
-		m_actionIconToolTipProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_actionIconToolTipProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"ActionIconToolTip",
 			winrt::xaml_typename<winrt::hstring>(),
-			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr }
+			winrt::xaml_typename<PackageRoot::SettingsCard>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr }
 		);
-		m_isClickEnabledProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_isClickEnabledProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"IsClickEnabled",
 			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+			winrt::xaml_typename<PackageRoot::SettingsCard>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(false),
-				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
 				{
-					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onIsClickEnabledChanged();
+					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onIsClickEnabledChanged();
 				}
 			}
 		);
-		m_isActionIconVisibleProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_isActionIconVisibleProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"IsActionIconVisible",
 			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+			winrt::xaml_typename<PackageRoot::SettingsCard>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(true),
-				[](winrt::Microsoft::UI::Xaml::DependencyObject d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
 				{
-					winrt::get_self<SettingsCard>(d.as<WinUI3Package::SettingsCard>())->onActionIconChanged();
+					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onActionIconChanged();
 				}
 			}
 		);
-		m_contentAlignmentProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+		m_contentAlignmentProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"ContentAlignment",
-			winrt::xaml_typename<WinUI3Package::ContentAlignment>(),
-			winrt::xaml_typename<WinUI3Package::SettingsCard>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(WinUI3Package::ContentAlignment::Right) }
+			winrt::xaml_typename<PackageRoot::ContentAlignment>(),
+			winrt::xaml_typename<PackageRoot::SettingsCard>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(PackageRoot::ContentAlignment::Right) }
 		);
 	}
 
@@ -99,7 +98,7 @@ namespace winrt::WinUI3Package::implementation
         onHeaderIconChanged();
         onDescriptionChanged();
         onIsClickEnabledChanged();
-        winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(
+        winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(
             *this,
             IsEnabled() ? NormalState : DisabledState,
             true);
@@ -115,7 +114,7 @@ namespace winrt::WinUI3Package::implementation
     {
         SetValue(m_headerProperty, value);
     }
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::HeaderProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::HeaderProperty()
     {
         return m_headerProperty;
     }
@@ -129,7 +128,7 @@ namespace winrt::WinUI3Package::implementation
     {
         SetValue(m_descriptionProperty, value);
     }
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::DescriptionProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::DescriptionProperty()
     {
         return m_descriptionProperty;
     }
@@ -143,7 +142,7 @@ namespace winrt::WinUI3Package::implementation
     {
         SetValue(m_headerIconProperty, value);
     }
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::HeaderIconProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::HeaderIconProperty()
     {
         return m_headerIconProperty;
     }
@@ -157,7 +156,7 @@ namespace winrt::WinUI3Package::implementation
     {
         SetValue(m_actionIconProperty, value);
     }
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::ActionIconProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::ActionIconProperty()
     {
         return m_actionIconProperty;
     }
@@ -171,7 +170,7 @@ namespace winrt::WinUI3Package::implementation
     {
         SetValue(m_actionIconToolTipProperty, winrt::box_value(value));
     }
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::ActionIconToolTipProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::ActionIconToolTipProperty()
     {
         return m_actionIconToolTipProperty;
     }
@@ -185,7 +184,7 @@ namespace winrt::WinUI3Package::implementation
     {
         SetValue(m_isClickEnabledProperty, winrt::box_value(value));
     }
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::IsClickEnabledProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::IsClickEnabledProperty()
     {
         return m_isClickEnabledProperty;
     }
@@ -199,40 +198,40 @@ namespace winrt::WinUI3Package::implementation
     {
         SetValue(m_isActionIconVisibleProperty, winrt::box_value(value));
     }
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::IsActionIconVisibleProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::IsActionIconVisibleProperty()
     {
         return m_isActionIconVisibleProperty;
     }
 
     //ContentAlignment
-    WinUI3Package::ContentAlignment SettingsCard::ContentAlignment()
+    PackageRoot::ContentAlignment SettingsCard::ContentAlignment()
     {
-        return winrt::unbox_value<WinUI3Package::ContentAlignment>(GetValue(m_contentAlignmentProperty));
+        return winrt::unbox_value<PackageRoot::ContentAlignment>(GetValue(m_contentAlignmentProperty));
     }
-    void SettingsCard::ContentAlignment(WinUI3Package::ContentAlignment value)
+    void SettingsCard::ContentAlignment(PackageRoot::ContentAlignment value)
     {
         SetValue(m_contentAlignmentProperty, winrt::box_value(value));
     }
-    winrt::Microsoft::UI::Xaml::DependencyProperty SettingsCard::ContentAlignmentProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::ContentAlignmentProperty()
     {
         return m_contentAlignmentProperty;
     }
 
-    void SettingsCard::OnPointerPressed(winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    void SettingsCard::OnPointerPressed(winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         if (IsClickEnabled())
         {
             base_type::OnPointerPressed(e);
-            winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, PressedState, true);
+            winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(*this, PressedState, true);
         }
     }
 
-    void SettingsCard::OnPointerReleased(winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    void SettingsCard::OnPointerReleased(winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         if (IsClickEnabled())
         {
             base_type::OnPointerReleased(e);
-            winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(
+            winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(
                 *this,
                 m_isPointerOver ? PointerOverState : NormalState,
                 true);
@@ -244,12 +243,19 @@ namespace winrt::WinUI3Package::implementation
         if (!newContent)
             return;
 
-        auto frameworkElement = newContent.try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+        auto frameworkElement = newContent.try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
         if (!frameworkElement)
             return;
 
-        winrt::Microsoft::UI::Xaml::ResourceDictionary thisResource;
-        thisResource.Source(winrt::Windows::Foundation::Uri{ L"ms-appx:///WinUI3Package/SettingsCard_ContentResource.xaml" });
+        winrt::WinUINamespace::UI::Xaml::ResourceDictionary thisResource;
+        thisResource.Source(winrt::Windows::Foundation::Uri
+        { 
+#if defined Build_WinUIPackage
+            L"ms-appx:///WinUI3Package/SettingsCard_ContentResource.xaml" 
+#else
+            L"ms-appx:///UWPPackage/SettingsCard_ContentResource.xaml"
+#endif
+        });
 
         frameworkElement.Resources().MergedDictionaries().Append(thisResource);
     }
@@ -270,15 +276,15 @@ namespace winrt::WinUI3Package::implementation
     void SettingsCard::onActionIconChanged()
     {
         if (auto actionIconPresenter = GetTemplateChild(ActionIconPresenterHolder)
-            .try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>())
+            .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>())
         {
             if (IsClickEnabled() && IsActionIconVisible())
             {
-                actionIconPresenter.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+                actionIconPresenter.Visibility(winrt::WinUINamespace::UI::Xaml::Visibility::Visible);
             }
             else
             {
-                actionIconPresenter.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+                actionIconPresenter.Visibility(winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed);
             }
         }
     }
@@ -286,12 +292,12 @@ namespace winrt::WinUI3Package::implementation
     void SettingsCard::onHeaderChanged()
     {
         if (auto headerPresenter = GetTemplateChild(HeaderPresenter)
-            .try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>())
+            .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>())
         {
             headerPresenter.Visibility(
                 Header() ?
-                winrt::Microsoft::UI::Xaml::Visibility::Visible :
-                winrt::Microsoft::UI::Xaml::Visibility::Collapsed
+                winrt::WinUINamespace::UI::Xaml::Visibility::Visible :
+                winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed
             );
         }
     }
@@ -299,12 +305,12 @@ namespace winrt::WinUI3Package::implementation
     void SettingsCard::onHeaderIconChanged()
     {
         if (auto headerIconPresenter = GetTemplateChild(HeaderIconPresenterHolder)
-            .try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>())
+            .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>())
         {
             headerIconPresenter.Visibility(
                 HeaderIcon() ?
-                winrt::Microsoft::UI::Xaml::Visibility::Visible :
-                winrt::Microsoft::UI::Xaml::Visibility::Collapsed
+                winrt::WinUINamespace::UI::Xaml::Visibility::Visible :
+                winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed
             );
         }
     }
@@ -312,21 +318,21 @@ namespace winrt::WinUI3Package::implementation
     void SettingsCard::onDescriptionChanged()
     {
         if (auto descriptionPresenter = GetTemplateChild(DescriptionPresenter)
-            .try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>())
+            .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>())
         {
             descriptionPresenter.Visibility(
                 Description() ?
-                winrt::Microsoft::UI::Xaml::Visibility::Visible :
-                winrt::Microsoft::UI::Xaml::Visibility::Collapsed
+                winrt::WinUINamespace::UI::Xaml::Visibility::Visible :
+                winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed
             );
         }
     }
 
     void SettingsCard::onIsEnabledChanged(
         winrt::Windows::Foundation::IInspectable,
-        winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
+        winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const&)
     {
-        winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(
+        winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(
             *this,
             IsEnabled() ? NormalState : DisabledState,
             true
@@ -361,74 +367,74 @@ namespace winrt::WinUI3Package::implementation
 
     void SettingsCard::pointerEntered(
         winrt::Windows::Foundation::IInspectable sender,
-        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerEntered(e);
         m_isPointerOver = true;
-        winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, PointerOverState, true);
+        winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(*this, PointerOverState, true);
     }
 
     void SettingsCard::pointerExited(
         winrt::Windows::Foundation::IInspectable sender,
-        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerExited(e);
         m_isPointerOver = false;
-        winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
+        winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
     }
 
     void SettingsCard::pointerCaptureLost(
         winrt::Windows::Foundation::IInspectable sender,
-        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerCaptureLost(e);
-        winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
+        winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
     }
 
     void SettingsCard::pointerCanceled(
         winrt::Windows::Foundation::IInspectable sender,
-        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerCanceled(e);
-        winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
+        winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
     }
 
     void SettingsCard::previewKeyUp(
         winrt::Windows::Foundation::IInspectable sender,
-        winrt::Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::Input::KeyRoutedEventArgs const& e)
     {
         if (contains(PreviewKeys, e.Key()))
         {
-            winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
+            winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(*this, NormalState, true);
         }
     }
 
     void SettingsCard::previewKeyDown(
         winrt::Windows::Foundation::IInspectable sender,
-        winrt::Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::Input::KeyRoutedEventArgs const& e)
     {
         if (contains(PreviewKeys, e.Key()))
         {
-            if (getFocusedElement().try_as<WinUI3Package::SettingsCard>())
+            if (getFocusedElement().try_as<PackageRoot::SettingsCard>())
             {
-                winrt::Microsoft::UI::Xaml::VisualStateManager::GoToState(*this, PressedState, true);
+                winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(*this, PressedState, true);
             }
         }
     }
-    winrt::Microsoft::UI::Xaml::FrameworkElement SettingsCard::getFocusedElement()
+    winrt::WinUINamespace::UI::Xaml::FrameworkElement SettingsCard::getFocusedElement()
     {
         //TODO: Add XamlRoot Api detection
         //if (XamlRoot())
         //{
-        //    return winrt::Microsoft::UI::Xaml::Input::FocusManager::GetFocusedElement(XamlRoot())
-        //        .try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+        //    return winrt::WinUINamespace::UI::Xaml::Input::FocusManager::GetFocusedElement(XamlRoot())
+        //        .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
         //}
         //else
         //{
-        //    return winrt::Microsoft::UI::Xaml::Input::FocusManager::GetFocusedElement()
-        //        .try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+        //    return winrt::WinUINamespace::UI::Xaml::Input::FocusManager::GetFocusedElement()
+        //        .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
         //}
-        return winrt::Microsoft::UI::Xaml::Input::FocusManager::GetFocusedElement()
-            .try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+        return winrt::WinUINamespace::UI::Xaml::Input::FocusManager::GetFocusedElement()
+            .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
     }
 }

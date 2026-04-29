@@ -19,6 +19,9 @@
     <Filter Include="ControlExample">
       <UniqueIdentifier>{083904ad-53db-4c43-873e-dccc1912f2fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AboutPage">
+      <UniqueIdentifier>{05d879ae-da99-4259-9af0-b2cbb8f363d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h">
@@ -38,6 +41,15 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ControlExample.xaml.h">
       <Filter>ControlExample</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AboutPage.xaml.h">
+      <Filter>AboutPage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RepoInfo.h">
+      <Filter>AboutPage</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GithubRequest.h">
+      <Filter>AboutPage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +72,9 @@
     <Midl Include="$(MSBuildThisFileDirectory)ControlExample.idl">
       <Filter>ControlExample</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)AboutPage.idl">
+      <Filter>AboutPage</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp">
@@ -79,6 +94,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ControlExample.xaml.cpp">
       <Filter>ControlExample</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AboutPage.xaml.cpp">
+      <Filter>AboutPage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RepoInfo.cpp">
+      <Filter>AboutPage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GithubRequest.cpp">
+      <Filter>AboutPage</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

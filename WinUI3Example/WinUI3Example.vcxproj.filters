@@ -348,12 +348,6 @@
       <Filter>Pages\Experimental</Filter>
     </ClCompile>
     <ClCompile Include="ExceptionDialog.cpp" />
-    <ClCompile Include="GithubRequest.cpp">
-      <Filter>Helper\AboutPage</Filter>
-    </ClCompile>
-    <ClCompile Include="RepoInfo.cpp">
-      <Filter>Helper\AboutPage</Filter>
-    </ClCompile>
     <ClCompile Include="ButtonAnimations.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
@@ -378,12 +372,6 @@
     </ClInclude>
     <ClInclude Include="SystemBackdropType.h">
       <Filter>Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="GithubRequest.h">
-      <Filter>Helper\AboutPage</Filter>
-    </ClInclude>
-    <ClInclude Include="RepoInfo.h">
-      <Filter>Helper\AboutPage</Filter>
     </ClInclude>
     <ClInclude Include="ButtonAnimations.h">
       <Filter>Helper</Filter>

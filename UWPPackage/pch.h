@@ -28,3 +28,4 @@
 #include "IsNullOrEmptyStateTrigger.h"
 #include "WrapPanel.h"
 #include "DependentValue.h"
+#include "SettingsCard.h"

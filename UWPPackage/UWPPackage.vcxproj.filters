@@ -97,9 +97,6 @@
     </Midl>
     <Midl Include="SettingsPaneEx.idl" />
     <Midl Include="SettingsCommandEx.idl" />
-    <Midl Include="SettingsCard.idl">
-      <Filter>Controls\SettingsCard</Filter>
-    </Midl>
     <Midl Include="SettingsExpanderItemStyleSelector.idl">
       <Filter>Controls\SettingsExpander</Filter>
     </Midl>
@@ -155,6 +152,9 @@
     </Page>
     <Page Include="Shimmer_Resource.xaml">
       <Filter>Controls\Shimmer</Filter>
+    </Page>
+    <Page Include="SettingsCard_ContentResource.xaml">
+      <Filter>Controls\SettingsCard</Filter>
     </Page>
   </ItemGroup>
 </Project>

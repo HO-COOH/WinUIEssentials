@@ -473,7 +473,6 @@
       <DependentUpon>FontInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="GithubRequest.h" />
     <ClInclude Include="GroupBoxPage.xaml.h">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -590,7 +589,6 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="RepoInfo.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RevealFocusPage.xaml.h">
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
@@ -993,10 +991,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AboutPage.xaml.cpp">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="AcrylicBackdropsPage.xaml.cpp">
       <DependentUpon>AcrylicBackdropsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1138,7 +1132,6 @@
       <DependentUpon>FontInfo.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="GithubRequest.cpp" />
     <ClCompile Include="GroupBoxPage.xaml.cpp">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1258,7 +1251,6 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="RepoInfo.cpp" />
     <ClCompile Include="RevealFocusPage.xaml.cpp">
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1407,10 +1399,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="AboutPage.idl">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="AcrylicBackdropsPage.idl">
       <DependentUpon>AcrylicBackdropsPage.xaml</DependentUpon>
       <SubType>Code</SubType>

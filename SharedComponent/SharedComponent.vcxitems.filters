@@ -25,6 +25,9 @@
     <Filter Include="DependentValue">
       <UniqueIdentifier>{b99f07e3-4752-4b22-a901-08b4635add30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SettingsCard">
+      <UniqueIdentifier>{ed36ae0a-5bb6-44a7-93bb-361384b70778}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -86,6 +89,9 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)ImageExtension.idl">
       <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsCard.idl">
+      <Filter>SettingsCard</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +161,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h">
       <Filter>Extensions</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsCard.h">
+      <Filter>SettingsCard</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -219,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ImageExtension.cpp">
       <Filter>Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsCard.cpp">
+      <Filter>SettingsCard</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

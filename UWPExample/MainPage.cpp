@@ -19,12 +19,11 @@ namespace winrt::UWPExample::implementation
 		winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender, 
 		winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args)
 	{
-		//if (args.IsSettingsSelected())
-		//{
-		//	ContentFrame().Navigate(winrt::xaml_typename<WinUI3Example::AboutPage>());
-		//	ComponentsList().ItemsSource(nullptr);
-		//	return;
-		//}
+		if (args.IsSettingsSelected())
+		{
+			ContentFrame().Navigate(winrt::xaml_typename<UWPExample::AboutPage>());
+			return;
+		}
 
 		if (auto tag = args.SelectedItemContainer().Tag())
 			ContentFrame().Navigate(winrt::unbox_value<winrt::Windows::UI::Xaml::Interop::TypeName>(tag));
@@ -37,6 +36,15 @@ namespace winrt::UWPExample::implementation
 #else
 		return L"WinUIEssentials.UWPExample";
 #endif
+	}
+
+
+	void MainPage::FooterMenuItemsHost_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const&)
+	{
+		auto itemsRepeater = sender.as<winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater>();
+		auto items = itemsRepeater.ItemsSource().as<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>();
+		auto settingsButton = items.GetAt(0).as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
+		settingsButton.Content(winrt::box_value(L"About"));
 	}
 
 }

@@ -36,8 +36,12 @@ ShimmerAnimationMember::ShimmerAnimationMember(
 
 void ShimmerAnimationMember::SetGradientStops(winrt::Microsoft::UI::Xaml::Media::GradientStopCollection gradientStops)
 {
+	auto stops = m_shimmerMaskGradient.ColorStops();
+	stops.Clear();
+	if (!gradientStops)
+		return;
 	for (auto gradientStop : gradientStops)
-		appendGradientStop(gradientStop.Color(), gradientStop.Offset());
+		stops.Append(m_compositor.CreateColorGradientStop(gradientStop.Offset(), gradientStop.Color()));
 }
 
 winrt::Microsoft::UI::Composition::ShapeVisual ShimmerAnimationMember::GetVisual(

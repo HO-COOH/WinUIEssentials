@@ -1,0 +1,249 @@
+﻿<Page
+    x:Class="UWPExample.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:UWPPackage"
+    xmlns:local="using:UWPExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <essential:SettingsExpander
+            Description="A toolkit for WinUi2 C++ developers"
+            Header="WinUIEssential Gallery"
+            IsExpanded="True">
+            <essential:SettingsExpander.HeaderIcon>
+                <muxc:ImageIcon Source="/Assets/StoreLogo.png" />
+            </essential:SettingsExpander.HeaderIcon>
+
+            <essential:SettingsExpander.Items>
+                <essential:SettingsCard Header="WinUI 2 runtime version">
+                    <TextBlock Text="{x:Bind local:AboutPage.WASDKRuntimeVersion}" />
+                </essential:SettingsCard>
+
+                <essential:SettingsCard
+                    ActionIconToolTip="Open in browser"
+                    Click="SettingsCard_Click"
+                    IsClickEnabled="True">
+                    <essential:SettingsCard.HeaderIcon>
+                        <PathIcon Data="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" />
+                    </essential:SettingsCard.HeaderIcon>
+                    <essential:SettingsCard.Header>
+                        <StackPanel Orientation="Horizontal" Spacing="20">
+                            <TextBlock Text="Go to the repo" />
+                            <essential:Shimmer
+                                Height="20"
+                                MinWidth="200"
+                                IsLoading="{x:Bind IsLoadingRepoInfo, Mode=OneWay}">
+                                <StackPanel
+                                    x:Name="RepoInfoPanel"
+                                    x:Load="{x:Bind essential:Convert.ReverseBool(IsLoadingRepoInfo), Mode=OneWay}"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Spacing" Value="4" />
+                                            <Setter Property="Orientation" Value="Horizontal" />
+                                        </Style>
+                                    </StackPanel.Resources>
+                                    <StackPanel>
+                                        <PathIcon Data="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z" />
+                                        <TextBlock Text="{x:Bind Forks, Mode=OneWay}" />
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <PathIcon Data="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z" />
+                                        <TextBlock Text="{x:Bind Stars, Mode=OneWay}" />
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <PathIcon Data="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z" />
+                                        <TextBlock Text="{x:Bind Issues, Mode=OneWay}" />
+                                    </StackPanel>
+                                    <TextBlock Margin="50,0,0,0" FontSize="10">
+                                        <Run Text="Last commit: " />
+                                        <Run Text="{x:Bind CommitMessage, Mode=OneWay}" />
+                                        @<Run Text="{x:Bind UpdatedAt, Mode=OneWay}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </essential:Shimmer>
+                        </StackPanel>
+                    </essential:SettingsCard.Header>
+                    <essential:SettingsCard.ActionIcon>
+                        <PathIcon
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="F1 M 8.75 10.625 C 8.75 10.455729 8.811849 10.309245 8.935547 10.185547 L 16.621094 2.5 L 10.625 2.5 C 10.455729 2.5 10.309244 2.438152 10.185547 2.314453 C 10.061849 2.190756 10 2.044271 10 1.875 C 10 1.70573 10.061849 1.559246 10.185547 1.435547 C 10.309244 1.31185 10.455729 1.25 10.625 1.25 L 18.125 1.25 C 18.29427 1.25 18.440754 1.31185 18.564453 1.435547 C 18.68815 1.559246 18.75 1.70573 18.75 1.875 L 18.75 9.375 C 18.75 9.544271 18.68815 9.690756 18.564453 9.814453 C 18.440754 9.938151 18.29427 10 18.125 10 C 17.955729 10 17.809244 9.938151 17.685547 9.814453 C 17.561848 9.690756 17.5 9.544271 17.5 9.375 L 17.5 3.388672 L 9.814453 11.064453 C 9.749349 11.123047 9.682617 11.16862 9.614258 11.201172 C 9.545898 11.233725 9.466146 11.25 9.375 11.25 C 9.205729 11.25 9.059244 11.188151 8.935547 11.064453 C 8.811849 10.940756 8.75 10.794271 8.75 10.625 Z M 4.921875 18.75 C 4.433594 18.75 3.966471 18.650717 3.520508 18.452148 C 3.074544 18.25358 2.683919 17.986654 2.348633 17.651367 C 2.013346 17.31608 1.746419 16.925455 1.547852 16.479492 C 1.349284 16.033529 1.25 15.566406 1.25 15.078125 L 1.25 6.171875 C 1.25 5.683595 1.349284 5.216473 1.547852 4.770508 C 1.746419 4.324545 2.013346 3.93392 2.348633 3.598633 C 2.683919 3.263348 3.074544 2.99642 3.520508 2.797852 C 3.966471 2.599285 4.433594 2.5 4.921875 2.5 L 8.125 2.5 C 8.294271 2.5 8.440755 2.56185 8.564453 2.685547 C 8.68815 2.809246 8.75 2.95573 8.75 3.125 C 8.75 3.294271 8.68815 3.440756 8.564453 3.564453 C 8.440755 3.688152 8.294271 3.75 8.125 3.75 L 4.951172 3.75 C 4.625651 3.75 4.314778 3.816732 4.018555 3.950195 C 3.722331 4.08366 3.461914 4.262696 3.237305 4.487305 C 3.012695 4.711915 2.833659 4.972332 2.700195 5.268555 C 2.566732 5.564779 2.5 5.875651 2.5 6.201172 L 2.5 15.048828 C 2.5 15.37435 2.566732 15.685222 2.700195 15.981445 C 2.833659 16.27767 3.012695 16.538086 3.237305 16.762695 C 3.461914 16.987305 3.722331 17.166342 4.018555 17.299805 C 4.314778 17.433268 4.625651 17.5 4.951172 17.5 L 13.798828 17.5 C 14.137369 17.5 14.454752 17.431641 14.750977 17.294922 C 15.0472 17.158203 15.305989 16.975912 15.527344 16.748047 C 15.748697 16.520182 15.924479 16.254883 16.054688 15.952148 C 16.184895 15.649414 16.25 15.332031 16.25 15 L 16.25 11.875 C 16.25 11.705729 16.311848 11.559245 16.435547 11.435547 C 16.559244 11.31185 16.705729 11.25 16.875 11.25 C 17.04427 11.25 17.190754 11.31185 17.314453 11.435547 C 17.43815 11.559245 17.5 11.705729 17.5 11.875 L 17.5 15.078125 C 17.5 15.566406 17.400715 16.033529 17.202148 16.479492 C 17.00358 16.925455 16.736652 17.31608 16.401367 17.651367 C 16.06608 17.986654 15.675455 18.25358 15.229492 18.452148 C 14.783527 18.650717 14.316405 18.75 13.828125 18.75 Z " />
+                    </essential:SettingsCard.ActionIcon>
+                </essential:SettingsCard>
+
+                <essential:SettingsCard Header="nuget">
+                    <essential:SettingsCard.HeaderIcon>
+                        <muxc:ImageIcon Width="20" Height="20">
+                            <muxc:ImageIcon.Source>
+                                <SvgImageSource
+                                    RasterizePixelHeight="500"
+                                    RasterizePixelWidth="500"
+                                    UriSource="https://upload.wikimedia.org/wikipedia/commons/2/25/NuGet_project_logo.svg" />
+                            </muxc:ImageIcon.Source>
+                        </muxc:ImageIcon>
+                    </essential:SettingsCard.HeaderIcon>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="4" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontSize" Value="12" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style BasedOn="{StaticResource DefaultHyperlinkButtonStyle}" TargetType="HyperlinkButton">
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="CornerRadius" Value="4" />
+                            </Style>
+                            <Style TargetType="Viewbox">
+                                <Setter Property="Width" Value="12" />
+                                <Setter Property="Height" Value="12" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="Margin" Value="4,0,0,0" />
+                            </Style>
+                            <x:String x:Key="DownloadGlyph">
+                                F1 M 3.125 11.25 C 3.125 11.080729 3.186849 10.934245 3.310547 10.810547 C 3.434245 10.68685 3.580729 10.625 3.75 10.625 C 3.919271 10.625 4.065755 10.68685 4.189453 10.810547 L 8.75 15.361328 L 8.75 0.625 C 8.75 0.45573 8.811849 0.309246 8.935547 0.185547 C 9.059244 0.06185 9.205729 0 9.375 0 C 9.544271 0 9.690755 0.06185 9.814453 0.185547 C 9.93815 0.309246 10 0.45573 10 0.625 L 10 15.361328 L 14.560547 10.810547 C 14.684244 10.68685 14.830729 10.625 15 10.625 C 15.169271 10.625 15.315755 10.68685 15.439453 10.810547 C 15.56315 10.934245 15.625 11.080729 15.625 11.25 C 15.625 11.419271 15.56315 11.565756 15.439453 11.689453 L 9.84375 17.285156 C 9.772135 17.356771 9.702148 17.410482 9.633789 17.446289 C 9.56543 17.482096 9.479166 17.5 9.375 17.5 C 9.270833 17.5 9.18457 17.482096 9.116211 17.446289 C 9.047852 17.410482 8.977864 17.356771 8.90625 17.285156 L 3.310547 11.689453 C 3.186849 11.565756 3.125 11.419271 3.125 11.25 Z M 15.625 18.75 C 15.79427 18.75 15.940754 18.81185 16.064453 18.935547 C 16.18815 19.059244 16.25 19.205729 16.25 19.375 C 16.25 19.544271 16.18815 19.690756 16.064453 19.814453 C 15.940754 19.93815 15.79427 20 15.625 20 L 3.125 20 C 2.955729 20 2.809245 19.93815 2.685547 19.814453 C 2.561849 19.690756 2.5 19.544271 2.5 19.375 C 2.5 19.205729 2.561849 19.059244 2.685547 18.935547 C 2.809245 18.81185 2.955729 18.75 3.125 18.75 Z
+                            </x:String>
+                        </StackPanel.Resources>
+                        <HyperlinkButton NavigateUri="https://www.nuget.org/packages/WinUIEssential.WinUI3">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Background="#5A5A5A">
+                                    <TextBlock Text="WinUIEssential.WinUI3" />
+                                </Border>
+                                <Border Background="#0273B3">
+                                    <TextBlock Text="{x:Bind WinUINugetPackageVersion, Mode=OneWay}" />
+                                </Border>
+                                <Border Background="#89B702">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Viewbox>
+                                            <PathIcon Data="{StaticResource DownloadGlyph}" Foreground="White" />
+                                        </Viewbox>
+
+                                        <TextBlock Text="{x:Bind WinUINugetPackageDownloads, Mode=OneWay}" />
+                                    </StackPanel>
+
+                                </Border>
+                            </StackPanel>
+                        </HyperlinkButton>
+                        <HyperlinkButton NavigateUri="https://www.nuget.org/packages/WinUIEssential.UWP">
+                            <StackPanel Orientation="Horizontal">
+                                <Border Background="#5A5A5A">
+                                    <TextBlock Text="WinUIEssential.UWP" />
+                                </Border>
+                                <Border Background="#0273B3">
+                                    <TextBlock Text="{x:Bind UWPNugetPackageVersion, Mode=OneWay}" />
+                                </Border>
+                                <Border Background="#89B702">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Viewbox>
+                                            <PathIcon Data="{StaticResource DownloadGlyph}" Foreground="White" />
+                                        </Viewbox>
+                                        <TextBlock Text="{x:Bind UWPNugetPackageDownloads, Mode=OneWay}" />
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </HyperlinkButton>
+                    </StackPanel>
+                </essential:SettingsCard>
+
+                <essential:SettingsCard
+                    HorizontalContentAlignment="Stretch"
+                    ContentAlignment="Vertical"
+                    Header="Contributors (double click to go to their website!)">
+                    <essential:SettingsCard.HeaderIcon>
+                        <PathIcon
+                            x:Name="HeartIcon"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Data="F1 M 18.447266 2.802734 C 18.792316 3.147787 19.080402 3.525391 19.311523 3.935547 C 19.542643 4.345703 19.715168 4.772136 19.829102 5.214844 C 19.943033 5.657553 20 6.108399 20 6.567383 C 20 7.026368 19.943033 7.475587 19.829102 7.915039 C 19.715168 8.354492 19.542643 8.779297 19.311523 9.189453 C 19.080402 9.599609 18.792316 9.977214 18.447266 10.322266 L 10 18.759766 L 1.552734 10.322266 C 1.207682 9.977214 0.919596 9.599609 0.688477 9.189453 C 0.457357 8.779297 0.284831 8.354492 0.170898 7.915039 C 0.056966 7.475587 0 7.026368 0 6.567383 C 0 6.108399 0.056966 5.657553 0.170898 5.214844 C 0.284831 4.772136 0.457357 4.345703 0.688477 3.935547 C 0.919596 3.525391 1.207682 3.147787 1.552734 2.802734 C 2.060547 2.301434 2.636719 1.917318 3.28125 1.650391 C 3.925781 1.383465 4.602864 1.25 5.3125 1.25 C 6.022135 1.25 6.699219 1.383465 7.34375 1.650391 C 7.988281 1.917318 8.564453 2.301434 9.072266 2.802734 L 10 3.740234 L 10.927734 2.802734 C 11.435547 2.301434 12.011719 1.917318 12.65625 1.650391 C 13.30078 1.383465 13.977863 1.25 14.6875 1.25 C 15.397135 1.25 16.074219 1.383465 16.71875 1.650391 C 17.363281 1.917318 17.939453 2.301434 18.447266 2.802734 Z " />
+                    </essential:SettingsCard.HeaderIcon>
+                    <Grid>
+                        <GridView x:Name="ContributorsGridView" ItemsSource="{x:Bind Contributors, Mode=OneWay}">
+                            <GridView.ItemContainerTransitions>
+                                <TransitionCollection>
+                                    <EntranceThemeTransition
+                                        FromHorizontalOffset="100"
+                                        FromVerticalOffset="0"
+                                        IsStaggeringEnabled="False" />
+                                </TransitionCollection>
+                            </GridView.ItemContainerTransitions>
+                            <GridView.ItemTemplate>
+                                <DataTemplate x:DataType="local:ContributorItem">
+                                    <StackPanel
+                                        x:Name="Content"
+                                        DoubleTapped="{x:Bind OpenWebsite}"
+                                        IsDoubleTapEnabled="True">
+                                        <StackPanel.Triggers>
+                                            <EventTrigger>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation
+                                                            Storyboard.TargetName="Content"
+                                                            Storyboard.TargetProperty="Opacity"
+                                                            From="0"
+                                                            To="1"
+                                                            Duration="0:0:0.3" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </StackPanel.Triggers>
+                                        <essential:Shimmer CornerRadius="4" IsLoading="True">
+                                            <Image
+                                                Width="100"
+                                                Height="100"
+                                                ImageOpened="Image_ImageOpened">
+                                                <Image.Source>
+                                                    <BitmapImage UriSource="{x:Bind Avator}" />
+                                                </Image.Source>
+                                            </Image>
+                                        </essential:Shimmer>
+                                        <TextBlock HorizontalAlignment="Center" Text="{x:Bind Name}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+
+                        <StackPanel
+                            x:Name="LoadingContributorPanel"
+                            Spacing="8"
+                            Visibility="{x:Bind IsLoadingContributors, Mode=OneWay}">
+                            <ProgressRing IsActive="True" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="Fetching data..." />
+                        </StackPanel>
+
+                        <muxc:InfoBar
+                            x:Name="GetContributorFailedBar"
+                            Title="Error"
+                            IsOpen="False"
+                            Message="Failed to retrieve contributors: "
+                            Severity="Error" />
+                    </Grid>
+
+                </essential:SettingsCard>
+            </essential:SettingsExpander.Items>
+
+
+        </essential:SettingsExpander>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="GetContributorFailed">
+                    <VisualState.Setters>
+                        <Setter Target="ContributorsGridView.Visibility" Value="Collapsed" />
+                        <Setter Target="GetContributorFailedBar.IsOpen" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </StackPanel>
+</Page>

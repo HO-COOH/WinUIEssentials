@@ -4,7 +4,7 @@
 #include "include/EnsureDependencyProperty.hpp"
 #include "include/TemplateControlHelper.hpp"
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
     struct SettingsCard : SettingsCardT<SettingsCard>, TemplateControlHelper<SettingsCard>, EnsureDependencyProperty<SettingsCard>
     {
@@ -19,51 +19,55 @@ namespace winrt::WinUI3Package::implementation
 #pragma region Properties
         winrt::Windows::Foundation::IInspectable Header();
         void Header(winrt::Windows::Foundation::IInspectable value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty HeaderProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderProperty();
 
         winrt::Windows::Foundation::IInspectable Description();
         void Description(winrt::Windows::Foundation::IInspectable value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty DescriptionProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty DescriptionProperty();
 
         winrt::Windows::Foundation::IInspectable HeaderIcon();
         void HeaderIcon(winrt::Windows::Foundation::IInspectable value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty HeaderIconProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderIconProperty();
 
         winrt::Windows::Foundation::IInspectable ActionIcon();
         void ActionIcon(winrt::Windows::Foundation::IInspectable value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty ActionIconProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ActionIconProperty();
 
         winrt::hstring ActionIconToolTip();
         void ActionIconToolTip(winrt::hstring value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty ActionIconToolTipProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ActionIconToolTipProperty();
 
         bool IsClickEnabled();
         void IsClickEnabled(bool value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty IsClickEnabledProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty IsClickEnabledProperty();
 
         bool IsActionIconVisible();
         void IsActionIconVisible(bool value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty IsActionIconVisibleProperty();
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty IsActionIconVisibleProperty();
 
-        WinUI3Package::ContentAlignment ContentAlignment();
-        void ContentAlignment(WinUI3Package::ContentAlignment value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty ContentAlignmentProperty();
+        PackageRoot::ContentAlignment ContentAlignment();
+        void ContentAlignment(PackageRoot::ContentAlignment value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentAlignmentProperty();
 #pragma endregion
 
-        void OnPointerPressed(winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
-        void OnPointerReleased(winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+        void OnPointerPressed(winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+        void OnPointerReleased(winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
 		void OnContentChanged(winrt::Windows::Foundation::IInspectable const& oldContent, winrt::Windows::Foundation::IInspectable const& newContent);
 
+#if defined Build_WinUIPackage
         constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/SettingsCard_Resource.xaml";
+#else
+        constexpr static auto ResourceUri = L"ms-appx:///UWPPackage/SettingsCard_Resource.xaml";
+#endif
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_descriptionProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_headerIconProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_actionIconProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_actionIconToolTipProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_isClickEnabledProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_isActionIconVisibleProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_contentAlignmentProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_descriptionProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerIconProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_actionIconProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_actionIconToolTipProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isClickEnabledProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isActionIconVisibleProperty = nullptr;
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_contentAlignmentProperty = nullptr;
 
         void onIsClickEnabledChanged();
         void onActionIconChanged();
@@ -72,7 +76,7 @@ namespace winrt::WinUI3Package::implementation
         void onDescriptionChanged();
         void onIsEnabledChanged(
             winrt::Windows::Foundation::IInspectable sender,
-            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
         void enableButtonInteraction();
         void disableButtonInteraction();
@@ -88,22 +92,22 @@ namespace winrt::WinUI3Package::implementation
 
         void pointerEntered(
             winrt::Windows::Foundation::IInspectable sender,
-            winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+            winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void pointerExited(
             winrt::Windows::Foundation::IInspectable sender,
-            winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+            winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void pointerCaptureLost(
             winrt::Windows::Foundation::IInspectable sender,
-            winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+            winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void pointerCanceled(
             winrt::Windows::Foundation::IInspectable sender,
-            winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+            winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void previewKeyUp(
             winrt::Windows::Foundation::IInspectable sender,
-            winrt::Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& e);
+            winrt::WinUINamespace::UI::Xaml::Input::KeyRoutedEventArgs const& e);
         void previewKeyDown(
             winrt::Windows::Foundation::IInspectable sender,
-            winrt::Microsoft::UI::Xaml::Input::KeyRoutedEventArgs const& e);
+            winrt::WinUINamespace::UI::Xaml::Input::KeyRoutedEventArgs const& e);
 
 
         constexpr static auto NormalState = L"Normal";
@@ -128,11 +132,11 @@ namespace winrt::WinUI3Package::implementation
             return std::ranges::find(range, value) != std::end(range);
         }
 
-        winrt::Microsoft::UI::Xaml::FrameworkElement getFocusedElement();
+        winrt::WinUINamespace::UI::Xaml::FrameworkElement getFocusedElement();
     };
 }
 
-namespace winrt::WinUI3Package::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct SettingsCard : SettingsCardT<SettingsCard, implementation::SettingsCard>
     {

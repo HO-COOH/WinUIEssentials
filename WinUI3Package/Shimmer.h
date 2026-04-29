@@ -19,34 +19,26 @@ namespace winrt::WinUI3Package::implementation
         void IsLoading(bool value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty IsLoadingProperty();
 
+        winrt::Microsoft::UI::Xaml::Media::GradientStopCollection GradientStops();
+        void GradientStops(winrt::Microsoft::UI::Xaml::Media::GradientStopCollection const& value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty GradientStopsProperty();
+
         void OnApplyTemplate();
     private:
         static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_isLoadingProperty = nullptr;
+        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_gradientStopsProperty = nullptr;
         winrt::Microsoft::UI::Xaml::FrameworkElement m_animationContainer{ nullptr };
         winrt::Microsoft::UI::Xaml::FrameworkElement::SizeChanged_revoker m_animationSizeChangedRevoker;
         void startAnimation();
 
-        constexpr static auto ShimmerGradientStopsResourceName = L"ShimmerGradientStops";
-
-        void setGradientStops();
-        void setDefaultGradientStops(winrt::Microsoft::UI::Xaml::ElementTheme theme);
+        void applyGradientStops();
 
         // IsLoading == true
         void loadShimmer();
 
         // IsLoading == false
         void loadContent();
-        
-        
-        static winrt::Microsoft::UI::Xaml::ResourceDictionary tryGetThemeResourceDictionaryFromResource(
-            winrt::Microsoft::UI::Xaml::ResourceDictionary const& resource,
-            winrt::Microsoft::UI::Xaml::ElementTheme theme
-        );
-        winrt::Microsoft::UI::Xaml::ResourceDictionary tryGetThemeResourceDictionary(winrt::Microsoft::UI::Xaml::ElementTheme theme);
-        winrt::Microsoft::UI::Xaml::Media::GradientStopCollection tryGetGraidentStopsFromThemeResource(winrt::Microsoft::UI::Xaml::ElementTheme theme);
-        winrt::Microsoft::UI::Xaml::Media::GradientStopCollection tryGetGradientStopsFromAppResource(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 
-        
         static bool removeChildFromPanel(
             winrt::Microsoft::UI::Xaml::Controls::Panel const& panel,
             winrt::Microsoft::UI::Xaml::FrameworkElement const& child

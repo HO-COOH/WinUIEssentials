@@ -552,8 +552,8 @@
       <DependentUpon>Segmented_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="SettingsCard.h">
-      <DependentUpon>SettingsCard.idl</DependentUpon>
+    <ClInclude Include="SettingsCard_ContentResource.h">
+      <DependentUpon>SettingsCard_ContentResource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="SettingsCard_Resource.h">
@@ -646,8 +646,8 @@
       <DependentUpon>Segmented_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="SettingsCard.cpp">
-      <DependentUpon>SettingsCard.idl</DependentUpon>
+    <ClCompile Include="SettingsCard_ContentResource.cpp">
+      <DependentUpon>SettingsCard_ContentResource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="SettingsCard_Resource.cpp">
@@ -737,8 +737,9 @@
       <DependentUpon>Segmented_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="SettingsCard.idl">
-      <SubType>Designer</SubType>
+    <Midl Include="SettingsCard_ContentResource.idl">
+      <DependentUpon>SettingsCard_ContentResource.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="SettingsCard_Resource.idl">
       <DependentUpon>SettingsCard_Resource.xaml</DependentUpon>
@@ -785,6 +786,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Segmented_Resource.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SettingsCard_ContentResource.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SettingsCard_Resource.xaml">

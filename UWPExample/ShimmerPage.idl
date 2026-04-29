@@ -6,5 +6,6 @@
         ShimmerPage();
 
         Windows.UI.Xaml.Controls.ToggleSwitch IsLoadingSwitch{ get; };
+        Windows.UI.Xaml.Controls.ToggleSwitch IsLoadingSwitch1{ get; };
     }
 }

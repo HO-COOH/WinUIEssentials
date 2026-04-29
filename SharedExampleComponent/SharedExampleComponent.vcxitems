@@ -17,22 +17,29 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)AboutPage.xaml.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CodeSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ContributorItem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ControlExample.xaml.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)GithubRequest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NamedUrl.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RepoInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AboutPage.xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CodeSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ContributorItem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ControlExample.xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)GithubRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NamedUrl.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RepoInfo.h" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="$(MSBuildThisFileDirectory)AboutPage.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)CodeSource.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ContributorItem.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ControlExample.idl" />

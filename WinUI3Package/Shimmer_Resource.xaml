@@ -31,6 +31,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="GradientStops" Value="{ThemeResource ShimmerGradientStops}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:Shimmer">

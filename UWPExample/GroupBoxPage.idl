@@ -4,5 +4,7 @@
     runtimeclass GroupBoxPage : Windows.UI.Xaml.Controls.Page
     {
         GroupBoxPage();
+
+        Windows.UI.Xaml.Controls.RadioButton SingleClickRadio{ get; };
     }
 }
