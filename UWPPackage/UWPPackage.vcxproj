@@ -270,6 +270,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">
     <MultiProcMIDL>true</MultiProcMIDL>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -494,10 +497,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Export.h" />
-    <ClInclude Include="GroupBox.h">
-      <DependentUpon>GroupBox.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="GroupBox_Resource.h">
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -530,10 +529,6 @@
     </ClInclude>
     <ClInclude Include="ProgressBarEx_Resource.h">
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Segmented.h">
-      <DependentUpon>Segmented.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="SegmentedItem.h">
@@ -584,10 +579,6 @@
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Shimmer.h">
-      <DependentUpon>Shimmer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Shimmer_Resource.h">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -596,10 +587,6 @@
   <ItemGroup>
     <ClCompile Include="EqualPanel.cpp">
       <DependentUpon>EqualPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="GroupBox.cpp">
-      <DependentUpon>GroupBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="GroupBox_Resource.cpp">
@@ -624,10 +611,6 @@
     </ClCompile>
     <ClCompile Include="ProgressBarEx_Resource.cpp">
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Segmented.cpp">
-      <DependentUpon>Segmented.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="SegmentedItem.cpp">
@@ -678,10 +661,6 @@
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Shimmer.cpp">
-      <DependentUpon>Shimmer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="Shimmer_Resource.cpp">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -691,6 +670,7 @@
     <None Include=".nuspec" />
     <None Include="packages.config" />
     <None Include="UWPPackage.def" />
+    <None Include="vcpkg.json" />
     <None Include="WinUIEssential.UWP.targets" />
   </ItemGroup>
   <ItemGroup>
@@ -698,9 +678,6 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="EqualPanel.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="GroupBox.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="GroupBox_Resource.idl">
@@ -720,9 +697,6 @@
     <Midl Include="ProgressBarEx_Resource.idl">
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="Segmented.idl">
-      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="SegmentedItem.idl">
       <SubType>Designer</SubType>
@@ -762,9 +736,6 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="SettingsPaneEx.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Shimmer.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Shimmer_Resource.idl">

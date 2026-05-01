@@ -11,6 +11,9 @@
 #include <winrt/Windows.UI.Xaml.Controls.h>
 #include <winrt/Windows.UI.Xaml.Controls.Primitives.h>
 #include <winrt/Windows.UI.Xaml.Media.Animation.h>
+#include <winrt/Windows.UI.Xaml.Hosting.h>
+#include <winrt/Windows.UI.Composition.h>
+#include <winrt/Windows.UI.Xaml.Media.h>
 
 #include "Case.h"
 #include "CaseCollection.h"
@@ -29,3 +32,6 @@
 #include "WrapPanel.h"
 #include "DependentValue.h"
 #include "SettingsCard.h"
+#include "Shimmer.h"
+#include "GroupBox.h"
+#include "Segmented.h"
