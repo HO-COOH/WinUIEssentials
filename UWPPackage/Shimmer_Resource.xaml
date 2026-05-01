@@ -5,41 +5,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:UWPPackage"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:media="using:Windows.UI.Xaml.Media"
     mc:Ignorable="d">
 
-    <ResourceDictionary.ThemeDictionaries>
-        <ResourceDictionary x:Key="Light">
-            <media:GradientStopCollection x:Key="ShimmerGradientStops">
-                <GradientStop Offset="0.273" Color="#10000000" />
-                <GradientStop Offset="0.436" Color="#08000000" />
-                <GradientStop Offset="0.482" Color="#08000000" />
-                <GradientStop Offset="0.643" Color="#10000000" />
-            </media:GradientStopCollection>
-        </ResourceDictionary>
-        <ResourceDictionary x:Key="Dark">
-            <media:GradientStopCollection x:Key="ShimmerGradientStops">
-                <GradientStop Offset="0.273" Color="#0DFFFFFF" />
-                <GradientStop Offset="0.436" Color="#08FFFFFF" />
-                <GradientStop Offset="0.482" Color="#08FFFFFF" />
-                <GradientStop Offset="0.643" Color="#0DFFFFFF" />
-            </media:GradientStopCollection>
-        </ResourceDictionary>
-    </ResourceDictionary.ThemeDictionaries>
-
+    <!--  GradientStops defaults are applied programmatically in Shimmer::startAnimation — UWP XAML cannot instantiate a standalone GradientStopCollection resource.  -->
     <Style TargetType="local:Shimmer">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="CornerRadius" Value="4" />
-        <Setter Property="GradientStops" Value="{ThemeResource ShimmerGradientStops}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:Shimmer">
                     <Grid x:Name="RootGrid">
                         <Border
                             x:Name="Container"
+                            x:Load="False"
                             CornerRadius="{TemplateBinding CornerRadius}" />
 
                         <ContentPresenter

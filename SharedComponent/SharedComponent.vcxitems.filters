@@ -28,6 +28,15 @@
     <Filter Include="SettingsCard">
       <UniqueIdentifier>{ed36ae0a-5bb6-44a7-93bb-361384b70778}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GroupBox">
+      <UniqueIdentifier>{c7e86e37-1868-4a21-b081-fb36cb697728}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shimmer">
+      <UniqueIdentifier>{931347f1-3bbc-4c67-9e6d-d64ab16778ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Segmented">
+      <UniqueIdentifier>{e1f722c9-c1ae-491a-ac80-8d6593e3661b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -92,6 +101,15 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)SettingsCard.idl">
       <Filter>SettingsCard</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)GroupBox.idl">
+      <Filter>GroupBox</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Segmented.idl">
+      <Filter>Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Shimmer.idl">
+      <Filter>Shimmer</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +182,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SettingsCard.h">
       <Filter>SettingsCard</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GroupBox.h">
+      <Filter>GroupBox</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Segmented.h">
+      <Filter>Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.h">
+      <Filter>Shimmer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.AnimationMember.h">
+      <Filter>Shimmer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.DefaultGradientColor.h">
+      <Filter>Shimmer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -231,6 +264,18 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SettingsCard.cpp">
       <Filter>SettingsCard</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GroupBox.cpp">
+      <Filter>GroupBox</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Segmented.cpp">
+      <Filter>Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Shimmer.cpp">
+      <Filter>Shimmer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Shimmer.AnimationMember.cpp">
+      <Filter>Shimmer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

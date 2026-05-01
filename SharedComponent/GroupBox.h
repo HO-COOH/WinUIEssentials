@@ -3,7 +3,7 @@
 #include "GroupBox.g.h"
 #include "include/TemplateControlHelper.hpp"
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
     struct GroupBox : GroupBoxT<GroupBox>, TemplateControlHelper<GroupBox>
     {
@@ -13,13 +13,17 @@ namespace winrt::WinUI3Package::implementation
         winrt::hstring Header();
         void Header(winrt::hstring const& value);
 
+#if defined Build_WinUIPackage
         constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/GroupBox_Resource.xaml";
+#else
+        constexpr static auto ResourceUri = L"ms-appx:///UWPPackage/GroupBox_Resource.xaml";
+#endif
     private:
         winrt::hstring m_header;
     };
 }
 
-namespace winrt::WinUI3Package::factory_implementation
+namespace winrt::PackageRoot::factory_implementation
 {
     struct GroupBox : GroupBoxT<GroupBox, implementation::GroupBox>
     {

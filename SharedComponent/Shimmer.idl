@@ -1,0 +1,15 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    unsealed runtimeclass Shimmer : WinUINamespace.UI.Xaml.Controls.ContentControl
+    {
+        Shimmer();
+        
+        Boolean IsLoading;
+        static WinUINamespace.UI.Xaml.DependencyProperty IsLoadingProperty{ get; };
+
+        WinUINamespace.UI.Xaml.Media.GradientStopCollection GradientStops;
+        static WinUINamespace.UI.Xaml.DependencyProperty GradientStopsProperty{ get; };
+    }
+}

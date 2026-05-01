@@ -87,14 +87,12 @@
     <None Include="packages.config" />
     <None Include=".nuspec" />
     <None Include="WinUIEssential.UWP.targets" />
+    <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="GroupBox.idl">
-      <Filter>Controls\GroupBox</Filter>
-    </Midl>
     <Midl Include="SettingsPaneEx.idl" />
     <Midl Include="SettingsCommandEx.idl" />
     <Midl Include="SettingsExpanderItemStyleSelector.idl">
@@ -112,9 +110,6 @@
     <Midl Include="EqualPanel.idl">
       <Filter>Controls\Segmented</Filter>
     </Midl>
-    <Midl Include="Segmented.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
     <Midl Include="SegmentedItem.idl">
       <Filter>Controls\Segmented</Filter>
     </Midl>
@@ -123,9 +118,6 @@
     </Midl>
     <Midl Include="SegmentedMarginConverter.idl">
       <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="Shimmer.idl">
-      <Filter>Controls\Shimmer</Filter>
     </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>

@@ -42,9 +42,6 @@
     <ClCompile Include="WindowContextMenuUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="Shimmer.AnimationMember.cpp">
-      <Filter>Controls\Shimmer</Filter>
-    </ClCompile>
     <ClCompile Include="ContentDialogUtils.cpp">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
     </ClCompile>
@@ -225,12 +222,6 @@
     </ClInclude>
     <ClInclude Include="AcrylicVisualWithBoundedCornerRadius.h">
       <Filter>Controls\AcrylicVisual</Filter>
-    </ClInclude>
-    <ClInclude Include="Shimmer.AnimationMember.h">
-      <Filter>Controls\Shimmer</Filter>
-    </ClInclude>
-    <ClInclude Include="Shimmer.DefaultGradientColor.h">
-      <Filter>Controls\Shimmer</Filter>
     </ClInclude>
     <ClInclude Include="WinUIAsyncEventArgs.hpp">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
@@ -429,9 +420,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="GroupBox.idl">
-      <Filter>Controls\GroupBox</Filter>
-    </Midl>
     <Midl Include="SettingsExpander.idl">
       <Filter>Controls\SettingsExpander</Filter>
     </Midl>
@@ -445,9 +433,6 @@
       <Filter>Controls\ProgressBarEx</Filter>
     </Midl>
     <Midl Include="EqualPanel.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="Segmented.idl">
       <Filter>Controls\Segmented</Filter>
     </Midl>
     <Midl Include="SegmentedItem.idl">
@@ -470,9 +455,6 @@
     </Midl>
     <Midl Include="WindowEx.idl">
       <Filter>Windows</Filter>
-    </Midl>
-    <Midl Include="Shimmer.idl">
-      <Filter>Controls\Shimmer</Filter>
     </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
       <Filter>Controls\SettingsExpander</Filter>

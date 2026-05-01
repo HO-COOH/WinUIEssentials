@@ -348,10 +348,6 @@
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="GroupBox.h">
-      <DependentUpon>GroupBox.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="HostBackdropVisual.h">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -472,10 +468,6 @@
       <DependentUpon>RevealFocusPanel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Segmented.h">
-      <DependentUpon>Segmented.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="SegmentedItem.h">
       <DependentUpon>SegmentedItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -498,12 +490,6 @@
     </ClInclude>
     <ClInclude Include="SettingsExpanderLastItemConrnerRadiusConverter.h">
       <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Shimmer.AnimationMember.h" />
-    <ClInclude Include="Shimmer.DefaultGradientColor.h" />
-    <ClInclude Include="Shimmer.h">
-      <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Shimmer_Resource.xaml.h">
@@ -650,10 +636,6 @@
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="GroupBox.cpp">
-      <DependentUpon>GroupBox.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="HostBackdropVisual.cpp">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -741,10 +723,6 @@
       <DependentUpon>RevealFocusPanel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Segmented.cpp">
-      <DependentUpon>Segmented.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="SegmentedItem.cpp">
       <DependentUpon>SegmentedItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -767,11 +745,6 @@
     </ClCompile>
     <ClCompile Include="SettingsExpanderLastItemConrnerRadiusConverter.cpp">
       <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Shimmer.AnimationMember.cpp" />
-    <ClCompile Include="Shimmer.cpp">
-      <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Shimmer_Resource.xaml.cpp">
@@ -900,9 +873,6 @@
     <Midl Include="GeneratedIconSource.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="GroupBox.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="HostBackdropVisual.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -963,9 +933,6 @@
     <Midl Include="RevealFocusPanel.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Segmented.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="SegmentedItem.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -982,9 +949,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Shimmer.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Shimmer_Resource.idl">

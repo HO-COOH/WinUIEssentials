@@ -4,7 +4,7 @@
 #include "GroupBox.g.cpp"
 #endif
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt::PackageRoot::implementation
 {
 	winrt::hstring GroupBox::Header()
 	{

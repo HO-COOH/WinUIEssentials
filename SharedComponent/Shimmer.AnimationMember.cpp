@@ -8,13 +8,13 @@ void ShimmerAnimationMember::appendGradientStop(winrt::Windows::UI::Color color,
 }
 
 void ShimmerAnimationMember::appendGradientStop(
-	winrt::Microsoft::UI::Composition::CompositionColorGradientStop const& gradientStop)
+	winrt::WinUINamespace::UI::Composition::CompositionColorGradientStop const& gradientStop)
 {
 	m_shimmerMaskGradient.ColorStops().Append(gradientStop);
 }
 
 ShimmerAnimationMember::ShimmerAnimationMember(
-	winrt::Microsoft::UI::Composition::Compositor const& compositor,
+	winrt::WinUINamespace::UI::Composition::Compositor const& compositor,
 	winrt::Windows::Foundation::TimeSpan duration) :
 	m_gradientStartPointAnimation{ compositor.CreateVector2KeyFrameAnimation() },
 	m_gradientStopPointAnimation{ compositor.CreateVector2KeyFrameAnimation() },
@@ -24,17 +24,17 @@ ShimmerAnimationMember::ShimmerAnimationMember(
 	//m_duration{duration}
 {
 	m_gradientStartPointAnimation.Duration(duration);
-	m_gradientStartPointAnimation.IterationBehavior(winrt::Microsoft::UI::Composition::AnimationIterationBehavior::Forever);
+	m_gradientStartPointAnimation.IterationBehavior(winrt::WinUINamespace::UI::Composition::AnimationIterationBehavior::Forever);
 	m_gradientStartPointAnimation.InsertKeyFrame(0.0f, { InitialStartPointX, 0.0f });
 	m_gradientStartPointAnimation.InsertKeyFrame(1.0f, {});
 
 	m_gradientStopPointAnimation.Duration(duration);
-	m_gradientStopPointAnimation.IterationBehavior(winrt::Microsoft::UI::Composition::AnimationIterationBehavior::Forever);
+	m_gradientStopPointAnimation.IterationBehavior(winrt::WinUINamespace::UI::Composition::AnimationIterationBehavior::Forever);
 	m_gradientStopPointAnimation.InsertKeyFrame(0.0f, { 1.0f, 0.0f });
 	m_gradientStopPointAnimation.InsertKeyFrame(1.0f, { -InitialStartPointX, 1.0f });
 }
 
-void ShimmerAnimationMember::SetGradientStops(winrt::Microsoft::UI::Xaml::Media::GradientStopCollection gradientStops)
+void ShimmerAnimationMember::SetGradientStops(winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection gradientStops)
 {
 	auto stops = m_shimmerMaskGradient.ColorStops();
 	stops.Clear();
@@ -44,7 +44,7 @@ void ShimmerAnimationMember::SetGradientStops(winrt::Microsoft::UI::Xaml::Media:
 		stops.Append(m_compositor.CreateColorGradientStop(gradientStop.Offset(), gradientStop.Color()));
 }
 
-winrt::Microsoft::UI::Composition::ShapeVisual ShimmerAnimationMember::GetVisual(
+winrt::WinUINamespace::UI::Composition::ShapeVisual ShimmerAnimationMember::GetVisual(
 	winrt::Windows::Foundation::Numerics::float2 size,
 	float cornerRadius
 )
