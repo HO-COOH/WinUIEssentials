@@ -5,10 +5,11 @@
 #include "CachedScrollBar.h"
 #include "ResizeRequest.h"
 #include "TableConstants.hpp"
+#include "CachedCursor.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct Table : TableT<Table>
+    struct Table : TableT<Table>, CachedCursor<Table>
     {
         Table();
 
@@ -43,9 +44,6 @@ namespace winrt::WinUI3Package::implementation
 
         //resizing
         ResizeRequest m_resizeRequest;
-
-        void setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape cursorShape);
-        void resetCursor();
     public:
         void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };

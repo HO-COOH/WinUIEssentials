@@ -65,6 +65,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Easing.hpp">
       <Filter>Table</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CachedCursor.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">

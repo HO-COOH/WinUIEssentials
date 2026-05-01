@@ -267,11 +267,13 @@ void TableD2DContent::drawThreadProc()
 			m_textFormatScale = scale;
 		}
 
+		//Block until DWM is ready for another frame. Replaces the previous
+		//fixed 4 ms pacing sleep: paces us at DWM cadence during scroll
+		//animations, and for single-frame updates (hover, resize) caps the
+		//GPU queue depth at 1 so the pixels we just drew reach the display
+		//with minimum latency.
+		m_swapChain.WaitForFrameLatency();
 		draw();
-
-		//pace the animation without pegging the CPU
-		if (m_isScrolling.load(std::memory_order_acquire) && !m_stopRequested.load(std::memory_order_acquire))
-			std::this_thread::sleep_for(std::chrono::milliseconds{ 4 });
 	}
 }
 

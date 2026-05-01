@@ -91,16 +91,6 @@ namespace winrt::WinUI3Package::implementation
         m_horizontalScrollBarCache.Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
     }
 
-    void Table::setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape cursorShape)
-    {
-        ProtectedCursor(winrt::Microsoft::UI::Input::InputSystemCursor::Create(cursorShape));
-    }
-
-    void Table::resetCursor()
-    {
-        ProtectedCursor(nullptr);
-    }
-
     void Table::SwapChainPanel_SizeChanged(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
     {
         m_d2dContent.SizeChanged(*this, e);
@@ -167,32 +157,32 @@ namespace winrt::WinUI3Package::implementation
         auto const currentPoint = e.GetCurrentPoint(*this);
         auto const [x, y] = currentPoint.Position();
 
+        //resizing should continue even after the cursor leaves header row
+        if (m_resizeRequest)
+        {
+            /*
+                    |-----Column-----|
+                                   |-|-|   resize hotzone
+                                     m_resizeStartX
+                                   |<->| resize hot-zone
+
+                After resizing
+                    |-----Column-----|---|
+                                     m_resizeStartX
+                                     |---| delta = x - m_resizeStartX
+                    |<------------------>|
+                                     m_resizeStartWidth + delta
+            */
+
+            auto const delta = x - m_resizeRequest.m_resizeStartX;
+            auto const newColumnWidth = (std::max)(TableConstants::MinColumnWidth, m_resizeRequest.m_resizeStartWidth + delta);
+            m_d2dContent.SetColumnWidth(m_resizeRequest.m_resizeColumnIndex, newColumnWidth);
+            requestDraw();
+            return;
+        }
+
         if (y <= TableConstants::RowHeight)
         {
-            //resizing
-            if (m_resizeRequest)
-            {
-                /*
-                        |-----Column-----|
-                                       |-|-|   resize hotzone
-                                         m_resizeStartX
-                                       |<->| resize hot-zone
-
-                    After resizing
-                        |-----Column-----|---|
-                                         m_resizeStartX
-                                         |---| delta = x - m_resizeStartX
-                        |<------------------>|
-                                         m_resizeStartWidth + delta
-                */
-
-                auto const delta = x - m_resizeRequest.m_resizeStartX;
-                auto const newColumnWidth = (std::max)(TableConstants::MinColumnWidth, m_resizeRequest.m_resizeStartWidth + delta);
-                m_d2dContent.SetColumnWidth(m_resizeRequest.m_resizeColumnIndex, newColumnWidth);
-                requestDraw();
-                return;
-            }
-
             //is inside resize-hotzone
             if (auto const resizeColumnIndex = m_d2dContent.GetResizeColumnIndex(x); m_d2dContent.SetHoveredResizeColumn(resizeColumnIndex))
             {
