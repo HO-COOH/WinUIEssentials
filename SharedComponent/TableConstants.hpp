@@ -3,8 +3,8 @@
 
 namespace TableConstants
 {
-	constexpr float HeaderFontSize = 24.f;
-	constexpr float CellFontSize = 18.f;
+	constexpr float HeaderFontSize = 20.f;
+	constexpr float CellFontSize = 14.f;
 	constexpr float SortIndicatorWidth = 16.f;
 	constexpr float RowHeight = 36.f;
 	constexpr float ColumnWidth = 200.f;
@@ -12,6 +12,7 @@ namespace TableConstants
 	constexpr float CornerRadius = 8.f;
 	constexpr float ResizeHotZoneDelta = 8.f;
 	constexpr int ResizeColumnIndexNone = -1;
+	constexpr int HoveredRowNone = -1;
 	
 	constexpr float PillPadding = 8.f;
 	constexpr float PillWidth = 4.f;

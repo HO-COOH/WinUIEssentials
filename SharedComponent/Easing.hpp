@@ -2,10 +2,9 @@
 
 constexpr inline double EasedProgress(double progress, int exponent)
 {
-	auto result = 1.0 - progress;
-	for (int i = 0; i < exponent; ++i)
-	{
-		result *= result;
-	}
-	return 1.0 - result;
+    double const inv = 1.0 - progress;
+    double result = 1.0;
+    for (int i = 0; i < exponent; ++i)
+        result *= inv;
+    return 1.0 - result;
 }

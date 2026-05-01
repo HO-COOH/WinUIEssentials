@@ -9,19 +9,43 @@
 #include <windows.ui.xaml.media.dxinterop.h>
 #endif
 
-void SwapChainInterop::SizeChanged(winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& sender, winrt::WindowsNamespace::UI::Xaml::SizeChangedEventArgs const& arg)
+bool SwapChainInterop::SizeChanged(winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& sender, winrt::WindowsNamespace::UI::Xaml::SizeChangedEventArgs const& arg)
 {
 	auto const newSize = arg.NewSize();
-	if (newSize == CurrentSize)
-		return;
-	
+	auto const newScale = sender.CompositionScaleX();
+	if (newSize == CurrentSize && newScale == Scale && get())
+		return false;
+
 	CurrentSize = newSize;
-	Scale = sender.CompositionScaleX();
-	get() ? resize(sender) : create(sender);
+	Scale = newScale;
+	if (!get())
+		create(sender);
+	return true;
+}
+
+bool SwapChainInterop::CompositionScaleChanged(winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& sender)
+{
+	auto const newScale = sender.CompositionScaleX();
+	if (newScale == Scale)
+		return false;
+
+	Scale = newScale;
+	//Swap chain may not exist yet if SizeChanged hasn't fired; in that case
+	//the next SizeChanged will create it with the correct scale.
+	return static_cast<bool>(get());
 }
 
 void SwapChainInterop::SetTarget(ID2D1DeviceContext* d2dContext)
 {
+	//Release any previous target so ResizeBuffers can release the back buffer.
+	d2dContext->SetTarget(nullptr);
+
+	auto const rawWidth = (std::max<UINT>)(1, static_cast<UINT>(CurrentSize.Width * Scale));
+	auto const rawHeight = (std::max<UINT>)(1, static_cast<UINT>(CurrentSize.Height * Scale));
+	winrt::check_hresult(get()->ResizeBuffers(0, rawWidth, rawHeight, DXGI_FORMAT_UNKNOWN, 0));
+
+	inverseDpi();
+
 	winrt::com_ptr<IDXGISurface> dxgiSurface;
 	winrt::check_hresult(get()->GetBuffer(0, __uuidof(IDXGISurface), dxgiSurface.put_void()));
 
@@ -41,10 +65,6 @@ void SwapChainInterop::SetTarget(ID2D1DeviceContext* d2dContext)
 	winrt::check_hresult(d2dContext->CreateBitmapFromDxgiSurface(dxgiSurface.get(), &property, targetBitmap.put()));
 	d2dContext->SetTarget(targetBitmap.get());
 	d2dContext->SetDpi(96.0f, 96.0f);
-}
-
-void SwapChainInterop::resize(winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel)
-{
 }
 
 void SwapChainInterop::create(winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel)

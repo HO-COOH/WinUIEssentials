@@ -20,32 +20,14 @@ TableD2DContent::TableD2DContent() : m_columnWidths(std::size(TableTestData::Col
 	auto d2d1Device = DirectN::GetD2D1Device(d2d1Factory.get(), m_d3dDevice.get());
 	winrt::check_hresult(d2d1Device->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_NONE, m_d2dContext.put()));
 
-	winrt::check_hresult(m_dwriteFactory->CreateTextFormat(
-		L"Segoe UI Semibold",
-		nullptr,
-		DWRITE_FONT_WEIGHT_SEMI_BOLD,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL,
-		TableConstants::HeaderFontSize,
-		L"en-US",
-		m_headerTextFormat.put()
-	));
-	winrt::check_hresult(m_dwriteFactory->CreateTextFormat(
-		L"Segoe UI",
-		nullptr,
-		DWRITE_FONT_WEIGHT_NORMAL,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL,
-		TableConstants::CellFontSize,
-		L"en-US",
-		m_cellTextFormat.put()
-	));
-	m_textLayoutCache.SetFormat(m_cellTextFormat.get());
+	//Text formats are built lazily by the draw thread so their font size
+	//matches the current composition scale.
 
 	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), m_textBrush.put()));
 	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x0F / static_cast<float>(0xFF)), m_backgroundBrush.put()));
 	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x2F / static_cast<float>(0xFF)), m_alternateBackgroundBrush.put()));
 	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(0x4cc2ff), m_pillBrush.put()));
+	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(0x103c4c), m_hoverBrush.put()));
 }
 
 TableD2DContent::~TableD2DContent()
@@ -81,7 +63,17 @@ void TableD2DContent::SizeChanged(
 	winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender,
 	winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
 {
-	m_swapChain.SizeChanged(sender, e);
+	if (!m_swapChain.SizeChanged(sender, e))
+		return;
+	m_swapChainDirty.store(true, std::memory_order_release);
+	RequestDraw();
+}
+
+void TableD2DContent::CompositionScaleChanged(
+	winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender)
+{
+	if (!m_swapChain.CompositionScaleChanged(sender))
+		return;
 	m_swapChainDirty.store(true, std::memory_order_release);
 	RequestDraw();
 }
@@ -187,6 +179,21 @@ int TableD2DContent::DataCount() const
 	return m_data.Count();
 }
 
+bool TableD2DContent::SetHover(float y)
+{
+	int newRow;
+	if (y < 0.f)
+		newRow = TableConstants::HoveredRowNone;
+	else
+	{
+		auto const scale = m_swapChain.Scale;
+		auto const rawRowHeight = TableConstants::RowHeight * scale;
+		auto const scrollOffsetY = m_scrollOffsetY.load(std::memory_order_relaxed);
+		newRow = static_cast<int>((y * scale + scrollOffsetY) / rawRowHeight) - 1;
+	}
+	return m_hoveredRow.exchange(newRow, std::memory_order_relaxed) != newRow;
+}
+
 D2D1_ROUNDED_RECT TableD2DContent::getResizePillRect(std::vector<float> const& columnWidths, int column, float scrollOffsetX) const
 {
 	auto const columnEndX = std::accumulate(columnWidths.begin(), columnWidths.begin() + column + 1, -scrollOffsetX);
@@ -254,12 +261,46 @@ void TableD2DContent::drawThreadProc()
 		if (m_swapChainDirty.exchange(false, std::memory_order_acq_rel))
 			m_swapChain.SetTarget(m_d2dContext.get());
 
+		if (auto const scale = m_swapChain.Scale; scale != m_textFormatScale)
+		{
+			rebuildTextFormatsForScale(scale);
+			m_textFormatScale = scale;
+		}
+
 		draw();
 
 		//pace the animation without pegging the CPU
 		if (m_isScrolling.load(std::memory_order_acquire) && !m_stopRequested.load(std::memory_order_acquire))
 			std::this_thread::sleep_for(std::chrono::milliseconds{ 4 });
 	}
+}
+
+void TableD2DContent::rebuildTextFormatsForScale(float scale)
+{
+	m_headerTextFormat = nullptr;
+	winrt::check_hresult(m_dwriteFactory->CreateTextFormat(
+		L"Segoe UI Semibold",
+		nullptr,
+		DWRITE_FONT_WEIGHT_SEMI_BOLD,
+		DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_NORMAL,
+		TableConstants::HeaderFontSize * scale,
+		L"en-US",
+		m_headerTextFormat.put()
+	));
+
+	m_cellTextFormat = nullptr;
+	winrt::check_hresult(m_dwriteFactory->CreateTextFormat(
+		L"Segoe UI",
+		nullptr,
+		DWRITE_FONT_WEIGHT_NORMAL,
+		DWRITE_FONT_STYLE_NORMAL,
+		DWRITE_FONT_STRETCH_NORMAL,
+		TableConstants::CellFontSize * scale,
+		L"en-US",
+		m_cellTextFormat.put()
+	));
+	m_textLayoutCache.SetFormat(m_cellTextFormat.get());
 }
 
 void TableD2DContent::draw()
@@ -285,7 +326,7 @@ void TableD2DContent::draw()
 	m_d2dContext->EndDraw();
 
 	DXGI_PRESENT_PARAMETERS presentParameters{};
-	winrt::check_hresult(m_swapChain->Present1(0, DXGI_PRESENT_RESTART, &presentParameters));
+	winrt::check_hresult(m_swapChain->Present1(0, 0, &presentParameters));
 }
 
 void TableD2DContent::drawHeader(std::vector<float> const& columnWidths, int hoveredResizeColumn, float scrollOffsetX)
@@ -334,7 +375,7 @@ void TableD2DContent::drawHeader(std::vector<float> const& columnWidths, int hov
 void TableD2DContent::drawRows(std::vector<float> const& columnWidths, float scrollOffsetX, float scrollOffsetY)
 {
 	auto const rawRowHeight = TableConstants::RowHeight * m_swapChain.Scale;
-
+	int const hoveredRow = m_hoveredRow.load(std::memory_order_relaxed);
 	int const first = (std::max)(0, static_cast<int>(scrollOffsetY / rawRowHeight));
 	int const last = (std::min)(m_data.Count() - 1, static_cast<int>((scrollOffsetY + m_swapChain.CurrentSize.Height * m_swapChain.Scale) / rawRowHeight));
 	for (int row = first; row <= last; ++row)
@@ -342,17 +383,24 @@ void TableD2DContent::drawRows(std::vector<float> const& columnWidths, float scr
 		auto& rowData = m_data[row];
 		auto const rowY = (row + 1) * rawRowHeight - scrollOffsetY;
 
-		//draw background
-		D2D1_ROUNDED_RECT const rect
+		if (row == hoveredRow)
 		{
-			.rect = D2D1::RectF(0, rowY, m_swapChain.CurrentSize.Width * m_swapChain.Scale, rowY + rawRowHeight),
-			.radiusX = TableConstants::CornerRadius * m_swapChain.Scale,
-			.radiusY = TableConstants::CornerRadius * m_swapChain.Scale
-		};
-		m_d2dContext->FillRoundedRectangle(
-			&rect,
-			(row % 2 == 0) ? m_backgroundBrush.get() : m_alternateBackgroundBrush.get()
-		);
+			//draw background
+			D2D1_ROUNDED_RECT const rect
+			{
+				.rect = D2D1::RectF(0, rowY, m_swapChain.CurrentSize.Width * m_swapChain.Scale, rowY + rawRowHeight),
+				.radiusX = TableConstants::CornerRadius * m_swapChain.Scale,
+				.radiusY = TableConstants::CornerRadius * m_swapChain.Scale
+			};
+			m_d2dContext->FillRoundedRectangle(
+				&rect,
+				m_hoverBrush.get()
+			);
+		}
+		else
+		{
+			m_d2dContext->FillRectangle(D2D1::RectF(0, rowY, m_swapChain.CurrentSize.Width * m_swapChain.Scale, rowY + rawRowHeight), (row % 2 == 0) ? m_backgroundBrush.get() : m_alternateBackgroundBrush.get());
+		}
 
 		//draw columns
 		auto const scale = m_swapChain.Scale;

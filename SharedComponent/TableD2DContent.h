@@ -48,6 +48,11 @@ public:
 		winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender,
 		winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e);
 
+	// UI-thread only: forward the SwapChainPanel composition-scale-changed
+	// event. Fires when the window moves to a monitor with a different DPI.
+	void CompositionScaleChanged(
+		winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender);
+
 	void SetScrollOffsetX(float x);
 	void SetScrollOffsetY(float y);
 	float ScrollOffsetX() const;
@@ -72,13 +77,17 @@ public:
 	float TotalContentWidth() const;
 
 	int DataCount() const;
-
+	[[nodiscard]] bool SetHover(float y);
 private:
 	void drawThreadProc();
 	void draw();
 	void drawHeader(std::vector<float> const& columnWidths, int hoveredResizeColumn, float scrollOffsetX);
 	void drawRows(std::vector<float> const& columnWidths, float scrollOffsetX, float scrollOffsetY);
 	D2D1_ROUNDED_RECT getResizePillRect(std::vector<float> const& columnWidths, int column, float scrollOffsetX) const;
+
+	//Draw-thread only. Recreates text formats (and invalidates the layout
+	//cache) so glyph pixel size matches the current composition scale.
+	void rebuildTextFormatsForScale(float scale);
 
 	TableTestData m_data;
 
@@ -96,9 +105,14 @@ private:
 	winrt::com_ptr<ID2D1SolidColorBrush> m_backgroundBrush;
 	winrt::com_ptr<ID2D1SolidColorBrush> m_alternateBackgroundBrush;
 	winrt::com_ptr<ID2D1SolidColorBrush> m_pillBrush;
+	winrt::com_ptr<ID2D1SolidColorBrush> m_hoverBrush;
 
 	std::atomic<float> m_scrollOffsetX{ 0.f };
 	std::atomic<float> m_scrollOffsetY{ 0.f };
+	//Data-row index under the pointer, or -1 when the pointer is not over a
+	//row. Storing the row (not the raw y) both simplifies the hover test in
+	//the draw code and gates redraws to actual row transitions.
+	std::atomic<int> m_hoveredRow{ TableConstants::HoveredRowNone };
 
 	std::vector<std::atomic<float>> m_columnWidths;
 	std::atomic<int> m_hoveredResizeColumn{ TableConstants::ResizeColumnIndexNone };
@@ -111,6 +125,10 @@ private:
 	std::atomic<bool> m_drawRequest{ false };
 	std::atomic<bool> m_swapChainDirty{ false };
 	std::atomic<bool> m_stopRequested{ false };
+
+	//Draw-thread-only. Last scale the text formats were built for.
+	//Sentinel so the first frame after startup always rebuilds.
+	float m_textFormatScale{ -1.f };
 
 	//Writer (UI thread) fills startY/endY/startTime and then stores
 	//isPending=true with release ordering. Reader (draw thread) swaps the

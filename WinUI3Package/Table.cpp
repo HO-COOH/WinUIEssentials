@@ -107,6 +107,11 @@ namespace winrt::WinUI3Package::implementation
         updateScrollBars();
     }
 
+    void Table::SwapChainPanel_CompositionScaleChanged(winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const&, winrt::Windows::Foundation::IInspectable const&)
+    {
+        m_d2dContent.CompositionScaleChanged(*this);
+    }
+
     void Table::VerticalScrollBar_ValueChanged(
         winrt::Windows::Foundation::IInspectable const&,
         winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e)
@@ -203,11 +208,17 @@ namespace winrt::WinUI3Package::implementation
         }
 
         //not in header row
+        bool hoverNeedRedraw = false;
         if (m_d2dContent.SetHoveredResizeColumn(TableConstants::ResizeColumnIndexNone))
         {
             resetCursor();
-            m_d2dContent.RequestDraw();
+            hoverNeedRedraw = true;
         }
+        if (m_d2dContent.SetHover(y))
+            hoverNeedRedraw = true;
+
+        if (hoverNeedRedraw)
+            m_d2dContent.RequestDraw();
     }
 
     void Table::SwapChainPanel_PointerPressed(
@@ -239,4 +250,10 @@ namespace winrt::WinUI3Package::implementation
         m_resizeRequest = false;
     }
 
+
+    void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    {
+        m_d2dContent.SetHover(-1.0);
+        m_d2dContent.RequestDraw();
+    }
 }
