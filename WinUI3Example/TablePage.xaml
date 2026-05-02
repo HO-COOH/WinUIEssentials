@@ -9,5 +9,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <essential:Table VerticalAlignment="Stretch" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <InfoBar
+            Title="This component is currently for demo only and is not in Package yet!"
+            IsClosable="False"
+            IsOpen="True"
+            Severity="Warning" />
+        
+        <essential:Table Grid.Row="1" VerticalAlignment="Stretch" />
+    </Grid>
 </Page>

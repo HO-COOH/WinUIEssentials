@@ -14,8 +14,8 @@ namespace TableConstants
 	constexpr int ResizeColumnIndexNone = -1;
 	constexpr int HoveredRowNone = -1;
 	
-	constexpr float PillPadding = 8.f;
-	constexpr float PillWidth = 4.f;
+	constexpr float PillPaddingY = 8.f;
+	constexpr float PillWidth = 2.f;
 	constexpr float PillCornerRadius = 4.f;
 	
 	constexpr std::chrono::milliseconds SmoothScrollDuration{ 250 };

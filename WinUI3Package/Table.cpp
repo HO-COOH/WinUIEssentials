@@ -5,6 +5,7 @@
 #endif
 #include "TableConstants.hpp"
 #include <winrt/Microsoft.UI.Input.h>
+#include <wil/resource.h>
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -22,7 +23,7 @@ namespace winrt::WinUI3Package::implementation
     void Table::requestDraw()
     {
         m_d2dContent.RequestDraw();
-        updateScrollBars();
+        m_d2dContent.m_dispatcher.TryEnqueue([this] { updateScrollBars(); });
     }
 
     void Table::ClickHandler(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
@@ -32,6 +33,11 @@ namespace winrt::WinUI3Package::implementation
 
     void Table::updateVerticalScrollBar(float scrollOffsetY)
     {
+        if (m_isUpdatingVerticalScrollBarInCode)
+            return;
+        m_isUpdatingVerticalScrollBarInCode = true;
+        auto reset = wil::scope_exit([this] { m_isUpdatingVerticalScrollBarInCode = false; });
+
         auto const viewportHeight = m_d2dContent.GetViewportHeight();
 
         if (viewportHeight <= 0)
@@ -48,13 +54,16 @@ namespace winrt::WinUI3Package::implementation
         m_verticalScrollBarCache.ViewportSize(viewportHeight);
         m_verticalScrollBarCache.LargeChange(viewportHeight);
         m_verticalScrollBarCache.SmallChange(TableConstants::RowHeight);
-        m_isUpdatingVerticalScrollBarInCode = true;
         m_verticalScrollBarCache.Value(scrollOffsetY);
-        m_isUpdatingVerticalScrollBarInCode = false;
     }
 
     void Table::updateHorizontalScrollBar(float scrollOffsetX)
     {
+        if (m_isUpdatingHorizontalScrollBarInCode)
+            return;
+        m_isUpdatingHorizontalScrollBarInCode = true;
+        auto reset = wil::scope_exit([this] { m_isUpdatingHorizontalScrollBarInCode = false; });
+
         auto const viewportWidth = m_d2dContent.GetViewportWidth();
 
         if (viewportWidth <= 0)
@@ -70,9 +79,7 @@ namespace winrt::WinUI3Package::implementation
         m_horizontalScrollBarCache.ViewportSize(viewportWidth);
         m_horizontalScrollBarCache.LargeChange(viewportWidth);
         m_horizontalScrollBarCache.SmallChange(TableConstants::ColumnWidth);
-        m_isUpdatingHorizontalScrollBarInCode = true;
         m_horizontalScrollBarCache.Value(scrollOffsetX);
-        m_isUpdatingHorizontalScrollBarInCode = false;
     }
 
     void Table::updateScrollBars()
@@ -183,6 +190,9 @@ namespace winrt::WinUI3Package::implementation
 
         if (y <= TableConstants::RowHeight)
         {
+            //clear row hover while in header
+            bool needRedraw = m_d2dContent.SetHover(-1.0f);
+
             //is inside resize-hotzone
             if (auto const resizeColumnIndex = m_d2dContent.GetResizeColumnIndex(x); m_d2dContent.SetHoveredResizeColumn(resizeColumnIndex))
             {
@@ -190,10 +200,11 @@ namespace winrt::WinUI3Package::implementation
                     setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape::SizeWestEast);
                 else
                     resetCursor();
-                m_d2dContent.RequestDraw();
-                return;
+                needRedraw = true;
             }
 
+            if (needRedraw)
+                m_d2dContent.RequestDraw();
             return;
         }
 
@@ -204,8 +215,7 @@ namespace winrt::WinUI3Package::implementation
             resetCursor();
             hoverNeedRedraw = true;
         }
-        if (m_d2dContent.SetHover(y))
-            hoverNeedRedraw = true;
+        hoverNeedRedraw |= m_d2dContent.SetHover(y);
 
         if (hoverNeedRedraw)
             m_d2dContent.RequestDraw();
@@ -243,7 +253,7 @@ namespace winrt::WinUI3Package::implementation
 
     void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
-        m_d2dContent.SetHover(-1.0);
-        m_d2dContent.RequestDraw();
+        if (m_d2dContent.SetHover(-1.0))
+            m_d2dContent.RequestDraw();
     }
 }

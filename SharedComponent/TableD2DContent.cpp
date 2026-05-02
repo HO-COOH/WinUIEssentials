@@ -20,9 +20,6 @@ TableD2DContent::TableD2DContent() : m_columnWidths(std::size(TableTestData::Col
 	auto d2d1Device = DirectN::GetD2D1Device(d2d1Factory.get(), m_d3dDevice.get());
 	winrt::check_hresult(d2d1Device->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_NONE, m_d2dContext.put()));
 
-	//Text formats are built lazily by the draw thread so their font size
-	//matches the current composition scale.
-
 	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), m_textBrush.put()));
 	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x0F / static_cast<float>(0xFF)), m_backgroundBrush.put()));
 	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x2F / static_cast<float>(0xFF)), m_alternateBackgroundBrush.put()));
@@ -182,32 +179,37 @@ int TableD2DContent::DataCount() const
 bool TableD2DContent::SetHover(float y)
 {
 	int newRow;
-	if (y < 0.f)
+	if (y <= TableConstants::RowHeight)
 		newRow = TableConstants::HoveredRowNone;
 	else
 	{
-		auto const scale = m_swapChain.Scale;
-		auto const rawRowHeight = TableConstants::RowHeight * scale;
+		auto const rawRowHeight = TableConstants::RowHeight * m_swapChain.Scale;
 		auto const scrollOffsetY = m_scrollOffsetY.load(std::memory_order_relaxed);
-		newRow = static_cast<int>((y * scale + scrollOffsetY) / rawRowHeight) - 1;
+		newRow = static_cast<int>((y * m_swapChain.Scale + scrollOffsetY) / rawRowHeight) - 1;
 	}
 	return m_hoveredRow.exchange(newRow, std::memory_order_relaxed) != newRow;
 }
 
-D2D1_ROUNDED_RECT TableD2DContent::getResizePillRect(std::vector<float> const& columnWidths, int column, float scrollOffsetX) const
+D2D1_ROUNDED_RECT TableD2DContent::getResizePillRect(int column, float scrollOffsetX) const
 {
-	auto const columnEndX = std::accumulate(columnWidths.begin(), columnWidths.begin() + column + 1, -scrollOffsetX);
+	auto const columnEndX = std::accumulate(
+		m_columnWidths.begin(), 
+		m_columnWidths.begin() + column + 1, 
+		-scrollOffsetX, 
+		[](float sum, std::atomic<float> const& element) { return sum + element.load(std::memory_order_relaxed); }
+	);
 	auto const rawColumnEndX = columnEndX * m_swapChain.Scale;
-	auto const left = rawColumnEndX - TableConstants::ResizeHotZoneDelta * m_swapChain.Scale;
+
+	auto const scaledPillWidth = TableConstants::PillWidth * m_swapChain.Scale;
 
 	return D2D1_ROUNDED_RECT
 	{
 		.rect = D2D_RECT_F
 		{
-			.left = left,
-			.top = TableConstants::PillPadding * m_swapChain.Scale,
-			.right = left + TableConstants::ResizeHotZoneDelta * m_swapChain.Scale,
-			.bottom = (TableConstants::RowHeight - TableConstants::PillPadding) * m_swapChain.Scale
+			.left = rawColumnEndX - scaledPillWidth,
+			.top = TableConstants::PillPaddingY * m_swapChain.Scale,
+			.right = rawColumnEndX + scaledPillWidth,
+			.bottom = (TableConstants::RowHeight - TableConstants::PillPaddingY) * m_swapChain.Scale
 		},
 		.radiusX = TableConstants::PillCornerRadius * m_swapChain.Scale,
 		.radiusY = TableConstants::PillCornerRadius * m_swapChain.Scale
@@ -249,10 +251,17 @@ void TableD2DContent::drawThreadProc()
 			auto const progress = m_activeScrollRequest.Progress();
 			auto const eased = EasedProgress(progress, 5);
 			bool const done = progress >= 1.0;
-			auto const newY = done ? 
-				m_activeScrollRequest.endY: 
+			auto const newY = done ?
+				m_activeScrollRequest.endY:
 				m_activeScrollRequest.startY + (m_activeScrollRequest.endY - m_activeScrollRequest.startY) * static_cast<float>(eased);
-			m_dispatcher.TryEnqueue([this, newY] { m_table_ref->updateVerticalScrollBar(newY); });
+
+			//only call dispatcher when the scrollBar position actually changed
+			if (auto const newYFloor = static_cast<int>(newY); newYFloor != m_cachedScrollBarY)
+			{
+				m_dispatcher.TryEnqueue([this, newY] { m_table_ref->updateVerticalScrollBar(newY); });
+				m_cachedScrollBarY = newYFloor;
+			}
+
 			m_scrollOffsetY.store(newY, std::memory_order_relaxed);
 			if (done)
 				m_isScrolling.store(false, std::memory_order_release);
@@ -279,30 +288,25 @@ void TableD2DContent::drawThreadProc()
 
 void TableD2DContent::rebuildTextFormatsForScale(float scale)
 {
-	m_headerTextFormat = nullptr;
-	winrt::check_hresult(m_dwriteFactory->CreateTextFormat(
+	m_textLayoutCache.CreateHeaderTextFormat(
 		L"Segoe UI Semibold",
 		nullptr,
 		DWRITE_FONT_WEIGHT_SEMI_BOLD,
 		DWRITE_FONT_STYLE_NORMAL,
 		DWRITE_FONT_STRETCH_NORMAL,
 		TableConstants::HeaderFontSize * scale,
-		L"en-US",
-		m_headerTextFormat.put()
-	));
+		L"en-US"
+	);
 
-	m_cellTextFormat = nullptr;
-	winrt::check_hresult(m_dwriteFactory->CreateTextFormat(
+	m_textLayoutCache.CreateCeilTextFormat(
 		L"Segoe UI",
 		nullptr,
 		DWRITE_FONT_WEIGHT_NORMAL,
 		DWRITE_FONT_STYLE_NORMAL,
 		DWRITE_FONT_STRETCH_NORMAL,
 		TableConstants::CellFontSize * scale,
-		L"en-US",
-		m_cellTextFormat.put()
-	));
-	m_textLayoutCache.SetFormat(m_cellTextFormat.get());
+		L"en-US"
+	);
 }
 
 void TableD2DContent::draw()
@@ -312,74 +316,75 @@ void TableD2DContent::draw()
 	if (m_swapChain.CurrentSize.Width <= 0 || m_swapChain.CurrentSize.Height <= 0)
 		return;
 
-	std::vector<float> columnWidths;
-	columnWidths.reserve(m_columnWidths.size());
-	for (auto const& w : m_columnWidths)
-		columnWidths.push_back(w.load(std::memory_order_relaxed));
-	int const hoveredResizeColumn = m_hoveredResizeColumn.load(std::memory_order_relaxed);
 
+	int const hoveredResizeColumn = m_hoveredResizeColumn.load(std::memory_order_relaxed);
 	auto const scrollOffsetX = m_scrollOffsetX.load(std::memory_order_relaxed);
 	auto const scrollOffsetY = m_scrollOffsetY.load(std::memory_order_relaxed);
 
 	m_d2dContext->BeginDraw();
 	m_d2dContext->Clear(D2D1::ColorF(0, 0));
-	drawRows(columnWidths, scrollOffsetX, scrollOffsetY);
-	drawHeader(columnWidths, hoveredResizeColumn, scrollOffsetX);
+	drawRows(scrollOffsetX, scrollOffsetY);
+	drawHeader(hoveredResizeColumn, scrollOffsetX);
 	m_d2dContext->EndDraw();
 
 	DXGI_PRESENT_PARAMETERS presentParameters{};
 	winrt::check_hresult(m_swapChain->Present1(0, 0, &presentParameters));
 }
 
-void TableD2DContent::drawHeader(std::vector<float> const& columnWidths, int hoveredResizeColumn, float scrollOffsetX)
+void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 {
 	auto const scale = m_swapChain.Scale;
 	auto currentX = -scrollOffsetX * scale;
+	auto rawHeaderHeight = TableConstants::RowHeight * m_swapChain.Scale;
 	for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
 	{
-		auto const rawColumnWidth = columnWidths[column] * scale;
-		m_d2dContext->DrawTextW(
-			TableTestData::Columns[column],
-			static_cast<uint32_t>(std::wstring_view{ TableTestData::Columns[column] }.size()),
-			m_headerTextFormat.get(),
-			D2D1_RECT_F
-			{
-				.left = currentX,
-				.top = 0,
-				.right = currentX + rawColumnWidth,
-				.bottom = 30 * scale
-			},
-			m_textBrush.get()
-		);
+		auto const rawColumnWidth = m_columnWidths[column].load(std::memory_order_relaxed) * scale;
+		//m_d2dContext->DrawTextW(
+		//	TableTestData::Columns[column],
+		//	static_cast<uint32_t>(std::wstring_view{ TableTestData::Columns[column] }.size()),
+		//	m_textLayoutCache.m_headerTextFormat.get(),
+		//	D2D1_RECT_F
+		//	{
+		//		.left = currentX,
+		//		.top = 0,
+		//		.right = currentX + rawColumnWidth,
+		//		.bottom = 30 * scale
+		//	},
+		//	m_textBrush.get()
+		//);
+		auto layout = m_textLayoutCache.GetOrCreate(-1, column, TableTestData::Columns[column], rawColumnWidth, rawHeaderHeight);
+		m_d2dContext->DrawTextLayout({ currentX, 0 }, layout, m_textBrush.get());
 
 		if (m_sortColumnIndex == static_cast<int>(column))
 		{
 			//draw sort indicator here
 		}
 
-		if (hoveredResizeColumn != TableConstants::ResizeColumnIndexNone)
-		{
-			auto const pillRect = getResizePillRect(columnWidths, hoveredResizeColumn, scrollOffsetX);
-			m_d2dContext->FillRoundedRectangle(&pillRect, m_pillBrush.get());
-		}
+		//if (hoveredResizeColumn != TableConstants::ResizeColumnIndexNone)
+		//{
+		//	auto const pillRect = getResizePillRect(hoveredResizeColumn, scrollOffsetX);
+		//	m_d2dContext->FillRoundedRectangle(&pillRect, m_pillBrush.get());
+		//}
 
 		D2DPrimitiveHelper::DrawVerticalLine(
 			m_d2dContext.get(),
 			currentX + rawColumnWidth - 1,
 			4 * scale,
 			(4 + TableConstants::HeaderFontSize) * scale,
-			m_textBrush.get()
+			hoveredResizeColumn == column? m_pillBrush.get() : m_textBrush.get()
 		);
 		currentX += rawColumnWidth;
 	}
 }
 
-void TableD2DContent::drawRows(std::vector<float> const& columnWidths, float scrollOffsetX, float scrollOffsetY)
+void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY)
 {
 	auto const rawRowHeight = TableConstants::RowHeight * m_swapChain.Scale;
 	int const hoveredRow = m_hoveredRow.load(std::memory_order_relaxed);
 	int const first = (std::max)(0, static_cast<int>(scrollOffsetY / rawRowHeight));
 	int const last = (std::min)(m_data.Count() - 1, static_cast<int>((scrollOffsetY + m_swapChain.CurrentSize.Height * m_swapChain.Scale) / rawRowHeight));
+
+	auto rawCornerRadius = TableConstants::CornerRadius * m_swapChain.Scale;
 	for (int row = first; row <= last; ++row)
 	{
 		auto& rowData = m_data[row];
@@ -387,12 +392,11 @@ void TableD2DContent::drawRows(std::vector<float> const& columnWidths, float scr
 
 		if (row == hoveredRow)
 		{
-			//draw background
 			D2D1_ROUNDED_RECT const rect
 			{
-				.rect = D2D1::RectF(0, rowY, m_swapChain.CurrentSize.Width * m_swapChain.Scale, rowY + rawRowHeight),
-				.radiusX = TableConstants::CornerRadius * m_swapChain.Scale,
-				.radiusY = TableConstants::CornerRadius * m_swapChain.Scale
+				.rect = D2D1::RectF(0, rowY + 1, m_swapChain.CurrentSize.Width * m_swapChain.Scale, rowY + rawRowHeight - 1),
+				.radiusX = rawCornerRadius,
+				.radiusY = rawCornerRadius
 			};
 			m_d2dContext->FillRoundedRectangle(
 				&rect,
@@ -401,7 +405,10 @@ void TableD2DContent::drawRows(std::vector<float> const& columnWidths, float scr
 		}
 		else
 		{
-			m_d2dContext->FillRectangle(D2D1::RectF(0, rowY, m_swapChain.CurrentSize.Width * m_swapChain.Scale, rowY + rawRowHeight), (row % 2 == 0) ? m_backgroundBrush.get() : m_alternateBackgroundBrush.get());
+			//m_d2dContext->FillRectangle(
+			//	D2D1::RectF(rawCornerRadius, rowY, m_swapChain.CurrentSize.Width * m_swapChain.Scale - rawCornerRadius, rowY + rawRowHeight),
+			//	(row % 2 == 0) ? m_backgroundBrush.get() : m_alternateBackgroundBrush.get()
+			//);
 		}
 
 		//draw columns
@@ -409,7 +416,7 @@ void TableD2DContent::drawRows(std::vector<float> const& columnWidths, float scr
 		auto currentX = -scrollOffsetX * scale;
 		for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
 		{
-			auto const rawColumnWidth = columnWidths[column] * scale;
+			auto const rawColumnWidth = m_columnWidths[column].load(std::memory_order_relaxed) * scale;
 			auto const header = m_data.Header()[column];
 			auto const& columnData = rowData[column];
 			auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData, rawColumnWidth, rawRowHeight);

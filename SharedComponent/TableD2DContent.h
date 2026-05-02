@@ -1,15 +1,12 @@
 ﻿#pragma once
 #include <winrt/base.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
-#include <winrt/Microsoft.UI.Xaml.h>
-#include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <d2d1_1.h>
 #include <d3d11.h>
 #include <dwrite.h>
 #include <atomic>
 #include <thread>
 #include <vector>
-
 #include "SwapChainInterop.h"
 #include "TextLayoutCache.h"
 #include "TableTestData.hpp"
@@ -17,14 +14,30 @@
 #include "ScrollRequest.h"
 #include "DirectN.h"
 
-namespace winrt::WinUI3Package::implementation
+namespace winrt
 {
-	struct Table;
+	namespace WinUI3Package::implementation
+	{
+		struct Table;
+	}
+
+	namespace Microsoft::UI::Xaml
+	{
+		namespace Controls
+		{
+			struct SwapChainPanel;
+		}
+
+		struct SizeChangedEventArgs;
+	}
 }
+
 
 class TableD2DContent
 {
 public:
+	winrt::Microsoft::UI::Dispatching::DispatcherQueue m_dispatcher{ nullptr };
+
 	TableD2DContent();
 	~TableD2DContent();
 
@@ -81,9 +94,9 @@ public:
 private:
 	void drawThreadProc();
 	void draw();
-	void drawHeader(std::vector<float> const& columnWidths, int hoveredResizeColumn, float scrollOffsetX);
-	void drawRows(std::vector<float> const& columnWidths, float scrollOffsetX, float scrollOffsetY);
-	D2D1_ROUNDED_RECT getResizePillRect(std::vector<float> const& columnWidths, int column, float scrollOffsetX) const;
+	void drawHeader(int hoveredResizeColumn, float scrollOffsetX);
+	void drawRows(float scrollOffsetX, float scrollOffsetY);
+	D2D1_ROUNDED_RECT getResizePillRect(int column, float scrollOffsetX) const;
 
 	//Draw-thread only. Recreates text formats (and invalidates the layout
 	//cache) so glyph pixel size matches the current composition scale.
@@ -97,8 +110,6 @@ private:
 
 	SwapChainInterop m_swapChain;
 
-	winrt::com_ptr<IDWriteTextFormat> m_headerTextFormat;
-	winrt::com_ptr<IDWriteTextFormat> m_cellTextFormat;
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
 
 	winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;
@@ -119,16 +130,21 @@ private:
 	int m_sortColumnIndex = -1;
 
 	// Smooth scroll state
-	std::atomic<bool> m_isScrolling{ false };
 	std::atomic<float> m_smoothScrollTargetY{ 0.f };
-
 	std::atomic<bool> m_drawRequest{ false };
 	std::atomic<bool> m_swapChainDirty{ false };
 	std::atomic<bool> m_stopRequested{ false };
+	std::atomic<bool> m_isScrolling{ false };
 
 	//Draw-thread-only. Last scale the text formats were built for.
 	//Sentinel so the first frame after startup always rebuilds.
 	float m_textFormatScale{ -1.f };
+
+	//Draw-thread-only. Floor of the last scroll offset for which the
+	//scrollbar-thumb update was dispatched to the UI thread. Gates
+	//sub-pixel-equivalent redundant hops during smooth-scroll animation.
+	//Sentinel ensures the first frame dispatches.
+	int m_cachedScrollBarY{ -1 };
 
 	//Writer (UI thread) fills startY/endY/startTime and then stores
 	//isPending=true with release ordering. Reader (draw thread) swaps the
@@ -137,7 +153,6 @@ private:
 	//Draw-thread-only snapshot. Its isPending is never touched.
 	ScrollRequest m_activeScrollRequest;
 
-	winrt::Microsoft::UI::Dispatching::DispatcherQueue m_dispatcher{ nullptr };
 	winrt::WinUI3Package::implementation::Table* m_table_ref{ nullptr };
 
 	std::thread m_drawThread;

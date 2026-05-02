@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <winrt/base.h>
 #include <dxgi1_3.h>
 
@@ -33,7 +33,6 @@ public:
 	float Scale = 1.0f;
 	winrt::Windows::Foundation::Size CurrentSize{};
 
-	SwapChainInterop() = default;
 	void Set(ID3D11Device* d3d11Device, winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel);
 
 	//Block until DWM has consumed the previous frame and is ready for a new
@@ -47,6 +46,8 @@ public:
 	//Draw thread. Resizes back buffers to CurrentSize*Scale, reapplies the
 	//inverse-DPI composition transform, and binds a new target bitmap.
 	void SetTarget(ID2D1DeviceContext* d2dContext);
+
+	//Debug life-time
 	//~SwapChainInterop()
 	//{
 	//	OutputDebugString(L"Destructed\n");

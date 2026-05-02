@@ -15,11 +15,37 @@ class TextLayoutCache
 
 	std::vector<std::vector<TextLayout>> m_cache;
 	IDWriteFactory* m_dwriteFactory{};
-	IDWriteTextFormat* m_textFormat{};
-	winrt::com_ptr<IDWriteInlineObject> m_trimming;
+
+	//header text
+	winrt::com_ptr<IDWriteTextFormat> m_headerTextFormat;
+	winrt::com_ptr<IDWriteInlineObject> m_headerTrimming;
+
+	//cell text
+	winrt::com_ptr<IDWriteTextFormat> m_cellTextFormat;
+	winrt::com_ptr<IDWriteInlineObject> m_cellTrimming;
 public:
 	TextLayoutCache(IDWriteFactory* dwriteFactory);
 
-	void SetFormat(IDWriteTextFormat* textFormat);
+	void CreateHeaderTextFormat(
+		WCHAR const* fontFamilyName,
+		IDWriteFontCollection* fontCollection,
+		DWRITE_FONT_WEIGHT fontWeight,
+		DWRITE_FONT_STYLE fontStyle,
+		DWRITE_FONT_STRETCH fontStretch,
+		FLOAT fontSize,
+		WCHAR const* localeName
+	);
+
+	void CreateCeilTextFormat(
+		WCHAR const* fontFamilyName,
+		IDWriteFontCollection* fontCollection,
+		DWRITE_FONT_WEIGHT fontWeight,
+		DWRITE_FONT_STYLE fontStyle,
+		DWRITE_FONT_STRETCH fontStretch,
+		FLOAT fontSize,
+		WCHAR const* localeName
+	);
+	void Clear();
+
 	IDWriteTextLayout* GetOrCreate(int row, int column, std::wstring_view str, FLOAT maxWidth, FLOAT maxHeight);
 };
