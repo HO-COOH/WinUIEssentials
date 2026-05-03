@@ -3,8 +3,11 @@
 #include <winrt/base.h>
 #include <dwrite.h>
 
+class ColumnWidthManager;
+
 class TextLayoutCache
 {
+public:
 	struct TextLayout
 	{
 		std::wstring content{};
@@ -13,17 +16,6 @@ class TextLayoutCache
 		winrt::com_ptr<IDWriteTextLayout> layout;
 	};
 
-	std::vector<std::vector<TextLayout>> m_cache;
-	IDWriteFactory* m_dwriteFactory{};
-
-	//header text
-	winrt::com_ptr<IDWriteTextFormat> m_headerTextFormat;
-	winrt::com_ptr<IDWriteInlineObject> m_headerTrimming;
-
-	//cell text
-	winrt::com_ptr<IDWriteTextFormat> m_cellTextFormat;
-	winrt::com_ptr<IDWriteInlineObject> m_cellTrimming;
-public:
 	TextLayoutCache(IDWriteFactory* dwriteFactory);
 
 	void CreateHeaderTextFormat(
@@ -48,4 +40,18 @@ public:
 	void Clear();
 
 	IDWriteTextLayout* GetOrCreate(int row, int column, std::wstring_view str, FLOAT maxWidth, FLOAT maxHeight);
+
+private:
+	std::vector<std::vector<TextLayout>> m_cache;
+	IDWriteFactory* m_dwriteFactory{};
+
+	//header text
+	winrt::com_ptr<IDWriteTextFormat> m_headerTextFormat;
+	winrt::com_ptr<IDWriteInlineObject> m_headerTrimming;
+
+	//cell text
+	winrt::com_ptr<IDWriteTextFormat> m_cellTextFormat;
+	winrt::com_ptr<IDWriteInlineObject> m_cellTrimming;
+
+	friend class ColumnWidthManager;
 };

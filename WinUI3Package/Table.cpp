@@ -16,8 +16,6 @@ namespace winrt::WinUI3Package::implementation
         //get ui elements
         m_verticalScrollBarCache.Set(VerticalScrollBar());
         m_horizontalScrollBarCache.Set(HorizontalScrollBar());
-
-        m_d2dContent.Initialize(*this);
     }
 
     void Table::requestDraw()
@@ -101,7 +99,7 @@ namespace winrt::WinUI3Package::implementation
     void Table::SwapChainPanel_SizeChanged(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
     {
         m_d2dContent.SizeChanged(*this, e);
-        updateScrollBars();
+        m_d2dContent.m_dispatcher.TryEnqueue([this] { updateScrollBars(); });
     }
 
     void Table::SwapChainPanel_CompositionScaleChanged(winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const&, winrt::Windows::Foundation::IInspectable const&)
@@ -183,7 +181,7 @@ namespace winrt::WinUI3Package::implementation
 
             auto const delta = x - m_resizeRequest.m_resizeStartX;
             auto const newColumnWidth = (std::max)(TableConstants::MinColumnWidth, m_resizeRequest.m_resizeStartWidth + delta);
-            m_d2dContent.SetColumnWidth(m_resizeRequest.m_resizeColumnIndex, newColumnWidth);
+            m_d2dContent.m_columnWidthManager.Set(m_resizeRequest.m_resizeColumnIndex, newColumnWidth);
             requestDraw();
             return;
         }
@@ -239,7 +237,7 @@ namespace winrt::WinUI3Package::implementation
         m_resizeRequest = true;
         m_resizeRequest.m_resizeColumnIndex = resizeColumnIndex;
         m_resizeRequest.m_resizeStartX = x;
-        m_resizeRequest.m_resizeStartWidth = m_d2dContent.ColumnWidth(resizeColumnIndex);
+        m_resizeRequest.m_resizeStartWidth = m_d2dContent.m_columnWidthManager.Get(resizeColumnIndex);
         return;
     }
 

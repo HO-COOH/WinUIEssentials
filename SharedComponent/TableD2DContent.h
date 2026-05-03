@@ -13,6 +13,7 @@
 #include "TableConstants.hpp"
 #include "ScrollRequest.h"
 #include "DirectN.h"
+#include "ColumnWidthManager.h"
 
 namespace winrt
 {
@@ -38,18 +39,11 @@ class TableD2DContent
 public:
 	winrt::Microsoft::UI::Dispatching::DispatcherQueue m_dispatcher{ nullptr };
 
-	TableD2DContent();
+	TableD2DContent(winrt::WinUI3Package::implementation::Table& table);
 	~TableD2DContent();
 
 	TableD2DContent(TableD2DContent const&) = delete;
 	TableD2DContent& operator=(TableD2DContent const&) = delete;
-
-	// Called from the WinUI3 UI thread after construction to wire up the
-	// swap-chain panel and start the D2D thread. onScrollFrameRendered, if
-	// provided, is marshaled to the UI thread after every frame that
-	// advanced the smooth-scroll animation, so the caller can keep XAML
-	// state (e.g. the scrollbar thumb) in lockstep with the D2D present.
-	void Initialize(winrt::WinUI3Package::implementation::Table& table);
 
 	void Stop();
 
@@ -77,8 +71,6 @@ public:
 	bool IsScrolling() const;
 	float SmoothScrollTargetY() const;
 
-	float ColumnWidth(int column) const;
-	void SetColumnWidth(int column, float width);
 
 	int HoveredResizeColumn() const;
 	[[nodiscard]] bool SetHoveredResizeColumn(int index); //return whether hovered column change
@@ -111,7 +103,9 @@ private:
 	SwapChainInterop m_swapChain;
 
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
-
+public:
+	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache };
+private:
 	winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;
 	winrt::com_ptr<ID2D1SolidColorBrush> m_backgroundBrush;
 	winrt::com_ptr<ID2D1SolidColorBrush> m_alternateBackgroundBrush;
@@ -124,8 +118,9 @@ private:
 	//row. Storing the row (not the raw y) both simplifies the hover test in
 	//the draw code and gates redraws to actual row transitions.
 	std::atomic<int> m_hoveredRow{ TableConstants::HoveredRowNone };
+	std::atomic<bool> m_initialSizing{ true };
 
-	std::vector<std::atomic<float>> m_columnWidths;
+
 	std::atomic<int> m_hoveredResizeColumn{ TableConstants::ResizeColumnIndexNone };
 	int m_sortColumnIndex = -1;
 
@@ -153,7 +148,7 @@ private:
 	//Draw-thread-only snapshot. Its isPending is never touched.
 	ScrollRequest m_activeScrollRequest;
 
-	winrt::WinUI3Package::implementation::Table* m_table_ref{ nullptr };
+	winrt::WinUI3Package::implementation::Table& m_table_ref;
 
 	std::thread m_drawThread;
 };

@@ -14,11 +14,13 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="$(MSBuildThisFileDirectory)ColumnSizingMode.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)CachedScrollBar.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DirectN.cpp" />
@@ -32,6 +34,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedCursor.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedScrollBar.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DirectN.h" />

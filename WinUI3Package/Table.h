@@ -25,7 +25,7 @@ namespace winrt::WinUI3Package::implementation
 
         void updateVerticalScrollBar(float scrollOffsetY);
     private:
-        TableD2DContent m_d2dContent;
+        TableD2DContent m_d2dContent{ *this };
 
         //Request a redraw and immediately refresh the scrollbars.
         //UI-thread only.
