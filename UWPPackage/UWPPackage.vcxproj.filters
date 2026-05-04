@@ -7,26 +7,11 @@
     <Filter Include="Controls">
       <UniqueIdentifier>{db76334f-9dff-4acb-8cdb-6fdfead70be6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controls\GroupBox">
-      <UniqueIdentifier>{71f464d0-b5c2-4933-ac17-7298cebef74b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls\SettingsCard">
       <UniqueIdentifier>{067bcf75-9e30-466d-826c-8dcc962eadc1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controls\SettingsExpander">
-      <UniqueIdentifier>{87ccb50b-6d50-446a-a638-27eac1a5aa15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\MarqueeText">
-      <UniqueIdentifier>{f1a74a3a-dc24-4185-9aaa-86e8cdaf5c89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\ProgressBarEx">
-      <UniqueIdentifier>{cfc76919-eddb-46ef-9741-eaffdc4667bc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls\Segmented">
       <UniqueIdentifier>{37121013-2205-49ac-aff0-8d7f90a69296}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\Shimmer">
-      <UniqueIdentifier>{fe6e81ee-bbd0-44fc-a975-a338112dfa61}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -91,29 +76,29 @@
     <Midl Include="SettingsCommandEx.idl" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="GroupBox_Resource.xaml">
-      <Filter>Controls\GroupBox</Filter>
-    </Page>
     <Page Include="SettingsCard_Resource.xaml">
       <Filter>Controls\SettingsCard</Filter>
-    </Page>
-    <Page Include="SettingsExpander_Resource.xaml">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Page>
-    <Page Include="MarqueeText_Resource.xaml">
-      <Filter>Controls\MarqueeText</Filter>
-    </Page>
-    <Page Include="ProgressBarEx_Resource.xaml">
-      <Filter>Controls\ProgressBarEx</Filter>
     </Page>
     <Page Include="Segmented_Resource.xaml">
       <Filter>Controls\Segmented</Filter>
     </Page>
-    <Page Include="Shimmer_Resource.xaml">
-      <Filter>Controls\Shimmer</Filter>
-    </Page>
     <Page Include="SettingsCard_ContentResource.xaml">
       <Filter>Controls\SettingsCard</Filter>
+    </Page>
+    <Page Include="GroupBox_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="MarqueeText_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="ProgressBarEx_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="SettingsExpander_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="Shimmer_Resource.xaml">
+      <Filter>Controls</Filter>
     </Page>
   </ItemGroup>
 </Project>
