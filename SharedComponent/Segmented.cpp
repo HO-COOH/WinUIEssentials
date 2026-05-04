@@ -25,6 +25,7 @@ namespace winrt::PackageRoot::implementation
 
 	void Segmented::OnApplyTemplate()
 	{
+		base_type::OnApplyTemplate();
 		// This is for when knob is null (like using other templates)
 		TemplateApplied();
 
@@ -50,18 +51,20 @@ namespace winrt::PackageRoot::implementation
 
 	winrt::Windows::Foundation::Numerics::float2 Segmented::SelectedItemActualWidth()
 	{
-		return Items().GetAt(m_internalSelectedIndex).as<winrt::WinUINamespace::UI::Xaml::UIElement>().ActualSize();
+		auto selectedItem = Items().GetAt(m_internalSelectedIndex).as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
+		return { static_cast<float>(selectedItem.ActualWidth()), static_cast<float>(selectedItem.ActualHeight()) };
 	}
 
 	winrt::Windows::Foundation::Numerics::float2 Segmented::SelectedItemOffset()
 	{
-		auto selectedItem2 = Items().GetAt(m_internalSelectedIndex).as<winrt::WinUINamespace::UI::Xaml::UIElement>();
+		auto selectedItem2 = Items().GetAt(m_internalSelectedIndex).as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
 		auto transform = selectedItem2.TransformToVisual(*this);
 
 		auto actualWidth = ActualWidth();
 
-		auto selectedItemSize = selectedItem2.ActualSize();
-		auto relative = transform.TransformPoint({ float(selectedItemSize.x / 2), float(selectedItemSize.y / 2) });
+		auto selectedItemWidth = selectedItem2.ActualWidth();
+		auto selectedItemHeight = selectedItem2.ActualHeight();
+		auto relative = transform.TransformPoint({ float(selectedItemWidth / 2), float(selectedItemHeight / 2) });
 		return winrt::Windows::Foundation::Numerics::float2(relative.X - actualWidth / 2, relative.Y - ActualHeight() / 2);
 	}
 
@@ -122,15 +125,15 @@ namespace winrt::PackageRoot::implementation
 		);
 	}
 
-	void Segmented::onHorizontalAlignmentChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& sender, winrt::WinUINamespace::UI::Xaml::DependencyProperty const& horizontalAlignmentProperty)
+	void Segmented::onHorizontalAlignmentChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const&, winrt::WinUINamespace::UI::Xaml::DependencyProperty const&)
 	{
 		if (auto panel = ItemsPanelRoot())
 		{
-			panel.HorizontalAlignment(winrt::unbox_value<winrt::WinUINamespace::UI::Xaml::HorizontalAlignment>(GetValue(horizontalAlignmentProperty)));
+			panel.HorizontalAlignment(HorizontalAlignment());
 		}
 	}
 
-	void Segmented::onItemsPanelChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& sender, winrt::WinUINamespace::UI::Xaml::DependencyProperty const& itemsPanelProperty)
+	void Segmented::onItemsPanelChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const&, winrt::WinUINamespace::UI::Xaml::DependencyProperty const&)
 	{
 		onHorizontalAlignmentChanged(nullptr, nullptr);
 	}

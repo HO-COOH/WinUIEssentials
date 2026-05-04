@@ -1,0 +1,12 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SettingsExpanderItemStyleSelector : WinUINamespace.UI.Xaml.Controls.StyleSelector
+    {
+        SettingsExpanderItemStyleSelector();
+
+        WinUINamespace.UI.Xaml.Style DefaultStyle;
+        WinUINamespace.UI.Xaml.Style ClickableStyle;
+    }
+}

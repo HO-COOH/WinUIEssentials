@@ -1,0 +1,52 @@
+﻿namespace PackageRoot
+{
+    delegate void SignalDelegate();
+
+    [bindable]
+    [default_interface]
+    [contentproperty("Content")]
+    unsealed runtimeclass SettingsExpander : WinUINamespace.UI.Xaml.Controls.Control
+    {
+        SettingsExpander();
+
+        /*Properties*/
+        Object Content;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentProperty{ get; };
+
+        Object Header;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderProperty{ get; };
+
+        Object Description;
+        static WinUINamespace.UI.Xaml.DependencyProperty DescriptionProperty{ get; };
+
+        Object HeaderIcon;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderIconProperty{ get; };
+
+        WinUINamespace.UI.Xaml.UIElement ItemsHeader;
+        static WinUINamespace.UI.Xaml.DependencyProperty ItemsHeaderProperty{ get; };
+
+        WinUINamespace.UI.Xaml.UIElement ItemsFooter;
+        static WinUINamespace.UI.Xaml.DependencyProperty ItemsFooterProperty{ get; };
+
+        Boolean IsExpanded;
+        static WinUINamespace.UI.Xaml.DependencyProperty IsExpandedProperty{ get; };
+
+        /*Events*/
+        event PackageRoot.SignalDelegate Expanded;
+        event PackageRoot.SignalDelegate Collapsed;
+
+        /*ItemsControl*/
+        Windows.Foundation.Collections.IVector<Object> Items;
+        static WinUINamespace.UI.Xaml.DependencyProperty ItemsProperty{ get; };
+
+        Object ItemsSource;
+        static WinUINamespace.UI.Xaml.DependencyProperty ItemsSourceProperty{ get; };
+
+        Object ItemTemplate;
+        static WinUINamespace.UI.Xaml.DependencyProperty ItemTemplateProperty{ get; };
+
+        WinUINamespace.UI.Xaml.Controls.StyleSelector ItemContainerStyleSelector;
+        static WinUINamespace.UI.Xaml.DependencyProperty ItemContainerStyleSelectorProperty{ get; };
+
+    }
+}

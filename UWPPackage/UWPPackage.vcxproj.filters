@@ -19,9 +19,6 @@
     <Filter Include="Controls\MarqueeText">
       <UniqueIdentifier>{f1a74a3a-dc24-4185-9aaa-86e8cdaf5c89}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controls\IconButton">
-      <UniqueIdentifier>{01fd93c1-3039-4be8-9741-899f4271ffcf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls\ProgressBarEx">
       <UniqueIdentifier>{cfc76919-eddb-46ef-9741-eaffdc4667bc}</UniqueIdentifier>
     </Filter>
@@ -30,9 +27,6 @@
     </Filter>
     <Filter Include="Controls\Shimmer">
       <UniqueIdentifier>{fe6e81ee-bbd0-44fc-a975-a338112dfa61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\ImageExtension">
-      <UniqueIdentifier>{71beeb28-f6d1-4c22-b38e-760d83045a30}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -95,33 +89,6 @@
   <ItemGroup>
     <Midl Include="SettingsPaneEx.idl" />
     <Midl Include="SettingsCommandEx.idl" />
-    <Midl Include="SettingsExpanderItemStyleSelector.idl">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="SettingsExpander.idl">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="MarqueeText.idl">
-      <Filter>Controls\MarqueeText</Filter>
-    </Midl>
-    <Midl Include="ProgressBarEx.idl">
-      <Filter>Controls\ProgressBarEx</Filter>
-    </Midl>
-    <Midl Include="EqualPanel.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedItem.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedItemCornerRadiusConverter.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedMarginConverter.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="GroupBox_Resource.xaml">

@@ -1,9 +1,0 @@
-﻿namespace UWPPackage
-{
-    [bindable]
-    [default_interface]
-    runtimeclass SettingsExpanderLastItemConrnerRadiusConverter : Windows.UI.Xaml.Data.IValueConverter
-    {
-        SettingsExpanderLastItemConrnerRadiusConverter();
-    }
-}

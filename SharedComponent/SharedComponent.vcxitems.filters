@@ -37,6 +37,15 @@
     <Filter Include="Segmented">
       <UniqueIdentifier>{e1f722c9-c1ae-491a-ac80-8d6593e3661b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SettingsExpander">
+      <UniqueIdentifier>{866e1dd6-b4aa-4766-a702-ecb448714767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MarqueeText">
+      <UniqueIdentifier>{c3d1448b-f757-4894-b6df-533978523e61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProgressBarEx">
+      <UniqueIdentifier>{64dab47f-99b5-4743-b3a5-18c361a00ec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -110,6 +119,33 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)Shimmer.idl">
       <Filter>Shimmer</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)EqualPanel.idl">
+      <Filter>Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SegmentedItem.idl">
+      <Filter>Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.idl">
+      <Filter>Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SegmentedMarginConverter.idl">
+      <Filter>Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsExpanderItemStyleSelector.idl">
+      <Filter>SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsExpanderLastItemConrnerRadiusConverter.idl">
+      <Filter>SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsExpander.idl">
+      <Filter>SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)MarqueeText.idl">
+      <Filter>MarqueeText</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ProgressBarEx.idl">
+      <Filter>ProgressBarEx</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +233,33 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.DefaultGradientColor.h">
       <Filter>Shimmer</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EqualPanel.h">
+      <Filter>Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedItem.h">
+      <Filter>Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.h">
+      <Filter>Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedMarginConverter.h">
+      <Filter>Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpanderItemStyleSelector.h">
+      <Filter>SettingsExpander</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpanderLastItemConrnerRadiusConverter.h">
+      <Filter>SettingsExpander</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpander.h">
+      <Filter>SettingsExpander</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MarqueeText.h">
+      <Filter>MarqueeText</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ProgressBarEx.h">
+      <Filter>ProgressBarEx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -276,6 +339,33 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Shimmer.AnimationMember.cpp">
       <Filter>Shimmer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EqualPanel.cpp">
+      <Filter>Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItem.cpp">
+      <Filter>Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.cpp">
+      <Filter>Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedMarginConverter.cpp">
+      <Filter>Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsExpanderItemStyleSelector.cpp">
+      <Filter>SettingsExpander</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsExpanderLastItemConrnerRadiusConverter.cpp">
+      <Filter>SettingsExpander</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsExpander.cpp">
+      <Filter>SettingsExpander</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MarqueeText.cpp">
+      <Filter>MarqueeText</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ProgressBarEx.cpp">
+      <Filter>ProgressBarEx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
