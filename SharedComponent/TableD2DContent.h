@@ -83,6 +83,7 @@ public:
 
 	int DataCount() const;
 	[[nodiscard]] bool SetHover(float y);
+	std::atomic_int Frames{ 0 };
 private:
 	void drawThreadProc();
 	void draw();

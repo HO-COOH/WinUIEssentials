@@ -125,6 +125,8 @@ public:
             wchar_t const* Content;
 			DWRITE_TEXT_ALIGNMENT HorizontalAlignment;
 			DWRITE_PARAGRAPH_ALIGNMENT VerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+            DWRITE_TEXT_ALIGNMENT HeaderHorizontalAlignment = DWRITE_TEXT_ALIGNMENT_CENTER;
+            DWRITE_PARAGRAPH_ALIGNMENT HeaderVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
         };
 
         constexpr Column operator[](int column) const

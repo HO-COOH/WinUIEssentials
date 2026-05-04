@@ -6,14 +6,14 @@
 #include "ResizeRequest.h"
 #include "TableConstants.hpp"
 #include "CachedCursor.hpp"
+#include <include/PropertyChangeHelper.hpp>
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct Table : TableT<Table>, CachedCursor<Table>
+    struct Table : TableT<Table>, CachedCursor<Table>, MvvmHelper::PropertyChangeHelper<Table>
     {
         Table();
 
-        void ClickHandler(Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args);
         void SwapChainPanel_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e);
         void SwapChainPanel_CompositionScaleChanged(winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender, winrt::Windows::Foundation::IInspectable const& args);
         void VerticalScrollBar_ValueChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e);
@@ -24,6 +24,9 @@ namespace winrt::WinUI3Package::implementation
         void SwapChainPanel_PointerReleased(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
 
         void updateVerticalScrollBar(float scrollOffsetY);
+        int Fps();
+        int DataCount();
+        void DataCount(int value);
     private:
         TableD2DContent m_d2dContent{ *this };
 
@@ -44,6 +47,10 @@ namespace winrt::WinUI3Package::implementation
 
         //resizing
         ResizeRequest m_resizeRequest;
+        
+        //fps
+        winrt::Microsoft::UI::Dispatching::DispatcherQueueTimer m_fpsTimer{ nullptr };
+        float m_fps{};
     public:
         void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };

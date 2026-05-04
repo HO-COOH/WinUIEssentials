@@ -16,13 +16,6 @@
     SizeChanged="SwapChainPanel_SizeChanged"
     mc:Ignorable="d">
 
-    <Button
-        x:Name="Button"
-        HorizontalAlignment="Center"
-        Click="ClickHandler">
-        Click Me
-    </Button>
-
     <primitives:ScrollBar
         x:Name="VerticalScrollBar"
         HorizontalAlignment="Right"

@@ -7,9 +7,11 @@
     xmlns:essential="using:WinUI3Package"
     xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="OnLoaded"
+    Unloaded="OnUnloaded"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid RowSpacing="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -20,7 +22,23 @@
             IsClosable="False"
             IsOpen="True"
             Severity="Warning" />
-        
-        <essential:Table Grid.Row="1" VerticalAlignment="Stretch" />
+
+        <local:ControlExample
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            HeaderText="Table demo">
+            <essential:Table
+                x:Name="DemoTable"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+            <local:ControlExample.Output>
+                <TextBlock MinWidth="75">
+                    <Run Text="Fps: " />
+                    <Run Text="{x:Bind DemoTable.Fps, Mode=OneWay}" />
+                </TextBlock>
+            </local:ControlExample.Output>
+        </local:ControlExample>
+
     </Grid>
 </Page>

@@ -27,4 +27,5 @@ public:
 	void LargeChange(double largeChange);
 	void SmallChange(double smallChange);
 	bool Value(double value); //return whether changed
+    operator bool() const;
 };

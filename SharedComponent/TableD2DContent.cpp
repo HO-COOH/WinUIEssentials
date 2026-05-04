@@ -293,13 +293,14 @@ void TableD2DContent::draw()
 	m_d2dContext->BeginDraw();
 	m_d2dContext->Clear(D2D1::ColorF(0, 0));
 
+	m_textLayoutCache.SetNumColumns(std::size(TableTestData::Columns));
 	drawRows(scrollOffsetX, scrollOffsetY);
 	drawHeader(hoveredResizeColumn, scrollOffsetX);
 	m_d2dContext->EndDraw();
 
 	DXGI_PRESENT_PARAMETERS presentParameters{};
 	winrt::check_hresult(m_swapChain->Present1(0, 0, &presentParameters));
-
+	Frames.fetch_add(1, std::memory_order_relaxed);
 
 	if (m_initialSizing && m_data.Count() > 0)
 	{
@@ -316,7 +317,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 	auto rawHeaderHeight = TableConstants::HeaderHeight * m_swapChain.Scale;
 	for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
 	{
-		auto const rawColumnWidth = m_columnWidthManager.Get(column) * scale;
+		auto const rawColumnWidth = m_initialSizing? (std::numeric_limits<float>::max)() : m_columnWidthManager.Get(column) * scale;
 		//m_d2dContext->DrawTextW(
 		//	TableTestData::Columns[column],
 		//	static_cast<uint32_t>(std::wstring_view{ TableTestData::Columns[column] }.size()),
@@ -330,7 +331,8 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 		//	},
 		//	m_textBrush.get()
 		//);
-		auto layout = m_textLayoutCache.GetOrCreate(-1, column, TableTestData::Columns[column], rawColumnWidth, rawHeaderHeight);
+		auto header = m_data.Header()[column];
+		auto layout = m_textLayoutCache.GetOrCreate(column, TableTestData::Columns[column], rawColumnWidth, rawHeaderHeight, header.HeaderHorizontalAlignment, header.HeaderVerticalAlignment);
 		if (!m_initialSizing)
 			m_d2dContext->DrawTextLayout({ currentX, 0 }, layout, m_textBrush.get());
 
@@ -345,13 +347,18 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 		//	m_d2dContext->FillRoundedRectangle(&pillRect, m_pillBrush.get());
 		//}
 
-		D2DPrimitiveHelper::DrawVerticalLine(
-			m_d2dContext.get(),
-			currentX + rawColumnWidth - 1,
-			4 * scale,
-			(4 + TableConstants::HeaderFontSize) * scale,
-			hoveredResizeColumn == column? m_pillBrush.get() : m_textBrush.get()
-		);
+
+		if (column != std::size(TableTestData::Columns) - 1)
+		{
+			//the resize handle do not needs to be drawn for the last column
+			D2DPrimitiveHelper::DrawVerticalLine(
+				m_d2dContext.get(),
+				currentX + rawColumnWidth - 1,
+				4 * scale,
+				(4 + TableConstants::HeaderFontSize) * scale,
+				hoveredResizeColumn == column ? m_pillBrush.get() : m_textBrush.get()
+			);
+		}
 		currentX += rawColumnWidth;
 	}
 }
@@ -369,6 +376,13 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY)
 	int const last = (std::min)(m_data.Count() - 1, static_cast<int>((rawScrollOffsetY + rawBottom) / rawRowHeight));
 
 	auto rawCornerRadius = TableConstants::CornerRadius * scale;
+
+	for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
+	{
+		auto const header = m_data.Header()[column];
+		m_textLayoutCache.SetColumnFormat(column, header.HorizontalAlignment, header.VerticalAlignment);
+	}
+
 	for (int row = first; row <= last; ++row)
 	{
 		auto& rowData = m_data[row];
@@ -402,9 +416,7 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY)
 			auto const rawColumnWidth = m_columnWidthManager.Get(column) * scale;
 			auto const header = m_data.Header()[column];
 			auto const& columnData = rowData[column];
-			auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData, rawColumnWidth, rawRowHeight);
-			winrt::check_hresult(layoutCache->SetParagraphAlignment(header.VerticalAlignment));
-			winrt::check_hresult(layoutCache->SetTextAlignment(header.HorizontalAlignment));
+			auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData);
 			if (!m_initialSizing)
 			{
 				m_d2dContext->DrawTextLayout(

@@ -55,3 +55,8 @@ bool CachedScrollBar::Value(double value)
 	return true;
 }
 
+CachedScrollBar::operator bool() const
+{
+	return static_cast<bool>(m_scrollBar);
+}
+

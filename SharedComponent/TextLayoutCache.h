@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <vector>
 #include <winrt/base.h>
 #include <dwrite.h>
@@ -11,9 +11,19 @@ public:
 	struct TextLayout
 	{
 		std::wstring content{};
-		FLOAT maxWidth{};
-		FLOAT maxHeight{};
 		winrt::com_ptr<IDWriteTextLayout> layout;
+		uint32_t m_contentLayoutVersion{};
+	};
+
+	struct PerColumnLayout
+	{
+		FLOAT maxWidth = (std::numeric_limits<FLOAT>::max)();
+		FLOAT maxHeight = (std::numeric_limits<FLOAT>::max)();
+		DWRITE_TEXT_ALIGNMENT HeaderHorizontalAlignment = DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_CENTER;
+		DWRITE_TEXT_ALIGNMENT ContentHorizontalAlignment;
+		DWRITE_PARAGRAPH_ALIGNMENT HeaderVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+		DWRITE_PARAGRAPH_ALIGNMENT ContentVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+		uint32_t m_contentLayoutVersion = 1;
 	};
 
 	TextLayoutCache(IDWriteFactory* dwriteFactory);
@@ -38,12 +48,35 @@ public:
 		WCHAR const* localeName
 	);
 	void Clear();
+	void SetNumColumns(size_t columns);
 
-	IDWriteTextLayout* GetOrCreate(int row, int column, std::wstring_view str, FLOAT maxWidth, FLOAT maxHeight);
+	//for header
+	IDWriteTextLayout* GetOrCreate(
+		int column,
+		std::wstring_view str,
+		FLOAT maxWidth,
+		FLOAT maxHeight,
+		DWRITE_TEXT_ALIGNMENT horizontalAlignment,
+		DWRITE_PARAGRAPH_ALIGNMENT verticalAlignment
+	);
+
+	//for content
+	void SetColumnFormat(
+		size_t column,
+		DWRITE_TEXT_ALIGNMENT horizontalAlignment,
+		DWRITE_PARAGRAPH_ALIGNMENT verticalAlignment
+	);
+	IDWriteTextLayout* GetOrCreate(
+		int row, 
+		int column, 
+		std::wstring_view str
+	);
 
 private:
-	std::vector<std::vector<TextLayout>> m_cache;
-	IDWriteFactory* m_dwriteFactory{};
+	std::vector<std::vector<TextLayout>> m_perCellCache; //this include the header row
+	std::vector<PerColumnLayout> m_perColumnCache;
+
+	IDWriteFactory* m_dwriteFactory;
 
 	//header text
 	winrt::com_ptr<IDWriteTextFormat> m_headerTextFormat;

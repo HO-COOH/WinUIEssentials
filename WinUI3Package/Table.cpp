@@ -16,6 +16,16 @@ namespace winrt::WinUI3Package::implementation
         //get ui elements
         m_verticalScrollBarCache.Set(VerticalScrollBar());
         m_horizontalScrollBarCache.Set(HorizontalScrollBar());
+
+        m_fpsTimer = m_d2dContent.m_dispatcher.CreateTimer();
+        m_fpsTimer.Tick([lastTick = std::chrono::steady_clock::now(), this](auto&&...) mutable {
+            auto frames = m_d2dContent.Frames.exchange(0, std::memory_order_relaxed);
+            auto const seconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - std::exchange(lastTick, std::chrono::steady_clock::now())).count();
+            m_fps = frames / (seconds / 1000.f);
+            raisePropertyChange(L"Fps");
+        });
+        m_fpsTimer.Interval(std::chrono::seconds{ 1 });
+        m_fpsTimer.Start();
     }
 
     void Table::requestDraw()
@@ -24,14 +34,9 @@ namespace winrt::WinUI3Package::implementation
         m_d2dContent.m_dispatcher.TryEnqueue([this] { updateScrollBars(); });
     }
 
-    void Table::ClickHandler(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
-    {
-        Button().Content(box_value(L"Clicked"));
-    }
-
     void Table::updateVerticalScrollBar(float scrollOffsetY)
     {
-        if (m_isUpdatingVerticalScrollBarInCode)
+        if (m_isUpdatingVerticalScrollBarInCode || !m_verticalScrollBarCache)
             return;
         m_isUpdatingVerticalScrollBarInCode = true;
         auto reset = wil::scope_exit([this] { m_isUpdatingVerticalScrollBarInCode = false; });
@@ -55,9 +60,23 @@ namespace winrt::WinUI3Package::implementation
         m_verticalScrollBarCache.Value(scrollOffsetY);
     }
 
+    int Table::Fps()
+    {
+        return static_cast<int>(m_fps);
+    }
+
+    int Table::DataCount()
+    {
+        return 0;
+    }
+
+    void Table::DataCount(int value)
+    {
+    }
+
     void Table::updateHorizontalScrollBar(float scrollOffsetX)
     {
-        if (m_isUpdatingHorizontalScrollBarInCode)
+        if (m_isUpdatingHorizontalScrollBarInCode || !m_horizontalScrollBarCache)
             return;
         m_isUpdatingHorizontalScrollBarInCode = true;
         auto reset = wil::scope_exit([this] { m_isUpdatingHorizontalScrollBarInCode = false; });

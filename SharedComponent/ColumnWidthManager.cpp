@@ -11,12 +11,12 @@ static float measureNaturalWidth(DWRITE_TEXT_METRICS& metrics, IDWriteTextLayout
 	winrt::check_hresult(layout->SetMaxWidth(FLT_MAX));
 	winrt::check_hresult(layout->GetMetrics(&metrics));
 	winrt::check_hresult(layout->SetMaxWidth(saved));
-	return metrics.widthIncludingTrailingWhitespace;
+	return (std::max)(metrics.width, metrics.widthIncludingTrailingWhitespace);
 }
 
 void ColumnWidthManager::GetInitialColumnWidth(float width, float scale)
 {
-	auto const& layoutCache = m_layoutCacheRef.m_cache;
+	auto const& layoutCache = m_layoutCacheRef.m_perCellCache;
 	assert(!layoutCache.empty() && !layoutCache.front().empty());
 
 	auto const& headerRow = layoutCache.front();
@@ -88,7 +88,9 @@ float ColumnWidthManager::SumColumnWidth(int column, float scrollOffsetX) const
 
 int ColumnWidthManager::GetColumnIndexFromX(float x, float scrollOffsetX) const
 {
-	for (size_t i = 0; i < m_columnWidths.size(); ++i)
+	//The last column do not need to have a resize handle
+	auto const resizable = m_columnWidths.empty() ? 0 : m_columnWidths.size() - 1;
+	for (size_t i = 0; i < resizable; ++i)
 	{
 		scrollOffsetX += m_columnWidths[i].load(std::memory_order_relaxed);
 		if (std::abs(x - scrollOffsetX) <= TableConstants::ResizeHotZoneDelta)

@@ -1,8 +1,12 @@
 namespace WinUI3Package
 {
     [default_interface]
-    runtimeclass Table : Microsoft.UI.Xaml.Controls.SwapChainPanel
+    runtimeclass Table : Microsoft.UI.Xaml.Controls.SwapChainPanel, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         Table();
+        
+        //TODO: test only
+        Int32 DataCount;
+        Int32 Fps{ get; };
     }
 }
