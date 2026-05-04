@@ -270,6 +270,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">
     <MultiProcMIDL>true</MultiProcMIDL>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -489,15 +492,7 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="EqualPanel.h">
-      <DependentUpon>EqualPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Export.h" />
-    <ClInclude Include="GroupBox.h">
-      <DependentUpon>GroupBox.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="GroupBox_Resource.h">
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -515,37 +510,13 @@
     <ClInclude Include="include\WindowHelper.hpp" />
     <ClInclude Include="include\WinUIIncludes.hpp" />
     <ClInclude Include="ListViewBaseWorkaround.hpp" />
-    <ClInclude Include="MarqueeText.h">
-      <DependentUpon>MarqueeText.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="MarqueeText_Resource.h">
       <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="ProgressBarEx.h">
-      <DependentUpon>ProgressBarEx.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ProgressBarEx_Resource.h">
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Segmented.h">
-      <DependentUpon>Segmented.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SegmentedItem.h">
-      <DependentUpon>SegmentedItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SegmentedItemCornerRadiusConverter.h">
-      <DependentUpon>SegmentedItemCornerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SegmentedMarginConverter.h">
-      <DependentUpon>SegmentedMarginConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Segmented_Resource.h">
@@ -564,18 +535,6 @@
       <DependentUpon>SettingsCommandEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="SettingsExpander.h">
-      <DependentUpon>SettingsExpander.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SettingsExpanderItemStyleSelector.h">
-      <DependentUpon>SettingsExpanderItemStyleSelector.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SettingsExpanderLastItemConrnerRadiusConverter.h">
-      <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="SettingsExpander_Resource.h">
       <DependentUpon>SettingsExpander_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -584,30 +543,14 @@
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Shimmer.h">
-      <DependentUpon>Shimmer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Shimmer_Resource.h">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EqualPanel.cpp">
-      <DependentUpon>EqualPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="GroupBox.cpp">
-      <DependentUpon>GroupBox.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="GroupBox_Resource.cpp">
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="MarqueeText.cpp">
-      <DependentUpon>MarqueeText.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MarqueeText_Resource.cpp">
@@ -618,28 +561,8 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="ProgressBarEx.cpp">
-      <DependentUpon>ProgressBarEx.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ProgressBarEx_Resource.cpp">
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Segmented.cpp">
-      <DependentUpon>Segmented.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SegmentedItem.cpp">
-      <DependentUpon>SegmentedItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SegmentedItemCornerRadiusConverter.cpp">
-      <DependentUpon>SegmentedItemCornerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SegmentedMarginConverter.cpp">
-      <DependentUpon>SegmentedMarginConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Segmented_Resource.cpp">
@@ -658,28 +581,12 @@
       <DependentUpon>SettingsCommandEx.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="SettingsExpander.cpp">
-      <DependentUpon>SettingsExpander.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SettingsExpanderItemStyleSelector.cpp">
-      <DependentUpon>SettingsExpanderItemStyleSelector.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SettingsExpanderLastItemConrnerRadiusConverter.cpp">
-      <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="SettingsExpander_Resource.cpp">
       <DependentUpon>SettingsExpander_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="SettingsPaneEx.cpp">
       <DependentUpon>SettingsPaneEx.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Shimmer.cpp">
-      <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Shimmer_Resource.cpp">
@@ -691,47 +598,24 @@
     <None Include=".nuspec" />
     <None Include="packages.config" />
     <None Include="UWPPackage.def" />
+    <None Include="vcpkg.json" />
     <None Include="WinUIEssential.UWP.targets" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="EqualPanel.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="GroupBox.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="GroupBox_Resource.idl">
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="MarqueeText.idl">
-      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MarqueeText_Resource.idl">
       <DependentUpon>MarqueeText_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="ProgressBarEx.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="ProgressBarEx_Resource.idl">
       <DependentUpon>ProgressBarEx_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="Segmented.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SegmentedItem.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SegmentedItemCornerRadiusConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SegmentedMarginConverter.idl">
-      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Segmented_Resource.idl">
       <DependentUpon>Segmented_Resource.xaml</DependentUpon>
@@ -748,23 +632,11 @@
     <Midl Include="SettingsCommandEx.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="SettingsExpander.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SettingsExpanderItemStyleSelector.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="SettingsExpander_Resource.idl">
       <DependentUpon>SettingsExpander_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="SettingsPaneEx.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Shimmer.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Shimmer_Resource.idl">

@@ -432,3 +432,4 @@ coverage
 
 *.tsbuildinfo
 vcpkg_installed
+/.claude/settings.local.json

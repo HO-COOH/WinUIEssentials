@@ -29,6 +29,7 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
+#include <winrt/Microsoft.UI.Xaml.Hosting.h>
 
 #include "Case.h"
 #include "CaseCollection.h"
@@ -47,3 +48,15 @@
 #include "WrapPanel.h"
 #include "DependentValue.h"
 #include "SettingsCard.h"
+#include "Shimmer.h"
+#include "Segmented.h"
+#include "GroupBox.h"
+#include "EqualPanel.h"
+#include "SegmentedItem.h"
+#include "SegmentedItemCornerRadiusConverter.h"
+#include "SegmentedMarginConverter.h"
+#include "SettingsExpanderLastItemConrnerRadiusConverter.h"
+#include "SettingsExpanderItemStyleSelector.h"
+#include "SettingsExpander.h"
+#include "MarqueeText.h"
+#include "ProgressBarEx.h"

@@ -42,9 +42,6 @@
     <ClCompile Include="WindowContextMenuUtils.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="Shimmer.AnimationMember.cpp">
-      <Filter>Controls\Shimmer</Filter>
-    </ClCompile>
     <ClCompile Include="ContentDialogUtils.cpp">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
     </ClCompile>
@@ -226,12 +223,6 @@
     <ClInclude Include="AcrylicVisualWithBoundedCornerRadius.h">
       <Filter>Controls\AcrylicVisual</Filter>
     </ClInclude>
-    <ClInclude Include="Shimmer.AnimationMember.h">
-      <Filter>Controls\Shimmer</Filter>
-    </ClInclude>
-    <ClInclude Include="Shimmer.DefaultGradientColor.h">
-      <Filter>Controls\Shimmer</Filter>
-    </ClInclude>
     <ClInclude Include="WinUIAsyncEventArgs.hpp">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
     </ClInclude>
@@ -331,15 +322,6 @@
     <Filter Include="Controls\SettingsCard">
       <UniqueIdentifier>{1d6eabd4-0f64-467a-9db2-2b785ed1e7a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Controls\SettingsExpander">
-      <UniqueIdentifier>{7f4c5d5f-7657-42e8-ab4c-28ffd4afc61d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\MarqueeText">
-      <UniqueIdentifier>{342a38f3-e345-43bb-8be2-ad8634e7b7bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\ProgressBarEx">
-      <UniqueIdentifier>{ead65dbf-1731-4bcd-a3a9-962f5b192067}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls\Segmented">
       <UniqueIdentifier>{c3d7f26b-3a72-4fcd-9785-dc79e19e3fff}</UniqueIdentifier>
     </Filter>
@@ -357,9 +339,6 @@
     </Filter>
     <Filter Include="Windows">
       <UniqueIdentifier>{f75bc99f-6f1e-4b55-bb3b-051e279439bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\Shimmer">
-      <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
     </Filter>
     <Filter Include="internal">
       <UniqueIdentifier>{7249024f-ebd8-419d-8c91-235bb32e1b45}</UniqueIdentifier>
@@ -384,9 +363,6 @@
     </Filter>
     <Filter Include="TaskbarIcon\Errors">
       <UniqueIdentifier>{5286bb85-614b-4b57-a35c-c75dffb90e63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\GroupBox">
-      <UniqueIdentifier>{8b0acd1f-86d3-45a7-afa9-9f5fb4907e28}</UniqueIdentifier>
     </Filter>
     <Filter Include="Controls\Helpers">
       <UniqueIdentifier>{1e6dcb42-f11c-454a-ba47-4d5dc1735958}</UniqueIdentifier>
@@ -429,36 +405,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="GroupBox.idl">
-      <Filter>Controls\GroupBox</Filter>
-    </Midl>
-    <Midl Include="SettingsExpander.idl">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="SettingsExpanderItemStyleSelector.idl">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="MarqueeText.idl">
-      <Filter>Controls\MarqueeText</Filter>
-    </Midl>
-    <Midl Include="ProgressBarEx.idl">
-      <Filter>Controls\ProgressBarEx</Filter>
-    </Midl>
-    <Midl Include="EqualPanel.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="Segmented.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedItem.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedItemCornerRadiusConverter.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedMarginConverter.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
     <Midl Include="HostBackdropVisual.idl">
       <Filter>Controls\AcrylicVisual</Filter>
     </Midl>
@@ -470,12 +416,6 @@
     </Midl>
     <Midl Include="WindowEx.idl">
       <Filter>Windows</Filter>
-    </Midl>
-    <Midl Include="Shimmer.idl">
-      <Filter>Controls\Shimmer</Filter>
-    </Midl>
-    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
-      <Filter>Controls\SettingsExpander</Filter>
     </Midl>
     <Midl Include="GeneratedIconSource.idl">
       <Filter>TaskbarIcon</Filter>
@@ -595,20 +535,8 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="GroupBox_Resource.xaml">
-      <Filter>Controls\GroupBox</Filter>
-    </Page>
-    <Page Include="SettingsExpander_Resource.xaml">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Page>
     <Page Include="SettingsCard_Resource.xaml">
       <Filter>Controls\SettingsCard</Filter>
-    </Page>
-    <Page Include="MarqueeText_Resource.xaml">
-      <Filter>Controls\MarqueeText</Filter>
-    </Page>
-    <Page Include="ProgressBarEx_Resource.xaml">
-      <Filter>Controls\ProgressBarEx</Filter>
     </Page>
     <Page Include="Segmented_Resource.xaml">
       <Filter>Controls\Segmented</Filter>
@@ -618,9 +546,6 @@
     </Page>
     <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
       <Filter>Windows</Filter>
-    </Page>
-    <Page Include="Shimmer_Resource.xaml">
-      <Filter>Controls\Shimmer</Filter>
     </Page>
     <Page Include="ModernDialogBoxContent_Resource.xaml">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Content</Filter>
@@ -633,6 +558,21 @@
     </Page>
     <Page Include="SettingsCard_ContentResource.xaml">
       <Filter>Controls\SettingsCard</Filter>
+    </Page>
+    <Page Include="GroupBox_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="MarqueeText_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="ProgressBarEx_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="Shimmer_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="SettingsExpander_Resource.xaml">
+      <Filter>Controls</Filter>
     </Page>
   </ItemGroup>
 </Project>
