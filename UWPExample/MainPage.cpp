@@ -43,7 +43,7 @@ namespace winrt::UWPExample::implementation
 	{
 		auto itemsRepeater = sender.as<winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater>();
 		auto items = itemsRepeater.ItemsSource().as<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>();
-		auto settingsButton = items.GetAt(0).as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
+		auto settingsButton = items.GetAt(1).as<winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem>();
 		settingsButton.Content(winrt::box_value(L"About"));
 	}
 

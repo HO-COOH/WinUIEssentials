@@ -26,6 +26,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GithubRequest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NamedUrl.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RepoInfo.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)AboutPage.xaml.h" />
@@ -37,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GithubRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NamedUrl.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RepoInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)AboutPage.idl" />
@@ -47,5 +49,6 @@
     <Midl Include="$(MSBuildThisFileDirectory)Editor.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NamedUrl.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)ThemeToggleButton.idl" />
   </ItemGroup>
 </Project>

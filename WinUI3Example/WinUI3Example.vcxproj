@@ -1328,10 +1328,6 @@
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ThemeToggleButton.xaml.cpp">
-      <DependentUpon>ThemeToggleButton.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="TimePickerHelperPage.xaml.cpp">
       <DependentUpon>TimePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1711,10 +1707,6 @@
     </Midl>
     <Midl Include="ThemeListenerPage.idl">
       <DependentUpon>ThemeListenerPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="ThemeToggleButton.idl">
-      <DependentUpon>ThemeToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TimePickerHelperPage.idl">

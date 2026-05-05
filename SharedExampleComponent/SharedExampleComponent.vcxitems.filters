@@ -22,6 +22,9 @@
     <Filter Include="AboutPage">
       <UniqueIdentifier>{05d879ae-da99-4259-9af0-b2cbb8f363d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ThemeToggleButton">
+      <UniqueIdentifier>{4ecc8bf3-957a-453a-9e65-542f8acadf42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h">
@@ -51,6 +54,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GithubRequest.h">
       <Filter>AboutPage</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.h">
+      <Filter>ThemeToggleButton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Editor.idl">
@@ -74,6 +80,9 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)AboutPage.idl">
       <Filter>AboutPage</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ThemeToggleButton.idl">
+      <Filter>ThemeToggleButton</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)GithubRequest.cpp">
       <Filter>AboutPage</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.cpp">
+      <Filter>ThemeToggleButton</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

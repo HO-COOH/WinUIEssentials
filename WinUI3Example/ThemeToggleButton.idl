@@ -1,9 +1,0 @@
-﻿namespace WinUI3Example
-{
-    [default_interface]
-    runtimeclass ThemeToggleButton : Microsoft.UI.Xaml.Controls.Button
-    {
-        ThemeToggleButton();
-        Microsoft.UI.Xaml.FrameworkElement Root;
-    }
-}

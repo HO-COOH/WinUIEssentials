@@ -1,0 +1,9 @@
+﻿namespace PackageRoot
+{
+    [default_interface]
+    runtimeclass ThemeToggleButton : WinUINamespace.UI.Xaml.Controls.Button
+    {
+        ThemeToggleButton();
+        WinUINamespace.UI.Xaml.FrameworkElement Root;
+    }
+}

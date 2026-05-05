@@ -454,6 +454,10 @@
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ThemeToggleButton.h">
+      <DependentUpon>ThemeToggleButton.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TilesPage.h">
       <DependentUpon>TilesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -550,6 +554,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SwitchPresenterPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemeToggleButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TilesPage.xaml">

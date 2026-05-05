@@ -407,7 +407,7 @@
                                                                 AutomationProperties.AccessibilityView="Content"
                                                                 Loaded="FooterMenuItemsHost_Loaded">
                                                                 <muxc:ItemsRepeater.Layout>
-                                                                    <muxc:StackLayout />
+                                                                    <muxc:StackLayout Orientation="Horizontal" />
                                                                 </muxc:ItemsRepeater.Layout>
                                                             </muxc:ItemsRepeater>
                                                         </ScrollViewer>
@@ -740,6 +740,10 @@
                     Margin="10,10,20,10"
                     VerticalAlignment="Top" />
             </ScrollViewer>
+
+            <muxc:NavigationView.FooterMenuItems>
+                <local:ThemeToggleButton Root="{x:Bind RootGrid}" />
+            </muxc:NavigationView.FooterMenuItems>
 
         </muxc:NavigationView>
     </Grid>

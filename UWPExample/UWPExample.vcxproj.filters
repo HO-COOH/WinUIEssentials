@@ -80,6 +80,9 @@
     <Page Include="AboutPage.xaml">
       <Filter>Helper\AboutPage</Filter>
     </Page>
+    <Page Include="ThemeToggleButton.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
