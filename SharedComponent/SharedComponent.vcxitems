@@ -27,6 +27,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HighResTimer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SwapChainInterop.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />

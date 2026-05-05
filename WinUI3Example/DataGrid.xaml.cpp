@@ -4,6 +4,7 @@
 #include "DataGrid.g.cpp"
 #endif
 #include <numeric>
+#include <winrt/Microsoft.Graphics.Canvas.UI.Xaml.h>
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;

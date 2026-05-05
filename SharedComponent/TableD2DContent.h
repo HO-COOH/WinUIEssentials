@@ -14,6 +14,7 @@
 #include "ScrollRequest.h"
 #include "DirectN.h"
 #include "ColumnWidthManager.h"
+#include "TableLinesCache.h"
 
 namespace winrt
 {
@@ -89,6 +90,7 @@ private:
 	void draw();
 	void drawHeader(int hoveredResizeColumn, float scrollOffsetX);
 	void drawRows(float scrollOffsetX, float scrollOffsetY);
+	void updateScrollOffsets();
 	D2D1_ROUNDED_RECT getResizePillRect(int column, float scrollOffsetX) const;
 
 	//Draw-thread only. Recreates text formats (and invalidates the layout
@@ -97,10 +99,12 @@ private:
 
 	TableTestData m_data;
 
+	winrt::com_ptr<ID2D1Factory1> d2d1Factory = DirectN::CreateD2D1Factory();
 	winrt::com_ptr<ID3D11Device> m_d3dDevice = DirectN::CreateD3D11Device();
 	winrt::com_ptr<ID2D1DeviceContext> m_d2dContext;
 	winrt::com_ptr<IDWriteFactory> m_dwriteFactory = DirectN::CreateDWriteFactory();
 
+	TableLinesCache m_tableLines{ d2d1Factory.get() };
 	SwapChainInterop m_swapChain;
 
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };

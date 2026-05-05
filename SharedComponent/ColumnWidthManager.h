@@ -23,4 +23,9 @@ public:
 	float SumColumnWidth(int column, float scrollOffsetX = 0.f) const;
 	int GetColumnIndexFromX(float x, float scrollOffsetX = 0.f) const;
 	void Set(int column, float width);
+
+	constexpr size_t NumColumns() const
+	{
+		return m_columnWidths.size();
+	}
 };
