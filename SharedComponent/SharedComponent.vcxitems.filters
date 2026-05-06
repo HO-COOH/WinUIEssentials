@@ -159,6 +159,9 @@
     <Midl Include="$(MSBuildThisFileDirectory)ColumnSizingMode.idl">
       <Filter>Table</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Table.idl">
+      <Filter>Table</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h">
@@ -317,6 +320,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProgressBarEx.h">
       <Filter>Controls\ProgressBarEx</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
+      <Filter>Table</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -453,6 +459,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ProgressBarEx.cpp">
       <Filter>Controls\ProgressBarEx</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp">
+      <Filter>Table</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

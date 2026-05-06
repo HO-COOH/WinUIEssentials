@@ -60,6 +60,9 @@
     <ClInclude Include="include\ScopedButtonDisabler.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="UWPPackage.def" />
@@ -98,6 +101,9 @@
       <Filter>Controls</Filter>
     </Page>
     <Page Include="Shimmer_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="Table.xaml">
       <Filter>Controls</Filter>
     </Page>
   </ItemGroup>

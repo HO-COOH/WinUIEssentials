@@ -709,6 +709,7 @@
                         <muxc:NavigationViewItem Content="SettingsExpander" Tag="{essential:TypeName Type=local:SettingsExpanderPage}" />
                         <muxc:NavigationViewItem Content="Shimmer" Tag="{essential:TypeName Type=local:ShimmerPage}" />
                         <muxc:NavigationViewItem Content="SwitchPresenter" Tag="{essential:TypeName Type=local:SwitchPresenterPage}" />
+                        <muxc:NavigationViewItem Content="Table" Tag="{essential:TypeName Type=local:TablePage}" />
                     </muxc:NavigationViewItem.MenuItems>
                 </muxc:NavigationViewItem>
 

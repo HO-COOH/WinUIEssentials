@@ -9,7 +9,7 @@
 #include <windows.ui.xaml.media.dxinterop.h>
 #endif
 
-bool SwapChainInterop::SizeChanged(winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& sender, winrt::WindowsNamespace::UI::Xaml::SizeChangedEventArgs const& arg)
+bool SwapChainInterop::SizeChanged(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender, winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& arg)
 {
 	auto const newSize = arg.NewSize();
 	auto const newScale = sender.CompositionScaleX();
@@ -23,7 +23,7 @@ bool SwapChainInterop::SizeChanged(winrt::WindowsNamespace::UI::Xaml::Controls::
 	return true;
 }
 
-bool SwapChainInterop::CompositionScaleChanged(winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& sender)
+bool SwapChainInterop::CompositionScaleChanged(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender)
 {
 	auto const newScale = sender.CompositionScaleX();
 	if (newScale == Scale)
@@ -68,7 +68,7 @@ void SwapChainInterop::SetTarget(ID2D1DeviceContext* d2dContext)
 	d2dContext->SetDpi(96.0f, 96.0f);
 }
 
-void SwapChainInterop::create(winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel)
+void SwapChainInterop::create(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel)
 {
 	auto const rawWidth = (std::max<UINT>)(1, static_cast<UINT>(CurrentSize.Width * Scale));
 	auto const rawHeight = (std::max<UINT>)(1, static_cast<UINT>(CurrentSize.Height * Scale));
@@ -100,7 +100,7 @@ void SwapChainInterop::inverseDpi()
 	winrt::check_hresult(swapChain2->SetMatrixTransform(&inverseScaleMatrix));
 }
 
-void SwapChainInterop::Set(ID3D11Device* d3d11Device, winrt::WindowsNamespace::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel)
+void SwapChainInterop::Set(ID3D11Device* d3d11Device, winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel)
 {
 	winrt::com_ptr<IDXGIDevice> dxgiDevice;
 	winrt::check_hresult(d3d11Device->QueryInterface(dxgiDevice.put()));

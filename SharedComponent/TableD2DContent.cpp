@@ -9,8 +9,8 @@
 #include "Easing.hpp"
 #include "HighResTimer.h"
 
-TableD2DContent::TableD2DContent(winrt::WinUI3Package::implementation::Table& table) : 
-	m_dispatcher{ table.DispatcherQueue() },
+TableD2DContent::TableD2DContent(winrt::PackageRoot::implementation::Table& table) : 
+	m_dispatcher{ table },
 	m_table_ref{ table }, 
 	m_drawThread{ [this] { drawThreadProc(); } }
 {
@@ -51,8 +51,8 @@ void TableD2DContent::RequestDraw(bool redraw)
 }
 
 void TableD2DContent::SizeChanged(
-	winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender,
-	winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
+	winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender,
+	winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& e)
 {
 	if (!m_swapChain.SizeChanged(sender, e))
 		return;
@@ -73,7 +73,7 @@ void TableD2DContent::updateScrollOffsets()
 }
 
 void TableD2DContent::CompositionScaleChanged(
-	winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender)
+	winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender)
 {
 	if (!m_swapChain.CompositionScaleChanged(sender))
 		return;

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <winrt/base.h>
-#include <winrt/Microsoft.UI.Dispatching.h>
+#include "DispatcherAdapter.h"
 #include <d2d1_1.h>
 #include <d3d11.h>
 #include <dwrite.h>
@@ -18,7 +18,7 @@
 
 namespace winrt
 {
-	namespace WinUI3Package::implementation
+	namespace PackageRoot::implementation
 	{
 		struct Table;
 	}
@@ -38,9 +38,9 @@ namespace winrt
 class TableD2DContent
 {
 public:
-	winrt::Microsoft::UI::Dispatching::DispatcherQueue m_dispatcher{ nullptr };
+	DispatcherAdapter m_dispatcher;
 
-	TableD2DContent(winrt::WinUI3Package::implementation::Table& table);
+	TableD2DContent(winrt::PackageRoot::implementation::Table& table);
 	~TableD2DContent();
 
 	TableD2DContent(TableD2DContent const&) = delete;
@@ -53,13 +53,13 @@ public:
 
 	// UI-thread only: forward the SwapChainPanel size-changed event.
 	void SizeChanged(
-		winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender,
-		winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e);
+		winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender,
+		winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& e);
 
 	// UI-thread only: forward the SwapChainPanel composition-scale-changed
 	// event. Fires when the window moves to a monitor with a different DPI.
 	void CompositionScaleChanged(
-		winrt::Microsoft::UI::Xaml::Controls::SwapChainPanel const& sender);
+		winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender);
 
 	void SetScrollOffsetX(float x);
 	void SetScrollOffsetY(float y);
@@ -158,7 +158,7 @@ private:
 	//Draw-thread-only snapshot. Its isPending is never touched.
 	ScrollRequest m_activeScrollRequest;
 
-	winrt::WinUI3Package::implementation::Table& m_table_ref;
+	winrt::PackageRoot::implementation::Table& m_table_ref;
 
 	std::thread m_drawThread;
 };

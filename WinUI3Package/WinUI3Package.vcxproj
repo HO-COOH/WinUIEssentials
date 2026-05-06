@@ -863,16 +863,6 @@
     <Midl Include="SliderHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="StringToBoolConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SwitchPresenter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Table.idl">
-      <DependentUpon>Table.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="TaskbarIcon.idl">
       <SubType>Designer</SubType>
     </Midl>
