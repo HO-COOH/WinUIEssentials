@@ -1,0 +1,9 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    unsealed runtimeclass Segmented : WinUINamespace.UI.Xaml.Controls.ListViewBase
+    {
+        Segmented();
+    }
+}

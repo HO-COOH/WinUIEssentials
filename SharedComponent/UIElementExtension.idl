@@ -1,0 +1,11 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass UIElementExtension 
+    {
+        static WinUINamespace.UI.Xaml.DependencyProperty ClipToBoundsProperty{ get; };
+        static Boolean GetClipToBounds(WinUINamespace.UI.Xaml.UIElement element);
+        static void SetClipToBounds(WinUINamespace.UI.Xaml.UIElement element, Boolean value);
+    }
+}

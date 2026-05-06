@@ -20,3 +20,12 @@
 #include <winrt/Windows.UI.Xaml.Documents.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
+#include <winrt/Windows.UI.Composition.h>
+#include <winrt/Windows.UI.Xaml.Hosting.h>
+#include <winrt/Windows.UI.Xaml.Media.Imaging.h>
+#include <winrt/Windows.UI.Xaml.Media.h>
+#include <winrt/Windows.UI.Xaml.Input.h>
+
+#include "NamedUrl.h"
+#include "CodeSource.h"
+#include "ControlExampleSubstitution.h"

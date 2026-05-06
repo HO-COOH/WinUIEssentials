@@ -163,7 +163,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WindowsNamespace=Microsoft;PackageRoot=WinUI3Package;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WinUINamespace=Microsoft;PackageRoot=WinUI3Package;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
@@ -172,18 +172,18 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WindowsNamespace=Microsoft;PackageRoot=WinUI3Package;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WinUINamespace=Microsoft;PackageRoot=WinUI3Package;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp20</LanguageStandard>
@@ -204,18 +204,18 @@
       </Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WindowsNamespace=Microsoft;PackageRoot=WinUI3Package;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WinUINamespace=Microsoft;PackageRoot=WinUI3Package;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
@@ -237,18 +237,18 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">nuget.exe pack</Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WindowsNamespace=Microsoft;PackageRoot=WinUI3Package;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_WinUIPackage;BuildWinUIEssential;WinUINamespace=Microsoft;PackageRoot=WinUI3Package;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp20</LanguageStandard>
@@ -273,13 +273,13 @@
       </Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=WinUI3Package;WindowsNamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -293,20 +293,8 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp" />
-    <ClInclude Include="BoolToVisibilityConverter.h">
-      <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="CalendarDatePickerHelper.h">
       <DependentUpon>CalendarDatePickerHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Case.h">
-      <DependentUpon>Case.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="CaseCollection.h">
-      <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="CombinedWallpaper.h" />
@@ -319,28 +307,12 @@
       <DependentUpon>CommandBarHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ContainerToBoolConverter.h">
-      <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ContentDialogUtils.h" />
     <ClInclude Include="ContentDialogWindowButtonClickEventArgs.h">
       <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ControlSizeTrigger.h">
-      <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ConverterGroup.h">
-      <DependentUpon>ConverterGroup.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="CrossFadeEffectInterop.h" />
-    <ClInclude Include="CursorController.h">
-      <DependentUpon>CursorController.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="CustomAcrylicBackdrop.h">
       <DependentUpon>CustomAcrylicBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -363,16 +335,8 @@
     <ClInclude Include="EffectPropertyHelper.h" />
     <ClInclude Include="EffectPropertyMapping.h" />
     <ClInclude Include="EnsureSystemDispatcherQueueController.hpp" />
-    <ClInclude Include="EqualPanel.h">
-      <DependentUpon>EqualPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="FlyoutHelper.h">
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="FontIconExtension.h">
-      <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="GdiInitializeHelper.h" />
@@ -380,26 +344,14 @@
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="GroupBox.h">
-      <DependentUpon>GroupBox.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="HostBackdropVisual.h">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ImageExtension.h">
-      <DependentUpon>ImageExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="IconUtils.h" />
     <ClInclude Include="include\AutoRevokeWorkaround.hpp" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
-    <ClInclude Include="include\DependentValue.h">
-      <DependentUpon>include\DependentValue.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />
@@ -424,19 +376,7 @@
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
     <ClInclude Include="include\WebView2Helper.hpp" />
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
-    <ClInclude Include="IsEqualStateTrigger.h">
-      <DependentUpon>IsEqualStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="IsNullOrEmptyStateTrigger.h">
-      <DependentUpon>IsNullOrEmptyStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp" />
-    <ClInclude Include="MarqueeText.h">
-      <DependentUpon>MarqueeText.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="MenuBase.h" />
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h" />
     <ClInclude Include="MenuFlyoutItemPaddingWorkaroundWrapper.hpp" />
@@ -471,10 +411,6 @@
       <DependentUpon>NavigationViewHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="NegateBoolConverter.h">
-      <DependentUpon>NegateBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="NonMaximizableWindowWorkaround.h">
       <DependentUpon>NonMaximizableWindowWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -483,7 +419,6 @@
       <DependentUpon>NonResizableWindowWhiteBorderWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ObjectCompare.h" />
     <ClInclude Include="NormalTaskbarIcon.h" />
     <ClInclude Include="NotifyIconData.h" />
     <ClInclude Include="OverrideChecker.h" />
@@ -511,61 +446,14 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="PreferredAppMode.h" />
-    <ClInclude Include="ProgressBarEx.h">
-      <DependentUpon>ProgressBarEx.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="RadioPopupMenuFlyoutItem.h">
       <DependentUpon>RadioPopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="RadioPopupMenuItemGroup.h" />
-    <ClInclude Include="ReferenceToBoolConverter.h">
-      <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="RevealBrush.h" />
     <ClInclude Include="RevealFocusPanel.h">
       <DependentUpon>RevealFocusPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ReverseConverterBase.hpp" />
-    <ClInclude Include="Segmented.h">
-      <DependentUpon>Segmented.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SegmentedItem.h">
-      <DependentUpon>SegmentedItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SegmentedItemCornerRadiusConverter.h">
-      <DependentUpon>SegmentedItemCornerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SegmentedMarginConverter.h">
-      <DependentUpon>SegmentedMarginConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SettingsCard.h">
-      <DependentUpon>SettingsCard.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SettingsExpander.h">
-      <DependentUpon>SettingsExpander.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SettingsExpanderItemStyleSelector.h">
-      <DependentUpon>SettingsExpanderItemStyleSelector.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="SettingsExpanderLastItemConrnerRadiusConverter.h">
-      <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Shimmer.AnimationMember.h" />
-    <ClInclude Include="Shimmer.DefaultGradientColor.h" />
-    <ClInclude Include="Shimmer.h">
-      <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Shimmer_Resource.xaml.h">
@@ -582,10 +470,6 @@
     </ClInclude>
     <ClInclude Include="TenMicaRegistry.h" />
     <ClInclude Include="UnderlayElement.h" />
-    <ClInclude Include="StringToBoolConverter.h">
-      <DependentUpon>StringToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="TaskbarIcon.h">
       <DependentUpon>TaskbarIcon.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -616,10 +500,6 @@
       <DependentUpon>TogglePopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="SwitchPresenter.h">
-      <DependentUpon>SwitchPresenter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ToolTipHelper.h">
       <DependentUpon>ToolTipHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -633,15 +513,10 @@
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="UIElementExtension.h">
-      <DependentUpon>UIElementExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="UnderlaySystemBackdropOptions.h">
       <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="UnsupportedImageTypeError.hpp" />
     <ClInclude Include="UxThemeWrapper.h" />
     <ClInclude Include="VersionInfo.h">
       <DependentUpon>VersionInfo.idl</DependentUpon>
@@ -669,10 +544,6 @@
     <ClInclude Include="WindowsVersion.hpp" />
     <ClInclude Include="WinUIAsyncEventArgs.hpp" />
     <ClInclude Include="WinUIEssentialError.hpp" />
-    <ClInclude Include="WrapPanel.h">
-      <DependentUpon>WrapPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AcrylicVisual.cpp">
@@ -683,20 +554,8 @@
       <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="BoolToVisibilityConverter.cpp">
-      <DependentUpon>BoolToVisibilityConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="CalendarDatePickerHelper.cpp">
       <DependentUpon>CalendarDatePickerHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Case.cpp">
-      <DependentUpon>Case.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="CaseCollection.cpp">
-      <DependentUpon>CaseCollection.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="CombinedWallpaper.cpp" />
@@ -709,25 +568,9 @@
       <DependentUpon>CommandBarHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ContainerToBoolConverter.cpp">
-      <DependentUpon>ContainerToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ContentDialogUtils.cpp" />
     <ClCompile Include="ContentDialogWindowButtonClickEventArgs.cpp">
       <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ControlSizeTrigger.cpp">
-      <DependentUpon>ControlSizeTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ConverterGroup.cpp">
-      <DependentUpon>ConverterGroup.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="CursorController.cpp">
-      <DependentUpon>CursorController.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="CustomAcrylicBackdrop.cpp">
@@ -748,16 +591,8 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="EffectPropertyHelper.cpp" />
-    <ClCompile Include="EqualPanel.cpp">
-      <DependentUpon>EqualPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="FlyoutHelper.cpp">
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="FontIconExtension.cpp">
-      <DependentUpon>FontIconExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="GdiInitializeHelper.cpp" />
@@ -765,35 +600,11 @@
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="GroupBox.cpp">
-      <DependentUpon>GroupBox.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="HostBackdropVisual.cpp">
       <DependentUpon>HostBackdropVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ImageExtension.cpp">
-      <DependentUpon>ImageExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="IconUtils.cpp" />
-    <ClCompile Include="include\DependentValue.cpp">
-      <DependentUpon>include\DependentValue.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="IsEqualStateTrigger.cpp">
-      <DependentUpon>IsEqualStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="IsNullOrEmptyStateTrigger.cpp">
-      <DependentUpon>IsNullOrEmptyStateTrigger.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="MarqueeText.cpp">
-      <DependentUpon>MarqueeText.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
     <ClCompile Include="MenuFlyoutWrapper.cpp" />
     <ClCompile Include="MicaBackdropWithFallback.cpp">
@@ -824,10 +635,6 @@
       <DependentUpon>NavigationViewHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="NegateBoolConverter.cpp">
-      <DependentUpon>NegateBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="NonMaximizableWindowWorkaround.cpp">
       <DependentUpon>NonMaximizableWindowWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -836,7 +643,6 @@
       <DependentUpon>NonResizableWindowWhiteBorderWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ObjectCompare.cpp" />
     <ClCompile Include="NormalTaskbarIcon.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -863,59 +669,14 @@
       <DependentUpon>PopupMenuFlyoutSubItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ProgressBarEx.cpp">
-      <DependentUpon>ProgressBarEx.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="RadioPopupMenuFlyoutItem.cpp">
       <DependentUpon>RadioPopupMenuFlyoutItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="RadioPopupMenuItemGroup.cpp" />
-    <ClCompile Include="ReferenceToBoolConverter.cpp">
-      <DependentUpon>ReferenceToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="RevealBrush.cpp" />
     <ClCompile Include="RevealFocusPanel.cpp">
       <DependentUpon>RevealFocusPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Segmented.cpp">
-      <DependentUpon>Segmented.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SegmentedItem.cpp">
-      <DependentUpon>SegmentedItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SegmentedItemCornerRadiusConverter.cpp">
-      <DependentUpon>SegmentedItemCornerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SegmentedMarginConverter.cpp">
-      <DependentUpon>SegmentedMarginConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SettingsCard.cpp">
-      <DependentUpon>SettingsCard.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SettingsExpander.cpp">
-      <DependentUpon>SettingsExpander.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SettingsExpanderItemStyleSelector.cpp">
-      <DependentUpon>SettingsExpanderItemStyleSelector.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SettingsExpanderLastItemConrnerRadiusConverter.cpp">
-      <DependentUpon>SettingsExpanderLastItemConrnerRadiusConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Shimmer.AnimationMember.cpp" />
-    <ClCompile Include="Shimmer.cpp">
-      <DependentUpon>Shimmer.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Shimmer_Resource.xaml.cpp">
@@ -924,18 +685,6 @@
     </ClCompile>
     <ClCompile Include="SliderHelper.cpp">
       <DependentUpon>SliderHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="StringToBoolConverter.cpp">
-      <DependentUpon>StringToBoolConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="SwitchPresenter.cpp">
-      <DependentUpon>SwitchPresenter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Table.cpp">
-      <DependentUpon>Table.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TaskbarIcon.cpp">
@@ -979,10 +728,6 @@
       <DependentUpon>TransparentWindow.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="UIElementExtension.cpp">
-      <DependentUpon>UIElementExtension.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="UnderlayElement.cpp" />
     <ClCompile Include="UnderlaySystemBackdropOptions.cpp">
       <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
@@ -1011,10 +756,6 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WindowsVersion.cpp" />
-    <ClCompile Include="WrapPanel.cpp">
-      <DependentUpon>WrapPanel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".nuspec" />
@@ -1030,16 +771,7 @@
     <Midl Include="AutoSuggestBoxHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="BoolToVisibilityConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="CalendarDatePickerHelper.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Case.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="CaseCollection.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ComboBoxHelper.idl">
@@ -1048,19 +780,7 @@
     <Midl Include="CommandBarHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="ContainerToBoolConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="ContentDialogWindowButtonClickEventArgs.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ControlSizeTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ConverterGroup.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="CursorController.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="CustomAcrylicBackdrop.idl">
@@ -1076,37 +796,13 @@
     <Midl Include="DatePickerHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="EqualPanel.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="FlyoutHelper.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="FontIconExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="GeneratedIconSource.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="GroupBox.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="HostBackdropVisual.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ImageExtension.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="include\DependentValue.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="IsEqualStateTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="IsNullOrEmptyStateTrigger.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="MarqueeText.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MicaBackdropWithFallback.idl">
@@ -1133,9 +829,6 @@
     <Midl Include="NavigationViewHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="NegateBoolConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="NonMaximizableWindowWorkaround.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1157,43 +850,10 @@
     <Midl Include="PopupMenuFlyoutSubItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="ProgressBarEx.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="RadioPopupMenuFlyoutItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="ReferenceToBoolConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="RevealFocusPanel.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Segmented.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SegmentedItem.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SegmentedItemCornerRadiusConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SegmentedMarginConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SettingsCard.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SettingsExpander.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SettingsExpanderItemStyleSelector.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Shimmer.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Shimmer_Resource.idl">
@@ -1237,9 +897,6 @@
     <Midl Include="TransparentWindow.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="UIElementExtension.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="SmokeLayerKind.idl" />
     <Midl Include="UnderlayCoverMode.idl" />
     <Midl Include="UnderlayMode.idl" />
@@ -1259,9 +916,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowEx.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="WrapPanel.idl">
       <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>

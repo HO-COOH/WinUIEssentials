@@ -1,0 +1,14 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass DependentValue : WinUINamespace.UI.Xaml.DependencyObject
+    {
+        DependentValue();
+
+        Double Value;
+        static WinUINamespace.UI.Xaml.DependencyProperty ValueProperty{ get; };
+
+        event Windows.Foundation.EventHandler<Double> ValueChanged;
+    }
+}

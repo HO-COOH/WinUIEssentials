@@ -1,0 +1,12 @@
+﻿import "Language.idl";
+
+namespace PackageRoot
+{
+    [default_interface]
+    runtimeclass Editor : WinUINamespace.UI.Xaml.Controls.UserControl
+    {
+        Editor();
+        String Code;
+        Language CodeLanguage;
+    }
+}

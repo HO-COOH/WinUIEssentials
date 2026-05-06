@@ -295,12 +295,6 @@
     <Midl Include="TemplateInformation.idl">
       <Filter>Pages\SwitchPresenterPage</Filter>
     </Midl>
-    <Midl Include="ControlExampleSubstitution.idl">
-      <Filter>Helper</Filter>
-    </Midl>
-    <Midl Include="CodeSource.idl">
-      <Filter>Helper</Filter>
-    </Midl>
     <Midl Include="FontInfo.idl">
       <Filter>Pages\ComboBoxHelperPage</Filter>
     </Midl>
@@ -312,12 +306,6 @@
     </Midl>
     <Midl Include="PhotoDataItemWithDimension.idl">
       <Filter>Pages\WrapPanelPage</Filter>
-    </Midl>
-    <Midl Include="NamedUrl.idl">
-      <Filter>Helper</Filter>
-    </Midl>
-    <Midl Include="ContributorItem.idl">
-      <Filter>Helper</Filter>
     </Midl>
     <Midl Include="ElementThemeToStringConverter.idl">
       <Filter>Helper</Filter>
@@ -346,9 +334,6 @@
     <Midl Include="RevealNavigationView.idl">
       <Filter>Pages\RevealFocusPage</Filter>
     </Midl>
-    <Midl Include="Language.idl">
-      <Filter>Helper</Filter>
-    </Midl>
     <Midl Include="AnimatedDigit.idl">
       <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Midl>
@@ -366,12 +351,6 @@
       <Filter>Pages\Experimental</Filter>
     </ClCompile>
     <ClCompile Include="ExceptionDialog.cpp" />
-    <ClCompile Include="GithubRequest.cpp">
-      <Filter>Helper\AboutPage</Filter>
-    </ClCompile>
-    <ClCompile Include="RepoInfo.cpp">
-      <Filter>Helper\AboutPage</Filter>
-    </ClCompile>
     <ClCompile Include="ButtonAnimations.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
@@ -396,12 +375,6 @@
     </ClInclude>
     <ClInclude Include="SystemBackdropType.h">
       <Filter>Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="GithubRequest.h">
-      <Filter>Helper\AboutPage</Filter>
-    </ClInclude>
-    <ClInclude Include="RepoInfo.h">
-      <Filter>Helper\AboutPage</Filter>
     </ClInclude>
     <ClInclude Include="ButtonAnimations.h">
       <Filter>Helper</Filter>

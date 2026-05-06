@@ -1,0 +1,9 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    unsealed runtimeclass CaseCollection : WinUINamespace.UI.Xaml.DependencyObjectCollection
+    {
+        CaseCollection();
+    }
+}

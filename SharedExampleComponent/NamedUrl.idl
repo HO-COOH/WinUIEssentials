@@ -1,0 +1,12 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass NamedUrl 
+    {
+        NamedUrl();
+        
+        String Name;
+        Windows.Foundation.Uri Url;
+    }
+}

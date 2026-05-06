@@ -114,6 +114,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\SharedExampleComponent\SharedExampleComponent.vcxitems" Label="Shared" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -179,15 +182,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;PackageRoot=UWPExample;WinUINamespace=Windows;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -208,18 +211,27 @@
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">
@@ -240,18 +252,27 @@
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -273,18 +294,27 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </Command>
     </PostBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
     <ClCompile>
-      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(SolutionDir)UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -306,14 +336,31 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">
       </Command>
     </PostBuildEvent>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
+    <Midl>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=UWPExample;WinUINamespace=Windows</PreprocessorDefinitions>
+    </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AboutPage.h">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="BadgePage.h">
       <DependentUpon>BadgePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="CharmBarPage.h">
       <DependentUpon>CharmBarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ControlExample.h">
+      <DependentUpon>ControlExample.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ConvertersPage.h">
@@ -328,6 +375,18 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Editor.h">
+      <DependentUpon>Editor.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ExtensionsPage.h">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="FontIconExtensionPage.h">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="GlyphsPage.h">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -338,10 +397,6 @@
     </ClInclude>
     <ClInclude Include="IconButtonPage.h">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ImageExtensionPage.h">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="MarqueeContainerPage.h">
@@ -399,6 +454,10 @@
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ThemeToggleButton.h">
+      <DependentUpon>ThemeToggleButton.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TilesPage.h">
       <DependentUpon>TilesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -409,10 +468,6 @@
     </ClInclude>
     <ClInclude Include="TriggersPage.h">
       <DependentUpon>TriggersPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="UIElementExtensionsPage.h">
-      <DependentUpon>UIElementExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="UriGroup.h">
@@ -432,10 +487,16 @@
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AboutPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="BadgePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CharmBarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ControlExample.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ConvertersPage.xaml">
@@ -447,6 +508,15 @@
     <Page Include="DependentValuePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Editor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExtensionsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FontIconExtensionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GlyphsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -454,9 +524,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="IconButtonPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ImageExtensionPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
@@ -489,6 +556,9 @@
     <Page Include="SwitchPresenterPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ThemeToggleButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TilesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -496,9 +566,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TriggersPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UIElementExtensionsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UriPage.xaml">
@@ -585,6 +652,14 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ExtensionsPage.cpp">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="FontIconExtensionPage.cpp">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="GlyphsPage.cpp">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -595,10 +670,6 @@
     </ClCompile>
     <ClCompile Include="IconButtonPage.cpp">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ImageExtensionPage.cpp">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MarqueeContainerPage.cpp">
@@ -671,10 +742,6 @@
       <DependentUpon>TriggersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="UIElementExtensionsPage.cpp">
-      <DependentUpon>UIElementExtensionsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="UriGroup.cpp">
       <DependentUpon>UriGroup.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -712,6 +779,14 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ExtensionsPage.idl">
+      <DependentUpon>ExtensionsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="FontIconExtensionPage.idl">
+      <DependentUpon>FontIconExtensionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="GlyphsPage.idl">
       <DependentUpon>GlyphsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -722,10 +797,6 @@
     </Midl>
     <Midl Include="IconButtonPage.idl">
       <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="ImageExtensionPage.idl">
-      <DependentUpon>ImageExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MainPage.idl">
@@ -786,10 +857,6 @@
     </Midl>
     <Midl Include="TriggersPage.idl">
       <DependentUpon>TriggersPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="UIElementExtensionsPage.idl">
-      <DependentUpon>UIElementExtensionsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="UriGroup.idl">

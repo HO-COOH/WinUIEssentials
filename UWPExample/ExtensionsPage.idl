@@ -1,0 +1,9 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass ExtensionsPage : Windows.UI.Xaml.Controls.Page
+    {
+        ExtensionsPage();
+        Windows.UI.Xaml.Controls.ToggleSwitch ClipSwitch{ get; };
+    }
+}

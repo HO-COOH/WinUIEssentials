@@ -1,0 +1,10 @@
+namespace PackageRoot
+{
+    enum Language
+    {
+        Xaml,
+        Cpp,
+        H,
+        Idl
+    };
+}

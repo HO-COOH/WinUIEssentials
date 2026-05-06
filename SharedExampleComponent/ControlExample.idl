@@ -1,0 +1,46 @@
+﻿import "ControlExampleSubstitution.idl";
+import "CodeSource.idl";
+import "Editor.idl";
+
+namespace PackageRoot
+{
+    // We support source code of string / packaged file / web url
+    [default_interface]
+    [contentproperty("Example")]
+    runtimeclass ControlExample : WinUINamespace.UI.Xaml.Controls.UserControl
+    {
+        ControlExample();
+        
+        String HeaderText;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderTextProperty{ get; };
+
+        Object Example;
+		static WinUINamespace.UI.Xaml.DependencyProperty ExampleProperty{ get; };
+
+        Object Options;
+		static WinUINamespace.UI.Xaml.DependencyProperty OptionsProperty{ get; };
+
+        Object Output;
+		static WinUINamespace.UI.Xaml.DependencyProperty OutputProperty{ get; };
+
+        CodeSource Xaml;
+		static WinUINamespace.UI.Xaml.DependencyProperty XamlProperty{ get; };
+
+        CodeSource Idl;
+        static WinUINamespace.UI.Xaml.DependencyProperty IdlProperty{ get; };
+
+        CodeSource Header;
+		static WinUINamespace.UI.Xaml.DependencyProperty HeaderProperty{ get; };
+
+        CodeSource Cpp;
+		static WinUINamespace.UI.Xaml.DependencyProperty CppProperty{ get; };
+
+		Windows.Foundation.Collections.IVector<PackageRoot.ControlExampleSubstitution> Substitutions;
+		static WinUINamespace.UI.Xaml.DependencyProperty SubstitutionsProperty{ get; };
+
+        Windows.Foundation.Collections.IVector<Object> CodeItems{ get; };
+
+        static String UnboxString(Object value);
+        static String BooleanToString(Boolean value);
+    }
+}

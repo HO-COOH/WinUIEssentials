@@ -1,9 +1,0 @@
-﻿namespace WinUI3Package
-{
-    [bindable]
-    [default_interface]
-    unsealed runtimeclass CaseCollection : Microsoft.UI.Xaml.DependencyObjectCollection
-    {
-        CaseCollection();
-    }
-}

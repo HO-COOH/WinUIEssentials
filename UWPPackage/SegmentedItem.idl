@@ -1,9 +1,0 @@
-﻿namespace UWPPackage
-{
-    [bindable]
-    [default_interface]
-    runtimeclass SegmentedItem : Windows.UI.Xaml.Controls.ListViewItem
-    {
-        SegmentedItem();
-    }
-}

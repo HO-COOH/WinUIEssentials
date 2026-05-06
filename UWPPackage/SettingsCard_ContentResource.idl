@@ -1,0 +1,8 @@
+namespace UWPPackage
+{
+    [default_interface]
+    runtimeclass SettingsCard_ContentResource : Windows.UI.Xaml.ResourceDictionary
+    {
+        SettingsCard_ContentResource();
+    }
+}

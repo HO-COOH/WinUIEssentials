@@ -7,6 +7,48 @@
     <Filter Include="TypeName">
       <UniqueIdentifier>{c18403aa-7856-4d98-afce-ffd254679fee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extensions">
+      <UniqueIdentifier>{327375bf-94f2-4271-89a3-1e31946d17a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Triggers">
+      <UniqueIdentifier>{84ed1ee2-9f0e-4b31-bd1b-8c7b0a8ebf7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal">
+      <UniqueIdentifier>{155cc2f9-fa28-4099-b25a-92b147541d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DependentValue">
+      <UniqueIdentifier>{b99f07e3-4752-4b22-a901-08b4635add30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls">
+      <UniqueIdentifier>{a43a0b91-05b8-49d0-9258-7f0d38d358d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\GroupBox">
+      <UniqueIdentifier>{c7e86e37-1868-4a21-b081-fb36cb697728}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\MarqueeText">
+      <UniqueIdentifier>{c3d1448b-f757-4894-b6df-533978523e61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\ProgressBarEx">
+      <UniqueIdentifier>{64dab47f-99b5-4743-b3a5-18c361a00ec2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SettingsExpander">
+      <UniqueIdentifier>{866e1dd6-b4aa-4766-a702-ecb448714767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\Segmented">
+      <UniqueIdentifier>{e1f722c9-c1ae-491a-ac80-8d6593e3661b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SettingsCard">
+      <UniqueIdentifier>{ed36ae0a-5bb6-44a7-93bb-361384b70778}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\Shimmer">
+      <UniqueIdentifier>{931347f1-3bbc-4c67-9e6d-d64ab16778ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\SwitchPresenter">
+      <UniqueIdentifier>{cffca7e2-d098-490a-95d6-fc5d30c97956}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WrapPanel">
+      <UniqueIdentifier>{069cba29-5d44-4957-b63b-8191e5b273ee}</UniqueIdentifier>
+    </Filter>
     <Filter Include="DirectN">
       <UniqueIdentifier>{408c74e2-a7c9-406c-ae56-b46063283fdd}</UniqueIdentifier>
     </Filter>
@@ -20,6 +62,99 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl">
       <Filter>TypeName</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)CaseCollection.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SwitchPresenter.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Case.idl">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)NegateBoolConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ConverterGroup.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)StringToBoolConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)CursorController.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)FontIconExtension.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)UIElementExtension.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.idl">
+      <Filter>Triggers</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)WrapPanel.idl">
+      <Filter>Controls\WrapPanel</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)DependentValue.idl">
+      <Filter>DependentValue</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ImageExtension.idl">
+      <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsCard.idl">
+      <Filter>Controls\SettingsCard</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)GroupBox.idl">
+      <Filter>Controls\GroupBox</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Segmented.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Shimmer.idl">
+      <Filter>Controls\Shimmer</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)EqualPanel.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SegmentedItem.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SegmentedMarginConverter.idl">
+      <Filter>Controls\Segmented</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsExpanderItemStyleSelector.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsExpanderLastItemConrnerRadiusConverter.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)SettingsExpander.idl">
+      <Filter>Controls\SettingsExpander</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)MarqueeText.idl">
+      <Filter>Controls\MarqueeText</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ProgressBarEx.idl">
+      <Filter>Controls\ProgressBarEx</Filter>
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)ColumnSizingMode.idl">
       <Filter>Table</Filter>
@@ -77,6 +212,111 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h">
       <Filter>Table</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CaseCollection.h">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SwitchPresenter.h">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Case.h">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NegateBoolConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ConverterGroup.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)StringToBoolConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReverseConverterBase.hpp">
+      <Filter>Converter</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CursorController.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FontIconExtension.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)UIElementExtension.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.h">
+      <Filter>Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.h">
+      <Filter>Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.h">
+      <Filter>Triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)WrapPanel.h">
+      <Filter>Controls\WrapPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ObjectCompare.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h">
+      <Filter>DependentValue</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h">
+      <Filter>Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsCard.h">
+      <Filter>Controls\SettingsCard</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)GroupBox.h">
+      <Filter>Controls\GroupBox</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Segmented.h">
+      <Filter>Controls\Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.h">
+      <Filter>Controls\Shimmer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.AnimationMember.h">
+      <Filter>Controls\Shimmer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.DefaultGradientColor.h">
+      <Filter>Controls\Shimmer</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EqualPanel.h">
+      <Filter>Controls\Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedItem.h">
+      <Filter>Controls\Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.h">
+      <Filter>Controls\Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedMarginConverter.h">
+      <Filter>Controls\Segmented</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpanderItemStyleSelector.h">
+      <Filter>Controls\SettingsExpander</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpanderLastItemConrnerRadiusConverter.h">
+      <Filter>Controls\SettingsExpander</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpander.h">
+      <Filter>Controls\SettingsExpander</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MarqueeText.h">
+      <Filter>Controls\MarqueeText</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ProgressBarEx.h">
+      <Filter>Controls\ProgressBarEx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -114,6 +354,105 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp">
       <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SwitchPresenter.cpp">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Case.cpp">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CaseCollection.cpp">
+      <Filter>Controls\SwitchPresenter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ContainerToBoolConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NegateBoolConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ConverterGroup.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)StringToBoolConverter.cpp">
+      <Filter>Converter</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CursorController.cpp">
+      <Filter>Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FontIconExtension.cpp">
+      <Filter>Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)UIElementExtension.cpp">
+      <Filter>Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ControlSizeTrigger.cpp">
+      <Filter>Triggers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.cpp">
+      <Filter>Triggers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.cpp">
+      <Filter>Triggers</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)WrapPanel.cpp">
+      <Filter>Controls\WrapPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ObjectCompare.cpp">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DependentValue.cpp">
+      <Filter>DependentValue</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ImageExtension.cpp">
+      <Filter>Extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsCard.cpp">
+      <Filter>Controls\SettingsCard</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)GroupBox.cpp">
+      <Filter>Controls\GroupBox</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Segmented.cpp">
+      <Filter>Controls\Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Shimmer.cpp">
+      <Filter>Controls\Shimmer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Shimmer.AnimationMember.cpp">
+      <Filter>Controls\Shimmer</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EqualPanel.cpp">
+      <Filter>Controls\Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItem.cpp">
+      <Filter>Controls\Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.cpp">
+      <Filter>Controls\Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedMarginConverter.cpp">
+      <Filter>Controls\Segmented</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsExpanderItemStyleSelector.cpp">
+      <Filter>Controls\SettingsExpander</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsExpanderLastItemConrnerRadiusConverter.cpp">
+      <Filter>Controls\SettingsExpander</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SettingsExpander.cpp">
+      <Filter>Controls\SettingsExpander</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MarqueeText.cpp">
+      <Filter>Controls\MarqueeText</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ProgressBarEx.cpp">
+      <Filter>Controls\ProgressBarEx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

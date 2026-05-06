@@ -39,14 +39,8 @@
     <ClCompile Include="RadioPopupMenuItemGroup.cpp">
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </ClCompile>
-    <ClCompile Include="ObjectCompare.cpp">
-      <Filter>internal</Filter>
-    </ClCompile>
     <ClCompile Include="WindowContextMenuUtils.cpp">
       <Filter>utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Shimmer.AnimationMember.cpp">
-      <Filter>Controls\Shimmer</Filter>
     </ClCompile>
     <ClCompile Include="ContentDialogUtils.cpp">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
@@ -94,9 +88,6 @@
     <ClInclude Include="include\ToastBuilder.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="ReverseConverterBase.hpp">
-      <Filter>Converters</Filter>
-    </ClInclude>
     <ClInclude Include="include\PropertyChangeHelper.hpp">
       <Filter>include</Filter>
     </ClInclude>
@@ -137,14 +128,8 @@
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp">
       <Filter>Backdrop</Filter>
     </ClInclude>
-    <ClInclude Include="UnsupportedImageTypeError.hpp">
-      <Filter>Extensions\ImageExtension</Filter>
-    </ClInclude>
     <ClInclude Include="ListViewBaseWorkaround.hpp">
       <Filter>Controls\Segmented</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectCompare.h">
-      <Filter>internal</Filter>
     </ClInclude>
     <ClInclude Include="include\WebView2Helper.hpp">
       <Filter>include</Filter>
@@ -237,12 +222,6 @@
     </ClInclude>
     <ClInclude Include="AcrylicVisualWithBoundedCornerRadius.h">
       <Filter>Controls\AcrylicVisual</Filter>
-    </ClInclude>
-    <ClInclude Include="Shimmer.AnimationMember.h">
-      <Filter>Controls\Shimmer</Filter>
-    </ClInclude>
-    <ClInclude Include="Shimmer.DefaultGradientColor.h">
-      <Filter>Controls\Shimmer</Filter>
     </ClInclude>
     <ClInclude Include="WinUIAsyncEventArgs.hpp">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Utils</Filter>
@@ -337,26 +316,11 @@
     <Filter Include="include">
       <UniqueIdentifier>{f8d8d370-4f18-4c11-a8c6-6145dcde80da}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Converters">
-      <UniqueIdentifier>{705ed3e6-dfae-492b-ae3c-1b4f2e9acecc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Triggers">
-      <UniqueIdentifier>{3cc9cab8-b17a-4fce-806e-769d99c0084d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Controls">
       <UniqueIdentifier>{64af69c0-57c7-4bf9-877e-c252bcb5167a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Controls\SettingsCard">
       <UniqueIdentifier>{1d6eabd4-0f64-467a-9db2-2b785ed1e7a7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\SettingsExpander">
-      <UniqueIdentifier>{7f4c5d5f-7657-42e8-ab4c-28ffd4afc61d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\MarqueeText">
-      <UniqueIdentifier>{342a38f3-e345-43bb-8be2-ad8634e7b7bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\ProgressBarEx">
-      <UniqueIdentifier>{ead65dbf-1731-4bcd-a3a9-962f5b192067}</UniqueIdentifier>
     </Filter>
     <Filter Include="Controls\Segmented">
       <UniqueIdentifier>{c3d7f26b-3a72-4fcd-9785-dc79e19e3fff}</UniqueIdentifier>
@@ -375,12 +339,6 @@
     </Filter>
     <Filter Include="Windows">
       <UniqueIdentifier>{f75bc99f-6f1e-4b55-bb3b-051e279439bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\Shimmer">
-      <UniqueIdentifier>{c1a2ed79-6241-482b-8ca5-860d2876eb60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\SwitchPresenter">
-      <UniqueIdentifier>{68605443-f197-4fb3-b27c-1de2fb958f55}</UniqueIdentifier>
     </Filter>
     <Filter Include="internal">
       <UniqueIdentifier>{7249024f-ebd8-419d-8c91-235bb32e1b45}</UniqueIdentifier>
@@ -405,9 +363,6 @@
     </Filter>
     <Filter Include="TaskbarIcon\Errors">
       <UniqueIdentifier>{5286bb85-614b-4b57-a35c-c75dffb90e63}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Controls\GroupBox">
-      <UniqueIdentifier>{8b0acd1f-86d3-45a7-afa9-9f5fb4907e28}</UniqueIdentifier>
     </Filter>
     <Filter Include="Controls\Helpers">
       <UniqueIdentifier>{1e6dcb42-f11c-454a-ba47-4d5dc1735958}</UniqueIdentifier>
@@ -442,15 +397,6 @@
     <Filter Include="Controls\WindowedContentDialog\WindowedContentDialog">
       <UniqueIdentifier>{d5820e1f-d67e-4647-80b6-7b6133307257}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Extensions">
-      <UniqueIdentifier>{faf10c80-d343-4915-8fe8-b3b8012bfcb0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Extensions\ImageExtension">
-      <UniqueIdentifier>{71e7b333-7b9c-4129-8284-9df33db549af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Extensions\MarkupExtensions">
-      <UniqueIdentifier>{877a96cc-8fdd-4e4b-af4d-f103a2fbdef1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Backdrop\CustomizableBackdrops">
       <UniqueIdentifier>{885452a6-0434-4471-a419-1c300c3dfbbe}</UniqueIdentifier>
     </Filter>
@@ -462,70 +408,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="BoolToVisibilityConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ContainerToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ConverterGroup.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="NegateBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ReferenceToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="StringToBoolConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
-    <Midl Include="ControlSizeTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="IsEqualStateTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="IsNullOrEmptyStateTrigger.idl">
-      <Filter>Triggers</Filter>
-    </Midl>
-    <Midl Include="FontIconExtension.idl">
-      <Filter>Extensions\MarkupExtensions</Filter>
-    </Midl>
-    <Midl Include="include\DependentValue.idl" />
-    <Midl Include="GroupBox.idl">
-      <Filter>Controls\GroupBox</Filter>
-    </Midl>
-    <Midl Include="SettingsCard.idl">
-      <Filter>Controls\SettingsCard</Filter>
-    </Midl>
-    <Midl Include="SettingsExpander.idl">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="SettingsExpanderItemStyleSelector.idl">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="MarqueeText.idl">
-      <Filter>Controls\MarqueeText</Filter>
-    </Midl>
-    <Midl Include="ProgressBarEx.idl">
-      <Filter>Controls\ProgressBarEx</Filter>
-    </Midl>
-    <Midl Include="EqualPanel.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="Segmented.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedItem.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedItemCornerRadiusConverter.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
-    <Midl Include="SegmentedMarginConverter.idl">
-      <Filter>Controls\Segmented</Filter>
-    </Midl>
     <Midl Include="HostBackdropVisual.idl">
       <Filter>Controls\AcrylicVisual</Filter>
     </Midl>
@@ -537,24 +419,6 @@
     </Midl>
     <Midl Include="WindowEx.idl">
       <Filter>Windows</Filter>
-    </Midl>
-    <Midl Include="Shimmer.idl">
-      <Filter>Controls\Shimmer</Filter>
-    </Midl>
-    <Midl Include="ImageExtension.idl">
-      <Filter>Extensions\ImageExtension</Filter>
-    </Midl>
-    <Midl Include="SettingsExpanderLastItemConrnerRadiusConverter.idl">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Midl>
-    <Midl Include="SwitchPresenter.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
-    </Midl>
-    <Midl Include="Case.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
-    </Midl>
-    <Midl Include="CaseCollection.idl">
-      <Filter>Controls\SwitchPresenter</Filter>
     </Midl>
     <Midl Include="GeneratedIconSource.idl">
       <Filter>TaskbarIcon</Filter>
@@ -593,9 +457,6 @@
     <Midl Include="VersionInfo.idl" />
     <Midl Include="AcrylicVisual.idl">
       <Filter>Controls\AcrylicVisual</Filter>
-    </Midl>
-    <Midl Include="WrapPanel.idl">
-      <Filter>Controls</Filter>
     </Midl>
     <Midl Include="ModalWindow.idl">
       <Filter>Windows</Filter>
@@ -666,12 +527,6 @@
     <Midl Include="WindowedContentDialog.idl">
       <Filter>Controls\WindowedContentDialog\WindowedContentDialog</Filter>
     </Midl>
-    <Midl Include="UIElementExtension.idl">
-      <Filter>Extensions</Filter>
-    </Midl>
-    <Midl Include="CursorController.idl">
-      <Filter>Extensions</Filter>
-    </Midl>
     <Midl Include="CustomMicaBackdrop.idl">
       <Filter>Backdrop\CustomizableBackdrops</Filter>
     </Midl>
@@ -683,20 +538,8 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="GroupBox_Resource.xaml">
-      <Filter>Controls\GroupBox</Filter>
-    </Page>
-    <Page Include="SettingsExpander_Resource.xaml">
-      <Filter>Controls\SettingsExpander</Filter>
-    </Page>
     <Page Include="SettingsCard_Resource.xaml">
       <Filter>Controls\SettingsCard</Filter>
-    </Page>
-    <Page Include="MarqueeText_Resource.xaml">
-      <Filter>Controls\MarqueeText</Filter>
-    </Page>
-    <Page Include="ProgressBarEx_Resource.xaml">
-      <Filter>Controls\ProgressBarEx</Filter>
     </Page>
     <Page Include="Segmented_Resource.xaml">
       <Filter>Controls\Segmented</Filter>
@@ -706,9 +549,6 @@
     </Page>
     <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
       <Filter>Windows</Filter>
-    </Page>
-    <Page Include="Shimmer_Resource.xaml">
-      <Filter>Controls\Shimmer</Filter>
     </Page>
     <Page Include="ModernDialogBoxContent_Resource.xaml">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Content</Filter>
@@ -725,8 +565,20 @@
     <Page Include="Table.xaml">
       <Filter>Controls\Table</Filter>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Page Include="GroupBox_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="MarqueeText_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="ProgressBarEx_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="Shimmer_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="SettingsExpander_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
   </ItemGroup>
 </Project>

@@ -21,42 +21,42 @@ namespace winrt::PackageRoot::implementation
         static bool ContainerToBool(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& container);
         static bool ReferenceToBool(winrt::Windows::Foundation::IInspectable const& value);
         static bool StringToBool(winrt::hstring const& value);
-        constexpr static bool VisibilityToBool(winrt::WindowsNamespace::UI::Xaml::Visibility value) noexcept
+        constexpr static bool VisibilityToBool(winrt::WinUINamespace::UI::Xaml::Visibility value) noexcept
         {
-            return value == winrt::WindowsNamespace::UI::Xaml::Visibility::Visible;
+            return value == winrt::WinUINamespace::UI::Xaml::Visibility::Visible;
         }
 
         static bool ContainerToBoolReverse(winrt::Windows::Foundation::Collections::IVector<Windows::Foundation::IInspectable> const& container);
         static bool ReferenceToBoolReverse(winrt::Windows::Foundation::IInspectable const& value);
         static bool StringToBoolReverse(winrt::hstring const& value);
-        constexpr static bool VisibilityToBoolReverse(winrt::WindowsNamespace::UI::Xaml::Visibility value) noexcept
+        constexpr static bool VisibilityToBoolReverse(winrt::WinUINamespace::UI::Xaml::Visibility value) noexcept
         {
             return !VisibilityToBool(value);
         }
 
-        static winrt::WindowsNamespace::UI::Xaml::Visibility ContainerToVisibility(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& container);
-        static winrt::WindowsNamespace::UI::Xaml::Visibility ReferenceToVisibility(winrt::Windows::Foundation::IInspectable const& value);
-        static winrt::WindowsNamespace::UI::Xaml::Visibility StringToVisibility(winrt::hstring const& value);
-        constexpr static winrt::WindowsNamespace::UI::Xaml::Visibility BoolToVisibility(bool value) noexcept
+        static winrt::WinUINamespace::UI::Xaml::Visibility ContainerToVisibility(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& container);
+        static winrt::WinUINamespace::UI::Xaml::Visibility ReferenceToVisibility(winrt::Windows::Foundation::IInspectable const& value);
+        static winrt::WinUINamespace::UI::Xaml::Visibility StringToVisibility(winrt::hstring const& value);
+        constexpr static winrt::WinUINamespace::UI::Xaml::Visibility BoolToVisibility(bool value) noexcept
         {
-            return value ? winrt::WindowsNamespace::UI::Xaml::Visibility::Visible : winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed;
+            return value ? winrt::WinUINamespace::UI::Xaml::Visibility::Visible : winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed;
         }
 
-        static winrt::WindowsNamespace::UI::Xaml::Visibility ContainerToVisibilityReverse(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& container);
-        static winrt::WindowsNamespace::UI::Xaml::Visibility ReferenceToVisibilityReverse(winrt::Windows::Foundation::IInspectable const& value);
-        static winrt::WindowsNamespace::UI::Xaml::Visibility StringToVisibilityReverse(winrt::hstring const& value);
-        constexpr static WindowsNamespace::UI::Xaml::Visibility BoolToVisibilityReverse(bool value) noexcept
+        static winrt::WinUINamespace::UI::Xaml::Visibility ContainerToVisibilityReverse(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& container);
+        static winrt::WinUINamespace::UI::Xaml::Visibility ReferenceToVisibilityReverse(winrt::Windows::Foundation::IInspectable const& value);
+        static winrt::WinUINamespace::UI::Xaml::Visibility StringToVisibilityReverse(winrt::hstring const& value);
+        constexpr static WinUINamespace::UI::Xaml::Visibility BoolToVisibilityReverse(bool value) noexcept
         {
-            return value ? winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed : winrt::WindowsNamespace::UI::Xaml::Visibility::Visible;
+            return value ? winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed : winrt::WinUINamespace::UI::Xaml::Visibility::Visible;
         }
 
         constexpr static bool ReverseBool(bool value) noexcept
         {
             return !value;
         }
-        constexpr static winrt::WindowsNamespace::UI::Xaml::Visibility ReverseVisibility(winrt::WindowsNamespace::UI::Xaml::Visibility value) noexcept
+        constexpr static winrt::WinUINamespace::UI::Xaml::Visibility ReverseVisibility(winrt::WinUINamespace::UI::Xaml::Visibility value) noexcept
         {
-            return value == winrt::WindowsNamespace::UI::Xaml::Visibility::Visible ? winrt::WindowsNamespace::UI::Xaml::Visibility::Collapsed : winrt::WindowsNamespace::UI::Xaml::Visibility::Visible;
+            return value == winrt::WinUINamespace::UI::Xaml::Visibility::Visible ? winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed : winrt::WinUINamespace::UI::Xaml::Visibility::Visible;
         }
     };
 }

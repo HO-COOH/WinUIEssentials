@@ -1,9 +1,0 @@
-﻿namespace UWPPackage
-{
-    [bindable]
-    [default_interface]
-    runtimeclass NegateBoolConverter : Windows.UI.Xaml.Data.IValueConverter
-    {
-        NegateBoolConverter();
-    }
-}

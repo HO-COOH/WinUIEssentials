@@ -1,0 +1,19 @@
+﻿import "ControlExampleSubstitution.idl";
+import "Language.idl";
+
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass CodeSource
+    {
+        CodeSource();
+        
+        String Code;
+        Language CodeLanguage{ get; };
+        Windows.Foundation.Uri CodeUrl;
+        Windows.Foundation.Uri FileUri;
+
+        Windows.Foundation.Collections.IVector<PackageRoot.ControlExampleSubstitution> Substitutions{ get; };
+    }
+}

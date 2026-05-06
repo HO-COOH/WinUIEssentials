@@ -12,24 +12,24 @@ namespace PackageRoot
         static Boolean ContainerToBool(Windows.Foundation.Collections.IVector<Object> container);
         static Boolean ReferenceToBool(Object value);
         static Boolean StringToBool(String value);
-        static Boolean VisibilityToBool(WindowsNamespace.UI.Xaml.Visibility value);
+        static Boolean VisibilityToBool(WinUINamespace.UI.Xaml.Visibility value);
 
         static Boolean ContainerToBoolReverse(Windows.Foundation.Collections.IVector<Object> container);
         static Boolean ReferenceToBoolReverse(Object value);
         static Boolean StringToBoolReverse(String value);
-        static Boolean VisibilityToBoolReverse(WindowsNamespace.UI.Xaml.Visibility value);
+        static Boolean VisibilityToBoolReverse(WinUINamespace.UI.Xaml.Visibility value);
 
-        static WindowsNamespace.UI.Xaml.Visibility ContainerToVisibility(Windows.Foundation.Collections.IVector<Object> container);
-        static WindowsNamespace.UI.Xaml.Visibility ReferenceToVisibility(Object value);
-        static WindowsNamespace.UI.Xaml.Visibility StringToVisibility(String value);
-        static WindowsNamespace.UI.Xaml.Visibility BoolToVisibility(Boolean value);
+        static WinUINamespace.UI.Xaml.Visibility ContainerToVisibility(Windows.Foundation.Collections.IVector<Object> container);
+        static WinUINamespace.UI.Xaml.Visibility ReferenceToVisibility(Object value);
+        static WinUINamespace.UI.Xaml.Visibility StringToVisibility(String value);
+        static WinUINamespace.UI.Xaml.Visibility BoolToVisibility(Boolean value);
 
-        static WindowsNamespace.UI.Xaml.Visibility ContainerToVisibilityReverse(Windows.Foundation.Collections.IVector<Object> container);
-        static WindowsNamespace.UI.Xaml.Visibility ReferenceToVisibilityReverse(Object value);
-        static WindowsNamespace.UI.Xaml.Visibility StringToVisibilityReverse(String value);
-        static WindowsNamespace.UI.Xaml.Visibility BoolToVisibilityReverse(Boolean value);
+        static WinUINamespace.UI.Xaml.Visibility ContainerToVisibilityReverse(Windows.Foundation.Collections.IVector<Object> container);
+        static WinUINamespace.UI.Xaml.Visibility ReferenceToVisibilityReverse(Object value);
+        static WinUINamespace.UI.Xaml.Visibility StringToVisibilityReverse(String value);
+        static WinUINamespace.UI.Xaml.Visibility BoolToVisibilityReverse(Boolean value);
 
         static Boolean ReverseBool(Boolean value);
-        static WindowsNamespace.UI.Xaml.Visibility ReverseVisibility(WindowsNamespace.UI.Xaml.Visibility value);
+        static WinUINamespace.UI.Xaml.Visibility ReverseVisibility(WinUINamespace.UI.Xaml.Visibility value);
     }
 }

@@ -1,9 +1,0 @@
-﻿namespace WinUI3Package
-{
-    [bindable]
-    [default_interface]
-    unsealed runtimeclass Segmented : Microsoft.UI.Xaml.Controls.ListViewBase
-    {
-        Segmented();
-    }
-}

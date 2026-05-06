@@ -16,7 +16,7 @@ namespace winrt::PackageRoot::implementation
 
 #if defined Build_WinUIPackage
         winrt::Windows::Foundation::IInspectable ProvideValue(
-            winrt::WindowsNamespace::UI::Xaml::IXamlServiceProvider provider
+            winrt::WinUINamespace::UI::Xaml::IXamlServiceProvider provider
         )
         {
             return ProvideValue();

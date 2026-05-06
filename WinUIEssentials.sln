@@ -26,6 +26,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinUITest", "WinUITest\WinU
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharedComponent", "SharedComponent\SharedComponent.vcxitems", "{D2110B1F-9CB1-4FA5-901D-A3A9F0D18F90}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SharedExampleComponent", "SharedExampleComponent\SharedExampleComponent.vcxitems", "{AA25D908-061E-4B17-A03C-004AAEEB6840}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_CI2|ARM = Debug_CI2|ARM
@@ -211,12 +213,16 @@ Global
 		{68226A70-C3CD-4205-93AA-95F3EBB8BE34} = {A89EF308-E098-4300-A6A8-5E3D9BF7A9BF}
 		{E006BDA6-4CC1-4EC4-A1CF-807E16BCBF58} = {148D80C3-02AE-4AB5-8D25-739612D033BE}
 		{D2110B1F-9CB1-4FA5-901D-A3A9F0D18F90} = {148D80C3-02AE-4AB5-8D25-739612D033BE}
+		{AA25D908-061E-4B17-A03C-004AAEEB6840} = {A89EF308-E098-4300-A6A8-5E3D9BF7A9BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC8F22E0-09E5-4965-B6EC-E23350D9A02E}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SharedExampleComponent\SharedExampleComponent.vcxitems*{01c8aed1-9f5b-40e9-a3dd-02548a79eb3c}*SharedItemsImports = 4
 		SharedComponent\SharedComponent.vcxitems*{0e40ea1b-f85d-42f9-b0af-8c50c08dd498}*SharedItemsImports = 4
+		SharedExampleComponent\SharedExampleComponent.vcxitems*{68226a70-c3cd-4205-93aa-95f3ebb8be34}*SharedItemsImports = 4
+		SharedExampleComponent\SharedExampleComponent.vcxitems*{aa25d908-061e-4b17-a03c-004aaeeb6840}*SharedItemsImports = 9
 		SharedComponent\SharedComponent.vcxitems*{d2110b1f-9cb1-4fa5-901d-a3a9f0d18f90}*SharedItemsImports = 9
 		SharedComponent\SharedComponent.vcxitems*{e006bda6-4cc1-4ec4-a1cf-807e16bcbf58}*SharedItemsImports = 4
 	EndGlobalSection

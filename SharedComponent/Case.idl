@@ -1,0 +1,19 @@
+﻿namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    [contentproperty("Content")]
+    unsealed runtimeclass Case : WinUINamespace.UI.Xaml.DependencyObject
+    {
+        Case();
+
+        Object Content;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentProperty{ get; };
+
+        Boolean IsDefault;
+        static WinUINamespace.UI.Xaml.DependencyProperty IsDefaultProperty{ get; };
+
+        Object Value;
+        static WinUINamespace.UI.Xaml.DependencyProperty ValueProperty{ get; };
+    }
+}

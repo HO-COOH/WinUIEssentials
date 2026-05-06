@@ -33,3 +33,8 @@
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include "WASDK headers/Microsoft.Graphics.Canvas.hpp"
 #include "WASDK headers/Microsoft.UI.hpp"
+#include "Editor.xaml.h"
+#include "NamedUrl.h"
+#include "CodeSource.h"
+#include "ControlExampleSubstitution.h"
+#include "ContributorItem.h"
