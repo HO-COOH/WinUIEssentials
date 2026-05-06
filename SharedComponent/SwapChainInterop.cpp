@@ -43,8 +43,7 @@ void SwapChainInterop::SetTarget(ID2D1DeviceContext* d2dContext)
 	auto const rawWidth = (std::max<UINT>)(1, static_cast<UINT>(CurrentSize.Width * Scale));
 	auto const rawHeight = (std::max<UINT>)(1, static_cast<UINT>(CurrentSize.Height * Scale));
 	winrt::check_hresult(get()->ResizeBuffers(
-		0, rawWidth, rawHeight, DXGI_FORMAT_UNKNOWN,
-		DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT));
+		0, rawWidth, rawHeight, DXGI_FORMAT_UNKNOWN, 0));
 
 	inverseDpi();
 
@@ -87,21 +86,11 @@ void SwapChainInterop::create(winrt::WindowsNamespace::UI::Xaml::Controls::SwapC
 		.Scaling = DXGI_SCALING_STRETCH,
 		.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL,
 		.AlphaMode = DXGI_ALPHA_MODE_PREMULTIPLIED,
-		.Flags = DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT
 	};
 	winrt::check_hresult(dxgiFactory->CreateSwapChainForComposition(m_d3d11Device, &swapChainDesc, nullptr, put()));
 	swapChainPanel.as<ISwapChainPanelNative>()->SetSwapChain(get());
 
-	auto swapChain2 = as<IDXGISwapChain2>();
-	winrt::check_hresult(swapChain2->SetMaximumFrameLatency(1));
-	m_frameLatencyWaitable.attach(winrt::check_pointer(swapChain2->GetFrameLatencyWaitableObject()));
-
 	inverseDpi();
-}
-
-void SwapChainInterop::WaitForFrameLatency()
-{
-	WaitForSingleObjectEx(m_frameLatencyWaitable.get(), 1000, TRUE);
 }
 
 void SwapChainInterop::inverseDpi()

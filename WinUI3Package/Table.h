@@ -32,7 +32,7 @@ namespace winrt::WinUI3Package::implementation
 
         //Request a redraw and immediately refresh the scrollbars.
         //UI-thread only.
-        void requestDraw();
+        void requestDraw(bool redraw = false);
 
         //scrollbars (XAML - UI thread only)
         CachedScrollBar m_verticalScrollBarCache;

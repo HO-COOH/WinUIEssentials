@@ -4,7 +4,7 @@
 
 class ColumnWidthManager
 {
-	winrt::PackageRoot::ColumnSizingMode m_sizingMode{ winrt::PackageRoot::ColumnSizingMode::HeaderContent };
+	winrt::PackageRoot::ColumnSizingMode m_sizingMode{ winrt::PackageRoot::ColumnSizingMode::RowContent };
 	TextLayoutCache const& m_layoutCacheRef;
 	std::vector<std::atomic<float>> m_columnWidths;
 public:

@@ -49,7 +49,7 @@ public:
 	void Stop();
 
 	// Signal the D2D thread to render a new frame. Safe to call from any thread.
-	void RequestDraw();
+	void RequestDraw(bool redraw = false);
 
 	// UI-thread only: forward the SwapChainPanel size-changed event.
 	void SizeChanged(
@@ -83,19 +83,21 @@ public:
 	float TotalContentWidth() const;
 
 	int DataCount() const;
-	[[nodiscard]] bool SetHover(float y);
+	void SetHover(float y);
 	std::atomic_int Frames{ 0 };
 private:
 	void drawThreadProc();
 	void draw();
+	void drawFull(float scrollOffsetX, float scrollOffsetY, int hoveredResizeColumn, int hoveredRow, float scale);
+	void drawPartialHover(int oldRow, int newRow, float scrollOffsetX, float scrollOffsetY, float scale);
 	void drawHeader(int hoveredResizeColumn, float scrollOffsetX);
-	void drawRows(float scrollOffsetX, float scrollOffsetY);
+	void drawRows(float scrollOffsetX, float scrollOffsetY, int hoveredRow);
+	void drawRowCells(int row, float rowY, float scrollOffsetX, float scale);
 	void updateScrollOffsets();
 	D2D1_ROUNDED_RECT getResizePillRect(int column, float scrollOffsetX) const;
+	D2D_RECT_F getRowRect(int row, float scrollOffsetY, float scale) const;
 
-	//Draw-thread only. Recreates text formats (and invalidates the layout
-	//cache) so glyph pixel size matches the current composition scale.
-	void rebuildTextFormatsForScale(float scale);
+	void rebuildTextFormatsForScale();
 
 	TableTestData m_data;
 
@@ -122,9 +124,9 @@ private:
 	//Data-row index under the pointer, or -1 when the pointer is not over a
 	//row. Storing the row (not the raw y) both simplifies the hover test in
 	//the draw code and gates redraws to actual row transitions.
-	std::atomic<int> m_hoveredRow{ TableConstants::HoveredRowNone };
+	int m_hoveredRow{ TableConstants::HoveredRowNone };
 	std::atomic<bool> m_initialSizing{ true };
-
+	std::atomic<bool> m_fullRedrawNeeded{ true };
 
 	std::atomic<int> m_hoveredResizeColumn{ TableConstants::ResizeColumnIndexNone };
 	int m_sortColumnIndex = -1;
@@ -136,9 +138,12 @@ private:
 	std::atomic<bool> m_stopRequested{ false };
 	std::atomic<bool> m_isScrolling{ false };
 
-	//Draw-thread-only. Last scale the text formats were built for.
-	//Sentinel so the first frame after startup always rebuilds.
-	float m_textFormatScale{ -1.f };
+
+	//Draw-thread-only snapshot of the hovered row as of the last presented
+	//frame. Used to compute the old/new hover rects for partial redraws.
+	int m_prevHoveredRow{ TableConstants::HoveredRowNone };
+
+
 
 	//Draw-thread-only. Floor of the last scroll offset for which the
 	//scrollbar-thumb update was dispatched to the UI thread. Gates

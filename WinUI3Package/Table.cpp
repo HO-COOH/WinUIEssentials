@@ -28,9 +28,9 @@ namespace winrt::WinUI3Package::implementation
         m_fpsTimer.Start();
     }
 
-    void Table::requestDraw()
+    void Table::requestDraw(bool redraw)
     {
-        m_d2dContent.RequestDraw();
+        m_d2dContent.RequestDraw(redraw);
         m_d2dContent.m_dispatcher.TryEnqueue([this] { updateScrollBars(); });
     }
 
@@ -151,13 +151,13 @@ namespace winrt::WinUI3Package::implementation
         auto const wheelStepY = TableConstants::RowHeight * numWheelStepRow; //one wheel step scrolls 3 rows
 
         constexpr static auto wheelStepDelta = 120;
-        auto const scrollY = wheelDelta / wheelStepDelta * wheelStepY; //number of steps of wheel * step Y
+        auto const scrollY = wheelDelta / wheelStepDelta * wheelStepY; //(number of steps of wheel) * (step Y)
 
-        auto const baseY = m_d2dContent.IsScrolling() ? m_d2dContent.SmoothScrollTargetY() : m_d2dContent.ScrollOffsetY();
-        auto const maxY = m_d2dContent.DataCount() * TableConstants::RowHeight - m_d2dContent.GetViewportHeight();
-        if (maxY >= 0)
+        auto const maxScrollY = m_d2dContent.DataCount() * TableConstants::RowHeight - m_d2dContent.GetViewportHeight();
+        if (maxScrollY > 0)
         {
-            auto const targetY = std::clamp(baseY + scrollY, 0.f, maxY);
+            auto const baseY = m_d2dContent.IsScrolling() ? m_d2dContent.SmoothScrollTargetY() : m_d2dContent.ScrollOffsetY();
+            auto const targetY = std::clamp(baseY + scrollY, 0.f, maxScrollY);
             m_d2dContent.StartSmoothScrollY(targetY);
         }
         e.Handled(true);
@@ -201,14 +201,14 @@ namespace winrt::WinUI3Package::implementation
             auto const delta = x - m_resizeRequest.m_resizeStartX;
             auto const newColumnWidth = (std::max)(TableConstants::MinColumnWidth, m_resizeRequest.m_resizeStartWidth + delta);
             m_d2dContent.m_columnWidthManager.Set(m_resizeRequest.m_resizeColumnIndex, newColumnWidth);
-            requestDraw();
+            requestDraw(true);
             return;
         }
 
         if (y <= TableConstants::RowHeight)
         {
             //clear row hover while in header
-            bool needRedraw = m_d2dContent.SetHover(-1.0f);
+            m_d2dContent.SetHover(-1.0f);
 
             //is inside resize-hotzone
             if (auto const resizeColumnIndex = m_d2dContent.GetResizeColumnIndex(x); m_d2dContent.SetHoveredResizeColumn(resizeColumnIndex))
@@ -217,25 +217,14 @@ namespace winrt::WinUI3Package::implementation
                     setCursor(winrt::Microsoft::UI::Input::InputSystemCursorShape::SizeWestEast);
                 else
                     resetCursor();
-                needRedraw = true;
             }
-
-            if (needRedraw)
-                m_d2dContent.RequestDraw();
             return;
         }
 
         //not in header row
-        bool hoverNeedRedraw = false;
         if (m_d2dContent.SetHoveredResizeColumn(TableConstants::ResizeColumnIndexNone))
-        {
             resetCursor();
-            hoverNeedRedraw = true;
-        }
-        hoverNeedRedraw |= m_d2dContent.SetHover(y);
-
-        if (hoverNeedRedraw)
-            m_d2dContent.RequestDraw();
+        m_d2dContent.SetHover(y);
     }
 
     void Table::SwapChainPanel_PointerPressed(
@@ -270,7 +259,6 @@ namespace winrt::WinUI3Package::implementation
 
     void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
-        if (m_d2dContent.SetHover(-1.0))
-            m_d2dContent.RequestDraw();
+        m_d2dContent.SetHover(-1.0);
     }
 }

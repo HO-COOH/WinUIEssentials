@@ -20,7 +20,7 @@ void TextLayoutCache::CreateHeaderTextFormat(
 		fontWeight,
 		fontStyle,
 		fontStretch,
-		fontSize,
+		fontSize * Scale,
 		localeName,
 		m_headerTextFormat.put()
 	));
@@ -42,7 +42,7 @@ void TextLayoutCache::CreateCeilTextFormat(
 		fontWeight,
 		fontStyle,
 		fontStretch,
-		fontSize,
+		fontSize * Scale,
 		localeName,
 		m_cellTextFormat.put()
 	));
@@ -51,8 +51,11 @@ void TextLayoutCache::CreateCeilTextFormat(
 
 void TextLayoutCache::Clear()
 {
-	m_perCellCache.clear();
-	m_perColumnCache.clear();
+	for (auto& row : m_perCellCache)
+	{
+		for (auto& cell : row)
+			cell.content.clear();
+	}
 }
 
 void TextLayoutCache::SetNumColumns(size_t columns)

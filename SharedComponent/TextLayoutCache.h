@@ -72,6 +72,7 @@ public:
 		std::wstring_view str
 	);
 
+	float Scale{ -1.f };
 private:
 	std::vector<std::vector<TextLayout>> m_perCellCache; //this include the header row
 	std::vector<PerColumnLayout> m_perColumnCache;

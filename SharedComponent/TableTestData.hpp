@@ -141,10 +141,15 @@ private:
     std::vector<Data> m_rows;
 public:
 
+    TableTestData()
+    {
+        m_rows.reserve(Count());
+    }
+
     Data& operator[](int row)
     {
-        if (m_rows.size() <= row)
-            m_rows.push_back(Data{ *this, row });
+        while (static_cast<int>(m_rows.size()) <= row)
+            m_rows.push_back(Data{ *this, static_cast<int>(m_rows.size()) });
         return m_rows[row];
     }
 
@@ -155,10 +160,7 @@ public:
 
     constexpr int Count() const
     {
-        return static_cast<int>((std::min)({
-            std::size(TableTestData::FirstNames),
-            std::size(TableTestData::LastNames),
-            std::size(TableTestData::Departments),
-        }));
+        //Change here for pressure-testing
+        return 1000;
     }
 };
