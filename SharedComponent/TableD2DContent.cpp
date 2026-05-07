@@ -381,37 +381,46 @@ void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffse
 	struct DirtyRow
 	{
 		int row;
-		D2D_RECT_F rowRect;
+		D2D_RECT_F rowRect;   //unclipped — drives rounded fill and text origin
+		float clipTop;        //clipped-and-inset viewport region we actually write
+		float clipBottom;
 	};
-	DirtyRow dirtyRows[2];
+
+	//Up to 4 entries: this frame's (old, new) plus the previous partial frame's (old, new) repainted to sync the other back buffer.
+	DirtyRow dirtyRows[4];
 	int dirtyCount = 0;
 
 	auto addIfVisible = [&](int row)
 	{
 		if (row == TableConstants::HoveredRowNone || row < 0 || row >= dataCount)
 			return;
-		auto rowRect = getRowRect(row, scrollOffsetY, scale);
-		rowRect.top = (std::max)(rowRect.top, rawHeaderHeight);
-		rowRect.bottom = (std::min)(rowRect.bottom, rawHeight);
-		if (rowRect.bottom <= rowRect.top)
+		for (int i = 0; i < dirtyCount; ++i)
+			if (dirtyRows[i].row == row)
+				return;
+		auto const rowRect = getRowRect(row, scrollOffsetY, scale);
+		auto const clipTop = (std::max)(rowRect.top + 1 * scale, rawHeaderHeight);
+		auto const clipBottom = (std::min)(rowRect.bottom - 1 * scale, rawHeight);
+		if (clipBottom <= clipTop)
 			return;
-		dirtyRows[dirtyCount++] = { row, rowRect };
+		dirtyRows[dirtyCount++] = { row, rowRect, clipTop, clipBottom };
 	};
 	addIfVisible(oldRow);
-	if (newRow != oldRow)
-		addIfVisible(newRow);
+	addIfVisible(newRow);
+	addIfVisible(m_lastPartialOldRow);
+	addIfVisible(m_lastPartialNewRow);
+
+	m_lastPartialOldRow = oldRow;
+	m_lastPartialNewRow = newRow;
 
 	if (dirtyCount == 0)
 		return;
-
-	auto const rawDataBottomY = rawHeaderHeight + dataCount * rawRowHeight - rawScrollY;
 
 	m_d2dContext->BeginDraw();
 	for (int i = 0; i < dirtyCount; ++i)
 	{
 		auto const& dirty = dirtyRows[i];
 		m_d2dContext->PushAxisAlignedClip(
-			D2D1::RectF(0, dirty.rowRect.top + 1 * scale, rawWidth, dirty.rowRect.bottom - 1 * scale),
+			D2D1::RectF(0, dirty.clipTop, rawWidth, dirty.clipBottom),
 			D2D1_ANTIALIAS_MODE_ALIASED
 		);
 		m_d2dContext->Clear(D2D1::ColorF(0, 0));
@@ -432,15 +441,15 @@ void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffse
 	}
 	m_d2dContext->EndDraw();
 
-	RECT rects[2];
+	RECT rects[4];
 	for (int i = 0; i < dirtyCount; ++i)
 	{
 		auto const& dirty = dirtyRows[i];
 		rects[i] = RECT{
 			.left = 0,
-			.top = static_cast<LONG>(std::floor(dirty.rowRect.top)),
+			.top = static_cast<LONG>(std::floor(dirty.clipTop)),
 			.right = static_cast<LONG>(std::ceil(rawWidth)),
-			.bottom = static_cast<LONG>(std::ceil(dirty.rowRect.bottom))
+			.bottom = static_cast<LONG>(std::ceil(dirty.clipBottom))
 		};
 	}
 

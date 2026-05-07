@@ -3,7 +3,7 @@
 
 namespace TableConstants
 {
-	constexpr float HeaderFontSize = 20.f;
+	constexpr float HeaderFontSize = 16.f;
 	constexpr float CellFontSize = 14.f;
 	constexpr float SortIndicatorWidth = 16.f;
 	constexpr float RowHeight = 36.f;

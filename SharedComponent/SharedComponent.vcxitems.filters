@@ -55,6 +55,9 @@
     <Filter Include="Table">
       <UniqueIdentifier>{e506b876-c0d2-4849-a045-8fc33027d5c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Table\Xaml">
+      <UniqueIdentifier>{40f0dad6-26d7-4714-b042-fd1adb8643fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -160,7 +163,7 @@
       <Filter>Table</Filter>
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)Table.idl">
-      <Filter>Table</Filter>
+      <Filter>Table\Xaml</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -320,10 +323,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProgressBarEx.h">
       <Filter>Controls\ProgressBarEx</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
-      <Filter>Table</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
+      <Filter>Table\Xaml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -462,7 +465,7 @@
       <Filter>Controls\ProgressBarEx</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp">
-      <Filter>Table</Filter>
+      <Filter>Table\Xaml</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

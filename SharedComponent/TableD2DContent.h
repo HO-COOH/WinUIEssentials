@@ -139,12 +139,12 @@ private:
 	std::atomic<bool> m_stopRequested{ false };
 	std::atomic<bool> m_isScrolling{ false };
 
-
-	//Draw-thread-only snapshot of the hovered row as of the last presented
-	//frame. Used to compute the old/new hover rects for partial redraws.
 	int m_prevHoveredRow{ TableConstants::HoveredRowNone };
 
-
+	//These are for clearing up the back buffers because BufferCount = 2]
+	//We need to explicitly redrawing the hovered row with the previous buffer
+	int m_lastPartialOldRow{ TableConstants::HoveredRowNone };
+	int m_lastPartialNewRow{ TableConstants::HoveredRowNone };
 
 	//Draw-thread-only. Floor of the last scroll offset for which the
 	//scrollbar-thumb update was dispatched to the UI thread. Gates
