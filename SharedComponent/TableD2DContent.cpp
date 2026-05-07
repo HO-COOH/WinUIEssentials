@@ -42,6 +42,11 @@ void TableD2DContent::Stop()
 	m_drawThread.join();
 }
 
+void TableD2DContent::DetachSwapChain(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& panel)
+{
+	m_swapChain.DetachFromPanel(panel);
+}
+
 void TableD2DContent::RequestDraw(bool redraw)
 {
 	m_drawRequest.store(true, std::memory_order_release);
@@ -216,68 +221,74 @@ D2D_RECT_F TableD2DContent::getRowRect(int row, float scrollOffsetY, float scale
 void TableD2DContent::drawThreadProc()
 {
 	HighResTimer highResTimer;
-	while(true)
+	try
 	{
-		if (!m_isScrolling.load(std::memory_order_acquire))
+		while (true)
 		{
-			highResTimer = false;
-			m_drawRequest.wait(false, std::memory_order_acquire);
-		}
-
-		if (m_stopRequested.load(std::memory_order_acquire))
-			break;
-
-		m_drawRequest.store(false, std::memory_order_release);
-
-		//pick up a new scroll request if one arrived.
-		//acquire: pairs with release store in StartSmoothScrollY so the
-		//field writes there are visible here.
-		if (m_pendingScrollRequest.isPending.exchange(false, std::memory_order_acquire))
-		{
-			m_activeScrollRequest.startY = m_pendingScrollRequest.startY;
-			m_activeScrollRequest.endY = m_pendingScrollRequest.endY;
-			m_activeScrollRequest.startTime = m_pendingScrollRequest.startTime;
-			m_isScrolling.store(true, std::memory_order_release);
-		}
-
-		//advance the scroll animation for this frame
-		if (m_isScrolling.load(std::memory_order_acquire))
-		{
-			highResTimer = true;
-
-			auto const progress = m_activeScrollRequest.Progress();
-			auto const eased = EasedProgress(progress, 5);
-			bool const done = progress >= 1.0;
-			auto const newY = done ?
-				m_activeScrollRequest.endY:
-				m_activeScrollRequest.startY + (m_activeScrollRequest.endY - m_activeScrollRequest.startY) * static_cast<float>(eased);
-
-			//only call dispatcher when the scrollBar position actually changed
-			if (auto const newYFloor = static_cast<int>(newY); newYFloor != m_cachedScrollBarY)
+			if (!m_isScrolling.load(std::memory_order_acquire))
 			{
-				m_dispatcher.TryEnqueue([this, newY] { m_table_ref.updateVerticalScrollBar(newY); });
-				m_cachedScrollBarY = newYFloor;
+				highResTimer = false;
+				m_drawRequest.wait(false, std::memory_order_acquire);
 			}
 
-			m_scrollOffsetY.store(newY, std::memory_order_relaxed);
-			m_fullRedrawNeeded.store(true, std::memory_order_release);
-			if (done)
-				m_isScrolling.store(false, std::memory_order_release);
-		}
+			if (m_stopRequested.load(std::memory_order_acquire))
+				break;
 
-		if (m_swapChainDirty.exchange(false, std::memory_order_acq_rel))
-		{
-			m_swapChain.SetTarget(m_d2dContext.get());
-			m_fullRedrawNeeded.store(true, std::memory_order_release);
-		}
+			m_drawRequest.store(false, std::memory_order_release);
 
-		if (std::exchange(m_textLayoutCache.Scale, m_swapChain.Scale) != m_swapChain.Scale)
-		{
-			rebuildTextFormatsForScale();
-			m_fullRedrawNeeded.store(true, std::memory_order_release);
-		}
+			//pick up a new scroll request if one arrived.
+			//acquire: pairs with release store in StartSmoothScrollY so the
+			//field writes there are visible here.
+			if (m_pendingScrollRequest.isPending.exchange(false, std::memory_order_acquire))
+			{
+				m_activeScrollRequest.startY = m_pendingScrollRequest.startY;
+				m_activeScrollRequest.endY = m_pendingScrollRequest.endY;
+				m_activeScrollRequest.startTime = m_pendingScrollRequest.startTime;
+				m_isScrolling.store(true, std::memory_order_release);
+			}
 
-		draw();
+			//advance the scroll animation for this frame
+			if (m_isScrolling.load(std::memory_order_acquire))
+			{
+				highResTimer = true;
+
+				auto const progress = m_activeScrollRequest.Progress();
+				auto const eased = EasedProgress(progress, 5);
+				bool const done = progress >= 1.0;
+				auto const newY = done ?
+					m_activeScrollRequest.endY:
+					m_activeScrollRequest.startY + (m_activeScrollRequest.endY - m_activeScrollRequest.startY) * static_cast<float>(eased);
+
+				//only call dispatcher when the scrollBar position actually changed
+				if (auto const newYFloor = static_cast<int>(newY); newYFloor != m_cachedScrollBarY)
+				{
+					m_dispatcher.TryEnqueue([this, newY] { m_table_ref.updateVerticalScrollBar(newY); });
+					m_cachedScrollBarY = newYFloor;
+				}
+
+				m_scrollOffsetY.store(newY, std::memory_order_relaxed);
+				m_fullRedrawNeeded.store(true, std::memory_order_release);
+				if (done)
+					m_isScrolling.store(false, std::memory_order_release);
+			}
+
+			if (m_swapChainDirty.exchange(false, std::memory_order_acq_rel))
+			{
+				m_swapChain.SetTarget(m_d2dContext.get());
+				m_fullRedrawNeeded.store(true, std::memory_order_release);
+			}
+
+			if (std::exchange(m_textLayoutCache.Scale, m_swapChain.Scale) != m_swapChain.Scale)
+			{
+				rebuildTextFormatsForScale();
+				m_fullRedrawNeeded.store(true, std::memory_order_release);
+			}
+
+			draw();
+		}
+	}
+	catch (winrt::hresult_error const&)
+	{
 	}
 }
 

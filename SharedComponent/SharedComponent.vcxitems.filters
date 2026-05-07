@@ -323,6 +323,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
       <Filter>Table</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">

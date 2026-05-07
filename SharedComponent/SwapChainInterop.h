@@ -37,6 +37,7 @@ public:
 	//Draw thread. Resizes back buffers to CurrentSize*Scale, reapplies the
 	//inverse-DPI composition transform, and binds a new target bitmap.
 	void SetTarget(ID2D1DeviceContext* d2dContext);
+	void DetachFromPanel(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& panel);
 
 	//Debug life-time
 	//~SwapChainInterop()

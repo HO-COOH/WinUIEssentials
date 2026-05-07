@@ -29,6 +29,13 @@ namespace winrt::PackageRoot::implementation
         m_fpsTimer.Start();
     }
 
+    void Table::Table_Unloaded(winrt::Windows::Foundation::IInspectable const&, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const&)
+    {
+        m_fpsTimer.Stop();
+        m_d2dContent.Stop();
+        m_d2dContent.DetachSwapChain(*this);
+    }
+
     void Table::requestDraw(bool redraw)
     {
         m_d2dContent.RequestDraw(redraw);

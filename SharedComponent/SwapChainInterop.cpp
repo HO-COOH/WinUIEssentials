@@ -100,6 +100,13 @@ void SwapChainInterop::inverseDpi()
 	winrt::check_hresult(swapChain2->SetMatrixTransform(&inverseScaleMatrix));
 }
 
+void SwapChainInterop::DetachFromPanel(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& panel)
+{
+	if (!get())
+		return;
+	panel.as<ISwapChainPanelNative>()->SetSwapChain(nullptr);
+}
+
 void SwapChainInterop::Set(ID3D11Device* d3d11Device, winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& swapChainPanel)
 {
 	winrt::com_ptr<IDXGIDevice> dxgiDevice;

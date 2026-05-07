@@ -14,6 +14,7 @@
     PointerReleased="SwapChainPanel_PointerReleased"
     PointerWheelChanged="SwapChainPanel_PointerWheelChanged"
     SizeChanged="SwapChainPanel_SizeChanged"
+    Unloaded="Table_Unloaded"
     mc:Ignorable="d">
 
     <primitives:ScrollBar

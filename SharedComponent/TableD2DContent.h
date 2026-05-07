@@ -47,6 +47,7 @@ public:
 	TableD2DContent& operator=(TableD2DContent const&) = delete;
 
 	void Stop();
+	void DetachSwapChain(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& panel);
 
 	// Signal the D2D thread to render a new frame. Safe to call from any thread.
 	void RequestDraw(bool redraw = false);
