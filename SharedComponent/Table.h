@@ -7,11 +7,14 @@
 #include "TableConstants.hpp"
 #include "CachedCursor.hpp"
 #include <include/PropertyChangeHelper.hpp>
+#include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::PackageRoot::implementation
 {
-    struct Table : TableT<Table>, CachedCursor<Table>, MvvmHelper::PropertyChangeHelper<Table>
+    struct Table : TableT<Table>, CachedCursor<Table>, MvvmHelper::PropertyChangeHelper<Table>, EnsureDependencyProperty<Table>
     {
+        static void EnsureDependencyProperties();
+
         Table();
 
         void SwapChainPanel_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& e);
@@ -25,9 +28,25 @@ namespace winrt::PackageRoot::implementation
         void Table_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
 
         void updateVerticalScrollBar(float scrollOffsetY);
+
+        //Properties
         int Fps();
         int DataCount();
         void DataCount(int value);
+
+        winrt::Windows::UI::Color HeaderForeground();
+        void HeaderForeground(winrt::Windows::UI::Color const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderForegroundProperty();
+
+        winrt::Windows::UI::Color HeaderHoveredForeground();
+        void HeaderHoveredForeground(winrt::Windows::UI::Color const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderHoveredForegroundProperty();
+
+        float HeaderFontSize();
+        void HeaderFontSize(float value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontSizeProperty();
+
+
     private:
         TableD2DContent m_d2dContent{ *this };
 
@@ -56,6 +75,10 @@ namespace winrt::PackageRoot::implementation
         winrt::Windows::UI::Xaml::DispatcherTimer m_fpsTimer;
 #endif
         float m_fps{};
+
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerForegroundProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerHoveredForegroundProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty{ nullptr };
     public:
         void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };

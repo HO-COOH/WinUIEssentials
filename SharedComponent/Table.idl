@@ -8,5 +8,14 @@ namespace PackageRoot
         //TODO: test only
         Int32 DataCount;
         Int32 Fps{ get; };
+
+        Windows.UI.Color HeaderForeground;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderForegroundProperty{ get; };
+
+        Windows.UI.Color HeaderHoveredForeground;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderHoveredForegroundProperty{ get; };
+
+        Single HeaderFontSize;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
     }
 }

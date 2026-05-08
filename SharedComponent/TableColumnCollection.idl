@@ -1,0 +1,11 @@
+import "TableColumn.idl";
+
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TableColumnCollection : Windows.Foundation.Collections.IIterable<TableColumn>, Windows.Foundation.Collections.IVector<TableColumn>
+    {
+        TableColumnCollection();
+    }
+}

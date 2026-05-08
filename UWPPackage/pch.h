@@ -45,3 +45,5 @@
 #include "SettingsExpander.h"
 #include "MarqueeText.h"
 #include "ProgressBarEx.h"
+#include "TableColumn.h"
+#include "TableColumnCollection.h"

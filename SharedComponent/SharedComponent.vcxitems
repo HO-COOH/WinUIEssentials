@@ -49,6 +49,8 @@
     <Midl Include="$(MSBuildThisFileDirectory)StringToBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SwitchPresenter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Table.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)UIElementExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)WrapPanel.idl" />
@@ -93,6 +95,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)HighResTimer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SwapChainInterop.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnIterator.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnVectorView.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
@@ -148,6 +154,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ScrollRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Table.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnIterator.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnVectorView.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h" />

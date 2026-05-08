@@ -165,6 +165,12 @@
     <Midl Include="$(MSBuildThisFileDirectory)Table.idl">
       <Filter>Table\Xaml</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl">
+      <Filter>Table\Xaml</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl">
+      <Filter>Table\Xaml</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h">
@@ -325,6 +331,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
+      <Filter>Table\Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnIterator.h">
       <Filter>Table\Xaml</Filter>
     </ClInclude>
   </ItemGroup>
