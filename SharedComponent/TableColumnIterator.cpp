@@ -3,22 +3,34 @@
 #include <algorithm>
 
 TableColumnIterator::TableColumnIterator(winrt::com_ptr<winrt::PackageRoot::implementation::TableColumnCollection> owner) : 
-    m_owner{ std::move(owner) },
-    m_ownerRaw{ m_owner.get() }
+    m_owner{ std::move(owner) }
 {
 }
 
 winrt::PackageRoot::TableColumn TableColumnIterator::Current()
 {
-    auto const& columns = m_ownerRaw->m_columns;
+    auto const& columns = m_owner->m_columns;
     if (m_index >= columns.size())
         throw winrt::hresult_out_of_bounds();
     return columns[m_index];
 }
 
+bool TableColumnIterator::HasCurrent() const noexcept
+{
+    return m_index < m_owner->m_columns.size();
+}
+
+bool TableColumnIterator::MoveNext() noexcept
+{
+    auto const& columns = m_owner->m_columns;
+    if (m_index < columns.size())
+        ++m_index;
+    return m_index < columns.size();
+}
+
 uint32_t TableColumnIterator::GetMany(winrt::array_view<winrt::PackageRoot::TableColumn> items)
 {
-    auto const& columns = m_ownerRaw->m_columns;
+    auto const& columns = m_owner->m_columns;
     uint32_t const size = static_cast<uint32_t>(columns.size());
     if (m_index >= size)
         return 0;

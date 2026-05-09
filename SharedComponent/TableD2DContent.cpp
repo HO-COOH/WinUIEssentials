@@ -7,7 +7,6 @@
 #include <algorithm>
 #include "Table.h"
 #include "Easing.hpp"
-#include "HighResTimer.h"
 
 TableD2DContent::TableD2DContent(winrt::PackageRoot::implementation::Table& table) : 
 	m_dispatcher{ table },
@@ -220,14 +219,12 @@ D2D_RECT_F TableD2DContent::getRowRect(int row, float scrollOffsetY, float scale
 
 void TableD2DContent::drawThreadProc()
 {
-	HighResTimer highResTimer;
 	try
 	{
 		while (true)
 		{
 			if (!m_isScrolling.load(std::memory_order_acquire))
 			{
-				highResTimer = false;
 				m_drawRequest.wait(false, std::memory_order_acquire);
 			}
 
@@ -250,7 +247,6 @@ void TableD2DContent::drawThreadProc()
 			//advance the scroll animation for this frame
 			if (m_isScrolling.load(std::memory_order_acquire))
 			{
-				highResTimer = true;
 
 				auto const progress = m_activeScrollRequest.Progress();
 				auto const eased = EasedProgress(progress, 5);
@@ -285,6 +281,9 @@ void TableD2DContent::drawThreadProc()
 			}
 
 			draw();
+#if defined Build_UWPPackage
+			m_swapChain.WaitForVBlank();
+#endif
 		}
 	}
 	catch (winrt::hresult_error const&)

@@ -116,4 +116,16 @@ void SwapChainInterop::Set(ID3D11Device* d3d11Device, winrt::WinUINamespace::UI:
 
 	winrt::check_hresult(dxgiAdapter->GetParent(__uuidof(IDXGIFactory2), dxgiFactory.put_void()));
 	m_d3d11Device = d3d11Device;
+
+#if defined Build_UWPPackage
+	dxgiAdapter->EnumOutputs(0, m_dxgiOutput.put());
+#endif
+}
+
+void SwapChainInterop::WaitForVBlank()
+{
+#if defined Build_UWPPackage
+	if (m_dxgiOutput)
+		m_dxgiOutput->WaitForVBlank();
+#endif
 }

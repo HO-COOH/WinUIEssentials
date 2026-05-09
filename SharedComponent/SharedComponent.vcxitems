@@ -92,7 +92,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SwitchPresenter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DirectN.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)HighResTimer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SwapChainInterop.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
@@ -149,7 +148,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DirectN.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Easing.hpp" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)HighResTimer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ResizeRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScrollRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h" />

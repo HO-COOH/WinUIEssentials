@@ -16,5 +16,4 @@ struct TableColumnVectorView : winrt::implements<
 
 private:
     winrt::com_ptr<winrt::PackageRoot::implementation::TableColumnCollection> m_owner;
-    winrt::PackageRoot::implementation::TableColumnCollection* m_ownerRaw;
 };

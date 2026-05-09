@@ -209,9 +209,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h">
       <Filter>Table</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)HighResTimer.h">
-      <Filter>Table</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Easing.hpp">
       <Filter>Table</Filter>
     </ClInclude>
@@ -336,6 +333,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnIterator.h">
       <Filter>Table\Xaml</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnVectorView.h">
+      <Filter>Table\Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h">
+      <Filter>Table\Xaml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -363,9 +367,6 @@
       <Filter>Table</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp">
-      <Filter>Table</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)HighResTimer.cpp">
       <Filter>Table</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthManager.cpp">
@@ -474,6 +475,16 @@
       <Filter>Controls\ProgressBarEx</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp">
+      <Filter>Table\Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnVectorView.cpp">
+      <Filter>Table\Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnIterator.cpp">
+      <Filter>Table\Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp">
       <Filter>Table\Xaml</Filter>
     </ClCompile>
   </ItemGroup>

@@ -9,26 +9,13 @@ struct TableColumnIterator : winrt::implements<
     winrt::Windows::Foundation::Collections::IIterator<winrt::PackageRoot::TableColumn>
 >
 {
+    //None of these function can be constexpr :<
     TableColumnIterator(winrt::com_ptr<winrt::PackageRoot::implementation::TableColumnCollection> owner);
-
     winrt::PackageRoot::TableColumn Current();
-
-    constexpr bool HasCurrent() const noexcept
-    {
-        return m_index < m_ownerRaw->m_columns.size();
-    }
-
-    constexpr bool MoveNext() noexcept
-    {
-        auto const& columns = m_ownerRaw->m_columns;
-        if (m_index < columns.size())
-            ++m_index;
-        return m_index < columns.size();
-    }
-
+    bool HasCurrent() const noexcept;
+    bool MoveNext() noexcept;
     uint32_t GetMany(winrt::array_view<winrt::PackageRoot::TableColumn> items);
 private:
     winrt::com_ptr<winrt::PackageRoot::implementation::TableColumnCollection> m_owner;
-    winrt::PackageRoot::implementation::TableColumnCollection* m_ownerRaw;
     uint32_t m_index{};
 };

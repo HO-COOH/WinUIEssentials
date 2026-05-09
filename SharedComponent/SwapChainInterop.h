@@ -12,6 +12,12 @@ class SwapChainInterop : public winrt::com_ptr<IDXGISwapChain1>
 
 	ID3D11Device* m_d3d11Device{};
 	winrt::com_ptr<IDXGIFactory2> dxgiFactory;
+#if defined Build_UWPPackage
+	//Cached primary output used by WaitForVBlank to pace the draw thread on
+	//UWP. WinUI3 does not need this because the lifted compositor already
+	//paces producers.
+	winrt::com_ptr<IDXGIOutput> m_dxgiOutput;
+#endif
 
 	void inverseDpi();
 
@@ -38,6 +44,11 @@ public:
 	//inverse-DPI composition transform, and binds a new target bitmap.
 	void SetTarget(ID2D1DeviceContext* d2dContext);
 	void DetachFromPanel(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& panel);
+
+	//Draw thread. On UWP, blocks until the next display vblank. No-op on
+	//WinUI3. Caps the draw rate at display refresh regardless of pointer
+	//polling rate, so fast mouse movement cannot flood the compositor.
+	void WaitForVBlank();
 
 	//Debug life-time
 	//~SwapChainInterop()
