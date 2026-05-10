@@ -467,7 +467,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 	auto currentX = -scrollOffsetX * scale;
 	auto rawHeaderHeight = TableConstants::HeaderHeight * m_swapChain.Scale;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
-	for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
+	for (size_t column = 0; column < m_table_ref.m_columns->m_data.size(); ++column)
 	{
 		auto const rawColumnWidth = m_initialSizing? (std::numeric_limits<float>::max)() : m_columnWidthManager.Get(column) * scale;
 		if (currentX + rawColumnWidth > 0 || m_initialSizing)
@@ -475,8 +475,14 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 			if (currentX >= rawWidth && !m_initialSizing) //early return only if not initialize sizing 
 				return;
 
-			auto header = m_data.Header()[column];
-			auto layout = m_textLayoutCache.GetOrCreate(column, TableTestData::Columns[column], rawColumnWidth, rawHeaderHeight, header.HeaderHorizontalAlignment, header.HeaderVerticalAlignment);
+			auto layout = m_textLayoutCache.GetOrCreate(
+				column, 
+				m_table_ref.m_columns->m_data[column]->m_data.m_stringContent, 
+				rawColumnWidth, rawHeaderHeight, 
+				m_table_ref.m_data.HeaderHorizontalAlignment, 
+				m_table_ref.m_data.HeaderVerticalAlignment
+			);
+
 			if (!m_initialSizing)
 				m_d2dContext->DrawTextLayout({ currentX, 0 }, layout, m_textBrush.get());
 

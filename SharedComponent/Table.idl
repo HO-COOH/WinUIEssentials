@@ -1,3 +1,5 @@
+import "TableColumnCollection.idl";
+
 namespace PackageRoot
 {
     [default_interface]
@@ -17,5 +19,7 @@ namespace PackageRoot
 
         Single HeaderFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
+
+        TableColumnCollection Columns{ get; };
     }
 }

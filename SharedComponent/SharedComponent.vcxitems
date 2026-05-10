@@ -154,10 +154,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Table.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnIterator.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnVectorView.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />

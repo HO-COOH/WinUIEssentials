@@ -58,6 +58,12 @@
     <Filter Include="Table\Xaml">
       <UniqueIdentifier>{40f0dad6-26d7-4714-b042-fd1adb8643fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Table\Xaml\TableColumn">
+      <UniqueIdentifier>{0eb2531e-4ac9-4d0e-a432-deec4308d4aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\Xaml\Table">
+      <UniqueIdentifier>{c1642885-4093-492c-944f-12f220fa4e6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -159,17 +165,17 @@
     <Midl Include="$(MSBuildThisFileDirectory)ProgressBarEx.idl">
       <Filter>Controls\ProgressBarEx</Filter>
     </Midl>
-    <Midl Include="$(MSBuildThisFileDirectory)ColumnSizingMode.idl">
-      <Filter>Table</Filter>
-    </Midl>
-    <Midl Include="$(MSBuildThisFileDirectory)Table.idl">
-      <Filter>Table\Xaml</Filter>
-    </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl">
       <Filter>Table\Xaml</Filter>
     </Midl>
-    <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl">
+    <Midl Include="$(MSBuildThisFileDirectory)ColumnSizingMode.idl">
       <Filter>Table\Xaml</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Table.idl">
+      <Filter>Table\Xaml\Table</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -327,18 +333,26 @@
       <Filter>Controls\ProgressBarEx</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
-      <Filter>Table\Xaml</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnIterator.h">
       <Filter>Table\Xaml</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnVectorView.h">
       <Filter>Table\Xaml</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h">
       <Filter>Table\Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnData.h">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h">
+      <Filter>Table\Xaml\Table</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -474,10 +488,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ProgressBarEx.cpp">
       <Filter>Controls\ProgressBarEx</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp">
-      <Filter>Table\Xaml</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnVectorView.cpp">
       <Filter>Table\Xaml</Filter>
     </ClCompile>
@@ -486,6 +496,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp">
       <Filter>Table\Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp">
+      <Filter>Table\Xaml\Table</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

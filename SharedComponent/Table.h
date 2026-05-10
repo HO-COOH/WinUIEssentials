@@ -8,6 +8,8 @@
 #include "CachedCursor.hpp"
 #include <include/PropertyChangeHelper.hpp>
 #include "include/EnsureDependencyProperty.hpp"
+#include "TableColumnCollection.h"
+#include "TableData.h"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -46,7 +48,8 @@ namespace winrt::PackageRoot::implementation
         void HeaderFontSize(float value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontSizeProperty();
 
-
+        winrt::PackageRoot::TableColumnCollection Columns();
+        TableData m_data;
     private:
         TableD2DContent m_d2dContent{ *this };
 
@@ -75,11 +78,24 @@ namespace winrt::PackageRoot::implementation
         winrt::Windows::UI::Xaml::DispatcherTimer m_fpsTimer;
 #endif
         float m_fps{};
-
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerHoveredForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty{ nullptr };
+
+        static void onHeaderForegroundChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onHeaderHoveredForegroundChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onHeaderFontSizeChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
     public:
+        winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
         void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };
 }

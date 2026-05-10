@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TableColumnCollection.g.h"
+#include "TableColumn.h"
 #include <vector>
 
 struct TableColumnIterator;
@@ -30,8 +31,7 @@ namespace winrt::PackageRoot::implementation
         uint32_t GetMany(uint32_t startIndex, winrt::array_view<PackageRoot::TableColumn> items);
         void ReplaceAll(winrt::array_view<PackageRoot::TableColumn const> items);
 
-    private:
-        std::vector<PackageRoot::TableColumn> m_columns;
+        std::vector<winrt::com_ptr<TableColumn>> m_data;
     };
 }
 

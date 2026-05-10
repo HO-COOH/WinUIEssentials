@@ -16,20 +16,20 @@ namespace winrt::PackageRoot::implementation
             L"HeaderForeground",
             winrt::xaml_typename<winrt::Windows::UI::Color>(),
             winrt::xaml_typename<class_type>(),
-            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr }
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderForegroundChanged }
         );
 
         s_headerHoveredForegroundProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"HeaderHoveredForeground",
             winrt::xaml_typename<winrt::Windows::UI::Color>(),
             winrt::xaml_typename<class_type>(),
-            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr }
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderHoveredForegroundChanged }
         );
         s_headerFontSizeProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"HeaderFontSize",
             winrt::xaml_typename<float>(),
             winrt::xaml_typename<class_type>(),
-            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr }
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderFontSizeChanged }
         );
     }
 
@@ -150,6 +150,11 @@ namespace winrt::PackageRoot::implementation
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderFontSizeProperty()
     {
         return s_headerFontSizeProperty;
+    }
+
+    winrt::PackageRoot::TableColumnCollection Table::Columns()
+    {
+        return *m_columns;
     }
 
     void Table::updateHorizontalScrollBar(float scrollOffsetX)
@@ -340,6 +345,21 @@ namespace winrt::PackageRoot::implementation
         m_resizeRequest = false;
     }
 
+
+    void Table::onHeaderForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        winrt::get_self<Table>(d.as<class_type>())->m_data.m_headerForeground = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+    }
+
+    void Table::onHeaderHoveredForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        winrt::get_self<Table>(d.as<class_type>())->m_data.m_headerHoveredForeground = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+    }
+
+    void Table::onHeaderFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        winrt::get_self<Table>(d.as<class_type>())->m_data.m_headerFontSize = winrt::unbox_value<float>(e.NewValue());
+    }
 
     void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {

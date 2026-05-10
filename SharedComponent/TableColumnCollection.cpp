@@ -8,6 +8,11 @@
 
 namespace winrt::PackageRoot::implementation
 {
+    static winrt::com_ptr<TableColumn> toImpl(PackageRoot::TableColumn const& value)
+    {
+        return winrt::get_self<TableColumn>(value)->get_strong();
+    }
+
     winrt::Windows::Foundation::Collections::IIterator<PackageRoot::TableColumn> TableColumnCollection::First()
     {
         return winrt::make<TableColumnIterator>(get_strong());
@@ -15,14 +20,14 @@ namespace winrt::PackageRoot::implementation
 
     PackageRoot::TableColumn TableColumnCollection::GetAt(uint32_t index)
     {
-        if (index >= m_columns.size())
+        if (index >= m_data.size())
             throw winrt::hresult_out_of_bounds();
-        return m_columns[index];
+        return *m_data[index];
     }
 
     uint32_t TableColumnCollection::Size()
     {
-        return static_cast<uint32_t>(m_columns.size());
+        return static_cast<uint32_t>(m_data.size());
     }
 
     winrt::Windows::Foundation::Collections::IVectorView<PackageRoot::TableColumn> TableColumnCollection::GetView()
@@ -32,67 +37,69 @@ namespace winrt::PackageRoot::implementation
 
     bool TableColumnCollection::IndexOf(PackageRoot::TableColumn const& value, uint32_t& index)
     {
-        auto const it = std::find(m_columns.begin(), m_columns.end(), value);
-        if (it == m_columns.end())
+        auto* target = winrt::get_self<TableColumn>(value);
+        auto const it = std::find_if(m_data.begin(), m_data.end(),[target](auto const& entry) { return entry.get() == target; });
+        if (it == m_data.end())
         {
             index = 0;
             return false;
         }
-        index = static_cast<uint32_t>(std::distance(m_columns.begin(), it));
+        index = static_cast<uint32_t>(std::distance(m_data.begin(), it));
         return true;
     }
 
     void TableColumnCollection::SetAt(uint32_t index, PackageRoot::TableColumn const& value)
     {
-        if (index >= m_columns.size())
+        if (index >= m_data.size())
             throw winrt::hresult_out_of_bounds();
-        m_columns[index] = value;
+        m_data[index] = toImpl(value);
     }
 
     void TableColumnCollection::InsertAt(uint32_t index, PackageRoot::TableColumn const& value)
     {
-        if (index > m_columns.size())
+        if (index > m_data.size())
             throw winrt::hresult_out_of_bounds();
-        m_columns.insert(m_columns.begin() + index, value);
+        m_data.insert(m_data.begin() + index, toImpl(value));
     }
 
     void TableColumnCollection::RemoveAt(uint32_t index)
     {
-        if (index >= m_columns.size())
+        if (index >= m_data.size())
             throw winrt::hresult_out_of_bounds();
-        m_columns.erase(m_columns.begin() + index);
+        m_data.erase(m_data.begin() + index);
     }
 
     void TableColumnCollection::Append(PackageRoot::TableColumn const& value)
     {
-        m_columns.push_back(value);
+        m_data.push_back(toImpl(value));
     }
 
     void TableColumnCollection::RemoveAtEnd()
     {
-        if (m_columns.empty())
+        if (m_data.empty())
             throw winrt::hresult_out_of_bounds();
-        m_columns.pop_back();
+        m_data.pop_back();
     }
 
     void TableColumnCollection::Clear()
     {
-        m_columns.clear();
+        m_data.clear();
     }
 
     uint32_t TableColumnCollection::GetMany(uint32_t startIndex, winrt::array_view<PackageRoot::TableColumn> items)
     {
-        if (startIndex >= m_columns.size())
+        if (startIndex >= m_data.size())
             return 0;
-        uint32_t const available = static_cast<uint32_t>(m_columns.size()) - startIndex;
+        uint32_t const available = static_cast<uint32_t>(m_data.size()) - startIndex;
         uint32_t const count = (std::min)(available, static_cast<uint32_t>(items.size()));
         for (uint32_t i = 0; i < count; ++i)
-            items[i] = m_columns[startIndex + i];
+            items[i] = *m_data[startIndex + i];
         return count;
     }
 
     void TableColumnCollection::ReplaceAll(winrt::array_view<PackageRoot::TableColumn const> items)
     {
-        m_columns.assign(items.begin(), items.end());
+        m_data.resize(items.size());
+        std::ranges::transform(items, m_data.begin(), toImpl);
     }
 }

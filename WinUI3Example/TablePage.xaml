@@ -31,7 +31,21 @@
             <essential:Table
                 x:Name="DemoTable"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch" />
+                VerticalAlignment="Stretch">
+                <essential:Table.Columns>
+                    <essential:TableColumn StringContent="Id" />
+                    <essential:TableColumn StringContent="First Name" />
+                    <essential:TableColumn StringContent="Last Name" />
+                    <essential:TableColumn StringContent="Email" />
+                    <essential:TableColumn StringContent="Gender" />
+                    <essential:TableColumn StringContent="Dob" />
+                    <essential:TableColumn StringContent="Active At" />
+                    <essential:TableColumn StringContent="Is Active" />
+                    <essential:TableColumn StringContent="Department" />
+                    <essential:TableColumn StringContent="Designation" />
+                    <essential:TableColumn StringContent="Address" />
+                </essential:Table.Columns>
+            </essential:Table>
             <local:ControlExample.Output>
                 <TextBlock MinWidth="75">
                     <Run Text="Fps: " />

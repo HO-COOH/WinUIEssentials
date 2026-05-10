@@ -9,5 +9,8 @@ namespace PackageRoot
         String StringContent;
         //FrameworkElement UIContent;
         static WinUINamespace.UI.Xaml.DependencyProperty StringContentProperty{ get; };
+
+        Boolean SortEnabled;
+        static WinUINamespace.UI.Xaml.DependencyProperty SortEnabledProperty{ get; };
     }
 }
