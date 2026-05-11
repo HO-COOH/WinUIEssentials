@@ -31,7 +31,8 @@
             <essential:Table
                 x:Name="DemoTable"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
+                VerticalAlignment="Stretch"
+                HeaderForeground="{ThemeResource TextFillColorPrimary}">
                 <essential:Table.Columns>
                     <essential:TableColumn StringContent="Id" />
                     <essential:TableColumn StringContent="First Name" />

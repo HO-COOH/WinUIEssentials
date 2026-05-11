@@ -20,6 +20,9 @@ namespace PackageRoot
         Single HeaderFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
 
+        WinUINamespace.UI.Xaml.Thickness ContentPadding;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentPaddingProperty{ get; };
+
         TableColumnCollection Columns{ get; };
     }
 }

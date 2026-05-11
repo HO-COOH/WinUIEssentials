@@ -64,6 +64,9 @@
     <Filter Include="Table\Xaml\Table">
       <UniqueIdentifier>{c1642885-4093-492c-944f-12f220fa4e6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Table\D2D">
+      <UniqueIdentifier>{14efdc32-5d71-4bef-918f-fb6d8925dbf8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -200,9 +203,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h">
       <Filter>Table</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h">
-      <Filter>Table</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedScrollBar.h">
       <Filter>Table</Filter>
     </ClInclude>
@@ -212,9 +212,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ResizeRequest.h">
       <Filter>Table</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h">
-      <Filter>Table</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Easing.hpp">
       <Filter>Table</Filter>
     </ClInclude>
@@ -222,9 +219,6 @@
       <Filter>Table</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthManager.h">
-      <Filter>Table</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h">
       <Filter>Table</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CaseCollection.h">
@@ -354,6 +348,24 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h">
       <Filter>Table\Xaml\Table</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedDataBase.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)D2DConvert.hpp">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -374,19 +386,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp">
       <Filter>Table</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp">
-      <Filter>Table</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CachedScrollBar.cpp">
       <Filter>Table</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp">
-      <Filter>Table</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthManager.cpp">
-      <Filter>Table</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp">
       <Filter>Table</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SwitchPresenter.cpp">
@@ -502,6 +505,18 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp">
       <Filter>Table\Xaml\Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp">
+      <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp">
+      <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp">
+      <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp">
+      <Filter>Table\D2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

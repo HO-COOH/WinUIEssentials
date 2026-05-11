@@ -99,6 +99,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnIterator.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnVectorView.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ConverterGroup.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CursorController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)D2DConvert.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EqualPanel.h" />
@@ -140,6 +142,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpander.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpanderItemStyleSelector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpanderLastItemConrnerRadiusConverter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedDataBase.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.AnimationMember.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.DefaultGradientColor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.h" />
@@ -159,6 +162,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnVectorView.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />

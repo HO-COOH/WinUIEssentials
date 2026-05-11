@@ -15,6 +15,7 @@
 #include "DirectN.h"
 #include "ColumnWidthManager.h"
 #include "TableLinesCache.h"
+#include "TableD2DResource.h"
 
 namespace winrt
 {
@@ -99,8 +100,9 @@ private:
 	D2D_RECT_F getRowRect(int row, float scrollOffsetY, float scale) const;
 
 	void rebuildTextFormatsForScale();
-
+	
 	TableTestData m_data;
+
 
 	winrt::com_ptr<ID2D1Factory1> d2d1Factory = DirectN::CreateD2D1Factory();
 	winrt::com_ptr<ID3D11Device> m_d3dDevice = DirectN::CreateD3D11Device();
@@ -111,15 +113,10 @@ private:
 	SwapChainInterop m_swapChain;
 
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
+	TableD2DResource m_resource;
 public:
-	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache };
+	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData };
 private:
-	winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;
-	winrt::com_ptr<ID2D1SolidColorBrush> m_backgroundBrush;
-	winrt::com_ptr<ID2D1SolidColorBrush> m_alternateBackgroundBrush;
-	winrt::com_ptr<ID2D1SolidColorBrush> m_pillBrush;
-	winrt::com_ptr<ID2D1SolidColorBrush> m_hoverBrush;
-
 	std::atomic<float> m_scrollOffsetX{ 0.f };
 	std::atomic<float> m_scrollOffsetY{ 0.f };
 	//Data-row index under the pointer, or -1 when the pointer is not over a

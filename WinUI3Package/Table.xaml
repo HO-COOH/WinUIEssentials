@@ -8,6 +8,7 @@
     xmlns:primitives="using:Microsoft.UI.Xaml.Controls.Primitives"
     VerticalAlignment="Stretch"
     CompositionScaleChanged="SwapChainPanel_CompositionScaleChanged"
+    Loaded="Table_Loaded"
     PointerExited="SwapChainPanel_PointerExited"
     PointerMoved="SwapChainPanel_PointerMoved"
     PointerPressed="SwapChainPanel_PointerPressed"

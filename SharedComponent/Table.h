@@ -10,6 +10,7 @@
 #include "include/EnsureDependencyProperty.hpp"
 #include "TableColumnCollection.h"
 #include "TableData.h"
+#include "SharedDataBase.hpp"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -27,8 +28,10 @@ namespace winrt::PackageRoot::implementation
         void SwapChainPanel_PointerMoved(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void SwapChainPanel_PointerPressed(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void SwapChainPanel_PointerReleased(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+        void Table_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
         void Table_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
-
+        void Table_ActualThemeChanged(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& sender, winrt::Windows::Foundation::IInspectable const&);
+        
         void updateVerticalScrollBar(float scrollOffsetY);
 
         //Properties
@@ -48,8 +51,16 @@ namespace winrt::PackageRoot::implementation
         void HeaderFontSize(float value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontSizeProperty();
 
+        winrt::WinUINamespace::UI::Xaml::Thickness ContentPadding();
+        void ContentPadding(winrt::WinUINamespace::UI::Xaml::Thickness const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentPaddingProperty();
+
         winrt::PackageRoot::TableColumnCollection Columns();
+
+    public:
         TableData m_data;
+        SharedDataBase<TableData> m_sharedData{ m_data };
+        bool m_isLoaded{ false };
     private:
         TableD2DContent m_d2dContent{ *this };
 
@@ -81,6 +92,7 @@ namespace winrt::PackageRoot::implementation
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerHoveredForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentPaddingProperty{ nullptr };
 
         static void onHeaderForegroundChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
@@ -91,6 +103,10 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
         static void onHeaderFontSizeChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onContentPaddingChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );

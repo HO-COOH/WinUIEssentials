@@ -12,5 +12,10 @@ public:
         Derived::EnsureDependencyProperties();
         s_registered = true;
     }
+
+    static Derived* GetSelf(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d)
+    {
+        return winrt::get_self<Derived>(d.as<typename Derived::class_type>());
+    }
 };
 

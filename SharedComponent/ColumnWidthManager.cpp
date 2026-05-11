@@ -25,8 +25,12 @@ void ColumnWidthManager::GetInitialColumnWidth(float width, float scale)
 	if (m_sizingMode == winrt::PackageRoot::ColumnSizingMode::Equal)
 	{
 		m_columnWidths = std::vector<std::atomic<float>>(headerRow.size());
+		auto const equalWidth = width / numColumns;
 		for (size_t i = 0; i < numColumns; ++i)
-			m_columnWidths[i].store(width / numColumns , std::memory_order_relaxed);
+		{
+			m_columnWidths[i].store(equalWidth, std::memory_order_relaxed);
+			pushColumnBoundsToCache(static_cast<int>(i), equalWidth);
+		}
 	}
 	else
 	{
@@ -67,7 +71,11 @@ void ColumnWidthManager::GetInitialColumnWidth(float width, float scale)
 
 		m_columnWidths = std::vector<std::atomic<float>>(result.size());
 		for (size_t i = 0; i < result.size(); ++i)
-			m_columnWidths[i].store(result[i] / scale, std::memory_order_relaxed);
+		{
+			auto const columnWidth = result[i] / scale;
+			m_columnWidths[i].store(columnWidth, std::memory_order_relaxed);
+			pushColumnBoundsToCache(static_cast<int>(i), columnWidth);
+		}
 	}
 }
 
@@ -99,7 +107,38 @@ int ColumnWidthManager::GetColumnIndexFromX(float x, float scrollOffsetX) const
 	return TableConstants::ResizeColumnIndexNone;
 }
 
+void ColumnWidthManager::pushColumnBoundsToCache(int column, float width)
+{
+	if (m_layoutCacheRef.m_perCellCache.empty())
+		return;
+
+	auto const scale = m_layoutCacheRef.Scale;
+	auto const& padding = m_tableDataRef.m_contentPadding;
+	auto const paddedMaxWidth = (std::max)(0.f,
+		(width - static_cast<float>(padding.Left + padding.Right)) * scale);
+	auto const paddedMaxHeight = (std::max)(0.f,
+		(TableConstants::RowHeight - static_cast<float>(padding.Top + padding.Bottom)) * scale);
+
+	if (static_cast<size_t>(column) >= m_layoutCacheRef.m_perColumnCache.size())
+		return;
+
+	auto& columnLayout = m_layoutCacheRef.m_perColumnCache[column];
+	bool const changed =
+		(std::exchange(columnLayout.maxWidth, paddedMaxWidth) != paddedMaxWidth) |
+		(std::exchange(columnLayout.maxHeight, paddedMaxHeight) != paddedMaxHeight);
+
+	if (!changed)
+		return;
+
+	++columnLayout.m_contentLayoutVersion;
+	auto& headerRow = m_layoutCacheRef.m_perCellCache.front();
+	auto& headerLayout = headerRow[column].layout;
+	winrt::check_hresult(headerLayout->SetMaxWidth(paddedMaxWidth));
+	winrt::check_hresult(headerLayout->SetMaxHeight(paddedMaxHeight));
+}
+
 void ColumnWidthManager::Set(int column, float width)
 {
 	m_columnWidths[column].store(width, std::memory_order_relaxed);
+	pushColumnBoundsToCache(column, width);
 }

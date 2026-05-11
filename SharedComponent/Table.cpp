@@ -5,6 +5,7 @@
 #endif
 #include "TableConstants.hpp"
 #include <wil/resource.h>
+#include "D2DConvert.hpp"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -18,7 +19,6 @@ namespace winrt::PackageRoot::implementation
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderForegroundChanged }
         );
-
         s_headerHoveredForegroundProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"HeaderHoveredForeground",
             winrt::xaml_typename<winrt::Windows::UI::Color>(),
@@ -30,6 +30,15 @@ namespace winrt::PackageRoot::implementation
             winrt::xaml_typename<float>(),
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderFontSizeChanged }
+        );
+        s_contentPaddingProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"ContentPadding",
+            winrt::xaml_typename<winrt::WinUINamespace::UI::Xaml::Thickness>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata
+            { 
+                winrt::box_value(TableData::DefaultContentPadding), &Table::onContentPaddingChanged
+            }
         );
     }
 
@@ -59,6 +68,10 @@ namespace winrt::PackageRoot::implementation
         m_fpsTimer.Stop();
         m_d2dContent.Stop();
         m_d2dContent.DetachSwapChain(*this);
+    }
+
+    void Table::Table_ActualThemeChanged(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& sender, winrt::Windows::Foundation::IInspectable const&)
+    {
     }
 
     void Table::requestDraw(bool redraw)
@@ -150,6 +163,21 @@ namespace winrt::PackageRoot::implementation
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderFontSizeProperty()
     {
         return s_headerFontSizeProperty;
+    }
+
+    winrt::WinUINamespace::UI::Xaml::Thickness Table::ContentPadding()
+    {
+        return winrt::unbox_value<winrt::WinUINamespace::UI::Xaml::Thickness>(GetValue(ContentPaddingProperty()));
+    }
+
+    void Table::ContentPadding(winrt::WinUINamespace::UI::Xaml::Thickness const& value)
+    {
+        SetValue(ContentPaddingProperty(), winrt::box_value(value));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentPaddingProperty()
+    {
+        return s_contentPaddingProperty;
     }
 
     winrt::PackageRoot::TableColumnCollection Table::Columns()
@@ -345,20 +373,49 @@ namespace winrt::PackageRoot::implementation
         m_resizeRequest = false;
     }
 
+    void Table::Table_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e)
+    {
+        m_isLoaded = true;
+    }
 
     void Table::onHeaderForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        winrt::get_self<Table>(d.as<class_type>())->m_data.m_headerForeground = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+        auto self = GetSelf(d);
+        auto const value = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableData& data) { data.m_headerForeground = D2DConvert::ToD2DColor(value); });
+        else
+            self->m_data.m_headerForeground = D2DConvert::ToD2DColor(value);
     }
 
     void Table::onHeaderHoveredForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        winrt::get_self<Table>(d.as<class_type>())->m_data.m_headerHoveredForeground = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+        auto self = GetSelf(d);
+        auto const value = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableData& data) { data.m_headerHoveredForeground = D2DConvert::ToD2DColor(value); });
+        else
+            self->m_data.m_headerHoveredForeground = D2DConvert::ToD2DColor(value);
     }
 
     void Table::onHeaderFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        winrt::get_self<Table>(d.as<class_type>())->m_data.m_headerFontSize = winrt::unbox_value<float>(e.NewValue());
+        auto self = GetSelf(d);
+        auto const value = winrt::unbox_value<float>(e.NewValue());
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableData& data) { data.m_headerFontSize = value; });
+        else
+            self->m_data.m_headerFontSize = value;
+    }
+
+    void Table::onContentPaddingChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = winrt::unbox_value<winrt::WinUINamespace::UI::Xaml::Thickness>(e.NewValue());
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableData& data) {data.m_contentPadding = value; });
+        else
+            self->m_data.m_contentPadding = value;
     }
 
     void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
