@@ -499,6 +499,7 @@
     </ClInclude>
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
+    <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="include\Glyphs.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
     <ClInclude Include="include\ScopedButtonDisabler.hpp" />

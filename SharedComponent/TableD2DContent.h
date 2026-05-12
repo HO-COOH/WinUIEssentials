@@ -99,8 +99,6 @@ private:
 	D2D1_ROUNDED_RECT getResizePillRect(int column, float scrollOffsetX) const;
 	D2D_RECT_F getRowRect(int row, float scrollOffsetY, float scale) const;
 
-	void rebuildTextFormatsForScale();
-	
 	TableTestData m_data;
 
 
@@ -113,7 +111,7 @@ private:
 	SwapChainInterop m_swapChain;
 
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
-	TableD2DResource m_resource;
+	TableD2DResource m_resource{ m_textLayoutCache };
 public:
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData };
 private:

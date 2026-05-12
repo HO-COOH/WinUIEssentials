@@ -63,6 +63,10 @@
     <ClInclude Include="Table.h">
       <Filter>Controls</Filter>
     </ClInclude>
+    <ClInclude Include="VisualTreeHelper.hpp" />
+    <ClInclude Include="include\EnsureDependencyProperty.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="UWPPackage.def" />

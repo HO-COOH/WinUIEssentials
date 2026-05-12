@@ -32,6 +32,8 @@
                 x:Name="DemoTable"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
+                ContentFontWeight="Bold"
+                HeaderFontWeight="Normal"
                 HeaderForeground="{ThemeResource TextFillColorPrimary}">
                 <essential:Table.Columns>
                     <essential:TableColumn StringContent="Id" />

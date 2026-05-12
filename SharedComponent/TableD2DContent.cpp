@@ -270,7 +270,7 @@ void TableD2DContent::drawThreadProc()
 
 			if (std::exchange(m_textLayoutCache.Scale, m_swapChain.Scale) != m_swapChain.Scale)
 			{
-				rebuildTextFormatsForScale();
+				m_resource.ScaleChanged();
 				m_fullRedrawNeeded.store(true, std::memory_order_release);
 			}
 
@@ -283,29 +283,6 @@ void TableD2DContent::drawThreadProc()
 	catch (winrt::hresult_error const&)
 	{
 	}
-}
-
-void TableD2DContent::rebuildTextFormatsForScale()
-{
-	m_textLayoutCache.CreateHeaderTextFormat(
-		L"Segoe UI Semibold",
-		nullptr,
-		DWRITE_FONT_WEIGHT_SEMI_BOLD,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL,
-		TableConstants::HeaderFontSize,
-		L"en-US"
-	);
-	m_textLayoutCache.CreateCeilTextFormat(
-		L"Segoe UI",
-		nullptr,
-		DWRITE_FONT_WEIGHT_NORMAL,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL,
-		TableConstants::CellFontSize,
-		L"en-US"
-	);
-	m_textLayoutCache.Clear();
 }
 
 void TableD2DContent::draw()

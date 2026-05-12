@@ -20,6 +20,18 @@ namespace PackageRoot
         Single HeaderFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
 
+        Windows.UI.Text.FontWeight HeaderFontWeight;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontWeightProperty{ get; };
+
+        Single ContentFontSize;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentFontSizeProperty{ get; };
+
+        WinUINamespace.UI.Xaml.Media.FontFamily FontFamily;
+        static WinUINamespace.UI.Xaml.DependencyProperty FontFamilyProperty{ get; };
+
+        Windows.UI.Text.FontWeight ContentFontWeight;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentFontWeightProperty{ get; };
+
         WinUINamespace.UI.Xaml.Thickness ContentPadding;
         static WinUINamespace.UI.Xaml.DependencyProperty ContentPaddingProperty{ get; };
 

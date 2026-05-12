@@ -55,6 +55,22 @@ namespace winrt::PackageRoot::implementation
         void ContentPadding(winrt::WinUINamespace::UI::Xaml::Thickness const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentPaddingProperty();
 
+        winrt::Windows::UI::Text::FontWeight HeaderFontWeight();
+        void HeaderFontWeight(winrt::Windows::UI::Text::FontWeight const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontWeightProperty();
+
+        float ContentFontSize();
+        void ContentFontSize(float value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentFontSizeProperty();
+
+        winrt::WinUINamespace::UI::Xaml::Media::FontFamily FontFamily();
+        void FontFamily(winrt::WinUINamespace::UI::Xaml::Media::FontFamily const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty FontFamilyProperty();
+
+        winrt::Windows::UI::Text::FontWeight ContentFontWeight();
+        void ContentFontWeight(winrt::Windows::UI::Text::FontWeight const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentFontWeightProperty();
+
         winrt::PackageRoot::TableColumnCollection Columns();
 
     public:
@@ -93,6 +109,10 @@ namespace winrt::PackageRoot::implementation
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerHoveredForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentPaddingProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontWeightProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontSizeProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_fontFamilyProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontWeightProperty{ nullptr };
 
         static void onHeaderForegroundChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
@@ -107,6 +127,22 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
         static void onContentPaddingChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onHeaderFontWeightChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onContentFontSizeChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onFontFamilyChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onContentFontWeightChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );

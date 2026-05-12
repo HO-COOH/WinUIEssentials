@@ -14,4 +14,9 @@ namespace D2DConvert
 			.a = color.A / max
 		};
 	}
+
+	constexpr inline auto ToDWriteFontWeight(winrt::Windows::UI::Text::FontWeight fontWeight)
+	{
+		return static_cast<DWRITE_FONT_WEIGHT>(fontWeight.Weight);
+	}
 }

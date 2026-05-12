@@ -27,10 +27,7 @@ void ColumnWidthManager::GetInitialColumnWidth(float width, float scale)
 		m_columnWidths = std::vector<std::atomic<float>>(headerRow.size());
 		auto const equalWidth = width / numColumns;
 		for (size_t i = 0; i < numColumns; ++i)
-		{
-			m_columnWidths[i].store(equalWidth, std::memory_order_relaxed);
-			pushColumnBoundsToCache(static_cast<int>(i), equalWidth);
-		}
+			Set(i, equalWidth);
 	}
 	else
 	{
@@ -73,8 +70,7 @@ void ColumnWidthManager::GetInitialColumnWidth(float width, float scale)
 		for (size_t i = 0; i < result.size(); ++i)
 		{
 			auto const columnWidth = result[i] / scale;
-			m_columnWidths[i].store(columnWidth, std::memory_order_relaxed);
-			pushColumnBoundsToCache(static_cast<int>(i), columnWidth);
+			Set(i, columnWidth);
 		}
 	}
 }

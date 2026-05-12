@@ -40,6 +40,42 @@ namespace winrt::PackageRoot::implementation
                 winrt::box_value(TableData::DefaultContentPadding), &Table::onContentPaddingChanged
             }
         );
+        s_headerFontWeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"HeaderFontWeight",
+            winrt::xaml_typename<winrt::Windows::UI::Text::FontWeight>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata
+            {
+                winrt::box_value(winrt::Windows::UI::Text::FontWeights::Normal()),
+                &Table::onHeaderFontWeightChanged
+            }
+        );
+        s_contentFontSizeProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"ContentFontSize",
+            winrt::xaml_typename<float>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata
+            {
+                winrt::box_value(14.f),
+                &Table::onContentFontSizeChanged
+            }
+        );
+        s_fontFamilyProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"FontFamily",
+            winrt::xaml_typename<winrt::WinUINamespace::UI::Xaml::Media::FontFamily>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onFontFamilyChanged }
+        );
+        s_contentFontWeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"ContentFontWeight",
+            winrt::xaml_typename<winrt::Windows::UI::Text::FontWeight>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata
+            {
+                winrt::box_value(winrt::Windows::UI::Text::FontWeights::Normal()),
+                &Table::onContentFontWeightChanged
+            }
+        );
     }
 
     Table::Table()
@@ -178,6 +214,66 @@ namespace winrt::PackageRoot::implementation
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentPaddingProperty()
     {
         return s_contentPaddingProperty;
+    }
+
+    winrt::Windows::UI::Text::FontWeight Table::HeaderFontWeight()
+    {
+        return GetValue(s_headerFontWeightProperty).as<winrt::Windows::UI::Text::FontWeight>();
+    }
+
+    void Table::HeaderFontWeight(winrt::Windows::UI::Text::FontWeight const& value)
+    {
+        SetValue(s_headerFontWeightProperty, winrt::box_value(value));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderFontWeightProperty()
+    {
+        return s_headerFontWeightProperty;
+    }
+
+    float Table::ContentFontSize()
+    {
+        return winrt::unbox_value<float>(GetValue(s_contentFontSizeProperty));
+    }
+
+    void Table::ContentFontSize(float value)
+    {
+        SetValue(s_contentFontSizeProperty, winrt::box_value(value));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentFontSizeProperty()
+    {
+        return s_contentFontSizeProperty;
+    }
+
+    winrt::WinUINamespace::UI::Xaml::Media::FontFamily Table::FontFamily()
+    {
+        return GetValue(s_fontFamilyProperty).as<winrt::WinUINamespace::UI::Xaml::Media::FontFamily>();
+    }
+
+    void Table::FontFamily(winrt::WinUINamespace::UI::Xaml::Media::FontFamily const& value)
+    {
+        SetValue(s_fontFamilyProperty, value);
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::FontFamilyProperty()
+    {
+        return s_fontFamilyProperty;
+    }
+
+    winrt::Windows::UI::Text::FontWeight Table::ContentFontWeight()
+    {
+        return winrt::unbox_value<winrt::Windows::UI::Text::FontWeight>(s_contentFontWeightProperty);
+    }
+
+    void Table::ContentFontWeight(winrt::Windows::UI::Text::FontWeight const& value)
+    {
+        SetValue(s_contentFontWeightProperty, winrt::box_value(value));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentFontWeightProperty()
+    {
+        return s_contentFontWeightProperty;
     }
 
     winrt::PackageRoot::TableColumnCollection Table::Columns()
@@ -391,11 +487,11 @@ namespace winrt::PackageRoot::implementation
     void Table::onHeaderHoveredForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto self = GetSelf(d);
-        auto const value = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
+        auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) { data.m_headerHoveredForeground = D2DConvert::ToD2DColor(value); });
+            self->m_sharedData.Update([value](TableData& data) { data.m_headerHoveredForeground = value; });
         else
-            self->m_data.m_headerHoveredForeground = D2DConvert::ToD2DColor(value);
+            self->m_data.m_headerHoveredForeground = value;
     }
 
     void Table::onHeaderFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -416,6 +512,40 @@ namespace winrt::PackageRoot::implementation
             self->m_sharedData.Update([value](TableData& data) {data.m_contentPadding = value; });
         else
             self->m_data.m_contentPadding = value;
+    }
+
+    void Table::onHeaderFontWeightChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = D2DConvert::ToDWriteFontWeight(winrt::unbox_value<winrt::Windows::UI::Text::FontWeight>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableData& data) {data.m_headerFontWeight = value; });
+        else
+            self->m_data.m_headerFontWeight = value;
+    }
+
+    void Table::onContentFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = winrt::unbox_value<float>(e.NewValue());
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableData& data) { data.m_contentFontSize = value; });
+        else
+            self->m_data.m_contentFontSize = value;
+    }
+
+    void Table::onFontFamilyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+    }
+
+    void Table::onContentFontWeightChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = D2DConvert::ToDWriteFontWeight(winrt::unbox_value<winrt::Windows::UI::Text::FontWeight>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableData& data) {data.m_contentFontWeight = value; });
+        else
+            self->m_data.m_contentFontWeight = value;
     }
 
     void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
