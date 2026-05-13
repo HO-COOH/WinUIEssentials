@@ -5,7 +5,7 @@ namespace D2DConvert
 {
 	constexpr inline auto ToD2DColor(winrt::Windows::UI::Color color)
 	{
-		auto const max = static_cast<float>(0xFF);
+		constexpr auto max = static_cast<float>(0xFF);
 		return D2D_COLOR_F
 		{
 			.r = color.R / max,

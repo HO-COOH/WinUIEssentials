@@ -366,6 +366,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DConvert.hpp">
       <Filter>Table\D2D</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FrameRequest.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -516,6 +522,12 @@
       <Filter>Table\D2D</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp">
+      <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScrollRequest.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp">
       <Filter>Table\D2D</Filter>
     </ClCompile>
   </ItemGroup>

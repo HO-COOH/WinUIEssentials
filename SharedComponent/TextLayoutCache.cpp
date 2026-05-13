@@ -72,6 +72,8 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(
 	DWRITE_PARAGRAPH_ALIGNMENT verticalAlignment)
 {
 	auto& columnLayout = m_perColumnCache[column];
+	if (m_perCellCache.empty())
+		m_perCellCache.resize(1);
 	auto& headerCache = m_perCellCache.front();
 	if (headerCache.empty())
 		headerCache.resize(m_perColumnCache.size());

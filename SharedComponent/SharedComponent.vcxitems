@@ -78,6 +78,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ObjectCompare.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProgressBarEx.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScrollRequest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Segmented.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnVectorView.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
@@ -124,6 +126,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EqualPanel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FontIconExtension.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FrameRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GroupBox.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.h" />
@@ -164,6 +167,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />

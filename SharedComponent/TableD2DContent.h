@@ -16,6 +16,8 @@
 #include "ColumnWidthManager.h"
 #include "TableLinesCache.h"
 #include "TableD2DResource.h"
+#include "FrameRequest.h"
+#include "TableHeaderBitmap.h"
 
 namespace winrt
 {
@@ -50,8 +52,8 @@ public:
 	void Stop();
 	void DetachSwapChain(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& panel);
 
-	// Signal the D2D thread to render a new frame. Safe to call from any thread.
-	void RequestDraw(bool redraw = false);
+	void RequestDraw(FrameRequest::Flags extra = 0);
+	void RequestDraw(FrameRequest::Flag extra) { RequestDraw(static_cast<FrameRequest::Flags>(extra)); }
 
 	// UI-thread only: forward the SwapChainPanel size-changed event.
 	void SizeChanged(
@@ -60,15 +62,14 @@ public:
 
 	// UI-thread only: forward the SwapChainPanel composition-scale-changed
 	// event. Fires when the window moves to a monitor with a different DPI.
-	void CompositionScaleChanged(
-		winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender);
+	void CompositionScaleChanged(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender);
 
 	void SetScrollOffsetX(float x);
 	void SetScrollOffsetY(float y);
 	float ScrollOffsetX() const;
 	float ScrollOffsetY() const;
 
-	// Smooth scrolling: drives an easing animation on the draw thread.
+
 	void StartSmoothScrollY(float targetY);
 	void StopSmoothScroll();
 	bool IsScrolling() const;
@@ -89,10 +90,15 @@ public:
 	std::atomic_int Frames{ 0 };
 private:
 	void drawThreadProc();
-	void draw();
-	void drawFull(float scrollOffsetX, float scrollOffsetY, int hoveredResizeColumn, int hoveredRow, float scale);
+	void draw(FrameRequest::Flags frame);
+	void drawFull(float scrollOffsetX, float scrollOffsetY, int hoveredResizeColumn, int hoveredRow, float scale, bool headerDirty);
 	void drawPartialHover(int oldRow, int newRow, float scrollOffsetX, float scrollOffsetY, float scale);
 	void drawHeader(int hoveredResizeColumn, float scrollOffsetX);
+	//Renders the header into m_headerBitmap; called only when header state
+	//changed (column widths, horizontal scroll, hovered resize column, scale,
+	//viewport width, shared data, initial sizing). Scroll frames blit this
+	//bitmap instead of re-running the per-column text + line pass.
+	void renderHeaderBitmap(int hoveredResizeColumn, float scrollOffsetX);
 	void drawRows(float scrollOffsetX, float scrollOffsetY, int hoveredRow);
 	void drawRowCells(int row, float rowY, float scrollOffsetX, float scale);
 	void updateScrollOffsets();
@@ -122,17 +128,15 @@ private:
 	//the draw code and gates redraws to actual row transitions.
 	int m_hoveredRow{ TableConstants::HoveredRowNone };
 	std::atomic<bool> m_initialSizing{ true };
-	std::atomic<bool> m_fullRedrawNeeded{ true };
+	std::atomic<bool> m_isScrolling{ false };
+
+	//All per-frame draw-thread signals (Draw, FullRedraw, HeaderDirty,
+	//SwapChainDirty, Stop) packed into one atomic word. Initial state requests
+	//the first frame to do a full redraw and build the header cache.
+	FrameRequest m_request{ FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty };
 
 	std::atomic<int> m_hoveredResizeColumn{ TableConstants::ResizeColumnIndexNone };
 	int m_sortColumnIndex = -1;
-
-	// Smooth scroll state
-	std::atomic<float> m_smoothScrollTargetY{ 0.f };
-	std::atomic<bool> m_drawRequest{ false };
-	std::atomic<bool> m_swapChainDirty{ false };
-	std::atomic<bool> m_stopRequested{ false };
-	std::atomic<bool> m_isScrolling{ false };
 
 	int m_prevHoveredRow{ TableConstants::HoveredRowNone };
 
@@ -153,6 +157,8 @@ private:
 	ScrollRequest m_pendingScrollRequest;
 	//Draw-thread-only snapshot. Its isPending is never touched.
 	ScrollRequest m_activeScrollRequest;
+
+	TableHeaderBitmap m_headerBitmap;
 
 	winrt::PackageRoot::implementation::Table& m_table_ref;
 

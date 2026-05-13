@@ -11,7 +11,7 @@
 TableD2DContent::TableD2DContent(winrt::PackageRoot::implementation::Table& table) : 
 	m_dispatcher{ table },
 	m_table_ref{ table }, 
-	m_drawThread{ [this] { drawThreadProc(); } }
+	m_drawThread{ [this] { try { drawThreadProc(); } catch (winrt::hresult const&) {} } }
 {
 	m_swapChain.Set(m_d3dDevice.get(), table);
 
@@ -29,9 +29,7 @@ void TableD2DContent::Stop()
 {
 	if (!m_drawThread.joinable())
 		return;
-	m_stopRequested.store(true, std::memory_order_release);
-	m_drawRequest.store(true, std::memory_order_release);
-	m_drawRequest.notify_all();
+	RequestDraw(FrameRequest::Flag::Stop);
 	m_drawThread.join();
 }
 
@@ -40,12 +38,10 @@ void TableD2DContent::DetachSwapChain(winrt::WinUINamespace::UI::Xaml::Controls:
 	m_swapChain.DetachFromPanel(panel);
 }
 
-void TableD2DContent::RequestDraw(bool redraw)
+void TableD2DContent::RequestDraw(FrameRequest::Flags extra)
 {
-	m_drawRequest.store(true, std::memory_order_release);
-	if (redraw)
-		m_fullRedrawNeeded.store(true, std::memory_order_relaxed);
-	m_drawRequest.notify_one();
+	m_request.Set(static_cast<FrameRequest::Flags>(FrameRequest::Flag::Draw) | extra);
+	m_request.WakeOne();
 }
 
 void TableD2DContent::SizeChanged(
@@ -54,10 +50,8 @@ void TableD2DContent::SizeChanged(
 {
 	if (!m_swapChain.SizeChanged(sender, e))
 		return;
-	m_swapChainDirty.store(true, std::memory_order_release);
-	m_fullRedrawNeeded.store(true, std::memory_order_release);
 	updateScrollOffsets();
-	RequestDraw();
+	RequestDraw(FrameRequest::Flag::SwapChainDirty | FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty);
 }
 
 void TableD2DContent::updateScrollOffsets()
@@ -75,21 +69,20 @@ void TableD2DContent::CompositionScaleChanged(
 {
 	if (!m_swapChain.CompositionScaleChanged(sender))
 		return;
-	m_swapChainDirty.store(true, std::memory_order_release);
-	m_fullRedrawNeeded.store(true, std::memory_order_release);
-	RequestDraw();
+	RequestDraw(FrameRequest::Flag::SwapChainDirty | FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty);
 }
 
 void TableD2DContent::SetScrollOffsetX(float x)
 {
 	m_scrollOffsetX.store(x, std::memory_order_relaxed);
-	m_fullRedrawNeeded.store(true, std::memory_order_release);
+	//Header scrolls with horizontal offset.
+	m_request.Set(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty);
 }
 
 void TableD2DContent::SetScrollOffsetY(float y)
 {
 	m_scrollOffsetY.store(y, std::memory_order_relaxed);
-	m_fullRedrawNeeded.store(true, std::memory_order_release);
+	m_request.Set(FrameRequest::Flag::FullRedraw);
 }
 
 float TableD2DContent::ScrollOffsetX() const
@@ -104,14 +97,8 @@ float TableD2DContent::ScrollOffsetY() const
 
 void TableD2DContent::StartSmoothScrollY(float targetY)
 {
-	m_smoothScrollTargetY.store(targetY, std::memory_order_relaxed);
-	m_pendingScrollRequest.startY = m_scrollOffsetY.load(std::memory_order_relaxed);
-	m_pendingScrollRequest.endY = targetY;
-	m_pendingScrollRequest.startTime = std::chrono::steady_clock::now();
-	//release: publishes the fields above to the draw thread
-	m_pendingScrollRequest.isPending.store(true, std::memory_order_release);
-	m_fullRedrawNeeded.store(true, std::memory_order_release);
-	RequestDraw();
+	m_pendingScrollRequest.Set(ScrollOffsetY(), targetY);
+	RequestDraw(FrameRequest::Flag::FullRedraw);
 }
 
 void TableD2DContent::StopSmoothScroll()
@@ -126,9 +113,8 @@ bool TableD2DContent::IsScrolling() const
 
 float TableD2DContent::SmoothScrollTargetY() const
 {
-	return m_smoothScrollTargetY.load(std::memory_order_relaxed);
+	return m_pendingScrollRequest.GetTarget();
 }
-
 
 int TableD2DContent::HoveredResizeColumn() const
 {
@@ -139,7 +125,10 @@ bool TableD2DContent::SetHoveredResizeColumn(int index)
 {
 	bool const changed = m_hoveredResizeColumn.exchange(index, std::memory_order_relaxed) != index;
 	if (changed)
-		m_fullRedrawNeeded.store(true, std::memory_order_release);
+	{
+		//Resize-handle hover lives in the header row.
+		m_request.Set(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty);
+	}
 	return changed;
 }
 
@@ -213,92 +202,80 @@ D2D_RECT_F TableD2DContent::getRowRect(int row, float scrollOffsetY, float scale
 
 void TableD2DContent::drawThreadProc()
 {
-	try
+	while (true)
 	{
-		while (true)
+		if (!m_isScrolling.load(std::memory_order_acquire))
 		{
-			if (!m_isScrolling.load(std::memory_order_acquire))
-			{
-				m_drawRequest.wait(false, std::memory_order_acquire);
-			}
-
-			if (m_stopRequested.load(std::memory_order_acquire))
-				break;
-
-			m_drawRequest.store(false, std::memory_order_release);
-
-			//pick up a new scroll request if one arrived.
-			//acquire: pairs with release store in StartSmoothScrollY so the
-			//field writes there are visible here.
-			if (m_pendingScrollRequest.isPending.exchange(false, std::memory_order_acquire))
-			{
-				m_activeScrollRequest.startY = m_pendingScrollRequest.startY;
-				m_activeScrollRequest.endY = m_pendingScrollRequest.endY;
-				m_activeScrollRequest.startTime = m_pendingScrollRequest.startTime;
-				m_isScrolling.store(true, std::memory_order_release);
-			}
-
-			//advance the scroll animation for this frame
-			if (m_isScrolling.load(std::memory_order_acquire))
-			{
-
-				auto const progress = m_activeScrollRequest.Progress();
-				auto const eased = EasedProgress(progress, 5);
-				bool const done = progress >= 1.0;
-				auto const newY = done ?
-					m_activeScrollRequest.endY:
-					m_activeScrollRequest.startY + (m_activeScrollRequest.endY - m_activeScrollRequest.startY) * static_cast<float>(eased);
-
-				//only call dispatcher when the scrollBar position actually changed
-				if (auto const newYFloor = static_cast<int>(newY); newYFloor != m_cachedScrollBarY)
-				{
-					m_dispatcher.TryEnqueue([this, newY] { m_table_ref.updateVerticalScrollBar(newY); });
-					m_cachedScrollBarY = newYFloor;
-				}
-
-				m_scrollOffsetY.store(newY, std::memory_order_relaxed);
-				m_fullRedrawNeeded.store(true, std::memory_order_release);
-				if (done)
-					m_isScrolling.store(false, std::memory_order_release);
-			}
-
-			if (m_swapChainDirty.exchange(false, std::memory_order_acq_rel))
-			{
-				m_swapChain.SetTarget(m_d2dContext.get());
-				m_fullRedrawNeeded.store(true, std::memory_order_release);
-			}
-
-			if (std::exchange(m_textLayoutCache.Scale, m_swapChain.Scale) != m_swapChain.Scale)
-			{
-				m_resource.ScaleChanged();
-				m_fullRedrawNeeded.store(true, std::memory_order_release);
-			}
-
-			draw();
-#if defined Build_UWPPackage
-			m_swapChain.WaitForVBlank();
-#endif
+			m_request.WaitForDraw();
 		}
-	}
-	catch (winrt::hresult_error const&)
-	{
+
+		auto drawRequest = m_request.ClearAll();
+		if (drawRequest & FrameRequest::Flag::Stop)
+			break;
+
+		//pick up a new scroll request if one arrived.
+		//acquire: pairs with release store in StartSmoothScrollY so the
+		//field writes there are visible here.
+		if (m_pendingScrollRequest.isPending.exchange(false, std::memory_order_acquire))
+		{
+			m_activeScrollRequest.Set(m_pendingScrollRequest);
+			m_isScrolling.store(true, std::memory_order_release);
+		}
+
+		//advance the scroll animation for this frame
+		if (m_isScrolling.load(std::memory_order_acquire))
+		{
+			auto const progress = m_activeScrollRequest.Progress();
+			auto const easedProgress = EasedProgress(progress, 5);
+			auto const newY = m_activeScrollRequest.EasedValue(easedProgress);
+
+			//only call dispatcher when the scrollBar position actually changed
+			if (auto const newYFloor = static_cast<int>(newY); newYFloor != m_cachedScrollBarY)
+			{
+				m_dispatcher.TryEnqueue([this, newY] { m_table_ref.updateVerticalScrollBar(newY); });
+				m_cachedScrollBarY = newYFloor;
+			}
+
+			m_scrollOffsetY.store(newY, std::memory_order_relaxed);
+			drawRequest |= FrameRequest::Flag::FullRedraw;
+			if (easedProgress >= 1.0)
+				m_isScrolling.store(false, std::memory_order_release);
+		}
+
+		if (drawRequest & FrameRequest::Flag::SwapChainDirty)
+		{
+			m_swapChain.SetTarget(m_d2dContext.get());
+			drawRequest |= FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty;
+		}
+
+		if (std::exchange(m_textLayoutCache.Scale, m_swapChain.Scale) != m_swapChain.Scale)
+		{
+			m_resource.ScaleChanged();
+			drawRequest |= FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty;
+		}
+
+		draw(drawRequest);
+#if defined Build_UWPPackage
+		m_swapChain.WaitForVBlank();
+#endif
 	}
 }
 
-void TableD2DContent::draw()
+void TableD2DContent::draw(FrameRequest::Flags frame)
 {
 	if (!m_swapChain.get())
 		return;
 	if (m_swapChain.CurrentSize.Width <= 0 || m_swapChain.CurrentSize.Height <= 0)
 		return;
 
-	bool fullRedraw = m_fullRedrawNeeded.exchange(false, std::memory_order_acq_rel);
+	bool fullRedraw = (frame & FrameRequest::Flag::FullRedraw) != 0;
 
 	if (m_table_ref.m_sharedData.ConsumeChanged())
 	{
 		auto sharedData = m_table_ref.m_sharedData.GetCopy();
 		m_resource.Create(m_d2dContext.get(), std::move(sharedData));
 		fullRedraw = true;
+		frame |= FrameRequest::Flag::HeaderDirty;
 	}
 
 	int const hoveredResizeColumn = m_hoveredResizeColumn.load(std::memory_order_relaxed);
@@ -307,14 +284,17 @@ void TableD2DContent::draw()
 	auto const scale = m_swapChain.Scale;
 
 	if (fullRedraw)
-		drawFull(scrollOffsetX, scrollOffsetY, hoveredResizeColumn, m_hoveredRow, scale);
+	{
+		bool const headerDirty = (frame & FrameRequest::Flag::HeaderDirty) != 0;
+		drawFull(scrollOffsetX, scrollOffsetY, hoveredResizeColumn, m_hoveredRow, scale, headerDirty);
+	}
 	else if (m_hoveredRow != m_prevHoveredRow)
 		drawPartialHover(m_prevHoveredRow, m_hoveredRow, scrollOffsetX, scrollOffsetY, scale);
 
 	m_prevHoveredRow = m_hoveredRow;
 }
 
-void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hoveredResizeColumn, int hoveredRow, float scale)
+void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hoveredResizeColumn, int hoveredRow, float scale, bool headerDirty)
 {
 	auto const rawViewportWidth = m_swapChain.CurrentSize.Width * scale;
 	auto const rawViewportHeight = m_swapChain.CurrentSize.Height * scale;
@@ -322,14 +302,24 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
 	m_tableLines.Rebuild(rawViewportWidth, rawViewportHeight, rawRowHeight, rawHeaderHeight);
 
+	m_textLayoutCache.SetNumColumns(std::size(TableTestData::Columns));
+
+	if (!m_headerBitmap.Get() || headerDirty)
+		renderHeaderBitmap(hoveredResizeColumn, scrollOffsetX);
+
 	m_d2dContext->BeginDraw();
 	m_d2dContext->Clear(D2D1::ColorF(0, 0));
 
-	m_textLayoutCache.SetNumColumns(std::size(TableTestData::Columns));
 	drawRows(scrollOffsetX, scrollOffsetY, hoveredRow);
 	auto const rawDataBottomY = rawHeaderHeight + m_data.Count() * rawRowHeight - scrollOffsetY * scale;
 	m_tableLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - 1);
-	drawHeader(hoveredResizeColumn, scrollOffsetX);
+
+	m_d2dContext->DrawBitmap(
+		m_headerBitmap.Get(),
+		D2D1::RectF(0, 0, rawViewportWidth, rawHeaderHeight),
+		1.0f,
+		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR
+	);
 	m_d2dContext->EndDraw();
 
 	DXGI_PRESENT_PARAMETERS presentParameters{};
@@ -340,9 +330,27 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	{
 		m_columnWidthManager.GetInitialColumnWidth(m_swapChain.CurrentSize.Width, m_swapChain.Scale);
 		m_initialSizing = false;
-		m_fullRedrawNeeded.store(true, std::memory_order_release);
-		RequestDraw();
+		//Column widths just got resolved — header layout depends on them.
+		RequestDraw(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty);
 	}
+}
+
+void TableD2DContent::renderHeaderBitmap(int hoveredResizeColumn, float scrollOffsetX)
+{
+	auto const scale = m_swapChain.Scale;
+	auto const widthPx  = static_cast<unsigned>(std::ceil(m_swapChain.CurrentSize.Width * scale));
+	auto const heightPx = static_cast<unsigned>(std::ceil(TableConstants::HeaderHeight * scale));
+
+	auto target = m_headerBitmap.RecreateIfNeeded(m_d2dContext.get(), widthPx, heightPx);
+
+	winrt::com_ptr<ID2D1Image> prevTarget;
+	m_d2dContext->GetTarget(prevTarget.put());
+	m_d2dContext->SetTarget(target);
+	m_d2dContext->BeginDraw();
+	m_d2dContext->Clear(D2D1::ColorF(0, 0));
+	drawHeader(hoveredResizeColumn, scrollOffsetX);
+	winrt::check_hresult(m_d2dContext->EndDraw());
+	m_d2dContext->SetTarget(prevTarget.get());
 }
 
 void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffsetX, float scrollOffsetY, float scale)
@@ -515,12 +523,6 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hov
 	int const last = (std::min)(m_data.Count() - 1, static_cast<int>((rawScrollOffsetY + rawBottom) / rawRowHeight));
 
 	auto rawCornerRadius = TableConstants::CornerRadius * scale;
-
-	for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
-	{
-		auto const header = m_data.Header()[column];
-		m_textLayoutCache.SetColumnFormat(column, header.HorizontalAlignment, header.VerticalAlignment);
-	}
 
 	for (int row = first; row <= last; ++row)
 	{

@@ -112,7 +112,10 @@ namespace winrt::PackageRoot::implementation
 
     void Table::requestDraw(bool redraw)
     {
-        m_d2dContent.RequestDraw(redraw);
+        m_d2dContent.RequestDraw(redraw ? 
+            (FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty) : 
+            0
+        );
         m_d2dContent.m_dispatcher.TryEnqueue([this] { updateScrollBars(); });
     }
 
