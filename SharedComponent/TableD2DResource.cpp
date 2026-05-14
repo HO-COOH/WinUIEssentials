@@ -18,8 +18,10 @@ TableD2DResource::TableD2DResource(TextLayoutCache& textLayoutCache) : m_textLay
 void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableData&& tableData)
 {
 	if(tableData.m_headerForeground != m_localTableData.m_headerForeground) 
-		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_headerForeground, m_textBrush.put()));
-	
+		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_headerForeground, m_headerTextBrush.put()));
+	if (tableData.m_contentForeground != m_localTableData.m_contentForeground)
+		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_contentForeground, m_contentTextBrush.put()));
+
 	bool fontChanged{};
 	if (tableData.m_headerFontSize != m_localTableData.m_headerFontSize || tableData.m_headerFontWeight != m_localTableData.m_headerFontWeight)
 	{

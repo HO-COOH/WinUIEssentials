@@ -14,4 +14,8 @@ public:
 	{
 		return m_headerBitmap.get();
 	}
+	operator bool() const noexcept
+	{
+		return static_cast<bool>(m_headerBitmap.get());
+	}
 };

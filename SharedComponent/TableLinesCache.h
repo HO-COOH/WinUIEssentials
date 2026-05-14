@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <winrt/base.h>
 #include <d2d1.h>
 

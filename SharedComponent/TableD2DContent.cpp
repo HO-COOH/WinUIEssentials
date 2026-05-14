@@ -304,7 +304,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 
 	m_textLayoutCache.SetNumColumns(std::size(TableTestData::Columns));
 
-	if (!m_headerBitmap.Get() || headerDirty)
+	if (!m_headerBitmap || headerDirty)
 		renderHeaderBitmap(hoveredResizeColumn, scrollOffsetX);
 
 	m_d2dContext->BeginDraw();
@@ -487,7 +487,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 			);
 
 			if (!m_initialSizing)
-				m_d2dContext->DrawTextLayout({ currentX + padLeft, padTop }, layout, m_resource.m_textBrush.get());
+				m_d2dContext->DrawTextLayout({ currentX + padLeft, padTop }, layout, m_resource.m_headerTextBrush.get());
 
 			if (m_sortColumnIndex == static_cast<int>(column))
 			{
@@ -495,7 +495,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 			}
 
 
-			if (column != std::size(TableTestData::Columns) - 1)
+			if (column != (m_table_ref.m_columns->m_data.size() - 1))
 			{
 				//the resize handle do not needs to be drawn for the last column
 				D2DPrimitiveHelper::DrawVerticalLine(
@@ -503,7 +503,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 					currentX + rawColumnWidth - 1,
 					TableConstants::PillPaddingY * scale,
 					(TableConstants::RowHeight - TableConstants::PillPaddingY) * scale,
-					hoveredResizeColumn == column ? m_resource.m_pillBrush.get() : m_resource.m_textBrush.get()
+					hoveredResizeColumn == column ? m_resource.m_pillBrush.get() : m_resource.m_headerTextBrush.get()
 				);
 			}
 		}
@@ -558,22 +558,29 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 	auto const& padding = m_resource.m_localTableData.m_contentPadding;
 	auto const padLeft = static_cast<float>(padding.Left) * scale;
 	auto const padTop  = static_cast<float>(padding.Top)  * scale;
+	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto currentX = -scrollOffsetX * scale;
 	for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
 	{
-		auto const rawColumnWidth = m_columnWidthManager.Get(column) * scale;
-		auto const& columnData = rowData[column];
-		auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData);
-		if (!m_initialSizing)
+		auto const rawColumnWidth = m_initialSizing? (std::numeric_limits<float>::max)() : m_columnWidthManager.Get(column) * scale;
+		if (currentX + rawColumnWidth > 0 || m_initialSizing)
 		{
-			//maxWidth/maxHeight already reflect padding — pushed into the
-			//layout cache by ColumnWidthManager when column widths change.
-			//Here we only offset the draw origin by the left/top inset.
-			m_d2dContext->DrawTextLayout(
-				D2D1::Point2F(currentX + padLeft, rowY + padTop),
-				layoutCache,
-				m_resource.m_textBrush.get()
-			);
+			if (currentX >= rawWidth && !m_initialSizing) //all later columns are off-screen-right
+				return;
+
+			auto const& columnData = rowData[column];
+			auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData);
+			if (!m_initialSizing)
+			{
+				//maxWidth/maxHeight already reflect padding — pushed into the
+				//layout cache by ColumnWidthManager when column widths change.
+				//Here we only offset the draw origin by the left/top inset.
+				m_d2dContext->DrawTextLayout(
+					D2D1::Point2F(currentX + padLeft, rowY + padTop),
+					layoutCache,
+					m_resource.m_contentTextBrush.get()
+				);
+			}
 		}
 		currentX += rawColumnWidth;
 	}

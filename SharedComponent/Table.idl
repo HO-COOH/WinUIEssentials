@@ -1,4 +1,4 @@
-import "TableColumnCollection.idl";
+﻿import "TableColumnCollection.idl";
 
 namespace PackageRoot
 {
@@ -11,11 +11,15 @@ namespace PackageRoot
         Int32 DataCount;
         Int32 Fps{ get; };
 
+        //text related
         Windows.UI.Color HeaderForeground;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderForegroundProperty{ get; };
 
-        Windows.UI.Color HeaderHoveredForeground;
-        static WinUINamespace.UI.Xaml.DependencyProperty HeaderHoveredForegroundProperty{ get; };
+        Windows.UI.Color ContentForeground;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentForegroundProperty{ get; };
+
+        Windows.UI.Color HeaderBackground;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderBackgroundProperty{ get; };
 
         Single HeaderFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
@@ -34,6 +38,13 @@ namespace PackageRoot
 
         WinUINamespace.UI.Xaml.Thickness ContentPadding;
         static WinUINamespace.UI.Xaml.DependencyProperty ContentPaddingProperty{ get; };
+
+        //grid lines
+        Windows.UI.Color HorizontalLineColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty HorizontalLineColorProperty{ get; };
+
+        Windows.UI.Color VerticalLineColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineColorProperty{ get; };
 
         TableColumnCollection Columns{ get; };
     }

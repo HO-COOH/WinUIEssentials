@@ -5,15 +5,17 @@
 struct ID2D1DeviceContext;
 class TextLayoutCache;
 
-struct TableD2DResource
+class TableD2DResource
 {
-	winrt::com_ptr<ID2D1SolidColorBrush> m_textBrush;
+	TextLayoutCache& m_textLayoutCache_ref;
+public:
+	winrt::com_ptr<ID2D1SolidColorBrush> m_headerTextBrush;
+	winrt::com_ptr<ID2D1SolidColorBrush> m_contentTextBrush;
 	winrt::com_ptr<ID2D1SolidColorBrush> m_backgroundBrush;
 	winrt::com_ptr<ID2D1SolidColorBrush> m_alternateBackgroundBrush;
 	winrt::com_ptr<ID2D1SolidColorBrush> m_pillBrush;
 	winrt::com_ptr<ID2D1SolidColorBrush> m_hoverBrush;
-	TextLayoutCache& m_textLayoutCache_ref;
-public:
+
 	TableD2DResource(TextLayoutCache& textLayoutCache);
 	TableData m_localTableData{};
 	void Create(ID2D1DeviceContext* d2dContext, TableData&& tableData);

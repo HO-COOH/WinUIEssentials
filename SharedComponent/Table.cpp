@@ -19,11 +19,17 @@ namespace winrt::PackageRoot::implementation
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderForegroundChanged }
         );
-        s_headerHoveredForegroundProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
-            L"HeaderHoveredForeground",
+        s_contentForegroundProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"ContentForeground",
             winrt::xaml_typename<winrt::Windows::UI::Color>(),
             winrt::xaml_typename<class_type>(),
-            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderHoveredForegroundChanged }
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onContentForegroundChanged }
+        );
+        s_headerBackgroundProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"HeaderBackground",
+            winrt::xaml_typename<winrt::Windows::UI::Color>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderBackgroundChanged }
         );
         s_headerFontSizeProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"HeaderFontSize",
@@ -66,6 +72,18 @@ namespace winrt::PackageRoot::implementation
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onFontFamilyChanged }
         );
+        s_horizontalLineColorProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"HorizontalLineColor",
+            winrt::xaml_typename<winrt::Windows::UI::Color>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHorizontalLineColorChanged }
+        );
+        s_verticalLineColorProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"VerticalLineColor",
+            winrt::xaml_typename<winrt::Windows::UI::Color>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onVerticalLineColorChanged }
+        );
         s_contentFontWeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"ContentFontWeight",
             winrt::xaml_typename<winrt::Windows::UI::Text::FontWeight>(),
@@ -81,6 +99,7 @@ namespace winrt::PackageRoot::implementation
     Table::Table()
     {
         InitializeComponent();
+        m_data.InitializeForTheme(ActualTheme());
 
         //get ui elements
         m_verticalScrollBarCache.Set(VerticalScrollBar());
@@ -169,9 +188,9 @@ namespace winrt::PackageRoot::implementation
         SetValue(HeaderForegroundProperty(), winrt::box_value(value));
     }
 
-    winrt::Windows::UI::Color Table::HeaderHoveredForeground()
+    winrt::Windows::UI::Color Table::ContentForeground()
     {
-        return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(HeaderHoveredForegroundProperty()));
+        return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(s_contentForegroundProperty));
     }
 
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderForegroundProperty()
@@ -179,14 +198,29 @@ namespace winrt::PackageRoot::implementation
         return s_headerForegroundProperty;
     }
 
-    void Table::HeaderHoveredForeground(winrt::Windows::UI::Color const& value)
+    void Table::ContentForeground(winrt::Windows::UI::Color const& value)
     {
-        SetValue(HeaderHoveredForegroundProperty(), winrt::box_value(value));
+        SetValue(s_contentForegroundProperty, winrt::box_value(value));
     }
 
-    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderHoveredForegroundProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentForegroundProperty()
     {
-        return s_headerHoveredForegroundProperty;
+        return s_contentForegroundProperty;
+    }
+
+    winrt::Windows::UI::Color Table::HeaderBackground()
+    {
+        return winrt::unbox_value<winrt::Windows::UI::Color>(s_headerBackgroundProperty);
+    }
+
+    void Table::HeaderBackground(winrt::Windows::UI::Color const& value)
+    {
+        SetValue(s_headerBackgroundProperty, winrt::box_value(value));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderBackgroundProperty()
+    {
+        return s_headerBackgroundProperty;
     }
 
     float Table::HeaderFontSize()
@@ -277,6 +311,36 @@ namespace winrt::PackageRoot::implementation
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentFontWeightProperty()
     {
         return s_contentFontWeightProperty;
+    }
+
+    winrt::Windows::UI::Color Table::HorizontalLineColor()
+    {
+        return winrt::unbox_value<winrt::Windows::UI::Color>(s_horizontalLineColorProperty);
+    }
+
+    void Table::HorizontalLineColor(winrt::Windows::UI::Color const& value)
+    {
+        SetValue(s_horizontalLineColorProperty, winrt::box_value(value));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HorizontalLineColorProperty()
+    {
+        return s_horizontalLineColorProperty;
+    }
+
+    winrt::Windows::UI::Color Table::VerticalLineColor()
+    {
+        return winrt::unbox_value<winrt::Windows::UI::Color>(s_verticalLineColorProperty);
+    }
+
+    void Table::VerticalLineColor(winrt::Windows::UI::Color const& value)
+    {
+        SetValue(s_verticalLineColorProperty, winrt::box_value(value));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::VerticalLineColorProperty()
+    {
+        return s_verticalLineColorProperty;
     }
 
     winrt::PackageRoot::TableColumnCollection Table::Columns()
@@ -467,12 +531,12 @@ namespace winrt::PackageRoot::implementation
 
     void Table::SwapChainPanel_PointerReleased(
         winrt::Windows::Foundation::IInspectable const&,
-        winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const&)
     {
         m_resizeRequest = false;
     }
 
-    void Table::Table_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e)
+    void Table::Table_Loaded(winrt::Windows::Foundation::IInspectable const&, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const&)
     {
         m_isLoaded = true;
     }
@@ -487,14 +551,24 @@ namespace winrt::PackageRoot::implementation
             self->m_data.m_headerForeground = D2DConvert::ToD2DColor(value);
     }
 
-    void Table::onHeaderHoveredForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    void Table::onContentForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto self = GetSelf(d);
         auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) { data.m_headerHoveredForeground = value; });
+            self->m_sharedData.Update([value](TableData& data) { data.m_contentForeground = value; });
         else
-            self->m_data.m_headerHoveredForeground = value;
+            self->m_data.m_contentForeground = value;
+    }
+
+    void Table::onHeaderBackgroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableData& data) {data.m_headerBackground = value; });
+        else
+            self->m_data.m_headerBackground = value;
     }
 
     void Table::onHeaderFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -541,6 +615,14 @@ namespace winrt::PackageRoot::implementation
     {
     }
 
+    void Table::onHorizontalLineColorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+    }
+
+    void Table::onVerticalLineColorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+    }
+
     void Table::onContentFontWeightChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto self = GetSelf(d);
@@ -551,7 +633,7 @@ namespace winrt::PackageRoot::implementation
             self->m_data.m_contentFontWeight = value;
     }
 
-    void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const&, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const&)
     {
         m_d2dContent.SetHover(-1.0);
     }

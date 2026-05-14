@@ -43,9 +43,13 @@ namespace winrt::PackageRoot::implementation
         void HeaderForeground(winrt::Windows::UI::Color const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderForegroundProperty();
 
-        winrt::Windows::UI::Color HeaderHoveredForeground();
-        void HeaderHoveredForeground(winrt::Windows::UI::Color const& value);
-        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderHoveredForegroundProperty();
+        winrt::Windows::UI::Color ContentForeground();
+        void ContentForeground(winrt::Windows::UI::Color const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentForegroundProperty();
+
+        winrt::Windows::UI::Color HeaderBackground();
+        void HeaderBackground(winrt::Windows::UI::Color const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderBackgroundProperty();
 
         float HeaderFontSize();
         void HeaderFontSize(float value);
@@ -70,6 +74,14 @@ namespace winrt::PackageRoot::implementation
         winrt::Windows::UI::Text::FontWeight ContentFontWeight();
         void ContentFontWeight(winrt::Windows::UI::Text::FontWeight const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentFontWeightProperty();
+
+        winrt::Windows::UI::Color HorizontalLineColor();
+        void HorizontalLineColor(winrt::Windows::UI::Color const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty HorizontalLineColorProperty();
+
+        winrt::Windows::UI::Color VerticalLineColor();
+        void VerticalLineColor(winrt::Windows::UI::Color const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty VerticalLineColorProperty();
 
         winrt::PackageRoot::TableColumnCollection Columns();
 
@@ -106,19 +118,26 @@ namespace winrt::PackageRoot::implementation
 #endif
         float m_fps{};
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerForegroundProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerHoveredForegroundProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentForegroundProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerBackgroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentPaddingProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontWeightProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontSizeProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_fontFamilyProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineColorProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineColorProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontWeightProperty{ nullptr };
 
         static void onHeaderForegroundChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
-        static void onHeaderHoveredForegroundChanged(
+        static void onContentForegroundChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onHeaderBackgroundChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
@@ -139,6 +158,14 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
         static void onFontFamilyChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onHorizontalLineColorChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onVerticalLineColorChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
