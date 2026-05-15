@@ -1,4 +1,5 @@
 ﻿import "TableColumnCollection.idl";
+import "ITableData.idl";
 
 namespace PackageRoot
 {
@@ -46,6 +47,8 @@ namespace PackageRoot
         Windows.UI.Color VerticalLineColor;
         static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineColorProperty{ get; };
 
+        //data
         TableColumnCollection Columns{ get; };
+        ITableData Data;
     }
 }

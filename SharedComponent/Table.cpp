@@ -348,6 +348,16 @@ namespace winrt::PackageRoot::implementation
         return *m_columns;
     }
 
+    winrt::PackageRoot::ITableData Table::Data()
+    {
+        return m_tableData;
+    }
+
+    void Table::Data(winrt::PackageRoot::ITableData const& data)
+    {
+        m_tableData = data;
+    }
+
     void Table::updateHorizontalScrollBar(float scrollOffsetX)
     {
         if (m_isUpdatingHorizontalScrollBarInCode || !m_horizontalScrollBarCache)

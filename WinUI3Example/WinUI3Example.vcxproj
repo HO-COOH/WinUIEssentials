@@ -393,10 +393,6 @@
       <DependentUpon>CustomTitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="DataGrid.xaml.h">
-      <DependentUpon>DataGrid.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="DatePickerHelperPage.xaml.h">
       <DependentUpon>DatePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -414,6 +410,10 @@
     </ClInclude>
     <ClInclude Include="DefaultWindowCaptionButtonWorkaround.xaml.h">
       <DependentUpon>DefaultWindowCaptionButtonWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="DemoTableData.h">
+      <DependentUpon>DemoTableData.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="DependentValuePage.xaml.h">
@@ -528,10 +528,6 @@
     </ClInclude>
     <ClInclude Include="MyDataModelTemplateSelector.h">
       <DependentUpon>MyDataModelTemplateSelector.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="MyGridData.h">
-      <DependentUpon>MyGridData.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="NavigationViewHelperPage.xaml.h">
@@ -786,9 +782,6 @@
     <Page Include="CustomAcrylicWindow.xaml" />
     <Page Include="CustomMicaWindow.xaml" />
     <Page Include="CustomTitleBar.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="DataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DatePickerHelperPage.xaml">
@@ -1065,10 +1058,6 @@
       <DependentUpon>CustomTitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="DataGrid.xaml.cpp">
-      <DependentUpon>DataGrid.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="DatePickerHelperPage.xaml.cpp">
       <DependentUpon>DatePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1084,6 +1073,10 @@
     </ClCompile>
     <ClCompile Include="DefaultWindowCaptionButtonWorkaround.xaml.cpp">
       <DependentUpon>DefaultWindowCaptionButtonWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="DemoTableData.cpp">
+      <DependentUpon>DemoTableData.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="DependentValuePage.xaml.cpp">
@@ -1194,10 +1187,6 @@
     </ClCompile>
     <ClCompile Include="MyDataModelTemplateSelector.cpp">
       <DependentUpon>MyDataModelTemplateSelector.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="MyGridData.cpp">
-      <DependentUpon>MyGridData.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="NavigationViewHelperPage.xaml.cpp">
@@ -1470,10 +1459,6 @@
       <DependentUpon>CustomTitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="DataGrid.idl">
-      <DependentUpon>DataGrid.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="DatePickerHelperPage.idl">
       <DependentUpon>DatePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1490,6 +1475,9 @@
     <Midl Include="DefaultWindowCaptionButtonWorkaround.idl">
       <DependentUpon>DefaultWindowCaptionButtonWorkaround.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="DemoTableData.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="DependentValuePage.idl">
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
@@ -1547,7 +1535,6 @@
     <Midl Include="IconButton.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="IDataGridData.idl" />
     <Midl Include="IncrementalLoadingPage.idl">
       <DependentUpon>IncrementalLoadingPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1595,9 +1582,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MyDataModelTemplateSelector.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="MyGridData.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="NavigationViewHelperPage.idl">

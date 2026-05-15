@@ -67,6 +67,9 @@
     <Filter Include="Table\D2D">
       <UniqueIdentifier>{14efdc32-5d71-4bef-918f-fb6d8925dbf8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Table\Xaml\Table\TableData">
+      <UniqueIdentifier>{2b43635e-8169-4fc6-859c-7fa7e723d827}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -179,6 +182,12 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)Table.idl">
       <Filter>Table\Xaml\Table</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ITableData.idl">
+      <Filter>Table\Xaml\Table\TableData</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.idl">
+      <Filter>Table\Xaml\Table\TableData</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

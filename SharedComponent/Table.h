@@ -85,6 +85,8 @@ namespace winrt::PackageRoot::implementation
 
         winrt::PackageRoot::TableColumnCollection Columns();
 
+        winrt::PackageRoot::ITableData Data();
+        void Data(winrt::PackageRoot::ITableData const& data);
     public:
         TableData m_data;
         SharedDataBase<TableData> m_sharedData{ m_data };
@@ -175,6 +177,7 @@ namespace winrt::PackageRoot::implementation
         );
     public:
         winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
+        winrt::PackageRoot::ITableData m_tableData{ nullptr };
         void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };
 }

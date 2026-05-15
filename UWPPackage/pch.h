@@ -47,3 +47,4 @@
 #include "ProgressBarEx.h"
 #include "TableColumn.h"
 #include "TableColumnCollection.h"
+#include "RowRequestedEventArgs.h"

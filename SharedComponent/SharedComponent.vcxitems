@@ -33,10 +33,12 @@
     <Midl Include="$(MSBuildThisFileDirectory)ImageExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)ITableData.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)MarqueeText.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NegateBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ProgressBarEx.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Segmented.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SegmentedItem.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.idl" />
@@ -78,6 +80,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ObjectCompare.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProgressBarEx.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScrollRequest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Segmented.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItem.cpp" />
@@ -137,6 +140,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProgressBarEx.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReverseConverterBase.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Segmented.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedItem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.h" />

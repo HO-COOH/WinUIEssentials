@@ -155,9 +155,6 @@
     <Page Include="CommandBarHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="DataGrid.xaml">
-      <Filter>Pages\Experimental\DataGrid</Filter>
-    </Page>
     <Page Include="LineGraphControl.xaml">
       <Filter>Pages\Experimental\LineGraph</Filter>
     </Page>
@@ -310,12 +307,6 @@
     <Midl Include="ElementThemeToStringConverter.idl">
       <Filter>Helper</Filter>
     </Midl>
-    <Midl Include="IDataGridData.idl">
-      <Filter>Pages\Experimental\DataGrid</Filter>
-    </Midl>
-    <Midl Include="MyGridData.idl">
-      <Filter>Pages\Experimental\DataGrid</Filter>
-    </Midl>
     <Midl Include="LineGraph.idl">
       <Filter>Pages\Experimental\LineGraph</Filter>
     </Midl>
@@ -336,6 +327,9 @@
     </Midl>
     <Midl Include="AnimatedDigit.idl">
       <Filter>Pages\Experimental\AnimatedNumber</Filter>
+    </Midl>
+    <Midl Include="DemoTableData.idl">
+      <Filter>Pages\TablePage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -598,9 +592,6 @@
     </Filter>
     <Filter Include="Pages\WrapPanelPage">
       <UniqueIdentifier>{9d98eb43-78b4-4207-a31b-dfaa6f2e6d43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pages\Experimental\DataGrid">
-      <UniqueIdentifier>{623fb8b2-8843-4bd9-a7d3-90c4d9c1c06c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Pages\Experimental\Shaders">
       <UniqueIdentifier>{14b6b5b0-f8ac-45c2-a356-ecedd7875f3d}</UniqueIdentifier>

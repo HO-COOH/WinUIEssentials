@@ -57,6 +57,14 @@ void ColumnWidthManager::GetInitialColumnWidth(float width, float scale)
 				throw std::runtime_error{ "Unknown ColumnSizingMode" };
 		}
 
+		auto const& padding = m_tableDataRef.m_contentPadding;
+		auto const horizontalPaddingPx = static_cast<float>(padding.Left + padding.Right) * scale;
+		std::ranges::transform(
+			result,
+			result.begin(),
+			[horizontalPaddingPx](float measuredWidth) { return measuredWidth + horizontalPaddingPx; }
+		);
+
 		if (auto const sum = std::accumulate(result.begin(), result.end(), 0.f); sum > 0.f)
 		{
 			std::ranges::transform(

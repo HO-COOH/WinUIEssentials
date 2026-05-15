@@ -1,0 +1,10 @@
+﻿import "RowRequestedEventArgs.idl";
+
+namespace PackageRoot
+{
+	interface ITableData
+	{
+		Int32 RowCount{ get; };
+		Int32 RowRequested(RowRequestedEventArgs args);
+	};
+}
