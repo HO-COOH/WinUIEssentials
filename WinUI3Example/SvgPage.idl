@@ -1,0 +1,10 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass SvgPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        SvgPage();
+        Windows.Foundation.Collections.IVector<Object> Svgs{ get; };
+        Windows.Foundation.Collections.IVector<Object> Pngs{ get; };
+    }
+}

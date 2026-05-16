@@ -261,6 +261,9 @@
     <Page Include="AnimatedNumber_Resource.xaml">
       <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Page>
+    <Page Include="SvgPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

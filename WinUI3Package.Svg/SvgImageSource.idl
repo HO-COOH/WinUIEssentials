@@ -1,0 +1,14 @@
+namespace WinUI3Package.Svg
+{
+    [default_interface]
+    runtimeclass SvgImageSource : Microsoft.UI.Xaml.Media.Imaging.BitmapSource
+    {
+        SvgImageSource();
+
+        Object UriSource;
+        static Microsoft.UI.Xaml.DependencyProperty UriSourceProperty{ get; };
+
+        void SetSourceText(String svgXml);
+        Windows.Foundation.IAsyncAction SetSourceUriAsync(Windows.Foundation.Uri uri);
+    }
+}
