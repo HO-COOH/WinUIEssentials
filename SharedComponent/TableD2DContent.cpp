@@ -56,7 +56,7 @@ void TableD2DContent::SizeChanged(
 
 void TableD2DContent::updateScrollOffsets()
 {
-	auto const totalHeight = m_data.Count() * TableConstants::RowHeight;
+	auto const totalHeight = DataCount() * TableConstants::RowHeight;
 	auto const maxScrollY = (std::max)(0.f, totalHeight - GetViewportHeight());
 	auto const maxScrollX = (std::max)(0.f, TotalContentWidth() - GetViewportWidth());
 
@@ -149,12 +149,14 @@ float TableD2DContent::GetViewportWidth() const
 
 float TableD2DContent::TotalContentWidth() const
 {
-	return m_initialSizing.load(std::memory_order_relaxed)? m_swapChain.CurrentSize.Width : m_columnWidthManager.SumColumnWidth(std::size(TableTestData::Columns));
+	return m_initialSizing.load(std::memory_order_relaxed) ?
+		m_swapChain.CurrentSize.Width :
+		m_columnWidthManager.SumColumnWidth(m_table_ref.m_columns->m_data.size());
 }
 
 int TableD2DContent::DataCount() const
 {
-	return m_data.Count();
+	return m_textLayoutCache.RowCount();
 }
 
 void TableD2DContent::SetHover(float y)
@@ -302,7 +304,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
 	m_tableLines.Rebuild(rawViewportWidth, rawViewportHeight, rawRowHeight, rawHeaderHeight);
 
-	m_textLayoutCache.SetNumColumns(std::size(TableTestData::Columns));
+	m_textLayoutCache.SetNumColumns(m_table_ref.m_columns->m_data.size());
 
 	if (!m_headerBitmap || headerDirty)
 		renderHeaderBitmap(hoveredResizeColumn, scrollOffsetX);
@@ -311,7 +313,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	m_d2dContext->Clear(D2D1::ColorF(0, 0));
 
 	drawRows(scrollOffsetX, scrollOffsetY, hoveredRow);
-	auto const rawDataBottomY = rawHeaderHeight + m_data.Count() * rawRowHeight - scrollOffsetY * scale;
+	auto const rawDataBottomY = rawHeaderHeight + m_textLayoutCache.RowCount() * rawRowHeight - scrollOffsetY * scale;
 	m_tableLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - 1);
 
 	m_d2dContext->DrawBitmap(
@@ -326,7 +328,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	winrt::check_hresult(m_swapChain->Present1(0, 0, &presentParameters));
 	Frames.fetch_add(1, std::memory_order_relaxed);
 
-	if (m_initialSizing && m_data.Count() > 0)
+	if (m_initialSizing && m_textLayoutCache.RowCount() > 0)
 	{
 		m_columnWidthManager.GetInitialColumnWidth(m_swapChain.CurrentSize.Width, m_swapChain.Scale);
 		m_initialSizing = false;
@@ -361,7 +363,7 @@ void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffse
 	auto const rawHeight = m_swapChain.CurrentSize.Height * scale;
 	auto const rawScrollY = scrollOffsetY * scale;
 	auto const rawCornerRadius = TableConstants::CornerRadius * scale;
-	auto const dataCount = m_data.Count();
+	auto const dataCount = m_textLayoutCache.RowCount();
 
 	struct DirtyRow
 	{
@@ -520,7 +522,7 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hov
 	m_d2dContext->PushAxisAlignedClip(D2D1::RectF(0, TableConstants::HeaderHeight * scale, rawRight, rawBottom), D2D1_ANTIALIAS_MODE_ALIASED);
 	auto const rawRowHeight = TableConstants::RowHeight * scale;
 	int const first = (std::max)(0, static_cast<int>(rawScrollOffsetY / rawRowHeight));
-	int const last = (std::min)(m_data.Count() - 1, static_cast<int>((rawScrollOffsetY + rawBottom) / rawRowHeight));
+	int const last = (std::min<int>)(DataCount() - 1, static_cast<int>((rawScrollOffsetY + rawBottom) / rawRowHeight));
 
 	auto rawCornerRadius = TableConstants::CornerRadius * scale;
 
@@ -554,13 +556,12 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hov
 
 void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, float scale)
 {
-	auto& rowData = m_data[row];
 	auto const& padding = m_resource.m_localTableData.m_contentPadding;
 	auto const padLeft = static_cast<float>(padding.Left) * scale;
 	auto const padTop  = static_cast<float>(padding.Top)  * scale;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto currentX = -scrollOffsetX * scale;
-	for (size_t column = 0; column < std::size(TableTestData::Columns); ++column)
+	for (size_t column = 0; column < m_table_ref.m_columns->m_data.size(); ++column)
 	{
 		auto const rawColumnWidth = m_initialSizing? (std::numeric_limits<float>::max)() : m_columnWidthManager.Get(column) * scale;
 		if (currentX + rawColumnWidth > 0 || m_initialSizing)
@@ -568,8 +569,7 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 			if (currentX >= rawWidth && !m_initialSizing) //all later columns are off-screen-right
 				return;
 
-			auto const& columnData = rowData[column];
-			auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column, columnData);
+			auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column);
 			if (!m_initialSizing)
 			{
 				//maxWidth/maxHeight already reflect padding — pushed into the

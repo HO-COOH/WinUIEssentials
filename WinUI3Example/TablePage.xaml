@@ -33,8 +33,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 ContentFontWeight="Bold"
-                HeaderFontWeight="Normal"
-                HeaderForeground="{ThemeResource TextFillColorPrimary}">
+                HeaderFontWeight="Normal">
                 <essential:Table.Columns>
                     <essential:TableColumn StringContent="Id" />
                     <essential:TableColumn StringContent="First Name" />

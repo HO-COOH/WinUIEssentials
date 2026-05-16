@@ -203,9 +203,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h">
       <Filter>DirectN</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp">
-      <Filter>Table</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp">
       <Filter>Table</Filter>
     </ClInclude>
@@ -354,7 +351,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
       <Filter>Table\Xaml\Table</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h">
       <Filter>Table\Xaml\Table</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h">
@@ -381,6 +378,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h">
       <Filter>Table\D2D</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.h">
+      <Filter>Table\Xaml\Table\TableData</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -396,9 +399,6 @@
       <Filter>DirectN</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp">
-      <Filter>Table</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp">
       <Filter>Table</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CachedScrollBar.cpp">
@@ -538,6 +538,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp">
       <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.cpp">
+      <Filter>Table\Xaml\Table\TableData</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

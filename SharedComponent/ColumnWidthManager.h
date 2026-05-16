@@ -1,17 +1,18 @@
 #pragma once
 #include <vector>
 #include "TextLayoutCache.h"
-#include "TableData.h"
+
+struct TableProperty;
 
 class ColumnWidthManager
 {
 	winrt::PackageRoot::ColumnSizingMode m_sizingMode{ winrt::PackageRoot::ColumnSizingMode::RowContent };
 	TextLayoutCache& m_layoutCacheRef;
-	TableData const& m_tableDataRef;
+	TableProperty const& m_tableDataRef;
 	std::vector<std::atomic<float>> m_columnWidths;
 	void pushColumnBoundsToCache(int column, float width);
 public:
-	constexpr ColumnWidthManager(TextLayoutCache& layoutCache, TableData const& tableData)
+	constexpr ColumnWidthManager(TextLayoutCache& layoutCache, TableProperty const& tableData)
 		: m_layoutCacheRef{ layoutCache }
 		, m_tableDataRef{ tableData }
 	{

@@ -4,6 +4,7 @@
 #include <numeric>
 #include <ranges>
 #include "TableConstants.hpp"
+#include "TableProperty.h"
 
 static float measureNaturalWidth(DWRITE_TEXT_METRICS& metrics, IDWriteTextLayout* layout)
 {

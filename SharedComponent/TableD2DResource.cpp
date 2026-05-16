@@ -15,7 +15,7 @@ TableD2DResource::TableD2DResource(TextLayoutCache& textLayoutCache) : m_textLay
 {
 }
 
-void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableData&& tableData)
+void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& tableData)
 {
 	if(tableData.m_headerForeground != m_localTableData.m_headerForeground) 
 		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_headerForeground, m_headerTextBrush.put()));

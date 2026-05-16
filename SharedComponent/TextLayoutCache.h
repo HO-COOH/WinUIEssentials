@@ -3,29 +3,16 @@
 #include <winrt/base.h>
 #include <dwrite.h>
 
+namespace winrt::PackageRoot
+{
+	struct ITableData;
+}
+
 class ColumnWidthManager;
 
 class TextLayoutCache
 {
 public:
-	struct TextLayout
-	{
-		std::wstring content{};
-		winrt::com_ptr<IDWriteTextLayout> layout;
-		uint32_t m_contentLayoutVersion{};
-	};
-
-	struct PerColumnLayout
-	{
-		FLOAT maxWidth = (std::numeric_limits<FLOAT>::max)();
-		FLOAT maxHeight = (std::numeric_limits<FLOAT>::max)();
-		DWRITE_TEXT_ALIGNMENT HeaderHorizontalAlignment = DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_CENTER;
-		DWRITE_TEXT_ALIGNMENT ContentHorizontalAlignment;
-		DWRITE_PARAGRAPH_ALIGNMENT HeaderVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
-		DWRITE_PARAGRAPH_ALIGNMENT ContentVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
-		uint32_t m_contentLayoutVersion = 1;
-	};
-
 	TextLayoutCache(IDWriteFactory* dwriteFactory);
 
 	void CreateHeaderTextFormat(
@@ -37,6 +24,8 @@ public:
 		FLOAT fontSize,
 		WCHAR const* localeName
 	);
+
+	void OnTableDataSet(winrt::PackageRoot::ITableData* tableDataRef);
 
 	void CreateCeilTextFormat(
 		WCHAR const* fontFamilyName,
@@ -68,12 +57,32 @@ public:
 	);
 	IDWriteTextLayout* GetOrCreate(
 		int row, 
-		int column, 
-		std::wstring_view str
+		int column
 	);
 
 	float Scale{ -1.f };
+	
+	size_t RowCount() const;
 private:
+	mutable size_t m_rowCount{};
+	struct TextLayout
+	{
+		std::wstring content{};
+		winrt::com_ptr<IDWriteTextLayout> layout;
+		uint32_t m_contentLayoutVersion{};
+	};
+
+	struct PerColumnLayout
+	{
+		FLOAT maxWidth = (std::numeric_limits<FLOAT>::max)();
+		FLOAT maxHeight = (std::numeric_limits<FLOAT>::max)();
+		DWRITE_TEXT_ALIGNMENT HeaderHorizontalAlignment = DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_CENTER;
+		DWRITE_TEXT_ALIGNMENT ContentHorizontalAlignment;
+		DWRITE_PARAGRAPH_ALIGNMENT HeaderVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+		DWRITE_PARAGRAPH_ALIGNMENT ContentVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
+		uint32_t m_contentLayoutVersion = 1;
+	};
+
 	std::vector<std::vector<TextLayout>> m_perCellCache; //this include the header row
 	std::vector<PerColumnLayout> m_perColumnCache;
 
@@ -86,6 +95,8 @@ private:
 	//cell text
 	winrt::com_ptr<IDWriteTextFormat> m_cellTextFormat;
 	winrt::com_ptr<IDWriteInlineObject> m_cellTrimming;
+
+	winrt::PackageRoot::ITableData* m_tableDataRef{};
 
 	friend class ColumnWidthManager;
 };

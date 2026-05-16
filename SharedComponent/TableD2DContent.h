@@ -9,7 +9,6 @@
 #include <vector>
 #include "SwapChainInterop.h"
 #include "TextLayoutCache.h"
-#include "TableTestData.hpp"
 #include "TableConstants.hpp"
 #include "ScrollRequest.h"
 #include "DirectN.h"
@@ -105,9 +104,6 @@ private:
 	D2D1_ROUNDED_RECT getResizePillRect(int column, float scrollOffsetX) const;
 	D2D_RECT_F getRowRect(int row, float scrollOffsetY, float scale) const;
 
-	TableTestData m_data;
-
-
 	winrt::com_ptr<ID2D1Factory1> d2d1Factory = DirectN::CreateD2D1Factory();
 	winrt::com_ptr<ID3D11Device> m_d3dDevice = DirectN::CreateD3D11Device();
 	winrt::com_ptr<ID2D1DeviceContext> m_d2dContext;
@@ -116,11 +112,11 @@ private:
 	TableLinesCache m_tableLines{ d2d1Factory.get() };
 	SwapChainInterop m_swapChain;
 
-	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
-	TableD2DResource m_resource{ m_textLayoutCache };
 public:
+	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData };
 private:
+	TableD2DResource m_resource{ m_textLayoutCache };
 	std::atomic<float> m_scrollOffsetX{ 0.f };
 	std::atomic<float> m_scrollOffsetY{ 0.f };
 	//Data-row index under the pointer, or -1 when the pointer is not over a

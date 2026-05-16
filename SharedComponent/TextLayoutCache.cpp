@@ -27,6 +27,11 @@ void TextLayoutCache::CreateHeaderTextFormat(
 	winrt::check_hresult(m_dwriteFactory->CreateEllipsisTrimmingSign(m_headerTextFormat.get(), m_headerTrimming.put()));
 }
 
+void TextLayoutCache::OnTableDataSet(winrt::PackageRoot::ITableData* tableDataRef)
+{
+	m_tableDataRef = tableDataRef;
+}
+
 void TextLayoutCache::CreateCeilTextFormat(
 	WCHAR const* fontFamilyName, 
 	IDWriteFontCollection* fontCollection,
@@ -142,7 +147,7 @@ void TextLayoutCache::SetColumnFormat(
 		++columnCache.m_contentLayoutVersion;
 }
 
-IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column, std::wstring_view str)
+IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column)
 {
 	//first row for Header
 	row += 1;
@@ -154,34 +159,40 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column, std::wstrin
 		rowCache.resize(column + 1);
 
 	auto& cache = rowCache[column];
-	if (cache.content == str)
+	
+	if (auto& columnCache = m_perColumnCache[column]; std::exchange(cache.m_contentLayoutVersion, columnCache.m_contentLayoutVersion) != columnCache.m_contentLayoutVersion)
 	{
-		if (auto& columnCache = m_perColumnCache[column]; std::exchange(cache.m_contentLayoutVersion, columnCache.m_contentLayoutVersion) != columnCache.m_contentLayoutVersion)
-		{
-			winrt::check_hresult(cache.layout->SetMaxHeight(columnCache.maxHeight));
-			winrt::check_hresult(cache.layout->SetMaxWidth(columnCache.maxWidth));
-			winrt::check_hresult(cache.layout->SetTextAlignment(columnCache.ContentHorizontalAlignment));
-			winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
-		}
-		return cache.layout.get();
+		winrt::check_hresult(cache.layout->SetMaxHeight(columnCache.maxHeight));
+		winrt::check_hresult(cache.layout->SetMaxWidth(columnCache.maxWidth));
+		winrt::check_hresult(cache.layout->SetTextAlignment(columnCache.ContentHorizontalAlignment));
+		winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
 	}
+	return cache.layout.get();
 
 	//recreate
-	cache.content = str;
-	auto& columnCache = m_perColumnCache[column];
-	cache.m_contentLayoutVersion = columnCache.m_contentLayoutVersion;
-	winrt::check_hresult(m_dwriteFactory->CreateTextLayout(
-		str.data(),
-		static_cast<uint32_t>(str.size()),
-		row == 0 ? m_headerTextFormat.get() : m_cellTextFormat.get(),
-		columnCache.maxWidth,
-		columnCache.maxHeight,
-		cache.layout.put()
-	));
-	constexpr DWRITE_TRIMMING trimmingOption{ .granularity = DWRITE_TRIMMING_GRANULARITY::DWRITE_TRIMMING_GRANULARITY_CHARACTER };
-	winrt::check_hresult(cache.layout->SetTrimming(&trimmingOption, m_cellTrimming.get()));
-	winrt::check_hresult(cache.layout->SetTextAlignment(columnCache.ContentHorizontalAlignment));
-	winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
-	return cache.layout.get();
+	//cache.content = str;
+	//auto& columnCache = m_perColumnCache[column];
+	//cache.m_contentLayoutVersion = columnCache.m_contentLayoutVersion;
+	//winrt::check_hresult(m_dwriteFactory->CreateTextLayout(
+	//	str.data(),
+	//	static_cast<uint32_t>(str.size()),
+	//	row == 0 ? m_headerTextFormat.get() : m_cellTextFormat.get(),
+	//	columnCache.maxWidth,
+	//	columnCache.maxHeight,
+	//	cache.layout.put()
+	//));
+	//constexpr DWRITE_TRIMMING trimmingOption{ .granularity = DWRITE_TRIMMING_GRANULARITY::DWRITE_TRIMMING_GRANULARITY_CHARACTER };
+	//winrt::check_hresult(cache.layout->SetTrimming(&trimmingOption, m_cellTrimming.get()));
+	//winrt::check_hresult(cache.layout->SetTextAlignment(columnCache.ContentHorizontalAlignment));
+	//winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
+	//return cache.layout.get();
+}
+
+size_t TextLayoutCache::RowCount() const
+{
+	if (!m_rowCount && m_tableDataRef)
+		m_rowCount = m_tableDataRef->RowCount();
+	
+	return m_rowCount;
 }
 

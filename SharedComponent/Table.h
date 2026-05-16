@@ -9,7 +9,7 @@
 #include <include/PropertyChangeHelper.hpp>
 #include "include/EnsureDependencyProperty.hpp"
 #include "TableColumnCollection.h"
-#include "TableData.h"
+#include "TableProperty.h"
 #include "SharedDataBase.hpp"
 
 namespace winrt::PackageRoot::implementation
@@ -88,8 +88,8 @@ namespace winrt::PackageRoot::implementation
         winrt::PackageRoot::ITableData Data();
         void Data(winrt::PackageRoot::ITableData const& data);
     public:
-        TableData m_data;
-        SharedDataBase<TableData> m_sharedData{ m_data };
+        TableProperty m_data;
+        SharedDataBase<TableProperty> m_sharedData{ m_data };
         bool m_isLoaded{ false };
     private:
         TableD2DContent m_d2dContent{ *this };

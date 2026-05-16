@@ -1,5 +1,5 @@
 #pragma once
-#include "TableData.h"
+#include "TableProperty.h"
 #include <d2d1.h>
 
 struct ID2D1DeviceContext;
@@ -17,7 +17,7 @@ public:
 	winrt::com_ptr<ID2D1SolidColorBrush> m_hoverBrush;
 
 	TableD2DResource(TextLayoutCache& textLayoutCache);
-	TableData m_localTableData{};
-	void Create(ID2D1DeviceContext* d2dContext, TableData&& tableData);
+	TableProperty m_localTableData{};
+	void Create(ID2D1DeviceContext* d2dContext, TableProperty&& tableData);
 	void ScaleChanged();
 };

@@ -43,7 +43,7 @@ namespace winrt::PackageRoot::implementation
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata
             { 
-                winrt::box_value(TableData::DefaultContentPadding), &Table::onContentPaddingChanged
+                winrt::box_value(TableProperty::DefaultContentPadding), &Table::onContentPaddingChanged
             }
         );
         s_headerFontWeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
@@ -127,6 +127,30 @@ namespace winrt::PackageRoot::implementation
 
     void Table::Table_ActualThemeChanged(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& sender, winrt::Windows::Foundation::IInspectable const&)
     {
+        auto const unset = winrt::WinUINamespace::UI::Xaml::DependencyProperty::UnsetValue();
+        auto const headerForegroundSet = ReadLocalValue(s_headerForegroundProperty) != unset;
+        auto const contentForegroundSet = ReadLocalValue(s_contentForegroundProperty) != unset;
+        auto const headerBackgroundSet = ReadLocalValue(s_headerBackgroundProperty) != unset;
+        m_sharedData.Update([headerForegroundSet, contentForegroundSet, headerBackgroundSet, theme = ActualTheme()](TableProperty& data)
+        {
+            if (theme == winrt::WinUINamespace::UI::Xaml::ElementTheme::Light)
+            {
+                if (!headerForegroundSet)
+                    data.m_headerForeground = TableProperty::DefaultHeaderForegroundLight;
+                if (!contentForegroundSet)
+                    data.m_contentForeground = TableProperty::DefaultContentForegroundLight;
+            }
+            else
+            {
+                if (!headerForegroundSet)
+                    data.m_headerForeground = TableProperty::DefaultHeaderForegroundDark;
+                if (!contentForegroundSet)
+                    data.m_contentForeground = TableProperty::DefaultContentForegroundDark;
+            }
+        });
+        
+        if (!headerForegroundSet && !contentForegroundSet && !headerBackgroundSet)
+            requestDraw(true);
     }
 
     void Table::requestDraw(bool redraw)
@@ -356,6 +380,7 @@ namespace winrt::PackageRoot::implementation
     void Table::Data(winrt::PackageRoot::ITableData const& data)
     {
         m_tableData = data;
+        m_d2dContent.m_textLayoutCache.OnTableDataSet(&m_tableData);
     }
 
     void Table::updateHorizontalScrollBar(float scrollOffsetX)
@@ -556,7 +581,7 @@ namespace winrt::PackageRoot::implementation
         auto self = GetSelf(d);
         auto const value = winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue());
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) { data.m_headerForeground = D2DConvert::ToD2DColor(value); });
+            self->m_sharedData.Update([value](TableProperty& data) { data.m_headerForeground = D2DConvert::ToD2DColor(value); });
         else
             self->m_data.m_headerForeground = D2DConvert::ToD2DColor(value);
     }
@@ -566,7 +591,7 @@ namespace winrt::PackageRoot::implementation
         auto self = GetSelf(d);
         auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) { data.m_contentForeground = value; });
+            self->m_sharedData.Update([value](TableProperty& data) { data.m_contentForeground = value; });
         else
             self->m_data.m_contentForeground = value;
     }
@@ -576,7 +601,7 @@ namespace winrt::PackageRoot::implementation
         auto self = GetSelf(d);
         auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) {data.m_headerBackground = value; });
+            self->m_sharedData.Update([value](TableProperty& data) {data.m_headerBackground = value; });
         else
             self->m_data.m_headerBackground = value;
     }
@@ -586,7 +611,7 @@ namespace winrt::PackageRoot::implementation
         auto self = GetSelf(d);
         auto const value = winrt::unbox_value<float>(e.NewValue());
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) { data.m_headerFontSize = value; });
+            self->m_sharedData.Update([value](TableProperty& data) { data.m_headerFontSize = value; });
         else
             self->m_data.m_headerFontSize = value;
     }
@@ -596,7 +621,7 @@ namespace winrt::PackageRoot::implementation
         auto self = GetSelf(d);
         auto const value = winrt::unbox_value<winrt::WinUINamespace::UI::Xaml::Thickness>(e.NewValue());
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) {data.m_contentPadding = value; });
+            self->m_sharedData.Update([value](TableProperty& data) {data.m_contentPadding = value; });
         else
             self->m_data.m_contentPadding = value;
     }
@@ -606,7 +631,7 @@ namespace winrt::PackageRoot::implementation
         auto self = GetSelf(d);
         auto const value = D2DConvert::ToDWriteFontWeight(winrt::unbox_value<winrt::Windows::UI::Text::FontWeight>(e.NewValue()));
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) {data.m_headerFontWeight = value; });
+            self->m_sharedData.Update([value](TableProperty& data) {data.m_headerFontWeight = value; });
         else
             self->m_data.m_headerFontWeight = value;
     }
@@ -616,7 +641,7 @@ namespace winrt::PackageRoot::implementation
         auto self = GetSelf(d);
         auto const value = winrt::unbox_value<float>(e.NewValue());
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) { data.m_contentFontSize = value; });
+            self->m_sharedData.Update([value](TableProperty& data) { data.m_contentFontSize = value; });
         else
             self->m_data.m_contentFontSize = value;
     }
@@ -638,7 +663,7 @@ namespace winrt::PackageRoot::implementation
         auto self = GetSelf(d);
         auto const value = D2DConvert::ToDWriteFontWeight(winrt::unbox_value<winrt::Windows::UI::Text::FontWeight>(e.NewValue()));
         if (self->m_isLoaded)
-            self->m_sharedData.Update([value](TableData& data) {data.m_contentFontWeight = value; });
+            self->m_sharedData.Update([value](TableProperty& data) {data.m_contentFontWeight = value; });
         else
             self->m_data.m_contentFontWeight = value;
     }

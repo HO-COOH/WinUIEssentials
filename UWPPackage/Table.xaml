@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:primitives="using:Windows.UI.Xaml.Controls.Primitives"
     VerticalAlignment="Stretch"
+    ActualThemeChanged="Table_ActualThemeChanged"
     CompositionScaleChanged="SwapChainPanel_CompositionScaleChanged"
     Loaded="Table_Loaded"
     PointerExited="SwapChainPanel_PointerExited"

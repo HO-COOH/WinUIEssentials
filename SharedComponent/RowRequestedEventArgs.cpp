@@ -6,13 +6,34 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    int32_t RowRequestedEventArgs::MyProperty()
-    {
-        throw hresult_not_implemented();
-    }
+	RowRequestedEventArgs::RowRequestedEventArgs(int startRow, int endRow)
+	{
+	}
+	int RowRequestedEventArgs::StartRow()
+	{
+		return 0;
+	}
 
-    void RowRequestedEventArgs::MyProperty(int32_t /*value*/)
-    {
-        throw hresult_not_implemented();
-    }
+	int RowRequestedEventArgs::EndRow()
+	{
+		return 0;
+	}
+
+	void RowRequestedEventArgs::SetRow(int row, winrt::array_view<winrt::hstring const> const& content)
+	{
+	}
+
+	bool RowRequestedEventArgs::IsCanceled()
+	{
+		return false;
+	}
+
+	winrt::event_token RowRequestedEventArgs::Canceled(winrt::Windows::Foundation::EventHandler<winrt::PackageRoot::RowRequestedEventArgs> const& handler)
+	{
+		return winrt::event_token();
+	}
+
+	void RowRequestedEventArgs::Canceled(winrt::event_token const& token)
+	{
+	}
 }
