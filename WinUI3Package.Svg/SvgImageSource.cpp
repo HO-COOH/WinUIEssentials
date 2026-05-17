@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SvgImageSource.h"
 #include "SvgImageSource.g.cpp"
 
@@ -7,46 +7,98 @@
 #include <winrt/Windows.Graphics.Imaging.h>
 #include <winrt/Microsoft.UI.Xaml.Data.h>
 
-#include <resvg.h>
-
+#include <algorithm>
 #include <cmath>
-#include <string>
-#include <vector>
+#include <limits>
+#include "RenderTree.h"
 
 namespace winrt::WinUI3Package::Svg::implementation
 {
-    namespace
+    resvg_options* SvgImageSource::GetResvgOptions()
     {
-        // resvg's options carry the parsed font database. System-font discovery is heavy
-        // I/O, so we do it once per process and reuse the options across renders.
-        resvg_options* GetResvgOptions()
-        {
-            static resvg_options* opts = []() {
-                resvg_init_log();
-                auto* o = resvg_options_create();
-                resvg_options_load_system_fonts(o);
-                return o;
-            }();
-            return opts;
-        }
+        static resvg_options* opts = []() {
+            resvg_init_log();
+            auto* o = resvg_options_create();
+            resvg_options_load_system_fonts(o);
+            return o;
+        }();
+        return opts;
+    }
+
+    void SvgImageSource::EnsureDependencyProperties()
+    {
+        if (s_uriSourceProperty) return;
+
+        s_uriSourceProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+            L"UriSource",
+            winrt::xaml_typename<winrt::Windows::Foundation::Uri>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+                nullptr,
+                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onUriSourceChanged }
+            });
+
+        s_rasterizePixelHeightProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+            L"RasterizePixelHeight",
+            winrt::xaml_typename<double>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+                winrt::box_value(0.0),
+                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onRasterizeSizeChanged }
+            });
+
+        s_rasterizePixelWidthProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+            L"RasterizePixelWidth",
+            winrt::xaml_typename<double>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+                winrt::box_value(0.0),
+                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onRasterizeSizeChanged }
+            });
+
+        s_stringSourceProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+            L"StringSource",
+            winrt::xaml_typename<winrt::hstring>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+                winrt::box_value(winrt::hstring{}),
+                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onStringSourceChanged }
+            });
     }
 
     winrt::Microsoft::UI::Xaml::DependencyProperty SvgImageSource::UriSourceProperty()
     {
-        static auto prop = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-            L"UriSource",
-            winrt::xaml_typename<winrt::Windows::Foundation::Uri>(),
-            winrt::xaml_typename<winrt::WinUI3Package::Svg::SvgImageSource>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
-                nullptr,
-                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::OnUriSourceChanged }
-            });
-        return prop;
+        return s_uriSourceProperty;
+    }
+
+    winrt::hstring SvgImageSource::StringSource()
+    {
+        return winrt::unbox_value<winrt::hstring>(GetValue(s_stringSourceProperty));
+    }
+
+    void SvgImageSource::StringSource(winrt::hstring const& value)
+    {
+        SetValue(s_stringSourceProperty, winrt::box_value(value));
+    }
+
+    winrt::Microsoft::UI::Xaml::DependencyProperty SvgImageSource::StringSourceProperty()
+    {
+        return s_stringSourceProperty;
+    }
+
+    winrt::Microsoft::UI::Xaml::DependencyProperty SvgImageSource::RasterizePixelWidthProperty()
+    {
+        return s_rasterizePixelWidthProperty;
+    }
+
+    winrt::Microsoft::UI::Xaml::DependencyProperty SvgImageSource::RasterizePixelHeightProperty()
+    {
+        return s_rasterizePixelHeightProperty;
     }
 
     winrt::Windows::Foundation::IInspectable SvgImageSource::UriSource() const
     {
-        return const_cast<SvgImageSource*>(this)->GetValue(UriSourceProperty());
+        return GetValue(s_uriSourceProperty);
     }
 
     void SvgImageSource::UriSource(winrt::Windows::Foundation::IInspectable const& value)
@@ -83,120 +135,209 @@ namespace winrt::WinUI3Package::Svg::implementation
         SetValue(UriSourceProperty(), nullptr);
     }
 
-    void SvgImageSource::OnUriSourceChanged(
+    double SvgImageSource::RasterizePixelWidth() const
+    {
+        return winrt::unbox_value<double>(GetValue(s_rasterizePixelWidthProperty));
+    }
+
+    void SvgImageSource::RasterizePixelWidth(double value)
+    {
+        SetValue(s_rasterizePixelWidthProperty, winrt::box_value(value));
+    }
+
+    double SvgImageSource::RasterizePixelHeight() const
+    {
+        return winrt::unbox_value<double>(GetValue(s_rasterizePixelHeightProperty));
+    }
+
+    void SvgImageSource::RasterizePixelHeight(double value)
+    {
+        SetValue(s_rasterizePixelHeightProperty, winrt::box_value(value));
+    }
+
+    void SvgImageSource::replaceOp(winrt::Windows::Foundation::IAsyncAction next)
+    {
+        if (m_currentOp && m_currentOp.Status() == winrt::Windows::Foundation::AsyncStatus::Started)
+            m_currentOp.Cancel();
+        m_currentOp = std::move(next);
+    }
+
+    void SvgImageSource::onUriSourceChanged(
         winrt::Microsoft::UI::Xaml::DependencyObject const& d,
         winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        auto self = winrt::get_self<SvgImageSource>(
-            d.as<winrt::WinUI3Package::Svg::SvgImageSource>());
-
         auto uri = e.NewValue().try_as<winrt::Windows::Foundation::Uri>();
         if (!uri)
             return;
 
-        self->SetSourceUriAsync(uri);
+        auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
+        self->m_currentSource = uri;
+        self->replaceOp(self->loadFromUri(uri));
     }
 
-    void SvgImageSource::SetSourceText(winrt::hstring const& svgXml)
+    void SvgImageSource::onStringSourceChanged(
+        winrt::Microsoft::UI::Xaml::DependencyObject const& d,
+        winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        auto myToken = ++m_loadToken;
-        std::string utf8 = winrt::to_string(svgXml);
-        std::vector<uint8_t> bytes(utf8.begin(), utf8.end());
-        RenderAndApplyAsync(std::move(bytes), myToken);
+        auto str = winrt::unbox_value_or<winrt::hstring>(e.NewValue(), winrt::hstring{});
+        auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
+        if (str.empty())
+        {
+            self->m_currentSource = std::monostate{};
+            return;
+        }
+        self->m_currentSource = str;
+        self->replaceOp(self->loadFromString(str));
     }
 
-    winrt::Windows::Foundation::IAsyncAction SvgImageSource::SetSourceUriAsync(winrt::Windows::Foundation::Uri uri)
+    void SvgImageSource::onRasterizeSizeChanged(
+        winrt::Microsoft::UI::Xaml::DependencyObject const& d,
+        winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
     {
+        auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
+        if (std::holds_alternative<std::monostate>(self->m_currentSource))
+            return;
+        self->replaceOp(self->renderAsync(self->RasterizePixelWidth(), self->RasterizePixelHeight()));
+    }
+
+    winrt::Windows::Foundation::IAsyncAction SvgImageSource::loadFromUri(winrt::Windows::Foundation::Uri uri)
+    {
+        auto const rasterWidth = RasterizePixelWidth();
+        auto const rasterHeight = RasterizePixelHeight();
+
+        auto cancel = co_await winrt::get_cancellation_token();
         auto strong = get_strong();
-        auto myToken = ++strong->m_loadToken;
+        try
+        {
+            auto buffer = co_await getSvgContent(uri);
+            if (cancel())
+                co_return;
 
-        winrt::Windows::Web::Http::HttpClient client;
-        auto buffer = co_await client.GetBufferAsync(uri);
+            // Parse on a background thread, holding the tree mutex only for the swap.
+            co_await winrt::resume_background();
+            if (cancel())
+                co_return;
+            {
+                std::lock_guard lock(strong->m_treeMutex);
+                if (!strong->m_tree.Parse(reinterpret_cast<char const*>(buffer.data()), buffer.Length(), GetResvgOptions()))
+                    co_return;
+            }
 
-        if (myToken != strong->m_loadToken)
-            co_return;
-
-        auto reader = winrt::Windows::Storage::Streams::DataReader::FromBuffer(buffer);
-        auto size = buffer.Length();
-        std::vector<uint8_t> bytes(size);
-        if (size > 0)
-            reader.ReadBytes(bytes);
-
-        if (myToken != strong->m_loadToken)
-            co_return;
-
-        strong->RenderAndApplyAsync(std::move(bytes), myToken);
+            co_await strong->renderAsync(rasterWidth, rasterHeight);
+        }
+        catch (...)
+        {
+        }
     }
 
-    winrt::fire_and_forget SvgImageSource::RenderAndApplyAsync(std::vector<uint8_t> data, uint64_t token)
+    winrt::Windows::Foundation::IAsyncAction SvgImageSource::loadFromString(winrt::hstring str)
     {
+        auto const rasterWidth = RasterizePixelWidth();
+        auto const rasterHeight = RasterizePixelHeight();
+
+        auto cancel = co_await winrt::get_cancellation_token();
         auto strong = get_strong();
-        // Capture the UI dispatcher so we can hop back at the very end. Doing the SVG
-        // parse + raster + PNG encode on the UI thread piles up apartment-resume
-        // callbacks (one per outstanding SVG) and exhausts the STA stack when many
-        // SvgImageSources are loading at once.
-        auto dispatcher = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
 
         try
         {
             co_await winrt::resume_background();
-
-            // 1. Parse SVG with resvg.
-            resvg_render_tree* tree = nullptr;
-            int32_t err = resvg_parse_tree_from_data(
-                reinterpret_cast<char const*>(data.data()),
-                data.size(),
-                GetResvgOptions(),
-                &tree);
-            if (err != RESVG_OK || !tree)
+            if (cancel())
                 co_return;
 
-            auto svgSize = resvg_get_image_size(tree);
-            uint32_t w = static_cast<uint32_t>(std::ceil(svgSize.width));
-            uint32_t h = static_cast<uint32_t>(std::ceil(svgSize.height));
-            if (w == 0 || h == 0)
+            auto utf8 = winrt::to_string(str);
             {
-                resvg_tree_destroy(tree);
-                co_return;
+                std::lock_guard lock(strong->m_treeMutex);
+                if (!strong->m_tree.Parse(utf8.data(), utf8.size(), GetResvgOptions()))
+                    co_return;
             }
 
-            // 2. Render into a width*height*4 premultiplied-RGBA buffer.
-            std::vector<uint8_t> pixels(static_cast<size_t>(w) * h * 4, 0);
-            resvg_render(
-                tree,
-                resvg_transform_identity(),
-                w, h,
-                reinterpret_cast<char*>(pixels.data()));
-            resvg_tree_destroy(tree);
-
-            // 3. PNG-encode via WIC's BitmapEncoder. (BitmapSource only ingests an encoded
-            // image stream — it doesn't accept a raw pixel buffer directly.)
-            using namespace winrt::Windows::Graphics::Imaging;
-            using namespace winrt::Windows::Storage::Streams;
-
-            InMemoryRandomAccessStream rastream;
-            auto encoder = co_await BitmapEncoder::CreateAsync(BitmapEncoder::PngEncoderId(), rastream);
-            encoder.SetPixelData(
-                BitmapPixelFormat::Rgba8,
-                BitmapAlphaMode::Premultiplied,
-                w, h,
-                96.0, 96.0,
-                winrt::array_view<uint8_t const>{ pixels.data(), pixels.data() + pixels.size() });
-            co_await encoder.FlushAsync();
-            rastream.Seek(0);
-
-            if (token != strong->m_loadToken)
-                co_return;
-
-            // 4. Hop back to the UI thread to feed our BitmapSource base class.
-            if (dispatcher)
-                co_await wil::resume_foreground(dispatcher);
-
-            co_await strong->SetSourceAsync(rastream);
+            co_await strong->renderAsync(rasterWidth, rasterHeight);
         }
         catch (...)
         {
-            // Fire-and-forget must not propagate exceptions out of the coroutine.
         }
+    }
+
+    winrt::Windows::Foundation::IAsyncAction SvgImageSource::renderAsync(double rasterWidth, double rasterHeight)
+    {
+        auto cancel = co_await winrt::get_cancellation_token();
+        auto strong = get_strong();
+        co_await winrt::resume_background();
+        if (cancel())
+            co_return;
+
+        std::vector<uint8_t> pixels;
+        uint32_t width = 0, height = 0;
+        {
+            std::lock_guard lock(strong->m_treeMutex);
+            auto [naturalWidth, naturalHeight] = strong->m_tree.GetSize();
+            if (naturalWidth == 0 || naturalHeight == 0)
+                co_return;
+
+            auto scaled = getUniformScale(rasterWidth, rasterHeight, naturalWidth, naturalHeight);
+            width = scaled.width;
+            height = scaled.height;
+            pixels = strong->m_tree.Render(scaled.scale, width, height);
+        }
+
+        if (cancel())
+            co_return;
+
+        winrt::Windows::Storage::Streams::InMemoryRandomAccessStream pngStream;
+        auto encoder = co_await winrt::Windows::Graphics::Imaging::BitmapEncoder::CreateAsync(winrt::Windows::Graphics::Imaging::BitmapEncoder::PngEncoderId(), pngStream);
+        encoder.SetPixelData(
+            winrt::Windows::Graphics::Imaging::BitmapPixelFormat::Rgba8,
+            winrt::Windows::Graphics::Imaging::BitmapAlphaMode::Premultiplied,
+            width, height,
+            96.0, 96.0,
+            winrt::array_view<uint8_t const>{ pixels.data(), pixels.data() + pixels.size() });
+        co_await encoder.FlushAsync();
+        pngStream.Seek(0);
+
+        if (cancel())
+            co_return;
+
+        co_await wil::resume_foreground(strong->DispatcherQueue());
+
+        if (cancel())
+            co_return;
+
+        auto op = strong->SetSourceAsync(pngStream);
+        op.Completed([](auto const&, auto) noexcept {});
+    }
+
+    void SvgImageSource::BindSizeTo(winrt::Microsoft::UI::Xaml::Controls::Image const& image)
+    {
+        m_boundImage = image;
+        m_sizeChangedRevoker = image.SizeChanged(
+            winrt::auto_revoke,
+            [weakSelf = get_weak()](winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
+            {
+                auto self = weakSelf.get();
+                if (!self)
+                    return;
+
+                if (std::holds_alternative<std::monostate>(self->m_currentSource))
+                    return;
+                auto image = sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+                double scale = 1.0;
+                if (auto xamlRoot = image.XamlRoot())
+                    scale = xamlRoot.RasterizationScale();
+
+                auto [width, height] = e.NewSize();
+                self->replaceOp(self->renderAsync(width * scale, height * scale));
+            }
+        );
+    }
+
+    winrt::Microsoft::UI::Xaml::Controls::Image SvgImageSource::BindSizeTo()
+    {
+        return m_boundImage.get();
+    }
+
+    winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::Streams::IBuffer> SvgImageSource::getSvgContent(winrt::Windows::Foundation::Uri uri)
+    {
+        static winrt::Windows::Web::Http::HttpClient httpClient;
+        co_return co_await httpClient.GetBufferAsync(uri);
     }
 }

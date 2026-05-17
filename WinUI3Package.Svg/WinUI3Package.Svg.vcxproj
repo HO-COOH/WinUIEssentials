@@ -90,17 +90,15 @@
          path once (e.g. as a git submodule). The MSBuild target below invokes cargo. -->
     <ResvgSourceDir Condition="'$(ResvgSourceDir)' == ''">$(MSBuildProjectDirectory)\third_party\resvg-src</ResvgSourceDir>
     <ResvgCApiDir>$(ResvgSourceDir)\crates\c-api</ResvgCApiDir>
-
     <!-- Map MSBuild Platform to Rust target triple so cargo cross-compiles correctly. -->
     <ResvgRustTarget Condition="'$(Platform)' == 'x64'">x86_64-pc-windows-msvc</ResvgRustTarget>
     <ResvgRustTarget Condition="'$(Platform)' == 'Win32'">i686-pc-windows-msvc</ResvgRustTarget>
     <ResvgRustTarget Condition="'$(Platform)' == 'ARM64'">aarch64-pc-windows-msvc</ResvgRustTarget>
-
     <ResvgCargoOutDir>$(ResvgSourceDir)\target\$(ResvgRustTarget)\release</ResvgCargoOutDir>
     <ResvgStaticLib>$(ResvgCargoOutDir)\resvg.lib</ResvgStaticLib>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
-    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
     <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static-md</VcpkgTriplet>
     <VcpkgTriplet Condition="'$(Platform)'=='Win32'">x86-windows-static-md</VcpkgTriplet>
     <VcpkgTriplet Condition="'$(Platform)'=='ARM64'">arm64-windows-static-md</VcpkgTriplet>
@@ -143,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="RenderTree.h" />
     <ClInclude Include="SvgImageSource.h">
       <DependentUpon>SvgImageSource.idl</DependentUpon>
     </ClInclude>
@@ -151,6 +150,7 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="RenderTree.cpp" />
     <ClCompile Include="SvgImageSource.cpp">
       <DependentUpon>SvgImageSource.idl</DependentUpon>
     </ClCompile>
@@ -163,13 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="vcpkg.json" />
     <None Include="WinUI3Package_Svg.def" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="readme.txt">
-      <DeploymentContent>false</DeploymentContent>
-    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <!--
@@ -178,25 +172,19 @@
        Cargo handles its own incremental build, so no-op rebuilds are fast.
   -->
   <Target Name="ResvgPreflight" BeforeTargets="ResvgBuild">
-    <Message Condition="!Exists('$(ResvgCApiDir)\Cargo.toml')" Importance="High"
-             Text="resvg sources not found at $(ResvgSourceDir); cloning..." />
-    <Exec Condition="!Exists('$(ResvgCApiDir)\Cargo.toml')"
-          Command="git clone --depth 1 https://github.com/linebender/resvg.git &quot;$(ResvgSourceDir)&quot;" />
-    <Error Condition="!Exists('$(ResvgCApiDir)\Cargo.toml')"
-           Text="Failed to obtain resvg sources at $(ResvgSourceDir). Verify git is on PATH and the destination directory is empty (or set ResvgSourceDir to an existing checkout)." />
+    <Message Condition="!Exists('$(ResvgCApiDir)\Cargo.toml')" Importance="High" Text="resvg sources not found at $(ResvgSourceDir); cloning..." />
+    <Exec Condition="!Exists('$(ResvgCApiDir)\Cargo.toml')" Command="git clone --depth 1 https://github.com/linebender/resvg.git &quot;$(ResvgSourceDir)&quot;" />
+    <Error Condition="!Exists('$(ResvgCApiDir)\Cargo.toml')" Text="Failed to obtain resvg sources at $(ResvgSourceDir). Verify git is on PATH and the destination directory is empty (or set ResvgSourceDir to an existing checkout)." />
     <Exec Command="cargo --version" ConsoleToMSBuild="true" IgnoreExitCode="true">
       <Output TaskParameter="ExitCode" PropertyName="_ResvgCargoExitCode" />
     </Exec>
-    <Error Condition="'$(_ResvgCargoExitCode)' != '0'"
-           Text="cargo not found on PATH. Install the Rust toolchain from https://rustup.rs/ before building." />
+    <Error Condition="'$(_ResvgCargoExitCode)' != '0'" Text="cargo not found on PATH. Install the Rust toolchain from https://rustup.rs/ before building." />
     <Exec Command="rustup target add $(ResvgRustTarget)" />
   </Target>
   <Target Name="ResvgBuild" BeforeTargets="ClCompile">
     <Message Importance="High" Text="Building resvg C-API ($(ResvgRustTarget), release)..." />
-    <Exec Command="cargo build --release --target $(ResvgRustTarget)"
-          WorkingDirectory="$(ResvgCApiDir)" />
-    <Error Condition="!Exists('$(ResvgStaticLib)')"
-           Text="cargo finished but $(ResvgStaticLib) was not produced. Verify resvg's Cargo.toml has crate-type = [&quot;staticlib&quot;]." />
+    <Exec Command="cargo build --release --target $(ResvgRustTarget)" WorkingDirectory="$(ResvgCApiDir)" />
+    <Error Condition="!Exists('$(ResvgStaticLib)')" Text="cargo finished but $(ResvgStaticLib) was not produced. Verify resvg's Cargo.toml has crate-type = [&quot;staticlib&quot;]." />
   </Target>
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Web.WebView2.1.0.3719.77\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.3719.77\build\native\Microsoft.Web.WebView2.targets')" />

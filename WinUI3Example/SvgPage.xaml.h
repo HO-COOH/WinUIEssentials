@@ -6,11 +6,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct SvgPage : SvgPageT<SvgPage>
     {
-        SvgPage()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        SvgPage() = default;
 
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Svgs();
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Pngs();

@@ -48,58 +48,83 @@
         </Style>
     </Page.Resources>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
 
-        <ListView
-            x:Name="SvgListView"
-            Grid.Column="0"
-            ItemsSource="{x:Bind Svgs}"
-            Style="{StaticResource SyncedScrollListViewStyle}"
-            Tag="Svg">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Spacing="8">
-                        <!--<Image
-                            Width="200"
-                            Height="200"
-                            Source="{Binding}"
-                            Stretch="Uniform" />-->
-                        <Image
-                            Width="200"
-                            Height="200"
-                            Stretch="Uniform">
-                            <Image.Source>
-                                <svg:SvgImageSource UriSource="{Binding}" />
-                            </Image.Source>
-                        </Image>
-                        <TextBlock Text="{Binding}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <local:ControlExample HeaderText="Paste in svg strings">
+            <Image
+                x:Name="SvgStringImage"
+                MinWidth="500"
+                MinHeight="500">
+                <Image.Source>
+                    <svg:SvgImageSource
+                        x:Name="TestSvgSource"
+                        BindSizeTo="{x:Bind SvgStringImage}"
+                        StringSource="{x:Bind SvgStringSource.Text, Mode=OneWay}" />
+                </Image.Source>
+            </Image>
 
-        <ListView
-            x:Name="PngListView"
-            Grid.Column="1"
-            ItemsSource="{x:Bind Pngs}"
-            Style="{StaticResource SyncedScrollListViewStyle}"
-            Tag="Png">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Spacing="8">
-                        <Image
-                            Width="200"
-                            Height="200"
-                            Source="{Binding}"
-                            Stretch="Uniform" />
-                        <TextBlock Text="{Binding}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </Grid>
+            <local:ControlExample.Options>
+                <TextBox
+                    x:Name="SvgStringSource"
+                    Width="500"
+                    AcceptsReturn="True"
+                    PlaceholderText="Paste svg string here to test the rendering effect"
+                    Tag="{x:Bind SvgStringImage}"
+                    TextWrapping="Wrap" />
+            </local:ControlExample.Options>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="WinUI3Package.Svg V.S. WinUI3 built-in svg rendering">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <ListView
+                    x:Name="SvgListView"
+                    Grid.Column="0"
+                    ItemsSource="{x:Bind Svgs}"
+                    Style="{StaticResource SyncedScrollListViewStyle}"
+                    Tag="Svg">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Spacing="8">
+                                <Image
+                                    Width="200"
+                                    Height="200"
+                                    Stretch="Uniform">
+                                    <Image.Source>
+                                        <svg:SvgImageSource UriSource="{Binding}" />
+                                    </Image.Source>
+                                </Image>
+                                <TextBlock Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ListView
+                    x:Name="PngListView"
+                    Grid.Column="1"
+                    ItemsSource="{x:Bind Pngs}"
+                    Style="{StaticResource SyncedScrollListViewStyle}"
+                    Tag="Png">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Spacing="8">
+                                <Image
+                                    Width="200"
+                                    Height="200"
+                                    Source="{Binding}"
+                                    Stretch="Uniform" />
+                                <TextBlock Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </local:ControlExample>
+
+    </StackPanel>
 </Page>
