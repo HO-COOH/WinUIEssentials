@@ -867,6 +867,7 @@
                 <NavigationViewItem Content="Toasts" Tag="{essential:TypeName Type=local:ToastPage}" />
                 <NavigationViewItem Content="IInitializeWithWindowHelper" Tag="{essential:TypeName Type=local:InitializeWithWindowHelperPage}" />
                 <NavigationViewItem Content="ScopedButtonDisabler" Tag="{essential:TypeName Type=local:ScopedButtonDisablerPage}" />
+                <NavigationViewItem Content="Svg" Tag="{essential:TypeName Type=local:SvgPage}" />
                 <NavigationViewItem Content="*Experiments*" Tag="{essential:TypeName Type=local:ExperimentPage}" />
             </NavigationView.MenuItems>
             <Grid>

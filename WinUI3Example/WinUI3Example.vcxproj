@@ -635,6 +635,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="StoreUpdateChecker.h" />
+    <ClInclude Include="SvgPage.xaml.h">
+      <DependentUpon>SvgPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SystemBackdropType.h" />
     <ClInclude Include="TaskbarIconPage.xaml.h">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
@@ -924,6 +928,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StandardWindowWithMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SvgPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarIconPage.xaml">
@@ -1296,6 +1303,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="StoreUpdateChecker.cpp" />
+    <ClCompile Include="SvgPage.xaml.cpp">
+      <DependentUpon>SvgPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SwitchPresenterPage.xaml.cpp">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1678,6 +1689,10 @@
       <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="SvgPage.idl">
+      <DependentUpon>SvgPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="SwitchPresenterPage.idl">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1965,6 +1980,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WinUI3Package.Svg\WinUI3Package.Svg.vcxproj">
+      <Project>{b8d8e3df-ee58-4995-8889-3008b38730f8}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\WinUI3Package\WinUI3Package.vcxproj">
       <Project>{e006bda6-4cc1-4ec4-a1cf-807e16bcbf58}</Project>
     </ProjectReference>

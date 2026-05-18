@@ -38,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)GithubRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NamedUrl.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RepoInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestSvgUrls.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.h" />
   </ItemGroup>
   <ItemGroup>
