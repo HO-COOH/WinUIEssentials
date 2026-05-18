@@ -9,19 +9,11 @@ namespace winrt::WinUI3Example::implementation
         SvgPage() = default;
 
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Svgs();
-        winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Pngs();
 
-        void ListViewScrollViewer_ViewChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs const& e);
-
+        static winrt::Windows::Foundation::Uri GetPngFromSvgUrl(winrt::Windows::Foundation::IInspectable const& svgUrl);
+        static winrt::Microsoft::UI::Xaml::Media::ImageSource GetSvgImageSourceFromString(winrt::hstring const& svgContent);
     private:
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_svgs{ nullptr };
-        winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_pngs{ nullptr };
-
-        winrt::Microsoft::UI::Xaml::Controls::ScrollViewer m_svgScroll{ nullptr };
-        winrt::Microsoft::UI::Xaml::Controls::ScrollViewer m_pngScroll{ nullptr };
-        bool m_isSyncing{ false };
-
-        void SyncFrom(winrt::Microsoft::UI::Xaml::Controls::ScrollViewer const& source, winrt::Microsoft::UI::Xaml::Controls::ScrollViewer const& target);
     };
 }
 

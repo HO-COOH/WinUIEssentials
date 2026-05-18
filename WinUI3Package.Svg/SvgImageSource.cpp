@@ -6,7 +6,7 @@
 #include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Graphics.Imaging.h>
 #include <winrt/Microsoft.UI.Xaml.Data.h>
-
+#include <wil/resource.h>
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -195,7 +195,7 @@ namespace winrt::WinUI3Package::Svg::implementation
         winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
     {
         auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
-        if (std::holds_alternative<std::monostate>(self->m_currentSource))
+        if (self->m_isHandlingImageSizeChanged || std::holds_alternative<std::monostate>(self->m_currentSource))
             return;
         self->replaceOp(self->renderAsync(self->RasterizePixelWidth(), self->RasterizePixelHeight()));
     }
@@ -204,19 +204,10 @@ namespace winrt::WinUI3Package::Svg::implementation
     {
         auto const rasterWidth = RasterizePixelWidth();
         auto const rasterHeight = RasterizePixelHeight();
-
-        auto cancel = co_await winrt::get_cancellation_token();
         auto strong = get_strong();
         try
         {
             auto buffer = co_await getSvgContent(uri);
-            if (cancel())
-                co_return;
-
-            // Parse on a background thread, holding the tree mutex only for the swap.
-            co_await winrt::resume_background();
-            if (cancel())
-                co_return;
             {
                 std::lock_guard lock(strong->m_treeMutex);
                 if (!strong->m_tree.Parse(reinterpret_cast<char const*>(buffer.data()), buffer.Length(), GetResvgOptions()))
@@ -234,15 +225,11 @@ namespace winrt::WinUI3Package::Svg::implementation
     {
         auto const rasterWidth = RasterizePixelWidth();
         auto const rasterHeight = RasterizePixelHeight();
-
-        auto cancel = co_await winrt::get_cancellation_token();
         auto strong = get_strong();
 
         try
         {
             co_await winrt::resume_background();
-            if (cancel())
-                co_return;
 
             auto utf8 = winrt::to_string(str);
             {
@@ -270,6 +257,9 @@ namespace winrt::WinUI3Package::Svg::implementation
         uint32_t width = 0, height = 0;
         {
             std::lock_guard lock(strong->m_treeMutex);
+            if (!strong->m_tree)
+                co_return;
+
             auto [naturalWidth, naturalHeight] = strong->m_tree.GetSize();
             if (naturalWidth == 0 || naturalHeight == 0)
                 co_return;
@@ -309,6 +299,17 @@ namespace winrt::WinUI3Package::Svg::implementation
     void SvgImageSource::BindSizeTo(winrt::Microsoft::UI::Xaml::Controls::Image const& image)
     {
         m_boundImage = image;
+        m_isHandlingImageSizeChanged = true;
+        auto scopeExit = wil::scope_exit([&]() { m_isHandlingImageSizeChanged = false; });
+        auto width = image.ActualWidth();
+        auto height = image.ActualHeight();
+        RasterizePixelWidth(width);
+        RasterizePixelHeight(height);
+        double scale = 1.0;
+        if (auto xamlRoot = image.XamlRoot())
+            scale = xamlRoot.RasterizationScale();
+        replaceOp(renderAsync(width * scale, height * scale));
+
         m_sizeChangedRevoker = image.SizeChanged(
             winrt::auto_revoke,
             [weakSelf = get_weak()](winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
@@ -317,6 +318,8 @@ namespace winrt::WinUI3Package::Svg::implementation
                 if (!self)
                     return;
 
+                self->m_isHandlingImageSizeChanged = true;
+                auto scopeExit = wil::scope_exit([&]() { self->m_isHandlingImageSizeChanged = false; });
                 if (std::holds_alternative<std::monostate>(self->m_currentSource))
                     return;
                 auto image = sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
@@ -325,6 +328,8 @@ namespace winrt::WinUI3Package::Svg::implementation
                     scale = xamlRoot.RasterizationScale();
 
                 auto [width, height] = e.NewSize();
+                self->RasterizePixelWidth(width);
+                self->RasterizePixelHeight(height);
                 self->replaceOp(self->renderAsync(width * scale, height * scale));
             }
         );

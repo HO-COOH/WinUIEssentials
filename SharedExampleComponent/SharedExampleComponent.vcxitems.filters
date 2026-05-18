@@ -57,6 +57,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.h">
       <Filter>ThemeToggleButton</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestSvgUrls.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Editor.idl">

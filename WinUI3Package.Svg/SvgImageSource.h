@@ -34,6 +34,7 @@ namespace winrt::WinUI3Package::Svg::implementation
         void BindSizeTo(winrt::Microsoft::UI::Xaml::Controls::Image const& image);
         winrt::Microsoft::UI::Xaml::Controls::Image BindSizeTo();
     private:
+        bool m_isHandlingImageSizeChanged{};
         winrt::Microsoft::UI::Xaml::FrameworkElement::SizeChanged_revoker m_sizeChangedRevoker;
         // weak_ref breaks the otherwise-circular Image.Source -> SvgImageSource -> Image chain.
         winrt::weak_ref<winrt::Microsoft::UI::Xaml::Controls::Image> m_boundImage;

@@ -18,6 +18,11 @@ namespace resvg
 		[[nodiscard]] std::vector<uint8_t> Render(float scale, uint32_t width, uint32_t height);
 		[[nodiscard]] resvg_size GetSize() const noexcept;
 
+		constexpr operator bool() const noexcept
+		{
+			return static_cast<bool>(m_tree);
+		}
+
 		~RenderTree();
 	};
 
