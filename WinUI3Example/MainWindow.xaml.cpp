@@ -11,6 +11,7 @@
 #include <wil/cppwinrt.h>
 #include <LayoutUpdateAwaiter.hpp>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
+#include <winrt/Windows.System.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -129,4 +130,13 @@ namespace winrt::WinUI3Example::implementation
 #endif
 	}
 
+	void MainWindow::GithubFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri{ L"https://github.com/HO-COOH/WinUIEssentials" });
+	}
+
+	void MainWindow::StoreFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri{ L"ms-windows-store://pdp/?productid=9PCC690BCMT9" });
+	}
 }

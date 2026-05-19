@@ -7,7 +7,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TaskbarIconPage : TaskbarIconPageT<TaskbarIconPage>, MvvmHelper::PropertyChangeHelper<TaskbarIconPage>
     {
-        TaskbarIconPage();
+        TaskbarIconPage() = default;
         void NormalIconAdd_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void ThemeAdaptiveIconAddButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 

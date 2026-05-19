@@ -43,6 +43,8 @@ namespace winrt::WinUI3Example::implementation
         // Stored animations for reversible playback
         ButtonAnimations m_sourceButtonAnimations;
         bool m_isExpanded = false;
+        void GithubFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void StoreFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

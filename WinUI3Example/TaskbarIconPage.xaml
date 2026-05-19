@@ -48,6 +48,46 @@
                         Icon="Paste"
                         Text="Sub menu item with paste icon" />
                 </MenuFlyoutSubItem>
+
+                <!--  You can also put custom controls in MenuFlyoutItem, by rewriting its Template  -->
+                <MenuFlyoutItem>
+                    <MenuFlyoutItem.Template>
+                        <ControlTemplate TargetType="MenuFlyoutItem">
+                            <TextBox PlaceholderText="Send message" />
+                        </ControlTemplate>
+                    </MenuFlyoutItem.Template>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem>
+                    <MenuFlyoutItem.Template>
+                        <ControlTemplate TargetType="MenuFlyoutItem">
+                            <Grid Margin="12,4" ColumnSpacing="16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button
+                                    MinWidth="70"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource AccentButtonStyle}">
+                                    <StackPanel Spacing="4">
+                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE80F;" />
+                                        <TextBlock HorizontalAlignment="Center" Text="Home" />
+                                    </StackPanel>
+                                </Button>
+                                <Button
+                                    Grid.Column="1"
+                                    MinWidth="70"
+                                    HorizontalAlignment="Center">
+                                    <StackPanel Spacing="4">
+                                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE7E8;" />
+                                        <TextBlock HorizontalAlignment="Center" Text="Exit" />
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </ControlTemplate>
+                    </MenuFlyoutItem.Template>
+                </MenuFlyoutItem>
             </MenuFlyout>
         </essential:TaskbarIcon>
 
@@ -133,6 +173,91 @@
 
         <local:ControlExample HeaderText="Create a single taskbar icon">
             <local:TaskbarIconSource x:Name="NormalIconSource" />
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:TaskbarIcon
+    x:Name=&quot;TaskbarIcon&quot;
+    LeftDoublePressed=&quot;TaskbarIcon_LeftDoublePressed&quot;
+    LeftPressed=&quot;TaskbarIcon_LeftPressed&quot;
+    PointerHover=&quot;TaskbarIcon_PointerHover&quot;
+    RightPressed=&quot;TaskbarIcon_RightPressed&quot;&gt;
+    &lt;MenuFlyout&gt;
+        &lt;MenuFlyoutItem Click=&quot;MenuFlyoutItem_Click&quot; Text=&quot;Item1&quot; /&gt;
+        &lt;MenuFlyoutItem
+            Click=&quot;MenuFlyoutItem_Click&quot;
+            Icon=&quot;Copy&quot;
+            Text=&quot;Item with copy icon&quot; /&gt;
+        &lt;ToggleMenuFlyoutItem
+            Click=&quot;MenuFlyoutItem_Click&quot;
+            IsChecked=&quot;True&quot;
+            Text=&quot;Toggle menu item&quot; /&gt;
+        &lt;MenuFlyoutItem
+            Icon=&quot;Cancel&quot;
+            IsEnabled=&quot;False&quot;
+            Text=&quot;Disabled item&quot; /&gt;
+        &lt;MenuFlyoutItem Text=&quot;Invisible item&quot; Visibility=&quot;Collapsed&quot; /&gt;
+        &lt;MenuFlyoutSeparator /&gt;
+
+        &lt;RadioMenuFlyoutItem GroupName=&quot;Radios&quot; Text=&quot;Radio Item1&quot; /&gt;
+        &lt;RadioMenuFlyoutItem
+            GroupName=&quot;Radios&quot;
+            IsChecked=&quot;True&quot;
+            Text=&quot;Radio Item2&quot; /&gt;
+
+        &lt;MenuFlyoutSeparator /&gt;
+        &lt;MenuFlyoutSubItem Text=&quot;Sub menu&quot;&gt;
+            &lt;MenuFlyoutItem Click=&quot;MenuFlyoutItem_Click&quot; Text=&quot;Sub menu item&quot; /&gt;
+            &lt;MenuFlyoutItem
+                Click=&quot;MenuFlyoutItem_Click&quot;
+                Icon=&quot;Paste&quot;
+                Text=&quot;Sub menu item with paste icon&quot; /&gt;
+        &lt;/MenuFlyoutSubItem&gt;
+
+        &lt;!--  You can also put custom controls in MenuFlyoutItem, by rewriting its Template  --&gt;
+        &lt;MenuFlyoutItem&gt;
+            &lt;MenuFlyoutItem.Template&gt;
+                &lt;ControlTemplate TargetType=&quot;MenuFlyoutItem&quot;&gt;
+                    &lt;TextBox PlaceholderText=&quot;Send message&quot; /&gt;
+                &lt;/ControlTemplate&gt;
+            &lt;/MenuFlyoutItem.Template&gt;
+        &lt;/MenuFlyoutItem&gt;
+        &lt;MenuFlyoutItem&gt;
+            &lt;MenuFlyoutItem.Template&gt;
+                &lt;ControlTemplate TargetType=&quot;MenuFlyoutItem&quot;&gt;
+                    &lt;Grid Margin=&quot;12,4&quot; ColumnSpacing=&quot;16&quot;&gt;
+                        &lt;Grid.ColumnDefinitions&gt;
+                            &lt;ColumnDefinition Width=&quot;*&quot; /&gt;
+                            &lt;ColumnDefinition Width=&quot;*&quot; /&gt;
+                        &lt;/Grid.ColumnDefinitions&gt;
+
+                        &lt;Button
+                            MinWidth=&quot;70&quot;
+                            HorizontalAlignment=&quot;Center&quot;
+                            Style=&quot;{StaticResource AccentButtonStyle}&quot;&gt;
+                            &lt;StackPanel Spacing=&quot;4&quot;&gt;
+                                &lt;FontIcon FontFamily=&quot;Segoe Fluent Icons&quot; Glyph=&quot;&amp;#xE80F;&quot; /&gt;
+                                &lt;TextBlock HorizontalAlignment=&quot;Center&quot; Text=&quot;Home&quot; /&gt;
+                            &lt;/StackPanel&gt;
+                        &lt;/Button&gt;
+                        &lt;Button
+                            Grid.Column=&quot;1&quot;
+                            MinWidth=&quot;70&quot;
+                            HorizontalAlignment=&quot;Center&quot;&gt;
+                            &lt;StackPanel Spacing=&quot;4&quot;&gt;
+                                &lt;FontIcon FontFamily=&quot;Segoe Fluent Icons&quot; Glyph=&quot;&amp;#xE7E8;&quot; /&gt;
+                                &lt;TextBlock HorizontalAlignment=&quot;Center&quot; Text=&quot;Exit&quot; /&gt;
+                            &lt;/StackPanel&gt;
+                        &lt;/Button&gt;
+                    &lt;/Grid&gt;
+                &lt;/ControlTemplate&gt;
+            &lt;/MenuFlyoutItem.Template&gt;
+        &lt;/MenuFlyoutItem&gt;
+    &lt;/MenuFlyout&gt;
+&lt;/essential:TaskbarIcon&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
             <local:ControlExample.Options>
                 <DropDownButton x:Name="NormalIconAdd" IsEnabled="{x:Bind NormalIconSource.IsFileSet, Mode=OneWay}">
                     Add
