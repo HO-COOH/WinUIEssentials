@@ -51,5 +51,6 @@
         <file src="..\MainLogo.png" target="assets\"/>
         <file src="..\LICENSE.txt" target="licenses\"/>
         <file src="..\README.md" target="docs\"/>
+        <file src="THIRD-PARTY-NOTICES.txt" target="licenses\"/>
     </files>
 </package>

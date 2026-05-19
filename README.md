@@ -1224,3 +1224,11 @@ The WinUI3's built-in `SvgImageSource` has these [known limitations](https://lea
 
  ![](assets/svg1.png)
  ![](assets/svg-compare.png)
+
+|Property| DependencyProperty? | Description
+|---|---|---|
+|UriSource | :white_check_mark: | Set the svg source by `Uri`
+|StringSource | :white_check_mark: | Set the svg source by the svg content string
+|RasterizePixelWidth | :white_check_mark: | The pixel width of the svg rasterized, not compatible with `BindSizeTo`
+|RasterizePixelHeight | :white_check_mark: | The pixel height of the svg rasterized, not compatible with `BindSizeTo`
+|BindSizeTo | :white_check_mark: | The `Image` control to bind to automatically adjust rasterized size. Not compatible with `RasterizedPixelWidth` and `RasterizedPixelHeight`

@@ -17,6 +17,7 @@
   <ItemGroup>
     <None Include="WinUI3Package_Svg.def" />
     <None Include="packages.config" />
+    <None Include=".nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />

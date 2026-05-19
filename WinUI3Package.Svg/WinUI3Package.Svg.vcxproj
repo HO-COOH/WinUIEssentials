@@ -162,6 +162,7 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".nuspec" />
     <None Include="packages.config" />
     <None Include="WinUI3Package_Svg.def" />
   </ItemGroup>
