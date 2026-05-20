@@ -34,6 +34,9 @@
                 VerticalAlignment="Stretch"
                 ContentFontWeight="Bold"
                 HeaderFontWeight="Normal">
+                <essential:Table.Data>
+                    <local:DemoTableData />
+                </essential:Table.Data>
                 <essential:Table.Columns>
                     <essential:TableColumn StringContent="Id" />
                     <essential:TableColumn StringContent="First Name" />

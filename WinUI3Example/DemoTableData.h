@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "DemoTableData.g.h"
+#include "TableTestData.hpp"
 
 namespace winrt::WinUI3Example::implementation
 {
@@ -10,6 +11,9 @@ namespace winrt::WinUI3Example::implementation
 
         int RowCount();
         int RowRequested(winrt::WinUI3Package::RowRequestedEventArgs const& args);
+
+    private:
+        TableTestData m_data;
     };
 }
 

@@ -2,10 +2,8 @@ namespace PackageRoot
 {
     [bindable]
     [default_interface]
-    runtimeclass RowRequestedEventArgs 
+    runtimeclass RowRequestedEventArgs
     {
-        RowRequestedEventArgs(Int32 startRow, Int32 endRow);
-        
         Int32 StartRow{ get; };
         Int32 EndRow{ get; };
 

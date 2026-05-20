@@ -351,6 +351,9 @@
     <ClCompile Include="StoreUpdateChecker.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
+    <ClCompile Include="TableTestData.cpp">
+      <Filter>Pages\TablePage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -372,6 +375,9 @@
     </ClInclude>
     <ClInclude Include="ButtonAnimations.h">
       <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="TableTestData.hpp">
+      <Filter>Pages\TablePage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

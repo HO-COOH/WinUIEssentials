@@ -636,6 +636,7 @@
       <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TableTestData.hpp" />
     <ClInclude Include="TaskbarIconPage.xaml.h">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1300,6 +1301,7 @@
       <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TableTestData.cpp" />
     <ClCompile Include="TaskbarIconPage.xaml.cpp">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>

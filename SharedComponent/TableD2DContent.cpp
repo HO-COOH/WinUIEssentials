@@ -5,8 +5,10 @@
 #include <numeric>
 #include <cmath>
 #include <algorithm>
+#include <ranges>
 #include "Table.h"
 #include "Easing.hpp"
+#include "RowRequestedEventArgs.h"
 
 TableD2DContent::TableD2DContent(winrt::PackageRoot::implementation::Table& table) : 
 	m_dispatcher{ table },
@@ -285,6 +287,28 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 	auto const scrollOffsetY = m_scrollOffsetY.load(std::memory_order_relaxed);
 	auto const scale = m_swapChain.Scale;
 
+	//SetCellContent indexes m_perColumnCache, so columns must be sized
+	//before any RowRequested-driven push reaches the cache.
+	m_textLayoutCache.SetNumColumns(m_table_ref.m_columns->m_data.size());
+
+	if (auto const rowCount = static_cast<int>(m_textLayoutCache.RowCount()); rowCount > 0 && m_table_ref.m_tableData)
+	{
+		auto const rawRowHeight = TableConstants::RowHeight * scale;
+		auto const rawBottom = m_swapChain.CurrentSize.Height * scale;
+		auto const rawScrollOffsetY = scrollOffsetY * scale;
+		int const first = (std::max)(0, static_cast<int>(rawScrollOffsetY / rawRowHeight));
+		int const last  = (std::min)(rowCount - 1, static_cast<int>((rawScrollOffsetY + rawBottom) / rawRowHeight));
+
+		if (std::ranges::any_of(std::ranges::iota_view{ first, last + 1 }, [this](int r) { return m_textLayoutCache.IsRowStale(r); }))
+		{
+			//Draw-thread call. ITableData implementations must be free-threaded
+			//or marshal internally; documented on the IDL.
+			auto args = winrt::make_self<winrt::PackageRoot::implementation::RowRequestedEventArgs>(first, last, m_textLayoutCache);
+			m_table_ref.m_tableData.RowRequested(*args);
+			fullRedraw = true;
+		}
+	}
+
 	if (fullRedraw)
 	{
 		bool const headerDirty = (frame & FrameRequest::Flag::HeaderDirty) != 0;
@@ -303,8 +327,6 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	auto const rawRowHeight = TableConstants::RowHeight * scale;
 	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
 	m_tableLines.Rebuild(rawViewportWidth, rawViewportHeight, rawRowHeight, rawHeaderHeight);
-
-	m_textLayoutCache.SetNumColumns(m_table_ref.m_columns->m_data.size());
 
 	if (!m_headerBitmap || headerDirty)
 		renderHeaderBitmap(hoveredResizeColumn, scrollOffsetX);
@@ -569,8 +591,8 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 			if (currentX >= rawWidth && !m_initialSizing) //all later columns are off-screen-right
 				return;
 
-			auto const& layoutCache = m_textLayoutCache.GetOrCreate(row, column);
-			if (!m_initialSizing)
+			auto const layoutCache = m_textLayoutCache.GetOrCreate(row, column);
+			if (!m_initialSizing && layoutCache)
 			{
 				//maxWidth/maxHeight already reflect padding — pushed into the
 				//layout cache by ColumnWidthManager when column widths change.

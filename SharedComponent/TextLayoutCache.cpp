@@ -150,16 +150,18 @@ void TextLayoutCache::SetColumnFormat(
 IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column)
 {
 	//first row for Header
-	row += 1;
-	if (row >= m_perCellCache.size())
-		m_perCellCache.resize(row + 1);
+	int const rowIndex = row + 1;
+	if (rowIndex >= static_cast<int>(m_perCellCache.size()))
+		return nullptr;
 
-	auto& rowCache = m_perCellCache[row];
-	if (column >= rowCache.size())
-		rowCache.resize(column + 1);
+	auto& rowCache = m_perCellCache[rowIndex];
+	if (column >= static_cast<int>(rowCache.size()))
+		return nullptr;
 
 	auto& cache = rowCache[column];
-	
+	if (!cache.layout)
+		return nullptr;
+
 	if (auto& columnCache = m_perColumnCache[column]; std::exchange(cache.m_contentLayoutVersion, columnCache.m_contentLayoutVersion) != columnCache.m_contentLayoutVersion)
 	{
 		winrt::check_hresult(cache.layout->SetMaxHeight(columnCache.maxHeight));
@@ -168,31 +170,75 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column)
 		winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
 	}
 	return cache.layout.get();
+}
 
-	//recreate
-	//cache.content = str;
-	//auto& columnCache = m_perColumnCache[column];
-	//cache.m_contentLayoutVersion = columnCache.m_contentLayoutVersion;
-	//winrt::check_hresult(m_dwriteFactory->CreateTextLayout(
-	//	str.data(),
-	//	static_cast<uint32_t>(str.size()),
-	//	row == 0 ? m_headerTextFormat.get() : m_cellTextFormat.get(),
-	//	columnCache.maxWidth,
-	//	columnCache.maxHeight,
-	//	cache.layout.put()
-	//));
-	//constexpr DWRITE_TRIMMING trimmingOption{ .granularity = DWRITE_TRIMMING_GRANULARITY::DWRITE_TRIMMING_GRANULARITY_CHARACTER };
-	//winrt::check_hresult(cache.layout->SetTrimming(&trimmingOption, m_cellTrimming.get()));
-	//winrt::check_hresult(cache.layout->SetTextAlignment(columnCache.ContentHorizontalAlignment));
-	//winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
-	//return cache.layout.get();
+void TextLayoutCache::Invalidate()
+{
+	++m_dataVersion;
+	m_rowCount = 0;
+}
+
+void TextLayoutCache::InvalidateRow(int row)
+{
+	if (row < 0 || static_cast<size_t>(row) >= m_rowDataVersions.size())
+		return;
+	m_rowDataVersions[row] = 0;
+}
+
+bool TextLayoutCache::IsRowStale(int row) const
+{
+	if (row < 0)
+		return false;
+	if (static_cast<size_t>(row) >= m_rowDataVersions.size())
+		return true;
+	return m_rowDataVersions[row] != m_dataVersion;
+}
+
+void TextLayoutCache::SetCellContent(int row, int column, std::wstring_view str)
+{
+	int const rowIndex = row + 1;
+	if (rowIndex >= static_cast<int>(m_perCellCache.size()))
+		m_perCellCache.resize(rowIndex + 1);
+
+	auto& rowCache = m_perCellCache[rowIndex];
+	if (column >= static_cast<int>(rowCache.size()))
+		rowCache.resize(column + 1);
+
+	auto& cache = rowCache[column];
+	if (cache.layout && cache.content == str)
+		return;
+
+	auto& columnCache = m_perColumnCache[column];
+	cache.content = str;
+	cache.m_contentLayoutVersion = columnCache.m_contentLayoutVersion;
+	winrt::check_hresult(m_dwriteFactory->CreateTextLayout(
+		str.data(),
+		static_cast<uint32_t>(str.size()),
+		m_cellTextFormat.get(),
+		columnCache.maxWidth,
+		columnCache.maxHeight,
+		cache.layout.put()
+	));
+	constexpr DWRITE_TRIMMING trimmingOption{ .granularity = DWRITE_TRIMMING_GRANULARITY::DWRITE_TRIMMING_GRANULARITY_CHARACTER };
+	winrt::check_hresult(cache.layout->SetTrimming(&trimmingOption, m_cellTrimming.get()));
+	winrt::check_hresult(cache.layout->SetTextAlignment(columnCache.ContentHorizontalAlignment));
+	winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
+}
+
+void TextLayoutCache::MarkRowFresh(int row)
+{
+	if (row < 0)
+		return;
+	if (static_cast<size_t>(row) >= m_rowDataVersions.size())
+		m_rowDataVersions.resize(row + 1, 0);
+	m_rowDataVersions[row] = m_dataVersion;
 }
 
 size_t TextLayoutCache::RowCount() const
 {
 	if (!m_rowCount && m_tableDataRef)
 		m_rowCount = m_tableDataRef->RowCount();
-	
+
 	return m_rowCount;
 }
 

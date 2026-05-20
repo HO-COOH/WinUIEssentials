@@ -381,6 +381,10 @@ namespace winrt::PackageRoot::implementation
     {
         m_tableData = data;
         m_d2dContent.m_textLayoutCache.OnTableDataSet(&m_tableData);
+        if (!m_isLoaded)
+            return;
+        m_d2dContent.m_textLayoutCache.Invalidate();
+        requestDraw(true);
     }
 
     void Table::updateHorizontalScrollBar(float scrollOffsetX)

@@ -283,7 +283,6 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\WinUI3Example\TableTestData.hpp" />
     <ClInclude Include="AcrylicVisual.h">
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -547,7 +546,6 @@
     <ClInclude Include="WinUIEssentialError.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\WinUI3Example\TableTestData.cpp" />
     <ClCompile Include="AcrylicVisual.cpp">
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
       <SubType>Code</SubType>

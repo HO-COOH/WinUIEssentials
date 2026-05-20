@@ -56,15 +56,31 @@ public:
 		DWRITE_PARAGRAPH_ALIGNMENT verticalAlignment
 	);
 	IDWriteTextLayout* GetOrCreate(
-		int row, 
+		int row,
 		int column
 	);
 
+	//Bump global data version so all rows look stale on the next draw.
+	//Call from the UI thread before issuing RequestDraw(FullRedraw).
+	void Invalidate();
+	void InvalidateRow(int row);
+	bool IsRowStale(int row) const;
+
+	//Push a cell's text into the cache. Rebuilds the IDWriteTextLayout
+	//iff the string actually differs from what's currently cached. Called
+	//by RowRequestedEventArgs::SetRow during the draw-thread data fetch.
+	void SetCellContent(int row, int column, std::wstring_view str);
+	//Stamp `row` with the current data version. Call after every column
+	//for that row has been pushed via SetCellContent.
+	void MarkRowFresh(int row);
+
 	float Scale{ -1.f };
-	
+
 	size_t RowCount() const;
 private:
 	mutable size_t m_rowCount{};
+	uint64_t m_dataVersion{ 1 };
+	std::vector<uint64_t> m_rowDataVersions;
 	struct TextLayout
 	{
 		std::wstring content{};
