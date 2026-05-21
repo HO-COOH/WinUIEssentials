@@ -189,6 +189,9 @@
     <Midl Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.idl">
       <Filter>Table\Xaml\Table\TableData</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)UpdateRowDataEventArgs.idl">
+      <Filter>Table\Xaml\Table\TableData</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h">
@@ -380,9 +383,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.h">
       <Filter>Table\Xaml\Table\TableData</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h">
-      <Filter>Table\Xaml\Table</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

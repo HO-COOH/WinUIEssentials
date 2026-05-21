@@ -43,7 +43,8 @@ namespace winrt::PackageRoot::implementation
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata
             { 
-                winrt::box_value(TableProperty::DefaultContentPadding), &Table::onContentPaddingChanged
+                winrt::box_value(TableProperty::DefaultContentPadding), 
+                &Table::onContentPaddingChanged
             }
         );
         s_headerFontWeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
@@ -381,6 +382,21 @@ namespace winrt::PackageRoot::implementation
     {
         m_tableData = data;
         m_d2dContent.m_textLayoutCache.OnTableDataSet(&m_tableData);
+
+        m_updateRowDataRevoker = m_tableData.UpdateRowData(winrt::auto_revoke,
+            [weak = get_weak()](winrt::Windows::Foundation::IInspectable const&, winrt::PackageRoot::UpdateRowDataEventArgs const& arg)
+            {
+                auto strong = weak.get();
+                if (!strong)
+                    return;
+                auto& cache = strong->m_d2dContent.m_textLayoutCache;
+                for (int r = arg.StartRow; r <= arg.EndRow; ++r)
+                    cache.InvalidateRow(r);
+                if (strong->m_isLoaded)
+                    strong->requestDraw(true);
+            }
+        );
+
         if (!m_isLoaded)
             return;
         m_d2dContent.m_textLayoutCache.Invalidate();
@@ -656,10 +672,22 @@ namespace winrt::PackageRoot::implementation
 
     void Table::onHorizontalLineColorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
+		auto self = GetSelf(d);
+		auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableProperty& data) {data.m_horizontalLineColor = value; });
+        else
+			self->m_data.m_horizontalLineColor = value;
     }
 
     void Table::onVerticalLineColorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
+		auto self = GetSelf(d);
+		auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableProperty& data) {data.m_verticalLineColor = value; });
+        else
+            self->m_data.m_verticalLineColor = value;
     }
 
     void Table::onContentFontWeightChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)

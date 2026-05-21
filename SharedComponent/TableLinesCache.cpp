@@ -2,9 +2,11 @@
 #include "TableLinesCache.h"
 #include <d2d1_1.h>
 #include <cmath>
+#include "TableD2DResource.h"
 
-TableLinesCache::TableLinesCache(ID2D1Factory* factory) :
-	m_d2dFactory{ factory }
+TableLinesCache::TableLinesCache(ID2D1Factory* factory, TableD2DResource& resource) :
+	m_d2dFactory{ factory },
+	m_resource_ref{ resource }
 {
 }
 
@@ -47,7 +49,7 @@ void TableLinesCache::Rebuild(float viewportWidth, float viewportHeight, float r
 
 void TableLinesCache::Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetY, float dataBottomY)
 {
-	if (!m_geometry || !m_brush)
+	if (!m_geometry || !m_resource_ref.m_horizontalLineBrush)
 		return;
 
 	float frac = std::fmod(scrollOffsetY, m_rowHeight);
@@ -63,7 +65,7 @@ void TableLinesCache::Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetY, 
 		D2D1_ANTIALIAS_MODE_ALIASED
 	);
 	d2dContext->SetTransform(D2D1::Matrix3x2F::Translation(0.f, yOffset) * saved);
-	d2dContext->DrawGeometry(m_geometry.get(), m_brush.get());
+	d2dContext->DrawGeometry(m_geometry.get(), m_resource_ref.m_horizontalLineBrush.get());
 	d2dContext->SetTransform(saved);
 	d2dContext->PopAxisAlignedClip();
 }

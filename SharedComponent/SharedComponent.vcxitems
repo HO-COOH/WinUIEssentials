@@ -55,6 +55,7 @@
     <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)UIElementExtension.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)UpdateRowDataEventArgs.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)WrapPanel.idl" />
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +170,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableData.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h" />

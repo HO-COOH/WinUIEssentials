@@ -108,8 +108,6 @@ private:
 	winrt::com_ptr<ID3D11Device> m_d3dDevice = DirectN::CreateD3D11Device();
 	winrt::com_ptr<ID2D1DeviceContext> m_d2dContext;
 	winrt::com_ptr<IDWriteFactory> m_dwriteFactory = DirectN::CreateDWriteFactory();
-
-	TableLinesCache m_tableLines{ d2d1Factory.get() };
 	SwapChainInterop m_swapChain;
 
 public:
@@ -117,6 +115,7 @@ public:
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData };
 private:
 	TableD2DResource m_resource{ m_textLayoutCache };
+	TableLinesCache m_tableLines{ d2d1Factory.get(), m_resource };
 	std::atomic<float> m_scrollOffsetX{ 0.f };
 	std::atomic<float> m_scrollOffsetY{ 0.f };
 	//Data-row index under the pointer, or -1 when the pointer is not over a

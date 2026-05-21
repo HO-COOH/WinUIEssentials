@@ -6,9 +6,18 @@
 //C++20 synthesizes operator!= from this. Bitwise component comparison is
 //fine here because the values come straight from cached storage, not from
 //any arithmetic that could introduce rounding.
-static inline bool operator==(D2D_COLOR_F const& a, D2D_COLOR_F const& b) noexcept
+constexpr static inline bool operator==(D2D_COLOR_F const& a, D2D_COLOR_F const& b) noexcept
 {
     return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a;
+}
+
+void TableD2DResource::setIfNotTransparent(winrt::com_ptr<ID2D1SolidColorBrush>& brush, ID2D1DeviceContext* d2dContext, D2D_COLOR_F color)
+{
+	constexpr static D2D_COLOR_F TransparentColor{ 0 };
+	if (color == TransparentColor)
+		brush.detach();
+	else
+		winrt::check_hresult(d2dContext->CreateSolidColorBrush(color, brush.put()));
 }
 
 TableD2DResource::TableD2DResource(TextLayoutCache& textLayoutCache) : m_textLayoutCache_ref{ textLayoutCache }
@@ -17,11 +26,19 @@ TableD2DResource::TableD2DResource(TextLayoutCache& textLayoutCache) : m_textLay
 
 void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& tableData)
 {
+
+
 	if(tableData.m_headerForeground != m_localTableData.m_headerForeground) 
 		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_headerForeground, m_headerTextBrush.put()));
 	if (tableData.m_contentForeground != m_localTableData.m_contentForeground)
 		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_contentForeground, m_contentTextBrush.put()));
-
+	if (tableData.m_headerBackground != m_localTableData.m_headerBackground)
+		setIfNotTransparent(m_headerBackgroundBrush, d2dContext, tableData.m_headerBackground);
+	if (tableData.m_horizontalLineColor != m_localTableData.m_horizontalLineColor)
+		setIfNotTransparent(m_horizontalLineBrush, d2dContext, tableData.m_horizontalLineColor);
+	if (tableData.m_verticalLineColor != m_localTableData.m_verticalLineColor)
+		setIfNotTransparent(m_verticalLineBrush, d2dContext, tableData.m_verticalLineColor);
+	
 	bool fontChanged{};
 	if (tableData.m_headerFontSize != m_localTableData.m_headerFontSize || tableData.m_headerFontWeight != m_localTableData.m_headerFontWeight)
 	{
@@ -54,8 +71,6 @@ void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& ta
 	if (fontChanged)
 		m_textLayoutCache_ref.Clear();
 
-	winrt::check_hresult(d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x0F / static_cast<float>(0xFF)), m_backgroundBrush.put()));
-	winrt::check_hresult(d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x2F / static_cast<float>(0xFF)), m_alternateBackgroundBrush.put()));
 	winrt::check_hresult(d2dContext->CreateSolidColorBrush(D2D1::ColorF(0x4cc2ff), m_pillBrush.put()));
 	winrt::check_hresult(d2dContext->CreateSolidColorBrush(D2D1::ColorF(0x103c4c), m_hoverBrush.put()));
 

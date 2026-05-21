@@ -79,9 +79,6 @@
     <ClCompile Include="TenMicaRegistry.cpp">
       <Filter>Backdrop\TenMica\Registry</Filter>
     </ClCompile>
-    <ClCompile Include="..\WinUI3Example\TableTestData.cpp">
-      <Filter>Controls\Table</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -307,8 +304,8 @@
     <ClInclude Include="TenMicaRegistry.h">
       <Filter>Backdrop\TenMica\Registry</Filter>
     </ClInclude>
-    <ClInclude Include="..\WinUI3Example\TableTestData.hpp">
-      <Filter>Controls\Table</Filter>
+    <ClInclude Include="include\ITableDataBase.hpp">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

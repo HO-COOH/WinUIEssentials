@@ -1,4 +1,5 @@
 ﻿import "RowRequestedEventArgs.idl";
+import "UpdateRowDataEventArgs.idl";
 
 namespace PackageRoot
 {
@@ -6,5 +7,7 @@ namespace PackageRoot
 	{
 		Int32 RowCount{ get; };
 		Int32 RowRequested(RowRequestedEventArgs args);
+
+		event Windows.Foundation.EventHandler<UpdateRowDataEventArgs> UpdateRowData;
 	};
 }

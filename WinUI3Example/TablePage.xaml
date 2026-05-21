@@ -33,6 +33,8 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 ContentFontWeight="Bold"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                HeaderBackground="{ThemeResource ControlFillColorDefault}"
                 HeaderFontWeight="Normal">
                 <essential:Table.Data>
                     <local:DemoTableData />

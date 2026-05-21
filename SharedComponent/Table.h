@@ -178,6 +178,7 @@ namespace winrt::PackageRoot::implementation
     public:
         winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
         winrt::PackageRoot::ITableData m_tableData{ nullptr };
+        winrt::PackageRoot::ITableData::UpdateRowData_revoker m_updateRowDataRevoker;
         void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };
 }

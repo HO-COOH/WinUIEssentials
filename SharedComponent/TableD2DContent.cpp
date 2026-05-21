@@ -19,7 +19,6 @@ TableD2DContent::TableD2DContent(winrt::PackageRoot::implementation::Table& tabl
 
 	auto d2d1Device = DirectN::GetD2D1Device(d2d1Factory.get(), m_d3dDevice.get());
 	winrt::check_hresult(d2d1Device->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS_NONE, m_d2dContext.put()));
-	winrt::check_hresult(m_d2dContext->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White, 0x7F / static_cast<float>(0xFF)), m_tableLines.m_brush.put()));
 }
 
 TableD2DContent::~TableD2DContent()
@@ -483,6 +482,10 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 	auto const padRight  = static_cast<float>(padding.Right)  * scale;
 	auto const padBottom = static_cast<float>(padding.Bottom) * scale;
 	auto const paddedMaxHeight = (std::max)(0.f, rawHeaderHeight - padTop - padBottom);
+	
+	if (m_resource.m_headerBackgroundBrush)
+		m_d2dContext->FillRectangle(D2D1::RectF(0, 0, rawWidth, rawHeaderHeight), m_resource.m_headerBackgroundBrush.get());
+
 	for (size_t column = 0; column < m_table_ref.m_columns->m_data.size(); ++column)
 	{
 		auto const rawColumnWidth = m_initialSizing? (std::numeric_limits<float>::max)() : m_columnWidthManager.Get(column) * scale;
