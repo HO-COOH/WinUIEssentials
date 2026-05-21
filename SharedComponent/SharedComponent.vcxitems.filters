@@ -67,7 +67,7 @@
     <Filter Include="Table\D2D">
       <UniqueIdentifier>{14efdc32-5d71-4bef-918f-fb6d8925dbf8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Table\Xaml\Table\TableData">
+    <Filter Include="Table\Xaml\TableData">
       <UniqueIdentifier>{2b43635e-8169-4fc6-859c-7fa7e723d827}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -184,13 +184,13 @@
       <Filter>Table\Xaml\Table</Filter>
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)ITableData.idl">
-      <Filter>Table\Xaml\Table\TableData</Filter>
+      <Filter>Table\Xaml\TableData</Filter>
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.idl">
-      <Filter>Table\Xaml\Table\TableData</Filter>
+      <Filter>Table\Xaml\TableData</Filter>
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)UpdateRowDataEventArgs.idl">
-      <Filter>Table\Xaml\Table\TableData</Filter>
+      <Filter>Table\Xaml\TableData</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -382,7 +382,10 @@
       <Filter>Table\D2D</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.h">
-      <Filter>Table\Xaml\Table\TableData</Filter>
+      <Filter>Table\Xaml\TableData</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableOverlayManager.h">
+      <Filter>Table\Xaml</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -540,7 +543,10 @@
       <Filter>Table\D2D</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.cpp">
-      <Filter>Table\Xaml\Table\TableData</Filter>
+      <Filter>Table\Xaml\TableData</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp">
+      <Filter>Table\Xaml</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

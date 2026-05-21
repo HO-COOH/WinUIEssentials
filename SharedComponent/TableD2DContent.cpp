@@ -302,7 +302,7 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 		{
 			//Draw-thread call. ITableData implementations must be free-threaded
 			//or marshal internally; documented on the IDL.
-			auto args = winrt::make_self<winrt::PackageRoot::implementation::RowRequestedEventArgs>(first, last, m_textLayoutCache);
+			auto args = winrt::make_self<winrt::PackageRoot::implementation::RowRequestedEventArgs>(first, last, m_table_ref);
 			m_table_ref.m_tableData.RowRequested(*args);
 			fullRedraw = true;
 		}

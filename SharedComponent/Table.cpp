@@ -101,6 +101,7 @@ namespace winrt::PackageRoot::implementation
     {
         InitializeComponent();
         m_data.InitializeForTheme(ActualTheme());
+        m_overlayManager.OnInitializedComponent();
 
         //get ui elements
         m_verticalScrollBarCache.Set(VerticalScrollBar());

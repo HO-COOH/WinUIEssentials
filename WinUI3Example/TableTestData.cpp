@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "TableTestData.hpp"
 
-std::wstring TableTestData::Data::getRandomData(int column)
+std::variant<std::monostate, bool, std::wstring> TableTestData::Data::getRandomData(int column)
 {
     switch (column)
     {
@@ -32,7 +32,7 @@ std::wstring TableTestData::Data::getRandomData(int column)
             return std::format(L"{}:{:02}", hour, minute);
         }
         case 7: // Is Active
-            return m_parent.m_eng() % 2 == 0 ? L"Yes" : L"No";
+            return m_parent.m_eng() % 2 == 0 ? true : false;
         case 8: // Department
             return Departments[std::uniform_int_distribution{ size_t{ 0 }, std::size(Departments) - 1 }(m_parent.m_eng)];
         case 9: // Designation
@@ -52,9 +52,9 @@ std::wstring TableTestData::Data::getRandomData(int column)
     }
 }
 
-std::wstring const& TableTestData::Data::operator[](int column)
+std::variant<std::monostate, bool, std::wstring> const& TableTestData::Data::operator[](int column)
 {
-    if(m_result[column].empty())
+    if(m_result[column].index() == 0)
 		m_result[column] = getRandomData(column);
     return m_result[column];
 }

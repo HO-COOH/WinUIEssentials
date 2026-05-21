@@ -11,6 +11,7 @@
 #include "TableColumnCollection.h"
 #include "TableProperty.h"
 #include "SharedDataBase.hpp"
+#include "TableOverlayManager.h"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -90,9 +91,11 @@ namespace winrt::PackageRoot::implementation
     public:
         TableProperty m_data;
         SharedDataBase<TableProperty> m_sharedData{ m_data };
-        bool m_isLoaded{ false };
-    private:
         TableD2DContent m_d2dContent{ *this };
+        bool m_isLoaded{ false };
+        TableOverlayManager m_overlayManager{ *this };
+    private:
+
 
         //Request a redraw and immediately refresh the scrollbars.
         //UI-thread only.

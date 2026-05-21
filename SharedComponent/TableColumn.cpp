@@ -16,6 +16,12 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &TableColumn::onStringContentChanged }
 		);
+		s_itemTemplateProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+			L"ItemTemplate",
+			winrt::xaml_typename<winrt::WinUINamespace::UI::Xaml::DataTemplate>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &TableColumn::onItemTemplateChanged }
+		);
 		s_sortEnabledProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"SortEnabled",
 			winrt::xaml_typename<bool>(),
@@ -39,6 +45,21 @@ namespace winrt::PackageRoot::implementation
 		return s_stringContentProperty;
 	}
 
+	winrt::WinUINamespace::UI::Xaml::DataTemplate TableColumn::ItemTemplate()
+	{
+		return GetValue(s_itemTemplateProperty).as<winrt::WinUINamespace::UI::Xaml::DataTemplate>();
+	}
+
+	void TableColumn::ItemTemplate(winrt::WinUINamespace::UI::Xaml::DataTemplate const& value)
+	{
+		SetValue(s_itemTemplateProperty, value);
+	}
+
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::ItemTemplateProperty()
+	{
+		return s_itemTemplateProperty;
+	}
+
 	bool TableColumn::SortEnabled()
 	{
 		return winrt::unbox_value<bool>(GetValue(SortEnabledProperty()));
@@ -59,6 +80,11 @@ namespace winrt::PackageRoot::implementation
 		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
 		winrt::get_self<TableColumn>(d.as<class_type>())->m_data.m_stringContent = winrt::unbox_value<winrt::hstring>(e.NewValue());
+	}
+
+	void TableColumn::onItemTemplateChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		winrt::get_self<TableColumn>(d.as<class_type>())->m_data.m_itemTemplate = e.NewValue().as<winrt::WinUINamespace::UI::Xaml::DataTemplate>();
 	}
 
 	void TableColumn::onSortEnabledChanged(

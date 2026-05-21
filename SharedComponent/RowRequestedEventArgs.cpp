@@ -3,13 +3,16 @@
 #if __has_include("RowRequestedEventArgs.g.cpp")
 #include "RowRequestedEventArgs.g.cpp"
 #endif
-#include "TextLayoutCache.h"
+//#include "TextLayoutCache.h"
+//#include "TableOverlayManager.h"
+#include "Table.h"
 
 namespace winrt::PackageRoot::implementation
 {
-	RowRequestedEventArgs::RowRequestedEventArgs(int startRow, int endRow, TextLayoutCache& cache) :
-		m_startRow{ startRow }, m_endRow{ endRow }, m_cache{ cache }
+	RowRequestedEventArgs::RowRequestedEventArgs(int startRow, int endRow, Table& table) :
+		m_startRow{ startRow }, m_endRow{ endRow }, m_table{ table }
 	{
+		m_setRowData.reserve(table.m_columns->Size());
 	}
 
 	int RowRequestedEventArgs::StartRow()
@@ -22,14 +25,26 @@ namespace winrt::PackageRoot::implementation
 		return m_endRow;
 	}
 
-	void RowRequestedEventArgs::SetRow(int row, winrt::array_view<winrt::hstring const> const& content)
+	void RowRequestedEventArgs::SetRow(int row, winrt::array_view<winrt::Windows::Foundation::IInspectable const> const& content)
 	{
 		for (uint32_t col = 0; col < content.size(); ++col)
 		{
-			auto const& s = content[col];
-			m_cache.SetCellContent(row, static_cast<int>(col), std::wstring_view{ s });
+			auto const& cell = content[col];
+			if (auto str = cell.try_as<winrt::hstring>())
+				m_table.m_d2dContent.m_textLayoutCache.SetCellContent(row, static_cast<int>(col), std::wstring_view{ *str });
+			else
+				m_setRowData.push_back(SetRowData{ row, static_cast<int>(col), cell });
 		}
-		m_cache.MarkRowFresh(row);
+
+		if (!m_setRowData.empty())
+		{
+			m_table.m_d2dContent.m_dispatcher.TryEnqueue([setRowData = std::move(m_setRowData), &table = m_table]()
+			{
+				for (auto const& data : setRowData)
+					table.m_overlayManager.SetCellContent(data.row, data.col, data.content);
+			});
+		}
+		m_table.m_d2dContent.m_textLayoutCache.MarkRowFresh(row);
 	}
 
 	bool RowRequestedEventArgs::IsCanceled()

@@ -19,6 +19,8 @@
     Unloaded="Table_Unloaded"
     mc:Ignorable="d">
 
+    <Canvas x:Name="ControlsOverlay" />
+
     <primitives:ScrollBar
         x:Name="VerticalScrollBar"
         HorizontalAlignment="Right"

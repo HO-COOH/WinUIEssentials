@@ -8,6 +8,9 @@
 
 static float measureNaturalWidth(DWRITE_TEXT_METRICS& metrics, IDWriteTextLayout* layout)
 {
+	if (!layout)
+		return 0.f;
+
 	auto const saved = layout->GetMaxWidth();
 	winrt::check_hresult(layout->SetMaxWidth(FLT_MAX));
 	winrt::check_hresult(layout->GetMetrics(&metrics));

@@ -3,16 +3,18 @@
 #include "RowRequestedEventArgs.g.h"
 
 class TextLayoutCache;
+class TableOverlayManager;
 
 namespace winrt::PackageRoot::implementation
 {
+    struct Table;
     struct RowRequestedEventArgs : RowRequestedEventArgsT<RowRequestedEventArgs>
     {
-        RowRequestedEventArgs(int startRow, int endRow, TextLayoutCache& cache);
+		RowRequestedEventArgs(int startRow, int endRow, Table& table);
 
         int StartRow();
         int EndRow();
-        void SetRow(int row, winrt::array_view<winrt::hstring const> const& content);
+        void SetRow(int row, winrt::array_view<winrt::Windows::Foundation::IInspectable const> const& content);
         bool IsCanceled();
 
         winrt::event_token Canceled(winrt::Windows::Foundation::EventHandler<winrt::PackageRoot::RowRequestedEventArgs> const& handler);
@@ -22,7 +24,16 @@ namespace winrt::PackageRoot::implementation
         winrt::event<winrt::Windows::Foundation::EventHandler<winrt::PackageRoot::RowRequestedEventArgs>> m_canceled;
         int m_startRow{};
         int m_endRow{};
-        TextLayoutCache& m_cache;
+		Table& m_table;
+        
+        struct SetRowData
+        {
+            int row;
+            int col;
+            winrt::Windows::Foundation::IInspectable content;
+        };
+
+		std::vector<SetRowData> m_setRowData; //cache for SetRow calls so that we call dispatcherQueue only once per SetRow() call
     };
 }
 

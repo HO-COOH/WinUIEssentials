@@ -8,7 +8,7 @@ namespace PackageRoot
         Int32 EndRow{ get; };
 
         //Async fill-in data
-        void SetRow(Int32 row, String[] content);
+        void SetRow(Int32 row, Object[] content);
         Boolean IsCanceled{ get; };
         
         event Windows.Foundation.EventHandler<RowRequestedEventArgs> Canceled;

@@ -2,6 +2,7 @@
 #include <string>
 #include <random>
 #include <dwrite.h>
+#include <variant>
 
 class TableTestData
 {
@@ -108,14 +109,14 @@ public:
     {
         TableTestData& m_parent;
         int m_row;
-        std::wstring m_result[std::size(Columns)];
-		std::wstring getRandomData(int column);
+        std::variant<std::monostate, bool, std::wstring> m_result[std::size(Columns)];
+		std::variant<std::monostate, bool, std::wstring> getRandomData(int column);
     public:
         constexpr Data(TableTestData& parent, int row) : m_parent{parent}, m_row{row}
         {
         }
 
-        std::wstring const& operator[](int column);
+        std::variant<std::monostate, bool, std::wstring> const& operator[](int column);
     };
 
     struct Header
