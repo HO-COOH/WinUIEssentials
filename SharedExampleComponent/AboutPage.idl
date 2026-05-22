@@ -1,4 +1,5 @@
 ﻿import "ContributorItem.idl";
+import "NugetPackageInfo.idl";
 
 namespace PackageRoot
 {
@@ -23,11 +24,6 @@ namespace PackageRoot
         Int32 Issues{ get; };
         String UpdatedAt{ get; };
         String CommitMessage{ get; };
-
-        String WinUINugetPackageVersion{ get; };
-        Int32 WinUINugetPackageDownloads{ get; };
-        String UWPNugetPackageVersion{ get; };
-        Int32 UWPNugetPackageDownloads{ get; };
 
 		Windows.Foundation.Collections.IVector<Object> Contributors{ get; };
 

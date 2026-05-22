@@ -1,0 +1,14 @@
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+	runtimeclass NugetPackageInfo : WinUINamespace.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        NugetPackageInfo();
+        
+        String PackageId;
+        String Version{ get; };
+        Int32 Downloads{ get; };
+        Windows.Foundation.Uri Url{ get; };
+    }
+}

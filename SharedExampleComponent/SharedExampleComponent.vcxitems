@@ -25,6 +25,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GithubRequest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NamedUrl.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NugetPackageInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RepoInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.cpp" />
   </ItemGroup>
@@ -37,6 +38,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GithubRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NamedUrl.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NugetPackageInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RepoInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestSvgUrls.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.h" />
@@ -50,6 +52,7 @@
     <Midl Include="$(MSBuildThisFileDirectory)Editor.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NamedUrl.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)NugetPackageInfo.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ThemeToggleButton.idl" />
   </ItemGroup>
 </Project>

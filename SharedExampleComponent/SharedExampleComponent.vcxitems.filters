@@ -85,6 +85,9 @@
     <Midl Include="$(MSBuildThisFileDirectory)ThemeToggleButton.idl">
       <Filter>ThemeToggleButton</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)NugetPackageInfo.idl">
+      <Filter>AboutPage</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp">
