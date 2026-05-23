@@ -5,7 +5,7 @@ ID2D1Bitmap1* TableHeaderBitmap::RecreateIfNeeded(ID2D1DeviceContext* d2dContext
 {
 	if (!m_headerBitmap || m_headerBitmapWidthPx != width || m_headerBitmapHeightPx != height)
 	{
-		D2D1_BITMAP_PROPERTIES1 const props
+		D2D1_BITMAP_PROPERTIES1 const ColumnProperty
 		{
 			.pixelFormat = { DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED },
 			.dpiX = 96.0f,
@@ -17,7 +17,7 @@ ID2D1Bitmap1* TableHeaderBitmap::RecreateIfNeeded(ID2D1DeviceContext* d2dContext
 			{ width, height },
 			nullptr, 
 			0, 
-			&props, 
+			&ColumnProperty, 
 			m_headerBitmap.put()
 		));
 		m_headerBitmapWidthPx = width;

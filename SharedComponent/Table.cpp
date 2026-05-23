@@ -466,7 +466,9 @@ namespace winrt::PackageRoot::implementation
         if (m_d2dContent.IsScrolling())
             m_d2dContent.StopSmoothScroll();
 
-        m_d2dContent.SetScrollOffsetY(static_cast<float>(e.NewValue()));
+        auto const value = static_cast<float>(e.NewValue());
+		m_overlayManager.OnScrollYChanged(value);
+        m_d2dContent.SetScrollOffsetY(value);
         requestDraw();
     }
 
@@ -488,6 +490,7 @@ namespace winrt::PackageRoot::implementation
         {
             auto const baseY = m_d2dContent.IsScrolling() ? m_d2dContent.SmoothScrollTargetY() : m_d2dContent.ScrollOffsetY();
             auto const targetY = std::clamp(baseY + scrollY, 0.f, maxScrollY);
+            m_overlayManager.OnMouseScroll(targetY);
             m_d2dContent.StartSmoothScrollY(targetY);
         }
         e.Handled(true);
@@ -500,7 +503,9 @@ namespace winrt::PackageRoot::implementation
         if (m_isUpdatingHorizontalScrollBarInCode)
             return;
 
-        m_d2dContent.SetScrollOffsetX(static_cast<float>(e.NewValue()));
+        auto const value = static_cast<float>(e.NewValue());
+		m_overlayManager.OnScrollXChanged(value);
+        m_d2dContent.SetScrollOffsetX(value);
         requestDraw();
     }
 
@@ -531,6 +536,7 @@ namespace winrt::PackageRoot::implementation
             auto const delta = x - m_resizeRequest.m_resizeStartX;
             auto const newColumnWidth = (std::max)(TableConstants::MinColumnWidth, m_resizeRequest.m_resizeStartWidth + delta);
             m_d2dContent.m_columnWidthManager.Set(m_resizeRequest.m_resizeColumnIndex, newColumnWidth);
+            m_overlayManager.OnColumnResized(m_resizeRequest.m_resizeColumnIndex);
             requestDraw(true);
             return;
         }

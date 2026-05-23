@@ -38,10 +38,10 @@ namespace winrt::PackageRoot::implementation
 
 		if (!m_setRowData.empty())
 		{
-			m_table.m_d2dContent.m_dispatcher.TryEnqueue([setRowData = std::move(m_setRowData), &table = m_table]()
+			m_table.m_d2dContent.m_dispatcher.TryEnqueue([setRowData = std::move(m_setRowData), &overlayManager = m_table.m_overlayManager]()
 			{
 				for (auto const& data : setRowData)
-					table.m_overlayManager.SetCellContent(data.row, data.col, data.content);
+					overlayManager.SetCellContent(data.row, data.col, data.content);
 			});
 		}
 		m_table.m_d2dContent.m_textLayoutCache.MarkRowFresh(row);
