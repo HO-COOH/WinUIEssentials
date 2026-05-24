@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "TableOverlayManager.h"
 #include "Table.h"
+#include "TableD2DContent.h"
 #include "TableConstants.hpp"
 #include <ranges>
 
@@ -58,7 +59,30 @@ TableOverlayManager::CellSlot& TableOverlayManager::createSlot(ColumnState& stat
 TableOverlayManager::CellSlot& TableOverlayManager::getOrCreateFreeSlot(ColumnState& state, int row, int column)
 {
 	auto iter = std::ranges::find_if(state.slots, [row](CellSlot const& cell) {return cell.row == row; });
-	return iter != state.slots.end() ? *iter : createSlot(state, column);
+	if (iter == state.slots.end())
+	{
+		//find a recyclable slot
+		iter = std::ranges::find_if(state.slots, [](CellSlot const& cell) {return cell.row == -1; });
+		return iter != state.slots.end() ? *iter : createSlot(state, column);
+	}
+	return *iter;
+}
+
+void TableOverlayManager::recycleControls(float targetY)
+{
+	auto const [beforeScrollFirst, beforeScrollLast] = m_table.m_d2dContent.GetVisibleRowRangeInclusive(m_table.m_d2dContent.ScrollOffsetY());
+	auto const [afterScrollfirst, afterScrollLast] = m_table.m_d2dContent.GetVisibleRowRangeInclusive(targetY);
+
+	auto const first = (std::min)(beforeScrollFirst, afterScrollfirst);
+	auto const last = (std::max)(beforeScrollLast, afterScrollLast);
+	for (auto& column : m_columns)
+	{
+		for (auto& slot : column.slots)
+		{
+			if (slot.row >= 0 && (slot.row < first || slot.row > last))
+				slot.row = -1;
+		}
+	}
 }
 
 void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Foundation::IInspectable const& cellObject)
@@ -71,18 +95,21 @@ void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Fo
 	if (column >= static_cast<int>(widthManager.NumColumns()))
 		return;
 
-	auto& state = ensureColumn(column);
-	auto& slot = getOrCreateFreeSlot(state, row, column);
+	auto& columnState = ensureColumn(column);
 
+	//cache cell data
+	if (row >= static_cast<int>(columnState.rowDataCache.size()))
+		columnState.rowDataCache.resize(row + 1);
+	columnState.rowDataCache[row] = cellObject;
+
+	auto& slot = getOrCreateFreeSlot(columnState, row, column);
 	bool const recycled = std::exchange(slot.row, row) != row;
-	slot.element.DataContext(cellObject);
-
 	if (recycled)
 	{
-		m_cellExpression.SetReferenceParameter(L"ColumnProperty", state.ColumnProperty);
+		slot.element.DataContext(cellObject);
+		m_cellExpression.SetReferenceParameter(L"ColumnProperty", columnState.ColumnProperty);
 		float const cellY = TableConstants::HeaderHeight + row * TableConstants::RowHeight;
 		m_cellExpression.SetScalarParameter(L"cellY", cellY);
-
 		winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(slot.element).StartAnimation(L"Translation.XY", m_cellExpression);
 	}
 }
@@ -98,18 +125,58 @@ void TableOverlayManager::OnColumnResized(int resizedColumn)
 	}
 }
 
+void TableOverlayManager::rebindVisibleRows(float targetY)
+{
+	auto const [first, last] = m_table.m_d2dContent.GetVisibleRowRangeInclusive(targetY);
+	for (int col = 0; col < m_columns.size(); ++ col)
+	{
+		if (!m_columns[col].ColumnProperty)
+			continue;
+
+		int const rEnd = (std::min)(last, static_cast<int>(m_columns[col].rowDataCache.size()) - 1);
+		for (int r = first; r <= rEnd; ++r)
+		{
+			if (auto const& cached = m_columns[col].rowDataCache[r])
+				SetCellContent(r, col, cached);
+		}
+	}
+}
+
 void TableOverlayManager::OnMouseScroll(float targetY)
 {
+	recycleControls(targetY);
+	rebindVisibleRows(targetY);
 	m_scrollAnimation.InsertKeyFrame(1.f, targetY, m_scrollEasingFunction);
 	TableProperty.StartAnimation(L"ScrollOffsetY", m_scrollAnimation);
 }
 
 void TableOverlayManager::OnScrollYChanged(float newScrollY)
 {
+	recycleControls(newScrollY);
+	rebindVisibleRows(newScrollY);
 	TableProperty.InsertScalar(L"ScrollOffsetY", newScrollY);
 }
 
 void TableOverlayManager::OnScrollXChanged(float newScrollX)
 {
 	TableProperty.InsertScalar(L"ScrollOffsetX", newScrollX);
+}
+
+void TableOverlayManager::InvalidateRows(int startRow, int endRow)
+{
+	for (auto& column : m_columns | std::views::filter([](ColumnState const& column) { return static_cast<bool>(column.ColumnProperty); }))
+	{
+		int const cacheEnd = (std::min)(endRow, static_cast<int>(column.rowDataCache.size()) - 1);
+		if (cacheEnd >= startRow)
+		{
+			std::ranges::fill(
+				column.rowDataCache.begin() + startRow,
+				column.rowDataCache.begin() + cacheEnd + 1,
+				nullptr
+			);
+		}
+
+		for (auto& slot : column.slots | std::views::filter([&](CellSlot const& slot) { return slot.row >= startRow && slot.row <= endRow; }))
+			slot.row = -1;
+	}
 }

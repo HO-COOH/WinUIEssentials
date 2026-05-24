@@ -67,7 +67,8 @@ public:
 	void SetScrollOffsetY(float y);
 	float ScrollOffsetX() const;
 	float ScrollOffsetY() const;
-
+	std::pair<int, int> GetVisibleRowRangeInclusive(float scrollY) const;
+	std::pair<int, int> GetVisibleRowRangeInclusive(float scrollY, int rowCount) const;
 
 	void StartSmoothScrollY(float targetY);
 	void StopSmoothScroll();

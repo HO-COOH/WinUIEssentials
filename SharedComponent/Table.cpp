@@ -393,6 +393,7 @@ namespace winrt::PackageRoot::implementation
                 auto& cache = strong->m_d2dContent.m_textLayoutCache;
                 for (int r = arg.StartRow; r <= arg.EndRow; ++r)
                     cache.InvalidateRow(r);
+                strong->m_overlayManager.InvalidateRows(arg.StartRow, arg.EndRow);
                 if (strong->m_isLoaded)
                     strong->requestDraw(true);
             }

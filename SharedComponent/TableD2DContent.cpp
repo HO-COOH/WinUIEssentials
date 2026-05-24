@@ -96,6 +96,18 @@ float TableD2DContent::ScrollOffsetY() const
 	return m_scrollOffsetY.load(std::memory_order_relaxed);
 }
 
+std::pair<int, int> TableD2DContent::GetVisibleRowRangeInclusive(float scrollY) const
+{
+	return GetVisibleRowRangeInclusive(scrollY, m_table_ref.m_tableData.RowCount());
+}
+
+std::pair<int, int> TableD2DContent::GetVisibleRowRangeInclusive(float scrollY, int rowCount) const
+{
+	int const first = (std::max)(0, static_cast<int>(scrollY / TableConstants::RowHeight));
+	int const last = (std::min)(rowCount - 1, static_cast<int>((scrollY + m_swapChain.CurrentSize.Height) / TableConstants::RowHeight));
+	return { first, last };
+}
+
 void TableD2DContent::StartSmoothScrollY(float targetY)
 {
 	m_pendingScrollRequest.Set(ScrollOffsetY(), targetY);
@@ -292,12 +304,7 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 
 	if (auto const rowCount = static_cast<int>(m_textLayoutCache.RowCount()); rowCount > 0 && m_table_ref.m_tableData)
 	{
-		auto const rawRowHeight = TableConstants::RowHeight * scale;
-		auto const rawBottom = m_swapChain.CurrentSize.Height * scale;
-		auto const rawScrollOffsetY = scrollOffsetY * scale;
-		int const first = (std::max)(0, static_cast<int>(rawScrollOffsetY / rawRowHeight));
-		int const last  = (std::min)(rowCount - 1, static_cast<int>((rawScrollOffsetY + rawBottom) / rawRowHeight));
-
+		auto [first, last] = GetVisibleRowRangeInclusive(scrollOffsetY, rowCount);
 		if (std::ranges::any_of(std::ranges::iota_view{ first, last + 1 }, [this](int r) { return m_textLayoutCache.IsRowStale(r); }))
 		{
 			//Draw-thread call. ITableData implementations must be free-threaded
@@ -541,16 +548,13 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hoveredRow)
 {
 	auto const scale = m_swapChain.Scale;
-	auto const rawScrollOffsetY = scrollOffsetY * scale;
 	auto const rawBottom = m_swapChain.CurrentSize.Height * scale;
 	auto const rawRight = m_swapChain.CurrentSize.Width * scale;
 	m_d2dContext->PushAxisAlignedClip(D2D1::RectF(0, TableConstants::HeaderHeight * scale, rawRight, rawBottom), D2D1_ANTIALIAS_MODE_ALIASED);
-	auto const rawRowHeight = TableConstants::RowHeight * scale;
-	int const first = (std::max)(0, static_cast<int>(rawScrollOffsetY / rawRowHeight));
-	int const last = (std::min<int>)(DataCount() - 1, static_cast<int>((rawScrollOffsetY + rawBottom) / rawRowHeight));
 
 	auto rawCornerRadius = TableConstants::CornerRadius * scale;
 
+	auto [first, last] = GetVisibleRowRangeInclusive(scrollOffsetY);
 	for (int row = first; row <= last; ++row)
 	{
 		auto const rowRect = getRowRect(row, scrollOffsetY, scale);
