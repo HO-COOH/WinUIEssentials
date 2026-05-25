@@ -6,6 +6,7 @@
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
+    <CppWinRTVerbosity>low</CppWinRTVerbosity>
     <MinimalCoreWin>true</MinimalCoreWin>
     <ProjectGuid>{055450c9-3d05-4327-8197-d03addf3c3cd}</ProjectGuid>
     <ProjectName>WinUITest</ProjectName>
