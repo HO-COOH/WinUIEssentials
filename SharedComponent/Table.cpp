@@ -477,6 +477,9 @@ namespace winrt::PackageRoot::implementation
         winrt::Windows::Foundation::IInspectable const&,
         winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
+        if (m_overlayManager.IsEditing())
+            return;
+
         auto const currentPoint = e.GetCurrentPoint(*this);
         auto const wheelDelta = -currentPoint.Properties().MouseWheelDelta(); //the MouseWheelDelta is positive when scrolling up, but we want to scroll up when the wheel delta is negative, so we negate it here
 
@@ -577,6 +580,14 @@ namespace winrt::PackageRoot::implementation
         auto const currentPoint = e.GetCurrentPoint(*this);
         auto const [x, y] = currentPoint.Position();
 
+        //click outside the editor dismisses it. Clicks on the editor itself
+        //don't bubble up to SwapChainPanel because the inner control handles them.
+        if (m_overlayManager.IsEditing())
+        {
+            m_overlayManager.EndEdit();
+            return;
+        }
+
         //is resize column
         if (y >= TableConstants::RowHeight)
             return;
@@ -597,6 +608,43 @@ namespace winrt::PackageRoot::implementation
         winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const&)
     {
         m_resizeRequest = false;
+    }
+
+    void Table::SwapChainPanel_DoubleTapped(
+        winrt::Windows::Foundation::IInspectable const&,
+        winrt::WinUINamespace::UI::Xaml::Input::DoubleTappedRoutedEventArgs const& e)
+    {
+        auto [x, y] = e.GetPosition(*this);
+
+        //ignore double-tap on the header
+        if (y < TableConstants::HeaderHeight)
+            return;
+
+        //hit-test column
+        auto& widthManager = m_d2dContent.m_columnWidthManager;
+        auto const numColumns = static_cast<int>(widthManager.NumColumns());
+        float columnLeft = -m_d2dContent.ScrollOffsetX();
+        int columnIndex = -1;
+        for (int i = 0; i < numColumns; ++i)
+        {
+            float const width = widthManager.Get(i);
+            if (x >= columnLeft && x < columnLeft + width)
+            {
+                columnIndex = i;
+                break;
+            }
+            columnLeft += width;
+        }
+        if (columnIndex < 0)
+            return;
+
+        //hit-test row
+        int const row = static_cast<int>((y - TableConstants::HeaderHeight + m_d2dContent.ScrollOffsetY()) / TableConstants::RowHeight);
+        if (row < 0 || row >= m_d2dContent.DataCount())
+            return;
+
+        m_overlayManager.BeginEdit(row, columnIndex);
+        e.Handled(true);
     }
 
     void Table::Table_Loaded(winrt::Windows::Foundation::IInspectable const&, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const&)

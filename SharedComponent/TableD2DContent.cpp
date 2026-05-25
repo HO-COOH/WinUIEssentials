@@ -167,6 +167,84 @@ float TableD2DContent::TotalContentWidth() const
 		m_columnWidthManager.SumColumnWidth(m_table_ref.m_columns->m_data.size());
 }
 
+void TableD2DContent::DrawPartialCell(int row, int column, std::wstring_view content)
+{
+	if (!m_swapChain.get())
+		return;
+	if (m_swapChain.CurrentSize.Width <= 0 || m_swapChain.CurrentSize.Height <= 0)
+		return;
+
+	m_textLayoutCache.SetCellContent(row, column, content);
+
+	auto const scale = m_swapChain.Scale;
+	auto const scrollOffsetX = m_scrollOffsetX.load(std::memory_order_relaxed);
+	auto const scrollOffsetY = m_scrollOffsetY.load(std::memory_order_relaxed);
+	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
+	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
+	auto const rawHeight = m_swapChain.CurrentSize.Height * scale;
+	auto const dataCount = static_cast<int>(m_textLayoutCache.RowCount());
+	auto const numColumns = static_cast<int>(m_columnWidthManager.NumColumns());
+
+	auto const& padding = m_resource.m_localTableData.m_contentPadding;
+	auto const padLeft = static_cast<float>(padding.Left) * scale;
+	auto const padTop  = static_cast<float>(padding.Top)  * scale;
+
+	struct DirtyCell
+	{
+		int row;
+		int column;
+		float cellLeft;
+		float rowTop;
+	};
+
+	//At most 2 entries: the current cell, and the previously partially-drawn cell repainted to sync the other back buffer.
+	DirtyCell dirtyCells[2];
+	D2D_RECT_F clipRects[2];
+	size_t dirtyCount = 0;
+
+	auto addIfVisible = [&](int r, int c)
+	{
+		if (r < 0 || r >= dataCount || c < 0 || c >= numColumns)
+			return;
+		if (std::any_of(dirtyCells, dirtyCells + dirtyCount, [r, c](DirtyCell const& d) { return d.row == r && d.column == c; }))
+			return;
+
+		auto const rowRect = getRowRect(r, scrollOffsetY, scale);
+		auto const cellLeft = m_columnWidthManager.SumColumnWidth(c, -scrollOffsetX) * scale;
+		auto const cellRight = cellLeft + m_columnWidthManager.Get(c) * scale;
+		auto const clipLeft = (std::max)(cellLeft, 0.f);
+		auto const clipRight = (std::min)(cellRight, rawWidth);
+		//Inset by 1*scale so the row's top/bottom dividing lines are not cleared.
+		auto const clipTop = (std::max)(rowRect.top + 1 * scale, rawHeaderHeight);
+		auto const clipBottom = (std::min)(rowRect.bottom - 1 * scale, rawHeight);
+		if (clipRight <= clipLeft || clipBottom <= clipTop)
+			return;
+
+		dirtyCells[dirtyCount] = { r, c, cellLeft, rowRect.top };
+		clipRects[dirtyCount] = { clipLeft, clipTop, clipRight, clipBottom };
+		++dirtyCount;
+	};
+
+	addIfVisible(row, column);
+	addIfVisible(m_lastPartialCellRow, m_lastPartialCellColumn);
+
+	m_lastPartialCellRow = row;
+	m_lastPartialCellColumn = column;
+
+	presentClippedRegions(clipRects, dirtyCount, [&](size_t i)
+	{
+		auto const& dirty = dirtyCells[i];
+		if (auto layout = m_textLayoutCache.GetOrCreate(dirty.row, dirty.column))
+		{
+			m_d2dContext->DrawTextLayout(
+				D2D1::Point2F(dirty.cellLeft + padLeft, dirty.rowTop + padTop),
+				layout,
+				m_resource.m_contentTextBrush.get()
+			);
+		}
+	});
+}
+
 int TableD2DContent::DataCount() const
 {
 	return m_textLayoutCache.RowCount();
@@ -385,39 +463,37 @@ void TableD2DContent::renderHeaderBitmap(int hoveredResizeColumn, float scrollOf
 
 void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffsetX, float scrollOffsetY, float scale)
 {
-	auto const rawRowHeight = TableConstants::RowHeight * scale;
 	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto const rawHeight = m_swapChain.CurrentSize.Height * scale;
-	auto const rawScrollY = scrollOffsetY * scale;
 	auto const rawCornerRadius = TableConstants::CornerRadius * scale;
 	auto const dataCount = m_textLayoutCache.RowCount();
 
 	struct DirtyRow
 	{
 		int row;
-		D2D_RECT_F rowRect;   //unclipped — drives rounded fill and text origin
-		float clipTop;        //clipped-and-inset viewport region we actually write
-		float clipBottom;
+		D2D_RECT_F rowRect; //unclipped — drives rounded fill and text origin
 	};
 
 	//Up to 4 entries: this frame's (old, new) plus the previous partial frame's (old, new) repainted to sync the other back buffer.
 	DirtyRow dirtyRows[4];
-	int dirtyCount = 0;
+	D2D_RECT_F clipRects[4];
+	size_t dirtyCount = 0;
 
 	auto addIfVisible = [&](int row)
 	{
 		if (row == TableConstants::HoveredRowNone || row < 0 || row >= dataCount)
 			return;
-		for (int i = 0; i < dirtyCount; ++i)
-			if (dirtyRows[i].row == row)
-				return;
+		if (std::any_of(dirtyRows, dirtyRows + dirtyCount, [row](DirtyRow const& d) { return d.row == row; }))
+			return;
 		auto const rowRect = getRowRect(row, scrollOffsetY, scale);
 		auto const clipTop = (std::max)(rowRect.top + 1 * scale, rawHeaderHeight);
 		auto const clipBottom = (std::min)(rowRect.bottom - 1 * scale, rawHeight);
 		if (clipBottom <= clipTop)
 			return;
-		dirtyRows[dirtyCount++] = { row, rowRect, clipTop, clipBottom };
+		dirtyRows[dirtyCount] = { row, rowRect };
+		clipRects[dirtyCount] = { 0, clipTop, rawWidth, clipBottom };
+		++dirtyCount;
 	};
 	addIfVisible(oldRow);
 	addIfVisible(newRow);
@@ -427,19 +503,9 @@ void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffse
 	m_lastPartialOldRow = oldRow;
 	m_lastPartialNewRow = newRow;
 
-	if (dirtyCount == 0)
-		return;
-
-	m_d2dContext->BeginDraw();
-	for (int i = 0; i < dirtyCount; ++i)
+	presentClippedRegions(clipRects, dirtyCount, [&](size_t i)
 	{
 		auto const& dirty = dirtyRows[i];
-		m_d2dContext->PushAxisAlignedClip(
-			D2D1::RectF(0, dirty.clipTop, rawWidth, dirty.clipBottom),
-			D2D1_ANTIALIAS_MODE_ALIASED
-		);
-		m_d2dContext->Clear(D2D1::ColorF(0, 0));
-
 		if (dirty.row == newRow)
 		{
 			D2D1_ROUNDED_RECT const fill
@@ -450,31 +516,8 @@ void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffse
 			};
 			m_d2dContext->FillRoundedRectangle(&fill, m_resource.m_hoverBrush.get());
 		}
-
 		drawRowCells(dirty.row, dirty.rowRect.top, scrollOffsetX, scale);
-		m_d2dContext->PopAxisAlignedClip();
-	}
-	m_d2dContext->EndDraw();
-
-	RECT rects[4];
-	for (int i = 0; i < dirtyCount; ++i)
-	{
-		auto const& dirty = dirtyRows[i];
-		rects[i] = RECT{
-			.left = 0,
-			.top = static_cast<LONG>(std::floor(dirty.clipTop)),
-			.right = static_cast<LONG>(std::ceil(rawWidth)),
-			.bottom = static_cast<LONG>(std::ceil(dirty.clipBottom))
-		};
-	}
-
-	DXGI_PRESENT_PARAMETERS const params
-	{
-		.DirtyRectsCount = static_cast<UINT>(dirtyCount),
-		.pDirtyRects = rects
-	};
-	winrt::check_hresult(m_swapChain->Present1(0, 0, &params));
-	Frames.fetch_add(1, std::memory_order_relaxed);
+	});
 }
 
 void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
@@ -601,9 +644,6 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 			auto const layoutCache = m_textLayoutCache.GetOrCreate(row, column);
 			if (!m_initialSizing && layoutCache)
 			{
-				//maxWidth/maxHeight already reflect padding — pushed into the
-				//layout cache by ColumnWidthManager when column widths change.
-				//Here we only offset the draw origin by the left/top inset.
 				m_d2dContext->DrawTextLayout(
 					D2D1::Point2F(currentX + padLeft, rowY + padTop),
 					layoutCache,

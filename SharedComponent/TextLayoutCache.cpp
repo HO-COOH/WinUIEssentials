@@ -225,6 +225,12 @@ void TextLayoutCache::SetCellContent(int row, int column, std::wstring_view str)
 	winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
 }
 
+std::wstring_view TextLayoutCache::GetCellContent(int row, int column) const
+{
+	//row 0 is for header row
+	return m_perCellCache[row + 1][column].content;
+}
+
 void TextLayoutCache::MarkRowFresh(int row)
 {
 	if (row < 0)

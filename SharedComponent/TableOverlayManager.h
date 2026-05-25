@@ -63,4 +63,18 @@ public:
 	//slots currently bound to those rows so the next RowRequested round-trip
 	//rebinds with fresh data. Called from the UpdateRowData event handler.
 	void InvalidateRows(int startRow, int endRow);
+
+	//Inline cell editor: load the column's EditTemplate, place it over the
+	//target cell, bind it to the cell's data. EndEdit removes it.
+	void BeginEdit(int row, int column);
+	void EndEdit();
+	bool IsEditing() const;
+
+private:
+	winrt::weak_ref<winrt::WinUINamespace::UI::Xaml::FrameworkElement> m_editControl;
+	
+	//Record content for currently editing cell, and restore it back after EndEdit()
+	int m_blankedRow{ -1 };
+	int m_blankedColumn{ -1 };
+	std::wstring m_blankedContent;
 };

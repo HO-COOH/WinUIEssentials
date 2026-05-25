@@ -9,6 +9,7 @@
     VerticalAlignment="Stretch"
     ActualThemeChanged="Table_ActualThemeChanged"
     CompositionScaleChanged="SwapChainPanel_CompositionScaleChanged"
+    DoubleTapped="SwapChainPanel_DoubleTapped"
     Loaded="Table_Loaded"
     PointerExited="SwapChainPanel_PointerExited"
     PointerMoved="SwapChainPanel_PointerMoved"

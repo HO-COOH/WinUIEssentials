@@ -66,10 +66,12 @@ public:
 	void InvalidateRow(int row);
 	bool IsRowStale(int row) const;
 
-	//Push a cell's text into the cache. Rebuilds the IDWriteTextLayout
-	//iff the string actually differs from what's currently cached. Called
-	//by RowRequestedEventArgs::SetRow during the draw-thread data fetch.
+	//Called by RowRequestedEventArgs::SetRow during the draw-thread data fetch.
 	void SetCellContent(int row, int column, std::wstring_view str);
+
+	//Read the cached cell text, when EditTemplate is used but the ItemTemplate for that column is not set
+	std::wstring_view GetCellContent(int row, int column) const;
+	
 	//Stamp `row` with the current data version. Call after every column
 	//for that row has been pushed via SetCellContent.
 	void MarkRowFresh(int row);

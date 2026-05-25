@@ -7,6 +7,8 @@
 #include <atomic>
 #include <thread>
 #include <vector>
+#include <algorithm>
+#include "D2DConvert.hpp"
 #include "SwapChainInterop.h"
 #include "TextLayoutCache.h"
 #include "TableConstants.hpp"
@@ -85,6 +87,9 @@ public:
 	float GetViewportHeight() const;
 	float TotalContentWidth() const;
 
+	//When doing an edit
+	void DrawPartialCell(int row, int column, std::wstring_view content);
+
 	int DataCount() const;
 	void SetHover(float y);
 	std::atomic_int Frames{ 0 };
@@ -93,6 +98,35 @@ private:
 	void draw(FrameRequest::Flags frame);
 	void drawFull(float scrollOffsetX, float scrollOffsetY, int hoveredResizeColumn, int hoveredRow, float scale, bool headerDirty);
 	void drawPartialHover(int oldRow, int newRow, float scrollOffsetX, float scrollOffsetY, float scale);
+
+	template<size_t N>
+	void presentClippedRegions(D2D_RECT_F const (&clipRects)[N], size_t count, auto&& drawAt)
+	{
+		if (count == 0)
+			return;
+
+		m_d2dContext->BeginDraw();
+		for (size_t i = 0; i < count; ++i)
+		{
+			m_d2dContext->PushAxisAlignedClip(clipRects[i], D2D1_ANTIALIAS_MODE_ALIASED);
+			m_d2dContext->Clear(D2D1::ColorF(0, 0));
+			drawAt(i);
+			m_d2dContext->PopAxisAlignedClip();
+		}
+		m_d2dContext->EndDraw();
+
+		RECT rects[N];
+		std::transform(clipRects, clipRects + count, rects, D2DConvert::ToRect);
+
+		DXGI_PRESENT_PARAMETERS const params
+		{
+			.DirtyRectsCount = static_cast<UINT>(count),
+			.pDirtyRects = rects
+		};
+		winrt::check_hresult(m_swapChain->Present1(0, 0, &params));
+		Frames.fetch_add(1, std::memory_order_relaxed);
+	}
+
 	void drawHeader(int hoveredResizeColumn, float scrollOffsetX);
 	//Renders the header into m_headerBitmap; called only when header state
 	//changed (column widths, horizontal scroll, hovered resize column, scale,
@@ -141,17 +175,18 @@ private:
 	int m_lastPartialOldRow{ TableConstants::HoveredRowNone };
 	int m_lastPartialNewRow{ TableConstants::HoveredRowNone };
 
+	//Same back-buffer-staleness compensation as the hover pair, but for the
+	//single cell most recently repainted by DrawPartialCell.
+	int m_lastPartialCellRow{ -1 };
+	int m_lastPartialCellColumn{ -1 };
+
 	//Draw-thread-only. Floor of the last scroll offset for which the
 	//scrollbar-thumb update was dispatched to the UI thread. Gates
 	//sub-pixel-equivalent redundant hops during smooth-scroll animation.
 	//Sentinel ensures the first frame dispatches.
 	int m_cachedScrollBarY{ -1 };
 
-	//Writer (UI thread) fills startY/endY/startTime and then stores
-	//isPending=true with release ordering. Reader (draw thread) swaps the
-	//flag with acquire ordering and reads the fields — no mutex needed.
 	ScrollRequest m_pendingScrollRequest;
-	//Draw-thread-only snapshot. Its isPending is never touched.
 	ScrollRequest m_activeScrollRequest;
 
 	TableHeaderBitmap m_headerBitmap;

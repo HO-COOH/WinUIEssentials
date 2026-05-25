@@ -180,3 +180,64 @@ void TableOverlayManager::InvalidateRows(int startRow, int endRow)
 			slot.row = -1;
 	}
 }
+
+void TableOverlayManager::BeginEdit(int row, int column)
+{
+	auto const& columnData = m_table.m_columns->m_data[column]->m_data;
+	auto editTemplate = columnData.m_editTemplate;
+	if (!editTemplate)
+		return;
+
+	winrt::Windows::Foundation::IInspectable data{ nullptr };
+	if (columnData.m_itemTemplate)
+		data = m_columns[column].rowDataCache[row];
+	else
+	{
+		//Copy the content out before blanking — GetCellContent returns a view
+		//into the cache's wstring, which DrawPartialCell will overwrite.
+		auto const cached = m_table.m_d2dContent.m_textLayoutCache.GetCellContent(row, column);
+		data = winrt::box_value(winrt::hstring{ cached });
+		m_blankedRow = row;
+		m_blankedColumn = column;
+		m_blankedContent = cached;
+		m_table.m_d2dContent.DrawPartialCell(row, column, L"");
+	}
+
+	auto editControl = editTemplate.LoadContent().as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
+
+	//set edit control size and position
+	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
+	editControl.Width(widthManager.Get(column));
+	editControl.Height(TableConstants::RowHeight);
+	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) - m_table.m_d2dContent.ScrollOffsetX());
+	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetTop(editControl, TableConstants::HeaderHeight + row * TableConstants::RowHeight - m_table.m_d2dContent.ScrollOffsetY());
+	editControl.DataContext(data);
+	m_children.Append(editControl);
+	m_editControl = editControl;
+
+	//try set focus
+	editControl.Focus(winrt::WinUINamespace::UI::Xaml::FocusState::Programmatic);
+}
+
+void TableOverlayManager::EndEdit()
+{
+	auto editor = m_editControl.get();
+	if (!editor)
+		return;
+
+	uint32_t index = 0;
+	if (m_children.IndexOf(editor, index))
+		m_children.RemoveAt(index);
+
+	m_editControl = nullptr;
+
+	m_table.m_d2dContent.DrawPartialCell(m_blankedRow, m_blankedColumn, m_blankedContent);
+	m_blankedRow = -1;
+	m_blankedColumn = -1;
+	m_blankedContent.clear();
+}
+
+bool TableOverlayManager::IsEditing() const
+{
+	return m_editControl.get() != nullptr;
+}

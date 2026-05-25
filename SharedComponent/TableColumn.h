@@ -19,6 +19,10 @@ namespace winrt::PackageRoot::implementation
 		void ItemTemplate(winrt::WinUINamespace::UI::Xaml::DataTemplate const& value);
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty ItemTemplateProperty();
 
+		winrt::WinUINamespace::UI::Xaml::DataTemplate EditTemplate();
+		void EditTemplate(winrt::WinUINamespace::UI::Xaml::DataTemplate const& value);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty EditTemplateProperty();
+
         bool SortEnabled();
         void SortEnabled(bool value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty SortEnabledProperty();
@@ -27,6 +31,7 @@ namespace winrt::PackageRoot::implementation
     private:
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_stringContentProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_itemTemplateProperty{ nullptr };
+		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_editTemplateProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_sortEnabledProperty{ nullptr };
         
         static void onStringContentChanged(
@@ -37,6 +42,10 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 		);
+        static void onEditTemplateChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
         static void onSortEnabledChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e

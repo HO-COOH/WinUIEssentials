@@ -9,6 +9,7 @@
     VerticalAlignment="Stretch"
     ActualThemeChanged="Table_ActualThemeChanged"
     CompositionScaleChanged="SwapChainPanel_CompositionScaleChanged"
+    DoubleTapped="SwapChainPanel_DoubleTapped"
     Loaded="Table_Loaded"
     PointerExited="SwapChainPanel_PointerExited"
     PointerMoved="SwapChainPanel_PointerMoved"
@@ -18,6 +19,8 @@
     SizeChanged="SwapChainPanel_SizeChanged"
     Unloaded="Table_Unloaded"
     mc:Ignorable="d">
+
+    <Canvas x:Name="ControlsOverlay" />
 
     <primitives:ScrollBar
         x:Name="VerticalScrollBar"

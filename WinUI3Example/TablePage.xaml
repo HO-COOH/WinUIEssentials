@@ -35,7 +35,8 @@
                 ContentFontWeight="Bold"
                 CornerRadius="{StaticResource ControlCornerRadius}"
                 HeaderBackground="{ThemeResource ControlFillColorDefault}"
-                HeaderFontWeight="Normal">
+                HeaderFontWeight="Normal"
+                VerticalLineColor="Green">
                 <essential:Table.Data>
                     <local:DemoTableData />
                 </essential:Table.Data>
@@ -47,7 +48,7 @@
                     <essential:TableColumn StringContent="Gender" />
                     <essential:TableColumn StringContent="Dob" />
                     <essential:TableColumn StringContent="Active At" />
-                    
+
                     <essential:TableColumn StringContent="Is Active">
                         <essential:TableColumn.ItemTemplate>
                             <DataTemplate x:DataType="x:Boolean">
@@ -55,10 +56,16 @@
                             </DataTemplate>
                         </essential:TableColumn.ItemTemplate>
                     </essential:TableColumn>
-                    
+
                     <essential:TableColumn StringContent="Department" />
                     <essential:TableColumn StringContent="Designation" />
-                    <essential:TableColumn StringContent="Address" />
+                    <essential:TableColumn StringContent="Address">
+                        <essential:TableColumn.EditTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <TextBox Text="{x:Bind}" />
+                            </DataTemplate>
+                        </essential:TableColumn.EditTemplate>
+                    </essential:TableColumn>
                 </essential:Table.Columns>
             </essential:Table>
             <local:ControlExample.Output>

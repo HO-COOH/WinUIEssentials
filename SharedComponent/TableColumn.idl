@@ -13,6 +13,9 @@ namespace PackageRoot
         WinUINamespace.UI.Xaml.DataTemplate ItemTemplate;
 		static WinUINamespace.UI.Xaml.DependencyProperty ItemTemplateProperty{ get; };
 
+		WinUINamespace.UI.Xaml.DataTemplate EditTemplate;
+		static WinUINamespace.UI.Xaml.DependencyProperty EditTemplateProperty{ get; };
+
         Boolean SortEnabled;
         static WinUINamespace.UI.Xaml.DependencyProperty SortEnabledProperty{ get; };
     }

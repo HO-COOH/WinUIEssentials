@@ -32,7 +32,7 @@ namespace winrt::PackageRoot::implementation
         void Table_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
         void Table_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
         void Table_ActualThemeChanged(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& sender, winrt::Windows::Foundation::IInspectable const&);
-        
+		void SwapChainPanel_DoubleTapped(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::DoubleTappedRoutedEventArgs const& e);
         void updateVerticalScrollBar(float scrollOffsetY);
 
         //Properties
