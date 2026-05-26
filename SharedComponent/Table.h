@@ -37,8 +37,6 @@ namespace winrt::PackageRoot::implementation
 
         //Properties
         int Fps();
-        int DataCount();
-        void DataCount(int value);
 
         winrt::Windows::UI::Color HeaderForeground();
         void HeaderForeground(winrt::Windows::UI::Color const& value);

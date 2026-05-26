@@ -390,6 +390,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableOverlayManager.h">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EditControlOverlay.h">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -549,6 +552,9 @@
       <Filter>Table\Xaml\TableData</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EditControlOverlay.cpp">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
     </ClCompile>
   </ItemGroup>

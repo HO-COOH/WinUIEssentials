@@ -12,6 +12,7 @@ namespace winrt::WinUI3Example::implementation
 
         int RowCount();
         int RowRequested(winrt::WinUI3Package::RowRequestedEventArgs const& args);
+        void SetData(int row, int column, winrt::Windows::Foundation::IInspectable const& value);
     private:
         TableTestData m_data;
     };

@@ -7,6 +7,7 @@ namespace PackageRoot
 	{
 		Int32 RowCount{ get; };
 		Int32 RowRequested(RowRequestedEventArgs args);
+		void SetData(Int32 row, Int32 column, Object value);
 
 		event Windows.Foundation.EventHandler<UpdateRowDataEventArgs> UpdateRowData;
 	};

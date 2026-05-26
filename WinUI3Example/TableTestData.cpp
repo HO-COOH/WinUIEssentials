@@ -58,3 +58,8 @@ std::variant<std::monostate, bool, std::wstring> const& TableTestData::Data::ope
 		m_result[column] = getRandomData(column);
     return m_result[column];
 }
+
+void TableTestData::Data::Set(int column, std::variant<std::monostate, bool, std::wstring> value)
+{
+    m_result[column] = std::move(value);
+}

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <vector>
+#include "EditControlOverlay.h"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -32,6 +33,7 @@ class TableOverlayManager
 	winrt::PackageRoot::implementation::Table& m_table;
 
 	std::vector<ColumnState> m_columns;
+	EditControlOverlay m_editControl;
 
 	ColumnState& ensureColumn(int column);
 	CellSlot& createSlot(ColumnState& state, int column);
@@ -69,12 +71,4 @@ public:
 	void BeginEdit(int row, int column);
 	void EndEdit();
 	bool IsEditing() const;
-
-private:
-	winrt::weak_ref<winrt::WinUINamespace::UI::Xaml::FrameworkElement> m_editControl;
-	
-	//Record content for currently editing cell, and restore it back after EndEdit()
-	int m_blankedRow{ -1 };
-	int m_blankedColumn{ -1 };
-	std::wstring m_blankedContent;
 };

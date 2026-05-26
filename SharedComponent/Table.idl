@@ -9,7 +9,6 @@ namespace PackageRoot
         Table();
         
         //TODO: test only
-        Int32 DataCount;
         Int32 Fps{ get; };
 
         //text related
@@ -52,3 +51,4 @@ namespace PackageRoot
         ITableData Data;
     }
 }
+ 

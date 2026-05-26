@@ -70,6 +70,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ConverterGroup.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CursorController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependentValue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EditControlOverlay.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EqualPanel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FontIconExtension.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GroupBox.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DConvert.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EditControlOverlay.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EqualPanel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FontIconExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FrameRequest.h" />

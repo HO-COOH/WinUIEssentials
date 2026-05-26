@@ -117,6 +117,7 @@ public:
         }
 
         std::variant<std::monostate, bool, std::wstring> const& operator[](int column);
+        void Set(int column, std::variant<std::monostate, bool, std::wstring> value);
     };
 
     struct Header

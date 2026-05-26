@@ -195,15 +195,6 @@ namespace winrt::PackageRoot::implementation
         return static_cast<int>(m_fps);
     }
 
-    int Table::DataCount()
-    {
-        return 0;
-    }
-
-    void Table::DataCount(int value)
-    {
-    }
-
     winrt::Windows::UI::Color Table::HeaderForeground()
     {
         return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(HeaderForegroundProperty()));

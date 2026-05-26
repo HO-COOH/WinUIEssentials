@@ -42,4 +42,21 @@ namespace winrt::WinUI3Example::implementation
 		}
 		return end - start + 1;
 	}
+
+	void DemoTableData::SetData(int row, int column, winrt::Windows::Foundation::IInspectable const& value)
+	{
+		auto& data = m_data[row];
+		if (auto pv = value.try_as<winrt::Windows::Foundation::IPropertyValue>())
+		{
+			switch (pv.Type())
+			{
+				case winrt::Windows::Foundation::PropertyType::String:
+					data.Set(column, std::wstring{ pv.GetString() });
+					break;
+				case winrt::Windows::Foundation::PropertyType::Boolean:
+					data.Set(column, pv.GetBoolean());
+					break;
+			}
+		}
+	}
 }
