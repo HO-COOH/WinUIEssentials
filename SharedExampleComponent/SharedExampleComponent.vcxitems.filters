@@ -58,6 +58,7 @@
       <Filter>ThemeToggleButton</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TestSvgUrls.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NugetPackageInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Editor.idl">
@@ -120,5 +121,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.cpp">
       <Filter>ThemeToggleButton</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NugetPackageInfo.cpp" />
   </ItemGroup>
 </Project>
