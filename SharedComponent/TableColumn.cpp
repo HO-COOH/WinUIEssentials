@@ -34,6 +34,12 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &TableColumn::onSortEnabledChanged }
 		);
+		s_isResizableProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+			L"IsResizable",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &TableColumn::onIsResizableChanged }
+		);
 	}
 
 	winrt::hstring TableColumn::StringContent()
@@ -96,6 +102,21 @@ namespace winrt::PackageRoot::implementation
 		return s_sortEnabledProperty;
 	}
 
+	bool TableColumn::IsResizable()
+	{
+		return winrt::unbox_value<bool>(GetValue(s_isResizableProperty));
+	}
+
+	void TableColumn::IsResizable(bool value)
+	{
+		SetValue(s_isResizableProperty, winrt::box_value(value));
+	}
+
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::IsResizableProperty()
+	{
+		return s_isResizableProperty;
+	}
+
 	void TableColumn::onStringContentChanged(
 		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, 
 		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -122,5 +143,12 @@ namespace winrt::PackageRoot::implementation
 		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
 		winrt::get_self<TableColumn>(d.as<class_type>())->m_data.m_sortEnabled = winrt::unbox_value<bool>(e.NewValue());
+	}
+
+	void TableColumn::onIsResizableChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, 
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		winrt::get_self<TableColumn>(d.as<class_type>())->m_data.m_isResizable = winrt::unbox_value<bool>(e.NewValue());
 	}
 }

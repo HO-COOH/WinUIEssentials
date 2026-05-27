@@ -45,11 +45,15 @@ TableOverlayManager::ColumnState& TableOverlayManager::ensureColumn(int column)
 
 TableOverlayManager::CellSlot& TableOverlayManager::createSlot(ColumnState& state, int column)
 {
-	auto cellContent = m_table.m_columns->m_data[column]->m_data.m_itemTemplate
+	auto& columnData = m_table.m_columns->m_data[column]->m_data;
+	auto cellContent = columnData.m_itemTemplate
 		.LoadContent()
 		.as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
 
 	winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(cellContent, true);
+
+	if (!columnData.m_editTemplate)
+		cellContent.IsHitTestVisible(false); //make the control read-only
 
 	m_children.Append(cellContent);
 	state.slots.push_back(CellSlot{ cellContent, -1 });

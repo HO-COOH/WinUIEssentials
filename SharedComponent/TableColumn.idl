@@ -18,5 +18,8 @@ namespace PackageRoot
 
         Boolean SortEnabled;
         static WinUINamespace.UI.Xaml.DependencyProperty SortEnabledProperty{ get; };
+
+        Boolean IsResizable;
+		static WinUINamespace.UI.Xaml.DependencyProperty IsResizableProperty{ get; };
     }
 }

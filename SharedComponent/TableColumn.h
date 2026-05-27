@@ -27,13 +27,18 @@ namespace winrt::PackageRoot::implementation
         void SortEnabled(bool value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty SortEnabledProperty();
 
+        bool IsResizable();
+		void IsResizable(bool value);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty IsResizableProperty();
+
         TableColumnData m_data;
     private:
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_stringContentProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_itemTemplateProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_editTemplateProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_sortEnabledProperty{ nullptr };
-        
+		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_isResizableProperty{ nullptr };
+
         static void onStringContentChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
@@ -50,6 +55,10 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
+        static void onIsResizableChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+		);
     };
 }
 

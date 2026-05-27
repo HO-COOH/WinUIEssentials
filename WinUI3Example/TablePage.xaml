@@ -49,7 +49,7 @@
                     <essential:TableColumn StringContent="Dob" />
                     <essential:TableColumn StringContent="Active At" />
 
-                    <essential:TableColumn StringContent="Is Active">
+                    <essential:TableColumn StringContent="Is Active" IsResizable="False">
                         <essential:TableColumn.ItemTemplate>
                             <DataTemplate x:DataType="x:Boolean">
                                 <CheckBox IsChecked="{x:Bind}" />

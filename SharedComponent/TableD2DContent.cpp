@@ -147,7 +147,10 @@ bool TableD2DContent::SetHoveredResizeColumn(int index)
 
 int TableD2DContent::GetResizeColumnIndex(float x) const
 {
-	return m_columnWidthManager.GetColumnIndexFromX(x, -m_scrollOffsetX.load(std::memory_order_relaxed));
+	auto const index = m_columnWidthManager.GetColumnIndexFromX(x, -m_scrollOffsetX.load(std::memory_order_relaxed));
+	if (index == TableConstants::ResizeColumnIndexNone || !m_table_ref.m_columns->m_data[index]->m_data.m_isResizable)
+		return TableConstants::ResizeColumnIndexNone;
+	return index;
 }
 
 float TableD2DContent::GetViewportHeight() const
