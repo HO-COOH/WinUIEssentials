@@ -30,9 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CodeSource.h">
       <Filter>CodeSource</Filter>
     </ClInclude>
@@ -85,9 +82,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="$(MSBuildThisFileDirectory)Editor.idl">
-      <Filter>Editor</Filter>
-    </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)CodeSource.idl">
       <Filter>CodeSource</Filter>
@@ -118,9 +112,6 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CodeSource.cpp">
       <Filter>CodeSource</Filter>
     </ClCompile>

@@ -1,6 +1,5 @@
 ﻿import "ControlExampleSubstitution.idl";
 import "CodeSource.idl";
-import "Editor.idl";
 
 namespace PackageRoot
 {

@@ -425,10 +425,6 @@
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Editor.xaml.h">
-      <DependentUpon>Editor.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="EffectToggleButton.xaml.h">
       <DependentUpon>EffectToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -813,9 +809,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DependentValuePage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Editor.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EffectToggleButton.xaml">
@@ -1862,20 +1855,6 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Monaco.html">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </None>
     <None Include="packages.config" />
     <None Include="vcpkg-configuration.json" />
     <None Include="vcpkg.json" />

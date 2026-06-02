@@ -35,7 +35,6 @@
 #include <winrt/Windows.Storage.Streams.h>
 #include "WASDK headers/Microsoft.Graphics.Canvas.hpp"
 #include "WASDK headers/Microsoft.UI.hpp"
-#include "Editor.xaml.h"
 #include "NamedUrl.h"
 #include "CodeSource.h"
 #include "ControlExampleSubstitution.h"
