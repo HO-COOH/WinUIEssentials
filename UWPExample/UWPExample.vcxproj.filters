@@ -83,6 +83,9 @@
     <Page Include="ThemeToggleButton.xaml">
       <Filter>Helper</Filter>
     </Page>
+    <Page Include="ColorCodeEditor.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

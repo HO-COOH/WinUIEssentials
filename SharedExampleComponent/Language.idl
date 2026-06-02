@@ -5,6 +5,7 @@ namespace PackageRoot
         Xaml,
         Cpp,
         H,
-        Idl
+        Idl,
+        Undefined
     };
 }

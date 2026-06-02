@@ -121,13 +121,11 @@ namespace winrt::WinUI3Example::implementation
 		return winrt::Windows::Foundation::Uri{ std::format(L"https://github.com/HO-COOH/WinUIEssentials/blob/master/WinUI3Package/{}.xaml", name) };
 	}
 
-	winrt::hstring MainWindow::WindowTitle()
+
+	void MainWindow::RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-#if (defined DEBUG) || (defined _DEBUG)
-		return L"WinUIEssentials.WinUI3Example(Dev)";
-#else
-		return L"WinUIEssentials.WinUI3Example";
-#endif
+		auto const timeDiffMilliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - AppStartTime);
+		TitleBarTextBlock().Text(winrt::hstring{ std::format(L"{}   StartTime: {}", WindowTitle(), timeDiffMilliseconds) });
 	}
 
 	void MainWindow::GithubFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)

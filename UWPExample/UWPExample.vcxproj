@@ -359,6 +359,10 @@
       <DependentUpon>CharmBarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ColorCodeEditor.h">
+      <DependentUpon>ColorCodeEditor.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ControlExample.h">
       <DependentUpon>ControlExample.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -494,6 +498,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CharmBarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ColorCodeEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ControlExample.xaml">

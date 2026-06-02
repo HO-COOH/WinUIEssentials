@@ -311,7 +311,7 @@ namespace winrt::PackageRoot::implementation
 
 	void ControlExample::Expander_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const&)
 	{
-		sender.as<winrt::Microsoft::UI::Xaml::Controls::Expander>().IsExpanded(false);
+		//sender.as<winrt::Microsoft::UI::Xaml::Controls::Expander>().IsExpanded(false);
 
 #if defined Build_WinUIExample
 		if (!m_iconShowAnimation)

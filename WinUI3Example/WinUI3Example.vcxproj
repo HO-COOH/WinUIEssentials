@@ -356,6 +356,10 @@
       <DependentUpon>CaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ColorCodeEditor.xaml.h">
+      <DependentUpon>ColorCodeEditor.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ColorTile.xaml.h">
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -764,6 +768,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CaptionButtonThemeWorkaroundPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ColorCodeEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ColorTile.xaml">

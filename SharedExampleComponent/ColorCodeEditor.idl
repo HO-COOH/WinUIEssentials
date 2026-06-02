@@ -1,0 +1,16 @@
+import "Language.idl";
+
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ColorCodeEditor : WinUINamespace.UI.Xaml.Controls.UserControl
+    {
+        ColorCodeEditor();
+        String Code;
+        Language CodeLanguage;
+        WinUINamespace.UI.Xaml.Documents.InlineCollection Highlighted{ get; };
+
+        static String GetLineGutterFromCode(String value);
+    }
+}

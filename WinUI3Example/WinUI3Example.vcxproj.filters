@@ -264,6 +264,9 @@
     <Page Include="SvgPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="ColorCodeEditor.xaml">
+      <Filter>Helper</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

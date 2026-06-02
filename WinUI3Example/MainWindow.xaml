@@ -13,7 +13,7 @@
     TitleBarAutoDarkMode="True"
     mc:Ignorable="d">
 
-    <Grid x:Name="RootGrid">
+    <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded">
         <Grid.BackgroundTransition>
             <BrushTransition />
         </Grid.BackgroundTransition>
@@ -756,8 +756,7 @@
                 x:Name="TitleBarTextBlock"
                 Grid.Column="2"
                 VerticalAlignment="Center"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{x:Bind local:MainWindow.WindowTitle}" />
+                Style="{StaticResource CaptionTextBlockStyle}" />
 
             <!--<AutoSuggestBox
                 x:Name="TitleBarSearchBox"
