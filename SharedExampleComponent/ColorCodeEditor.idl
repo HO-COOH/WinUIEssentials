@@ -1,4 +1,4 @@
-import "Language.idl";
+﻿import "Language.idl";
 
 namespace PackageRoot
 {
@@ -10,6 +10,36 @@ namespace PackageRoot
         String Code;
         Language CodeLanguage;
         WinUINamespace.UI.Xaml.Documents.InlineCollection Highlighted{ get; };
+
+        Windows.UI.Color CommentColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty CommentColorProperty{ get; };
+
+        Windows.UI.Color StringColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty StringColorProperty{ get; };
+
+        Windows.UI.Color KeywordColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty KeywordColorProperty{ get; };
+
+        Windows.UI.Color TypeColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty TypeColorProperty{ get; };
+
+        Windows.UI.Color PreprocessorColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty PreprocessorColorProperty{ get; };
+
+        Windows.UI.Color OperatorColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty OperatorColorProperty{ get; };
+
+        Windows.UI.Color IdentifierColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty IdentifierColorProperty{ get; };
+
+        Windows.UI.Color PlainTextColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty PlainTextColorProperty{ get; };
+
+        Windows.UI.Color FunctionColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty FunctionColorProperty{ get; };
+
+        Windows.UI.Color NamespaceColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty NamespaceColorProperty{ get; };
 
         static String GetLineGutterFromCode(String value);
     }
