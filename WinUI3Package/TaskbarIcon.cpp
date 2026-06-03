@@ -144,7 +144,14 @@ namespace winrt::WinUI3Package::implementation
 	void TaskbarIcon::Remove()
 	{
 		m_showCalled = false;
-		m_icon.emplace<std::monostate>();
+		std::visit([](auto&& icon)
+		{
+			using IconType = std::remove_reference_t<decltype(icon)>;
+			if constexpr (!std::is_same_v<IconType, std::monostate>)
+			{
+				icon.Remove();
+			}
+		}, m_icon);
 	}
 	winrt::event_token TaskbarIcon::LeftPressed(WinUI3Package::SignalDelegate const& handler)
 	{
