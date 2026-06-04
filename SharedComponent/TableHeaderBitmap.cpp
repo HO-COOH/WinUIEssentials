@@ -1,9 +1,9 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "TableHeaderBitmap.h"
 
 ID2D1Bitmap1* TableHeaderBitmap::RecreateIfNeeded(ID2D1DeviceContext* d2dContext, UINT32 width, UINT32 height)
 {
-	if (!m_headerBitmap || m_headerBitmapWidthPx != width || m_headerBitmapHeightPx != height)
+	if (!m_headerBitmap || m_rawWidth != width || m_rawHeight != height)
 	{
 		D2D1_BITMAP_PROPERTIES1 const ColumnProperty
 		{
@@ -20,8 +20,8 @@ ID2D1Bitmap1* TableHeaderBitmap::RecreateIfNeeded(ID2D1DeviceContext* d2dContext
 			&ColumnProperty, 
 			m_headerBitmap.put()
 		));
-		m_headerBitmapWidthPx = width;
-		m_headerBitmapHeightPx = height;
+		m_rawWidth = width;
+		m_rawHeight = height;
 	}
 	return m_headerBitmap.get();
 }

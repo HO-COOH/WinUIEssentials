@@ -393,6 +393,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EditControlOverlay.h">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -556,6 +559,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)EditControlOverlay.cpp">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableVerticalLines.cpp">
+      <Filter>Table\D2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

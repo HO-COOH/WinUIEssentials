@@ -7,7 +7,6 @@
 #include <atomic>
 #include <thread>
 #include <vector>
-#include <algorithm>
 #include "D2DConvert.hpp"
 #include "SwapChainInterop.h"
 #include "TextLayoutCache.h"
@@ -19,6 +18,7 @@
 #include "TableD2DResource.h"
 #include "FrameRequest.h"
 #include "TableHeaderBitmap.h"
+#include "TableVerticalLines.h"
 
 namespace winrt
 {
@@ -135,6 +135,7 @@ private:
 	void renderHeaderBitmap(int hoveredResizeColumn, float scrollOffsetX);
 	void drawRows(float scrollOffsetX, float scrollOffsetY, int hoveredRow);
 	void drawRowCells(int row, float rowY, float scrollOffsetX, float scale);
+	void drawVerticalLines();
 	void updateScrollOffsets();
 	D2D1_ROUNDED_RECT getResizePillRect(int column, float scrollOffsetX) const;
 	D2D_RECT_F getRowRect(int row, float scrollOffsetY, float scale) const;
@@ -150,7 +151,8 @@ public:
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData };
 private:
 	TableD2DResource m_resource{ m_textLayoutCache };
-	TableLinesCache m_tableLines{ d2d1Factory.get(), m_resource };
+	TableLinesCache m_horizontalLines{ d2d1Factory.get(), m_resource };
+	TableVerticalLines m_verticalLines;
 	std::atomic<float> m_scrollOffsetX{ 0.f };
 	std::atomic<float> m_scrollOffsetY{ 0.f };
 	//Data-row index under the pointer, or -1 when the pointer is not over a

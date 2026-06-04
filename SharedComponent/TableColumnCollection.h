@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "TableColumnCollection.g.h"
 #include "TableColumn.h"
@@ -10,7 +10,7 @@ namespace winrt::PackageRoot::implementation
 {
     struct TableColumnCollection : TableColumnCollectionT<TableColumnCollection>
     {
-        friend struct ::TableColumnIterator;
+        friend struct TableColumnIterator;
 
         TableColumnCollection() = default;
 

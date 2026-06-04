@@ -109,6 +109,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableVerticalLines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIElementExtension.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIElementExtension.h" />

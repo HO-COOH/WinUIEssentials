@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <ranges>
+#include <wil/resource.h>
 #include "Table.h"
 #include "Easing.hpp"
 #include "RowRequestedEventArgs.h"
@@ -167,7 +168,7 @@ float TableD2DContent::TotalContentWidth() const
 {
 	return m_initialSizing.load(std::memory_order_relaxed) ?
 		m_swapChain.CurrentSize.Width :
-		m_columnWidthManager.SumColumnWidth(m_table_ref.m_columns->m_data.size());
+		m_columnWidthManager.SumColumnWidth();
 }
 
 void TableD2DContent::DrawPartialCell(int row, int column, std::wstring_view content)
@@ -413,17 +414,22 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	auto const rawViewportHeight = m_swapChain.CurrentSize.Height * scale;
 	auto const rawRowHeight = TableConstants::RowHeight * scale;
 	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
-	m_tableLines.Rebuild(rawViewportWidth, rawViewportHeight, rawRowHeight, rawHeaderHeight);
+	m_horizontalLines.Rebuild(rawViewportWidth, rawViewportHeight, rawRowHeight, rawHeaderHeight);
 
 	if (!m_headerBitmap || headerDirty)
 		renderHeaderBitmap(hoveredResizeColumn, scrollOffsetX);
+
+	drawVerticalLines();
 
 	m_d2dContext->BeginDraw();
 	m_d2dContext->Clear(D2D1::ColorF(0, 0));
 
 	drawRows(scrollOffsetX, scrollOffsetY, hoveredRow);
 	auto const rawDataBottomY = rawHeaderHeight + m_textLayoutCache.RowCount() * rawRowHeight - scrollOffsetY * scale;
-	m_tableLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - 1);
+	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - 1);
+
+	if (m_verticalLines)
+		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale);
 
 	m_d2dContext->DrawBitmap(
 		m_headerBitmap.Get(),
@@ -439,7 +445,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 
 	if (m_initialSizing && m_textLayoutCache.RowCount() > 0)
 	{
-		m_columnWidthManager.GetInitialColumnWidth(m_swapChain.CurrentSize.Width, m_swapChain.Scale);
+		m_columnWidthManager.InitializeColumnWidth(m_swapChain.CurrentSize.Width, m_swapChain.Scale, m_table_ref.m_columns->m_data);
 		m_initialSizing = false;
 		//Column widths just got resolved — header layout depends on them.
 		RequestDraw(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty);
@@ -520,6 +526,8 @@ void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffse
 			m_d2dContext->FillRoundedRectangle(&fill, m_resource.m_hoverBrush.get());
 		}
 		drawRowCells(dirty.row, dirty.rowRect.top, scrollOffsetX, scale);
+		if (m_verticalLines)
+			m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale, clipRects[i].top, clipRects[i].bottom);
 	});
 }
 
@@ -656,4 +664,62 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 		}
 		currentX += rawColumnWidth;
 	}
+}
+
+void TableD2DContent::drawVerticalLines()
+{
+	if (!m_resource.m_verticalLineBrush)
+		return;
+
+	auto const numColumns = m_table_ref.m_columns->m_data.size();
+	if (numColumns == 0 || m_initialSizing.load(std::memory_order_relaxed))
+		return;
+
+	auto const scale = m_swapChain.Scale;
+	auto const rawWidth  = static_cast<UINT32>(std::ceil(m_columnWidthManager.SumColumnWidth() * scale));
+	auto const rawHeight = static_cast<UINT32>(std::ceil(m_swapChain.CurrentSize.Height * scale));
+	if (rawWidth == 0 || rawHeight == 0)
+		return;
+
+	auto const widthVersion = m_columnWidthManager.Version();
+	if (!m_verticalLines.CompareVersion(widthVersion))
+		return;
+
+	auto target = m_verticalLines.RecreateIfNeeded(m_d2dContext.get(), rawWidth, rawHeight);
+
+	winrt::com_ptr<ID2D1Image> previousTarget;
+	auto restoreTarget = wil::scope_exit([&] { m_d2dContext->SetTarget(previousTarget.get()); });
+	m_d2dContext->GetTarget(previousTarget.put());
+	m_d2dContext->SetTarget(target);
+
+	m_d2dContext->BeginDraw();
+	m_d2dContext->Clear(D2D1::ColorF(0, 0));
+
+	auto const lineLength = static_cast<float>(rawHeight);
+	auto const strokeWidth = m_resource.m_localTableData.m_verticalLineThickness * scale;
+	auto brush = m_resource.m_verticalLineBrush.get();
+
+	//draw left border
+	D2DPrimitiveHelper::DrawVerticalLine(
+		m_d2dContext.get(),
+		0,
+		0,
+		lineLength,
+		brush,
+		strokeWidth
+	);
+
+	for (int i = 1; i < numColumns; ++i)
+	{
+		D2DPrimitiveHelper::DrawVerticalLine(
+			m_d2dContext.get(),
+			m_columnWidthManager.SumColumnWidth(i, 0) * scale,
+			0,
+			lineLength,
+			brush,
+			strokeWidth
+		);
+	}
+
+	winrt::check_hresult(m_d2dContext->EndDraw());
 }

@@ -43,8 +43,14 @@ namespace PackageRoot
         Windows.UI.Color HorizontalLineColor;
         static WinUINamespace.UI.Xaml.DependencyProperty HorizontalLineColorProperty{ get; };
 
+        Single HorizontalLineThickness;
+		static WinUINamespace.UI.Xaml.DependencyProperty HorizontalLineThicknessProperty{ get; };
+
         Windows.UI.Color VerticalLineColor;
         static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineColorProperty{ get; };
+
+		Single VerticalLineThickness;
+        static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineThicknessProperty{ get; };
 
         //data
         TableColumnCollection Columns{ get; };

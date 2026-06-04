@@ -78,9 +78,17 @@ namespace winrt::PackageRoot::implementation
         void HorizontalLineColor(winrt::Windows::UI::Color const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HorizontalLineColorProperty();
 
+        float HorizontalLineThickness();
+        void HorizontalLineThickness(float value);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty HorizontalLineThicknessProperty();
+
         winrt::Windows::UI::Color VerticalLineColor();
         void VerticalLineColor(winrt::Windows::UI::Color const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty VerticalLineColorProperty();
+
+		float VerticalLineThickness();
+		void VerticalLineThickness(float value);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty VerticalLineThicknessProperty();
 
         winrt::PackageRoot::TableColumnCollection Columns();
 
@@ -129,7 +137,9 @@ namespace winrt::PackageRoot::implementation
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontSizeProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_fontFamilyProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineColorProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineThicknessProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineColorProperty{ nullptr };
+		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineThicknessProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontWeightProperty{ nullptr };
 
         static void onHeaderForegroundChanged(
@@ -168,10 +178,18 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
+        static void onHorizontalLineThicknessChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
         static void onVerticalLineColorChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
+		static void onVerticalLineThicknessChanged(
+			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+		);
         static void onContentFontWeightChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e

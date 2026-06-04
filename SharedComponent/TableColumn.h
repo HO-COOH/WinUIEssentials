@@ -31,8 +31,17 @@ namespace winrt::PackageRoot::implementation
 		void IsResizable(bool value);
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty IsResizableProperty();
 
+        constexpr float MinWidth() { return m_minWidth; }
+		constexpr void MinWidth(float value) { m_minWidth = value; }
+
+		constexpr float MaxWidth() { return m_maxWidth; }
+		constexpr void MaxWidth(float value) { m_maxWidth = value; }
+
         TableColumnData m_data;
     private:
+        float m_minWidth = -1.f;
+        float m_maxWidth = -1.f;
+
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_stringContentProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_itemTemplateProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_editTemplateProperty{ nullptr };

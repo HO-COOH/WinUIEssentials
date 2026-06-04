@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <d2d1.h>
 #include <dwrite.h>
 
@@ -30,6 +30,7 @@ struct TableProperty
 
 	D2D_COLOR_F m_horizontalLineColor;
 	D2D_COLOR_F m_verticalLineColor = {};
+	float m_verticalLineThickness = 1.f;
 
 	DWRITE_FONT_WEIGHT m_headerFontWeight;
 	DWRITE_FONT_WEIGHT m_contentFontWeight;
