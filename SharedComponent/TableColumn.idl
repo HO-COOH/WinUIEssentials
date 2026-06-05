@@ -23,7 +23,7 @@ namespace PackageRoot
 		static WinUINamespace.UI.Xaml.DependencyProperty IsResizableProperty{ get; };
 
         //These should be set during initialization. We don't listen for changes during runtime
-        Single MinWidth;
-        Single MaxWidth;
+        Double MinWidth;
+        Double MaxWidth;
     }
 }

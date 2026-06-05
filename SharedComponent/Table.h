@@ -50,8 +50,8 @@ namespace winrt::PackageRoot::implementation
         void HeaderBackground(winrt::Windows::UI::Color const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderBackgroundProperty();
 
-        float HeaderFontSize();
-        void HeaderFontSize(float value);
+        double HeaderFontSize();
+        void HeaderFontSize(double value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontSizeProperty();
 
         winrt::WinUINamespace::UI::Xaml::Thickness ContentPadding();
@@ -62,8 +62,8 @@ namespace winrt::PackageRoot::implementation
         void HeaderFontWeight(winrt::Windows::UI::Text::FontWeight const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontWeightProperty();
 
-        float ContentFontSize();
-        void ContentFontSize(float value);
+        double ContentFontSize();
+        void ContentFontSize(double value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentFontSizeProperty();
 
         winrt::WinUINamespace::UI::Xaml::Media::FontFamily FontFamily();
@@ -78,16 +78,16 @@ namespace winrt::PackageRoot::implementation
         void HorizontalLineColor(winrt::Windows::UI::Color const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HorizontalLineColorProperty();
 
-        float HorizontalLineThickness();
-        void HorizontalLineThickness(float value);
+        double HorizontalLineThickness();
+        void HorizontalLineThickness(double value);
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty HorizontalLineThicknessProperty();
 
         winrt::Windows::UI::Color VerticalLineColor();
         void VerticalLineColor(winrt::Windows::UI::Color const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty VerticalLineColorProperty();
 
-		float VerticalLineThickness();
-		void VerticalLineThickness(float value);
+		double VerticalLineThickness();
+		void VerticalLineThickness(double value);
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty VerticalLineThicknessProperty();
 
         winrt::PackageRoot::TableColumnCollection Columns();

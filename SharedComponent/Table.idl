@@ -21,13 +21,13 @@ namespace PackageRoot
         Windows.UI.Color HeaderBackground;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderBackgroundProperty{ get; };
 
-        Single HeaderFontSize;
+        Double HeaderFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
 
         Windows.UI.Text.FontWeight HeaderFontWeight;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontWeightProperty{ get; };
 
-        Single ContentFontSize;
+        Double ContentFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty ContentFontSizeProperty{ get; };
 
         WinUINamespace.UI.Xaml.Media.FontFamily FontFamily;
@@ -43,13 +43,13 @@ namespace PackageRoot
         Windows.UI.Color HorizontalLineColor;
         static WinUINamespace.UI.Xaml.DependencyProperty HorizontalLineColorProperty{ get; };
 
-        Single HorizontalLineThickness;
+        Double HorizontalLineThickness;
 		static WinUINamespace.UI.Xaml.DependencyProperty HorizontalLineThicknessProperty{ get; };
 
         Windows.UI.Color VerticalLineColor;
         static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineColorProperty{ get; };
 
-		Single VerticalLineThickness;
+		Double VerticalLineThickness;
         static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineThicknessProperty{ get; };
 
         //data

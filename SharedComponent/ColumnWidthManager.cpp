@@ -46,8 +46,8 @@ constexpr static void clampToColumnConstraints(
 {
 	for (size_t col = 0; col < measuredWidths.size(); ++col)
 	{
-		auto const minWidth = columnDefinitions[col]->MinWidth();
-		auto const maxWidth = columnDefinitions[col]->MaxWidth();
+		auto const minWidth = columnDefinitions[col]->m_minWidth;
+		auto const maxWidth = columnDefinitions[col]->m_maxWidth;
 		auto const lo = minWidth >= 0.f ? minWidth * scale : 0.f;
 		auto const hi = maxWidth >= 0.f ? maxWidth * scale : (std::numeric_limits<float>::max)();
 		measuredWidths[col] = std::clamp(measuredWidths[col], lo, hi);

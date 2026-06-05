@@ -33,7 +33,7 @@ namespace winrt::PackageRoot::implementation
         );
         s_headerFontSizeProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"HeaderFontSize",
-            winrt::xaml_typename<float>(),
+            winrt::xaml_typename<double>(),
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderFontSizeChanged }
         );
@@ -59,11 +59,11 @@ namespace winrt::PackageRoot::implementation
         );
         s_contentFontSizeProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"ContentFontSize",
-            winrt::xaml_typename<float>(),
+            winrt::xaml_typename<double>(),
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata
             {
-                winrt::box_value(14.f),
+                winrt::box_value(14.0),
                 &Table::onContentFontSizeChanged
             }
         );
@@ -81,9 +81,9 @@ namespace winrt::PackageRoot::implementation
         );
         s_horizontalLineThicknessProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"HorizontalLineThickness",
-            winrt::xaml_typename<float>(),
+            winrt::xaml_typename<double>(),
             winrt::xaml_typename<class_type>(),
-            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(1.f), &Table::onHorizontalLineThicknessChanged }
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(1.0), &Table::onHorizontalLineThicknessChanged }
         );
         s_verticalLineColorProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"VerticalLineColor",
@@ -93,9 +93,9 @@ namespace winrt::PackageRoot::implementation
         );
 		s_verticalLineThicknessProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"VerticalLineThickness",
-			winrt::xaml_typename<float>(),
+			winrt::xaml_typename<double>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(1.f), &Table::onVerticalLineThicknessChanged }
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(1.0), &Table::onVerticalLineThicknessChanged }
 		);
         s_contentFontWeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"ContentFontWeight",
@@ -252,12 +252,12 @@ namespace winrt::PackageRoot::implementation
         return s_headerBackgroundProperty;
     }
 
-    float Table::HeaderFontSize()
+    double Table::HeaderFontSize()
     {
-        return winrt::unbox_value<float>(GetValue(HeaderFontSizeProperty()));
+        return winrt::unbox_value<double>(GetValue(HeaderFontSizeProperty()));
     }
 
-    void Table::HeaderFontSize(float value)
+    void Table::HeaderFontSize(double value)
     {
         SetValue(HeaderFontSizeProperty(), winrt::box_value(value));
     }
@@ -297,12 +297,12 @@ namespace winrt::PackageRoot::implementation
         return s_headerFontWeightProperty;
     }
 
-    float Table::ContentFontSize()
+    double Table::ContentFontSize()
     {
-        return winrt::unbox_value<float>(GetValue(s_contentFontSizeProperty));
+        return winrt::unbox_value<double>(GetValue(s_contentFontSizeProperty));
     }
 
-    void Table::ContentFontSize(float value)
+    void Table::ContentFontSize(double value)
     {
         SetValue(s_contentFontSizeProperty, winrt::box_value(value));
     }
@@ -357,12 +357,12 @@ namespace winrt::PackageRoot::implementation
         return s_horizontalLineColorProperty;
     }
 
-    float Table::HorizontalLineThickness()
+    double Table::HorizontalLineThickness()
     {
-        return winrt::unbox_value<float>(GetValue(s_horizontalLineThicknessProperty));
+        return winrt::unbox_value<double>(GetValue(s_horizontalLineThicknessProperty));
     }
 
-    void Table::HorizontalLineThickness(float value)
+    void Table::HorizontalLineThickness(double value)
     {
         SetValue(s_horizontalLineThicknessProperty, winrt::box_value(value));
     }
@@ -387,12 +387,12 @@ namespace winrt::PackageRoot::implementation
         return s_verticalLineColorProperty;
     }
 
-    float Table::VerticalLineThickness()
+    double Table::VerticalLineThickness()
     {
-        return winrt::unbox_value<float>(GetValue(s_verticalLineThicknessProperty));
+        return winrt::unbox_value<double>(GetValue(s_verticalLineThicknessProperty));
     }
 
-    void Table::VerticalLineThickness(float value)
+    void Table::VerticalLineThickness(double value)
     {
         SetValue(s_verticalLineThicknessProperty, winrt::box_value(value));
     }
@@ -718,7 +718,7 @@ namespace winrt::PackageRoot::implementation
     void Table::onHeaderFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto self = GetSelf(d);
-        auto const value = winrt::unbox_value<float>(e.NewValue());
+        auto const value = static_cast<float>(winrt::unbox_value<double>(e.NewValue()));
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) { data.m_headerFontSize = value; });
         else
@@ -748,7 +748,7 @@ namespace winrt::PackageRoot::implementation
     void Table::onContentFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto self = GetSelf(d);
-        auto const value = winrt::unbox_value<float>(e.NewValue());
+        auto const value = static_cast<float>(winrt::unbox_value<double>(e.NewValue()));
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) { data.m_contentFontSize = value; });
         else
@@ -786,7 +786,7 @@ namespace winrt::PackageRoot::implementation
     void Table::onVerticalLineThicknessChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto self = GetSelf(d);
-        auto const value = winrt::unbox_value<float>(e.NewValue());
+        auto const value = static_cast<float>(winrt::unbox_value<double>(e.NewValue()));
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_verticalLineThickness = value; });
         else

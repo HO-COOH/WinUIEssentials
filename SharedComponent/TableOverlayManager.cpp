@@ -29,6 +29,17 @@ void TableOverlayManager::OnInitializedComponent()
 		.Clip(m_compositor.CreateInsetClip(0.f, TableConstants::HeaderHeight, 0.f, 0.f));
 }
 
+float TableOverlayManager::cellLeadingOffset() const
+{
+	if (!m_cellLeadingOffset)
+	{
+		auto const& tableData = m_table.m_data;
+		auto const verticalLineSpace = tableData.m_verticalLineColor.a > 0.f ? tableData.m_verticalLineThickness : 0.f;
+		m_cellLeadingOffset = verticalLineSpace + static_cast<float>(tableData.m_contentPadding.Left);
+	}
+	return *m_cellLeadingOffset;
+}
+
 TableOverlayManager::ColumnState& TableOverlayManager::ensureColumn(int column)
 {
 	if (static_cast<int>(m_columns.size()) <= column)
@@ -38,7 +49,7 @@ TableOverlayManager::ColumnState& TableOverlayManager::ensureColumn(int column)
 	if (!state.ColumnProperty)
 	{
 		state.ColumnProperty = m_compositor.CreatePropertySet();
-		state.ColumnProperty.InsertScalar(L"CellX", m_table.m_d2dContent.m_columnWidthManager.SumColumnWidth(column, 0));
+		state.ColumnProperty.InsertScalar(L"CellX", m_table.m_d2dContent.m_columnWidthManager.SumColumnWidth(column, 0) + cellLeadingOffset());
 	}
 	return state;
 }
@@ -121,11 +132,12 @@ void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Fo
 void TableOverlayManager::OnColumnResized(int resizedColumn)
 {
 	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
+	auto const leading = cellLeadingOffset();
 	int const numColumns = static_cast<int>(m_columns.size());
 	for (int c = resizedColumn + 1; c < numColumns; ++c)
 	{
 		if (auto& columnProperty = m_columns[c].ColumnProperty)
-			columnProperty.InsertScalar(L"CellX", widthManager.SumColumnWidth(c, 0));
+			columnProperty.InsertScalar(L"CellX", widthManager.SumColumnWidth(c, 0) + leading);
 	}
 }
 
@@ -212,7 +224,7 @@ void TableOverlayManager::BeginEdit(int row, int column)
 	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
 	editControl.Width(widthManager.Get(column));
 	editControl.Height(TableConstants::RowHeight);
-	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) - m_table.m_d2dContent.ScrollOffsetX());
+	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) + cellLeadingOffset() - m_table.m_d2dContent.ScrollOffsetX());
 	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetTop(editControl, TableConstants::HeaderHeight + row * TableConstants::RowHeight - m_table.m_d2dContent.ScrollOffsetY());
 	m_children.Append(editControl);
 

@@ -537,11 +537,13 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 	auto currentX = -scrollOffsetX * scale;
 	auto rawHeaderHeight = TableConstants::HeaderHeight * m_swapChain.Scale;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
-	auto const& padding = m_resource.m_localTableData.m_contentPadding;
+	auto const& localData = m_resource.m_localTableData;
+	auto const& padding = localData.m_contentPadding;
 	auto const padLeft   = static_cast<float>(padding.Left)   * scale;
 	auto const padTop    = static_cast<float>(padding.Top)    * scale;
 	auto const padRight  = static_cast<float>(padding.Right)  * scale;
 	auto const padBottom = static_cast<float>(padding.Bottom) * scale;
+	auto const verticalLineSpace = localData.m_verticalLineColor.a > 0.f ? localData.m_verticalLineThickness * scale : 0.f;
 	auto const paddedMaxHeight = (std::max)(0.f, rawHeaderHeight - padTop - padBottom);
 	
 	if (m_resource.m_headerBackgroundBrush)
@@ -561,7 +563,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 			//natural-width measurement in ColumnWidthManager is unaffected.
 			auto const layoutMaxWidth  = m_initialSizing
 				? rawColumnWidth
-				: (std::max)(0.f, rawColumnWidth - padLeft - padRight);
+				: (std::max)(0.f, rawColumnWidth - verticalLineSpace - padLeft - padRight);
 			auto const layoutMaxHeight = m_initialSizing
 				? rawHeaderHeight
 				: paddedMaxHeight;
@@ -575,7 +577,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 			);
 
 			if (!m_initialSizing)
-				m_d2dContext->DrawTextLayout({ currentX + padLeft, padTop }, layout, m_resource.m_headerTextBrush.get());
+				m_d2dContext->DrawTextLayout({ currentX + verticalLineSpace + padLeft, padTop }, layout, m_resource.m_headerTextBrush.get());
 
 			if (m_sortColumnIndex == static_cast<int>(column))
 			{
@@ -639,9 +641,11 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hov
 
 void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, float scale)
 {
-	auto const& padding = m_resource.m_localTableData.m_contentPadding;
+	auto const& localData = m_resource.m_localTableData;
+	auto const& padding = localData.m_contentPadding;
 	auto const padLeft = static_cast<float>(padding.Left) * scale;
 	auto const padTop  = static_cast<float>(padding.Top)  * scale;
+	auto const verticalLineSpace = localData.m_verticalLineColor.a > 0.f ? localData.m_verticalLineThickness * scale : 0.f;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto currentX = -scrollOffsetX * scale;
 	for (size_t column = 0; column < m_table_ref.m_columns->m_data.size(); ++column)
@@ -656,7 +660,7 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 			if (!m_initialSizing && layoutCache)
 			{
 				m_d2dContext->DrawTextLayout(
-					D2D1::Point2F(currentX + padLeft, rowY + padTop),
+					D2D1::Point2F(currentX + verticalLineSpace + padLeft, rowY + padTop),
 					layoutCache,
 					m_resource.m_contentTextBrush.get()
 				);

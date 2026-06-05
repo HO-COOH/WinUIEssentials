@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <optional>
 #include <vector>
 #include "EditControlOverlay.h"
 
@@ -35,9 +36,18 @@ class TableOverlayManager
 	std::vector<ColumnState> m_columns;
 	EditControlOverlay m_editControl;
 
+	//Cached vertical-line + left-padding offset in DIPs. Lazily filled on
+	//first use; the inputs (line color, thickness, padding) don't change
+	//post-load in the current pipeline.
+	mutable std::optional<float> m_cellLeadingOffset;
+
 	ColumnState& ensureColumn(int column);
 	CellSlot& createSlot(ColumnState& state, int column);
 	CellSlot& getOrCreateFreeSlot(ColumnState& state, int row, int column);
+
+	//DIPs from a column's left edge to where cell content should start:
+	//vertical-line thickness (when the line is visible) plus left padding.
+	float cellLeadingOffset() const;
 
 	void recycleControls(float targetY);
 	void rebindVisibleRows(float targetY);
