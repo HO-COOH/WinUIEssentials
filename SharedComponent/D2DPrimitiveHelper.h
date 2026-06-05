@@ -1,8 +1,9 @@
-#pragma once
+﻿#pragma once
 
 struct ID2D1DeviceContext;
 struct ID2D1Brush;
 struct ID2D1StrokeStyle;
+struct ID2D1GeometrySink;
 
 namespace D2DPrimitiveHelper
 {
@@ -14,6 +15,13 @@ namespace D2DPrimitiveHelper
 		ID2D1Brush* brush,
 		float strokeWidth = 1.f,
 		ID2D1StrokeStyle* strokeStyle = nullptr
+	);
+
+	void DrawHorizontalGeometry(
+		ID2D1GeometrySink* sink,
+		float startX,
+		float endX,
+		float y
 	);
 
 	void DrawVerticalLine(

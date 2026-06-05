@@ -23,6 +23,13 @@ namespace D2DPrimitiveHelper
 		);
 	}
 
+	void DrawHorizontalGeometry(ID2D1GeometrySink* sink, float startX, float endX, float y)
+	{
+		sink->BeginFigure({ startX, y }, D2D1_FIGURE_BEGIN_HOLLOW);
+		sink->AddLine({ endX, y });
+		sink->EndFigure(D2D1_FIGURE_END_OPEN);
+	}
+
 	void DrawVerticalLine(
 		ID2D1DeviceContext* d2dContext, 
 		float x, 

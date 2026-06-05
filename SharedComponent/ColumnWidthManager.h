@@ -3,6 +3,7 @@
 #include "TextLayoutCache.h"
 
 struct TableProperty;
+struct ColumnWidthInitializationContext;
 
 namespace winrt::PackageRoot::implementation
 {
@@ -16,16 +17,17 @@ class ColumnWidthManager
 	TableProperty const& m_tableDataRef;
 	std::vector<std::atomic<float>> m_columnWidths;
 	std::atomic<uint32_t> m_widthVersion{ 0 };
-	void pushColumnBoundsToCache(int column, float width);
-	void initialize(std::vector<float> const& result, float scale);
+	void pushColumnBoundsToCache(int column, float width, ColumnWidthInitializationContext const& ctx);
+	void initialize(std::vector<float> const& result);
+	void initialize(float availableWidth, size_t numColumns);
 public:
-	uint32_t Version() const noexcept { return m_widthVersion.load(std::memory_order_relaxed); }
 	constexpr ColumnWidthManager(TextLayoutCache& layoutCache, TableProperty const& tableData)
 		: m_layoutCacheRef{ layoutCache }
 		, m_tableDataRef{ tableData }
 	{
 	}
 
+	uint32_t Version() const noexcept;
 	constexpr winrt::PackageRoot::ColumnSizingMode SizingMode() const
 	{
 		return m_sizingMode;

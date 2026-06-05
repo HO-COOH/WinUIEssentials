@@ -8,7 +8,7 @@ struct ID2D1DeviceContext;
 // Caches the horizontal row-separator lines as a single-period path geometry
 // covering one viewport. Because row height is uniform, vertical scrolling is
 // a pure translation by fmod(scrollY, rowHeight) — no rebuild needed on scroll.
-class TableLinesCache
+class TableHorizontalLines
 {
 	ID2D1Factory* m_d2dFactory;
 	winrt::com_ptr<ID2D1PathGeometry> m_geometry;
@@ -20,7 +20,7 @@ class TableLinesCache
 	float m_headerHeight = 0.f;
 public:
 
-	TableLinesCache(ID2D1Factory* factory, TableD2DResource& resource);
+	TableHorizontalLines(ID2D1Factory* factory, TableD2DResource& resource);
 	void Rebuild(float viewportWidth, float viewportHeight, float rowHeight, float headerHeight);
 	// dataBottomY: device-pixel Y below which no line should appear (typically
 	// the bottom of the last data row). Clips out the buffer line when data

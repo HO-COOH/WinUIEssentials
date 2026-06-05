@@ -1,16 +1,17 @@
-#include "pch.h"
-#include "TableLinesCache.h"
+﻿#include "pch.h"
+#include "TableHorizontalLines.h"
 #include <d2d1_1.h>
 #include <cmath>
 #include "TableD2DResource.h"
+#include "D2DPrimitiveHelper.h"
 
-TableLinesCache::TableLinesCache(ID2D1Factory* factory, TableD2DResource& resource) :
+TableHorizontalLines::TableHorizontalLines(ID2D1Factory* factory, TableD2DResource& resource) :
 	m_d2dFactory{ factory },
 	m_resource_ref{ resource }
 {
 }
 
-void TableLinesCache::Rebuild(float viewportWidth, float viewportHeight, float rowHeight, float headerHeight)
+void TableHorizontalLines::Rebuild(float viewportWidth, float viewportHeight, float rowHeight, float headerHeight)
 {
 	if (m_geometry
 		&& m_viewportWidth == viewportWidth
@@ -38,16 +39,11 @@ void TableLinesCache::Rebuild(float viewportWidth, float viewportHeight, float r
 	// translation by up to (rowHeight - epsilon).
 	int const lineCount = static_cast<int>(std::ceil(viewportHeight / rowHeight)) + 1;
 	for (int i = 0; i < lineCount; ++i)
-	{
-		float const y = static_cast<float>(i) * rowHeight;
-		sink->BeginFigure({ 0.f, y }, D2D1_FIGURE_BEGIN_HOLLOW);
-		sink->AddLine({ viewportWidth, y });
-		sink->EndFigure(D2D1_FIGURE_END_OPEN);
-	}
+		D2DPrimitiveHelper::DrawHorizontalGeometry(sink.get(), 0.f, viewportWidth, i * rowHeight);
 	winrt::check_hresult(sink->Close());
 }
 
-void TableLinesCache::Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetY, float dataBottomY)
+void TableHorizontalLines::Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetY, float dataBottomY)
 {
 	if (!m_geometry || !m_resource_ref.m_horizontalLineBrush)
 		return;

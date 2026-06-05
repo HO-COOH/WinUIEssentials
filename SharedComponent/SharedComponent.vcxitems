@@ -107,7 +107,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHorizontalLines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableVerticalLines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedCursor.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedScrollBar.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Case.h" />
@@ -177,7 +178,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableOverlayManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHorizontalLines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />

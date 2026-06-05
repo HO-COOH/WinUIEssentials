@@ -14,7 +14,7 @@
 #include "ScrollRequest.h"
 #include "DirectN.h"
 #include "ColumnWidthManager.h"
-#include "TableLinesCache.h"
+#include "TableHorizontalLines.h"
 #include "TableD2DResource.h"
 #include "FrameRequest.h"
 #include "TableHeaderBitmap.h"
@@ -151,7 +151,7 @@ public:
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData };
 private:
 	TableD2DResource m_resource{ m_textLayoutCache };
-	TableLinesCache m_horizontalLines{ d2d1Factory.get(), m_resource };
+	TableHorizontalLines m_horizontalLines{ d2d1Factory.get(), m_resource };
 	TableVerticalLines m_verticalLines;
 	std::atomic<float> m_scrollOffsetX{ 0.f };
 	std::atomic<float> m_scrollOffsetY{ 0.f };

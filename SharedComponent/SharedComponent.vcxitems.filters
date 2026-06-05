@@ -73,6 +73,9 @@
     <Filter Include="Table\Xaml\ControlsOverlay">
       <UniqueIdentifier>{736e3963-7dce-462f-8740-46972f5b1596}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Table\D2D\Lines">
+      <UniqueIdentifier>{fb7f628d-2c11-464b-a032-335395a2292b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -363,9 +366,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h">
       <Filter>Table\D2D</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableLinesCache.h">
-      <Filter>Table\D2D</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h">
       <Filter>Table\D2D</Filter>
     </ClInclude>
@@ -393,8 +393,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EditControlOverlay.h">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h">
-      <Filter>Table\D2D</Filter>
+      <Filter>Table\D2D\Lines</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHorizontalLines.h">
+      <Filter>Table\D2D\Lines</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -536,9 +542,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp">
       <Filter>Table\D2D</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableLinesCache.cpp">
-      <Filter>Table\D2D</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp">
       <Filter>Table\D2D</Filter>
     </ClCompile>
@@ -561,7 +564,10 @@
       <Filter>Table\Xaml\ControlsOverlay</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableVerticalLines.cpp">
-      <Filter>Table\D2D</Filter>
+      <Filter>Table\D2D\Lines</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHorizontalLines.cpp">
+      <Filter>Table\D2D\Lines</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
