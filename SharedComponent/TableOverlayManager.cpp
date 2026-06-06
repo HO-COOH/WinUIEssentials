@@ -29,7 +29,7 @@ void TableOverlayManager::OnInitializedComponent()
 		.Clip(m_compositor.CreateInsetClip(0.f, TableConstants::HeaderHeight, 0.f, 0.f));
 }
 
-float TableOverlayManager::cellLeadingOffset() const
+float TableOverlayManager::cellLeftOffset() const
 {
 	if (!m_cellLeadingOffset)
 	{
@@ -38,6 +38,13 @@ float TableOverlayManager::cellLeadingOffset() const
 		m_cellLeadingOffset = verticalLineSpace + static_cast<float>(tableData.m_contentPadding.Left);
 	}
 	return *m_cellLeadingOffset;
+}
+
+float TableOverlayManager::cellContentWidth(int column) const
+{
+	auto const columnWidth = m_table.m_d2dContent.m_columnWidthManager.Get(column);
+	auto const padRight = static_cast<float>(m_table.m_data.m_contentPadding.Right);
+	return (std::max)(0.f, columnWidth - cellLeftOffset() - padRight);
 }
 
 TableOverlayManager::ColumnState& TableOverlayManager::ensureColumn(int column)
@@ -49,19 +56,23 @@ TableOverlayManager::ColumnState& TableOverlayManager::ensureColumn(int column)
 	if (!state.ColumnProperty)
 	{
 		state.ColumnProperty = m_compositor.CreatePropertySet();
-		state.ColumnProperty.InsertScalar(L"CellX", m_table.m_d2dContent.m_columnWidthManager.SumColumnWidth(column, 0) + cellLeadingOffset());
+		state.ColumnProperty.InsertScalar(L"CellX", m_table.m_d2dContent.m_columnWidthManager.SumColumnWidth(column, 0) + cellLeftOffset());
 	}
 	return state;
 }
 
 TableOverlayManager::CellSlot& TableOverlayManager::createSlot(ColumnState& state, int column)
 {
-	auto& columnData = m_table.m_columns->m_data[column]->m_data;
+	auto& tableColumn = *m_table.m_columns->m_data[column];
+	auto& columnData = tableColumn.m_data;
 	auto cellContent = columnData.m_itemTemplate
 		.LoadContent()
 		.as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
 
 	winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(cellContent, true);
+
+	cellContent.HorizontalAlignment(tableColumn.HorizontalAlignment());
+	cellContent.Width(cellContentWidth(column));
 
 	if (!columnData.m_editTemplate)
 		cellContent.IsHitTestVisible(false); //make the control read-only
@@ -132,8 +143,14 @@ void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Fo
 void TableOverlayManager::OnColumnResized(int resizedColumn)
 {
 	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
-	auto const leading = cellLeadingOffset();
+	auto const leading = cellLeftOffset();
 	int const numColumns = static_cast<int>(m_columns.size());
+
+	//change xaml control width of the column
+	auto const newWidth = cellContentWidth(resizedColumn);
+	for (auto& slot : m_columns[resizedColumn].slots)
+		slot.element.Width(newWidth);
+
 	for (int c = resizedColumn + 1; c < numColumns; ++c)
 	{
 		if (auto& columnProperty = m_columns[c].ColumnProperty)
@@ -224,7 +241,7 @@ void TableOverlayManager::BeginEdit(int row, int column)
 	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
 	editControl.Width(widthManager.Get(column));
 	editControl.Height(TableConstants::RowHeight);
-	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) + cellLeadingOffset() - m_table.m_d2dContent.ScrollOffsetX());
+	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) + cellLeftOffset() - m_table.m_d2dContent.ScrollOffsetX());
 	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetTop(editControl, TableConstants::HeaderHeight + row * TableConstants::RowHeight - m_table.m_d2dContent.ScrollOffsetY());
 	m_children.Append(editControl);
 

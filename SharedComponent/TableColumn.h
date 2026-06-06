@@ -31,6 +31,15 @@ namespace winrt::PackageRoot::implementation
 		void IsResizable(bool value);
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty IsResizableProperty();
 
+        constexpr winrt::WinUINamespace::UI::Xaml::HorizontalAlignment HorizontalAlignment() const
+        {
+            return m_data.m_horizontalAlignment;
+        }
+		constexpr void HorizontalAlignment(winrt::WinUINamespace::UI::Xaml::HorizontalAlignment value)
+		{
+			m_data.m_horizontalAlignment = value;
+		}
+
         constexpr double MinWidth() { return m_minWidth; }
 		constexpr void MinWidth(double value) { m_minWidth = static_cast<float>(value); }
 

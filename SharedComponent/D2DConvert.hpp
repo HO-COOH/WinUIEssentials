@@ -31,4 +31,15 @@ namespace D2DConvert
 			.bottom = static_cast<LONG>(std::ceil(rect.bottom))
 		};
 	}
+
+	constexpr inline auto ToDWriteHorizontalAlignment(winrt::WinUINamespace::UI::Xaml::HorizontalAlignment horizontalAlignment)
+	{
+		switch (horizontalAlignment)
+		{
+			case winrt::WinUINamespace::UI::Xaml::HorizontalAlignment::Left: return DWRITE_TEXT_ALIGNMENT_LEADING;
+			case winrt::WinUINamespace::UI::Xaml::HorizontalAlignment::Center: return DWRITE_TEXT_ALIGNMENT_CENTER;
+			case winrt::WinUINamespace::UI::Xaml::HorizontalAlignment::Right: return DWRITE_TEXT_ALIGNMENT_TRAILING;
+			case winrt::WinUINamespace::UI::Xaml::HorizontalAlignment::Stretch: return DWRITE_TEXT_ALIGNMENT_JUSTIFIED;
+		}
+	}
 }

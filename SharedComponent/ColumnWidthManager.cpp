@@ -73,7 +73,9 @@ void ColumnWidthManager::InitializeColumnWidth(float width, float scale, std::ve
 	}
 
 
-	std::vector<float> measuredWidths(headerRow.size(), 0.f);
+	auto const& padding = m_tableDataRef.m_contentPadding;
+	auto const horizontalPadding = static_cast<float>(padding.Left + padding.Right);
+	std::vector<float> finalWidths(headerRow.size(), horizontalPadding);
 
 	DWRITE_TEXT_METRICS metrics;
 	switch (m_sizingMode)
@@ -81,16 +83,16 @@ void ColumnWidthManager::InitializeColumnWidth(float width, float scale, std::ve
 		case winrt::PackageRoot::ColumnSizingMode::HeaderContent:
 		{
 			for (size_t col = 0; col < numColumns; ++col)
-				measuredWidths[col] = measureNaturalRawWidth(metrics, headerRow[col].layout.get()) / scale;
+				finalWidths[col] += measureNaturalRawWidth(metrics, headerRow[col].layout.get()) / scale;
 			break;
 		}
 		case winrt::PackageRoot::ColumnSizingMode::RowContent:
 		{
 			for (auto const& row : layoutCache)
 			{
-				auto const cols = (std::min)(row.size(), measuredWidths.size());
+				auto const cols = (std::min)(row.size(), finalWidths.size());
 				for (size_t col = 0; col < cols; ++col)
-					measuredWidths[col] = (std::max)(measuredWidths[col], measureNaturalRawWidth(metrics, row[col].layout.get()) / scale);
+					finalWidths[col] = (std::max)(finalWidths[col], measureNaturalRawWidth(metrics, row[col].layout.get()) / scale + horizontalPadding);
 			}
 			break;
 		}
@@ -98,19 +100,11 @@ void ColumnWidthManager::InitializeColumnWidth(float width, float scale, std::ve
 			throw std::runtime_error{ "Unknown ColumnSizingMode" };
 	}
 
-	auto const& padding = m_tableDataRef.m_contentPadding;
-	auto const horizontalPadding = static_cast<float>(padding.Left + padding.Right);
-	std::ranges::transform(
-		measuredWidths,
-		measuredWidths.begin(),
-		[horizontalPadding](float measuredWidth) { return measuredWidth + horizontalPadding; }
-	);
-
-	if (auto const [enough, sum] = isAvailableColumnWidthEnough(measuredWidths, width); enough)
-		weightedSum(measuredWidths, width, sum);
+	if (auto const [enough, sum] = isAvailableColumnWidthEnough(finalWidths, width); enough)
+		weightedSum(finalWidths, width, sum);
 	else
-		clampToColumnConstraints(measuredWidths, columnDefinitions);
-	initialize(measuredWidths);
+		clampToColumnConstraints(finalWidths, columnDefinitions);
+	initialize(finalWidths);
 }
 
 float ColumnWidthManager::Get(int column) const

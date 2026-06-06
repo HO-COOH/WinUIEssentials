@@ -445,7 +445,16 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 
 	if (m_initialSizing && m_textLayoutCache.RowCount() > 0)
 	{
-		m_columnWidthManager.InitializeColumnWidth(m_swapChain.CurrentSize.Width, m_swapChain.Scale, m_table_ref.m_columns->m_data);
+		auto const& columns = m_table_ref.m_columns->m_data;
+		m_columnWidthManager.InitializeColumnWidth(m_swapChain.CurrentSize.Width, m_swapChain.Scale, columns);
+
+		//column HorizontalAlignment are initialized only once
+		for (size_t column = 0; column < columns.size(); ++column)
+		{
+			auto const columnHA = D2DConvert::ToDWriteHorizontalAlignment(columns[column]->HorizontalAlignment());
+			m_textLayoutCache.SetColumnFormat(column, columnHA, DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+		}
+
 		m_initialSizing = false;
 		//Column widths just got resolved — header layout depends on them.
 		RequestDraw(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty);
@@ -549,7 +558,9 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 	if (m_resource.m_headerBackgroundBrush)
 		m_d2dContext->FillRectangle(D2D1::RectF(0, 0, rawWidth, rawHeaderHeight), m_resource.m_headerBackgroundBrush.get());
 
-	for (size_t column = 0; column < m_table_ref.m_columns->m_data.size(); ++column)
+	auto const& columns = m_table_ref.m_columns->m_data;
+
+	for (size_t column = 0; column < columns.size(); ++column)
 	{
 		auto const rawColumnWidth = m_initialSizing? (std::numeric_limits<float>::max)() : m_columnWidthManager.Get(column) * scale;
 		if (currentX + rawColumnWidth > 0 || m_initialSizing)
@@ -568,11 +579,12 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 				? rawHeaderHeight
 				: paddedMaxHeight;
 
+			auto const columnHA = D2DConvert::ToDWriteHorizontalAlignment(columns[column]->HorizontalAlignment());
 			auto layout = m_textLayoutCache.GetOrCreate(
 				column,
-				m_table_ref.m_columns->m_data[column]->m_data.m_stringContent,
+				columns[column]->m_data.m_stringContent,
 				layoutMaxWidth, layoutMaxHeight,
-				m_table_ref.m_data.HeaderHorizontalAlignment,
+				columnHA,
 				m_table_ref.m_data.HeaderVerticalAlignment
 			);
 

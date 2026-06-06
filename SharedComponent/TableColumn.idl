@@ -23,6 +23,7 @@ namespace PackageRoot
 		static WinUINamespace.UI.Xaml.DependencyProperty IsResizableProperty{ get; };
 
         //These should be set during initialization. We don't listen for changes during runtime
+        WinUINamespace.UI.Xaml.HorizontalAlignment HorizontalAlignment;
         Double MinWidth;
         Double MaxWidth;
     }

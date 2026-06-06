@@ -45,9 +45,8 @@ class TableOverlayManager
 	CellSlot& createSlot(ColumnState& state, int column);
 	CellSlot& getOrCreateFreeSlot(ColumnState& state, int row, int column);
 
-	//DIPs from a column's left edge to where cell content should start:
-	//vertical-line thickness (when the line is visible) plus left padding.
-	float cellLeadingOffset() const;
+	float cellLeftOffset() const; //vertical line thickness + padding.left
+	float cellContentWidth(int column) const;
 
 	void recycleControls(float targetY);
 	void rebindVisibleRows(float targetY);
