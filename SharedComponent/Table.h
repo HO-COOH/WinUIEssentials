@@ -12,6 +12,7 @@
 #include "TableProperty.h"
 #include "SharedDataBase.hpp"
 #include "TableOverlayManager.h"
+#include "TableRowDataSource.h"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -92,26 +93,29 @@ namespace winrt::PackageRoot::implementation
 
         winrt::PackageRoot::TableColumnCollection Columns();
 
-        winrt::PackageRoot::ITableData Data();
-        void Data(winrt::PackageRoot::ITableData const& data);
-    public:
-        TableProperty m_data;
-        SharedDataBase<TableProperty> m_sharedData{ m_data };
+        winrt::PackageRoot::ITableData ItemsSource();
+        void ItemsSource(winrt::PackageRoot::ITableData const& data);
+
+        winrt::Windows::Foundation::Collections::IVector<winrt::PackageRoot::TableRow> Items();
+
+        TableProperty m_tableProperty;
+        SharedDataBase<TableProperty> m_sharedData{ m_tableProperty };
         TableD2DContent m_d2dContent{ *this };
-        bool m_isLoaded{ false };
         TableOverlayManager m_overlayManager{ *this };
+
     private:
-
-
         //Request a redraw and immediately refresh the scrollbars.
-        //UI-thread only.
         void requestDraw(bool redraw = false);
+        void setEffectiveTableData(winrt::PackageRoot::ITableData const& data);
+        winrt::com_ptr<TableRowDataSource>& ensureTableRowDataSource();
+        void onTableRowDataChanged(int32_t startRow, int32_t endRow);
 
-        //scrollbars (XAML - UI thread only)
         CachedScrollBar m_verticalScrollBarCache;
         CachedScrollBar m_horizontalScrollBarCache;
         bool m_isUpdatingVerticalScrollBarInCode{};
         bool m_isUpdatingHorizontalScrollBarInCode{};
+        bool m_isLoaded{ false };
+        float m_fps{};
 
         void updateHorizontalScrollBar(float scrollOffsetX);
         void updateScrollBars();
@@ -127,7 +131,6 @@ namespace winrt::PackageRoot::implementation
 #else
         winrt::Windows::UI::Xaml::DispatcherTimer m_fpsTimer;
 #endif
-        float m_fps{};
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerBackgroundProperty{ nullptr };
@@ -196,6 +199,8 @@ namespace winrt::PackageRoot::implementation
         );
     public:
         winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
+        winrt::com_ptr<TableRowDataSource> m_tableRowDataSource{ nullptr };
+        winrt::PackageRoot::ITableData m_itemsSource{ nullptr };
         winrt::PackageRoot::ITableData m_tableData{ nullptr };
         winrt::PackageRoot::ITableData::UpdateRowData_revoker m_updateRowDataRevoker;
         void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);

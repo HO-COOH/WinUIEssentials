@@ -65,3 +65,4 @@
 #include "TableColumn.h"
 #include "TableColumnCollection.h"
 #include "RowRequestedEventArgs.h"
+#include "TableRow.h"

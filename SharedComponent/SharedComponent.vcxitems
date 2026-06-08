@@ -53,6 +53,7 @@
     <Midl Include="$(MSBuildThisFileDirectory)Table.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableRow.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)UIElementExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)UpdateRowDataEventArgs.idl" />
@@ -102,13 +103,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnIterator.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnVectorView.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHorizontalLines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableRow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableRowDataSource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableVerticalLines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IteratorBase.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MarqueeText.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NegateBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ObjectCompare.h" />
@@ -170,8 +172,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnData.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnIterator.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnVectorView.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h" />
@@ -179,10 +179,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHorizontalLines.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableRow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableRowDataSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIElementExtension.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)VectorBase.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)VectorViewBase.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WrapPanel.h" />
   </ItemGroup>
 </Project>

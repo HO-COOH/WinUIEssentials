@@ -6,6 +6,7 @@
 #include "TableConstants.hpp"
 #include <wil/resource.h>
 #include "D2DConvert.hpp"
+#include <algorithm>
 
 namespace winrt::PackageRoot::implementation
 {
@@ -112,7 +113,7 @@ namespace winrt::PackageRoot::implementation
     Table::Table()
     {
         InitializeComponent();
-        m_data.InitializeForTheme(ActualTheme());
+        m_tableProperty.InitializeForTheme(ActualTheme());
         m_overlayManager.OnInitializedComponent();
 
         //get ui elements
@@ -407,35 +408,71 @@ namespace winrt::PackageRoot::implementation
         return *m_columns;
     }
 
-    winrt::PackageRoot::ITableData Table::Data()
+    winrt::PackageRoot::ITableData Table::ItemsSource()
     {
-        return m_tableData;
+        return m_itemsSource;
     }
 
-    void Table::Data(winrt::PackageRoot::ITableData const& data)
+    void Table::ItemsSource(winrt::PackageRoot::ITableData const& data)
+    {
+        m_itemsSource = data;
+    }
+
+    void Table::setEffectiveTableData(winrt::PackageRoot::ITableData const& data)
     {
         m_tableData = data;
-        m_d2dContent.m_textLayoutCache.OnTableDataSet(&m_tableData);
+        m_d2dContent.m_textLayoutCache.OnTableDataSet(m_tableData ? &m_tableData : nullptr);
 
-        m_updateRowDataRevoker = m_tableData.UpdateRowData(winrt::auto_revoke,
-            [weak = get_weak()](winrt::Windows::Foundation::IInspectable const&, winrt::PackageRoot::UpdateRowDataEventArgs const& arg)
-            {
-                auto strong = weak.get();
-                if (!strong)
-                    return;
-                auto& cache = strong->m_d2dContent.m_textLayoutCache;
-                for (int r = arg.StartRow; r <= arg.EndRow; ++r)
-                    cache.InvalidateRow(r);
-                strong->m_overlayManager.InvalidateRows(arg.StartRow, arg.EndRow);
-                if (strong->m_isLoaded)
-                    strong->requestDraw(true);
-            }
-        );
+        if (m_tableData)
+        {
+            m_updateRowDataRevoker = m_tableData.UpdateRowData(winrt::auto_revoke,
+                [weak = get_weak()](winrt::Windows::Foundation::IInspectable const&, winrt::PackageRoot::UpdateRowDataEventArgs const& arg)
+                {
+                    auto strong = weak.get();
+                    if (!strong)
+                        return;
+                    auto& cache = strong->m_d2dContent.m_textLayoutCache;
+                    for (int r = arg.StartRow; r <= arg.EndRow; ++r)
+                        cache.InvalidateRow(r);
+                    strong->m_overlayManager.InvalidateRows(arg.StartRow, arg.EndRow);
+                    if (strong->m_isLoaded)
+                        strong->requestDraw(true);
+                }
+            );
+        }
 
-        if (!m_isLoaded)
-            return;
         m_d2dContent.m_textLayoutCache.Invalidate();
-        requestDraw(true);
+    }
+
+    winrt::com_ptr<TableRowDataSource>& Table::ensureTableRowDataSource()
+    {
+        if (!m_tableRowDataSource)
+        {
+            m_tableRowDataSource = winrt::make_self<TableRowDataSource>();
+            m_tableRowDataSource->Changed([this](int32_t startRow, int32_t endRow)
+            {
+                onTableRowDataChanged(startRow, endRow);
+            });
+        }
+
+        return m_tableRowDataSource;
+    }
+
+    winrt::Windows::Foundation::Collections::IVector<winrt::PackageRoot::TableRow> Table::Items()
+    {
+        return ensureTableRowDataSource()->Items();
+    }
+
+    void Table::onTableRowDataChanged(int32_t startRow, int32_t endRow)
+    {
+        for (int r = startRow; r <= endRow; ++r)
+            m_d2dContent.m_textLayoutCache.InvalidateRow(r);
+
+        if (endRow >= startRow)
+            m_overlayManager.InvalidateRows(startRow, endRow);
+
+        if (m_isLoaded)
+            requestDraw(true);
     }
 
     void Table::updateHorizontalScrollBar(float scrollOffsetX)
@@ -682,7 +719,13 @@ namespace winrt::PackageRoot::implementation
 
     void Table::Table_Loaded(winrt::Windows::Foundation::IInspectable const&, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const&)
     {
+        if (m_itemsSource)
+            setEffectiveTableData(m_itemsSource);
+        else
+            setEffectiveTableData(ensureTableRowDataSource().as<winrt::PackageRoot::ITableData>());
         m_isLoaded = true;
+        //draw() bails out early until m_tableData is set; kick a frame now that it is.
+        requestDraw(true);
     }
 
     void Table::onHeaderForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -692,7 +735,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) { data.m_headerForeground = D2DConvert::ToD2DColor(value); });
         else
-            self->m_data.m_headerForeground = D2DConvert::ToD2DColor(value);
+            self->m_tableProperty.m_headerForeground = D2DConvert::ToD2DColor(value);
     }
 
     void Table::onContentForegroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -702,7 +745,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) { data.m_contentForeground = value; });
         else
-            self->m_data.m_contentForeground = value;
+            self->m_tableProperty.m_contentForeground = value;
     }
 
     void Table::onHeaderBackgroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -712,7 +755,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_headerBackground = value; });
         else
-            self->m_data.m_headerBackground = value;
+            self->m_tableProperty.m_headerBackground = value;
     }
 
     void Table::onHeaderFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -722,7 +765,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) { data.m_headerFontSize = value; });
         else
-            self->m_data.m_headerFontSize = value;
+            self->m_tableProperty.m_headerFontSize = value;
     }
 
     void Table::onContentPaddingChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -732,7 +775,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_contentPadding = value; });
         else
-            self->m_data.m_contentPadding = value;
+            self->m_tableProperty.m_contentPadding = value;
     }
 
     void Table::onHeaderFontWeightChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -742,7 +785,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_headerFontWeight = value; });
         else
-            self->m_data.m_headerFontWeight = value;
+            self->m_tableProperty.m_headerFontWeight = value;
     }
 
     void Table::onContentFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -752,7 +795,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) { data.m_contentFontSize = value; });
         else
-            self->m_data.m_contentFontSize = value;
+            self->m_tableProperty.m_contentFontSize = value;
     }
 
     void Table::onFontFamilyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -766,7 +809,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_horizontalLineColor = value; });
         else
-			self->m_data.m_horizontalLineColor = value;
+			self->m_tableProperty.m_horizontalLineColor = value;
     }
 
     void Table::onHorizontalLineThicknessChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -780,7 +823,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_verticalLineColor = value; });
         else
-            self->m_data.m_verticalLineColor = value;
+            self->m_tableProperty.m_verticalLineColor = value;
     }
 
     void Table::onVerticalLineThicknessChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -790,7 +833,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_verticalLineThickness = value; });
         else
-            self->m_data.m_verticalLineThickness = value;
+            self->m_tableProperty.m_verticalLineThickness = value;
     }
 
     void Table::onContentFontWeightChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -800,7 +843,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_contentFontWeight = value; });
         else
-            self->m_data.m_contentFontWeight = value;
+            self->m_tableProperty.m_contentFontWeight = value;
     }
 
     void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const&, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const&)

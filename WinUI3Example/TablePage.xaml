@@ -35,9 +35,15 @@
                 CornerRadius="{StaticResource ControlCornerRadius}"
                 HeaderBackground="{ThemeResource ControlFillColorDefault}"
                 HeaderFontWeight="Normal">
-                <essential:Table.Data>
+                <essential:Table.ItemsSource>
                     <local:DemoTableData />
-                </essential:Table.Data>
+                </essential:Table.ItemsSource>
+
+                <!--<essential:TableRow>
+                    <x:String>1</x:String>
+                    <x:String>Josi</x:String>
+                    <x:String>Syfax</x:String>
+                </essential:TableRow>-->
                 <essential:Table.Columns>
                     <essential:TableColumn StringContent="Id" />
                     <essential:TableColumn StringContent="First Name" />

@@ -364,6 +364,8 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 		return;
 	if (m_swapChain.CurrentSize.Width <= 0 || m_swapChain.CurrentSize.Height <= 0)
 		return;
+	if (!m_table_ref.m_tableData)
+		return;
 
 	bool fullRedraw = (frame & FrameRequest::Flag::FullRedraw) != 0;
 
@@ -585,7 +587,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 				columns[column]->m_data.m_stringContent,
 				layoutMaxWidth, layoutMaxHeight,
 				columnHA,
-				m_table_ref.m_data.HeaderVerticalAlignment
+				m_table_ref.m_tableProperty.HeaderVerticalAlignment
 			);
 
 			if (!m_initialSizing)

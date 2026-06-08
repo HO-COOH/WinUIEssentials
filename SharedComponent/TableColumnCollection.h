@@ -1,37 +1,31 @@
-﻿#pragma once
+#pragma once
 
 #include "TableColumnCollection.g.h"
 #include "TableColumn.h"
-#include <vector>
-
-struct TableColumnIterator;
+#include "VectorBase.hpp"
 
 namespace winrt::PackageRoot::implementation
 {
-    struct TableColumnCollection : TableColumnCollectionT<TableColumnCollection>
+    struct TableColumnCollection :
+        TableColumnCollectionT<TableColumnCollection>,
+        VectorBase<TableColumnCollection, PackageRoot::TableColumn, winrt::com_ptr<TableColumn>>
     {
-        friend struct TableColumnIterator;
-
         TableColumnCollection() = default;
 
-        // IIterable<TableColumn>
-        winrt::Windows::Foundation::Collections::IIterator<PackageRoot::TableColumn> First();
+        static PackageRoot::TableColumn to_projected(winrt::com_ptr<TableColumn> const& stored)
+        {
+            return *stored;
+        }
 
-        // IVector<TableColumn>
-        PackageRoot::TableColumn GetAt(uint32_t index);
-        uint32_t Size();
-        winrt::Windows::Foundation::Collections::IVectorView<PackageRoot::TableColumn> GetView();
-        bool IndexOf(PackageRoot::TableColumn const& value, uint32_t& index);
-        void SetAt(uint32_t index, PackageRoot::TableColumn const& value);
-        void InsertAt(uint32_t index, PackageRoot::TableColumn const& value);
-        void RemoveAt(uint32_t index);
-        void Append(PackageRoot::TableColumn const& value);
-        void RemoveAtEnd();
-        void Clear();
-        uint32_t GetMany(uint32_t startIndex, winrt::array_view<PackageRoot::TableColumn> items);
-        void ReplaceAll(winrt::array_view<PackageRoot::TableColumn const> items);
+        static winrt::com_ptr<TableColumn> to_stored(PackageRoot::TableColumn const& value)
+        {
+            return winrt::get_self<TableColumn>(value)->get_strong();
+        }
 
-        std::vector<winrt::com_ptr<TableColumn>> m_data;
+        static bool is_same(winrt::com_ptr<TableColumn> const& stored, PackageRoot::TableColumn const& value)
+        {
+            return stored.get() == winrt::get_self<TableColumn>(value);
+        }
     };
 }
 

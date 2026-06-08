@@ -1,9 +1,11 @@
 ﻿import "TableColumnCollection.idl";
 import "ITableData.idl";
+import "TableRow.idl";
 
 namespace PackageRoot
 {
     [default_interface]
+    [contentproperty("Items")]
     runtimeclass Table : WinUINamespace.UI.Xaml.Controls.SwapChainPanel, WinUINamespace.UI.Xaml.Data.INotifyPropertyChanged
     {
         Table();
@@ -54,7 +56,8 @@ namespace PackageRoot
 
         //data
         TableColumnCollection Columns{ get; };
-        ITableData Data;
+        ITableData ItemsSource;
+        Windows.Foundation.Collections.IVector<TableRow> Items{ get; };
     }
 }
  

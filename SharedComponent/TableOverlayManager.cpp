@@ -33,7 +33,7 @@ float TableOverlayManager::cellLeftOffset() const
 {
 	if (!m_cellLeadingOffset)
 	{
-		auto const& tableData = m_table.m_data;
+		auto const& tableData = m_table.m_tableProperty;
 		auto const verticalLineSpace = tableData.m_verticalLineColor.a > 0.f ? tableData.m_verticalLineThickness : 0.f;
 		m_cellLeadingOffset = verticalLineSpace + static_cast<float>(tableData.m_contentPadding.Left);
 	}
@@ -43,7 +43,7 @@ float TableOverlayManager::cellLeftOffset() const
 float TableOverlayManager::cellContentWidth(int column) const
 {
 	auto const columnWidth = m_table.m_d2dContent.m_columnWidthManager.Get(column);
-	auto const padRight = static_cast<float>(m_table.m_data.m_contentPadding.Right);
+	auto const padRight = static_cast<float>(m_table.m_tableProperty.m_contentPadding.Right);
 	return (std::max)(0.f, columnWidth - cellLeftOffset() - padRight);
 }
 
@@ -142,9 +142,13 @@ void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Fo
 
 void TableOverlayManager::OnColumnResized(int resizedColumn)
 {
+	int const numColumns = static_cast<int>(m_columns.size());
+
+	if (resizedColumn < 0 || resizedColumn >= numColumns)
+		return;
+
 	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
 	auto const leading = cellLeftOffset();
-	int const numColumns = static_cast<int>(m_columns.size());
 
 	//change xaml control width of the column
 	auto const newWidth = cellContentWidth(resizedColumn);
