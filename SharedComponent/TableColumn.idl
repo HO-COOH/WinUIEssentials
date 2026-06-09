@@ -2,13 +2,13 @@ namespace PackageRoot
 {
     [bindable]
     [default_interface]
+    [contentproperty("Content")]
     runtimeclass TableColumn : WinUINamespace.UI.Xaml.DependencyObject
     {
         TableColumn();
         
-        String StringContent;
-        //FrameworkElement UIContent;
-        static WinUINamespace.UI.Xaml.DependencyProperty StringContentProperty{ get; };
+        Object Content;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentProperty{ get; };
 
         WinUINamespace.UI.Xaml.DataTemplate ItemTemplate;
 		static WinUINamespace.UI.Xaml.DependencyProperty ItemTemplateProperty{ get; };

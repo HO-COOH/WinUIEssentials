@@ -8,11 +8,11 @@ namespace winrt::PackageRoot::implementation
 {
 	void TableColumn::EnsureDependencyProperties()
 	{
-		if (s_stringContentProperty) return;
+		if (s_contentProperty) return;
 
-		s_stringContentProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
-			L"StringContent",
-			winrt::xaml_typename<winrt::hstring>(),
+		s_contentProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+			L"Content",
+			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &TableColumn::onStringContentChanged }
 		);
@@ -42,19 +42,19 @@ namespace winrt::PackageRoot::implementation
 		);
 	}
 
-	winrt::hstring TableColumn::StringContent()
+	winrt::Windows::Foundation::IInspectable TableColumn::Content()
 	{
-		return winrt::unbox_value<winrt::hstring>(GetValue(StringContentProperty()));
+		return GetValue(s_contentProperty);
 	}
 
-	void TableColumn::StringContent(winrt::hstring const& value)
+	void TableColumn::Content(winrt::Windows::Foundation::IInspectable const& value)
 	{
-		SetValue(StringContentProperty(), winrt::box_value(value));
+		SetValue(s_contentProperty, value);
 	}
 
-	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::StringContentProperty()
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::ContentProperty()
 	{
-		return s_stringContentProperty;
+		return s_contentProperty;
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DataTemplate TableColumn::ItemTemplate()
@@ -121,7 +121,12 @@ namespace winrt::PackageRoot::implementation
 		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, 
 		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
-		winrt::get_self<TableColumn>(d.as<class_type>())->m_data.m_stringContent = winrt::unbox_value<winrt::hstring>(e.NewValue());
+		auto& columnData = winrt::get_self<TableColumn>(d.as<class_type>())->m_data;
+		auto newValue = e.NewValue();
+		if (auto tryString = newValue.try_as<winrt::hstring>())
+			columnData.m_content = std::move(*tryString);
+		else
+			columnData.m_content = newValue;
 	}
 
 	void TableColumn::onItemTemplateChanged(

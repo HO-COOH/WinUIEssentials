@@ -724,7 +724,8 @@ namespace winrt::PackageRoot::implementation
         else
             setEffectiveTableData(ensureTableRowDataSource().as<winrt::PackageRoot::ITableData>());
         m_isLoaded = true;
-        //draw() bails out early until m_tableData is set; kick a frame now that it is.
+
+        m_overlayManager.OnLoaded();
         requestDraw(true);
     }
 

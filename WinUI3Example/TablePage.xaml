@@ -45,15 +45,14 @@
                     <x:String>Syfax</x:String>
                 </essential:TableRow>-->
                 <essential:Table.Columns>
-                    <essential:TableColumn StringContent="Id" />
-                    <essential:TableColumn StringContent="First Name" />
-                    <essential:TableColumn StringContent="Last Name" />
-                    <essential:TableColumn StringContent="Email" />
-                    <essential:TableColumn StringContent="Gender" />
-                    <essential:TableColumn StringContent="Dob" />
-                    <essential:TableColumn StringContent="Active At" />
-
-                    <essential:TableColumn IsResizable="False" StringContent="Is Active">
+                    <essential:TableColumn Content="Id" />
+                    <essential:TableColumn Content="First Name" />
+                    <essential:TableColumn Content="Last Name" />
+                    <essential:TableColumn Content="Email" />
+                    <essential:TableColumn Content="Gender" />
+                    <essential:TableColumn Content="Dob" />
+                    <essential:TableColumn Content="Active At" />
+                    <essential:TableColumn Content="Is Active" IsResizable="False">
                         <essential:TableColumn.ItemTemplate>
                             <DataTemplate x:DataType="x:Boolean">
                                 <CheckBox IsChecked="{x:Bind}" />
@@ -61,9 +60,9 @@
                         </essential:TableColumn.ItemTemplate>
                     </essential:TableColumn>
 
-                    <essential:TableColumn StringContent="Department" />
-                    <essential:TableColumn StringContent="Designation" />
-                    <essential:TableColumn StringContent="Address">
+                    <essential:TableColumn Content="Department" />
+                    <essential:TableColumn Content="Designation" />
+                    <essential:TableColumn Content="Address">
                         <essential:TableColumn.EditTemplate>
                             <DataTemplate x:DataType="x:String">
                                 <TextBox Text="{x:Bind}" />

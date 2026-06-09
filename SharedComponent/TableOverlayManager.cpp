@@ -3,7 +3,9 @@
 #include "Table.h"
 #include "TableD2DContent.h"
 #include "TableConstants.hpp"
+#include "TableColumnCollection.h"
 #include <ranges>
+#include <variant>
 
 TableOverlayManager::TableOverlayManager(winrt::PackageRoot::implementation::Table& table) :
 	m_compositor{ winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(table).Compositor() },
@@ -11,17 +13,21 @@ TableOverlayManager::TableOverlayManager(winrt::PackageRoot::implementation::Tab
 	m_scrollEasingFunction{ winrt::WinUINamespace::UI::Composition::CompositionEasingFunction::CreatePowerEasingFunction(m_compositor, winrt::WinUINamespace::UI::Composition::CompositionEasingFunctionMode::Out, 5.f) },
 	m_scrollAnimation{ m_compositor.CreateScalarKeyFrameAnimation() },
 	m_cellExpression{ m_compositor.CreateExpressionAnimation(TranslationExpression) },
+	m_headerExpression{ m_compositor.CreateExpressionAnimation(HeaderTranslationExpression) },
 	m_table{ table }
 {
 	TableProperty.InsertScalar(L"ScrollOffsetX", 0.f);
 	TableProperty.InsertScalar(L"ScrollOffsetY", 0.f);
 	m_scrollAnimation.Duration(TableConstants::SmoothScrollDuration);
 	m_cellExpression.SetReferenceParameter(L"TableProperty", TableProperty);
+	m_headerExpression.SetReferenceParameter(L"TableProperty", TableProperty);
 }
 
 void TableOverlayManager::OnInitializedComponent()
 {
-	auto const canvas = m_table.ControlsOverlay();
+	m_headerChildren = m_table.HeaderControlsOverlay().Children();
+
+	auto canvas = m_table.ControlsOverlay();
 	m_children = canvas.Children();
 
 	//clip canvas to prevent cell content from showing in header
@@ -111,6 +117,37 @@ void TableOverlayManager::recycleControls(float targetY)
 	}
 }
 
+void TableOverlayManager::OnLoaded()
+{
+	m_headerChildren.Clear();
+
+	for (auto& state : m_columns)
+		state.headerElement = nullptr;
+
+	auto const& columns = m_table.m_columns->m_data;
+	for (size_t col = 0; col < columns.size(); ++col)
+	{
+		auto* content = std::get_if<winrt::Windows::Foundation::IInspectable>(&columns[col]->m_data.m_content);
+		if (!content || !*content)
+			continue;
+
+		auto control = content->try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
+		if (!control)
+			continue;
+
+		winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(control, true);
+		control.HorizontalAlignment(columns[col]->HorizontalAlignment());
+		control.Width(cellContentWidth(static_cast<int>(col)));
+		control.Height(TableConstants::HeaderHeight);
+		m_headerChildren.Append(control);
+
+		auto& state = ensureColumn(static_cast<int>(col));
+		state.headerElement = control;
+		m_headerExpression.SetReferenceParameter(L"ColumnProperty", state.ColumnProperty);
+		winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(control).StartAnimation(L"Translation.XY", m_headerExpression);
+	}
+}
+
 void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Foundation::IInspectable const& cellObject)
 {
 	auto const& itemTemplate = m_table.m_columns->m_data[column]->m_data.m_itemTemplate;
@@ -154,6 +191,8 @@ void TableOverlayManager::OnColumnResized(int resizedColumn)
 	auto const newWidth = cellContentWidth(resizedColumn);
 	for (auto& slot : m_columns[resizedColumn].slots)
 		slot.element.Width(newWidth);
+	if (auto& header = m_columns[resizedColumn].headerElement)
+		header.Width(newWidth);
 
 	for (int c = resizedColumn + 1; c < numColumns; ++c)
 	{

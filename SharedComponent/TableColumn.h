@@ -11,9 +11,9 @@ namespace winrt::PackageRoot::implementation
         TableColumn() = default;
         static void EnsureDependencyProperties();
 
-        winrt::hstring StringContent();
-        void StringContent(winrt::hstring const& value);
-        static winrt::WinUINamespace::UI::Xaml::DependencyProperty StringContentProperty();
+        winrt::Windows::Foundation::IInspectable Content();
+        void Content(winrt::Windows::Foundation::IInspectable const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentProperty();
 
 		winrt::WinUINamespace::UI::Xaml::DataTemplate ItemTemplate();
 		void ItemTemplate(winrt::WinUINamespace::UI::Xaml::DataTemplate const& value);
@@ -52,7 +52,7 @@ namespace winrt::PackageRoot::implementation
         TableColumnData m_data;
     private:
 
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_stringContentProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_itemTemplateProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_editTemplateProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_sortEnabledProperty{ nullptr };

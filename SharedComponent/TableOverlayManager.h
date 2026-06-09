@@ -11,6 +11,7 @@ namespace winrt::PackageRoot::implementation
 class TableOverlayManager
 {
 	constexpr static auto TranslationExpression = L"Vector2(ColumnProperty.CellX - TableProperty.ScrollOffsetX, cellY - TableProperty.ScrollOffsetY)";
+	constexpr static auto HeaderTranslationExpression = L"Vector2(ColumnProperty.CellX - TableProperty.ScrollOffsetX, 0)";
 
 	struct CellSlot
 	{
@@ -23,14 +24,17 @@ class TableOverlayManager
 		winrt::WinUINamespace::UI::Composition::CompositionPropertySet ColumnProperty{ nullptr };
 		std::vector<CellSlot> slots;
 		std::vector<winrt::Windows::Foundation::IInspectable> rowDataCache;
+		winrt::WinUINamespace::UI::Xaml::FrameworkElement headerElement{ nullptr };
 	};
 
 	winrt::WinUINamespace::UI::Xaml::Controls::UIElementCollection m_children{ nullptr };
+	winrt::WinUINamespace::UI::Xaml::Controls::UIElementCollection m_headerChildren{ nullptr };
 	winrt::WinUINamespace::UI::Composition::Compositor m_compositor;
 	winrt::WinUINamespace::UI::Composition::CompositionPropertySet TableProperty;
 	winrt::WinUINamespace::UI::Composition::PowerEasingFunction m_scrollEasingFunction;
 	winrt::WinUINamespace::UI::Composition::ScalarKeyFrameAnimation m_scrollAnimation;
 	winrt::WinUINamespace::UI::Composition::ExpressionAnimation m_cellExpression;
+	winrt::WinUINamespace::UI::Composition::ExpressionAnimation m_headerExpression;
 	winrt::PackageRoot::implementation::Table& m_table;
 
 	std::vector<ColumnState> m_columns;
@@ -54,6 +58,7 @@ public:
 	TableOverlayManager(winrt::PackageRoot::implementation::Table& table);
 
 	void OnInitializedComponent();
+	void OnLoaded();
 
 	void SetCellContent(
 		int row,

@@ -16,7 +16,8 @@ winrt::WinUINamespace::UI::Xaml::FrameworkElement EditControlOverlay::MakeContro
 	m_editingRow = row;
 	m_editingColumn = column;
 	m_isString = isString;
-	m_previousContent = data;
+	if (isString)
+		m_previousContent = winrt::unbox_value<winrt::hstring>(data);
 	return control;
 }
 
@@ -26,7 +27,7 @@ winrt::WinUINamespace::UI::Xaml::FrameworkElement EditControlOverlay::Remove(Tab
 	m_editControl = nullptr;
 
 	if (m_isString)
-		d2dContent.DrawPartialCell(m_editingRow, m_editingColumn, winrt::unbox_value<winrt::hstring>(m_previousContent));
+		d2dContent.DrawPartialCell(m_editingRow, m_editingColumn, m_previousContent);
 	return control;
 }
 

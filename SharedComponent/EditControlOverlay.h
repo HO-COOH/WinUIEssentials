@@ -7,7 +7,7 @@ class EditControlOverlay
 {
 	int m_editingRow{ -1 };
 	int m_editingColumn{ -1 };
-	winrt::Windows::Foundation::IInspectable m_previousContent{ nullptr };
+	winrt::hstring m_previousContent;
 	bool m_isString{};
 	winrt::weak_ref<winrt::WinUINamespace::UI::Xaml::FrameworkElement> m_editControl;
 public:
@@ -19,6 +19,7 @@ public:
 		int column
 	);
 
+	//return previous constructed control for removing from Canvas
 	[[nodiscard]] winrt::WinUINamespace::UI::Xaml::FrameworkElement Remove(TableD2DContent& d2dContent);
 	operator bool() const;
 };

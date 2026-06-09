@@ -581,17 +581,20 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 				? rawHeaderHeight
 				: paddedMaxHeight;
 
-			auto const columnHA = D2DConvert::ToDWriteHorizontalAlignment(columns[column]->HorizontalAlignment());
-			auto layout = m_textLayoutCache.GetOrCreate(
-				column,
-				columns[column]->m_data.m_stringContent,
-				layoutMaxWidth, layoutMaxHeight,
-				columnHA,
-				m_table_ref.m_tableProperty.HeaderVerticalAlignment
-			);
+			if (auto const* stringContent = std::get_if<winrt::hstring>(&columns[column]->m_data.m_content))
+			{
+				auto const horizontalAlignment = D2DConvert::ToDWriteHorizontalAlignment(columns[column]->HorizontalAlignment());
+				auto layout = m_textLayoutCache.GetOrCreate(
+					column,
+					*stringContent,
+					layoutMaxWidth, layoutMaxHeight,
+					horizontalAlignment,
+					m_table_ref.m_tableProperty.HeaderVerticalAlignment
+				);
 
-			if (!m_initialSizing)
-				m_d2dContext->DrawTextLayout({ currentX + verticalLineSpace + padLeft, padTop }, layout, m_resource.m_headerTextBrush.get());
+				if (!m_initialSizing)
+					m_d2dContext->DrawTextLayout({ currentX + verticalLineSpace + padLeft, padTop }, layout, m_resource.m_headerTextBrush.get());
+			}
 
 			if (m_sortColumnIndex == static_cast<int>(column))
 			{
