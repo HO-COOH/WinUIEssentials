@@ -27,5 +27,5 @@ void TableVerticalLines::Draw(ID2D1DeviceContext* d2dContext, float scrollOffset
 
 bool TableVerticalLines::CompareVersion(uint32_t widthVersion)
 {
-	return std::exchange(m_widthVersion, widthVersion) != widthVersion;
+	return (std::exchange(m_widthVersion, widthVersion) != widthVersion) | std::exchange(m_dirty, false);
 }

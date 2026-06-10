@@ -26,8 +26,6 @@ TableD2DResource::TableD2DResource(TextLayoutCache& textLayoutCache) : m_textLay
 
 void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& tableData)
 {
-
-
 	if(tableData.m_headerForeground != m_localTableData.m_headerForeground) 
 		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_headerForeground, m_headerTextBrush.put()));
 	if (tableData.m_contentForeground != m_localTableData.m_contentForeground)
@@ -38,7 +36,9 @@ void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& ta
 		setIfNotTransparent(m_horizontalLineBrush, d2dContext, tableData.m_horizontalLineColor);
 	if (tableData.m_verticalLineColor != m_localTableData.m_verticalLineColor)
 		setIfNotTransparent(m_verticalLineBrush, d2dContext, tableData.m_verticalLineColor);
-	
+	if (tableData.m_pointerOverBackground != m_localTableData.m_pointerOverBackground)
+		setIfNotTransparent(m_hoverBrush, d2dContext, tableData.m_pointerOverBackground);
+
 	bool fontChanged{};
 	if (tableData.m_headerFontSize != m_localTableData.m_headerFontSize || tableData.m_headerFontWeight != m_localTableData.m_headerFontWeight)
 	{
@@ -72,7 +72,6 @@ void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& ta
 		m_textLayoutCache_ref.Clear();
 
 	winrt::check_hresult(d2dContext->CreateSolidColorBrush(D2D1::ColorF(0x4cc2ff), m_pillBrush.put()));
-	winrt::check_hresult(d2dContext->CreateSolidColorBrush(D2D1::ColorF(0x103c4c), m_hoverBrush.put()));
 
 	m_localTableData = std::move(tableData);
 }

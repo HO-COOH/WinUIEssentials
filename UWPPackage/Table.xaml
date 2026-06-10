@@ -19,12 +19,20 @@
     SizeChanged="SwapChainPanel_SizeChanged"
     Unloaded="Table_Unloaded"
     mc:Ignorable="d">
+    <SwapChainPanel.Style>
+        <Style TargetType="local:Table">
+            <Setter Property="PointerOverBackground" Value="{ThemeResource ControlFillColorSecondary}" />
+            <Setter Property="HorizontalLineColor" Value="{ThemeResource DividerStrokeColorDefault}" />
+            <Setter Property="VerticalLineColor" Value="{ThemeResource DividerStrokeColorDefault}" />
+        </Style>
+    </SwapChainPanel.Style>
 
     <Canvas x:Name="ControlsOverlay" />
     <Canvas x:Name="HeaderControlsOverlay" />
 
     <primitives:ScrollBar
         x:Name="VerticalScrollBar"
+        Margin="0,36,0,0"
         HorizontalAlignment="Right"
         VerticalAlignment="Stretch"
         IndicatorMode="MouseIndicator"

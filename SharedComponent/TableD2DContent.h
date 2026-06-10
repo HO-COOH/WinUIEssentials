@@ -137,7 +137,6 @@ private:
 	void drawRowCells(int row, float rowY, float scrollOffsetX, float scale);
 	void drawVerticalLines();
 	void updateScrollOffsets();
-	D2D1_ROUNDED_RECT getResizePillRect(int column, float scrollOffsetX) const;
 	D2D_RECT_F getRowRect(int row, float scrollOffsetY, float scale) const;
 
 	winrt::com_ptr<ID2D1Factory1> d2d1Factory = DirectN::CreateD2D1Factory();

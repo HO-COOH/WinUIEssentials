@@ -42,8 +42,7 @@ void SwapChainInterop::SetTarget(ID2D1DeviceContext* d2dContext)
 
 	auto const rawWidth = (std::max<UINT>)(1, static_cast<UINT>(CurrentSize.Width * Scale));
 	auto const rawHeight = (std::max<UINT>)(1, static_cast<UINT>(CurrentSize.Height * Scale));
-	winrt::check_hresult(get()->ResizeBuffers(
-		0, rawWidth, rawHeight, DXGI_FORMAT_UNKNOWN, 0));
+	winrt::check_hresult(get()->ResizeBuffers(0, rawWidth, rawHeight, DXGI_FORMAT_UNKNOWN, 0));
 
 	inverseDpi();
 

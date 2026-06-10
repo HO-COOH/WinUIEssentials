@@ -32,6 +32,12 @@ namespace winrt::PackageRoot::implementation
             winrt::xaml_typename<class_type>(),
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderBackgroundChanged }
         );
+		s_pointerOverBackgroundProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+			L"PointerOverBackground",
+			winrt::xaml_typename<winrt::Windows::UI::Color>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onPointerOverBackgroundChanged }
+		);
         s_headerFontSizeProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"HeaderFontSize",
             winrt::xaml_typename<double>(),
@@ -145,8 +151,7 @@ namespace winrt::PackageRoot::implementation
         auto const unset = winrt::WinUINamespace::UI::Xaml::DependencyProperty::UnsetValue();
         auto const headerForegroundSet = ReadLocalValue(s_headerForegroundProperty) != unset;
         auto const contentForegroundSet = ReadLocalValue(s_contentForegroundProperty) != unset;
-        auto const headerBackgroundSet = ReadLocalValue(s_headerBackgroundProperty) != unset;
-        m_sharedData.Update([headerForegroundSet, contentForegroundSet, headerBackgroundSet, theme = ActualTheme()](TableProperty& data)
+        m_sharedData.Update([headerForegroundSet, contentForegroundSet, theme = ActualTheme()](TableProperty& data)
         {
             if (theme == winrt::WinUINamespace::UI::Xaml::ElementTheme::Light)
             {
@@ -164,7 +169,7 @@ namespace winrt::PackageRoot::implementation
             }
         });
         
-        if (!headerForegroundSet && !contentForegroundSet && !headerBackgroundSet)
+        if (!headerForegroundSet || !contentForegroundSet)
             requestDraw(true);
     }
 
@@ -251,6 +256,21 @@ namespace winrt::PackageRoot::implementation
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderBackgroundProperty()
     {
         return s_headerBackgroundProperty;
+    }
+
+    winrt::Windows::UI::Color Table::PointerOverBackground()
+    {
+        return winrt::unbox_value<winrt::Windows::UI::Color>(s_pointerOverBackgroundProperty);
+    }
+
+    void Table::PointerOverBackground(winrt::Windows::UI::Color const& value)
+    {
+		SetValue(s_pointerOverBackgroundProperty, winrt::box_value(value));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty const& Table::PointerOverBackgroundProperty()
+    {
+        return s_pointerOverBackgroundProperty;
     }
 
     double Table::HeaderFontSize()
@@ -759,6 +779,19 @@ namespace winrt::PackageRoot::implementation
             self->m_tableProperty.m_headerBackground = value;
     }
 
+    void Table::onPointerOverBackgroundChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        if (self->m_isLoaded)
+        {
+            self->m_sharedData.Update([value](TableProperty& data) {data.m_pointerOverBackground = value; });
+            self->m_d2dContent.RequestDraw(FrameRequest::Flag::HoverColorDirty);
+        }
+        else
+            self->m_tableProperty.m_pointerOverBackground = value;
+    }
+
     void Table::onHeaderFontSizeChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto self = GetSelf(d);
@@ -822,7 +855,10 @@ namespace winrt::PackageRoot::implementation
 		auto self = GetSelf(d);
 		auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
         if (self->m_isLoaded)
+        {
             self->m_sharedData.Update([value](TableProperty& data) {data.m_verticalLineColor = value; });
+            self->m_d2dContent.RequestDraw(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::VerticalLineColorDirty);
+        }
         else
             self->m_tableProperty.m_verticalLineColor = value;
     }

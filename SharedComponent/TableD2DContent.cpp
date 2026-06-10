@@ -268,27 +268,6 @@ void TableD2DContent::SetHover(float y)
 		RequestDraw();
 }
 
-D2D1_ROUNDED_RECT TableD2DContent::getResizePillRect(int column, float scrollOffsetX) const
-{
-	auto const columnEndX = m_columnWidthManager.SumColumnWidth(column + 1, -scrollOffsetX);
-	auto const rawColumnEndX = columnEndX * m_swapChain.Scale;
-
-	auto const scaledPillWidth = TableConstants::PillWidth * m_swapChain.Scale;
-
-	return D2D1_ROUNDED_RECT
-	{
-		.rect = D2D_RECT_F
-		{
-			.left = rawColumnEndX - scaledPillWidth,
-			.top = TableConstants::PillPaddingY * m_swapChain.Scale,
-			.right = rawColumnEndX + scaledPillWidth,
-			.bottom = (TableConstants::RowHeight - TableConstants::PillPaddingY) * m_swapChain.Scale
-		},
-		.radiusX = TableConstants::PillCornerRadius * m_swapChain.Scale,
-		.radiusY = TableConstants::PillCornerRadius * m_swapChain.Scale
-	};
-}
-
 D2D_RECT_F TableD2DContent::getRowRect(int row, float scrollOffsetY, float scale) const
 {
 	auto const rawRowHeight = TableConstants::RowHeight * scale;
@@ -368,14 +347,21 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 		return;
 
 	bool fullRedraw = (frame & FrameRequest::Flag::FullRedraw) != 0;
+	bool const hoverColorOnly = !fullRedraw && (frame & FrameRequest::Flag::HoverColorDirty);
 
 	if (m_table_ref.m_sharedData.ConsumeChanged())
 	{
 		auto sharedData = m_table_ref.m_sharedData.GetCopy();
 		m_resource.Create(m_d2dContext.get(), std::move(sharedData));
-		fullRedraw = true;
-		frame |= FrameRequest::Flag::HeaderDirty;
+		if (!hoverColorOnly)
+		{
+			fullRedraw = true;
+			frame |= FrameRequest::Flag::HeaderDirty;
+		}
 	}
+
+	if (frame & FrameRequest::Flag::VerticalLineColorDirty)
+		m_verticalLines.Invalidate();
 
 	int const hoveredResizeColumn = m_hoveredResizeColumn.load(std::memory_order_relaxed);
 	auto const scrollOffsetX = m_scrollOffsetX.load(std::memory_order_relaxed);
@@ -404,6 +390,8 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 		bool const headerDirty = (frame & FrameRequest::Flag::HeaderDirty) != 0;
 		drawFull(scrollOffsetX, scrollOffsetY, hoveredResizeColumn, m_hoveredRow, scale, headerDirty);
 	}
+	else if (hoverColorOnly && m_hoveredRow != TableConstants::HoveredRowNone)
+		drawPartialHover(m_hoveredRow, m_hoveredRow, scrollOffsetX, scrollOffsetY, scale);
 	else if (m_hoveredRow != m_prevHoveredRow)
 		drawPartialHover(m_prevHoveredRow, m_hoveredRow, scrollOffsetX, scrollOffsetY, scale);
 
@@ -526,7 +514,7 @@ void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffse
 	presentClippedRegions(clipRects, dirtyCount, [&](size_t i)
 	{
 		auto const& dirty = dirtyRows[i];
-		if (dirty.row == newRow)
+		if (dirty.row == newRow && m_resource.m_hoverBrush)
 		{
 			D2D1_ROUNDED_RECT const fill
 			{
@@ -600,19 +588,6 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 			{
 				//draw sort indicator here
 			}
-
-
-			if (column != (m_table_ref.m_columns->m_data.size() - 1))
-			{
-				//the resize handle do not needs to be drawn for the last column
-				D2DPrimitiveHelper::DrawVerticalLine(
-					m_d2dContext.get(),
-					currentX + rawColumnWidth - 1,
-					TableConstants::PillPaddingY * scale,
-					(TableConstants::RowHeight - TableConstants::PillPaddingY) * scale,
-					hoveredResizeColumn == column ? m_resource.m_pillBrush.get() : m_resource.m_headerTextBrush.get()
-				);
-			}
 		}
 		currentX += rawColumnWidth;
 	}
@@ -632,7 +607,7 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hov
 	{
 		auto const rowRect = getRowRect(row, scrollOffsetY, scale);
 
-		if (row == hoveredRow)
+		if (row == hoveredRow && m_resource.m_hoverBrush)
 		{
 			D2D1_ROUNDED_RECT const fill
 			{
@@ -641,14 +616,6 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hov
 				.radiusY = rawCornerRadius
 			};
 			m_d2dContext->FillRoundedRectangle(&fill, m_resource.m_hoverBrush.get());
-		}
-		else
-		{
-			//draw default background
-			//m_d2dContext->FillRectangle(
-			//	D2D1::RectF(rawCornerRadius, rowRect.top, rowRect.right - rawCornerRadius, rowRect.bottom),
-			//	(row % 2 == 0) ? m_backgroundBrush.get() : m_alternateBackgroundBrush.get()
-			//);
 		}
 
 		drawRowCells(row, rowRect.top, scrollOffsetX, scale);

@@ -23,6 +23,9 @@ namespace PackageRoot
         Windows.UI.Color HeaderBackground;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderBackgroundProperty{ get; };
 
+        Windows.UI.Color PointerOverBackground;
+		static WinUINamespace.UI.Xaml.DependencyProperty PointerOverBackgroundProperty{ get; };
+
         Double HeaderFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
 

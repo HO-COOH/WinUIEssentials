@@ -51,6 +51,10 @@ namespace winrt::PackageRoot::implementation
         void HeaderBackground(winrt::Windows::UI::Color const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderBackgroundProperty();
 
+        winrt::Windows::UI::Color PointerOverBackground();
+        void PointerOverBackground(winrt::Windows::UI::Color const& value);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty const& PointerOverBackgroundProperty();
+
         double HeaderFontSize();
         void HeaderFontSize(double value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontSizeProperty();
@@ -134,6 +138,7 @@ namespace winrt::PackageRoot::implementation
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerBackgroundProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_pointerOverBackgroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentPaddingProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontWeightProperty{ nullptr };
@@ -154,6 +159,10 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
         static void onHeaderBackgroundChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+        );
+        static void onPointerOverBackgroundChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
