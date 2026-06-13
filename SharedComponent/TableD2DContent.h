@@ -3,7 +3,7 @@
 #include "DispatcherAdapter.h"
 #include <d2d1_1.h>
 #include <d3d11.h>
-#include <dwrite.h>
+#include <dwrite_3.h>
 #include <atomic>
 #include <thread>
 #include <vector>
@@ -19,6 +19,7 @@
 #include "FrameRequest.h"
 #include "TableHeaderBitmap.h"
 #include "TableVerticalLines.h"
+#include "TableHeightManager.h"
 
 namespace winrt
 {
@@ -142,10 +143,11 @@ private:
 	winrt::com_ptr<ID2D1Factory1> d2d1Factory = DirectN::CreateD2D1Factory();
 	winrt::com_ptr<ID3D11Device> m_d3dDevice = DirectN::CreateD3D11Device();
 	winrt::com_ptr<ID2D1DeviceContext> m_d2dContext;
-	winrt::com_ptr<IDWriteFactory> m_dwriteFactory = DirectN::CreateDWriteFactory();
+	winrt::com_ptr<IDWriteFactory6> m_dwriteFactory = DirectN::CreateDWriteFactory<IDWriteFactory6>();
 	SwapChainInterop m_swapChain;
 
 public:
+	TableHeightManager m_tableHeight{ m_dwriteFactory.get() };
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData };
 private:

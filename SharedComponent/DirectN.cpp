@@ -40,17 +40,6 @@ namespace DirectN
 		return d2dDevice;
 	}
 
-	winrt::com_ptr<IDWriteFactory> CreateDWriteFactory()
-	{
-		winrt::com_ptr<IDWriteFactory> dwriteFactory;
-		winrt::check_hresult(DWriteCreateFactory(
-			DWRITE_FACTORY_TYPE_SHARED,
-			__uuidof(IDWriteFactory),
-			reinterpret_cast<IUnknown**>(dwriteFactory.put_void())
-		));
-		return dwriteFactory;
-	}
-
 	winrt::com_ptr<ID2D1Device> GetD2D1Device(ID2D1Factory1* d2dFactory, IDXGIDevice* dxgiDevice)
 	{
 		winrt::com_ptr<ID2D1Device> d2dDevice;

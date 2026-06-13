@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "TableVerticalLines.h"
 #include <d2d1_1.h>
 

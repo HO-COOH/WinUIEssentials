@@ -24,6 +24,7 @@
             <Setter Property="PointerOverBackground" Value="{ThemeResource ControlFillColorSecondary}" />
             <Setter Property="HorizontalLineColor" Value="{ThemeResource DividerStrokeColorDefault}" />
             <Setter Property="VerticalLineColor" Value="{ThemeResource DividerStrokeColorDefault}" />
+            <Setter Property="FontFamily" Value="XamlAutoFontFamily" />
         </Style>
     </SwapChainPanel.Style>
 

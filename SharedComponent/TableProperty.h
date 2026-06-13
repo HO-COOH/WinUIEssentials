@@ -24,15 +24,23 @@ struct TableProperty
 
 	float m_headerFontSize = DefaultHeaderFontSize;
 	float m_contentFontSize = DefaultContentFontSize;
+
+	DWRITE_FONT_STYLE m_headerFontStyle = DWRITE_FONT_STYLE_NORMAL;
+	DWRITE_FONT_STYLE m_contentFontStyle = DWRITE_FONT_STYLE_NORMAL;
+
+	DWRITE_FONT_STRETCH m_headerFontStretch = DWRITE_FONT_STRETCH_NORMAL;
+	DWRITE_FONT_STRETCH m_contentFontStretch = DWRITE_FONT_STRETCH_NORMAL;
+
 	DWRITE_TEXT_ALIGNMENT HeaderHorizontalAlignment = DWRITE_TEXT_ALIGNMENT_LEADING;
 	DWRITE_PARAGRAPH_ALIGNMENT HeaderVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;
 
 	D2D_COLOR_F m_horizontalLineColor = {};
 	D2D_COLOR_F m_verticalLineColor = {};
+	float m_horizontalLineThickness = 1.f;
 	float m_verticalLineThickness = 1.f;
 
-	DWRITE_FONT_WEIGHT m_headerFontWeight;
-	DWRITE_FONT_WEIGHT m_contentFontWeight;
+	DWRITE_FONT_WEIGHT m_headerFontWeight = DWRITE_FONT_WEIGHT_NORMAL;
+	DWRITE_FONT_WEIGHT m_contentFontWeight = DWRITE_FONT_WEIGHT_NORMAL;
 
 	constexpr void InitializeForTheme(winrt::WinUINamespace::UI::Xaml::ElementTheme theme)
 	{

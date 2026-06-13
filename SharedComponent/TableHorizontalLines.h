@@ -25,5 +25,5 @@ public:
 	// dataBottomY: device-pixel Y below which no line should appear (typically
 	// the bottom of the last data row). Clips out the buffer line when data
 	// doesn't extend past the viewport.
-	void Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetY, float dataBottomY);
+	void Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetY, float dataBottomY, float strokeWidth);
 };

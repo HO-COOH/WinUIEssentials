@@ -40,28 +40,34 @@ void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& ta
 		setIfNotTransparent(m_hoverBrush, d2dContext, tableData.m_pointerOverBackground);
 
 	bool fontChanged{};
-	if (tableData.m_headerFontSize != m_localTableData.m_headerFontSize || tableData.m_headerFontWeight != m_localTableData.m_headerFontWeight)
+	if (tableData.m_headerFontSize != m_localTableData.m_headerFontSize ||
+		tableData.m_headerFontWeight != m_localTableData.m_headerFontWeight ||
+		tableData.m_headerFontStyle != m_localTableData.m_headerFontStyle ||
+		tableData.m_headerFontStretch != m_localTableData.m_headerFontStretch)
 	{
 		m_textLayoutCache_ref.CreateHeaderTextFormat(
 			L"Segoe UI Semibold",
 			nullptr,
 			tableData.m_headerFontWeight,
-			DWRITE_FONT_STYLE_NORMAL,
-			DWRITE_FONT_STRETCH_NORMAL,
+			tableData.m_headerFontStyle,
+			tableData.m_headerFontStretch,
 			tableData.m_headerFontSize,
 			L"en-US"
 		);
 		fontChanged = true;
 	}
 
-	if (tableData.m_contentFontSize != m_localTableData.m_contentFontSize || tableData.m_contentFontWeight != m_localTableData.m_contentFontWeight)
+	if (tableData.m_contentFontSize != m_localTableData.m_contentFontSize ||
+		tableData.m_contentFontWeight != m_localTableData.m_contentFontWeight ||
+		tableData.m_contentFontStyle != m_localTableData.m_contentFontStyle ||
+		tableData.m_contentFontStretch != m_localTableData.m_contentFontStretch)
 	{
 		m_textLayoutCache_ref.CreateCeilTextFormat(
 			L"Segoe UI",
 			nullptr,
 			tableData.m_contentFontWeight,
-			DWRITE_FONT_STYLE_NORMAL,
-			DWRITE_FONT_STRETCH_NORMAL,
+			tableData.m_contentFontStyle,
+			tableData.m_contentFontStretch,
 			tableData.m_contentFontSize,
 			L"en-US"
 		);
@@ -81,18 +87,18 @@ void TableD2DResource::ScaleChanged()
 	m_textLayoutCache_ref.CreateHeaderTextFormat(
 		L"Segoe UI Semibold",
 		nullptr,
-		DWRITE_FONT_WEIGHT_SEMI_BOLD,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL,
+		m_localTableData.m_headerFontWeight,
+		m_localTableData.m_headerFontStyle,
+		m_localTableData.m_headerFontStretch,
 		m_localTableData.m_headerFontSize,
 		L"en-US"
 	);
 	m_textLayoutCache_ref.CreateCeilTextFormat(
 		L"Segoe UI",
 		nullptr,
-		DWRITE_FONT_WEIGHT_NORMAL,
-		DWRITE_FONT_STYLE_NORMAL,
-		DWRITE_FONT_STRETCH_NORMAL,
+		m_localTableData.m_contentFontWeight,
+		m_localTableData.m_contentFontStyle,
+		m_localTableData.m_contentFontStretch,
 		m_localTableData.m_contentFontSize,
 		L"en-US"
 	);

@@ -26,20 +26,34 @@ namespace PackageRoot
         Windows.UI.Color PointerOverBackground;
 		static WinUINamespace.UI.Xaml.DependencyProperty PointerOverBackgroundProperty{ get; };
 
+        //header fonts
         Double HeaderFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
+
+		Windows.UI.Text.FontStretch HeaderFontStretch;
+		static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontStretchProperty{ get; };
+
+        Windows.UI.Text.FontStyle HeaderFontStyle;
+		static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontStyleProperty{ get; };
 
         Windows.UI.Text.FontWeight HeaderFontWeight;
         static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontWeightProperty{ get; };
 
+        //content fonts
         Double ContentFontSize;
         static WinUINamespace.UI.Xaml.DependencyProperty ContentFontSizeProperty{ get; };
 
-        WinUINamespace.UI.Xaml.Media.FontFamily FontFamily;
-        static WinUINamespace.UI.Xaml.DependencyProperty FontFamilyProperty{ get; };
+		Windows.UI.Text.FontStretch ContentFontStretch;
+		static WinUINamespace.UI.Xaml.DependencyProperty ContentFontStretchProperty{ get; };
+
+        Windows.UI.Text.FontStyle ContentFontStyle;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentFontStyleProperty{ get; };
 
         Windows.UI.Text.FontWeight ContentFontWeight;
         static WinUINamespace.UI.Xaml.DependencyProperty ContentFontWeightProperty{ get; };
+
+        WinUINamespace.UI.Xaml.Media.FontFamily FontFamily;
+        static WinUINamespace.UI.Xaml.DependencyProperty FontFamilyProperty{ get; };
 
         WinUINamespace.UI.Xaml.Thickness ContentPadding;
         static WinUINamespace.UI.Xaml.DependencyProperty ContentPaddingProperty{ get; };

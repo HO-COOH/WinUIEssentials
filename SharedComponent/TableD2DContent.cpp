@@ -322,12 +322,14 @@ void TableD2DContent::drawThreadProc()
 		{
 			m_swapChain.SetTarget(m_d2dContext.get());
 			drawRequest |= FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty;
+			m_verticalLines.Invalidate();
 		}
 
 		if (std::exchange(m_textLayoutCache.Scale, m_swapChain.Scale) != m_swapChain.Scale)
 		{
 			m_resource.ScaleChanged();
 			drawRequest |= FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty;
+			m_verticalLines.Invalidate();
 		}
 
 		draw(drawRequest);
@@ -416,7 +418,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 
 	drawRows(scrollOffsetX, scrollOffsetY, hoveredRow);
 	auto const rawDataBottomY = rawHeaderHeight + m_textLayoutCache.RowCount() * rawRowHeight - scrollOffsetY * scale;
-	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - 1);
+	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - 1, m_resource.m_localTableData.m_horizontalLineThickness * scale);
 
 	if (m_verticalLines)
 		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale);

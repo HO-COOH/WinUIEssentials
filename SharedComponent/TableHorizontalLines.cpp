@@ -43,7 +43,7 @@ void TableHorizontalLines::Rebuild(float viewportWidth, float viewportHeight, fl
 	winrt::check_hresult(sink->Close());
 }
 
-void TableHorizontalLines::Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetY, float dataBottomY)
+void TableHorizontalLines::Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetY, float dataBottomY, float strokeWidth)
 {
 	if (!m_geometry || !m_resource_ref.m_horizontalLineBrush)
 		return;
@@ -61,7 +61,7 @@ void TableHorizontalLines::Draw(ID2D1DeviceContext* d2dContext, float scrollOffs
 		D2D1_ANTIALIAS_MODE_ALIASED
 	);
 	d2dContext->SetTransform(D2D1::Matrix3x2F::Translation(0.f, yOffset) * saved);
-	d2dContext->DrawGeometry(m_geometry.get(), m_resource_ref.m_horizontalLineBrush.get());
+	d2dContext->DrawGeometry(m_geometry.get(), m_resource_ref.m_horizontalLineBrush.get(), strokeWidth);
 	d2dContext->SetTransform(saved);
 	d2dContext->PopAxisAlignedClip();
 }

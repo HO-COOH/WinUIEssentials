@@ -420,6 +420,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)VectorViewBase.hpp">
       <Filter>Table\Xaml\Base</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeightManager.h">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DWriteInterop.h">
+      <Filter>DirectN</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -586,6 +592,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CachedScrollBar.cpp">
       <Filter>Table\Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeightManager.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DWriteInterop.cpp">
+      <Filter>DirectN</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

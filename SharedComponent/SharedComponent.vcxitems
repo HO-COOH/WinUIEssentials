@@ -71,6 +71,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ConverterGroup.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CursorController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependentValue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DWriteInterop.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EditControlOverlay.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EqualPanel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FontIconExtension.cpp" />
@@ -106,6 +107,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeightManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHorizontalLines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableRow.cpp" />
@@ -132,6 +134,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DConvert.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DWriteInterop.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EditControlOverlay.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EqualPanel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FontIconExtension.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeightManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableOverlayManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />

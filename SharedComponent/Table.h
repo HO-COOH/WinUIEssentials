@@ -79,6 +79,22 @@ namespace winrt::PackageRoot::implementation
         void ContentFontWeight(winrt::Windows::UI::Text::FontWeight const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentFontWeightProperty();
 
+        winrt::Windows::UI::Text::FontStyle HeaderFontStyle();
+        void HeaderFontStyle(winrt::Windows::UI::Text::FontStyle fontStyle);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontStyleProperty();
+
+        winrt::Windows::UI::Text::FontStyle ContentFontStyle();
+		void ContentFontStyle(winrt::Windows::UI::Text::FontStyle fontStyle);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentFontStyleProperty();
+
+		winrt::Windows::UI::Text::FontStretch HeaderFontStretch();
+		void HeaderFontStretch(winrt::Windows::UI::Text::FontStretch fontStretch);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderFontStretchProperty();
+
+		winrt::Windows::UI::Text::FontStretch ContentFontStretch();
+		void ContentFontStretch(winrt::Windows::UI::Text::FontStretch fontStretch);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentFontStretchProperty();
+
         winrt::Windows::UI::Color HorizontalLineColor();
         void HorizontalLineColor(winrt::Windows::UI::Color const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HorizontalLineColorProperty();
@@ -139,16 +155,26 @@ namespace winrt::PackageRoot::implementation
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentForegroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerBackgroundProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_pointerOverBackgroundProperty{ nullptr };
+        //fonts
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentPaddingProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontWeightProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontSizeProperty{ nullptr };
+
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontWeightProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontWeightProperty{ nullptr };
+
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontStyleProperty{ nullptr };
+		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontStyleProperty{ nullptr };
+
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontStretchProperty{ nullptr };
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontStretchProperty{ nullptr };
+
+        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentPaddingProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_fontFamilyProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineColorProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineThicknessProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineColorProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineThicknessProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontWeightProperty{ nullptr };
+
 
         static void onHeaderForegroundChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
@@ -206,6 +232,22 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
+		static void onHeaderFontStyleChanged(
+			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+		);
+		static void onContentFontStyleChanged(
+			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+		);
+		static void onHeaderFontStretchChanged(
+			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+		);
+		static void onContentFontStretchChanged(
+			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+		);
     public:
         winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
         winrt::com_ptr<TableRowDataSource> m_tableRowDataSource{ nullptr };

@@ -42,4 +42,31 @@ namespace D2DConvert
 			case winrt::WinUINamespace::UI::Xaml::HorizontalAlignment::Stretch: return DWRITE_TEXT_ALIGNMENT_JUSTIFIED;
 		}
 	}
+
+	constexpr inline auto ToDwriteFontStyle(winrt::Windows::UI::Text::FontStyle fontStyle)
+	{
+		switch (fontStyle)
+		{
+			case winrt::Windows::UI::Text::FontStyle::Normal: return DWRITE_FONT_STYLE_NORMAL;
+			case winrt::Windows::UI::Text::FontStyle::Oblique: return DWRITE_FONT_STYLE_OBLIQUE;
+			case winrt::Windows::UI::Text::FontStyle::Italic: return DWRITE_FONT_STYLE_ITALIC;
+		}
+	}
+
+	constexpr inline auto ToDwriteFontStretch(winrt::Windows::UI::Text::FontStretch fontStretch)
+	{
+		switch (fontStretch)
+		{
+			case winrt::Windows::UI::Text::FontStretch::Undefined: return DWRITE_FONT_STRETCH_UNDEFINED;
+			case winrt::Windows::UI::Text::FontStretch::UltraCondensed: return DWRITE_FONT_STRETCH_ULTRA_CONDENSED;
+			case winrt::Windows::UI::Text::FontStretch::ExtraCondensed: return DWRITE_FONT_STRETCH_EXTRA_CONDENSED;
+			case winrt::Windows::UI::Text::FontStretch::Condensed: return DWRITE_FONT_STRETCH_CONDENSED;
+			case winrt::Windows::UI::Text::FontStretch::SemiCondensed: return DWRITE_FONT_STRETCH_SEMI_CONDENSED;
+			case winrt::Windows::UI::Text::FontStretch::Normal: return DWRITE_FONT_STRETCH_NORMAL;
+			case winrt::Windows::UI::Text::FontStretch::SemiExpanded: return DWRITE_FONT_STRETCH_SEMI_EXPANDED;
+			case winrt::Windows::UI::Text::FontStretch::Expanded: return DWRITE_FONT_STRETCH_EXPANDED;
+			case winrt::Windows::UI::Text::FontStretch::ExtraExpanded: return DWRITE_FONT_STRETCH_EXTRA_EXPANDED;
+			case winrt::Windows::UI::Text::FontStretch::UltraExpanded: return DWRITE_FONT_STRETCH_ULTRA_EXPANDED;
+		}
+	}
 }

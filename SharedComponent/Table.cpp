@@ -114,6 +114,30 @@ namespace winrt::PackageRoot::implementation
                 &Table::onContentFontWeightChanged
             }
         );
+        s_headerFontStyleProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"HeaderFontStyle",
+            winrt::xaml_typename<winrt::Windows::UI::Text::FontStyle>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderFontStyleChanged }
+        );
+		s_contentFontStyleProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+			L"ContentFontStyle",
+			winrt::xaml_typename<winrt::Windows::UI::Text::FontStyle>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onContentFontStyleChanged }
+		);
+        s_headerFontStretchProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+            L"HeaderFontStretch",
+            winrt::xaml_typename<winrt::Windows::UI::Text::FontStretch>(),
+            winrt::xaml_typename<class_type>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onHeaderFontStretchChanged }
+        );
+		s_contentFontStretchProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+			L"ContentFontStretch",
+			winrt::xaml_typename<winrt::Windows::UI::Text::FontStretch>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onContentFontStretchChanged }
+		);
     }
 
     Table::Table()
@@ -361,6 +385,66 @@ namespace winrt::PackageRoot::implementation
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentFontWeightProperty()
     {
         return s_contentFontWeightProperty;
+    }
+
+    winrt::Windows::UI::Text::FontStyle Table::HeaderFontStyle()
+    {
+		return winrt::unbox_value<winrt::Windows::UI::Text::FontStyle>(GetValue(s_headerFontStyleProperty));
+    }
+
+    void Table::HeaderFontStyle(winrt::Windows::UI::Text::FontStyle fontStyle)
+    {
+		SetValue(s_headerFontStyleProperty, winrt::box_value(fontStyle));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderFontStyleProperty()
+    {
+        return s_headerFontStyleProperty;
+    }
+
+    winrt::Windows::UI::Text::FontStyle Table::ContentFontStyle()
+    {
+		return winrt::unbox_value<winrt::Windows::UI::Text::FontStyle>(GetValue(s_contentFontStyleProperty));
+    }
+
+    void Table::ContentFontStyle(winrt::Windows::UI::Text::FontStyle fontStyle)
+    {
+        SetValue(s_contentFontStyleProperty, winrt::box_value(fontStyle));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentFontStyleProperty()
+    {
+        return s_contentFontStyleProperty;
+    }
+
+    winrt::Windows::UI::Text::FontStretch Table::HeaderFontStretch()
+    {
+        return winrt::unbox_value<winrt::Windows::UI::Text::FontStretch>(GetValue(s_headerFontStretchProperty));
+    }
+
+    void Table::HeaderFontStretch(winrt::Windows::UI::Text::FontStretch fontStretch)
+    {
+        SetValue(s_headerFontStretchProperty, winrt::box_value(fontStretch));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderFontStretchProperty()
+    {
+        return s_headerFontStretchProperty;
+    }
+
+    winrt::Windows::UI::Text::FontStretch Table::ContentFontStretch()
+    {
+		return winrt::unbox_value<winrt::Windows::UI::Text::FontStretch>(GetValue(s_contentFontStretchProperty));
+    }
+
+    void Table::ContentFontStretch(winrt::Windows::UI::Text::FontStretch fontStretch)
+    {
+		SetValue(s_contentFontStretchProperty, winrt::box_value(fontStretch));
+    }
+
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentFontStretchProperty()
+    {
+        return s_contentFontStretchProperty;
     }
 
     winrt::Windows::UI::Color Table::HorizontalLineColor()
@@ -834,6 +918,10 @@ namespace winrt::PackageRoot::implementation
 
     void Table::onFontFamilyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
+		auto fontFamily = e.NewValue().as<winrt::WinUINamespace::UI::Xaml::Media::FontFamily>();
+		//auto source = fontFamily.Source();
+        auto self = GetSelf(d);
+        self->m_d2dContent.m_tableHeight.UpdateHeaderFont(fontFamily, self->HeaderFontSize());
     }
 
     void Table::onHorizontalLineColorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -848,6 +936,15 @@ namespace winrt::PackageRoot::implementation
 
     void Table::onHorizontalLineThicknessChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
+        auto self = GetSelf(d);
+        auto const value = static_cast<float>(winrt::unbox_value<double>(e.NewValue()));
+        if (self->m_isLoaded)
+        {
+            self->m_sharedData.Update([value](TableProperty& data) {data.m_horizontalLineThickness = value; });
+            self->m_d2dContent.RequestDraw(FrameRequest::Flag::FullRedraw);
+        }
+        else
+            self->m_tableProperty.m_horizontalLineThickness = value;
     }
 
     void Table::onVerticalLineColorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -881,6 +978,46 @@ namespace winrt::PackageRoot::implementation
             self->m_sharedData.Update([value](TableProperty& data) {data.m_contentFontWeight = value; });
         else
             self->m_tableProperty.m_contentFontWeight = value;
+    }
+
+    void Table::onHeaderFontStyleChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = D2DConvert::ToDwriteFontStyle(winrt::unbox_value<winrt::Windows::UI::Text::FontStyle>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableProperty& data) { data.m_headerFontStyle = value; });
+        else
+            self->m_tableProperty.m_headerFontStyle = value;
+    }
+
+    void Table::onContentFontStyleChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = D2DConvert::ToDwriteFontStyle(winrt::unbox_value<winrt::Windows::UI::Text::FontStyle>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableProperty& data) { data.m_contentFontStyle = value; });
+        else
+            self->m_tableProperty.m_contentFontStyle = value;
+    }
+
+    void Table::onHeaderFontStretchChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = D2DConvert::ToDwriteFontStretch(winrt::unbox_value<winrt::Windows::UI::Text::FontStretch>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableProperty& data) { data.m_headerFontStretch = value; });
+        else
+            self->m_tableProperty.m_headerFontStretch = value;
+    }
+
+    void Table::onContentFontStretchChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    {
+        auto self = GetSelf(d);
+        auto const value = D2DConvert::ToDwriteFontStretch(winrt::unbox_value<winrt::Windows::UI::Text::FontStretch>(e.NewValue()));
+        if (self->m_isLoaded)
+            self->m_sharedData.Update([value](TableProperty& data) { data.m_contentFontStretch = value; });
+        else
+            self->m_tableProperty.m_contentFontStretch = value;
     }
 
     void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const&, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const&)
