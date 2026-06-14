@@ -48,11 +48,7 @@ namespace winrt::PackageRoot::implementation
             L"ContentPadding",
             winrt::xaml_typename<winrt::WinUINamespace::UI::Xaml::Thickness>(),
             winrt::xaml_typename<class_type>(),
-            winrt::WinUINamespace::UI::Xaml::PropertyMetadata
-            { 
-                winrt::box_value(TableProperty::DefaultContentPadding), 
-                &Table::onContentPaddingChanged
-            }
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onContentPaddingChanged }
         );
         s_headerFontWeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"HeaderFontWeight",
@@ -68,11 +64,7 @@ namespace winrt::PackageRoot::implementation
             L"ContentFontSize",
             winrt::xaml_typename<double>(),
             winrt::xaml_typename<class_type>(),
-            winrt::WinUINamespace::UI::Xaml::PropertyMetadata
-            {
-                winrt::box_value(14.0),
-                &Table::onContentFontSizeChanged
-            }
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onContentFontSizeChanged }
         );
         s_fontFamilyProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"FontFamily",
@@ -206,7 +198,7 @@ namespace winrt::PackageRoot::implementation
         m_d2dContent.m_dispatcher.TryEnqueue([this] { updateScrollBars(); });
     }
 
-    void Table::updateVerticalScrollBar(float scrollOffsetY)
+    void Table::UpdateVerticalScrollBar(float scrollOffsetY)
     {
         if (m_isUpdatingVerticalScrollBarInCode || !m_verticalScrollBarCache)
             return;
@@ -218,7 +210,8 @@ namespace winrt::PackageRoot::implementation
         if (viewportHeight <= 0)
             return hideVerticalScrollBar();
 
-        auto const totalHeight = m_d2dContent.DataCount() * TableConstants::RowHeight;
+        auto const contentRowHeight = m_d2dContent.m_tableHeight.ContentRowHeight();
+        auto const totalHeight = m_d2dContent.DataCount() * contentRowHeight;
         auto const maxScroll = (std::max)(0.f, totalHeight - viewportHeight);
 
         if (maxScroll <= 0)
@@ -228,7 +221,7 @@ namespace winrt::PackageRoot::implementation
         m_verticalScrollBarCache.Maximum(maxScroll);
         m_verticalScrollBarCache.ViewportSize(viewportHeight);
         m_verticalScrollBarCache.LargeChange(viewportHeight);
-        m_verticalScrollBarCache.SmallChange(TableConstants::RowHeight);
+        m_verticalScrollBarCache.SmallChange(contentRowHeight);
         m_verticalScrollBarCache.Value(scrollOffsetY);
     }
 
@@ -606,7 +599,7 @@ namespace winrt::PackageRoot::implementation
 
     void Table::updateScrollBars()
     {
-        updateVerticalScrollBar(m_d2dContent.ScrollOffsetY());
+        UpdateVerticalScrollBar(m_d2dContent.ScrollOffsetY());
         updateHorizontalScrollBar(m_d2dContent.ScrollOffsetX());
     }
 
@@ -658,12 +651,13 @@ namespace winrt::PackageRoot::implementation
         auto const wheelDelta = -currentPoint.Properties().MouseWheelDelta(); //the MouseWheelDelta is positive when scrolling up, but we want to scroll up when the wheel delta is negative, so we negate it here
 
         constexpr static auto numWheelStepRow = 3;
-        auto const wheelStepY = TableConstants::RowHeight * numWheelStepRow; //one wheel step scrolls 3 rows
+        auto const contentRowHeight = m_d2dContent.m_tableHeight.ContentRowHeight();
+        auto const wheelStepY = contentRowHeight * numWheelStepRow; //one wheel step scrolls 3 rows
 
         constexpr static auto wheelStepDelta = 120;
         auto const scrollY = wheelDelta / wheelStepDelta * wheelStepY; //(number of steps of wheel) * (step Y)
 
-        auto const maxScrollY = m_d2dContent.DataCount() * TableConstants::RowHeight - m_d2dContent.GetViewportHeight();
+        auto const maxScrollY = m_d2dContent.DataCount() * contentRowHeight - m_d2dContent.GetViewportHeight();
         if (maxScrollY > 0)
         {
             auto const baseY = m_d2dContent.IsScrolling() ? m_d2dContent.SmoothScrollTargetY() : m_d2dContent.ScrollOffsetY();
@@ -719,7 +713,7 @@ namespace winrt::PackageRoot::implementation
             return;
         }
 
-        if (y <= TableConstants::RowHeight)
+        if (y <= m_d2dContent.m_tableHeight.HeaderRowHeight())
         {
             //clear row hover while in header
             m_d2dContent.SetHover(-1.0f);
@@ -763,7 +757,7 @@ namespace winrt::PackageRoot::implementation
         }
 
         //is resize column
-        if (y >= TableConstants::RowHeight)
+        if (y >= m_d2dContent.m_tableHeight.HeaderRowHeight())
             return;
 
         //calculate resize column index
@@ -789,9 +783,10 @@ namespace winrt::PackageRoot::implementation
         winrt::WinUINamespace::UI::Xaml::Input::DoubleTappedRoutedEventArgs const& e)
     {
         auto [x, y] = e.GetPosition(*this);
+		auto const headerRowHeight = m_d2dContent.m_tableHeight.HeaderRowHeight();
 
         //ignore double-tap on the header
-        if (y < TableConstants::HeaderHeight)
+        if (y < headerRowHeight)
             return;
 
         //hit-test column
@@ -813,7 +808,7 @@ namespace winrt::PackageRoot::implementation
             return;
 
         //hit-test row
-        int const row = static_cast<int>((y - TableConstants::HeaderHeight + m_d2dContent.ScrollOffsetY()) / TableConstants::RowHeight);
+        int const row = static_cast<int>((y - headerRowHeight + m_d2dContent.ScrollOffsetY()) / m_d2dContent.m_tableHeight.ContentRowHeight());
         if (row < 0 || row >= m_d2dContent.DataCount())
             return;
 
@@ -880,20 +875,29 @@ namespace winrt::PackageRoot::implementation
     {
         auto self = GetSelf(d);
         auto const value = static_cast<float>(winrt::unbox_value<double>(e.NewValue()));
+        auto const fontHeight = self->m_d2dContent.m_tableHeight.SetHeaderFontSize(value);
         if (self->m_isLoaded)
+        {
             self->m_sharedData.Update([value](TableProperty& data) { data.m_headerFontSize = value; });
+            self->requestDraw(true);
+        }
         else
             self->m_tableProperty.m_headerFontSize = value;
+		auto const contentPadding = self->ContentPadding();
+		self->VerticalScrollBar().Margin(winrt::Microsoft::UI::Xaml::Thickness{ 0, fontHeight + contentPadding.Top + contentPadding.Bottom, 0, 0});
     }
 
     void Table::onContentPaddingChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto self = GetSelf(d);
         auto const value = winrt::unbox_value<winrt::WinUINamespace::UI::Xaml::Thickness>(e.NewValue());
+        auto const verticalPadding = static_cast<float>(value.Top + value.Bottom);
+        self->m_d2dContent.m_tableHeight.SetVerticalPadding(verticalPadding);
         if (self->m_isLoaded)
             self->m_sharedData.Update([value](TableProperty& data) {data.m_contentPadding = value; });
         else
             self->m_tableProperty.m_contentPadding = value;
+		self->VerticalScrollBar().Margin(winrt::Microsoft::UI::Xaml::Thickness{ 0, self->m_d2dContent.m_tableHeight.HeaderFontHeight() + verticalPadding, 0, 0});
     }
 
     void Table::onHeaderFontWeightChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -910,18 +914,26 @@ namespace winrt::PackageRoot::implementation
     {
         auto self = GetSelf(d);
         auto const value = static_cast<float>(winrt::unbox_value<double>(e.NewValue()));
+        self->m_d2dContent.m_tableHeight.SetContentFontSize(value);
         if (self->m_isLoaded)
+        {
             self->m_sharedData.Update([value](TableProperty& data) { data.m_contentFontSize = value; });
+            self->requestDraw(true);
+        }
         else
             self->m_tableProperty.m_contentFontSize = value;
     }
 
     void Table::onFontFamilyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-		auto fontFamily = e.NewValue().as<winrt::WinUINamespace::UI::Xaml::Media::FontFamily>();
-		//auto source = fontFamily.Source();
+        auto fontFamily = e.NewValue().as<winrt::WinUINamespace::UI::Xaml::Media::FontFamily>();
         auto self = GetSelf(d);
-        self->m_d2dContent.m_tableHeight.UpdateHeaderFont(fontFamily, self->HeaderFontSize());
+        auto& tableHeight = self->m_d2dContent.m_tableHeight;
+        tableHeight.UpdateFont(fontFamily);
+        tableHeight.SetHeaderFontSize(static_cast<float>(self->HeaderFontSize()));
+        tableHeight.SetContentFontSize(static_cast<float>(self->ContentFontSize()));
+        if (self->m_isLoaded)
+            self->requestDraw(true);
     }
 
     void Table::onHorizontalLineColorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -954,7 +966,7 @@ namespace winrt::PackageRoot::implementation
         if (self->m_isLoaded)
         {
             self->m_sharedData.Update([value](TableProperty& data) {data.m_verticalLineColor = value; });
-            self->m_d2dContent.RequestDraw(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::VerticalLineColorDirty);
+            self->m_d2dContent.RequestDraw(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::VerticalLineDirty);
         }
         else
             self->m_tableProperty.m_verticalLineColor = value;

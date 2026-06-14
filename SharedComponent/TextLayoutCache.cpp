@@ -94,13 +94,11 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(
 			maxHeight,
 			columnHeaderCache.layout.put()
 		));
-		if (
-			(std::exchange(columnLayout.maxWidth, maxWidth) != maxWidth) |
-			(std::exchange(columnLayout.maxHeight, maxHeight) != maxHeight)
-		)
-		{
+		columnLayout.headerMaxHeight = maxHeight;
+
+		//maxWidth is shared between header and content
+		if (std::exchange(columnLayout.maxWidth, maxWidth) != maxWidth)
 			++columnLayout.m_contentLayoutVersion;
-		}
 
 		columnLayout.HeaderHorizontalAlignment = horizontalAlignment;
 		columnLayout.HeaderVerticalAlignment = verticalAlignment;
@@ -119,11 +117,8 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(
 		++columnLayout.m_contentLayoutVersion;
 	}
 
-	if (std::exchange(columnLayout.maxHeight, maxHeight) != maxHeight)
-	{
+	if (std::exchange(columnLayout.headerMaxHeight, maxHeight) != maxHeight)
 		winrt::check_hresult(columnHeaderCache.layout->SetMaxHeight(maxHeight));
-		++columnLayout.m_contentLayoutVersion;
-	}
 
 	if (std::exchange(columnLayout.HeaderHorizontalAlignment, horizontalAlignment) != horizontalAlignment)
 		winrt::check_hresult(columnHeaderCache.layout->SetTextAlignment(horizontalAlignment));
@@ -164,7 +159,7 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column)
 
 	if (auto& columnCache = m_perColumnCache[column]; std::exchange(cache.m_contentLayoutVersion, columnCache.m_contentLayoutVersion) != columnCache.m_contentLayoutVersion)
 	{
-		winrt::check_hresult(cache.layout->SetMaxHeight(columnCache.maxHeight));
+		winrt::check_hresult(cache.layout->SetMaxHeight(columnCache.contentMaxHeight));
 		winrt::check_hresult(cache.layout->SetMaxWidth(columnCache.maxWidth));
 		winrt::check_hresult(cache.layout->SetTextAlignment(columnCache.ContentHorizontalAlignment));
 		winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
@@ -216,7 +211,7 @@ void TextLayoutCache::SetCellContent(int row, int column, std::wstring_view str)
 		static_cast<uint32_t>(str.size()),
 		m_cellTextFormat.get(),
 		columnCache.maxWidth,
-		columnCache.maxHeight,
+		columnCache.contentMaxHeight,
 		cache.layout.put()
 	));
 	constexpr DWRITE_TRIMMING trimmingOption{ .granularity = DWRITE_TRIMMING_GRANULARITY::DWRITE_TRIMMING_GRANULARITY_CHARACTER };

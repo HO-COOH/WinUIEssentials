@@ -29,10 +29,6 @@ void TableOverlayManager::OnInitializedComponent()
 
 	auto canvas = m_table.ControlsOverlay();
 	m_children = canvas.Children();
-
-	//clip canvas to prevent cell content from showing in header
-	winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(canvas)
-		.Clip(m_compositor.CreateInsetClip(0.f, TableConstants::HeaderHeight, 0.f, 0.f));
 }
 
 float TableOverlayManager::cellLeftOffset() const
@@ -119,6 +115,14 @@ void TableOverlayManager::recycleControls(float targetY)
 
 void TableOverlayManager::OnLoaded()
 {
+	auto const headerHeight = m_table.m_d2dContent.m_tableHeight.HeaderRowHeight();
+
+	//clip canvas to prevent cell content from showing in header. Deferred to
+	//Loaded so the resolved header height (font + padding) is available.
+	auto canvas = m_table.ControlsOverlay();
+	winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(canvas)
+		.Clip(m_compositor.CreateInsetClip(0.f, headerHeight, 0.f, 0.f));
+
 	m_headerChildren.Clear();
 
 	for (auto& state : m_columns)
@@ -138,7 +142,7 @@ void TableOverlayManager::OnLoaded()
 		winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(control, true);
 		control.HorizontalAlignment(columns[col]->HorizontalAlignment());
 		control.Width(cellContentWidth(static_cast<int>(col)));
-		control.Height(TableConstants::HeaderHeight);
+		control.Height(headerHeight);
 		m_headerChildren.Append(control);
 
 		auto& state = ensureColumn(static_cast<int>(col));
@@ -171,7 +175,8 @@ void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Fo
 	{
 		slot.element.DataContext(cellObject);
 		m_cellExpression.SetReferenceParameter(L"ColumnProperty", columnState.ColumnProperty);
-		float const cellY = TableConstants::HeaderHeight + row * TableConstants::RowHeight;
+		auto const& tableHeight = m_table.m_d2dContent.m_tableHeight;
+		float const cellY = tableHeight.HeaderRowHeight() + row * tableHeight.ContentRowHeight();
 		m_cellExpression.SetScalarParameter(L"cellY", cellY);
 		winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(slot.element).StartAnimation(L"Translation.XY", m_cellExpression);
 	}
@@ -282,10 +287,12 @@ void TableOverlayManager::BeginEdit(int row, int column)
 
 	//set edit control size and position
 	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
+	auto const& tableHeight = m_table.m_d2dContent.m_tableHeight;
+	auto const contentRowHeight = tableHeight.ContentRowHeight();
 	editControl.Width(widthManager.Get(column));
-	editControl.Height(TableConstants::RowHeight);
+	editControl.Height(contentRowHeight);
 	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) + cellLeftOffset() - m_table.m_d2dContent.ScrollOffsetX());
-	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetTop(editControl, TableConstants::HeaderHeight + row * TableConstants::RowHeight - m_table.m_d2dContent.ScrollOffsetY());
+	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetTop(editControl, tableHeight.HeaderRowHeight() + row * contentRowHeight - m_table.m_d2dContent.ScrollOffsetY());
 	m_children.Append(editControl);
 
 	//try set focus

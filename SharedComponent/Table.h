@@ -34,7 +34,8 @@ namespace winrt::PackageRoot::implementation
         void Table_Unloaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
         void Table_ActualThemeChanged(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& sender, winrt::Windows::Foundation::IInspectable const&);
 		void SwapChainPanel_DoubleTapped(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::DoubleTappedRoutedEventArgs const& e);
-        void updateVerticalScrollBar(float scrollOffsetY);
+        void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
+        void UpdateVerticalScrollBar(float scrollOffsetY);
 
         //Properties
         int Fps();
@@ -248,13 +249,12 @@ namespace winrt::PackageRoot::implementation
 			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
 			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 		);
+        winrt::PackageRoot::ITableData::UpdateRowData_revoker m_updateRowDataRevoker;
     public:
         winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
         winrt::com_ptr<TableRowDataSource> m_tableRowDataSource{ nullptr };
         winrt::PackageRoot::ITableData m_itemsSource{ nullptr };
         winrt::PackageRoot::ITableData m_tableData{ nullptr };
-        winrt::PackageRoot::ITableData::UpdateRowData_revoker m_updateRowDataRevoker;
-        void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
     };
 }
 

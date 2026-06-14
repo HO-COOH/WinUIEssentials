@@ -4,6 +4,7 @@
 
 struct TableProperty;
 struct ColumnWidthInitializationContext;
+class TableHeightManager;
 
 namespace winrt::PackageRoot::implementation
 {
@@ -15,15 +16,17 @@ class ColumnWidthManager
 	winrt::PackageRoot::ColumnSizingMode m_sizingMode{ winrt::PackageRoot::ColumnSizingMode::RowContent };
 	TextLayoutCache& m_layoutCacheRef;
 	TableProperty const& m_tableDataRef;
+	TableHeightManager const& m_tableHeightRef;
 	std::vector<std::atomic<float>> m_columnWidths;
 	std::atomic<uint32_t> m_widthVersion{ 0 };
 	void pushColumnBoundsToCache(int column, float width, ColumnWidthInitializationContext const& ctx);
 	void initialize(std::vector<float> const& result);
-	void initialize(float availableWidth, size_t numColumns);
+	void initializeUniformWidth(float availableWidth, size_t numColumns);
 public:
-	constexpr ColumnWidthManager(TextLayoutCache& layoutCache, TableProperty const& tableData)
+	constexpr ColumnWidthManager(TextLayoutCache& layoutCache, TableProperty const& tableData, TableHeightManager const& tableHeight)
 		: m_layoutCacheRef{ layoutCache }
 		, m_tableDataRef{ tableData }
+		, m_tableHeightRef{ tableHeight }
 	{
 	}
 

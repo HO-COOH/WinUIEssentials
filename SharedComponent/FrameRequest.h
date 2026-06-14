@@ -8,14 +8,14 @@ class FrameRequest
 public:
 	enum class Flag : uint32_t
 	{
-		None            = 0,
-		Draw            = 1u << 0,
-		FullRedraw      = 1u << 1,
-		HeaderDirty     = 1u << 2, //need renderHeaderBitmap(), Y-scroll does not redraw header
-		SwapChainDirty  = 1u << 3, //Back buffers were resized
-		Stop            = 1u << 4,
-		HoverColorDirty = 1u << 5,
-		VerticalLineColorDirty = 1u << 6, //vertical-line cached bitmap must be re-rendered (color or thickness changed)
+		None              = 0,
+		Draw              = 1u << 0,
+		FullRedraw        = 1u << 1,
+		HeaderDirty       = 1u << 2, //need renderHeaderBitmap(), Y-scroll does not redraw header
+		SwapChainDirty    = 1u << 3, //Back buffers resized
+		Stop              = 1u << 4,
+		HoverColorDirty   = 1u << 5,
+		VerticalLineDirty = 1u << 6, //vertical-line cached bitmap must be re-rendered (color or thickness changed)
 		//scroll can't be used here because it persists after one draw call, so it has to be a separate flag
 	};
 	using Flags = uint32_t;

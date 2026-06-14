@@ -45,10 +45,9 @@ public:
 	void SetTarget(ID2D1DeviceContext* d2dContext);
 	void DetachFromPanel(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& panel);
 
-	//Draw thread. On UWP, blocks until the next display vblank. No-op on
-	//WinUI3. Caps the draw rate at display refresh regardless of pointer
-	//polling rate, so fast mouse movement cannot flood the compositor.
+#if defined Build_UWPPackage
 	void WaitForVBlank();
+#endif
 
 	//Debug life-time
 	//~SwapChainInterop()

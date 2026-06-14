@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)CachedScrollBar.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Case.cpp" />
@@ -121,7 +122,7 @@
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedCursor.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedScrollBar.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Case.h" />

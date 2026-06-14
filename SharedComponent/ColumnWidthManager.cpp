@@ -6,7 +6,7 @@
 #include "TableConstants.hpp"
 #include "TableProperty.h"
 #include "TableColumn.h"
-#include "ColumnWidthInitializationContext.hpp"
+#include "ColumnWidthInitializationContext.h"
 
 static float measureNaturalRawWidth(DWRITE_TEXT_METRICS& metrics, IDWriteTextLayout* layout)
 {
@@ -68,7 +68,7 @@ void ColumnWidthManager::InitializeColumnWidth(float width, float scale, std::ve
 
 	if (m_sizingMode == winrt::PackageRoot::ColumnSizingMode::Equal)
 	{
-		initialize(width, numColumns);
+		initializeUniformWidth(width, numColumns);
 		return;
 	}
 
@@ -159,22 +159,24 @@ void ColumnWidthManager::pushColumnBoundsToCache(int column, float width, Column
 	auto& columnLayout = m_layoutCacheRef.m_perColumnCache[column];
 	bool const changed =
 		(std::exchange(columnLayout.maxWidth, paddedMaxWidth) != paddedMaxWidth) |
-		(std::exchange(columnLayout.maxHeight, ctx.paddedMaxHeight) != ctx.paddedMaxHeight);
+		(std::exchange(columnLayout.contentMaxHeight, ctx.paddedMaxHeight) != ctx.paddedMaxHeight);
 
 	if (!changed)
 		return;
 
 	++columnLayout.m_contentLayoutVersion;
+	//Width is shared with the header — push it directly so the header layout
+	//doesn't have to wait for the next drawHeader pass. Header maxHeight is
+	//independent and managed by drawHeader itself.
 	auto& headerRow = m_layoutCacheRef.m_perCellCache.front();
 	auto& headerLayout = headerRow[column].layout;
 	winrt::check_hresult(headerLayout->SetMaxWidth(paddedMaxWidth));
-	winrt::check_hresult(headerLayout->SetMaxHeight(ctx.paddedMaxHeight));
 }
 
 void ColumnWidthManager::initialize(std::vector<float> const& result)
 {
 	m_columnWidths = std::vector<std::atomic<float>>(result.size());
-	ColumnWidthInitializationContext ctx{ m_tableDataRef, m_layoutCacheRef };
+	ColumnWidthInitializationContext ctx{ m_tableDataRef, m_layoutCacheRef, m_tableHeightRef };
 	for (size_t i = 0; i < result.size(); ++i)
 	{
 		m_columnWidths[i].store(result[i], std::memory_order_relaxed);
@@ -183,10 +185,10 @@ void ColumnWidthManager::initialize(std::vector<float> const& result)
 	m_widthVersion.fetch_add(1, std::memory_order_relaxed);
 }
 
-void ColumnWidthManager::initialize(float availableWidth, size_t numColumns)
+void ColumnWidthManager::initializeUniformWidth(float availableWidth, size_t numColumns)
 {
 	m_columnWidths = std::vector<std::atomic<float>>(numColumns);
-	ColumnWidthInitializationContext ctx{ m_tableDataRef, m_layoutCacheRef };
+	ColumnWidthInitializationContext ctx{ m_tableDataRef, m_layoutCacheRef, m_tableHeightRef };
 	float const columnWidth = availableWidth / numColumns;
 	for (size_t i = 0; i < numColumns; ++i)
 	{
@@ -204,6 +206,6 @@ uint32_t ColumnWidthManager::Version() const noexcept
 void ColumnWidthManager::Set(int column, float width)
 {
 	m_columnWidths[column].store(width, std::memory_order_relaxed);
-	pushColumnBoundsToCache(column, width, ColumnWidthInitializationContext{ m_tableDataRef, m_layoutCacheRef });
+	pushColumnBoundsToCache(column, width, ColumnWidthInitializationContext{ m_tableDataRef, m_layoutCacheRef, m_tableHeightRef });
 	m_widthVersion.fetch_add(1, std::memory_order_relaxed);
 }

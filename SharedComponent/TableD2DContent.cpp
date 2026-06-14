@@ -58,7 +58,7 @@ void TableD2DContent::SizeChanged(
 
 void TableD2DContent::updateScrollOffsets()
 {
-	auto const totalHeight = DataCount() * TableConstants::RowHeight;
+	auto const totalHeight = DataCount() * m_tableHeight.ContentRowHeight();
 	auto const maxScrollY = (std::max)(0.f, totalHeight - GetViewportHeight());
 	auto const maxScrollX = (std::max)(0.f, TotalContentWidth() - GetViewportWidth());
 
@@ -104,8 +104,9 @@ std::pair<int, int> TableD2DContent::GetVisibleRowRangeInclusive(float scrollY) 
 
 std::pair<int, int> TableD2DContent::GetVisibleRowRangeInclusive(float scrollY, int rowCount) const
 {
-	int const first = (std::max)(0, static_cast<int>(scrollY / TableConstants::RowHeight));
-	int const last = (std::min)(rowCount - 1, static_cast<int>((scrollY + m_swapChain.CurrentSize.Height) / TableConstants::RowHeight));
+	auto const contentRowHeight = m_tableHeight.ContentRowHeight();
+	int const first = (std::max)(0, static_cast<int>(scrollY / contentRowHeight));
+	int const last = (std::min)(rowCount - 1, static_cast<int>((scrollY + m_swapChain.CurrentSize.Height) / contentRowHeight));
 	return { first, last };
 }
 
@@ -130,11 +131,6 @@ float TableD2DContent::SmoothScrollTargetY() const
 	return m_pendingScrollRequest.GetTarget();
 }
 
-int TableD2DContent::HoveredResizeColumn() const
-{
-	return m_hoveredResizeColumn.load(std::memory_order_relaxed);
-}
-
 bool TableD2DContent::SetHoveredResizeColumn(int index)
 {
 	bool const changed = m_hoveredResizeColumn.exchange(index, std::memory_order_relaxed) != index;
@@ -156,7 +152,7 @@ int TableD2DContent::GetResizeColumnIndex(float x) const
 
 float TableD2DContent::GetViewportHeight() const
 {
-	return m_swapChain.CurrentSize.Height - TableConstants::RowHeight;
+	return m_swapChain.CurrentSize.Height - m_tableHeight.HeaderRowHeight();
 }
 
 float TableD2DContent::GetViewportWidth() const
@@ -183,7 +179,7 @@ void TableD2DContent::DrawPartialCell(int row, int column, std::wstring_view con
 	auto const scale = m_swapChain.Scale;
 	auto const scrollOffsetX = m_scrollOffsetX.load(std::memory_order_relaxed);
 	auto const scrollOffsetY = m_scrollOffsetY.load(std::memory_order_relaxed);
-	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
+	auto const rawHeaderHeight = m_tableHeight.HeaderRowHeight() * scale;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto const rawHeight = m_swapChain.CurrentSize.Height * scale;
 	auto const dataCount = static_cast<int>(m_textLayoutCache.RowCount());
@@ -257,12 +253,13 @@ int TableD2DContent::DataCount() const
 void TableD2DContent::SetHover(float y)
 {
 	int newRow;
-	if (y <= TableConstants::RowHeight)
+	auto const headerHeight = m_tableHeight.HeaderRowHeight();
+	if (y <= headerHeight)
 		newRow = TableConstants::HoveredRowNone;
 	else
 	{
 		auto const scrollOffsetY = m_scrollOffsetY.load(std::memory_order_relaxed);
-		newRow = static_cast<int>((y + scrollOffsetY) / TableConstants::RowHeight) - 1;
+		newRow = static_cast<int>((y - headerHeight + scrollOffsetY) / m_tableHeight.ContentRowHeight());
 	}
 	if (std::exchange(m_hoveredRow, newRow) != newRow)
 		RequestDraw();
@@ -270,9 +267,10 @@ void TableD2DContent::SetHover(float y)
 
 D2D_RECT_F TableD2DContent::getRowRect(int row, float scrollOffsetY, float scale) const
 {
-	auto const rawRowHeight = TableConstants::RowHeight * scale;
+	auto const rawRowHeight = m_tableHeight.ContentRowHeight() * scale;
+	auto const rawHeaderHeight = m_tableHeight.HeaderRowHeight() * scale;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
-	auto const rowTop = (row + 1) * rawRowHeight - scrollOffsetY * scale;
+	auto const rowTop = rawHeaderHeight + row * rawRowHeight - scrollOffsetY * scale;
 	return { 0, rowTop, rawWidth, rowTop + rawRowHeight };
 }
 
@@ -306,11 +304,8 @@ void TableD2DContent::drawThreadProc()
 			auto const newY = m_activeScrollRequest.EasedValue(easedProgress);
 
 			//only call dispatcher when the scrollBar position actually changed
-			if (auto const newYFloor = static_cast<int>(newY); newYFloor != m_cachedScrollBarY)
-			{
-				m_dispatcher.TryEnqueue([this, newY] { m_table_ref.updateVerticalScrollBar(newY); });
-				m_cachedScrollBarY = newYFloor;
-			}
+			if (auto newYFloor = static_cast<int>(newY); std::exchange(m_cachedScrollBarY, newYFloor) != newYFloor)
+				m_dispatcher.TryEnqueue([this, newY] { m_table_ref.UpdateVerticalScrollBar(newY); });
 
 			m_scrollOffsetY.store(newY, std::memory_order_relaxed);
 			drawRequest |= FrameRequest::Flag::FullRedraw;
@@ -362,7 +357,7 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 		}
 	}
 
-	if (frame & FrameRequest::Flag::VerticalLineColorDirty)
+	if (frame & FrameRequest::Flag::VerticalLineDirty)
 		m_verticalLines.Invalidate();
 
 	int const hoveredResizeColumn = m_hoveredResizeColumn.load(std::memory_order_relaxed);
@@ -404,8 +399,8 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 {
 	auto const rawViewportWidth = m_swapChain.CurrentSize.Width * scale;
 	auto const rawViewportHeight = m_swapChain.CurrentSize.Height * scale;
-	auto const rawRowHeight = TableConstants::RowHeight * scale;
-	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
+	auto const rawRowHeight = m_tableHeight.ContentRowHeight() * scale;
+	auto const rawHeaderHeight = m_tableHeight.HeaderRowHeight() * scale;
 	m_horizontalLines.Rebuild(rawViewportWidth, rawViewportHeight, rawRowHeight, rawHeaderHeight);
 
 	if (!m_headerBitmap || headerDirty)
@@ -457,7 +452,7 @@ void TableD2DContent::renderHeaderBitmap(int hoveredResizeColumn, float scrollOf
 {
 	auto const scale = m_swapChain.Scale;
 	auto const widthPx  = static_cast<unsigned>(std::ceil(m_swapChain.CurrentSize.Width * scale));
-	auto const heightPx = static_cast<unsigned>(std::ceil(TableConstants::HeaderHeight * scale));
+	auto const heightPx = static_cast<unsigned>(std::ceil(m_tableHeight.HeaderRowHeight() * scale));
 
 	auto target = m_headerBitmap.RecreateIfNeeded(m_d2dContext.get(), widthPx, heightPx);
 
@@ -473,7 +468,7 @@ void TableD2DContent::renderHeaderBitmap(int hoveredResizeColumn, float scrollOf
 
 void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffsetX, float scrollOffsetY, float scale)
 {
-	auto const rawHeaderHeight = TableConstants::HeaderHeight * scale;
+	auto const rawHeaderHeight = m_tableHeight.HeaderRowHeight() * scale;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto const rawHeight = m_swapChain.CurrentSize.Height * scale;
 	auto const rawCornerRadius = TableConstants::CornerRadius * scale;
@@ -536,7 +531,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 {
 	auto const scale = m_swapChain.Scale;
 	auto currentX = -scrollOffsetX * scale;
-	auto rawHeaderHeight = TableConstants::HeaderHeight * m_swapChain.Scale;
+	auto rawHeaderHeight = m_tableHeight.HeaderRowHeight() * scale;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto const& localData = m_resource.m_localTableData;
 	auto const& padding = localData.m_contentPadding;
@@ -600,7 +595,7 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hov
 	auto const scale = m_swapChain.Scale;
 	auto const rawBottom = m_swapChain.CurrentSize.Height * scale;
 	auto const rawRight = m_swapChain.CurrentSize.Width * scale;
-	m_d2dContext->PushAxisAlignedClip(D2D1::RectF(0, TableConstants::HeaderHeight * scale, rawRight, rawBottom), D2D1_ANTIALIAS_MODE_ALIASED);
+	m_d2dContext->PushAxisAlignedClip(D2D1::RectF(0, m_tableHeight.HeaderRowHeight() * scale, rawRight, rawBottom), D2D1_ANTIALIAS_MODE_ALIASED);
 
 	auto rawCornerRadius = TableConstants::CornerRadius * scale;
 

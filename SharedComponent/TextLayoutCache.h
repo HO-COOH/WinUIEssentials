@@ -93,7 +93,8 @@ private:
 	struct PerColumnLayout
 	{
 		FLOAT maxWidth = (std::numeric_limits<FLOAT>::max)();
-		FLOAT maxHeight = (std::numeric_limits<FLOAT>::max)();
+		FLOAT headerMaxHeight = (std::numeric_limits<FLOAT>::max)();
+		FLOAT contentMaxHeight = (std::numeric_limits<FLOAT>::max)();
 		DWRITE_TEXT_ALIGNMENT HeaderHorizontalAlignment = DWRITE_TEXT_ALIGNMENT::DWRITE_TEXT_ALIGNMENT_CENTER;
 		DWRITE_TEXT_ALIGNMENT ContentHorizontalAlignment;
 		DWRITE_PARAGRAPH_ALIGNMENT HeaderVerticalAlignment = DWRITE_PARAGRAPH_ALIGNMENT::DWRITE_PARAGRAPH_ALIGNMENT_CENTER;

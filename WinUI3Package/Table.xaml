@@ -25,6 +25,9 @@
             <Setter Property="HorizontalLineColor" Value="{ThemeResource DividerStrokeColorDefault}" />
             <Setter Property="VerticalLineColor" Value="{ThemeResource DividerStrokeColorDefault}" />
             <Setter Property="FontFamily" Value="XamlAutoFontFamily" />
+            <Setter Property="ContentFontSize" Value="14" />
+            <Setter Property="HeaderFontSize" Value="18" />
+            <Setter Property="ContentPadding" Value="6" />
         </Style>
     </SwapChainPanel.Style>
 
@@ -34,7 +37,6 @@
     <!--  Need to adjust verticalScrollBar top margin  -->
     <primitives:ScrollBar
         x:Name="VerticalScrollBar"
-        Margin="0,36,0,0"
         HorizontalAlignment="Right"
         VerticalAlignment="Stretch"
         IndicatorMode="MouseIndicator"

@@ -8,8 +8,8 @@ class EditControlOverlay
 	int m_editingRow{ -1 };
 	int m_editingColumn{ -1 };
 	winrt::hstring m_previousContent;
-	bool m_isString{};
 	winrt::weak_ref<winrt::WinUINamespace::UI::Xaml::FrameworkElement> m_editControl;
+	bool m_isString{};
 public:
 	[[nodiscard]] winrt::WinUINamespace::UI::Xaml::FrameworkElement MakeControl(
 		winrt::WinUINamespace::UI::Xaml::DataTemplate const& dataTemplate,

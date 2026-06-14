@@ -387,7 +387,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)EditControlOverlay.h">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.hpp">
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.h">
       <Filter>Table</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h">
@@ -598,6 +598,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DWriteInterop.cpp">
       <Filter>DirectN</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.cpp">
+      <Filter>Table</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

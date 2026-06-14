@@ -26,12 +26,9 @@ bool SwapChainInterop::SizeChanged(winrt::WinUINamespace::UI::Xaml::Controls::Sw
 bool SwapChainInterop::CompositionScaleChanged(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender)
 {
 	auto const newScale = sender.CompositionScaleX();
-	if (newScale == Scale)
+	if (std::exchange(Scale, newScale) == newScale)
 		return false;
 
-	Scale = newScale;
-	//Swap chain may not exist yet if SizeChanged hasn't fired; in that case
-	//the next SizeChanged will create it with the correct scale.
 	return static_cast<bool>(get());
 }
 
@@ -49,7 +46,7 @@ void SwapChainInterop::SetTarget(ID2D1DeviceContext* d2dContext)
 	winrt::com_ptr<IDXGISurface> dxgiSurface;
 	winrt::check_hresult(get()->GetBuffer(0, __uuidof(IDXGISurface), dxgiSurface.put_void()));
 
-	D2D1_BITMAP_PROPERTIES1 property
+	constexpr D2D1_BITMAP_PROPERTIES1 property
 	{
 		.pixelFormat =
 		{
@@ -121,10 +118,10 @@ void SwapChainInterop::Set(ID3D11Device* d3d11Device, winrt::WinUINamespace::UI:
 #endif
 }
 
+#if defined Build_UWPPackage
 void SwapChainInterop::WaitForVBlank()
 {
-#if defined Build_UWPPackage
 	if (m_dxgiOutput)
 		m_dxgiOutput->WaitForVBlank();
-#endif
 }
+#endif

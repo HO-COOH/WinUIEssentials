@@ -8,7 +8,6 @@ struct TableProperty
 	constexpr static inline float DefaultContentFontSize = 14.f;
 	constexpr static inline DWRITE_FONT_WEIGHT DefaultHeaderFontWeight = DWRITE_FONT_WEIGHT_NORMAL;
 	constexpr static inline DWRITE_FONT_WEIGHT DefaultContentFontWeight = DWRITE_FONT_WEIGHT_NORMAL;
-	constexpr static inline winrt::WinUINamespace::UI::Xaml::Thickness DefaultContentPadding{ 4.0,4.0,4.0,4.0 };
 	constexpr static inline D2D_COLOR_F DefaultHeaderBackground = { 0 }; //Transparent
 
 	constexpr static inline D2D_COLOR_F DefaultHeaderForegroundLight = { 0.f, 0.f, 0.f, 1.f };
@@ -56,5 +55,5 @@ struct TableProperty
 		}
 	}
 
-	winrt::WinUINamespace::UI::Xaml::Thickness m_contentPadding = DefaultContentPadding;
+	winrt::WinUINamespace::UI::Xaml::Thickness m_contentPadding{};
 };

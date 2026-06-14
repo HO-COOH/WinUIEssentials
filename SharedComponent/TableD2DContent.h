@@ -78,8 +78,6 @@ public:
 	bool IsScrolling() const;
 	float SmoothScrollTargetY() const;
 
-
-	int HoveredResizeColumn() const;
 	[[nodiscard]] bool SetHoveredResizeColumn(int index); //return whether hovered column change
 
 	int GetResizeColumnIndex(float x) const;
@@ -149,16 +147,13 @@ private:
 public:
 	TableHeightManager m_tableHeight{ m_dwriteFactory.get() };
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
-	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData };
+	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData, m_tableHeight };
 private:
 	TableD2DResource m_resource{ m_textLayoutCache };
 	TableHorizontalLines m_horizontalLines{ d2d1Factory.get(), m_resource };
 	TableVerticalLines m_verticalLines;
 	std::atomic<float> m_scrollOffsetX{ 0.f };
 	std::atomic<float> m_scrollOffsetY{ 0.f };
-	//Data-row index under the pointer, or -1 when the pointer is not over a
-	//row. Storing the row (not the raw y) both simplifies the hover test in
-	//the draw code and gates redraws to actual row transitions.
 	int m_hoveredRow{ TableConstants::HoveredRowNone };
 	std::atomic<bool> m_initialSizing{ true };
 	std::atomic<bool> m_isScrolling{ false };
