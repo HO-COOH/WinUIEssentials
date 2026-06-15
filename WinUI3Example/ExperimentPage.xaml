@@ -189,9 +189,5 @@
                 </local:IconButton>
             </StackPanel>
         </local:ControlExample>
-
-        <local:ControlExample HeaderText="DataGrid Demo">
-            <local:DataGrid Width="500" Height="500" />
-        </local:ControlExample>
     </StackPanel>
 </Page>

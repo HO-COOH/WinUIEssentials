@@ -1,0 +1,9 @@
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass TableRow : Windows.Foundation.Collections.IIterable<Object>, Windows.Foundation.Collections.IVector<Object>
+    {
+        TableRow();
+    }
+}

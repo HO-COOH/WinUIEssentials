@@ -17,6 +17,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="$(MSBuildThisFileDirectory)ColumnSizingMode.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Case.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)CaseCollection.idl" />
@@ -32,10 +33,12 @@
     <Midl Include="$(MSBuildThisFileDirectory)ImageExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)ITableData.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)MarqueeText.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NegateBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ProgressBarEx.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Segmented.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SegmentedItem.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.idl" />
@@ -47,11 +50,19 @@
     <Midl Include="$(MSBuildThisFileDirectory)Shimmer.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)StringToBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SwitchPresenter.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)Table.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableRow.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TypeNameExtension.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)UIElementExtension.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)UpdateRowDataEventArgs.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)WrapPanel.idl" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CachedScrollBar.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Case.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CaseCollection.cpp" />
@@ -61,6 +72,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ConverterGroup.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CursorController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependentValue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DWriteInterop.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)EditControlOverlay.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EqualPanel.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FontIconExtension.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GroupBox.cpp" />
@@ -72,6 +85,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ObjectCompare.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ProgressBarEx.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScrollRequest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Segmented.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.cpp" />
@@ -84,11 +99,31 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Shimmer.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)StringToBoolConverter.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SwitchPresenter.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DirectN.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)SwapChainInterop.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeightManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHorizontalLines.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableRow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableRowDataSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableVerticalLines.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)UIElementExtension.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)WrapPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CachedCursor.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CachedScrollBar.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)BoolToVisibilityConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Case.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CaseCollection.h" />
@@ -97,19 +132,26 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ConverterGroup.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CursorController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)D2DConvert.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DWriteInterop.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)EditControlOverlay.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)EqualPanel.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FontIconExtension.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FrameRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GroupBox.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ImageExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IsEqualStateTrigger.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IsNullOrEmptyStateTrigger.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IteratorBase.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MarqueeText.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NegateBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ObjectCompare.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ProgressBarEx.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReferenceToBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ReverseConverterBase.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Segmented.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedItem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SegmentedItemCornerRadiusConverter.h" />
@@ -118,13 +160,38 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpander.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpanderItemStyleSelector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SettingsExpanderLastItemConrnerRadiusConverter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedDataBase.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.AnimationMember.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.DefaultGradientColor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Shimmer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)StringToBoolConverter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SwitchPresenter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DirectN.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Easing.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ResizeRequest.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScrollRequest.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Table.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeightManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableOverlayManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHorizontalLines.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableRow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableRowDataSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)UIElementExtension.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)VectorBase.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)VectorViewBase.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)WrapPanel.h" />
   </ItemGroup>
 </Project>

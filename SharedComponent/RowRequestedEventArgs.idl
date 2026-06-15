@@ -1,0 +1,16 @@
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass RowRequestedEventArgs
+    {
+        Int32 StartRow{ get; };
+        Int32 EndRow{ get; };
+
+        //Async fill-in data
+        void SetRow(Int32 row, Object[] content);
+        Boolean IsCanceled{ get; };
+        
+        event Windows.Foundation.EventHandler<RowRequestedEventArgs> Canceled;
+    }
+}

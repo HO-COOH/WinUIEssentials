@@ -1,0 +1,9 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass TablePage : Windows.UI.Xaml.Controls.Page
+    {
+        TablePage();
+        UWPPackage.Table DemoTable{ get; };
+    }
+}

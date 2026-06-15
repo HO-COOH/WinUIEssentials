@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.TablePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="OnLoaded"
+    Unloaded="OnUnloaded"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <InfoBar
+            Title="This component is currently for demo only and is not in Package yet!"
+            IsClosable="False"
+            IsOpen="True"
+            Severity="Warning" />
+
+        <local:ControlExample
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            HeaderText="Table demo">
+            <essential:Table
+                x:Name="DemoTable"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                CornerRadius="{StaticResource ControlCornerRadius}"
+                HeaderBackground="{ThemeResource ControlFillColorDefault}"
+                HeaderFontWeight="Normal">
+                <essential:Table.ItemsSource>
+                    <local:DemoTableData />
+                </essential:Table.ItemsSource>
+
+                <!--<essential:TableRow>
+                    <x:String>1</x:String>
+                    <x:String>Josi</x:String>
+                    <x:String>Syfax</x:String>
+                </essential:TableRow>-->
+                <essential:Table.Columns>
+                    <essential:TableColumn Content="Id" />
+                    <essential:TableColumn Content="First Name" />
+                    <essential:TableColumn Content="Last Name" />
+                    <essential:TableColumn Content="Email" />
+                    <essential:TableColumn Content="Gender" />
+                    <essential:TableColumn Content="Dob" />
+                    <essential:TableColumn Content="Active At" />
+                    <essential:TableColumn Content="Is Active" IsResizable="False">
+                        <essential:TableColumn.ItemTemplate>
+                            <DataTemplate x:DataType="x:Boolean">
+                                <CheckBox IsChecked="{x:Bind}" />
+                            </DataTemplate>
+                        </essential:TableColumn.ItemTemplate>
+                    </essential:TableColumn>
+
+                    <essential:TableColumn Content="Department" />
+                    <essential:TableColumn Content="Designation" />
+                    <essential:TableColumn Content="Address">
+                        <essential:TableColumn.EditTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <TextBox Text="{x:Bind}" />
+                            </DataTemplate>
+                        </essential:TableColumn.EditTemplate>
+                    </essential:TableColumn>
+                </essential:Table.Columns>
+            </essential:Table>
+            <local:ControlExample.Output>
+                <TextBlock MinWidth="75">
+                    <Run Text="Fps: " />
+                    <Run Text="{x:Bind DemoTable.Fps, Mode=OneWay}" />
+                </TextBlock>
+            </local:ControlExample.Output>
+        </local:ControlExample>
+
+    </Grid>
+</Page>

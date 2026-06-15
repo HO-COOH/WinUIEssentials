@@ -1,0 +1,76 @@
+#pragma once
+#include <winrt/Windows.UI.Xaml.h>
+#include <winrt/Windows.UI.Xaml.Media.h>
+
+
+namespace VisualTreeHelper
+{
+	/**
+	 * Find the first child (in a depth first search way) of a control that has the specified type and name
+	 *
+	 * @param parent The control to be searched
+	 * @param name The name of the child component
+	 * @tparam T The type of the child component
+	 * @return The found child, or nullptr
+	 */
+	template<typename T>
+	[[nodiscard]] T FindVisualChildByName(winrt::Windows::UI::Xaml::DependencyObject const& parent, winrt::hstring const& name)
+	{
+		if (!parent) return nullptr;
+
+		//recursively check the visual children of the current element
+		auto const childrenCount = winrt::Windows::UI::Xaml::Media::VisualTreeHelper::GetChildrenCount(parent);
+		for (auto i = 0; i < childrenCount; ++i)
+		{
+			auto child = winrt::Windows::UI::Xaml::Media::VisualTreeHelper::GetChild(parent, i);
+			//if the current element satisfy the condition
+			if (auto current = child.try_as<T>(); current && current.Name() == name)
+				return current;
+
+			if (auto result = FindVisualChildByName<T>(child, name))
+				return result;
+		}
+
+		return nullptr;
+	}
+
+	/**
+	 * Find the first child (in a depth first search way) of a control that has the specified type
+	 *
+	 * @param parent The control to be searched
+	 * @tparam T The type of the child component
+	 * @return The found child, or nullptr
+	 */
+	template<typename T>
+	[[nodiscard]] T FindVisualChildByType(winrt::Windows::UI::Xaml::DependencyObject const& parent)
+	{
+		if (!parent) return nullptr;
+
+		//recursively check the visual children of the current element
+		auto const childrenCount = winrt::Windows::UI::Xaml::Media::VisualTreeHelper::GetChildrenCount(parent);
+		for (auto i = 0; i < childrenCount; ++i)
+		{
+			auto child = winrt::Windows::UI::Xaml::Media::VisualTreeHelper::GetChild(parent, i);
+			//if the current element satisfy the condition
+			if (auto current = child.try_as<T>())
+				return current;
+
+			if (auto result = FindVisualChildByType<T>(child))
+				return result;
+		}
+
+		return nullptr;
+	}
+
+	template<typename T>
+	[[nodiscard]] T FindVisualParentByType(winrt::Windows::UI::Xaml::DependencyObject parent)
+	{
+		while (parent)
+		{
+			parent = winrt::Windows::UI::Xaml::Media::VisualTreeHelper::GetParent(parent);
+			if (auto casted = parent.try_as<T>())
+				return casted;
+		}
+		return nullptr;
+	}
+}

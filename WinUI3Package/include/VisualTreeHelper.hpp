@@ -61,4 +61,16 @@ namespace VisualTreeHelper
 
 		return nullptr;
 	}
+
+	template<typename T>
+	[[nodiscard]] T FindVisualParentByType(winrt::Microsoft::UI::Xaml::DependencyObject parent)
+	{
+		while (parent)
+		{
+			parent = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetParent(parent);
+			if (auto casted = parent.try_as<T>())
+				return casted;
+		}
+		return nullptr;
+	}
 }

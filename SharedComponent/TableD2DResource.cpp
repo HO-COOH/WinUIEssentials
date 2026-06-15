@@ -1,0 +1,107 @@
+#include "pch.h"
+#include "TableD2DResource.h"
+#include <d2d1_1.h>
+#include "TextLayoutCache.h"
+
+//C++20 synthesizes operator!= from this. Bitwise component comparison is
+//fine here because the values come straight from cached storage, not from
+//any arithmetic that could introduce rounding.
+constexpr static inline bool operator==(D2D_COLOR_F const& a, D2D_COLOR_F const& b) noexcept
+{
+    return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a;
+}
+
+void TableD2DResource::setIfNotTransparent(winrt::com_ptr<ID2D1SolidColorBrush>& brush, ID2D1DeviceContext* d2dContext, D2D_COLOR_F color)
+{
+	constexpr static D2D_COLOR_F TransparentColor{ 0 };
+	if (color == TransparentColor)
+		brush.detach();
+	else
+		winrt::check_hresult(d2dContext->CreateSolidColorBrush(color, brush.put()));
+}
+
+TableD2DResource::TableD2DResource(TextLayoutCache& textLayoutCache) : m_textLayoutCache_ref{ textLayoutCache }
+{
+}
+
+void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& tableData)
+{
+	if(tableData.m_headerForeground != m_localTableData.m_headerForeground) 
+		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_headerForeground, m_headerTextBrush.put()));
+	if (tableData.m_contentForeground != m_localTableData.m_contentForeground)
+		winrt::check_hresult(d2dContext->CreateSolidColorBrush(tableData.m_contentForeground, m_contentTextBrush.put()));
+	if (tableData.m_headerBackground != m_localTableData.m_headerBackground)
+		setIfNotTransparent(m_headerBackgroundBrush, d2dContext, tableData.m_headerBackground);
+	if (tableData.m_horizontalLineColor != m_localTableData.m_horizontalLineColor)
+		setIfNotTransparent(m_horizontalLineBrush, d2dContext, tableData.m_horizontalLineColor);
+	if (tableData.m_verticalLineColor != m_localTableData.m_verticalLineColor)
+		setIfNotTransparent(m_verticalLineBrush, d2dContext, tableData.m_verticalLineColor);
+	if (tableData.m_pointerOverBackground != m_localTableData.m_pointerOverBackground)
+		setIfNotTransparent(m_hoverBrush, d2dContext, tableData.m_pointerOverBackground);
+
+	bool fontChanged{};
+	if (tableData.m_headerFontSize != m_localTableData.m_headerFontSize ||
+		tableData.m_headerFontWeight != m_localTableData.m_headerFontWeight ||
+		tableData.m_headerFontStyle != m_localTableData.m_headerFontStyle ||
+		tableData.m_headerFontStretch != m_localTableData.m_headerFontStretch)
+	{
+		m_textLayoutCache_ref.CreateHeaderTextFormat(
+			L"Segoe UI Semibold",
+			nullptr,
+			tableData.m_headerFontWeight,
+			tableData.m_headerFontStyle,
+			tableData.m_headerFontStretch,
+			tableData.m_headerFontSize,
+			L"en-US"
+		);
+		fontChanged = true;
+	}
+
+	if (tableData.m_contentFontSize != m_localTableData.m_contentFontSize ||
+		tableData.m_contentFontWeight != m_localTableData.m_contentFontWeight ||
+		tableData.m_contentFontStyle != m_localTableData.m_contentFontStyle ||
+		tableData.m_contentFontStretch != m_localTableData.m_contentFontStretch)
+	{
+		m_textLayoutCache_ref.CreateCeilTextFormat(
+			L"Segoe UI",
+			nullptr,
+			tableData.m_contentFontWeight,
+			tableData.m_contentFontStyle,
+			tableData.m_contentFontStretch,
+			tableData.m_contentFontSize,
+			L"en-US"
+		);
+		fontChanged = true;
+	}
+
+	if (fontChanged)
+		m_textLayoutCache_ref.Clear();
+
+	winrt::check_hresult(d2dContext->CreateSolidColorBrush(D2D1::ColorF(0x4cc2ff), m_pillBrush.put()));
+
+	m_localTableData = std::move(tableData);
+}
+
+void TableD2DResource::ScaleChanged()
+{
+	m_textLayoutCache_ref.CreateHeaderTextFormat(
+		L"Segoe UI Semibold",
+		nullptr,
+		m_localTableData.m_headerFontWeight,
+		m_localTableData.m_headerFontStyle,
+		m_localTableData.m_headerFontStretch,
+		m_localTableData.m_headerFontSize,
+		L"en-US"
+	);
+	m_textLayoutCache_ref.CreateCeilTextFormat(
+		L"Segoe UI",
+		nullptr,
+		m_localTableData.m_contentFontWeight,
+		m_localTableData.m_contentFontStyle,
+		m_localTableData.m_contentFontStretch,
+		m_localTableData.m_contentFontSize,
+		L"en-US"
+	);
+	m_textLayoutCache_ref.Clear();
+
+}

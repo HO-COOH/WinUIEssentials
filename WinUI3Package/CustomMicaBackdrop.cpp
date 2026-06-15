@@ -5,7 +5,6 @@
 #endif
 #include <winrt/Microsoft.UI.Composition.SystemBackdrops.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
-#include <winrt/Microsoft.UI.Interop.h>
 
 
 namespace winrt::WinUI3Package::implementation

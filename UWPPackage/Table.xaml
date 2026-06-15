@@ -1,0 +1,56 @@
+﻿<SwapChainPanel
+    x:Class="UWPPackage.Table"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:UWPPackage"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:primitives="using:Windows.UI.Xaml.Controls.Primitives"
+    VerticalAlignment="Stretch"
+    ActualThemeChanged="Table_ActualThemeChanged"
+    CompositionScaleChanged="SwapChainPanel_CompositionScaleChanged"
+    DoubleTapped="SwapChainPanel_DoubleTapped"
+    Loaded="Table_Loaded"
+    PointerExited="SwapChainPanel_PointerExited"
+    PointerMoved="SwapChainPanel_PointerMoved"
+    PointerPressed="SwapChainPanel_PointerPressed"
+    PointerReleased="SwapChainPanel_PointerReleased"
+    PointerWheelChanged="SwapChainPanel_PointerWheelChanged"
+    SizeChanged="SwapChainPanel_SizeChanged"
+    Unloaded="Table_Unloaded"
+    mc:Ignorable="d">
+    <SwapChainPanel.Style>
+        <Style TargetType="local:Table">
+            <Setter Property="PointerOverBackground" Value="{ThemeResource ControlFillColorSecondary}" />
+            <Setter Property="HorizontalLineColor" Value="{ThemeResource DividerStrokeColorDefault}" />
+            <Setter Property="VerticalLineColor" Value="{ThemeResource DividerStrokeColorDefault}" />
+        </Style>
+    </SwapChainPanel.Style>
+
+    <Canvas x:Name="ControlsOverlay" />
+    <Canvas x:Name="HeaderControlsOverlay" />
+
+    <primitives:ScrollBar
+        x:Name="VerticalScrollBar"
+        Margin="0,36,0,0"
+        HorizontalAlignment="Right"
+        VerticalAlignment="Stretch"
+        IndicatorMode="MouseIndicator"
+        Maximum="100"
+        Minimum="0"
+        ValueChanged="VerticalScrollBar_ValueChanged"
+        ViewportSize="30"
+        Value="0" />
+
+    <primitives:ScrollBar
+        x:Name="HorizontalScrollBar"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Bottom"
+        IndicatorMode="MouseIndicator"
+        Maximum="100"
+        Minimum="0"
+        Orientation="Horizontal"
+        ValueChanged="HorizontalScrollBar_ValueChanged"
+        ViewportSize="30"
+        Value="0" />
+</SwapChainPanel>

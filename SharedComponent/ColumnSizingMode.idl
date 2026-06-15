@@ -1,0 +1,9 @@
+namespace PackageRoot
+{
+	enum ColumnSizingMode
+	{
+		Equal,
+		HeaderContent,
+		RowContent
+	};
+}

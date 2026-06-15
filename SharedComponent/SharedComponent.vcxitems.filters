@@ -49,6 +49,39 @@
     <Filter Include="Controls\WrapPanel">
       <UniqueIdentifier>{069cba29-5d44-4957-b63b-8191e5b273ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectN">
+      <UniqueIdentifier>{408c74e2-a7c9-406c-ae56-b46063283fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table">
+      <UniqueIdentifier>{e506b876-c0d2-4849-a045-8fc33027d5c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\Xaml">
+      <UniqueIdentifier>{40f0dad6-26d7-4714-b042-fd1adb8643fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\Xaml\TableColumn">
+      <UniqueIdentifier>{0eb2531e-4ac9-4d0e-a432-deec4308d4aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\Xaml\Table">
+      <UniqueIdentifier>{c1642885-4093-492c-944f-12f220fa4e6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\D2D">
+      <UniqueIdentifier>{14efdc32-5d71-4bef-918f-fb6d8925dbf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\Xaml\TableData">
+      <UniqueIdentifier>{2b43635e-8169-4fc6-859c-7fa7e723d827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\Xaml\ControlsOverlay">
+      <UniqueIdentifier>{736e3963-7dce-462f-8740-46972f5b1596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\D2D\Lines">
+      <UniqueIdentifier>{fb7f628d-2c11-464b-a032-335395a2292b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\Xaml\TableRow">
+      <UniqueIdentifier>{06edb044-369b-4d46-8c24-b47acf8980a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Table\Xaml\Base">
+      <UniqueIdentifier>{f6b16744-520f-4e83-8e22-ba7b772f0f7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -150,6 +183,30 @@
     <Midl Include="$(MSBuildThisFileDirectory)ProgressBarEx.idl">
       <Filter>Controls\ProgressBarEx</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ColumnSizingMode.idl">
+      <Filter>Table\Xaml</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)Table.idl">
+      <Filter>Table\Xaml\Table</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ITableData.idl">
+      <Filter>Table\Xaml\TableData</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.idl">
+      <Filter>Table\Xaml\TableData</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)UpdateRowDataEventArgs.idl">
+      <Filter>Table\Xaml\TableData</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableRow.idl">
+      <Filter>Table\Xaml\TableRow</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h">
@@ -157,6 +214,30 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h">
       <Filter>TypeName</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DirectN.h">
+      <Filter>DirectN</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h">
+      <Filter>DirectN</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScrollRequest.h">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ResizeRequest.h">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Easing.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthManager.h">
+      <Filter>Table</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CaseCollection.h">
       <Filter>Controls\SwitchPresenter</Filter>
@@ -263,6 +344,88 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ProgressBarEx.h">
       <Filter>Controls\ProgressBarEx</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnData.h">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Table.h">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SharedDataBase.hpp">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)D2DConvert.hpp">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FrameRequest.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h">
+      <Filter>Table\D2D</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.h">
+      <Filter>Table\Xaml\TableData</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableOverlayManager.h">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)EditControlOverlay.h">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.h">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h">
+      <Filter>Table\D2D\Lines</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHorizontalLines.h">
+      <Filter>Table\D2D\Lines</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableRow.h">
+      <Filter>Table\Xaml\TableRow</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableRowDataSource.h">
+      <Filter>Table\Xaml\TableRow</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CachedScrollBar.h">
+      <Filter>Table\Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CachedCursor.hpp">
+      <Filter>Table\Xaml</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)VectorBase.hpp">
+      <Filter>Table\Xaml\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IteratorBase.hpp">
+      <Filter>Table\Xaml\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)VectorViewBase.hpp">
+      <Filter>Table\Xaml\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeightManager.h">
+      <Filter>Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DWriteInterop.h">
+      <Filter>DirectN</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -270,6 +433,18 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp">
       <Filter>TypeName</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DirectN.cpp">
+      <Filter>DirectN</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SwapChainInterop.cpp">
+      <Filter>DirectN</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthManager.cpp">
+      <Filter>Table</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SwitchPresenter.cpp">
       <Filter>Controls\SwitchPresenter</Filter>
@@ -369,6 +544,63 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ProgressBarEx.cpp">
       <Filter>Controls\ProgressBarEx</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp">
+      <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp">
+      <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp">
+      <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScrollRequest.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp">
+      <Filter>Table\D2D</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.cpp">
+      <Filter>Table\Xaml\TableData</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)EditControlOverlay.cpp">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableVerticalLines.cpp">
+      <Filter>Table\D2D\Lines</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHorizontalLines.cpp">
+      <Filter>Table\D2D\Lines</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableRowDataSource.cpp">
+      <Filter>Table\Xaml\TableRow</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableRow.cpp">
+      <Filter>Table\Xaml\TableRow</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)CachedScrollBar.cpp">
+      <Filter>Table\Xaml</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeightManager.cpp">
+      <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DWriteInterop.cpp">
+      <Filter>DirectN</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.cpp">
+      <Filter>Table</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

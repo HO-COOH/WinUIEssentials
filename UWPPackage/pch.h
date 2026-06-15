@@ -14,6 +14,7 @@
 #include <winrt/Windows.UI.Xaml.Hosting.h>
 #include <winrt/Windows.UI.Composition.h>
 #include <winrt/Windows.UI.Xaml.Media.h>
+#include <winrt/Windows.UI.Input.h>
 
 #include "Case.h"
 #include "CaseCollection.h"
@@ -44,3 +45,6 @@
 #include "SettingsExpander.h"
 #include "MarqueeText.h"
 #include "ProgressBarEx.h"
+#include "TableColumn.h"
+#include "TableColumnCollection.h"
+#include "RowRequestedEventArgs.h"

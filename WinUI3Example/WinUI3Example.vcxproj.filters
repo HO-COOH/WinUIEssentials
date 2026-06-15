@@ -155,9 +155,6 @@
     <Page Include="CommandBarHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="DataGrid.xaml">
-      <Filter>Pages\Experimental\DataGrid</Filter>
-    </Page>
     <Page Include="LineGraphControl.xaml">
       <Filter>Pages\Experimental\LineGraph</Filter>
     </Page>
@@ -258,6 +255,9 @@
     <Page Include="AnimatedNumber_Resource.xaml">
       <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Page>
+    <Page Include="TablePage.xaml">
+      <Filter>Pages\TablePage</Filter>
+    </Page>
     <Page Include="SvgPage.xaml">
       <Filter>Pages</Filter>
     </Page>
@@ -310,12 +310,6 @@
     <Midl Include="ElementThemeToStringConverter.idl">
       <Filter>Helper</Filter>
     </Midl>
-    <Midl Include="IDataGridData.idl">
-      <Filter>Pages\Experimental\DataGrid</Filter>
-    </Midl>
-    <Midl Include="MyGridData.idl">
-      <Filter>Pages\Experimental\DataGrid</Filter>
-    </Midl>
     <Midl Include="LineGraph.idl">
       <Filter>Pages\Experimental\LineGraph</Filter>
     </Midl>
@@ -337,6 +331,9 @@
     <Midl Include="AnimatedDigit.idl">
       <Filter>Pages\Experimental\AnimatedNumber</Filter>
     </Midl>
+    <Midl Include="DemoTableData.idl">
+      <Filter>Pages\TablePage</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -356,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="StoreUpdateChecker.cpp">
       <Filter>Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="TableTestData.cpp">
+      <Filter>Pages\TablePage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +378,9 @@
     </ClInclude>
     <ClInclude Include="ButtonAnimations.h">
       <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="TableTestData.hpp">
+      <Filter>Pages\TablePage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -599,9 +602,6 @@
     <Filter Include="Pages\WrapPanelPage">
       <UniqueIdentifier>{9d98eb43-78b4-4207-a31b-dfaa6f2e6d43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pages\Experimental\DataGrid">
-      <UniqueIdentifier>{623fb8b2-8843-4bd9-a7d3-90c4d9c1c06c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pages\Experimental\Shaders">
       <UniqueIdentifier>{14b6b5b0-f8ac-45c2-a356-ecedd7875f3d}</UniqueIdentifier>
     </Filter>
@@ -649,6 +649,9 @@
     </Filter>
     <Filter Include="Pages\WindowedContentDialogPage">
       <UniqueIdentifier>{75b54b22-26dd-42af-b6ba-403b943e280d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\TablePage">
+      <UniqueIdentifier>{0f298be6-f64c-4889-b35a-fccce0a22aba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

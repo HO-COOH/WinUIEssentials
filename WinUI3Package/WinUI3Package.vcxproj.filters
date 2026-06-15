@@ -304,6 +304,9 @@
     <ClInclude Include="TenMicaRegistry.h">
       <Filter>Backdrop\TenMica\Registry</Filter>
     </ClInclude>
+    <ClInclude Include="include\ITableDataBase.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -572,6 +575,9 @@
       <Filter>Controls</Filter>
     </Page>
     <Page Include="SettingsExpander_Resource.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="Table.xaml">
       <Filter>Controls</Filter>
     </Page>
   </ItemGroup>

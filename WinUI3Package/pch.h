@@ -30,6 +30,8 @@
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
+#include <winrt/Microsoft.UI.Input.h>
+#include <winrt/Windows.UI.Text.h>
 
 #include "Case.h"
 #include "CaseCollection.h"
@@ -60,3 +62,7 @@
 #include "SettingsExpander.h"
 #include "MarqueeText.h"
 #include "ProgressBarEx.h"
+#include "TableColumn.h"
+#include "TableColumnCollection.h"
+#include "RowRequestedEventArgs.h"
+#include "TableRow.h"

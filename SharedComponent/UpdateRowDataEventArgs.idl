@@ -1,0 +1,8 @@
+﻿namespace PackageRoot
+{
+	struct UpdateRowDataEventArgs
+	{
+		Int32 StartRow;
+		Int32 EndRow;
+	};
+}

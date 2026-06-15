@@ -446,6 +446,10 @@
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TablePage.h">
+      <DependentUpon>TablePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TemplateInformation.h">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -547,6 +551,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SwitchPresenterPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TablePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ThemeToggleButton.xaml">
@@ -715,6 +722,10 @@
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TablePage.cpp">
+      <DependentUpon>TablePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TemplateInformation.cpp">
       <DependentUpon>TemplateInformation.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -827,6 +838,10 @@
     </Midl>
     <Midl Include="SwitchPresenterPage.idl">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TablePage.idl">
+      <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TemplateInformation.idl">

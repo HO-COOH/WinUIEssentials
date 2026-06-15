@@ -1,0 +1,80 @@
+﻿import "TableColumnCollection.idl";
+import "ITableData.idl";
+import "TableRow.idl";
+
+namespace PackageRoot
+{
+    [default_interface]
+    [contentproperty("Items")]
+    runtimeclass Table : WinUINamespace.UI.Xaml.Controls.SwapChainPanel, WinUINamespace.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        Table();
+        
+        //TODO: test only
+        Int32 Fps{ get; };
+
+        //text related
+        Windows.UI.Color HeaderForeground;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderForegroundProperty{ get; };
+
+        Windows.UI.Color ContentForeground;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentForegroundProperty{ get; };
+
+        Windows.UI.Color HeaderBackground;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderBackgroundProperty{ get; };
+
+        Windows.UI.Color PointerOverBackground;
+		static WinUINamespace.UI.Xaml.DependencyProperty PointerOverBackgroundProperty{ get; };
+
+        //header fonts
+        Double HeaderFontSize;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontSizeProperty{ get; };
+
+		Windows.UI.Text.FontStretch HeaderFontStretch;
+		static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontStretchProperty{ get; };
+
+        Windows.UI.Text.FontStyle HeaderFontStyle;
+		static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontStyleProperty{ get; };
+
+        Windows.UI.Text.FontWeight HeaderFontWeight;
+        static WinUINamespace.UI.Xaml.DependencyProperty HeaderFontWeightProperty{ get; };
+
+        //content fonts
+        Double ContentFontSize;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentFontSizeProperty{ get; };
+
+		Windows.UI.Text.FontStretch ContentFontStretch;
+		static WinUINamespace.UI.Xaml.DependencyProperty ContentFontStretchProperty{ get; };
+
+        Windows.UI.Text.FontStyle ContentFontStyle;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentFontStyleProperty{ get; };
+
+        Windows.UI.Text.FontWeight ContentFontWeight;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentFontWeightProperty{ get; };
+
+        WinUINamespace.UI.Xaml.Media.FontFamily FontFamily;
+        static WinUINamespace.UI.Xaml.DependencyProperty FontFamilyProperty{ get; };
+
+        WinUINamespace.UI.Xaml.Thickness ContentPadding;
+        static WinUINamespace.UI.Xaml.DependencyProperty ContentPaddingProperty{ get; };
+
+        //grid lines
+        Windows.UI.Color HorizontalLineColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty HorizontalLineColorProperty{ get; };
+
+        Double HorizontalLineThickness;
+		static WinUINamespace.UI.Xaml.DependencyProperty HorizontalLineThicknessProperty{ get; };
+
+        Windows.UI.Color VerticalLineColor;
+        static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineColorProperty{ get; };
+
+		Double VerticalLineThickness;
+        static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineThicknessProperty{ get; };
+
+        //data
+        TableColumnCollection Columns{ get; };
+        ITableData ItemsSource;
+        Windows.Foundation.Collections.IVector<TableRow> Items{ get; };
+    }
+}
+ 

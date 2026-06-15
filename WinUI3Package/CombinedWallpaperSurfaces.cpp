@@ -6,6 +6,7 @@
 #include "TenMicaConstants.h"
 #include "TenMicaDeviceLostException.h"
 #include "TenMicaEffect.h"
+#include "DirectN.h"
 
 static auto GetD2D1Device()
 {
@@ -18,34 +19,8 @@ static auto GetD2D1Device()
 		d2dFactory.put_void()
 	));
 
-	winrt::com_ptr<ID3D11Device> d3dDevice;
-	D3D_FEATURE_LEVEL featureLevels[]
-	{ 
-		D3D_FEATURE_LEVEL_11_1, 
-		D3D_FEATURE_LEVEL_11_0,
-		D3D_FEATURE_LEVEL_10_0,
-		D3D_FEATURE_LEVEL_10_1
-	};
-	winrt::check_hresult(D3D11CreateDevice(
-		nullptr,
-		D3D_DRIVER_TYPE_HARDWARE,
-		nullptr,
-		D3D11_CREATE_DEVICE_BGRA_SUPPORT,
-		featureLevels,
-		std::size(featureLevels),
-		D3D11_SDK_VERSION,
-		d3dDevice.put(),
-		nullptr,
-		nullptr
-	));
-	auto dxgiDevice = d3dDevice.as<IDXGIDevice>();
-
-	winrt::com_ptr<ID2D1Device> d2dDevice;
-	winrt::check_hresult(d2dFactory->CreateDevice(
-		dxgiDevice.get(),
-		d2dDevice.put()
-	));
-	return d2dDevice;
+	auto d3dDevice = DirectN::CreateD3D11Device();
+	return DirectN::GetD2D1Device(d2dFactory.get(), d3dDevice.get());
 }
 
 thread_local winrt::com_ptr<ID2D1Device> t_d2dDevice;

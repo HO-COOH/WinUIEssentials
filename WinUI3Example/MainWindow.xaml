@@ -814,6 +814,7 @@
                         <NavigationViewItem Content="Shimmer" Tag="{essential:TypeName Type=local:ShimmerPage}" />
                         <NavigationViewItem Content="SwitchPresenter" Tag="{essential:TypeName Type=local:SwitchPresenterPage}" />
                         <NavigationViewItem Content="WrapPanel" Tag="{essential:TypeName Type=local:WrapPanelPage}" />
+                        <NavigationViewItem Content="Table" Tag="{essential:TypeName Type=local:TablePage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 
@@ -886,11 +887,9 @@
             </NavigationView.MenuItems>
             <Grid>
                 <ScrollViewer>
-                    <Frame
-                        x:Name="ContentFrame"
-                        Margin="10,10,20,10"
-                        VerticalAlignment="Top" />
+                    <Frame x:Name="ContentFrame" Margin="10,10,20,10" />
                 </ScrollViewer>
+
 
                 <Button
                     x:Name="MoreButton"
