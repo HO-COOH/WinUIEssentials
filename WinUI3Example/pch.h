@@ -28,13 +28,15 @@
 #include <wil/cppwinrt_helpers.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/WinUI3Package.h>
+#include <winrt/WinUI3Package.Svg.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
+#include <winrt/Windows.Storage.Streams.h>
 #include "WASDK headers/Microsoft.Graphics.Canvas.hpp"
 #include "WASDK headers/Microsoft.UI.hpp"
-#include "Editor.xaml.h"
 #include "NamedUrl.h"
 #include "CodeSource.h"
 #include "ControlExampleSubstitution.h"
 #include "ContributorItem.h"
+#include "NugetPackageInfo.h"

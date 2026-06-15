@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="UWPExample.ColorCodeEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:UWPExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid ColumnSpacing="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock
+            x:Name="LineGutter"
+            FontFamily="Consolas"
+            Foreground="#596172"
+            Text="{x:Bind local:ColorCodeEditor.GetLineGutterFromCode(Code)}"
+            TextAlignment="Right" />
+
+        <RichTextBlock
+            Grid.Column="1"
+            FontFamily="Consolas"
+            IsTextSelectionEnabled="True">
+            <Paragraph x:Name="HighlightedParagraph" />
+        </RichTextBlock>
+    </Grid>
+</UserControl>

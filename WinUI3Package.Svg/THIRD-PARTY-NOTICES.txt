@@ -1,0 +1,60 @@
+THIRD-PARTY SOFTWARE NOTICES AND INFORMATION
+=============================================
+
+WinUIEssential.WinUI3.Svg incorporates components from the third-party
+projects listed below. Each component is provided under its own license,
+reproduced in full here. The terms below apply only to those components and
+do not modify the license that governs WinUIEssential.WinUI3.Svg itself.
+
+
+--------------------------------------------------------------------------
+1. resvg  (https://github.com/linebender/resvg)
+--------------------------------------------------------------------------
+
+resvg is dual-licensed under the MIT License and the Apache License,
+Version 2.0. WinUIEssential.WinUI3.Svg uses it under the terms of the MIT
+License, reproduced below.
+
+Copyright 2017 the Resvg Authors
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+
+--------------------------------------------------------------------------
+2. Transitive dependencies of resvg
+--------------------------------------------------------------------------
+
+resvg statically links a number of Rust crates (including but not limited
+to: usvg, tiny-skia, fontdb, rustybuzz, kurbo, png, xmlparser, simplecss,
+svgtypes, roxmltree). These are licensed individually under permissive
+terms (predominantly MIT, Apache-2.0, or dual MIT/Apache-2.0).
+
+The full, authoritative list of crates and their licenses can be regenerated
+from the resvg source tree at any time by running, from
+third_party/resvg-src:
+
+    cargo install cargo-about
+    cargo about generate about.hbs > THIRD-PARTY-LICENSES.html
+
+or:
+
+    cargo install cargo-license
+    cargo license --all-features
+
+The resulting file should be redistributed alongside this notice.

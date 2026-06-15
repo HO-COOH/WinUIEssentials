@@ -18,8 +18,43 @@
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="FillColor">#ff0000</SolidColorBrush>
+                    <Color x:Key="CodeCommentColor">#A0A1A7</Color>
+                    <Color x:Key="CodeStringColor">#50A14F</Color>
+                    <Color x:Key="CodeKeywordColor">#A626A4</Color>
+                    <Color x:Key="CodeTypeColor">#C18401</Color>
+                    <Color x:Key="CodePreprocessorColor">#383a42</Color>
+                    <Color x:Key="CodeOperatorColor">#A626A4</Color>
+                    <Color x:Key="CodeIdentifierColor">#E45649</Color>
+                    <Color x:Key="CodePlainTextColor">#383a42</Color>
+                    <Color x:Key="CodeFunctionColor">#0184BC</Color>
+                    <Color x:Key="CodeNamespaceColor">#1F1F1F</Color>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="CodeCommentColor">#7F848E</Color>
+                    <Color x:Key="CodeStringColor">#98C379</Color>
+                    <Color x:Key="CodeKeywordColor">#C678DD</Color>
+                    <Color x:Key="CodeTypeColor">#E5C07B</Color>
+                    <Color x:Key="CodePreprocessorColor">#7E848E</Color>
+                    <Color x:Key="CodeOperatorColor">#C678DD</Color>
+                    <Color x:Key="CodeIdentifierColor">#E06C75</Color>
+                    <Color x:Key="CodePlainTextColor">#7E848E</Color>
+                    <Color x:Key="CodeFunctionColor">#61AFEF</Color>
+                    <Color x:Key="CodeNamespaceColor">#C8C8BE</Color>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
+
+            <Style TargetType="local:ColorCodeEditor">
+                <Setter Property="CommentColor" Value="{ThemeResource CodeCommentColor}" />
+                <Setter Property="StringColor" Value="{ThemeResource CodeStringColor}" />
+                <Setter Property="KeywordColor" Value="{ThemeResource CodeKeywordColor}" />
+                <Setter Property="TypeColor" Value="{ThemeResource CodeTypeColor}" />
+                <Setter Property="PreprocessorColor" Value="{ThemeResource CodePreprocessorColor}" />
+                <Setter Property="OperatorColor" Value="{ThemeResource CodeOperatorColor}" />
+                <Setter Property="IdentifierColor" Value="{ThemeResource CodeIdentifierColor}" />
+                <Setter Property="PlainTextColor" Value="{ThemeResource CodePlainTextColor}" />
+                <Setter Property="FunctionColor" Value="{ThemeResource CodeFunctionColor}" />
+                <Setter Property="NamespaceColor" Value="{ThemeResource CodeNamespaceColor}" />
+            </Style>
 
             <local:ElementThemeToStringConverter x:Name="ElementThemeToStringConverter" />
 

@@ -25,11 +25,11 @@
     <Filter Include="ThemeToggleButton">
       <UniqueIdentifier>{4ecc8bf3-957a-453a-9e65-542f8acadf42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ColorCode">
+      <UniqueIdentifier>{700e8dea-6964-439c-9f51-7db67de7e5c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CodeSource.h">
       <Filter>CodeSource</Filter>
     </ClInclude>
@@ -57,11 +57,31 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.h">
       <Filter>ThemeToggleButton</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestSvgUrls.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NugetPackageInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h">
+      <Filter>ColorCode</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Language.h">
+      <Filter>ColorCode</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)LanguageRule.h">
+      <Filter>ColorCode</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Language.Cpp.h">
+      <Filter>ColorCode</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Token.h">
+      <Filter>ColorCode</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColorCodeEditor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Language.Xaml.h">
+      <Filter>ColorCode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="$(MSBuildThisFileDirectory)Editor.idl">
-      <Filter>Editor</Filter>
-    </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)CodeSource.idl">
       <Filter>CodeSource</Filter>
@@ -84,11 +104,14 @@
     <Midl Include="$(MSBuildThisFileDirectory)ThemeToggleButton.idl">
       <Filter>ThemeToggleButton</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)NugetPackageInfo.idl">
+      <Filter>AboutPage</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ColorCodeEditor.idl">
+      <Filter>Editor</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)CodeSource.cpp">
       <Filter>CodeSource</Filter>
     </ClCompile>
@@ -115,6 +138,13 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.cpp">
       <Filter>ThemeToggleButton</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NugetPackageInfo.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Language.cpp">
+      <Filter>ColorCode</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColorCodeEditor.cpp">
+      <Filter>Editor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

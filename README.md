@@ -8,6 +8,8 @@ For UWP: [![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=WinUIEssen
 
 For WinUI3 (Windows App SDK): [![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=WinUIEssential.WinUI3)](https://www.nuget.org/packages/WinUIEssential.WinUI3)
 
+WinUI3 Svg: [![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3.Svg?label=WinUIEssential.WinUI3.Svg)](https://www.nuget.org/packages/WinUIEssential.WinUI3.Svg)
+
 
 ## Example Gallery
 [Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9?hl=en-us&gl=US&ocid=pdpshare)
@@ -130,6 +132,7 @@ You can reference Github Action for detailed build steps.
 |RevealFocusPanel | :x: | :white_check_mark: | Control
 |TenMica | :x: | :white_check_mark: | WinRT component
 |WindowedContentDialog | :x: | :white_check_mark: | Control
+|SvgImageSource | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1198,3 +1201,34 @@ Windows.Foundation.IAsyncOperation<Microsoft.UI.Xaml.Controls.ContentDialogResul
 |Smoke|Blur|
 |-----|----|
 |![](assets/windowed-dialog-smoke.png)|![](assets/windowed-dialog-blur.png)
+
+## SvgImageSource
+**This component is in a dedicated `WinUIEssential.WinUI3.Svg` package.**
+
+This component is based on [the great resvg project](https://github.com/linebender/resvg). 
+It is meant to be a drop-in replacement for the WinUI3's built-in `SvgImageSource`, but offers much better rendering capabilities.
+The WinUI3's built-in `SvgImageSource` has these [known limitations](https://learn.microsoft.com/en-us/windows/win32/direct2d/svg-support), one of the most limiting one being:
+ **unable to render `<text>`**.
+
+ Using this component, you get the majority of svg1.1 features supported (download the WinEssentials.WinUI3Example app from the store and see for yourself), plus easier sizing control,
+ supporting binding the rasterization size directly with the `Image` control.
+
+ Example usage:
+ ```xml
+<Image x:Name="SvgUrlImage">
+    <Image.Source>
+        <svg:SvgImageSource BindSizeTo="{x:Bind SvgUrlImage}" UriSource="https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=WinUIEssential.WinUI3" />
+    </Image.Source>
+</Image>
+ ```
+
+ ![](assets/svg1.png)
+ ![](assets/svg-compare.png)
+
+|Property| DependencyProperty? | Description
+|---|---|---|
+|UriSource | :white_check_mark: | Set the svg source by `Uri`
+|StringSource | :white_check_mark: | Set the svg source by the svg content string
+|RasterizePixelWidth | :white_check_mark: | The pixel width of the svg rasterized, not compatible with `BindSizeTo`
+|RasterizePixelHeight | :white_check_mark: | The pixel height of the svg rasterized, not compatible with `BindSizeTo`
+|BindSizeTo | :white_check_mark: | The `Image` control to bind to automatically adjust rasterized size. Not compatible with `RasterizedPixelWidth` and `RasterizedPixelHeight`

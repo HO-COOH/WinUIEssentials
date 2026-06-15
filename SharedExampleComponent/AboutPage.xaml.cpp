@@ -11,6 +11,7 @@
 #include <winrt/Windows.ApplicationModel.h>
 #include "GithubRequest.h"
 #include <winrt/Windows.Data.Json.h>
+#include "NugetPackageInfo.h"
 #include <winrt/Windows.Foundation.Metadata.h>
 #if defined GetObjectW
 #undef GetObjectW
@@ -229,24 +230,6 @@ namespace winrt::PackageRoot::implementation
 		co_return winrt::Windows::Data::Json::JsonObject::Parse(nugetInfo).GetNamedArray(L"data").GetAt(0).GetObject();
 	}
 
-	winrt::fire_and_forget AboutPage::loadNugetInfoForWinUIPackage(std::wstring_view endPoint)
-	{
-		auto data = co_await getNugetInfoFromId(endPoint, L"WinUIEssential.WinUI3");
-		m_winuiNugetPackageVersion = data.GetNamedString(L"version");
-		m_winuiNugetPackageDownloads = data.GetNamedNumber(L"totalDownloads");
-		raisePropertyChange(L"WinUINugetPackageVersion");
-		raisePropertyChange(L"WinUINugetPackageDownloads");
-	}
-
-	winrt::fire_and_forget AboutPage::loadNugetInfoForUWPPackage(std::wstring_view endPoint)
-	{
-		auto data = co_await getNugetInfoFromId(endPoint, L"WinUIEssential.UWP");
-		m_uwpNugetPackageVersion = data.GetNamedString(L"version");
-		m_uwpNugetPackageDownloads = data.GetNamedNumber(L"totalDownloads");
-		raisePropertyChange(L"UWPNugetPackageVersion");
-		raisePropertyChange(L"UWPNugetPackageDownloads");
-	}
-
 	winrt::fire_and_forget AboutPage::loadNugetInfo()
 	{
 		try
@@ -261,8 +244,9 @@ namespace winrt::PackageRoot::implementation
 					continue;
 				
 				auto endPoint = object.GetNamedString(L"@id");
-				loadNugetInfoForWinUIPackage(endPoint);
-				loadNugetInfoForUWPPackage(endPoint);
+				for (auto item : NugetInfos().Items())
+					winrt::get_self< NugetPackageInfo>(item.as<winrt::PackageRoot::NugetPackageInfo>())->request(client, endPoint);
+				co_return;
 			}
 		}
 		catch (...)

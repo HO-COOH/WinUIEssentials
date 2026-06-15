@@ -1,42 +1,51 @@
 ﻿#include "pch.h"
 #include "MenuFlyoutItemPaddingWorkaround.h"
 
-MenuFlyoutItemPaddingWorkaround::ItemKindCount MenuFlyoutItemPaddingWorkaround::applyImpl(
-	winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItemBase> const& items)
+static bool hasTemplateSetter(winrt::Microsoft::UI::Xaml::Style style)
 {
-	ItemKindCount count{};
+	while (style)
+	{
+		for (auto setterBase : style.Setters())
+		{
+			if (auto setter = setterBase.try_as<winrt::Microsoft::UI::Xaml::Setter>())
+			{
+				if (setter.Property() == winrt::Microsoft::UI::Xaml::Controls::Control::TemplateProperty())
+					return true;
+			}
+		}
+		style = style.BasedOn();
+	}
+	return false;
+}
+
+static bool hasCustomTemplate(winrt::Microsoft::UI::Xaml::Controls::Control const& control)
+{
+	if (control.ReadLocalValue(winrt::Microsoft::UI::Xaml::Controls::Control::TemplateProperty()) != winrt::Microsoft::UI::Xaml::DependencyProperty::UnsetValue())
+		return true;
+	return hasTemplateSetter(control.Style());
+}
+
+void MenuFlyoutItemPaddingWorkaround::applyImpl(winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItemBase> const& items)
+{
 	for (auto item : items)
 	{
 		if (item.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutSeparator>())
-		{
-			++count.numSeparators;
 			continue;
-		}
-	
-		++count.numNormalItems;
-		item.Height(ForceHeight);
-		item.Padding(ForcePadding);
 
-		if (auto subItem = item.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutSubItem>())
+		auto subItem = item.try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutSubItem>();
+
+		if (!hasCustomTemplate(item))
+		{
+			item.Height(ForceHeight);
+			item.Padding(ForcePadding);
+		}
+
+		if (subItem)
 			applyImpl(subItem.Items());
 	}
-	return count;
 }
 
 void MenuFlyoutItemPaddingWorkaround::Apply(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& menu)
 {
-	auto [numNormalItems, numSeparators] = applyImpl(menu.Items());
-	winrt::Microsoft::UI::Xaml::Setter setter
-	{
-		winrt::Microsoft::UI::Xaml::FrameworkElement::MaxHeightProperty(),
-		winrt::box_value(numNormalItems * (ForceHeight + ForcePadding.Top + ForcePadding.Bottom))
-	};
-	if (auto style = menu.MenuFlyoutPresenterStyle())
-		style.Setters().Append(setter);
-	else
-	{
-		winrt::Microsoft::UI::Xaml::Style newStyle{ winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutPresenter>() };
-		newStyle.Setters().Append(setter);
-		menu.MenuFlyoutPresenterStyle(newStyle);
-	}
+	applyImpl(menu.Items());
 }

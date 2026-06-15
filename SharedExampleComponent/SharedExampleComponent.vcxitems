@@ -19,36 +19,47 @@
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)AboutPage.xaml.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CodeSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ColorCodeEditor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ContributorItem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ControlExample.xaml.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Editor.xaml.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)GithubRequest.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Language.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NamedUrl.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NugetPackageInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RepoInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)AboutPage.xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CodeSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ColorCodeEditor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ContributorItem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ControlExample.xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Editor.xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)GithubRequest.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Language.Cpp.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Language.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Language.Xaml.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LanguageRule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NamedUrl.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NugetPackageInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RepoInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestSvgUrls.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Token.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)AboutPage.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)CodeSource.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)ColorCodeEditor.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ContributorItem.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ControlExample.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ControlExampleSubstitution.idl" />
-    <Midl Include="$(MSBuildThisFileDirectory)Editor.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NamedUrl.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)NugetPackageInfo.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ThemeToggleButton.idl" />
   </ItemGroup>
 </Project>

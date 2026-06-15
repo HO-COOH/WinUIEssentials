@@ -13,11 +13,6 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-	TaskbarIconPage::TaskbarIconPage()
-	{
-		InitializeComponent();
-	}
-
 	void TaskbarIconPage::NormalIconAdd_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
@@ -192,16 +187,17 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::Foundation::IInspectable const& , 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
+		auto menu = TaskbarIconWithPopupMenu();
 		if (!m_isThemeAdaptiveIconWithPopupMenuAdded)
 		{
-			TaskbarIconWithPopupMenu().LightThemeIconFile(winrt::get_self<implementation::TaskbarIconSource>(LightThemeIconSource())->IconFile);
-			TaskbarIconWithPopupMenu().DarkThemeIconFile(winrt::get_self<implementation::TaskbarIconSource>(DarkThemeIconSource())->IconFile);
-			TaskbarIconWithPopupMenu().Show();
+			menu.LightThemeIconFile(winrt::get_self<implementation::TaskbarIconSource>(LightThemeIconSource())->IconFile);
+			menu.DarkThemeIconFile(winrt::get_self<implementation::TaskbarIconSource>(DarkThemeIconSource())->IconFile);
+			menu.Show();
 			isThemeAdaptiveIconWithPopupMenuAdded(true);
 		}
 		else
 		{
-			TaskbarIconWithPopupMenu().Remove();
+			menu.Remove();
 			isThemeAdaptiveIconWithPopupMenuAdded(false);
 		}
 	}

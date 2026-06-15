@@ -11,6 +11,7 @@
 #include <wil/cppwinrt.h>
 #include <LayoutUpdateAwaiter.hpp>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
+#include <winrt/Windows.System.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -120,13 +121,20 @@ namespace winrt::WinUI3Example::implementation
 		return winrt::Windows::Foundation::Uri{ std::format(L"https://github.com/HO-COOH/WinUIEssentials/blob/master/WinUI3Package/{}.xaml", name) };
 	}
 
-	winrt::hstring MainWindow::WindowTitle()
+
+	void MainWindow::RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-#if (defined DEBUG) || (defined _DEBUG)
-		return L"WinUIEssentials.WinUI3Example(Dev)";
-#else
-		return L"WinUIEssentials.WinUI3Example";
-#endif
+		auto const timeDiffMilliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - AppStartTime);
+		TitleBarTextBlock().Text(winrt::hstring{ std::format(L"{}   StartTime: {}", WindowTitle(), timeDiffMilliseconds) });
 	}
 
+	void MainWindow::GithubFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri{ L"https://github.com/HO-COOH/WinUIEssentials" });
+	}
+
+	void MainWindow::StoreFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri{ L"ms-windows-store://pdp/?productid=9PCC690BCMT9" });
+	}
 }

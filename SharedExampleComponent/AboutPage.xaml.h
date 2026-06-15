@@ -2,6 +2,7 @@
 #include "AboutPage.g.h"
 #include "PropertyChangeHelper.hpp"
 #include "RepoInfo.h"
+#include "NugetPackageInfo.h"
 #include <winrt/Windows.Web.Http.h>
 
 namespace winrt::PackageRoot::implementation
@@ -53,8 +54,8 @@ namespace winrt::PackageRoot::implementation
         winrt::fire_and_forget loadRepoInfos();
         winrt::fire_and_forget loadCommitMessage();
         winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Data::Json::JsonObject> getNugetInfoFromId(std::wstring_view endPoint, std::wstring_view packageId);
-        winrt::fire_and_forget loadNugetInfoForWinUIPackage(std::wstring_view endPoint);
-        winrt::fire_and_forget loadNugetInfoForUWPPackage(std::wstring_view endPoint);
+        //winrt::fire_and_forget loadNugetInfoForWinUIPackage(std::wstring_view endPoint);
+        //winrt::fire_and_forget loadNugetInfoForUWPPackage(std::wstring_view endPoint);
         winrt::fire_and_forget loadNugetInfo();
         void addImplicitAnimationToLoading(winrt::WinUINamespace::UI::Composition::Compositor const& compositor);
         void addHeartbeatAnimation(winrt::WinUINamespace::UI::Composition::Compositor const& compositor);

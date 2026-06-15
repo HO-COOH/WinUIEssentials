@@ -23,12 +23,7 @@ class MenuFlyoutItemPaddingWorkaround
 	constexpr static auto ForceHeight = 32.0;
 	constexpr static winrt::Microsoft::UI::Xaml::Thickness ForcePadding{ 8,5,5,5 };
 
-	struct ItemKindCount
-	{
-		int numNormalItems;
-		int numSeparators;
-	};
-	static ItemKindCount applyImpl(
+	static void applyImpl(
 		winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItemBase> const& items
 	);
 public:

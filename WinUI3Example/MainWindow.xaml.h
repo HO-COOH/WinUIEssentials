@@ -27,6 +27,7 @@ namespace winrt::WinUI3Example::implementation
         void WindowEx_Activated(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs const& args);
         void WindowEx_Closed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::WindowEventArgs const& args);
         void FooterMenuItemsHost_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         winrt::Windows::Foundation::IAsyncAction MoreButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void PageSourceContentButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
 
@@ -39,10 +40,22 @@ namespace winrt::WinUI3Example::implementation
             return { 0x50fb17d, 0xd467, 0x49ce, { 0xa0, 0xb7, 0x81, 0x87, 0x52, 0x7a, 0x9c, 0x81 } };
 #endif
         }
-        static winrt::hstring WindowTitle();
+        
+        constexpr static auto WindowTitle()
+        {
+#if (defined DEBUG) || (defined _DEBUG)
+            return L"WinUIEssentials.WinUI3Example(Dev)";
+#else
+            return L"WinUIEssentials.WinUI3Example";
+#endif
+        }
+
         // Stored animations for reversible playback
         ButtonAnimations m_sourceButtonAnimations;
         bool m_isExpanded = false;
+        void GithubFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        void StoreFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+        static inline std::chrono::steady_clock::time_point AppStartTime{ std::chrono::steady_clock::now() };
     };
 }
 

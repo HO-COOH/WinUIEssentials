@@ -73,8 +73,7 @@ picker.PickSaveFileAsync();
                             
 WinUIEssentials::Windows::Storage::Pickers::FolderPicker folderPicker{ MainWindow::Hwnd };
 folderPicker.FileTypeFilter().Append(L&quot;*&quot;); //You must do this, otherwise a crash on Windows 10
-folderPicker.PickSingleFolderAsync();
-                        </x:String>
+folderPicker.PickSingleFolderAsync();</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Cpp>
@@ -127,8 +126,7 @@ flyout.ShowAsync();</x:String>
 
 WinUIEssentials::Windows::UI::Popups::PopupMenu menu{ MainWindow::Hwnd };
 menu.Commands().ReplaceAll({ winrt::Windows::UI::Popups::UICommand{L&quot;Command1&quot;}, winrt::Windows::UI::Popups::UICommand{L&quot;Command2&quot;} });
-menu.ShowAsync({});                            
-                        </x:String>
+menu.ShowAsync({});</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Cpp>

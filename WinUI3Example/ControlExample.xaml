@@ -168,7 +168,6 @@
                 Collapsed="Expander_Collapsed"
                 CornerRadius="0,0,8,8"
                 Expanding="Expander_Expanding"
-                IsExpanded="True"
                 Loaded="Expander_Loaded">
 
 
@@ -242,7 +241,11 @@
                     </Pivot.HeaderTemplate>
                     <Pivot.ItemTemplate>
                         <DataTemplate x:DataType="local:CodeSource">
-                            <local:Editor
+                            <!--<local:Editor
+                                Margin="0,4"
+                                Code="{x:Bind Code}"
+                                CodeLanguage="{x:Bind CodeLanguage}" />-->
+                            <local:ColorCodeEditor
                                 Margin="0,4"
                                 Code="{x:Bind Code}"
                                 CodeLanguage="{x:Bind CodeLanguage}" />
