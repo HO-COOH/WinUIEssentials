@@ -884,7 +884,7 @@ namespace winrt::PackageRoot::implementation
         else
             self->m_tableProperty.m_headerFontSize = value;
 		auto const contentPadding = self->ContentPadding();
-		self->VerticalScrollBar().Margin(winrt::Microsoft::UI::Xaml::Thickness{ 0, fontHeight + contentPadding.Top + contentPadding.Bottom, 0, 0});
+		self->VerticalScrollBar().Margin(winrt::WinUINamespace::UI::Xaml::Thickness{ 0, fontHeight + contentPadding.Top + contentPadding.Bottom, 0, 0});
     }
 
     void Table::onContentPaddingChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -897,7 +897,7 @@ namespace winrt::PackageRoot::implementation
             self->m_sharedData.Update([value](TableProperty& data) {data.m_contentPadding = value; });
         else
             self->m_tableProperty.m_contentPadding = value;
-		self->VerticalScrollBar().Margin(winrt::Microsoft::UI::Xaml::Thickness{ 0, self->m_d2dContent.m_tableHeight.HeaderFontHeight() + verticalPadding, 0, 0});
+		self->VerticalScrollBar().Margin(winrt::WinUINamespace::UI::Xaml::Thickness{ 0, self->m_d2dContent.m_tableHeight.HeaderFontHeight() + verticalPadding, 0, 0});
     }
 
     void Table::onHeaderFontWeightChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)

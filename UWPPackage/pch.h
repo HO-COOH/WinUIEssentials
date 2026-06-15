@@ -1,5 +1,8 @@
 ﻿#pragma once
+
 #include <unknwn.h>
+#undef GetCurrentTime
+#include <winrt/Windows.UI.Xaml.Media.Animation.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.UI.Xaml.h>
@@ -10,7 +13,6 @@
 #include "include/WinUIIncludes.hpp"
 #include <winrt/Windows.UI.Xaml.Controls.h>
 #include <winrt/Windows.UI.Xaml.Controls.Primitives.h>
-#include <winrt/Windows.UI.Xaml.Media.Animation.h>
 #include <winrt/Windows.UI.Xaml.Hosting.h>
 #include <winrt/Windows.UI.Composition.h>
 #include <winrt/Windows.UI.Xaml.Media.h>

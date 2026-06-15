@@ -296,7 +296,8 @@ void TableOverlayManager::BeginEdit(int row, int column)
 	m_children.Append(editControl);
 
 	//try set focus
-	editControl.Focus(winrt::WinUINamespace::UI::Xaml::FocusState::Programmatic);
+	if (auto focusable = editControl.try_as<winrt::WinUINamespace::UI::Xaml::Controls::Control>())
+		focusable.Focus(winrt::WinUINamespace::UI::Xaml::FocusState::Programmatic);
 }
 
 void TableOverlayManager::EndEdit()
