@@ -829,6 +829,7 @@
                         <NavigationViewItem Content="CursorController" Tag="{essential:TypeName Type=local:CursorControllerPage}" />
                         <NavigationViewItem Content="UIElementExtension" Tag="{essential:TypeName Type=local:ExtensionsPage}" />
                         <NavigationViewItem Content="FontIconExtension" Tag="{essential:TypeName Type=local:FontIconExtensionPage}" />
+                        <NavigationViewItem Content="TypeNameExtension" Tag="{essential:TypeName Type=local:TypeNameExtensionPage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 

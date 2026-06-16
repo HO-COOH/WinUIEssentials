@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass SamplePage1 : Microsoft.UI.Xaml.Controls.Page
+    {
+        SamplePage1();
+    }
+}

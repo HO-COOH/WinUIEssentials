@@ -264,6 +264,24 @@
     <Page Include="ColorCodeEditor.xaml">
       <Filter>Helper</Filter>
     </Page>
+    <Page Include="TypeNameExtensionPage.xaml">
+      <Filter>Pages\TypeNameExtensions</Filter>
+    </Page>
+    <Page Include="SamplePage1.xaml">
+      <Filter>Pages\TypeNameExtensions</Filter>
+    </Page>
+    <Page Include="SamplePage2.xaml">
+      <Filter>Pages\TypeNameExtensions</Filter>
+    </Page>
+    <Page Include="SamplePage3.xaml">
+      <Filter>Pages\TypeNameExtensions</Filter>
+    </Page>
+    <Page Include="SamplePage4.xaml">
+      <Filter>Pages\TypeNameExtensions</Filter>
+    </Page>
+    <Page Include="SampleSettingsPage.xaml">
+      <Filter>Pages\TypeNameExtensions</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -653,12 +671,15 @@
     <Filter Include="Pages\TablePage">
       <UniqueIdentifier>{0f298be6-f64c-4889-b35a-fccce0a22aba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pages\TypeNameExtensions">
+      <UniqueIdentifier>{70cb1a2e-8f20-41b5-b3bc-4357c98e6757}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.Dev.appxmanifest" />
+    <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
