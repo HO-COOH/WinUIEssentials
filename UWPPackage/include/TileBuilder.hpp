@@ -1,7 +1,9 @@
 #pragma once
 #include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.Notifications.h>
+#ifndef WINUIESSENTIALS_USE_STD_MODULE
 #include <vector>
+#endif
 
 
 //https://learn.microsoft.com/en-us/windows/apps/design/shell/tiles-and-notifications/adaptive-tiles-schema

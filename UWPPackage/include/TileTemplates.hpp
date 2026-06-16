@@ -1,8 +1,10 @@
 #pragma once
 #include <winrt/Windows.Data.Xml.Dom.h>
+#ifndef WINUIESSENTIALS_USE_STD_MODULE
 #include <format>
-#include <winrt/Windows.UI.Notifications.h>
 #include <string_view>
+#endif
+#include <winrt/Windows.UI.Notifications.h>
 
 namespace TileTemplates
 {

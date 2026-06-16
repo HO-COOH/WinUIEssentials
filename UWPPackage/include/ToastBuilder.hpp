@@ -1,13 +1,15 @@
 #pragma once
+#ifndef WINUIESSENTIALS_USE_STD_MODULE
 #include <optional>
 #include <type_traits>
 #include <vector>
 #include <string_view>
+#include <unordered_map>
+#include <functional>
+#endif
 #include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.Notifications.h>
 #include <winrt/Windows.ApplicationModel.Activation.h>
-#include <unordered_map>
-#include <functional>
 
 namespace ToastBuilder
 {

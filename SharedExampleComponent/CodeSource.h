@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "CodeSource.g.h"
-#include <functional>
 
 namespace winrt::PackageRoot::implementation
 {

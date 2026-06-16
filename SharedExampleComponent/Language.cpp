@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "Language.h"
-#include <numeric>
 #include "Language.Cpp.h"
 #include "Language.Xaml.h"
 

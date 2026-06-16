@@ -3,7 +3,6 @@
 #if __has_include("TilesPage.g.cpp")
 #include "TilesPage.g.cpp"
 #endif
-#include <fstream>
 #include <winrt/Windows.UI.StartScreen.h>
 #include <winrt/Windows.Data.Xml.Dom.h>
 

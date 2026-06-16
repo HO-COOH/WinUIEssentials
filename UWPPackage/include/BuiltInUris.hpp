@@ -1,13 +1,16 @@
 #pragma once
+#ifndef WINUIESSENTIALS_USE_STD_MODULE
 #include <string_view>
-#include <winrt/Windows.Foundation.h>
 #include <format>
 #include <vector>
-#if __has_include(<boost/algorithm/string.hpp>)
+#if !__has_include(<boost/algorithm/string.hpp>)
+#include <numeric>
+#endif
+#endif
+#include <winrt/Windows.Foundation.h>
+#if !defined(WINUIESSENTIALS_USE_STD_MODULE) && __has_include(<boost/algorithm/string.hpp>)
 #include <boost/algorithm/string.hpp>
 #define WinUIEssential_UseBoost
-#else
-#include <numeric>
 #endif
 
 namespace BuiltInUris

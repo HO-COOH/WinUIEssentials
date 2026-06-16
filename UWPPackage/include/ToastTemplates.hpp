@@ -1,7 +1,9 @@
 #pragma once
 #include <winrt/Windows.UI.Notifications.h>
 #include <winrt/Windows.Data.Xml.Dom.h>
+#ifndef WINUIESSENTIALS_USE_STD_MODULE
 #include <format>
+#endif
 
 namespace ToastTemplates
 {

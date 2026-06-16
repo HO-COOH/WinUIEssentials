@@ -1,8 +1,4 @@
 #pragma once
-#include <string>
-#include <vector>
-#include <regex>
-#include <unordered_set>
 #include "LanguageRule.h"
 #include "Token.h"
 
@@ -67,7 +63,7 @@ namespace ColorCode
 					//there should at least one rule matched for C++, so this if should not hit
 					if (!matched)
 					{
-						assert(false);
+						std::abort();
 						++pos;
 					}
 				}

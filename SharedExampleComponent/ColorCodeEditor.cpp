@@ -3,7 +3,6 @@
 #if __has_include("ColorCodeEditor.g.cpp")
 #include "ColorCodeEditor.g.cpp"
 #endif
-#include <ranges>
 #include "Language.h"
 #if defined Build_WinUI3Example
 #include <winrt/Microsoft.UI.Xaml.Documents.h>

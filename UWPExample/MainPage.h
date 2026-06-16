@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "MainPage.g.h"
-#include <unordered_map>
 
 namespace winrt::UWPExample::implementation
 {

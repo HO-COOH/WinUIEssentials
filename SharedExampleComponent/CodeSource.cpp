@@ -105,7 +105,7 @@ namespace winrt::PackageRoot::implementation
             );
         default:
             //Too many substitutions?
-            assert(false);
+            std::abort();
         }
     }
     winrt::PackageRoot::Language CodeSource::CodeLanguage()

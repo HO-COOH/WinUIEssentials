@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "ControlExampleSubstitution.g.h"
-#include <functional>
 
 namespace winrt::PackageRoot::implementation
 {

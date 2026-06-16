@@ -1,6 +1,5 @@
 #pragma once
 #include "Scope.h"
-#include <string_view>
 
 namespace ColorCode
 {

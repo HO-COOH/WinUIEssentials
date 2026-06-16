@@ -1,8 +1,6 @@
 ﻿#include "pch.h"
 #include "RepoInfo.h"
 #include <winrt/Windows.Data.Json.h>
-#include <sstream>
-#include <chrono>
 #include <winrt/Windows.Globalization.DateTimeFormatting.h>
 
 static winrt::hstring convertDateTime(winrt::hstring const& str)
