@@ -7,10 +7,35 @@
 #include <ranges>
 #include <variant>
 
+#if defined Build_UWPPackage
+#include <winrt/Windows.Foundation.Metadata.h>
+
+//CreatePowerEasingFunction requires Windows 10 1903 (build 18362).
+//Probe at runtime so newer UWP hosts still get the real power easing,
+//and pre-1903 builds fall back to a cubic-bezier approximation.
+static winrt::WinUINamespace::UI::Composition::CompositionEasingFunction createScrollEasingFunction(winrt::WinUINamespace::UI::Composition::Compositor const& compositor)
+{
+	if (winrt::Windows::Foundation::Metadata::ApiInformation::IsMethodPresent(
+		L"Windows.UI.Composition.CompositionEasingFunction",
+		L"CreatePowerEasingFunction"))
+	{
+		return winrt::WinUINamespace::UI::Composition::CompositionEasingFunction::CreatePowerEasingFunction(
+			compositor,
+			winrt::WinUINamespace::UI::Composition::CompositionEasingFunctionMode::Out,
+			5.f);
+	}
+	return compositor.CreateCubicBezierEasingFunction({ 0.22f, 1.f }, { 0.36f, 1.f });
+}
+#endif
+
 TableOverlayManager::TableOverlayManager(winrt::PackageRoot::implementation::Table& table) :
 	m_compositor{ winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(table).Compositor() },
 	TableProperty{ m_compositor.CreatePropertySet() },
+#if defined Build_UWPPackage
+	m_scrollEasingFunction{ createScrollEasingFunction(m_compositor) },
+#else
 	m_scrollEasingFunction{ winrt::WinUINamespace::UI::Composition::CompositionEasingFunction::CreatePowerEasingFunction(m_compositor, winrt::WinUINamespace::UI::Composition::CompositionEasingFunctionMode::Out, 5.f) },
+#endif
 	m_scrollAnimation{ m_compositor.CreateScalarKeyFrameAnimation() },
 	m_cellExpression{ m_compositor.CreateExpressionAnimation(TranslationExpression) },
 	m_headerExpression{ m_compositor.CreateExpressionAnimation(HeaderTranslationExpression) },

@@ -724,6 +724,7 @@
                         <muxc:NavigationViewItem Content="CursorController" Tag="{essential:TypeName Type=local:CursorControllerPage}" />
                         <muxc:NavigationViewItem Content="FontIconExtension" Tag="{essential:TypeName Type=local:FontIconExtensionPage}" />
                         <muxc:NavigationViewItem Content="UIElementExtension" Tag="{essential:TypeName Type=local:ExtensionsPage}" />
+                        <muxc:NavigationViewItem Content="TypeNameExtension" Tag="{essential:TypeName Type=local:TypeNameExtensionPage}" />
                     </muxc:NavigationViewItem.MenuItems>
                 </muxc:NavigationViewItem>
 
@@ -736,10 +737,7 @@
             </muxc:NavigationView.MenuItems>
 
             <ScrollViewer>
-                <Frame
-                    x:Name="ContentFrame"
-                    Margin="10,10,20,10"
-                    VerticalAlignment="Top" />
+                <Frame x:Name="ContentFrame" Margin="10,10,20,10" />
             </ScrollViewer>
 
             <muxc:NavigationView.FooterMenuItems>

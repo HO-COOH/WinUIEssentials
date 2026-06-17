@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass TypeNameExtensionPage : Windows.UI.Xaml.Controls.Page
+    {
+        TypeNameExtensionPage();
+    }
+}

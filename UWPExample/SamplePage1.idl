@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass SamplePage1 : Windows.UI.Xaml.Controls.Page
+    {
+        SamplePage1();
+    }
+}

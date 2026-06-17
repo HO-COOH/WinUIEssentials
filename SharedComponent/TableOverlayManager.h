@@ -31,7 +31,7 @@ class TableOverlayManager
 	winrt::WinUINamespace::UI::Xaml::Controls::UIElementCollection m_headerChildren{ nullptr };
 	winrt::WinUINamespace::UI::Composition::Compositor m_compositor;
 	winrt::WinUINamespace::UI::Composition::CompositionPropertySet TableProperty;
-	winrt::WinUINamespace::UI::Composition::PowerEasingFunction m_scrollEasingFunction;
+	winrt::WinUINamespace::UI::Composition::CompositionEasingFunction m_scrollEasingFunction;
 	winrt::WinUINamespace::UI::Composition::ScalarKeyFrameAnimation m_scrollAnimation;
 	winrt::WinUINamespace::UI::Composition::ExpressionAnimation m_cellExpression;
 	winrt::WinUINamespace::UI::Composition::ExpressionAnimation m_headerExpression;

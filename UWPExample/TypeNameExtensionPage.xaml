@@ -1,0 +1,79 @@
+﻿<Page
+    x:Class="UWPExample.TypeNameExtensionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:UWPPackage"
+    xmlns:local="using:UWPExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <local:ControlExample HorizontalContentAlignment="Stretch" HeaderText="Use essential:TypeName extension for creating a winrt::xaml_typename object">
+        <muxc:NavigationView IsSettingsVisible="False" SelectionChanged="NavigationView_SelectionChanged">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem
+                    Content="Menu Item1"
+                    Icon="Play"
+                    Tag="{essential:TypeName Type=local:SamplePage1}" />
+                <muxc:NavigationViewItem
+                    Content="Menu Item2"
+                    Icon="Save"
+                    Tag="{essential:TypeName Type=local:SamplePage2}" />
+                <muxc:NavigationViewItem
+                    Content="Menu Item3"
+                    Icon="Refresh"
+                    Tag="{essential:TypeName Type=local:SamplePage3}" />
+                <muxc:NavigationViewItem
+                    Content="Menu Item4"
+                    Icon="Download"
+                    Tag="{essential:TypeName Type=local:SamplePage4}" />
+            </muxc:NavigationView.MenuItems>
+            <Frame x:Name="contentFrame" />
+        </muxc:NavigationView>
+
+        <local:ControlExample.Xaml>
+            <local:CodeSource>
+                <local:CodeSource.Code>
+                    <x:String xml:space="preserve">&lt;NavigationView IsSettingsVisible=&quot;False&quot; SelectionChanged=&quot;NavigationView_SelectionChanged&quot;&gt;
+    &lt;NavigationView.MenuItems&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Menu Item1&quot;
+            Icon=&quot;Play&quot;
+            Tag=&quot;{essential:TypeName Type=local:SamplePage1}&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Menu Item2&quot;
+            Icon=&quot;Save&quot;
+            Tag=&quot;{essential:TypeName Type=local:SamplePage2}&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Menu Item3&quot;
+            Icon=&quot;Refresh&quot;
+            Tag=&quot;{essential:TypeName Type=local:SamplePage3}&quot; /&gt;
+        &lt;NavigationViewItem
+            Content=&quot;Menu Item4&quot;
+            Icon=&quot;Download&quot;
+            Tag=&quot;{essential:TypeName Type=local:SamplePage4}&quot; /&gt;
+    &lt;/NavigationView.MenuItems&gt;
+    &lt;Frame x:Name=&quot;contentFrame&quot; /&gt;
+&lt;/NavigationView&gt;</x:String>
+                </local:CodeSource.Code>
+            </local:CodeSource>
+        </local:ControlExample.Xaml>
+
+        <local:ControlExample.Cpp>
+            <local:CodeSource>
+                <local:CodeSource.Code>
+                    <x:String xml:space="preserve">void TypeNameExtensionPage::NavigationView_SelectionChanged(
+    winrt::Microsoft::UI::Xaml::Controls::NavigationView const&amp; sender, 
+    winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const&amp; args)
+{
+    //before, you usually need to create a mapping between NavigationViewItem.Tag to a winrt::xaml_typename to do Navigation
+    //using {essential:TypeName} markup extension, you directly set a type on NavigationViewItem.Tag, allowing you to simplify the Navigate() call
+    contentFrame()
+        .Navigate(args.SelectedItem().as&lt;winrt::Microsoft::UI::Xaml::Controls::NavigationViewItem&gt;().Tag().as&lt;winrt::Windows::UI::Xaml::Interop::TypeName&gt;());
+}</x:String>
+                </local:CodeSource.Code>
+            </local:CodeSource>
+        </local:ControlExample.Cpp>
+    </local:ControlExample>
+</Page>

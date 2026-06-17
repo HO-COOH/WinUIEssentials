@@ -422,6 +422,22 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SamplePage1.h">
+      <DependentUpon>SamplePage1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="SamplePage2.h">
+      <DependentUpon>SamplePage2.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="SamplePage3.h">
+      <DependentUpon>SamplePage3.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="SamplePage4.h">
+      <DependentUpon>SamplePage4.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ScopedButtonDisablerPage.h">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -468,6 +484,10 @@
     </ClInclude>
     <ClInclude Include="TriggersPage.h">
       <DependentUpon>TriggersPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TypeNameExtensionPage.h">
+      <DependentUpon>TypeNameExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="UriGroup.h">
@@ -535,6 +555,18 @@
     <Page Include="ProgressBarExPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SamplePage1.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SamplePage2.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SamplePage3.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SamplePage4.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ScopedButtonDisablerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -566,6 +598,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TriggersPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TypeNameExtensionPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UriPage.xaml">
@@ -698,6 +733,22 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SamplePage1.cpp">
+      <DependentUpon>SamplePage1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SamplePage2.cpp">
+      <DependentUpon>SamplePage2.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SamplePage3.cpp">
+      <DependentUpon>SamplePage3.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="SamplePage4.cpp">
+      <DependentUpon>SamplePage4.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ScopedButtonDisablerPage.cpp">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -740,6 +791,10 @@
     </ClCompile>
     <ClCompile Include="TriggersPage.cpp">
       <DependentUpon>TriggersPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TypeNameExtensionPage.cpp">
+      <DependentUpon>TypeNameExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="UriGroup.cpp">
@@ -816,6 +871,22 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="SamplePage1.idl">
+      <DependentUpon>SamplePage1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SamplePage2.idl">
+      <DependentUpon>SamplePage2.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SamplePage3.idl">
+      <DependentUpon>SamplePage3.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="SamplePage4.idl">
+      <DependentUpon>SamplePage4.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ScopedButtonDisablerPage.idl">
       <DependentUpon>ScopedButtonDisablerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -857,6 +928,10 @@
     </Midl>
     <Midl Include="TriggersPage.idl">
       <DependentUpon>TriggersPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TypeNameExtensionPage.idl">
+      <DependentUpon>TypeNameExtensionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="UriGroup.idl">

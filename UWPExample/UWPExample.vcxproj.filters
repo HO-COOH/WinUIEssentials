@@ -83,6 +83,21 @@
     <Page Include="ColorCodeEditor.xaml">
       <Filter>Helper</Filter>
     </Page>
+    <Page Include="TypeNameExtensionPage.xaml">
+      <Filter>Pages\Extensions\TypeNameExtension</Filter>
+    </Page>
+    <Page Include="SamplePage1.xaml">
+      <Filter>Pages\Extensions\TypeNameExtension</Filter>
+    </Page>
+    <Page Include="SamplePage2.xaml">
+      <Filter>Pages\Extensions\TypeNameExtension</Filter>
+    </Page>
+    <Page Include="SamplePage3.xaml">
+      <Filter>Pages\Extensions\TypeNameExtension</Filter>
+    </Page>
+    <Page Include="SamplePage4.xaml">
+      <Filter>Pages\Extensions\TypeNameExtension</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -300,6 +315,9 @@
     </Filter>
     <Filter Include="Pages\TablePage">
       <UniqueIdentifier>{ee8d7f08-819d-4c7b-8ebb-82c496b46486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\Extensions\TypeNameExtension">
+      <UniqueIdentifier>{8f9e597c-9d7e-44a3-a295-4f889b14259e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
