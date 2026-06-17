@@ -41,6 +41,7 @@ namespace ColorCode
                     LanguageRule{Cpp::Preprocessor, Scope::Preprocessor},
                     LanguageRule{Cpp::String, Scope::String},
                     LanguageRule{Cpp::Operator, Scope::Operator},
+                    LanguageRule{Cpp::TemplateFunction, Scope::Function},
                     LanguageRule{Cpp::TemplateType, Scope::Type},
                     LanguageRule{Cpp::NamespaceQualifier, Scope::Namespace},
                     LanguageRule{Cpp::Function, Scope::Function},

@@ -113,6 +113,7 @@ namespace ColorCode
 		constexpr static auto Operator = LR"([+\-*\/%^&|~!=<>,]|\+=|-=|\*=|\/=|%=|\^=|&=|\|=|<<|>>|>>=|<<=|==|!=|<=|>=|<=>|&&|\|\|\+\+|--|->|->*)";
 		constexpr static auto Identifier = LR"([A-Za-z][A-Za-z0-9_]*)";
 		constexpr static auto Function = LR"([A-Za-z][A-Za-z0-9_]*(?=\s*\())";
+		constexpr static auto TemplateFunction = LR"([A-Za-z_][A-Za-z0-9_]*(?=<[^<>;{}()]*(?:<[^<>;{}()]*>[^<>;{}()]*)*>\s*\())";
 		constexpr static auto UserType = LR"([A-Z][A-Za-z0-9_]*)"; //only captital letter heuristics, might be incorrect, but good enough for coloring code
 		constexpr static auto TemplateType = LR"([A-Za-z_][A-Za-z0-9_]*(?:::[A-Za-z_][A-Za-z0-9_]*)*<[^<>;{}()]*(?:<[^<>;{}()]*>[^<>;{}()]*)*>)";
 		constexpr static auto NamespaceQualifier = LR"([A-Za-z_][A-Za-z0-9_]*(?=::))";

@@ -38,12 +38,6 @@
                 <essential:Table.ItemsSource>
                     <local:DemoTableData />
                 </essential:Table.ItemsSource>
-
-                <!--<essential:TableRow>
-                    <x:String>1</x:String>
-                    <x:String>Josi</x:String>
-                    <x:String>Syfax</x:String>
-                </essential:TableRow>-->
                 <essential:Table.Columns>
                     <essential:TableColumn Content="Id" />
                     <essential:TableColumn Content="First Name" />
@@ -52,7 +46,7 @@
                     <essential:TableColumn Content="Gender" />
                     <essential:TableColumn Content="Dob" />
                     <essential:TableColumn Content="Active At" />
-                    <essential:TableColumn Content="Is Active" IsResizable="False">
+                    <essential:TableColumn Content="Is Active">
                         <essential:TableColumn.ItemTemplate>
                             <DataTemplate x:DataType="x:Boolean">
                                 <CheckBox IsChecked="{x:Bind}" />
@@ -77,6 +71,50 @@
                     <Run Text="{x:Bind DemoTable.Fps, Mode=OneWay}" />
                 </TextBlock>
             </local:ControlExample.Output>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:Table
+    x:Name=&quot;DemoTable&quot;
+    HorizontalAlignment=&quot;Stretch&quot;
+    VerticalAlignment=&quot;Stretch&quot;
+    CornerRadius=&quot;{StaticResource ControlCornerRadius}&quot;
+    HeaderBackground=&quot;{ThemeResource ControlFillColorDefault}&quot;
+    HeaderFontWeight=&quot;Normal&quot;&gt;
+    &lt;essential:Table.ItemsSource&gt;
+        &lt;local:DemoTableData /&gt;
+    &lt;/essential:Table.ItemsSource&gt;
+    &lt;essential:Table.Columns&gt;
+        &lt;essential:TableColumn Content=&quot;Id&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;First Name&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Last Name&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Email&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Gender&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Dob&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Active At&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Is Active&quot;&gt;
+            &lt;essential:TableColumn.ItemTemplate&gt;
+                &lt;DataTemplate x:DataType=&quot;x:Boolean&quot;&gt;
+                    &lt;CheckBox IsChecked=&quot;{x:Bind}&quot; /&gt;
+                &lt;/DataTemplate&gt;
+            &lt;/essential:TableColumn.ItemTemplate&gt;
+        &lt;/essential:TableColumn&gt;
+
+        &lt;essential:TableColumn Content=&quot;Department&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Designation&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Address&quot;&gt;
+            &lt;essential:TableColumn.EditTemplate&gt;
+                &lt;DataTemplate x:DataType=&quot;x:String&quot;&gt;
+                    &lt;TextBox Text=&quot;{x:Bind}&quot; /&gt;
+                &lt;/DataTemplate&gt;
+            &lt;/essential:TableColumn.EditTemplate&gt;
+        &lt;/essential:TableColumn&gt;
+    &lt;/essential:Table.Columns&gt;
+&lt;/essential:Table&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
 
     </Grid>
