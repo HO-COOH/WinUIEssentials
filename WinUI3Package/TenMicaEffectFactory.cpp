@@ -6,18 +6,12 @@
 
 void TenMicaEffectFactory::createFactory()
 {
-	auto themeCrossFadeEffect = winrt::make_self<CrossFadeInterop>();
-	themeCrossFadeEffect->CrossFade = 1.0f; // start dark
+	auto themeCrossFadeEffect = winrt::make_self<CrossFadeInterop>(1.f, L"Light", L"Dark"); //start dark
 	themeCrossFadeEffect->Name(L"ThemeFade");
-	themeCrossFadeEffect->Source1 = winrt::Windows::UI::Composition::CompositionEffectSourceParameter{ L"Light" };
-	themeCrossFadeEffect->Source2 = winrt::Windows::UI::Composition::CompositionEffectSourceParameter{ L"Dark" };
 	themeCrossFadeEffectFactory = compositor.CreateEffectFactory(*themeCrossFadeEffect, { L"ThemeFade.CrossFade" });
 
-	auto crossFadeEffectInterop = winrt::make_self<CrossFadeInterop>();
-	crossFadeEffectInterop->CrossFade = 0.0f;
+	auto crossFadeEffectInterop = winrt::make_self<CrossFadeInterop>(0.0f, L"Source1", L"Source2");
 	crossFadeEffectInterop->Name(L"CrossFade");
-	crossFadeEffectInterop->Source1 = winrt::Windows::UI::Composition::CompositionEffectSourceParameter{ L"Source1" };
-	crossFadeEffectInterop->Source2 = winrt::Windows::UI::Composition::CompositionEffectSourceParameter{ L"Source2" };
 	finalEffectFactory = compositor.CreateEffectFactory(*crossFadeEffectInterop, { L"CrossFade.CrossFade" });
 
 	auto colorAnimation = compositor.CreateColorKeyFrameAnimation();

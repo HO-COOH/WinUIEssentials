@@ -7,13 +7,13 @@
 #include "TenMicaEffectFactory.h"
 #include "TenMicaWindowSubProc.hpp"
 #include "TenMicaRegistryWatcher.h"
-#include "EnsureSystemDispatcherQueueController.hpp"
+#include "EnsureSystemDispatcherQueueController.h"
 #include <optional>
 #include <memory>
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct TenMicaBackdrop : TenMicaBackdropT<TenMicaBackdrop, CustomBackdropBase>, TenMicaWindowSubProc<TenMicaBackdrop>, EnsureSystemDispatcherQueueController<TenMicaBackdrop>
+    struct TenMicaBackdrop : TenMicaBackdropT<TenMicaBackdrop, CustomBackdropBase>, TenMicaWindowSubProc<TenMicaBackdrop>, EnsureSystemDispatcherQueueController
     {
         TenMicaBackdrop() = default;
 

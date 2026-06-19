@@ -2,7 +2,7 @@
 #include "EffectInterop.hpp"
 #include "EffectPropertyMapping.h"
 #include <d2d1effects_2.h>
-#include "EffectPropertyHelper.h"
+
 
 class CrossFadeInterop : public EffectInterop<CrossFadeInterop>
 {
@@ -13,34 +13,22 @@ class CrossFadeInterop : public EffectInterop<CrossFadeInterop>
 	static inline constexpr EffectPropertyMapping propertyMappings[]
 	{
 		{
-			L"CrossFade",
-			D2D1_CROSSFADE_PROP::D2D1_CROSSFADE_PROP_WEIGHT,
-			ABI::Windows::Graphics::Effects::GRAPHICS_EFFECT_PROPERTY_MAPPING::GRAPHICS_EFFECT_PROPERTY_MAPPING_DIRECT
+			.name = L"CrossFade",
+			.index = D2D1_CROSSFADE_PROP::D2D1_CROSSFADE_PROP_WEIGHT,
+			.mapping = ABI::Windows::Graphics::Effects::GRAPHICS_EFFECT_PROPERTY_MAPPING::GRAPHICS_EFFECT_PROPERTY_MAPPING_DIRECT
 		}
 	};
 
-	HRESULT getPropertyImpl(UINT index, ABI::Windows::Foundation::IPropertyValue** value)
-	{
-		if (index == D2D1_CROSSFADE_PROP::D2D1_CROSSFADE_PROP_WEIGHT)
-			return EffectPropertyHelper::MakeProperty(CrossFade, value);
+	HRESULT getPropertyImpl(UINT index, ABI::Windows::Foundation::IPropertyValue** value);
+	HRESULT getSourceImpl(UINT index, ABI::Windows::Graphics::Effects::IGraphicsEffectSource** source);
 
-		return E_INVALIDARG;
-	}
-
-	HRESULT getSourceImpl(UINT index, ABI::Windows::Graphics::Effects::IGraphicsEffectSource** source)
-	{
-		if (index >= sourceCount || !Source1 || !Source2)
-			return E_FAIL;
-
-		if (index == 0)
-			Source1.as<ABI::Windows::Graphics::Effects::IGraphicsEffectSource>().copy_to(source);
-		else
-			Source2.as<ABI::Windows::Graphics::Effects::IGraphicsEffectSource>().copy_to(source);
-		return S_OK;
-	}
-
+	float m_crossFade{ 0.5f };
+	winrt::Windows::Graphics::Effects::IGraphicsEffectSource m_source1{ nullptr };
+	winrt::Windows::Graphics::Effects::IGraphicsEffectSource m_source2{ nullptr };
 public:
-	float CrossFade{ 0.5f };
-	winrt::Windows::Graphics::Effects::IGraphicsEffectSource Source1{ nullptr };
-	winrt::Windows::Graphics::Effects::IGraphicsEffectSource Source2{ nullptr };
+	CrossFadeInterop(
+		float initialCrossFade,
+		wchar_t const* source1,
+		wchar_t const* source2
+	);
 };

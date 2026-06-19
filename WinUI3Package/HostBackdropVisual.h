@@ -3,12 +3,12 @@
 #include "HostBackdropVisual.g.h"
 #include <winrt/Windows.UI.Composition.h>
 #include <winrt/Microsoft.UI.Content.h>
-#include "EnsureSystemDispatcherQueueController.hpp"
+#include "EnsureSystemDispatcherQueueController.h"
 #include "include/TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct HostBackdropVisual : HostBackdropVisualT<HostBackdropVisual>, EnsureSystemDispatcherQueueController<HostBackdropVisual>
+    struct HostBackdropVisual : HostBackdropVisualT<HostBackdropVisual>, EnsureSystemDispatcherQueueController
     {
         HostBackdropVisual();
         constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/HostBackdropVisual_Resource.xaml";

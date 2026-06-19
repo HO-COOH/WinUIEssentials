@@ -334,7 +334,7 @@
     <ClInclude Include="EffectInterop.hpp" />
     <ClInclude Include="EffectPropertyHelper.h" />
     <ClInclude Include="EffectPropertyMapping.h" />
-    <ClInclude Include="EnsureSystemDispatcherQueueController.hpp" />
+    <ClInclude Include="EnsureSystemDispatcherQueueController.h" />
     <ClInclude Include="FlyoutHelper.h">
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -342,6 +342,10 @@
     <ClInclude Include="GdiInitializeHelper.h" />
     <ClInclude Include="GeneratedIconSource.h">
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="HostBackdrop.h">
+      <DependentUpon>HostBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="HostBackdropVisual.h">
@@ -574,6 +578,7 @@
       <DependentUpon>ContentDialogWindowButtonClickEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="CrossFadeEffectInterop.cpp" />
     <ClCompile Include="CustomAcrylicBackdrop.cpp">
       <DependentUpon>CustomAcrylicBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -592,6 +597,7 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="EffectPropertyHelper.cpp" />
+    <ClCompile Include="EnsureSystemDispatcherQueueController.cpp" />
     <ClCompile Include="FlyoutHelper.cpp">
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -599,6 +605,10 @@
     <ClCompile Include="GdiInitializeHelper.cpp" />
     <ClCompile Include="GeneratedIconSource.cpp">
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="HostBackdrop.cpp">
+      <DependentUpon>HostBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="HostBackdropVisual.cpp">
@@ -801,6 +811,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="GeneratedIconSource.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="HostBackdrop.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="HostBackdropVisual.idl">

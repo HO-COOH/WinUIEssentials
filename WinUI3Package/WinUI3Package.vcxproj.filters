@@ -79,6 +79,12 @@
     <ClCompile Include="TenMicaRegistry.cpp">
       <Filter>Backdrop\TenMica\Registry</Filter>
     </ClCompile>
+    <ClCompile Include="EnsureSystemDispatcherQueueController.cpp">
+      <Filter>Backdrop</Filter>
+    </ClCompile>
+    <ClCompile Include="CrossFadeEffectInterop.cpp">
+      <Filter>Backdrop\TenMica\EffectInterop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -274,7 +280,7 @@
     <ClInclude Include="WallpaperInfo.h">
       <Filter>Backdrop\TenMica\Wallpaper</Filter>
     </ClInclude>
-    <ClInclude Include="EnsureSystemDispatcherQueueController.hpp">
+    <ClInclude Include="EnsureSystemDispatcherQueueController.h">
       <Filter>Backdrop</Filter>
     </ClInclude>
     <ClInclude Include="TenMicaDeviceLostException.h">
@@ -535,6 +541,9 @@
     </Midl>
     <Midl Include="CustomAcrylicBackdrop.idl">
       <Filter>Backdrop\CustomizableBackdrops</Filter>
+    </Midl>
+    <Midl Include="HostBackdrop.idl">
+      <Filter>Backdrop</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

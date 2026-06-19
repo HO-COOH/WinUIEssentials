@@ -7,17 +7,16 @@
 #include "HwndHelper.hpp"
 #include <dwmapi.h>
 #include "WindowsVersion.hpp"
-#include <winrt/Microsoft.UI.Interop.h>
 
 namespace winrt::WinUI3Package::implementation
 {
-    void TransparentBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot xamlRoot)
+    void TransparentBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
     {
         configureDwm(GetHwnd(xamlRoot));
         base_type::OnTargetConnected(connectedTarget, xamlRoot);
     }
 
-    void TransparentBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop connectedTarget)
+    void TransparentBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
     {
         connectedTarget.SystemBackdrop(nullptr);
         base_type::OnTargetDisconnected(connectedTarget);
