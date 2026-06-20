@@ -217,12 +217,12 @@ namespace winrt::PackageRoot::implementation
         if (maxScroll <= 0)
             return hideVerticalScrollBar();
 
-        m_verticalScrollBarCache.Visibility(winrt::WinUINamespace::UI::Xaml::Visibility::Visible);
-        m_verticalScrollBarCache.Maximum(maxScroll);
         m_verticalScrollBarCache.ViewportSize(viewportHeight);
+        m_verticalScrollBarCache.Maximum(maxScroll);
         m_verticalScrollBarCache.LargeChange(viewportHeight);
         m_verticalScrollBarCache.SmallChange(contentRowHeight);
         m_verticalScrollBarCache.Value(scrollOffsetY);
+        m_verticalScrollBarCache.Visibility(winrt::WinUINamespace::UI::Xaml::Visibility::Visible);
     }
 
     int Table::Fps()
@@ -572,7 +572,7 @@ namespace winrt::PackageRoot::implementation
             requestDraw(true);
     }
 
-    void Table::updateHorizontalScrollBar(float scrollOffsetX)
+    void Table::UpdateHorizontalScrollBar(float scrollOffsetX)
     {
         if (m_isUpdatingHorizontalScrollBarInCode || !m_horizontalScrollBarCache)
             return;
@@ -589,18 +589,17 @@ namespace winrt::PackageRoot::implementation
         if (maxScroll <= 0)
             return hideHorizontalScrollBar();
 
-        m_horizontalScrollBarCache.Visibility(winrt::WinUINamespace::UI::Xaml::Visibility::Visible);
-        m_horizontalScrollBarCache.Maximum(maxScroll);
         m_horizontalScrollBarCache.ViewportSize(viewportWidth);
+        m_horizontalScrollBarCache.Maximum(maxScroll);
         m_horizontalScrollBarCache.LargeChange(viewportWidth);
-        m_horizontalScrollBarCache.SmallChange(TableConstants::ColumnWidth);
         m_horizontalScrollBarCache.Value(scrollOffsetX);
+        m_horizontalScrollBarCache.Visibility(winrt::WinUINamespace::UI::Xaml::Visibility::Visible);
     }
 
     void Table::updateScrollBars()
     {
         UpdateVerticalScrollBar(m_d2dContent.ScrollOffsetY());
-        updateHorizontalScrollBar(m_d2dContent.ScrollOffsetX());
+        UpdateHorizontalScrollBar(m_d2dContent.ScrollOffsetX());
     }
 
     void Table::hideVerticalScrollBar()

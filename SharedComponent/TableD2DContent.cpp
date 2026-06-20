@@ -445,6 +445,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 		m_initialSizing = false;
 		//Column widths just got resolved — header layout depends on them.
 		RequestDraw(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty);
+		m_dispatcher.TryEnqueue([this, scrollOffsetX] { m_table_ref.UpdateHorizontalScrollBar(scrollOffsetX); });
 	}
 }
 

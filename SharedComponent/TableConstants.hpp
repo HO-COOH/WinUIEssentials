@@ -4,7 +4,6 @@
 namespace TableConstants
 {
 	constexpr float SortIndicatorWidth = 16.f;
-	constexpr float ColumnWidth = 200.f;
 	constexpr float MinColumnWidth = 16.f;
 	constexpr float CornerRadius = 4.f;
 	constexpr float ResizeHotZoneDelta = 8.f;

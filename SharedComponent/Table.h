@@ -36,6 +36,7 @@ namespace winrt::PackageRoot::implementation
 		void SwapChainPanel_DoubleTapped(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::DoubleTappedRoutedEventArgs const& e);
         void SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void UpdateVerticalScrollBar(float scrollOffsetY);
+        void UpdateHorizontalScrollBar(float scrollOffsetX);
 
         //Properties
         int Fps();
@@ -124,6 +125,10 @@ namespace winrt::PackageRoot::implementation
         TableD2DContent m_d2dContent{ *this };
         TableOverlayManager m_overlayManager{ *this };
 
+        winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
+        winrt::com_ptr<TableRowDataSource> m_tableRowDataSource;
+        winrt::PackageRoot::ITableData m_itemsSource{ nullptr };
+        winrt::PackageRoot::ITableData m_tableData{ nullptr };
     private:
         //Request a redraw and immediately refresh the scrollbars.
         void requestDraw(bool redraw = false);
@@ -138,7 +143,6 @@ namespace winrt::PackageRoot::implementation
         bool m_isLoaded{ false };
         float m_fps{};
 
-        void updateHorizontalScrollBar(float scrollOffsetX);
         void updateScrollBars();
         void hideVerticalScrollBar();
         void hideHorizontalScrollBar();
@@ -250,11 +254,6 @@ namespace winrt::PackageRoot::implementation
 			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 		);
         winrt::PackageRoot::ITableData::UpdateRowData_revoker m_updateRowDataRevoker;
-    public:
-        winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
-        winrt::com_ptr<TableRowDataSource> m_tableRowDataSource{ nullptr };
-        winrt::PackageRoot::ITableData m_itemsSource{ nullptr };
-        winrt::PackageRoot::ITableData m_tableData{ nullptr };
     };
 }
 
