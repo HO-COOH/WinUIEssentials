@@ -5,5 +5,8 @@ namespace WinUI3Package
     runtimeclass HostBackdrop : Microsoft.UI.Xaml.Media.SystemBackdrop
     {
         HostBackdrop();
+
+        Single BlurAmount;
+        static Microsoft.UI.Xaml.DependencyProperty BlurAmountProperty{ get; };
     }
 }

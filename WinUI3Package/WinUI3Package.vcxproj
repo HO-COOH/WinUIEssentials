@@ -339,6 +339,7 @@
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="GaussianBlurEffectInterop.h" />
     <ClInclude Include="GdiInitializeHelper.h" />
     <ClInclude Include="GeneratedIconSource.h">
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
@@ -602,6 +603,7 @@
       <DependentUpon>FlyoutHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="GaussianBlurEffectInterop.cpp" />
     <ClCompile Include="GdiInitializeHelper.cpp" />
     <ClCompile Include="GeneratedIconSource.cpp">
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>

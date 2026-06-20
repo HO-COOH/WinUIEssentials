@@ -853,6 +853,7 @@
                                     Text="(Mica for Windows 10)" />
                             </StackPanel>
                         </NavigationViewItem>
+                        <NavigationViewItem Content="Host Backdrop" Tag="{essential:TypeName Type=local:HostBackdropPage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 
@@ -944,19 +945,6 @@
                 </ListView>
             </StackPanel>
         </Button>
-
-
-        <ContentDialog
-            x:Name="InstallWebView2Dialog"
-            Title="You do not have WebView2 Runtime installed"
-            DefaultButton="Primary"
-            PrimaryButtonText="OK">
-            <RichTextBlock>
-                <Paragraph>
-                    The code presenter depends on WebView2 Runtime, and it will crash without it.<Hyperlink NavigateUri="https://developer.microsoft.com/microsoft-edge/webview2/consumer/">Download and install the runtime now.</Hyperlink>
-                </Paragraph>
-            </RichTextBlock>
-        </ContentDialog>
 
     </Grid>
 

@@ -282,6 +282,12 @@
     <Page Include="SampleSettingsPage.xaml">
       <Filter>Pages\TypeNameExtensions</Filter>
     </Page>
+    <Page Include="HostBackdropWindow.xaml">
+      <Filter>Pages\BackdropPage\HostBackdrop</Filter>
+    </Page>
+    <Page Include="HostBackdropPage.xaml">
+      <Filter>Pages\BackdropPage\HostBackdrop</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -372,9 +378,6 @@
     <ClCompile Include="StoreUpdateChecker.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
-    <ClCompile Include="TableTestData.cpp">
-      <Filter>Pages\TablePage</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -396,9 +399,6 @@
     </ClInclude>
     <ClInclude Include="ButtonAnimations.h">
       <Filter>Helper</Filter>
-    </ClInclude>
-    <ClInclude Include="TableTestData.hpp">
-      <Filter>Pages\TablePage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -673,6 +673,9 @@
     </Filter>
     <Filter Include="Pages\TypeNameExtensions">
       <UniqueIdentifier>{70cb1a2e-8f20-41b5-b3bc-4357c98e6757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\BackdropPage\HostBackdrop">
+      <UniqueIdentifier>{fbb8b8be-4eb6-4cf6-b5b9-adf0d4cbcc1d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

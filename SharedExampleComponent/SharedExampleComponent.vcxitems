@@ -28,6 +28,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)NamedUrl.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NugetPackageInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RepoInfo.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +47,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)NugetPackageInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RepoInfo.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Scope.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestSvgUrls.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ThemeToggleButton.xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Token.h" />

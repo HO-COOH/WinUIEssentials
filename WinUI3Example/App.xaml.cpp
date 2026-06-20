@@ -25,19 +25,22 @@ namespace winrt::WinUI3Example::implementation
 
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
         UnhandledException([this](winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::UnhandledExceptionEventArgs const& e)
+        {
+            if (IsDebuggerPresent())
             {
-                if (IsDebuggerPresent())
-                {
-                    auto errorMessage = e.Message();
-                    __debugbreak();
-                }
-            });
+                auto errorMessage = e.Message();
+                __debugbreak();
+            }
+        });
 #else
         UnhandledException([](winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::UnhandledExceptionEventArgs const& e)
+        {
+            e.Handled(true);
+            std::thread{ [msg = e.Message()]
             {
-                MessageBox(nullptr, e.Message().data(), L"Unhandled exception", 0);
-                e.Handled(true);
-            });
+                MessageBox(nullptr, msg.data(), L"Unhandled exception", MB_OK | MB_TASKMODAL);
+            } }.detach();
+        });
 #endif
         AppInstance = this;
     }

@@ -1,0 +1,9 @@
+namespace UWPExample
+{
+    [bindable]
+    [default_interface]
+    runtimeclass DemoTableData : UWPPackage.ITableData
+    {
+        DemoTableData();
+    }
+}

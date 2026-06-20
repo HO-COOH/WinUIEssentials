@@ -32,6 +32,7 @@
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Microsoft.UI.Input.h>
 #include <winrt/Windows.UI.Text.h>
+#include <winrt/Windows.UI.Composition.h>
 
 #include "Case.h"
 #include "CaseCollection.h"

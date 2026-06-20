@@ -80,6 +80,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Language.Xaml.h">
       <Filter>ColorCode</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
@@ -146,5 +147,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ColorCodeEditor.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
   </ItemGroup>
 </Project>

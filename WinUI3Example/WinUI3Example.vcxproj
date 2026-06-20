@@ -478,6 +478,14 @@
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="HostBackdropPage.xaml.h">
+      <DependentUpon>HostBackdropPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="HostBackdropWindow.xaml.h">
+      <DependentUpon>HostBackdropWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="IconButton.h">
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -661,7 +669,6 @@
       <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TableTestData.hpp" />
     <ClInclude Include="TaskbarIconPage.xaml.h">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -862,6 +869,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GroupBoxPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HostBackdropPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HostBackdropWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="IconButton_Resource.xaml" />
@@ -1187,6 +1200,14 @@
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="HostBackdropPage.xaml.cpp">
+      <DependentUpon>HostBackdropPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="HostBackdropWindow.xaml.cpp">
+      <DependentUpon>HostBackdropWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="IconButton.cpp">
       <DependentUpon>IconButton.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1375,7 +1396,6 @@
       <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TableTestData.cpp" />
     <ClCompile Include="TaskbarIconPage.xaml.cpp">
       <DependentUpon>TaskbarIconPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1610,6 +1630,14 @@
     </Midl>
     <Midl Include="GroupBoxPage.idl">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="HostBackdropPage.idl">
+      <DependentUpon>HostBackdropPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="HostBackdropWindow.idl">
+      <DependentUpon>HostBackdropWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="IconButton.idl">

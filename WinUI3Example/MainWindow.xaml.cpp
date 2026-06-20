@@ -6,7 +6,6 @@
 #if __has_include("MainWindow.g.cpp")
 #include "MainWindow.g.cpp"
 #endif
-#include <WebView2Helper.hpp>
 #include <HwndHelper.hpp>
 #include <wil/cppwinrt.h>
 #include <LayoutUpdateAwaiter.hpp>
@@ -25,8 +24,6 @@ namespace winrt::WinUI3Example::implementation
 		Hwnd = GetHwnd(*this);
 		ExtendsContentIntoTitleBar(true);
 		InitializeComponent();
-		if (!WebView2Helper::IsWebView2Installed())
-			InstallWebView2Dialog().ShowAsync();
 	}
 
 

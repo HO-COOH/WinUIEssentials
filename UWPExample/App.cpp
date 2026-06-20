@@ -30,6 +30,15 @@ App::App()
             __debugbreak();
         }
     });
+#else
+    UnhandledException([](winrt::Windows::Foundation::IInspectable const&, winrt::Windows::UI::Xaml::UnhandledExceptionEventArgs const& e)
+    {
+        e.Handled(true);
+        std::thread{ [msg = e.Message()]
+        {
+            MessageBox(nullptr, msg.data(), L"Unhandled exception", MB_OK | MB_TASKMODAL);
+        } }.detach();
+    });
 #endif
 }
 

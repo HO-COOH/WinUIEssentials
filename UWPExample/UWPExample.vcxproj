@@ -375,6 +375,10 @@
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="DemoTableData.h">
+      <DependentUpon>DemoTableData.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="DependentValuePage.h">
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -683,6 +687,10 @@
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="DemoTableData.cpp">
+      <DependentUpon>DemoTableData.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="DependentValuePage.cpp">
       <DependentUpon>DependentValuePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -829,6 +837,9 @@
     <Midl Include="CursorControllerPage.idl">
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="DemoTableData.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="DependentValuePage.idl">
       <DependentUpon>DependentValuePage.xaml</DependentUpon>

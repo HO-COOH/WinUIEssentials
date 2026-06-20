@@ -85,6 +85,9 @@
     <ClCompile Include="CrossFadeEffectInterop.cpp">
       <Filter>Backdrop\TenMica\EffectInterop</Filter>
     </ClCompile>
+    <ClCompile Include="GaussianBlurEffectInterop.cpp">
+      <Filter>Backdrop\HostBackdrop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -313,6 +316,9 @@
     <ClInclude Include="include\ITableDataBase.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="GaussianBlurEffectInterop.h">
+      <Filter>Backdrop\HostBackdrop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -411,6 +417,9 @@
     </Filter>
     <Filter Include="Backdrop\TenMica\Registry">
       <UniqueIdentifier>{7216e9cb-26fe-4e59-818e-39fdc16de5fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Backdrop\HostBackdrop">
+      <UniqueIdentifier>{63d2f7fe-19a5-4aec-b863-b3532ade7b4c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -543,7 +552,7 @@
       <Filter>Backdrop\CustomizableBackdrops</Filter>
     </Midl>
     <Midl Include="HostBackdrop.idl">
-      <Filter>Backdrop</Filter>
+      <Filter>Backdrop\HostBackdrop</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

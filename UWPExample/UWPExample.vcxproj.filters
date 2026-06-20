@@ -117,6 +117,9 @@
     <Midl Include="TemplateInformation.idl">
       <Filter>Pages\SwitchPresenterPage</Filter>
     </Midl>
+    <Midl Include="DemoTableData.idl">
+      <Filter>Pages\TablePage</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

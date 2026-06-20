@@ -501,6 +501,7 @@
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="include\Glyphs.hpp" />
+    <ClInclude Include="include\ITableDataBase.hpp" />
     <ClInclude Include="include\PropertyChangeHelper.hpp" />
     <ClInclude Include="include\ScopedButtonDisabler.hpp" />
     <ClInclude Include="include\TemplateControlHelper.hpp" />

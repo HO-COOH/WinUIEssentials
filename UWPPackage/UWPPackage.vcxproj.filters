@@ -67,6 +67,9 @@
     <ClInclude Include="include\EnsureDependencyProperty.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\ITableDataBase.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="UWPPackage.def" />

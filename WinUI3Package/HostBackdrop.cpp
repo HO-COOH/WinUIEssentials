@@ -4,104 +4,63 @@
 #include "HostBackdrop.g.cpp"
 #endif
 #include <winrt/Windows.UI.Composition.h>
-#include <winrt/Windows.Graphics.Effects.h>
-#include <winrt/Windows.Foundation.h>
-#include <windows.graphics.effects.interop.h>
-#include <d2d1effects.h>
-
-namespace
-{
-	struct GaussianBlurEffect : winrt::implements<
-		GaussianBlurEffect,
-		winrt::Windows::Graphics::Effects::IGraphicsEffect,
-		winrt::Windows::Graphics::Effects::IGraphicsEffectSource,
-		ABI::Windows::Graphics::Effects::IGraphicsEffectD2D1Interop>
-	{
-		float BlurAmount{ 9.0f };
-		winrt::Windows::Graphics::Effects::IGraphicsEffectSource Source{ nullptr };
-
-		winrt::hstring Name() { return m_name; }
-		void Name(winrt::hstring const& value) { m_name = value; }
-
-		IFACEMETHODIMP GetEffectId(GUID* id) noexcept override
-		{
-			*id = CLSID_D2D1GaussianBlur;
-			return S_OK;
-		}
-
-		IFACEMETHODIMP GetNamedPropertyMapping(
-			LPCWSTR,
-			UINT*,
-			ABI::Windows::Graphics::Effects::GRAPHICS_EFFECT_PROPERTY_MAPPING*) noexcept override
-		{
-			return E_INVALIDARG;
-		}
-
-		IFACEMETHODIMP GetPropertyCount(UINT* count) noexcept override
-		{
-			*count = 3;
-			return S_OK;
-		}
-
-		IFACEMETHODIMP GetProperty(UINT index, ABI::Windows::Foundation::IPropertyValue** value) noexcept override
-		{
-			winrt::Windows::Foundation::IPropertyValue pv{ nullptr };
-			switch (index)
-			{
-				case D2D1_GAUSSIANBLUR_PROP_STANDARD_DEVIATION:
-					pv = winrt::Windows::Foundation::PropertyValue::CreateSingle(BlurAmount).as<winrt::Windows::Foundation::IPropertyValue>();
-					break;
-				case D2D1_GAUSSIANBLUR_PROP_OPTIMIZATION:
-					pv = winrt::Windows::Foundation::PropertyValue::CreateUInt32(D2D1_GAUSSIANBLUR_OPTIMIZATION_BALANCED).as<winrt::Windows::Foundation::IPropertyValue>();
-					break;
-				case D2D1_GAUSSIANBLUR_PROP_BORDER_MODE:
-					pv = winrt::Windows::Foundation::PropertyValue::CreateUInt32(D2D1_BORDER_MODE_HARD).as<winrt::Windows::Foundation::IPropertyValue>();
-					break;
-				default:
-					return E_INVALIDARG;
-			}
-			pv.as<ABI::Windows::Foundation::IPropertyValue>().copy_to(value);
-			return S_OK;
-		}
-
-		IFACEMETHODIMP GetSource(UINT index, ABI::Windows::Graphics::Effects::IGraphicsEffectSource** source) noexcept override
-		{
-			if (index != 0 || !Source)
-				return E_FAIL;
-			Source.as<ABI::Windows::Graphics::Effects::IGraphicsEffectSource>().copy_to(source);
-			return S_OK;
-		}
-
-		IFACEMETHODIMP GetSourceCount(UINT* count) noexcept override
-		{
-			*count = 1;
-			return S_OK;
-		}
-
-	private:
-		winrt::hstring m_name;
-	};
-}
+#include "GaussianBlurEffectInterop.h"
 
 namespace winrt::WinUI3Package::implementation
 {
+	void HostBackdrop::EnsureDependencyProperties()
+	{
+		if (s_blurAmountProperty)
+			return;
+
+		s_blurAmountProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"BlurAmount",
+			winrt::xaml_typename<float>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(60.f), &HostBackdrop::onBlurAmountChanged}
+		);
+	}
+
 	void HostBackdrop::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
 	{
 		winrt::Windows::UI::Composition::Compositor compositor;
 		auto hostBackdropBrush = compositor.CreateHostBackdropBrush();
 
-		auto blurEffect = winrt::make_self<GaussianBlurEffect>();
-		blurEffect->BlurAmount = 60.0f;
-		blurEffect->Source = winrt::Windows::UI::Composition::CompositionEffectSourceParameter{ L"Backdrop" };
+		auto blurEffect = winrt::make_self<GaussianBlurEffectInterop>(BlurAmount(), L"Backdrop");
+		blurEffect->Name(L"Blur");
 
-		auto effectFactory = compositor.CreateEffectFactory(*blurEffect);
-		auto effectBrush = effectFactory.CreateBrush();
-		effectBrush.SetSourceParameter(L"Backdrop", hostBackdropBrush);
+		auto effectFactory = compositor.CreateEffectFactory(*blurEffect, { L"Blur.BlurAmount" });
+		m_effectBrush = effectFactory.CreateBrush();
+		m_effectBrush.SetSourceParameter(L"Backdrop", hostBackdropBrush);
 
-		connectedTarget.SystemBackdrop(effectBrush);
+		connectedTarget.SystemBackdrop(m_effectBrush);
 	}
 
 	void HostBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{
+	}
+
+	float HostBackdrop::BlurAmount()
+	{
+		return winrt::unbox_value<float>(GetValue(s_blurAmountProperty));
+	}
+
+	void HostBackdrop::BlurAmount(float value)
+	{
+		SetValue(s_blurAmountProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty HostBackdrop::BlurAmountProperty()
+	{
+		return s_blurAmountProperty;
+	}
+
+	void HostBackdrop::onBlurAmountChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = GetSelf(d);
+		if (!self->m_effectBrush)
+			return;
+
+		self->m_effectBrush.Properties().InsertScalar(L"Blur.BlurAmount", winrt::unbox_value<float>(e.NewValue()));
 	}
 }
