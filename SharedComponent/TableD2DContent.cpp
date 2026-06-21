@@ -412,11 +412,12 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	m_d2dContext->Clear(D2D1::ColorF(0, 0));
 
 	drawRows(scrollOffsetX, scrollOffsetY, hoveredRow);
+	auto const rawHorizontalStroke = m_resource.m_localTableData.m_horizontalLineThickness * scale;
 	auto const rawDataBottomY = rawHeaderHeight + m_textLayoutCache.RowCount() * rawRowHeight - scrollOffsetY * scale;
-	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - 1, m_resource.m_localTableData.m_horizontalLineThickness * scale);
+	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY + rawHorizontalStroke, rawHorizontalStroke);
 
 	if (m_verticalLines)
-		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale);
+		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale, rawDataBottomY + rawHorizontalStroke);
 
 	m_d2dContext->DrawBitmap(
 		m_headerBitmap.Get(),
@@ -685,17 +686,8 @@ void TableD2DContent::drawVerticalLines()
 	auto const strokeWidth = m_resource.m_localTableData.m_verticalLineThickness * scale;
 	auto brush = m_resource.m_verticalLineBrush.get();
 
-	//draw left border
-	D2DPrimitiveHelper::DrawVerticalLine(
-		m_d2dContext.get(),
-		0,
-		0,
-		lineLength,
-		brush,
-		strokeWidth
-	);
 
-	for (int i = 1; i < numColumns; ++i)
+	for (int i = 0; i <= numColumns; ++i)
 	{
 		D2DPrimitiveHelper::DrawVerticalLine(
 			m_d2dContext.get(),

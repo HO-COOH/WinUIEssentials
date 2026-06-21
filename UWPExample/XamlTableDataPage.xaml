@@ -1,0 +1,176 @@
+﻿<Page
+    x:Class="UWPExample.XamlTableDataPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:UWPPackage"
+    xmlns:local="using:UWPExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <local:ControlExample
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        HeaderText="Table with data defined directly in Xaml">
+        <essential:Table
+            MinHeight="300"
+            CornerRadius="{StaticResource ControlCornerRadius}"
+            HeaderBackground="{ThemeResource ControlFillColorDefault}"
+            HeaderFontWeight="Normal">
+            <essential:Table.Columns>
+                <essential:TableColumn Content="Id" />
+                <essential:TableColumn Content="First Name" />
+                <essential:TableColumn Content="Last Name" />
+                <essential:TableColumn Content="Email" />
+                <essential:TableColumn Content="Gender" />
+                <essential:TableColumn Content="Dob" />
+                <essential:TableColumn Content="Active At" />
+                <essential:TableColumn Content="Is Active">
+                    <essential:TableColumn.ItemTemplate>
+                        <DataTemplate x:DataType="x:Boolean">
+                            <CheckBox IsChecked="{x:Bind}" />
+                        </DataTemplate>
+                    </essential:TableColumn.ItemTemplate>
+                </essential:TableColumn>
+
+                <essential:TableColumn Content="Department" />
+                <essential:TableColumn Content="Designation" />
+                <essential:TableColumn Content="Address">
+                    <essential:TableColumn.EditTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBox Text="{x:Bind}" />
+                        </DataTemplate>
+                    </essential:TableColumn.EditTemplate>
+                </essential:TableColumn>
+            </essential:Table.Columns>
+
+            <!--  Row 1  -->
+            <essential:TableRow>
+                <x:String>1</x:String>
+                <x:String>Josi</x:String>
+                <x:String>Syfax</x:String>
+                <x:String>jsyfax0@odnoklassniki.ru</x:String>
+                <x:String>Female</x:String>
+                <x:String>1/4/2023</x:String>
+                <x:String>5:53 AM</x:String>
+                <x:Boolean>False</x:Boolean>
+                <x:String>Marketing</x:String>
+                <x:String>Internal Auditor</x:String>
+                <x:String>001 Golf Course Junction</x:String>
+            </essential:TableRow>
+
+            <!--  Row2  -->
+            <essential:TableRow>
+                <x:String>2</x:String>
+                <x:String>Clementia</x:String>
+                <x:String>Pervew</x:String>
+                <x:String>cpervew1@altervista.org</x:String>
+                <x:String>Female</x:String>
+                <x:String>1/13/2024</x:String>
+                <x:String>7:45 AM</x:String>
+                <x:Boolean>True</x:Boolean>
+                <x:String>Sales</x:String>
+                <x:String>Librarian</x:String>
+                <x:String>74238 Goodland Junction</x:String>
+            </essential:TableRow>
+
+            <!--  Row3  -->
+            <essential:TableRow>
+                <x:String>3</x:String>
+                <x:String>Emery</x:String>
+                <x:String>Brugman</x:String>
+                <x:String>ebrugman2@java.com</x:String>
+                <x:String>Male</x:String>
+                <x:String>1/9/2023</x:String>
+                <x:String>11:12 AM</x:String>
+                <x:Boolean>True</x:Boolean>
+                <x:String>Product Management</x:String>
+                <x:String>Staff Scientist</x:String>
+                <x:String>75113 East Point</x:String>
+            </essential:TableRow>
+        </essential:Table>
+
+        <local:ControlExample.Xaml>
+            <local:CodeSource>
+                <local:CodeSource.Code>
+                    <x:String xml:space="preserve">&lt;essential:Table
+    CornerRadius=&quot;{StaticResource ControlCornerRadius}&quot;
+    HeaderBackground=&quot;{ThemeResource ControlFillColorDefault}&quot;
+    HeaderFontWeight=&quot;Normal&quot;&gt;
+    &lt;essential:Table.Columns&gt;
+        &lt;essential:TableColumn Content=&quot;Id&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;First Name&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Last Name&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Email&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Gender&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Dob&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Active At&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Is Active&quot;&gt;
+            &lt;essential:TableColumn.ItemTemplate&gt;
+                &lt;DataTemplate x:DataType=&quot;x:Boolean&quot;&gt;
+                    &lt;CheckBox IsChecked=&quot;{x:Bind}&quot; /&gt;
+                &lt;/DataTemplate&gt;
+            &lt;/essential:TableColumn.ItemTemplate&gt;
+        &lt;/essential:TableColumn&gt;
+
+        &lt;essential:TableColumn Content=&quot;Department&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Designation&quot; /&gt;
+        &lt;essential:TableColumn Content=&quot;Address&quot;&gt;
+            &lt;essential:TableColumn.EditTemplate&gt;
+                &lt;DataTemplate x:DataType=&quot;x:String&quot;&gt;
+                    &lt;TextBox Text=&quot;{x:Bind}&quot; /&gt;
+                &lt;/DataTemplate&gt;
+            &lt;/essential:TableColumn.EditTemplate&gt;
+        &lt;/essential:TableColumn&gt;
+    &lt;/essential:Table.Columns&gt;
+
+    &lt;!--  Row 1  --&gt;
+    &lt;essential:TableRow&gt;
+        &lt;x:String&gt;1&lt;/x:String&gt;
+        &lt;x:String&gt;Josi&lt;/x:String&gt;
+        &lt;x:String&gt;Syfax&lt;/x:String&gt;
+        &lt;x:String&gt;jsyfax0@odnoklassniki.ru&lt;/x:String&gt;
+        &lt;x:String&gt;Female&lt;/x:String&gt;
+        &lt;x:String&gt;1/4/2023&lt;/x:String&gt;
+        &lt;x:String&gt;5:53 AM&lt;/x:String&gt;
+        &lt;x:Boolean&gt;False&lt;/x:Boolean&gt;
+        &lt;x:String&gt;Marketing&lt;/x:String&gt;
+        &lt;x:String&gt;Internal Auditor&lt;/x:String&gt;
+        &lt;x:String&gt;001 Golf Course Junction&lt;/x:String&gt;
+    &lt;/essential:TableRow&gt;
+
+    &lt;!--  Row2  --&gt;
+    &lt;essential:TableRow&gt;
+        &lt;x:String&gt;2&lt;/x:String&gt;
+        &lt;x:String&gt;Clementia&lt;/x:String&gt;
+        &lt;x:String&gt;Pervew&lt;/x:String&gt;
+        &lt;x:String&gt;cpervew1@altervista.org&lt;/x:String&gt;
+        &lt;x:String&gt;Female&lt;/x:String&gt;
+        &lt;x:String&gt;1/13/2024&lt;/x:String&gt;
+        &lt;x:String&gt;7:45 AM&lt;/x:String&gt;
+        &lt;x:Boolean&gt;True&lt;/x:Boolean&gt;
+        &lt;x:String&gt;Sales&lt;/x:String&gt;
+        &lt;x:String&gt;Librarian&lt;/x:String&gt;
+        &lt;x:String&gt;74238 Goodland Junction&lt;/x:String&gt;
+    &lt;/essential:TableRow&gt;
+
+    &lt;!--  Row3  --&gt;
+    &lt;essential:TableRow&gt;
+        &lt;x:String&gt;3&lt;/x:String&gt;
+        &lt;x:String&gt;Emery&lt;/x:String&gt;
+        &lt;x:String&gt;Brugman&lt;/x:String&gt;
+        &lt;x:String&gt;ebrugman2@java.com&lt;/x:String&gt;
+        &lt;x:String&gt;Male&lt;/x:String&gt;
+        &lt;x:String&gt;1/9/2023&lt;/x:String&gt;
+        &lt;x:String&gt;11:12 AM&lt;/x:String&gt;
+        &lt;x:Boolean&gt;True&lt;/x:Boolean&gt;
+        &lt;x:String&gt;Product Management&lt;/x:String&gt;
+        &lt;x:String&gt;Staff Scientist&lt;/x:String&gt;
+        &lt;x:String&gt;75113 East Point&lt;/x:String&gt;
+    &lt;/essential:TableRow&gt;
+&lt;/essential:Table&gt;</x:String>
+                </local:CodeSource.Code>
+            </local:CodeSource>
+        </local:ControlExample.Xaml>
+    </local:ControlExample>
+</Page>

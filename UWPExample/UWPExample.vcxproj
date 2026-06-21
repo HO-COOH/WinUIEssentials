@@ -506,6 +506,10 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="XamlTableDataPage.h">
+      <DependentUpon>XamlTableDataPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -608,6 +612,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UriPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XamlTableDataPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -817,6 +824,10 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="XamlTableDataPage.cpp">
+      <DependentUpon>XamlTableDataPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">
@@ -953,6 +964,10 @@
     </Midl>
     <Midl Include="UriPage.idl">
       <DependentUpon>UriPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="XamlTableDataPage.idl">
+      <DependentUpon>XamlTableDataPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>

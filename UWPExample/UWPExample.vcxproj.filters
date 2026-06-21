@@ -98,6 +98,9 @@
     <Page Include="SamplePage4.xaml">
       <Filter>Pages\Extensions\TypeNameExtension</Filter>
     </Page>
+    <Page Include="XamlTableDataPage.xaml">
+      <Filter>Pages\TablePage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
