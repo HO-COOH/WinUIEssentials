@@ -135,14 +135,25 @@ bool WallpaperManager::UpdatedNeeded()
             continue;
         }
 
+        //The wallpaper path returned by IDesktopWallpaper::GetWallpaper can point to a file that has deleted
+        //But wallpaper uses TranscodedWallpaper, so it still displays normally, we need to fallback in this case
         winrt::com_ptr<IWICBitmapDecoder> decoder;
-        winrt::check_hresult(m_wicFactory->CreateDecoderFromFilename(
+        if (auto const hr = m_wicFactory->CreateDecoderFromFilename(
             info.path.get(),
             nullptr,
             GENERIC_READ,
             WICDecodeMetadataCacheOnLoad,
             decoder.put()
-        ));
+        ); FAILED(hr))
+        {
+            info.path.reset();
+            info.wallpaper = createSolidColorWallpaper(info.rect, info.solidColor);
+            m_wallpaperInfos[i] = std::move(info);
+#if (defined DEBUG) || (defined _DEBUG)
+            OutputDebugString(std::format(L"[TenMica] Failed to open wallpaper file: {}, hr={}\n", i, info.path.get(), hr).data());
+#endif
+            continue;
+        }
         winrt::com_ptr<IWICBitmapFrameDecode> frame;
         winrt::check_hresult(decoder->GetFrame(0, frame.put()));
         winrt::check_hresult(m_wicFactory->CreateFormatConverter(info.wallpaper.put()));
