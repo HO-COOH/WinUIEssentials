@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <d2d1.h>
 #include <dwrite.h>
+#include <vector>
 
 struct TableProperty
 {
@@ -40,6 +41,13 @@ struct TableProperty
 
 	DWRITE_FONT_WEIGHT m_headerFontWeight = DWRITE_FONT_WEIGHT_NORMAL;
 	DWRITE_FONT_WEIGHT m_contentFontWeight = DWRITE_FONT_WEIGHT_NORMAL;
+
+	struct AlternateRowColorPair
+	{
+		D2D_COLOR_F m_foreground;
+		D2D_COLOR_F m_background;
+	};
+	std::vector<AlternateRowColorPair> m_alternateRowColors;
 
 	constexpr void InitializeForTheme(winrt::WinUINamespace::UI::Xaml::ElementTheme theme)
 	{

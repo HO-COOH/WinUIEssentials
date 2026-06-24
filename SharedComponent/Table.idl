@@ -1,6 +1,7 @@
 ﻿import "TableColumnCollection.idl";
 import "ITableData.idl";
 import "TableRow.idl";
+import "TableAlternateRowColor.idl";
 
 namespace PackageRoot
 {
@@ -70,6 +71,9 @@ namespace PackageRoot
 
 		Double VerticalLineThickness;
         static WinUINamespace.UI.Xaml.DependencyProperty VerticalLineThicknessProperty{ get; };
+
+		Windows.Foundation.Collections.IVector<TableAlternateRowColor> AlternateRowColors;
+		static WinUINamespace.UI.Xaml.DependencyProperty AlternateRowColorsProperty{ get; };
 
         //data
         TableColumnCollection Columns{ get; };

@@ -16,6 +16,7 @@ public:
 		Stop              = 1u << 4,
 		HoverColorDirty   = 1u << 5,
 		VerticalLineDirty = 1u << 6, //vertical-line cached bitmap must be re-rendered (color or thickness changed)
+		AlternateRowDirty = 1u << 7, //alternate-row brush cache must be rebuilt (collection or its colors changed)
 		//scroll can't be used here because it persists after one draw call, so it has to be a separate flag
 	};
 	using Flags = uint32_t;

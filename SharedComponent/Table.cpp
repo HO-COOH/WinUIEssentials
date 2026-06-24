@@ -130,6 +130,12 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onContentFontStretchChanged }
 		);
+		s_alternateRowColorsProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
+			L"AlternateRowColors",
+			winrt::xaml_typename<winrt::Windows::Foundation::Collections::IVector<PackageRoot::TableAlternateRowColor>>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &Table::onAlternateRowColorsChanged }
+		);
     }
 
     Table::Table()
@@ -499,6 +505,21 @@ namespace winrt::PackageRoot::implementation
     {
         return s_verticalLineThicknessProperty;
     }
+
+    winrt::Windows::Foundation::Collections::IVector<PackageRoot::TableAlternateRowColor> Table::AlternateRowColors()
+    {
+        return GetValue(s_alternateRowColorsProperty).as<winrt::Windows::Foundation::Collections::IVector<PackageRoot::TableAlternateRowColor>>();
+    }
+
+    void Table::AlternateRowColors(winrt::Windows::Foundation::Collections::IVector<PackageRoot::TableAlternateRowColor> const& value)
+    {
+		SetValue(s_alternateRowColorsProperty, value);
+    }
+
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::AlternateRowColorsProperty()
+	{
+		return s_alternateRowColorsProperty;
+	}
 
     winrt::PackageRoot::TableColumnCollection Table::Columns()
     {
@@ -940,7 +961,10 @@ namespace winrt::PackageRoot::implementation
 		auto self = GetSelf(d);
 		auto const value = D2DConvert::ToD2DColor(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
         if (self->m_isLoaded)
+        {
             self->m_sharedData.Update([value](TableProperty& data) {data.m_horizontalLineColor = value; });
+            self->m_d2dContent.RequestDraw(FrameRequest::Flag::FullRedraw);
+        }
         else
 			self->m_tableProperty.m_horizontalLineColor = value;
     }
@@ -1020,6 +1044,29 @@ namespace winrt::PackageRoot::implementation
         else
             self->m_tableProperty.m_headerFontStretch = value;
     }
+
+	void Table::onAlternateRowColorsChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = GetSelf(d);
+		auto const value = e.NewValue().as<PackageRoot::TableAlternateRowColorCollection>();
+		self->m_alternateRowColors.copy_from(winrt::get_self<implementation::TableAlternateRowColorCollection>(value));
+
+		std::vector<TableProperty::AlternateRowColorPair> snapshot;
+		snapshot.reserve(self->m_alternateRowColors->m_data.size());
+		for (auto const& color : self->m_alternateRowColors->m_data)
+			snapshot.push_back({ D2DConvert::ToD2DColor(color->m_foregroundColor), D2DConvert::ToD2DColor(color->m_backgroundColor) });
+
+		if (self->m_isLoaded)
+		{
+			self->m_sharedData.Update([s = std::move(snapshot)](TableProperty& data) mutable { data.m_alternateRowColors = std::move(s); });
+			self->m_d2dContent.RequestDraw(FrameRequest::Flag::FullRedraw | FrameRequest::Flag::AlternateRowDirty);
+		}
+		else
+		{
+			self->m_tableProperty.m_alternateRowColors = std::move(snapshot);
+			self->m_d2dContent.m_request.Set(FrameRequest::Flag::AlternateRowDirty);
+		}
+	}
 
     void Table::onContentFontStretchChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {

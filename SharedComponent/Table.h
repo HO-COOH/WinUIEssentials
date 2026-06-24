@@ -13,6 +13,7 @@
 #include "SharedDataBase.hpp"
 #include "TableOverlayManager.h"
 #include "TableRowDataSource.h"
+#include "TableAlternateRowColorCollection.h"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -113,6 +114,10 @@ namespace winrt::PackageRoot::implementation
 		void VerticalLineThickness(double value);
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty VerticalLineThicknessProperty();
 
+		winrt::Windows::Foundation::Collections::IVector<PackageRoot::TableAlternateRowColor> AlternateRowColors();
+		void AlternateRowColors(winrt::Windows::Foundation::Collections::IVector<PackageRoot::TableAlternateRowColor> const& value);
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty AlternateRowColorsProperty();
+
         winrt::PackageRoot::TableColumnCollection Columns();
 
         winrt::PackageRoot::ITableData ItemsSource();
@@ -127,6 +132,7 @@ namespace winrt::PackageRoot::implementation
 
         winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
         winrt::com_ptr<TableRowDataSource> m_tableRowDataSource;
+        winrt::com_ptr<implementation::TableAlternateRowColorCollection> m_alternateRowColors;
         winrt::PackageRoot::ITableData m_itemsSource{ nullptr };
         winrt::PackageRoot::ITableData m_tableData{ nullptr };
     private:
@@ -179,7 +185,7 @@ namespace winrt::PackageRoot::implementation
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineThicknessProperty{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineColorProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineThicknessProperty{ nullptr };
-
+		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_alternateRowColorsProperty{ nullptr };
 
         static void onHeaderForegroundChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
@@ -250,6 +256,10 @@ namespace winrt::PackageRoot::implementation
 			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 		);
 		static void onContentFontStretchChanged(
+			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
+		);
+		static void onAlternateRowColorsChanged(
 			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
 			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 		);

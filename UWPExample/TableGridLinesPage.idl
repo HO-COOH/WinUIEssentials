@@ -1,0 +1,11 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass TableGridLinesPage : Windows.UI.Xaml.Controls.Page
+    {
+        TableGridLinesPage();
+
+        Windows.UI.Xaml.Controls.ColorPicker HorizontalLineColorPicker{ get; };
+        Windows.UI.Xaml.Controls.ColorPicker VerticalLineColorPicker{ get; };
+    }
+}

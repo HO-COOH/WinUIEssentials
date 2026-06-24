@@ -51,6 +51,8 @@
     <Midl Include="$(MSBuildThisFileDirectory)StringToBoolConverter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)SwitchPresenter.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)Table.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableRow.idl" />
@@ -103,6 +105,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)DirectN.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)SwapChainInterop.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
@@ -173,6 +177,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ScrollRequest.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SwapChainInterop.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Table.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnData.h" />

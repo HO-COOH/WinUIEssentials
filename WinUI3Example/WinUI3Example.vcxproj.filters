@@ -291,6 +291,12 @@
     <Page Include="XamlTableDataPage.xaml">
       <Filter>Pages\TablePage</Filter>
     </Page>
+    <Page Include="TableGridLinesPage.xaml">
+      <Filter>Pages\TablePage</Filter>
+    </Page>
+    <Page Include="TableAlternateRowColorsPage.xaml">
+      <Filter>Pages\TablePage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -685,7 +691,7 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.Dev.appxmanifest" />
+    <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

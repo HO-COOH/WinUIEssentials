@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass TableAlternateRowColorsPage : Windows.UI.Xaml.Controls.Page
+    {
+        TableAlternateRowColorsPage();
+    }
+}

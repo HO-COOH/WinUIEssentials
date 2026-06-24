@@ -466,6 +466,14 @@
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TableAlternateRowColorsPage.h">
+      <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TableGridLinesPage.h">
+      <DependentUpon>TableGridLinesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TablePage.h">
       <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -591,6 +599,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SwitchPresenterPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TableAlternateRowColorsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TableGridLinesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TablePage.xaml">
@@ -788,6 +802,14 @@
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TableAlternateRowColorsPage.cpp">
+      <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TableGridLinesPage.cpp">
+      <DependentUpon>TableGridLinesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TablePage.cpp">
       <DependentUpon>TablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -931,6 +953,14 @@
     </Midl>
     <Midl Include="SwitchPresenterPage.idl">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TableAlternateRowColorsPage.idl">
+      <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TableGridLinesPage.idl">
+      <DependentUpon>TableGridLinesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TablePage.idl">

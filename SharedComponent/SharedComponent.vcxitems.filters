@@ -82,6 +82,9 @@
     <Filter Include="Table\Xaml\Base">
       <UniqueIdentifier>{f6b16744-520f-4e83-8e22-ba7b772f0f7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Table\Xaml\TableAlternateRowColor">
+      <UniqueIdentifier>{43306578-2d54-45a8-bec2-48b4cd4a16c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -206,6 +209,12 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)TableRow.idl">
       <Filter>Table\Xaml\TableRow</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.idl">
+      <Filter>Table\Xaml\TableAlternateRowColor</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.idl">
+      <Filter>Table\Xaml\TableAlternateRowColor</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -426,6 +435,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DWriteInterop.h">
       <Filter>DirectN</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.h">
+      <Filter>Table\Xaml\TableAlternateRowColor</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.h">
+      <Filter>Table\Xaml\TableAlternateRowColor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -601,6 +616,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.cpp">
       <Filter>Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.cpp">
+      <Filter>Table\Xaml\TableAlternateRowColor</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.cpp">
+      <Filter>Table\Xaml\TableAlternateRowColor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

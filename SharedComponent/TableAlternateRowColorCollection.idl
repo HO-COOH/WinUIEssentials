@@ -1,0 +1,11 @@
+import "TableAlternateRowColor.idl";
+
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+	runtimeclass TableAlternateRowColorCollection : Windows.Foundation.Collections.IIterable<TableAlternateRowColor>, Windows.Foundation.Collections.IVector<TableAlternateRowColor>
+    {
+        TableAlternateRowColorCollection();
+    }
+}

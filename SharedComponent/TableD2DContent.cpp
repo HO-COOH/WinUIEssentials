@@ -234,12 +234,14 @@ void TableD2DContent::DrawPartialCell(int row, int column, std::wstring_view con
 	presentClippedRegions(clipRects, dirtyCount, [&](size_t i)
 	{
 		auto const& dirty = dirtyCells[i];
+		if (auto* const bg = getAlternateRowBackgroundBrush(dirty.row))
+			m_d2dContext->FillRectangle(clipRects[i], bg);
 		if (auto layout = m_textLayoutCache.GetOrCreate(dirty.row, dirty.column))
 		{
 			m_d2dContext->DrawTextLayout(
 				D2D1::Point2F(dirty.cellLeft + padLeft, dirty.rowTop + padTop),
 				layout,
-				m_resource.m_contentTextBrush.get()
+				getAlternateRowForegroundBrush(dirty.row)
 			);
 		}
 	});
@@ -353,12 +355,17 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 		if (!hoverColorOnly)
 		{
 			fullRedraw = true;
-			frame |= FrameRequest::Flag::HeaderDirty;
+			//AlternateRowDirty only affects row brushes, not the header bitmap.
+			if (!(frame & FrameRequest::Flag::AlternateRowDirty))
+				frame |= FrameRequest::Flag::HeaderDirty;
 		}
 	}
 
 	if (frame & FrameRequest::Flag::VerticalLineDirty)
 		m_verticalLines.Invalidate();
+
+	if (frame & FrameRequest::Flag::AlternateRowDirty)
+		m_resource.RebuildAlternateRowBrushes(m_d2dContext.get());
 
 	int const hoveredResizeColumn = m_hoveredResizeColumn.load(std::memory_order_relaxed);
 	auto const scrollOffsetX = m_scrollOffsetX.load(std::memory_order_relaxed);
@@ -513,6 +520,7 @@ void TableD2DContent::drawPartialHover(int oldRow, int newRow, float scrollOffse
 	presentClippedRegions(clipRects, dirtyCount, [&](size_t i)
 	{
 		auto const& dirty = dirtyRows[i];
+		fillAlternateRowBackground(dirty.row, dirty.rowRect);
 		if (dirty.row == newRow && m_resource.m_hoverBrush)
 		{
 			D2D1_ROUNDED_RECT const fill
@@ -606,6 +614,8 @@ void TableD2DContent::drawRows(float scrollOffsetX, float scrollOffsetY, int hov
 	{
 		auto const rowRect = getRowRect(row, scrollOffsetY, scale);
 
+		fillAlternateRowBackground(row, rowRect);
+
 		if (row == hoveredRow && m_resource.m_hoverBrush)
 		{
 			D2D1_ROUNDED_RECT const fill
@@ -631,6 +641,7 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 	auto const verticalLineSpace = localData.m_verticalLineColor.a > 0.f ? localData.m_verticalLineThickness * scale : 0.f;
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto currentX = -scrollOffsetX * scale;
+	auto* const textBrush = getAlternateRowForegroundBrush(row);
 	for (size_t column = 0; column < m_table_ref.m_columns->m_data.size(); ++column)
 	{
 		auto const rawColumnWidth = m_initialSizing? (std::numeric_limits<float>::max)() : m_columnWidthManager.Get(column) * scale;
@@ -645,12 +656,37 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 				m_d2dContext->DrawTextLayout(
 					D2D1::Point2F(currentX + verticalLineSpace + padLeft, rowY + padTop),
 					layoutCache,
-					m_resource.m_contentTextBrush.get()
+					textBrush
 				);
 			}
 		}
 		currentX += rawColumnWidth;
 	}
+}
+
+void TableD2DContent::fillAlternateRowBackground(int row, D2D_RECT_F const& rowRect)
+{
+	if (auto* const bg = getAlternateRowBackgroundBrush(row))
+		m_d2dContext->FillRectangle(rowRect, bg);
+}
+
+ID2D1SolidColorBrush* TableD2DContent::getAlternateRowBackgroundBrush(int row) const
+{
+	auto const& brushes = m_resource.m_alternateRowBrushes;
+	if (brushes.empty())
+		return nullptr;
+	return brushes[row % brushes.size()].m_background.get();
+}
+
+ID2D1SolidColorBrush* TableD2DContent::getAlternateRowForegroundBrush(int row) const
+{
+	auto const& brushes = m_resource.m_alternateRowBrushes;
+	if (!brushes.empty())
+	{
+		if (auto* const fg = brushes[row % brushes.size()].m_foreground.get())
+			return fg;
+	}
+	return m_resource.m_contentTextBrush.get();
 }
 
 void TableD2DContent::drawVerticalLines()

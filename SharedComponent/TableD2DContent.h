@@ -134,6 +134,9 @@ private:
 	void renderHeaderBitmap(int hoveredResizeColumn, float scrollOffsetX);
 	void drawRows(float scrollOffsetX, float scrollOffsetY, int hoveredRow);
 	void drawRowCells(int row, float rowY, float scrollOffsetX, float scale);
+	void fillAlternateRowBackground(int row, D2D_RECT_F const& rowRect);
+	ID2D1SolidColorBrush* getAlternateRowBackgroundBrush(int row) const;
+	ID2D1SolidColorBrush* getAlternateRowForegroundBrush(int row) const;
 	void drawVerticalLines();
 	void updateScrollOffsets();
 	D2D_RECT_F getRowRect(int row, float scrollOffsetY, float scale) const;
@@ -148,6 +151,13 @@ public:
 	TableHeightManager m_tableHeight{ m_dwriteFactory.get() };
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData, m_tableHeight };
+public:
+	//All per-frame draw-thread signals (Draw, FullRedraw, HeaderDirty,
+	//SwapChainDirty, Stop) packed into one atomic word. Initial state requests
+	//the first frame to do a full redraw and build the header cache.
+	//Public so callers can OR in a dirty flag (m_request.Set(flag)) without
+	//waking the draw thread when the redraw will already be triggered later.
+	FrameRequest m_request{ FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty };
 private:
 	TableD2DResource m_resource{ m_textLayoutCache };
 	TableHorizontalLines m_horizontalLines{ d2d1Factory.get(), m_resource };
@@ -157,11 +167,6 @@ private:
 	int m_hoveredRow{ TableConstants::HoveredRowNone };
 	std::atomic<bool> m_initialSizing{ true };
 	std::atomic<bool> m_isScrolling{ false };
-
-	//All per-frame draw-thread signals (Draw, FullRedraw, HeaderDirty,
-	//SwapChainDirty, Stop) packed into one atomic word. Initial state requests
-	//the first frame to do a full redraw and build the header cache.
-	FrameRequest m_request{ FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty };
 
 	std::atomic<int> m_hoveredResizeColumn{ TableConstants::ResizeColumnIndexNone };
 	int m_sortColumnIndex = -1;

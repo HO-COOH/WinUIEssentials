@@ -82,6 +82,19 @@ void TableD2DResource::Create(ID2D1DeviceContext* d2dContext, TableProperty&& ta
 	m_localTableData = std::move(tableData);
 }
 
+void TableD2DResource::RebuildAlternateRowBrushes(ID2D1DeviceContext* d2dContext)
+{
+	auto const& colors = m_localTableData.m_alternateRowColors;
+	m_alternateRowBrushes.clear();
+	m_alternateRowBrushes.reserve(colors.size());
+	for (auto [foreground, background] : colors)
+	{
+		AlternateRowBrushPair& brushes = m_alternateRowBrushes.emplace_back();
+		setIfNotTransparent(brushes.m_background, d2dContext, background);
+		setIfNotTransparent(brushes.m_foreground, d2dContext, foreground);
+	}
+}
+
 void TableD2DResource::ScaleChanged()
 {
 	m_textLayoutCache_ref.CreateHeaderTextFormat(
