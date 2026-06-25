@@ -421,10 +421,10 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	drawRows(scrollOffsetX, scrollOffsetY, hoveredRow);
 	auto const rawHorizontalStroke = m_resource.m_localTableData.m_horizontalLineThickness * scale;
 	auto const rawDataBottomY = rawHeaderHeight + m_textLayoutCache.RowCount() * rawRowHeight - scrollOffsetY * scale;
-	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY + rawHorizontalStroke, rawHorizontalStroke);
+	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - rawHorizontalStroke, rawHorizontalStroke);
 
 	if (m_verticalLines)
-		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale, rawDataBottomY + rawHorizontalStroke);
+		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale, rawDataBottomY - rawHorizontalStroke);
 
 	m_d2dContext->DrawBitmap(
 		m_headerBitmap.Get(),
@@ -723,7 +723,9 @@ void TableD2DContent::drawVerticalLines()
 	auto brush = m_resource.m_verticalLineBrush.get();
 
 
-	for (int i = 0; i <= numColumns; ++i)
+	//Skip i = 0 and i = numColumns: those are the table's outer left/right edges
+	//and are now drawn by the parent control's BorderBrush/BorderThickness.
+	for (size_t i = 1; i < numColumns; ++i)
 	{
 		D2DPrimitiveHelper::DrawVerticalLine(
 			m_d2dContext.get(),

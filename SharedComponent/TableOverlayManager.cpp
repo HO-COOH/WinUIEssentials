@@ -310,13 +310,13 @@ void TableOverlayManager::BeginEdit(int row, int column)
 		m_table.m_d2dContent.DrawPartialCell(row, column, L"");
 	}
 
-	//set edit control size and position
+	//Edit control fills the entire cell rectangle, ignoring content padding.
 	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
 	auto const& tableHeight = m_table.m_d2dContent.m_tableHeight;
 	auto const contentRowHeight = tableHeight.ContentRowHeight();
 	editControl.Width(widthManager.Get(column));
 	editControl.Height(contentRowHeight);
-	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) + cellLeftOffset() - m_table.m_d2dContent.ScrollOffsetX());
+	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) - m_table.m_d2dContent.ScrollOffsetX());
 	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetTop(editControl, tableHeight.HeaderRowHeight() + row * contentRowHeight - m_table.m_d2dContent.ScrollOffsetY());
 	m_children.Append(editControl);
 
