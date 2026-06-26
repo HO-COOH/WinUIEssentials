@@ -107,6 +107,9 @@
     <Page Include="TableGridLinesPage.xaml">
       <Filter>Pages\TablePage</Filter>
     </Page>
+    <Page Include="SvgPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

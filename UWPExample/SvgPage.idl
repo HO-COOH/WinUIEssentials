@@ -1,0 +1,19 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass SvgPage : Windows.UI.Xaml.Controls.Page
+    {
+        SvgPage();
+
+        Windows.UI.Xaml.Controls.Image SvgUrlImage{ get; };
+		Windows.UI.Xaml.Controls.Image SvgStringImage{ get; };
+        Windows.UI.Xaml.Controls.TextBox SvgUrl{ get; };
+		Windows.UI.Xaml.Controls.TextBox SvgString{ get; };
+
+        Windows.Foundation.Collections.IVector<Object> Svgs{ get; };
+
+        static Windows.Foundation.Uri GetPngFromSvgUrl(String svgUrl);
+        static Windows.UI.Xaml.Media.ImageSource GetPngBitmapFromSvgUrl(String svgUrl);
+        static Windows.UI.Xaml.Media.ImageSource GetSvgImageSourceFromString(String svgContent);
+    }
+}

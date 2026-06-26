@@ -462,6 +462,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SvgPage.h">
+      <DependentUpon>SvgPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SwitchPresenterPage.h">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -596,6 +600,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ShimmerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SvgPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SwitchPresenterPage.xaml">
@@ -798,6 +805,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SvgPage.cpp">
+      <DependentUpon>SvgPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SwitchPresenterPage.cpp">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -951,6 +962,10 @@
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="SvgPage.idl">
+      <DependentUpon>SvgPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="SwitchPresenterPage.idl">
       <DependentUpon>SwitchPresenterPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1015,6 +1030,9 @@
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.3.0.260520.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260520.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
   </ImportGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UWPPackage.Svg\UWPPackage.Svg.vcxproj">
+      <Project>{7a8714b3-7ef5-437f-ae99-97491c1a84db}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\UWPPackage\UWPPackage.vcxproj">
       <Project>{0e40ea1b-f85d-42f9-b0af-8c50c08dd498}</Project>
     </ProjectReference>

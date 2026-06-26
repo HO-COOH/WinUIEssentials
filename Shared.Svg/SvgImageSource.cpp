@@ -5,14 +5,31 @@
 #include <winrt/Windows.Web.Http.h>
 #include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Graphics.Imaging.h>
+#if defined Build_WinUIPackage
 #include <winrt/Microsoft.UI.Xaml.Data.h>
+#else
+#include <winrt/Windows.UI.Xaml.Data.h>
+#include <winrt/Windows.Graphics.Display.h>
+#endif
 #include <wil/resource.h>
 #include <algorithm>
 #include <cmath>
 #include <limits>
 #include "RenderTree.h"
 
-namespace winrt::WinUI3Package::Svg::implementation
+static double getDpiScale(auto&& imageControl)
+{
+#if defined Build_WinUIPackage
+    if (auto xamlRoot = image.XamlRoot())
+        return xamlRoot.RasterizationScale();
+    return 1.0;
+#else
+    winrt::Windows::Graphics::Display::DisplayInformation displayInfo = winrt::Windows::Graphics::Display::DisplayInformation::GetForCurrentView();
+    return displayInfo.RawPixelsPerViewPixel();
+#endif
+}
+
+namespace winrt::PackageRoot::Svg::implementation
 {
     resvg_options* SvgImageSource::GetResvgOptions()
     {
@@ -29,44 +46,44 @@ namespace winrt::WinUI3Package::Svg::implementation
     {
         if (s_uriSourceProperty) return;
 
-        s_uriSourceProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+        s_uriSourceProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"UriSource",
             winrt::xaml_typename<winrt::Windows::Foundation::Uri>(),
             winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
                 nullptr,
-                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onUriSourceChanged }
+                winrt::WinUINamespace::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onUriSourceChanged }
             });
 
-        s_rasterizePixelHeightProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+        s_rasterizePixelHeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"RasterizePixelHeight",
             winrt::xaml_typename<double>(),
             winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
                 winrt::box_value(0.0),
-                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onRasterizeSizeChanged }
+                winrt::WinUINamespace::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onRasterizeSizeChanged }
             });
 
-        s_rasterizePixelWidthProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+        s_rasterizePixelWidthProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"RasterizePixelWidth",
             winrt::xaml_typename<double>(),
             winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
                 winrt::box_value(0.0),
-                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onRasterizeSizeChanged }
+                winrt::WinUINamespace::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onRasterizeSizeChanged }
             });
 
-        s_stringSourceProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+        s_stringSourceProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"StringSource",
             winrt::xaml_typename<winrt::hstring>(),
             winrt::xaml_typename<class_type>(),
-            winrt::Microsoft::UI::Xaml::PropertyMetadata{
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
                 winrt::box_value(winrt::hstring{}),
-                winrt::Microsoft::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onStringSourceChanged }
+                winrt::WinUINamespace::UI::Xaml::PropertyChangedCallback{ &SvgImageSource::onStringSourceChanged }
             });
     }
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty SvgImageSource::UriSourceProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SvgImageSource::UriSourceProperty()
     {
         return s_uriSourceProperty;
     }
@@ -81,17 +98,17 @@ namespace winrt::WinUI3Package::Svg::implementation
         SetValue(s_stringSourceProperty, winrt::box_value(value));
     }
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty SvgImageSource::StringSourceProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SvgImageSource::StringSourceProperty()
     {
         return s_stringSourceProperty;
     }
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty SvgImageSource::RasterizePixelWidthProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SvgImageSource::RasterizePixelWidthProperty()
     {
         return s_rasterizePixelWidthProperty;
     }
 
-    winrt::Microsoft::UI::Xaml::DependencyProperty SvgImageSource::RasterizePixelHeightProperty()
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SvgImageSource::RasterizePixelHeightProperty()
     {
         return s_rasterizePixelHeightProperty;
     }
@@ -106,10 +123,10 @@ namespace winrt::WinUI3Package::Svg::implementation
         // XAML hands us different shapes for custom IDL types: an unresolved Binding
         // markup, a Uri, or a boxed string. Route each to the DP so OnUriSourceChanged
         // drives the load.
-        if (auto binding = value.try_as<winrt::Microsoft::UI::Xaml::Data::Binding>())
+        if (auto binding = value.try_as<winrt::WinUINamespace::UI::Xaml::Data::Binding>())
         {
-            auto self = get_strong().as<winrt::Microsoft::UI::Xaml::DependencyObject>();
-            winrt::Microsoft::UI::Xaml::Data::BindingOperations::SetBinding(
+            auto self = get_strong().as<winrt::WinUINamespace::UI::Xaml::DependencyObject>();
+            winrt::WinUINamespace::UI::Xaml::Data::BindingOperations::SetBinding(
                 self, UriSourceProperty(), binding);
             return;
         }
@@ -163,8 +180,8 @@ namespace winrt::WinUI3Package::Svg::implementation
     }
 
     void SvgImageSource::onUriSourceChanged(
-        winrt::Microsoft::UI::Xaml::DependencyObject const& d,
-        winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+        winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto uri = e.NewValue().try_as<winrt::Windows::Foundation::Uri>();
         if (!uri)
@@ -176,8 +193,8 @@ namespace winrt::WinUI3Package::Svg::implementation
     }
 
     void SvgImageSource::onStringSourceChanged(
-        winrt::Microsoft::UI::Xaml::DependencyObject const& d,
-        winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+        winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+        winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto str = winrt::unbox_value_or<winrt::hstring>(e.NewValue(), winrt::hstring{});
         auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
@@ -191,8 +208,8 @@ namespace winrt::WinUI3Package::Svg::implementation
     }
 
     void SvgImageSource::onRasterizeSizeChanged(
-        winrt::Microsoft::UI::Xaml::DependencyObject const& d,
-        winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const&)
+        winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+        winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const&)
     {
         auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
         if (self->m_isHandlingImageSizeChanged || std::holds_alternative<std::monostate>(self->m_currentSource))
@@ -287,7 +304,11 @@ namespace winrt::WinUI3Package::Svg::implementation
         if (cancel())
             co_return;
 
+#if defined Build_WinUIPackage
         co_await wil::resume_foreground(strong->DispatcherQueue());
+#else
+        wil::resume_foreground(strong->Dispatcher());
+#endif
 
         if (cancel())
             co_return;
@@ -296,7 +317,7 @@ namespace winrt::WinUI3Package::Svg::implementation
         op.Completed([](auto const&, auto) noexcept {});
     }
 
-    void SvgImageSource::BindSizeTo(winrt::Microsoft::UI::Xaml::Controls::Image const& image)
+    void SvgImageSource::BindSizeTo(winrt::WinUINamespace::UI::Xaml::Controls::Image const& image)
     {
         m_boundImage = image;
         m_isHandlingImageSizeChanged = true;
@@ -305,14 +326,12 @@ namespace winrt::WinUI3Package::Svg::implementation
         auto height = image.ActualHeight();
         RasterizePixelWidth(width);
         RasterizePixelHeight(height);
-        double scale = 1.0;
-        if (auto xamlRoot = image.XamlRoot())
-            scale = xamlRoot.RasterizationScale();
+		double const scale = getDpiScale(image);
         replaceOp(renderAsync(width * scale, height * scale));
 
         m_sizeChangedRevoker = image.SizeChanged(
             winrt::auto_revoke,
-            [weakSelf = get_weak()](winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::SizeChangedEventArgs const& e)
+            [weakSelf = get_weak()](winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& e)
             {
                 auto self = weakSelf.get();
                 if (!self)
@@ -322,11 +341,9 @@ namespace winrt::WinUI3Package::Svg::implementation
                 auto scopeExit = wil::scope_exit([&]() { self->m_isHandlingImageSizeChanged = false; });
                 if (std::holds_alternative<std::monostate>(self->m_currentSource))
                     return;
-                auto image = sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
-                double scale = 1.0;
-                if (auto xamlRoot = image.XamlRoot())
-                    scale = xamlRoot.RasterizationScale();
-
+                auto image = sender.as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
+                double const scale = getDpiScale(image);
+                
                 auto [width, height] = e.NewSize();
                 self->RasterizePixelWidth(width);
                 self->RasterizePixelHeight(height);
@@ -335,7 +352,7 @@ namespace winrt::WinUI3Package::Svg::implementation
         );
     }
 
-    winrt::Microsoft::UI::Xaml::Controls::Image SvgImageSource::BindSizeTo()
+    winrt::WinUINamespace::UI::Xaml::Controls::Image SvgImageSource::BindSizeTo()
     {
         return m_boundImage.get();
     }

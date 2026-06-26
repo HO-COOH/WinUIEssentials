@@ -763,6 +763,7 @@
                 <muxc:NavigationViewItem Content="Toasts" Tag="{essential:TypeName Type=local:ToastPage}" />
                 <muxc:NavigationViewItem Content="Triggers" Tag="{essential:TypeName Type=local:TriggersPage}" />
                 <muxc:NavigationViewItem Content="ScopedButtonDisabler" Tag="{essential:TypeName Type=local:ScopedButtonDisablerPage}" />
+                <muxc:NavigationViewItem Content="Svg" Tag="{essential:TypeName Type=local:SvgPage}" />
             </muxc:NavigationView.MenuItems>
 
             <ScrollViewer>

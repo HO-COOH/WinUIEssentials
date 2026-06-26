@@ -1,0 +1,22 @@
+﻿namespace PackageRoot.Svg
+{
+    [default_interface]
+    runtimeclass SvgImageSource : WinUINamespace.UI.Xaml.Media.Imaging.BitmapSource
+    {
+        SvgImageSource();
+
+        Object UriSource;
+        static WinUINamespace.UI.Xaml.DependencyProperty UriSourceProperty{ get; };
+
+        String StringSource;
+        static WinUINamespace.UI.Xaml.DependencyProperty StringSourceProperty{ get; };
+
+        Double RasterizePixelWidth;
+        static WinUINamespace.UI.Xaml.DependencyProperty RasterizePixelWidthProperty{ get; };
+
+        Double RasterizePixelHeight;
+        static WinUINamespace.UI.Xaml.DependencyProperty RasterizePixelHeightProperty{ get; };
+
+        WinUINamespace.UI.Xaml.Controls.Image BindSizeTo;
+    }
+}

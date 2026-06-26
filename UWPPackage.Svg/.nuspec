@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>WinUIEssential.UWP.Svg</id>
+        <version>1.0.0</version>
+        <title>WinUIEssential.UWP.Svg</title>
+        <authors>Peter</authors>
+        <owners></owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>SVG image source for UWP, backed by resvg. Provides UWPPackage.Svg.SvgImageSource as a drop-in replacement for the built-in SvgImageSource with support for raw SVG strings, URI loading, and uniform rasterization to a target pixel size.</description>
+        <icon>assets\MainLogo.png</icon>
+        <dependencies>
+            <group targetFramework="native">
+                <dependency id="Microsoft.Windows.CppWinRT" version="3.0.260520.1"/>
+                <dependency id="Microsoft.Windows.ImplementationLibrary" version="1.0.260126.7"/>
+            </group>
+        </dependencies>
+        <license type="expression">MIT</license>
+        <readme>docs\README.md</readme>
+        <projectUrl>https://github.com/HO-COOH/WinUIEssentials</projectUrl>
+        <tags>c++ cpp uwp winui svg resvg cpp20</tags>
+        <repository type="git" url="https://github.com/HO-COOH/WinUIEssentials"/>
+    </metadata>
+    <files>
+        <!--build/native-->
+        <file src="WinUIEssential.UWP.Svg.targets" target="build/native"/>
+
+        <!--lib/native-->
+        <file src="..\x64\Debug\UWPPackage.Svg\UWPPackage.Svg.winmd" target="lib/native/Debug/x64"/>
+        <file src="..\x64\Debug\UWPPackage.Svg\UWPPackage.Svg.dll" target="lib/native/Debug/x64"/>
+        <file src="..\x64\Debug\UWPPackage.Svg\UWPPackage.Svg.pri" target="lib/native/Debug/x64"/>
+        <file src="..\x64\Debug\UWPPackage.Svg\UWPPackage.Svg.pdb" target="lib/native/Debug/x64"/>
+
+        <file src="..\ARM64\Debug\UWPPackage.Svg\UWPPackage.Svg.winmd" target="lib/native/Debug/ARM64"/>
+        <file src="..\ARM64\Debug\UWPPackage.Svg\UWPPackage.Svg.dll" target="lib/native/Debug/ARM64"/>
+        <file src="..\ARM64\Debug\UWPPackage.Svg\UWPPackage.Svg.pri" target="lib/native/Debug/ARM64"/>
+        <file src="..\ARM64\Debug\UWPPackage.Svg\UWPPackage.Svg.pdb" target="lib/native/Debug/ARM64"/>
+
+        <file src="..\Debug\UWPPackage.Svg\UWPPackage.Svg.winmd" target="lib/native/Debug/Win32"/>
+        <file src="..\Debug\UWPPackage.Svg\UWPPackage.Svg.dll" target="lib/native/Debug/Win32"/>
+        <file src="..\Debug\UWPPackage.Svg\UWPPackage.Svg.pri" target="lib/native/Debug/Win32"/>
+        <file src="..\Debug\UWPPackage.Svg\UWPPackage.Svg.pdb" target="lib/native/Debug/Win32"/>
+
+        <file src="..\x64\Release\UWPPackage.Svg\UWPPackage.Svg.winmd" target="lib/native/Release/x64"/>
+        <file src="..\x64\Release\UWPPackage.Svg\UWPPackage.Svg.dll" target="lib/native/Release/x64"/>
+        <file src="..\x64\Release\UWPPackage.Svg\UWPPackage.Svg.pri" target="lib/native/Release/x64"/>
+        <file src="..\x64\Release\UWPPackage.Svg\UWPPackage.Svg.pdb" target="lib/native/Release/x64"/>
+
+        <file src="..\ARM64\Release\UWPPackage.Svg\UWPPackage.Svg.winmd" target="lib/native/Release/ARM64"/>
+        <file src="..\ARM64\Release\UWPPackage.Svg\UWPPackage.Svg.dll" target="lib/native/Release/ARM64"/>
+        <file src="..\ARM64\Release\UWPPackage.Svg\UWPPackage.Svg.pri" target="lib/native/Release/ARM64"/>
+        <file src="..\ARM64\Release\UWPPackage.Svg\UWPPackage.Svg.pdb" target="lib/native/Release/ARM64"/>
+
+        <file src="..\Release\UWPPackage.Svg\UWPPackage.Svg.winmd" target="lib/native/Release/Win32"/>
+        <file src="..\Release\UWPPackage.Svg\UWPPackage.Svg.dll" target="lib/native/Release/Win32"/>
+        <file src="..\Release\UWPPackage.Svg\UWPPackage.Svg.pri" target="lib/native/Release/Win32"/>
+        <file src="..\Release\UWPPackage.Svg\UWPPackage.Svg.pdb" target="lib/native/Release/Win32"/>
+
+        <!-- Meta -->
+        <file src="..\MainLogo.png" target="assets\"/>
+        <file src="..\LICENSE.txt" target="licenses\"/>
+        <file src="..\README.md" target="docs\"/>
+        <file src="THIRD-PARTY-NOTICES.txt" target="licenses\"/>
+    </files>
+</package>
