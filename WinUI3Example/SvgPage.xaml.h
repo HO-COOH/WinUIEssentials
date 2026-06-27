@@ -14,6 +14,8 @@ namespace winrt::WinUI3Example::implementation
         static winrt::Microsoft::UI::Xaml::Media::ImageSource GetSvgImageSourceFromString(winrt::hstring const& svgContent);
     private:
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_svgs{ nullptr };
+    public:
+        void Image_ImageFailed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::ExceptionRoutedEventArgs const& e);
     };
 }
 

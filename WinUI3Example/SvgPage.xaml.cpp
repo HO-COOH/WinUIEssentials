@@ -62,4 +62,12 @@ namespace winrt::WinUI3Example::implementation
 		
 		return source;
 	}
+
+	void SvgPage::Image_ImageFailed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::ExceptionRoutedEventArgs const& e)
+	{
+		auto msg = e.ErrorMessage();
+		if (auto textBlock = sender.as<winrt::Microsoft::UI::Xaml::Controls::Image>().Tag().try_as<winrt::Microsoft::UI::Xaml::Controls::TextBlock>())
+			textBlock.Text(msg);
+	}
+
 }

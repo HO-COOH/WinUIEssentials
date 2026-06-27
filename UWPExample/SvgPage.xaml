@@ -27,12 +27,9 @@
                 </essential:GroupBox>
 
                 <essential:GroupBox Grid.Column="1" Header="WinUI3 Image">
-                    <Image MinWidth="500" MinHeight="500">
+                    <Image>
                         <Image.Source>
-                            <SvgImageSource
-                                RasterizePixelHeight="500"
-                                RasterizePixelWidth="500"
-                                UriSource="{x:Bind SvgUrl.Text, Mode=OneWay}" />
+                            <SvgImageSource UriSource="{x:Bind SvgUrl.Text, Mode=OneWay}" />
                         </Image.Source>
                     </Image>
                 </essential:GroupBox>
@@ -78,10 +75,7 @@
                 </Grid.ColumnDefinitions>
 
                 <essential:GroupBox Header="WinUI3Essential.Svg">
-                    <Image
-                        x:Name="SvgStringImage"
-                        MinWidth="500"
-                        MinHeight="500">
+                    <Image x:Name="SvgStringImage">
                         <Image.Source>
                             <svg:SvgImageSource BindSizeTo="{x:Bind SvgStringImage}" StringSource="{x:Bind SvgString.Text, Mode=OneWay}" />
                         </Image.Source>
@@ -90,10 +84,7 @@
 
                 <essential:GroupBox Grid.Column="1" Header="WinUI3 Image">
                     <!--  Native SvgImageSource does not support rendering from a string, you have to use a Converter or functional binding  -->
-                    <Image
-                        MinWidth="500"
-                        MinHeight="500"
-                        Source="{x:Bind local:SvgPage.GetSvgImageSourceFromString(SvgString.Text), Mode=OneWay}" />
+                    <Image Source="{x:Bind local:SvgPage.GetSvgImageSourceFromString(SvgString.Text), Mode=OneWay}" />
                 </essential:GroupBox>
             </Grid>
 

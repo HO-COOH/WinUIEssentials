@@ -149,13 +149,13 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>

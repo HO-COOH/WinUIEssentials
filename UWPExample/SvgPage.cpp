@@ -62,11 +62,11 @@ namespace winrt::UWPExample::implementation
 
 		return source;
 	}
-}
 
-void winrt::UWPExample::implementation::SvgPage::Image_ImageFailed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::ExceptionRoutedEventArgs const& e)
-{
-	auto msg = e.ErrorMessage();
-	if (auto textBlock = sender.as<winrt::Windows::UI::Xaml::Controls::Image>().Tag().try_as<winrt::Windows::UI::Xaml::Controls::TextBlock>())
-		textBlock.Text(msg);
+	void SvgPage::Image_ImageFailed(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::ExceptionRoutedEventArgs const& e)
+	{
+		auto msg = e.ErrorMessage();
+		if (auto textBlock = sender.as<winrt::Windows::UI::Xaml::Controls::Image>().Tag().try_as<winrt::Windows::UI::Xaml::Controls::TextBlock>())
+			textBlock.Text(msg);
+	}
 }
