@@ -17,10 +17,10 @@
 #include <limits>
 #include "RenderTree.h"
 
-static double getDpiScale(auto&& imageControl)
+static double getDpiScale([[maybe_unused]] auto&& imageControl)
 {
 #if defined Build_WinUIPackage
-    if (auto xamlRoot = image.XamlRoot())
+    if (auto xamlRoot = imageControl.XamlRoot())
         return xamlRoot.RasterizationScale();
     return 1.0;
 #else
@@ -307,7 +307,7 @@ namespace winrt::PackageRoot::Svg::implementation
 #if defined Build_WinUIPackage
         co_await wil::resume_foreground(strong->DispatcherQueue());
 #else
-        wil::resume_foreground(strong->Dispatcher());
+        co_await wil::resume_foreground(strong->Dispatcher());
 #endif
 
         if (cancel())

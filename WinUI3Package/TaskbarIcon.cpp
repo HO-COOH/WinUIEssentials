@@ -189,6 +189,8 @@ namespace winrt::WinUI3Package::implementation
 
 	void TaskbarIcon::EnsureDependencyProperties()
 	{
+		if (s_guidProperty) return;
+
 		s_guidProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
 			L"Guid",
 			winrt::xaml_typename<winrt::guid>(),
