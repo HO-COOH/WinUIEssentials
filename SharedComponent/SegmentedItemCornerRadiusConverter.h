@@ -6,7 +6,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct SegmentedItemCornerRadiusConverter : SegmentedItemCornerRadiusConverterT<SegmentedItemCornerRadiusConverter>
     {
-        SegmentedItemCornerRadiusConverter() = default;
 
         winrt::WinUINamespace::UI::Xaml::CornerRadius SegmentedCornerRadius();
         void SegmentedCornerRadius(winrt::WinUINamespace::UI::Xaml::CornerRadius value);

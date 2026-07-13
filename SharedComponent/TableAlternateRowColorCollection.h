@@ -10,7 +10,6 @@ namespace winrt::PackageRoot::implementation
         TableAlternateRowColorCollectionT<TableAlternateRowColorCollection>,
 		VectorBase<TableAlternateRowColorCollection, PackageRoot::TableAlternateRowColor, winrt::com_ptr<TableAlternateRowColor>>
     {
-        TableAlternateRowColorCollection() = default;
 
 		static PackageRoot::TableAlternateRowColor to_projected(winrt::com_ptr<TableAlternateRowColor> const& stored)
 		{

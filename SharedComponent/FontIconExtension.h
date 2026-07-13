@@ -11,7 +11,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct FontIconExtension : FontIconExtensionT<FontIconExtension>
     {
-        FontIconExtension() = default;
 
         double FontSize();
         void FontSize(double value);

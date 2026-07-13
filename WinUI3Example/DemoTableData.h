@@ -8,7 +8,6 @@ namespace winrt::WinUI3Example::implementation
 {
 	struct DemoTableData : DemoTableDataT<DemoTableData>, ITableDataBase<DemoTableData>
     {
-        DemoTableData() = default;
 
         int RowCount();
         int RowRequested(winrt::WinUI3Package::RowRequestedEventArgs const& args);

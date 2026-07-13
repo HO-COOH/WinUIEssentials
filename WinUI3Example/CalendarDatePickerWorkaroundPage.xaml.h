@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct CalendarDatePickerWorkaroundPage : CalendarDatePickerWorkaroundPageT<CalendarDatePickerWorkaroundPage>
     {
-        CalendarDatePickerWorkaroundPage() = default;
     };
 }
 

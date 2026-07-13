@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ModalWindowPage : ModalWindowPageT<ModalWindowPage>
     {
-		ModalWindowPage() = default;
 
         void Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };

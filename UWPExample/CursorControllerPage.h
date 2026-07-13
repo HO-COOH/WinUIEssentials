@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct CursorControllerPage : CursorControllerPageT<CursorControllerPage>
     {
-        CursorControllerPage() = default;
     };
 }
 

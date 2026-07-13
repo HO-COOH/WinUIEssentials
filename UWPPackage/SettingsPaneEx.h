@@ -7,7 +7,6 @@ namespace winrt::UWPPackage::implementation
 {
     struct SettingsPaneEx : SettingsPaneExT<SettingsPaneEx>
     {
-        SettingsPaneEx() = default;
 
         static winrt::Windows::UI::Xaml::DependencyProperty SettingsProperty();
 

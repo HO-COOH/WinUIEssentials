@@ -8,7 +8,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct TableColumn : TableColumnT<TableColumn>, EnsureDependencyProperty<TableColumn>
     {
-        TableColumn() = default;
         static void EnsureDependencyProperties();
 
         winrt::Windows::Foundation::IInspectable Content();

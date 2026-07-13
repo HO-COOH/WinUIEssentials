@@ -15,7 +15,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct TenMicaBackdrop : TenMicaBackdropT<TenMicaBackdrop, CustomBackdropBase>, TenMicaWindowSubProc<TenMicaBackdrop>, EnsureSystemDispatcherQueueController
     {
-        TenMicaBackdrop() = default;
 
         winrt::Microsoft::UI::Xaml::FrameworkElement BindThemeTo();
         void BindThemeTo(winrt::Microsoft::UI::Xaml::FrameworkElement const value);

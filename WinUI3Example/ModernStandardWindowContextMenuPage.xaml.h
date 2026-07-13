@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ModernStandardWindowContextMenuPage : ModernStandardWindowContextMenuPageT<ModernStandardWindowContextMenuPage>
     {
-        ModernStandardWindowContextMenuPage() = default;
 
         void StandardWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void NonResizableWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

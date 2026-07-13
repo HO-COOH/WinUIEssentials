@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct SamplePage2 : SamplePage2T<SamplePage2>
     {
-        SamplePage2() = default;
     };
 }
 

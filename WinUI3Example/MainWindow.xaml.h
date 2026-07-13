@@ -8,7 +8,6 @@
 #include <string_view>
 #include <winrt/Microsoft.UI.Xaml.Markup.h>
 #include "ButtonAnimations.h"
-#include <boost/hana.hpp>
 
 
 namespace winrt::WinUI3Example::implementation

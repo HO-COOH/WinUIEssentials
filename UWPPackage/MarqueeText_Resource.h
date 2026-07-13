@@ -6,7 +6,6 @@ namespace winrt::UWPPackage::implementation
 {
     struct MarqueeText_Resource : MarqueeText_ResourceT<MarqueeText_Resource>
     {
-        MarqueeText_Resource() = default;
     };
 }
 

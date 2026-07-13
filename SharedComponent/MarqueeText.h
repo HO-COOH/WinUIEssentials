@@ -9,7 +9,6 @@ namespace winrt::PackageRoot::implementation
     struct MarqueeText : MarqueeTextT<MarqueeText>, TemplateControlHelper<MarqueeText>, EnsureDependencyProperty<MarqueeText>
     {
         static void EnsureDependencyProperties();
-        MarqueeText() = default;
 
         void OnApplyTemplate();
 

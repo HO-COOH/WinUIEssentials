@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TableConextMenuPage : TableConextMenuPageT<TableConextMenuPage>
     {
-        TableConextMenuPage() = default;
 
         void OnTableContextMenuRequested(
             winrt::WinUI3Package::Table const& sender,

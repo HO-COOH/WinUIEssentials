@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct AcrylicBackdropsPage : AcrylicBackdropsPageT<AcrylicBackdropsPage>
     {
-        AcrylicBackdropsPage() = default;
         void CreateAcrylicButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void CreateDefaultAcrylicButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void CreateStandardAcrylicButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

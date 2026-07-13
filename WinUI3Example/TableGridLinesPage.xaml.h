@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TableGridLinesPage : TableGridLinesPageT<TableGridLinesPage>
     {
-        TableGridLinesPage() = default;
     };
 }
 

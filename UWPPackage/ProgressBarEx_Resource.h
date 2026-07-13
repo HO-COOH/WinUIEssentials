@@ -6,7 +6,6 @@ namespace winrt::UWPPackage::implementation
 {
     struct ProgressBarEx_Resource : ProgressBarEx_ResourceT<ProgressBarEx_Resource>
     {
-        ProgressBarEx_Resource() = default;
     };
 }
 

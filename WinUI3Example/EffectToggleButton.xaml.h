@@ -8,7 +8,6 @@ namespace winrt::WinUI3Example::implementation
 
     struct EffectToggleButton : EffectToggleButtonT<EffectToggleButton>
     {
-        EffectToggleButton() = default;
         
         winrt::WinUI3Example::WindowBackgroundHelper Window();
         void Window(winrt::WinUI3Example::WindowBackgroundHelper const& value);

@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ShimmerPage : ShimmerPageT<ShimmerPage>
     {
-        ShimmerPage() = default;
 
         void Image_ImageOpened(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };

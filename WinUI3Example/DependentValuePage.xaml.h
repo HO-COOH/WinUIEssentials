@@ -9,7 +9,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct DependentValuePage : DependentValuePageT<DependentValuePage>
     {
-        DependentValuePage() = default;
 
         void ClickHandler(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
     };

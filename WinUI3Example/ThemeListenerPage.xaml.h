@@ -7,7 +7,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ThemeListenerPage : ThemeListenerPageT<ThemeListenerPage>
     {
-        ThemeListenerPage() = default;
         static winrt::hstring ElementThemeToString(winrt::Microsoft::UI::Xaml::ElementTheme theme);
     };
 }

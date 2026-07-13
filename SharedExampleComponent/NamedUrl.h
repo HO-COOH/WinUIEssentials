@@ -6,7 +6,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct NamedUrl : NamedUrlT<NamedUrl>
     {
-        NamedUrl() = default;
 
         winrt::hstring Name();
 		void Name(winrt::hstring const& value);

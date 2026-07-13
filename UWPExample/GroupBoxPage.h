@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct GroupBoxPage : GroupBoxPageT<GroupBoxPage>
     {
-        GroupBoxPage() = default;
     };
 }
 

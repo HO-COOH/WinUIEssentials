@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ElementThemeToStringConverter : ElementThemeToStringConverterT<ElementThemeToStringConverter>
     {
-        ElementThemeToStringConverter() = default;
 
 		winrt::Windows::Foundation::IInspectable Convert(
             winrt::Windows::Foundation::IInspectable const& value, 

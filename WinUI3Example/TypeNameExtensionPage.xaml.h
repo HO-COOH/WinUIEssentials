@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TypeNameExtensionPage : TypeNameExtensionPageT<TypeNameExtensionPage>
     {
-        TypeNameExtensionPage() = default;
         void NavigationView_SelectionChanged(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender, winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
     };
 }

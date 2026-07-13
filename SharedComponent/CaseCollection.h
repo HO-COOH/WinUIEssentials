@@ -6,7 +6,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct CaseCollection : CaseCollectionT<CaseCollection>
     {
-        CaseCollection() = default;
 
         PackageRoot::Case EvaluateCases(winrt::Windows::Foundation::IInspectable const& value);
     };

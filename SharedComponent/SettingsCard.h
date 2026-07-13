@@ -9,7 +9,6 @@ namespace winrt::PackageRoot::implementation
     struct SettingsCard : SettingsCardT<SettingsCard>, TemplateControlHelper<SettingsCard>, EnsureDependencyProperty<SettingsCard>
     {
         static void EnsureDependencyProperties();
-        SettingsCard() = default;
 
 #pragma region Overrides
         void OnApplyTemplate();

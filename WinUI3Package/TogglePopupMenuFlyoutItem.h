@@ -10,7 +10,6 @@ namespace winrt::WinUI3Package::implementation
     struct TogglePopupMenuFlyoutItem : TogglePopupMenuFlyoutItemT<TogglePopupMenuFlyoutItem, PopupMenuFlyoutItem>, EnsureDependencyProperty<TogglePopupMenuFlyoutItem>
     {
         static void EnsureDependencyProperties();
-        TogglePopupMenuFlyoutItem() = default;
 
 #pragma region Inheirted from PopupMenuFlyoutItemBase
         winrt::WinUI3Package::PopupMenuFlyoutItemType Type() override;

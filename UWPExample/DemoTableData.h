@@ -8,7 +8,6 @@ namespace winrt::UWPExample::implementation
 {
     struct DemoTableData : DemoTableDataT<DemoTableData>, ITableDataBase<DemoTableData>
     {
-        DemoTableData() = default;
 
         int RowCount();
         int RowRequested(winrt::UWPPackage::RowRequestedEventArgs const& args);

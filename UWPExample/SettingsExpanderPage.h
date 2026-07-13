@@ -7,7 +7,6 @@ namespace winrt::UWPExample::implementation
 {
     struct SettingsExpanderPage : SettingsExpanderPageT<SettingsExpanderPage>
     {
-        SettingsExpanderPage() = default;
 
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> MyDataSet();
 

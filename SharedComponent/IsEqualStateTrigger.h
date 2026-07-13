@@ -8,7 +8,6 @@ namespace winrt::PackageRoot::implementation
     struct IsEqualStateTrigger : IsEqualStateTriggerT<IsEqualStateTrigger>, EnsureDependencyProperty<IsEqualStateTrigger>
     {
         static void EnsureDependencyProperties();
-        IsEqualStateTrigger() = default;
 
         winrt::Windows::Foundation::IInspectable Value();
         void Value(winrt::Windows::Foundation::IInspectable value);

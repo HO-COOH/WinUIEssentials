@@ -492,6 +492,10 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DefaultTableContextMenu.h">
+      <DependentUpon>DefaultTableContextMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Export.h" />
     <ClInclude Include="GroupBox_Resource.h">
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
@@ -655,6 +659,9 @@
     <SDKReference Include="WindowsDesktop, Version=10.0.26100.0" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="DefaultTableContextMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GroupBox_Resource.xaml">
       <SubType>Designer</SubType>
     </Page>

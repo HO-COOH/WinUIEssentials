@@ -7,7 +7,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct StringToBoolConverter : StringToBoolConverterT<StringToBoolConverter>, ReverseConverterBase
     {
-        StringToBoolConverter() = default;
 
         winrt::Windows::Foundation::IInspectable Convert(
             winrt::Windows::Foundation::IInspectable const& value,

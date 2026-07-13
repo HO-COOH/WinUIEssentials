@@ -9,7 +9,6 @@ namespace winrt::WinUI3Package::implementation
     struct PopupMenuFlyoutSubItem : PopupMenuFlyoutSubItemT<PopupMenuFlyoutSubItem, PopupMenuFlyoutItemBase>, EnsureDependencyProperty<PopupMenuFlyoutSubItem>
     {
         static void EnsureDependencyProperties();
-        PopupMenuFlyoutSubItem() = default;
 
 #pragma region Inheirted from PopupMenuFlyoutItemBase
         constexpr winrt::WinUI3Package::PopupMenuFlyoutItemType Type() { return winrt::WinUI3Package::PopupMenuFlyoutItemType::SubMenu; }

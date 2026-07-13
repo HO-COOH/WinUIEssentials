@@ -6,7 +6,6 @@ namespace winrt::UWPPackage::implementation
 {
     struct Shimmer_Resource : Shimmer_ResourceT<Shimmer_Resource>
     {
-        Shimmer_Resource() = default;
     };
 }
 

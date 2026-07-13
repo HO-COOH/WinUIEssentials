@@ -6,7 +6,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct SettingsExpanderItemStyleSelector : SettingsExpanderItemStyleSelectorT<SettingsExpanderItemStyleSelector>
     {
-        SettingsExpanderItemStyleSelector() = default;
 
         winrt::WinUINamespace::UI::Xaml::Style DefaultStyle();
         void DefaultStyle(winrt::WinUINamespace::UI::Xaml::Style value);

@@ -6,7 +6,6 @@ namespace winrt::UWPPackage::implementation
 {
     struct SettingsCommandEx : SettingsCommandExT<SettingsCommandEx>
     {
-        SettingsCommandEx() = default;
 
         winrt::Windows::Foundation::IInspectable Id();
         void Id(winrt::Windows::Foundation::IInspectable value);

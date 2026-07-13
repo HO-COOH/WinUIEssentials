@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct TableAlternateRowColorsPage : TableAlternateRowColorsPageT<TableAlternateRowColorsPage>
     {
-        TableAlternateRowColorsPage() = default;
     };
 }
 

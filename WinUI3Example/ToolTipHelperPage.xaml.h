@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ToolTipHelperPage : ToolTipHelperPageT<ToolTipHelperPage>
     {
-        ToolTipHelperPage() = default;
     };
 }
 

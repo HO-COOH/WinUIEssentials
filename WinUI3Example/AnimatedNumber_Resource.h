@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct AnimatedNumber_Resource : AnimatedNumber_ResourceT<AnimatedNumber_Resource>
     {
-        AnimatedNumber_Resource() = default;
     };
 }
 

@@ -9,7 +9,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ConvertersPage : ConvertersPageT<ConvertersPage>
     {
-        ConvertersPage() = default;
     };
 }
 

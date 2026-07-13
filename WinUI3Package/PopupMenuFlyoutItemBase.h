@@ -9,7 +9,6 @@ namespace winrt::WinUI3Package::implementation
     struct PopupMenuFlyoutItemBase : PopupMenuFlyoutItemBaseT<PopupMenuFlyoutItemBase>, PopupMenuFlyoutItemImplBase, EnsureDependencyProperty<PopupMenuFlyoutItemBase>
     {
         static void EnsureDependencyProperties();
-        PopupMenuFlyoutItemBase() = default;
 
         virtual winrt::WinUI3Package::PopupMenuFlyoutItemType Type()
         {

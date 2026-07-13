@@ -10,7 +10,6 @@ namespace winrt::WinUI3Example::implementation
     {
         friend class TemplateControlHelper<AnimatedDigit, false>;
 
-        AnimatedDigit() = default;
 
         void OnApplyTemplate();
 

@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct MyDataModel : MyDataModelT<MyDataModel>
     {
-        MyDataModel() = default;
 
         winrt::hstring Name();
         void Name(winrt::hstring value);

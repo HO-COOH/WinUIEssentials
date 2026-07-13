@@ -5,7 +5,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct TransparentBackdrop : TransparentBackdropT<TransparentBackdrop>
     {
-        TransparentBackdrop() = default;
 
         void OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot);
         void OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget);

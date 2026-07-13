@@ -8,7 +8,6 @@ namespace winrt::PackageRoot::implementation
     struct ControlSizeTrigger : ControlSizeTriggerT<ControlSizeTrigger>, EnsureDependencyProperty<ControlSizeTrigger>
     {
         static void EnsureDependencyProperties();
-        ControlSizeTrigger() = default;
 
 #pragma region Properties
         bool CanTrigger();

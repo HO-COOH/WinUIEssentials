@@ -6,7 +6,6 @@ namespace winrt::UWPPackage::implementation
 {
     struct SettingsCard_ContentResource : SettingsCard_ContentResourceT<SettingsCard_ContentResource>
     {
-        SettingsCard_ContentResource() = default;
     };
 }
 

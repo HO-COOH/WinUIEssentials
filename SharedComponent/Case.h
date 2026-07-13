@@ -8,7 +8,6 @@ namespace winrt::PackageRoot::implementation
     struct Case : CaseT<Case>, EnsureDependencyProperty<Case>
     {
         static void EnsureDependencyProperties();
-        Case() = default;
 
         winrt::Windows::Foundation::IInspectable Content();
         void Content(winrt::Windows::Foundation::IInspectable const& value);

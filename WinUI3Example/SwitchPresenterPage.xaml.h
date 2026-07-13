@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct SwitchPresenterPage : SwitchPresenterPageT<SwitchPresenterPage>
     {
-        SwitchPresenterPage() = default;
     };
 }
 

@@ -50,3 +50,5 @@
 #include "TableColumn.h"
 #include "TableColumnCollection.h"
 #include "RowRequestedEventArgs.h"
+#include "ContextMenuRequestedEventArgs.h"
+#include "DefaultTableContextMenu.h"

@@ -9,7 +9,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct MarqueeTextPage : MarqueeTextPageT<MarqueeTextPage>
     {
-        MarqueeTextPage() = default;
     };
 }
 
