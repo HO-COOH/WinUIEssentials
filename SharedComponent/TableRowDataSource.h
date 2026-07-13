@@ -16,6 +16,7 @@ namespace winrt::PackageRoot::implementation
 
         int32_t RowCount();
         int32_t RowRequested(winrt::PackageRoot::RowRequestedEventArgs const& args);
+		void ContextMenuRequested(winrt::PackageRoot::ContextMenuRequestedEventArgs const& args);
         void SetData(int32_t row, int32_t column, winrt::Windows::Foundation::IInspectable const& value);
 
         winrt::event_token UpdateRowData(winrt::Windows::Foundation::EventHandler<winrt::PackageRoot::UpdateRowDataEventArgs> const& handler);

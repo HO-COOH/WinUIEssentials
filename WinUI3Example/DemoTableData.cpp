@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "DemoTableData.h"
 #if __has_include("DemoTableData.g.cpp")
 #include "DemoTableData.g.cpp"
@@ -59,4 +59,5 @@ namespace winrt::WinUI3Example::implementation
 			}
 		}
 	}
+
 }

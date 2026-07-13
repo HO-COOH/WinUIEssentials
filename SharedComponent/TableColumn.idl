@@ -26,5 +26,7 @@ namespace PackageRoot
         WinUINamespace.UI.Xaml.HorizontalAlignment HorizontalAlignment;
         Double MinWidth;
         Double MaxWidth;
+
+        WinUINamespace.UI.Xaml.Controls.Flyout Flyout;
     }
 }

@@ -117,6 +117,16 @@ namespace winrt::PackageRoot::implementation
 		return s_isResizableProperty;
 	}
 
+	winrt::WinUINamespace::UI::Xaml::Controls::Flyout TableColumn::Flyout()
+	{
+		return m_flyout;
+	}
+
+	void TableColumn::Flyout(winrt::WinUINamespace::UI::Xaml::Controls::Flyout const& value)
+	{
+		m_flyout = value;
+	}
+
 	void TableColumn::onStringContentChanged(
 		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, 
 		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)

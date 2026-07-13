@@ -6,6 +6,7 @@
 #include "TableConstants.hpp"
 #include <wil/resource.h>
 #include "D2DConvert.hpp"
+#include "ContextMenuRequestedEventArgs.h"
 #include <algorithm>
 
 namespace winrt::PackageRoot::implementation
@@ -761,12 +762,9 @@ namespace winrt::PackageRoot::implementation
         m_d2dContent.SetHover(y);
     }
 
-    void Table::SwapChainPanel_PointerPressed(
-        winrt::Windows::Foundation::IInspectable const&,
-        winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    void Table::onLeftClicked(winrt::WinUINamespace::UI::Input::PointerPoint const& pointer)
     {
-        auto const currentPoint = e.GetCurrentPoint(*this);
-        auto const [x, y] = currentPoint.Position();
+        auto const [x, y] = pointer.Position();
 
         //click outside the editor dismisses it. Clicks on the editor itself
         //don't bubble up to SwapChainPanel because the inner control handles them.
@@ -789,6 +787,83 @@ namespace winrt::PackageRoot::implementation
         m_resizeRequest.m_resizeStartX = x;
         m_resizeRequest.m_resizeStartWidth = m_d2dContent.m_columnWidthManager.Get(resizeColumnIndex);
         return;
+    }
+
+	void Table::onRightClicked(winrt::WinUINamespace::UI::Input::PointerPoint const& pointer)
+	{
+		if (!m_contextMenuRequestedEvent)
+			return;
+
+		auto const [x, y] = pointer.Position();
+		auto const headerRowHeight = m_d2dContent.m_tableHeight.HeaderRowHeight();
+
+		//ignore right-clicks on the header
+		if (y < headerRowHeight)
+			return;
+
+		//hit-test column
+		auto& widthManager = m_d2dContent.m_columnWidthManager;
+		auto const numColumns = static_cast<int>(widthManager.NumColumns());
+		float columnLeft = -m_d2dContent.ScrollOffsetX();
+		int columnIndex = -1;
+		for (int i = 0; i < numColumns; ++i)
+		{
+			float const width = widthManager.Get(i);
+			if (x >= columnLeft && x < columnLeft + width)
+			{
+				columnIndex = i;
+				break;
+			}
+			columnLeft += width;
+		}
+		if (columnIndex < 0)
+			return;
+
+		//hit-test row
+		int const rowIndex = static_cast<int>((y - headerRowHeight + m_d2dContent.ScrollOffsetY()) / m_d2dContent.m_tableHeight.ContentRowHeight());
+		if (rowIndex < 0 || rowIndex >= m_d2dContent.DataCount())
+			return;
+
+		auto args = winrt::make_self<implementation::ContextMenuRequestedEventArgs>(rowIndex, columnIndex);
+		//DataContext: use the built-in TableRow when the user is filling `Items`; otherwise pass the ITableData source.
+		if (m_tableRowDataSource)
+			args->m_dataContext = m_tableRowDataSource->Items().GetAt(rowIndex);
+		else if (m_itemsSource)
+			args->m_dataContext = m_itemsSource;
+
+		m_contextMenuRequestedEvent(*this, *args);
+
+		auto menu = args->ContextMenu();
+		if (!menu)
+			return;
+
+		auto const [px, py] = pointer.Position();
+		menu.ShowAt(*this, winrt::Windows::Foundation::Point{ px, py });
+	}
+
+	winrt::event_token Table::ContextMenuRequested(
+		winrt::Windows::Foundation::TypedEventHandler<
+			winrt::PackageRoot::Table,
+			winrt::PackageRoot::ContextMenuRequestedEventArgs> const& handler)
+	{
+		return m_contextMenuRequestedEvent.add(handler);
+	}
+
+	void Table::ContextMenuRequested(winrt::event_token const& token)
+	{
+		m_contextMenuRequestedEvent.remove(token);
+	}
+
+    void Table::SwapChainPanel_PointerPressed(
+        winrt::Windows::Foundation::IInspectable const&,
+        winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
+    {
+        auto const currentPoint = e.GetCurrentPoint(*this);
+        auto const properties = currentPoint.Properties();
+        if (properties.IsLeftButtonPressed())
+            onLeftClicked(currentPoint);
+        else if (properties.IsRightButtonPressed())
+            onRightClicked(currentPoint);
     }
 
     void Table::SwapChainPanel_PointerReleased(

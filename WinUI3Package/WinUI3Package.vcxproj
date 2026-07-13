@@ -331,6 +331,10 @@
       <DependentUpon>DatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="DefaultTableContextMenu.xaml.h">
+      <DependentUpon>DefaultTableContextMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="EffectInterop.hpp" />
     <ClInclude Include="EffectPropertyHelper.h" />
     <ClInclude Include="EffectPropertyMapping.h" />
@@ -926,6 +930,9 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="DefaultTableContextMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GroupBox_Resource.xaml" />
     <Page Include="MarqueeText_Resource.xaml" />
     <Page Include="ModernDialogBox.xaml">

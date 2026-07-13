@@ -28,12 +28,6 @@ namespace winrt::PackageRoot::implementation
 		loadRepoInfos();
 		loadCommitMessage();
 		loadNugetInfo();
-
-		InitializeComponent();
-
-		auto m_compositor = winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
-		addImplicitAnimationToLoading(m_compositor);
-		addHeartbeatAnimation(m_compositor);
 	}
 
 	winrt::hstring AboutPage::WASDKReleaseVersion()
@@ -148,6 +142,15 @@ namespace winrt::PackageRoot::implementation
 	winrt::WinUINamespace::UI::Xaml::Visibility AboutPage::IsLoadingContributors()
 	{
 		return m_isLoadingContributors ? winrt::WinUINamespace::UI::Xaml::Visibility::Visible : winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed;
+	}
+
+	void AboutPage::InitializeComponent()
+	{
+		AboutPageT::InitializeComponent();
+
+		auto m_compositor = winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
+		addImplicitAnimationToLoading(m_compositor);
+		addHeartbeatAnimation(m_compositor);
 	}
 
 	bool AboutPage::IsLoadingRepoInfo()

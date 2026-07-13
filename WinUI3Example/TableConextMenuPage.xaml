@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.TableConextMenuPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <local:ControlExample
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        HeaderText="Table ContextMenu demo">
+        <essential:Table
+            x:Name="DemoTable"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            ContextMenuRequested="OnTableContextMenuRequested"
+            HeaderBackground="{ThemeResource ControlFillColorDefault}"
+            HeaderFontWeight="Normal">
+            <essential:Table.ItemsSource>
+                <local:DemoTableData />
+            </essential:Table.ItemsSource>
+            <essential:Table.Columns>
+                <essential:TableColumn Content="Id" />
+                <essential:TableColumn Content="First Name" />
+                <essential:TableColumn Content="Last Name" />
+                <essential:TableColumn Content="Email" />
+                <essential:TableColumn Content="Gender" />
+                <essential:TableColumn Content="Dob" />
+                <essential:TableColumn Content="Active At" />
+                <essential:TableColumn Content="Is Active">
+                    <essential:TableColumn.ItemTemplate>
+                        <DataTemplate x:DataType="x:Boolean">
+                            <CheckBox IsChecked="{x:Bind}" />
+                        </DataTemplate>
+                    </essential:TableColumn.ItemTemplate>
+                </essential:TableColumn>
+
+                <essential:TableColumn Content="Department" />
+                <essential:TableColumn Content="Designation" />
+                <essential:TableColumn Content="Address">
+                    <essential:TableColumn.EditTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBox Text="{x:Bind}" />
+                        </DataTemplate>
+                    </essential:TableColumn.EditTemplate>
+                </essential:TableColumn>
+            </essential:Table.Columns>
+        </essential:Table>
+    </local:ControlExample>
+</Page>

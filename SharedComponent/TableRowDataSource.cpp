@@ -55,6 +55,14 @@ namespace winrt::PackageRoot::implementation
         return end - start + 1;
     }
 
+    void TableRowDataSource::ContextMenuRequested(winrt::PackageRoot::ContextMenuRequestedEventArgs const& args)
+    {
+        winrt::WinUINamespace::UI::Xaml::Controls::MenuFlyout menuFlyout;
+        winrt::WinUINamespace::UI::Xaml::Controls::MenuFlyoutItem copyItem;
+        
+        args.ContextMenu();
+    }
+
     void TableRowDataSource::SetData(int32_t row, int32_t column, winrt::Windows::Foundation::IInspectable const& value)
     {
         if (row < 0 || column < 0 || row >= m_items.Size())

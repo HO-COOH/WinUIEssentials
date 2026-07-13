@@ -40,6 +40,7 @@ namespace winrt::PackageRoot::implementation
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Contributors();
 
         winrt::WinUINamespace::UI::Xaml::Visibility IsLoadingContributors();
+        void InitializeComponent();
         bool IsLoadingRepoInfo();
     private:
         std::optional<RepoInfo> m_repoInfo;

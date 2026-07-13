@@ -669,12 +669,20 @@
       <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TableConextMenuPage.xaml.h">
+      <DependentUpon>TableConextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TableGridLinesPage.xaml.h">
       <DependentUpon>TableGridLinesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TablePage.xaml.h">
       <DependentUpon>TablePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TableSelectionPage.xaml.h">
+      <DependentUpon>TableSelectionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TaskbarIconPage.xaml.h">
@@ -996,6 +1004,9 @@
     <Page Include="TableAlternateRowColorsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="TableConextMenuPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TableGridLinesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1003,6 +1014,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SvgPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TableSelectionPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarIconPage.xaml">
@@ -1417,12 +1431,20 @@
       <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TableConextMenuPage.xaml.cpp">
+      <DependentUpon>TableConextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TableGridLinesPage.xaml.cpp">
       <DependentUpon>TableGridLinesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TablePage.xaml.cpp">
       <DependentUpon>TablePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TableSelectionPage.xaml.cpp">
+      <DependentUpon>TableSelectionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TaskbarIconPage.xaml.cpp">
@@ -1846,12 +1868,20 @@
       <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="TableConextMenuPage.idl">
+      <DependentUpon>TableConextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="TableGridLinesPage.idl">
       <DependentUpon>TableGridLinesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TablePage.idl">
       <DependentUpon>TablePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TableSelectionPage.idl">
+      <DependentUpon>TableSelectionPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TaskbarIconPage.idl">

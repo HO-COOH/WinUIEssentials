@@ -421,6 +421,9 @@
     <Filter Include="Backdrop\HostBackdrop">
       <UniqueIdentifier>{63d2f7fe-19a5-4aec-b863-b3532ade7b4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Table">
+      <UniqueIdentifier>{6454c2bb-bcca-46f0-8543-24ae61aa898b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="HostBackdropVisual.idl">
@@ -596,7 +599,10 @@
       <Filter>Controls</Filter>
     </Page>
     <Page Include="Table.xaml">
-      <Filter>Controls</Filter>
+      <Filter>Controls\Table</Filter>
+    </Page>
+    <Page Include="DefaultTableContextMenu.xaml">
+      <Filter>Controls\Table</Filter>
     </Page>
   </ItemGroup>
 </Project>

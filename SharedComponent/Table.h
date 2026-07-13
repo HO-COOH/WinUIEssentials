@@ -125,6 +125,15 @@ namespace winrt::PackageRoot::implementation
 
         winrt::Windows::Foundation::Collections::IVector<winrt::PackageRoot::TableRow> Items();
 
+        //events
+        winrt::event_token ContextMenuRequested(
+            winrt::Windows::Foundation::TypedEventHandler<
+                winrt::PackageRoot::Table,
+                winrt::PackageRoot::ContextMenuRequestedEventArgs
+            > const& handler
+        );
+        void ContextMenuRequested(winrt::event_token const& token);
+
         TableProperty m_tableProperty;
         SharedDataBase<TableProperty> m_sharedData{ m_tableProperty };
         TableD2DContent m_d2dContent{ *this };
@@ -152,6 +161,10 @@ namespace winrt::PackageRoot::implementation
         void updateScrollBars();
         void hideVerticalScrollBar();
         void hideHorizontalScrollBar();
+
+        //pointer events
+        void onLeftClicked(winrt::WinUINamespace::UI::Input::PointerPoint const& pointer);
+        void onRightClicked(winrt::WinUINamespace::UI::Input::PointerPoint const& pointer);
 
         //resizing
         ResizeRequest m_resizeRequest;
@@ -264,6 +277,10 @@ namespace winrt::PackageRoot::implementation
 			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 		);
         winrt::PackageRoot::ITableData::UpdateRowData_revoker m_updateRowDataRevoker;
+
+        winrt::event<winrt::Windows::Foundation::TypedEventHandler<
+            winrt::PackageRoot::Table,
+            winrt::PackageRoot::ContextMenuRequestedEventArgs>> m_contextMenuRequestedEvent;
     };
 }
 

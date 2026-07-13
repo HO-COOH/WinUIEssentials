@@ -31,6 +31,9 @@ namespace winrt::PackageRoot::implementation
 		void IsResizable(bool value);
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty IsResizableProperty();
 
+        winrt::WinUINamespace::UI::Xaml::Controls::Flyout Flyout();
+		void Flyout(winrt::WinUINamespace::UI::Xaml::Controls::Flyout const& value);
+
         constexpr winrt::WinUINamespace::UI::Xaml::HorizontalAlignment HorizontalAlignment() const
         {
             return m_data.m_horizontalAlignment;
@@ -51,7 +54,7 @@ namespace winrt::PackageRoot::implementation
 
         TableColumnData m_data;
     private:
-
+        winrt::WinUINamespace::UI::Xaml::Controls::Flyout m_flyout{ nullptr };
         static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_itemTemplateProperty{ nullptr };
 		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_editTemplateProperty{ nullptr };

@@ -1,0 +1,15 @@
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ContextMenuRequestedEventArgs 
+    {
+        ContextMenuRequestedEventArgs();
+        
+	    Int32 RowIndex{ get; };
+        Int32 ColumnIndex{ get; };
+        Object DataContext{ get; };
+        WinUINamespace.UI.Xaml.Controls.MenuFlyout ContextMenu;
+		Boolean Handled;
+    }
+}

@@ -2,6 +2,7 @@
 import "ITableData.idl";
 import "TableRow.idl";
 import "TableAlternateRowColor.idl";
+import "ContextMenuRequestedEventArgs.idl";
 
 namespace PackageRoot
 {
@@ -79,6 +80,9 @@ namespace PackageRoot
         TableColumnCollection Columns{ get; };
         ITableData ItemsSource;
         Windows.Foundation.Collections.IVector<TableRow> Items{ get; };
+
+        //events
+        event Windows.Foundation.TypedEventHandler<Table, ContextMenuRequestedEventArgs> ContextMenuRequested;
     }
 }
  
