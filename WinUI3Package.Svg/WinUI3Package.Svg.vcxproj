@@ -186,7 +186,11 @@
       <Output TaskParameter="ExitCode" PropertyName="_ResvgCargoExitCode" />
     </Exec>
     <Error Condition="'$(_ResvgCargoExitCode)' != '0'" Text="cargo not found on PATH. Install the Rust toolchain from https://rustup.rs/ before building." />
-    <Exec Command="rustup target add $(ResvgRustTarget)" />
+    <Exec Command="rustup target add $(ResvgRustTarget)" IgnoreExitCode="true">
+      <Output TaskParameter="ExitCode" PropertyName="_ResvgTargetAddExitCode" />
+    </Exec>
+    <Exec Condition="'$(_ResvgTargetAddExitCode)' != '0'" Command="rustup target remove $(ResvgRustTarget)" IgnoreExitCode="true" />
+    <Exec Condition="'$(_ResvgTargetAddExitCode)' != '0'" Command="rustup target add $(ResvgRustTarget)" />
   </Target>
   <Target Name="ResvgBuild" BeforeTargets="ClCompile">
     <Message Importance="High" Text="Building resvg C-API ($(ResvgRustTarget), release)..." />
