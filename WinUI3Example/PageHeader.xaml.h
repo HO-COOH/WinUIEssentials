@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct PageHeader : PageHeaderT<PageHeader>
     {
-        PageHeader() = default;
 
         winrt::hstring Header();
         void Header(winrt::hstring const& value);

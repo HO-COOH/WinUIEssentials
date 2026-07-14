@@ -12,7 +12,6 @@ namespace winrt::WinUI3Package::implementation
     struct RadioPopupMenuFlyoutItem : RadioPopupMenuFlyoutItemT<RadioPopupMenuFlyoutItem, PopupMenuFlyoutItem>, EnsureDependencyProperty<RadioPopupMenuFlyoutItem>
     {
         static void EnsureDependencyProperties();
-        RadioPopupMenuFlyoutItem() = default;
 
 #pragma region Inheirted from PopupMenuFlyoutItemBase
         winrt::WinUI3Package::PopupMenuFlyoutItemType Type();

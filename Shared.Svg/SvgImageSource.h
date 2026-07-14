@@ -17,7 +17,6 @@ namespace winrt::PackageRoot::Svg::implementation
     {
         static void EnsureDependencyProperties();
 
-        SvgImageSource() = default;
 
         winrt::Windows::Foundation::IInspectable UriSource() const;
         void UriSource(winrt::Windows::Foundation::IInspectable const& value);

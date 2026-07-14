@@ -8,7 +8,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TaskbarIconSource : TaskbarIconSourceT<TaskbarIconSource>, MvvmHelper::PropertyChangeHelper<TaskbarIconSource>
     {
-        TaskbarIconSource() = default;
         winrt::Windows::Foundation::IAsyncAction Button_Click(
             winrt::Windows::Foundation::IInspectable const& sender,
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct DatePickerHelperPage : DatePickerHelperPageT<DatePickerHelperPage>
     {
-        DatePickerHelperPage() = default;
     };
 }
 

@@ -6,7 +6,6 @@ namespace winrt::UWPPackage::implementation
 {
     struct GroupBox_Resource : GroupBox_ResourceT<GroupBox_Resource>
     {
-        GroupBox_Resource() = default;
     };
 }
 

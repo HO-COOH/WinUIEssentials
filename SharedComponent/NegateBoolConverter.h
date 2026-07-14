@@ -6,7 +6,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct NegateBoolConverter : NegateBoolConverterT<NegateBoolConverter>
     {
-        NegateBoolConverter() = default;
 
         winrt::Windows::Foundation::IInspectable Convert(
             winrt::Windows::Foundation::IInspectable const& value,

@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct WrapPanelPage : WrapPanelPageT<WrapPanelPage>
     {
-        WrapPanelPage() = default;
 
         winrt::Windows::Foundation::Collections::IObservableVector<WinUI3Example::PhotoDataItemWithDimension> WrapPanelCollection();
         void ItemControl_ItemClick(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::ItemClickEventArgs const& e);

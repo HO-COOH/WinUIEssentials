@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct TablePage : TablePageT<TablePage>
     {
-        TablePage() = default;
 
         void OnLoaded(
             winrt::Windows::Foundation::IInspectable const& sender,

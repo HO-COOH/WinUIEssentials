@@ -6,7 +6,6 @@ namespace winrt::UWPPackage::implementation
 {
     struct SettingsExpander_Resource : SettingsExpander_ResourceT<SettingsExpander_Resource>
     {
-        SettingsExpander_Resource() = default;
     };
 }
 

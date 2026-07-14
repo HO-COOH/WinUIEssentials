@@ -7,7 +7,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct BoolToVisibilityConverter : BoolToVisibilityConverterT<BoolToVisibilityConverter>, ReverseConverterBase
     {
-        BoolToVisibilityConverter() = default;
 
         winrt::Windows::Foundation::IInspectable Convert(
             winrt::Windows::Foundation::IInspectable const& value,

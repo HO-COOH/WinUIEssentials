@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TransparentWindowDemo : TransparentWindowDemoT<TransparentWindowDemo>
     {
-        TransparentWindowDemo() = default;
 
     };
 }

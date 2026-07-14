@@ -7,7 +7,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct PopupMenuFlyoutSeparator : PopupMenuFlyoutSeparatorT<PopupMenuFlyoutSeparator, PopupMenuFlyoutItemBase>
     {
-        PopupMenuFlyoutSeparator() = default;
         
 #pragma region Inheirted from PopupMenuFlyoutItemBase
         winrt::WinUI3Package::PopupMenuFlyoutItemType Type() override;

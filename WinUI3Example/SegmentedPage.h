@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct SegmentedPage : SegmentedPageT<SegmentedPage>
     {
-        SegmentedPage() = default;
     };
 }
 

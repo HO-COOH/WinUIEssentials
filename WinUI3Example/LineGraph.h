@@ -7,7 +7,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct LineGraph : LineGraphT<LineGraph>
     {
-        LineGraph() = default;
 
         void AddPoint(double x, double y);
     private:

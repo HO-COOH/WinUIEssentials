@@ -6,7 +6,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct ModernDialogBoxContent_Resource : ModernDialogBoxContent_ResourceT<ModernDialogBoxContent_Resource>
     {
-        ModernDialogBoxContent_Resource() = default;
     };
 }
 

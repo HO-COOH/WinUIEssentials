@@ -7,7 +7,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct ControlExampleSubstitution : ControlExampleSubstitutionT<ControlExampleSubstitution>
     {
-        ControlExampleSubstitution() = default;
         
 		winrt::hstring Key();
 		void Key(winrt::hstring const& value);

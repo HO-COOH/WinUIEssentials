@@ -9,7 +9,6 @@ namespace winrt::PackageRoot::implementation
     struct ProgressBarEx : ProgressBarExT<ProgressBarEx>, TemplateControlHelper<ProgressBarEx>, EnsureDependencyProperty<ProgressBarEx>
     {
         static void EnsureDependencyProperties();
-        ProgressBarEx() = default;
 
         void OnApplyTemplate();
 

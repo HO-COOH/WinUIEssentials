@@ -9,7 +9,6 @@ namespace winrt::WinUI3Package::implementation
         WindowContextMenuT<WindowContextMenu>,
         private MenuFlyoutItemPaddingWorkaroundWrapper
     {
-        WindowContextMenu() = default;
 
         winrt::Microsoft::UI::Xaml::Window Window();
         void Window(winrt::Microsoft::UI::Xaml::Window const& window);

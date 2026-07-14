@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct InitializeWithWindowHelperPage : InitializeWithWindowHelperPageT<InitializeWithWindowHelperPage>
     {
-        InitializeWithWindowHelperPage() = default;
         winrt::Windows::Foundation::IAsyncAction PinnedContactManagerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void PaymentMediatorButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void DevicePickerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

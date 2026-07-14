@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TemplateInformation : TemplateInformationT<TemplateInformation>
     {
-        TemplateInformation() = default;
 
         winrt::hstring Header1();
         void Header1(winrt::hstring const& value);

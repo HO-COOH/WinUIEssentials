@@ -8,7 +8,6 @@ namespace winrt::WinUI3Package::implementation
     struct CustomBackdropBase : CustomBackdropBaseT<CustomBackdropBase>, EnsureDependencyProperty<CustomBackdropBase>
     {
         static void EnsureDependencyProperties();
-        CustomBackdropBase() = default;
 
         bool EnableWhenInactive();
         void EnableWhenInactive(bool value);

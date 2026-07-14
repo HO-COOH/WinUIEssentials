@@ -10,7 +10,6 @@ namespace winrt::PackageRoot::implementation
         TableColumnCollectionT<TableColumnCollection>,
         VectorBase<TableColumnCollection, PackageRoot::TableColumn, winrt::com_ptr<TableColumn>>
     {
-        TableColumnCollection() = default;
 
         static PackageRoot::TableColumn to_projected(winrt::com_ptr<TableColumn> const& stored)
         {

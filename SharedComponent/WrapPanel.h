@@ -8,7 +8,6 @@ namespace winrt::PackageRoot::implementation
     struct WrapPanel : WrapPanelT<WrapPanel>, EnsureDependencyProperty<WrapPanel>
     {
         static void EnsureDependencyProperties();
-        WrapPanel() = default;
 
         double HorizontalSpacing();
         void HorizontalSpacing(double value);

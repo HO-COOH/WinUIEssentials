@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct RevealFocusPage : RevealFocusPageT<RevealFocusPage>
     {
-        RevealFocusPage() = default;
 
 
         void OnNavigatedTo(winrt::Microsoft::UI::Xaml::Navigation::NavigationEventArgs const& e);

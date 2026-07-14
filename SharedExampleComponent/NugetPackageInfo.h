@@ -7,7 +7,6 @@ namespace winrt::PackageRoot::implementation
 {
 	struct NugetPackageInfo : NugetPackageInfoT<NugetPackageInfo>, MvvmHelper::PropertyChangeHelper<NugetPackageInfo>
     {
-        NugetPackageInfo() = default;
         
 		winrt::hstring PackageId();
 		void PackageId(winrt::hstring const& value);

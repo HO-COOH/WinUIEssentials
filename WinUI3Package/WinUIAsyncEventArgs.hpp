@@ -6,7 +6,6 @@ struct WinUIAsyncEventArgs :
     winrt::implements<WinUIAsyncEventArgs, winrt::Windows::Foundation::IInspectable>, 
     winrt::deferrable_event_args<WinUIAsyncEventArgs>
 {
-    WinUIAsyncEventArgs() = default;
     
     bool Cancel{};
 };

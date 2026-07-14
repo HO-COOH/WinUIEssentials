@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct MyDataModelTemplateSelector : MyDataModelTemplateSelectorT<MyDataModelTemplateSelector>
     {
-        MyDataModelTemplateSelector() = default;
 
         winrt::Windows::UI::Xaml::DataTemplate ButtonTemplate();
         void ButtonTemplate(winrt::Windows::UI::Xaml::DataTemplate value);

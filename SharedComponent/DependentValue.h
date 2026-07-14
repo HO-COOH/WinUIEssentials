@@ -8,7 +8,6 @@ namespace winrt::PackageRoot::implementation
     struct DependentValue : DependentValueT<DependentValue>, EnsureDependencyProperty<DependentValue>
     {
         static void EnsureDependencyProperties();
-        DependentValue() = default;
 
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ValueProperty();
 

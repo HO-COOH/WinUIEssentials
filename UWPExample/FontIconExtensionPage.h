@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct FontIconExtensionPage : FontIconExtensionPageT<FontIconExtensionPage>
     {
-        FontIconExtensionPage() = default;
     };
 }
 

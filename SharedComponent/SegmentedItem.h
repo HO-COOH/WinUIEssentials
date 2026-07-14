@@ -7,7 +7,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct SegmentedItem : SegmentedItemT<SegmentedItem>, TemplateControlHelper<SegmentedItem, false>
     {
-        SegmentedItem() = default;
     };
 }
 

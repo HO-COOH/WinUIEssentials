@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct SvgPage : SvgPageT<SvgPage>
     {
-        SvgPage() = default;
 
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Svgs();
 

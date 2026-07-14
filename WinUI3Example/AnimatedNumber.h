@@ -9,7 +9,6 @@ namespace winrt::WinUI3Example::implementation
     {
         friend struct TemplateControlHelper<AnimatedNumber, false>;
         
-        AnimatedNumber() = default;
 
         winrt::hstring Value();
         void Value(winrt::hstring const& value);

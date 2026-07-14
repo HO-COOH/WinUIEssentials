@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct SampleWindowedContentDialog : SampleWindowedContentDialogT<SampleWindowedContentDialog>
     {
-        SampleWindowedContentDialog() = default;
     };
 }
 

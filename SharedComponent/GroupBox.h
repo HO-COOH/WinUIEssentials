@@ -7,7 +7,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct GroupBox : GroupBoxT<GroupBox>, TemplateControlHelper<GroupBox>
     {
-        GroupBox() = default;
 
         //This really should be String, but it fucked up the compilation, because of https://github.com/microsoft/microsoft-ui-xaml/issues/8994
         winrt::hstring Header();

@@ -6,7 +6,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct SettingsExpanderLastItemConrnerRadiusConverter : SettingsExpanderLastItemConrnerRadiusConverterT<SettingsExpanderLastItemConrnerRadiusConverter>
     {
-        SettingsExpanderLastItemConrnerRadiusConverter() = default;
 
         winrt::Windows::Foundation::IInspectable Convert(
             winrt::Windows::Foundation::IInspectable const& value,

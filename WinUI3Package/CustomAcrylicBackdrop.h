@@ -16,7 +16,6 @@ namespace winrt::WinUI3Package::implementation
         friend class CustomBackdropImplBase<CustomAcrylicBackdrop, 100>;
 
         static void EnsureDependencyProperties();
-        CustomAcrylicBackdrop() = default;
 
         void OnTargetConnected(
             winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget,

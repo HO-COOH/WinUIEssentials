@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct NonMaximizableWindowWorkaroundPage : NonMaximizableWindowWorkaroundPageT<NonMaximizableWindowWorkaroundPage>
     {
-        NonMaximizableWindowWorkaroundPage() = default;
         void NormalButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void WorkaroundButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
     };

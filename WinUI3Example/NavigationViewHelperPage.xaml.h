@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct NavigationViewHelperPage : NavigationViewHelperPageT<NavigationViewHelperPage>
     {
-        NavigationViewHelperPage() = default;
 
         void pane8PositionLeft_Checked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void pane8PositionTop_Checked(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

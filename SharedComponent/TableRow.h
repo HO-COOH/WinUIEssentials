@@ -9,7 +9,6 @@ namespace winrt::PackageRoot::implementation
         TableRowT<TableRow>,
         VectorBase<TableRow, winrt::Windows::Foundation::IInspectable, winrt::Windows::Foundation::IInspectable>
     {
-        TableRow() = default;
 
         static winrt::Windows::Foundation::IInspectable const& to_projected(winrt::Windows::Foundation::IInspectable const& stored) noexcept
         {

@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct IsEqualValueTrigger : IsEqualValueTriggerT<IsEqualValueTrigger>
     {
-        IsEqualValueTrigger() = default;
 
         winrt::Windows::Foundation::IInspectable From();
         void From(winrt::Windows::Foundation::IInspectable value);

@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct AutoSuggestBoxHelperPage : AutoSuggestBoxHelperPageT<AutoSuggestBoxHelperPage>
     {
-        AutoSuggestBoxHelperPage() = default;
         void Control1_SuggestionChosen(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& sender, winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBoxSuggestionChosenEventArgs const& args);
         void Control1_TextChanged(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& sender, winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBoxTextChangedEventArgs const& args);
         void Control2_SuggestionChosen(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& sender, winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBoxSuggestionChosenEventArgs const& args);

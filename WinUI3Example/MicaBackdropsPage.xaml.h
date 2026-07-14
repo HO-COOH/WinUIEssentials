@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct MicaBackdropsPage : MicaBackdropsPageT<MicaBackdropsPage>
     {
-        MicaBackdropsPage() = default;
 
         void CreateMicaButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void CreateDefaultMicaButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

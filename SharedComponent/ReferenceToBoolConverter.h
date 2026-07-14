@@ -7,7 +7,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct ReferenceToBoolConverter : ReferenceToBoolConverterT<ReferenceToBoolConverter>, ReverseConverterBase
     {
-        ReferenceToBoolConverter() = default;
 
         winrt::Windows::Foundation::IInspectable Convert(
             winrt::Windows::Foundation::IInspectable const& value,

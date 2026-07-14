@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct PhotoDataItemWithDimension : PhotoDataItemWithDimensionT<PhotoDataItemWithDimension>
     {
-        PhotoDataItemWithDimension() = default;
 
         double Width();
 		void Width(double value);

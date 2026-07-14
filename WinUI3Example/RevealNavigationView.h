@@ -6,7 +6,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct RevealNavigationView : RevealNavigationViewT<RevealNavigationView>
     {
-        RevealNavigationView() = default;
 
         void OnApplyTemplate();
 

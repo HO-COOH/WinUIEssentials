@@ -9,7 +9,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct BadgePage : BadgePageT<BadgePage>
     {
-        BadgePage() = default;
 
         void ComboBox_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
         void Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

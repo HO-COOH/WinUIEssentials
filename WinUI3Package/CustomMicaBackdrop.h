@@ -17,7 +17,6 @@ namespace winrt::WinUI3Package::implementation
 		friend class CustomBackdropImplBase<CustomMicaBackdrop, 101>;
 
         static void EnsureDependencyProperties();
-        CustomMicaBackdrop() = default;
 
         void OnTargetConnected(
             winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget,

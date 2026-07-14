@@ -7,7 +7,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ColorTile : ColorTileT<ColorTile>, MvvmHelper::PropertyChangeHelper<ColorTile>
     {
-        ColorTile() = default;
 
 		winrt::hstring ColorName();
 		void ColorName(winrt::hstring const& value);

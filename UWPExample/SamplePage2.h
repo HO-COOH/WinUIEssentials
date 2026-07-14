@@ -6,7 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct SamplePage2 : SamplePage2T<SamplePage2>
     {
-        SamplePage2() = default;
     };
 }
 

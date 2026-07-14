@@ -11,7 +11,6 @@ namespace winrt::PackageRoot::implementation
     struct Shimmer : ShimmerT<Shimmer>, TemplateControlHelper<Shimmer>, EnsureDependencyProperty<Shimmer>
     {
         static void EnsureDependencyProperties();
-        Shimmer() = default;
 
         bool IsLoading();
 

@@ -6,7 +6,6 @@ namespace winrt::WinUI3Package::implementation
 {
     struct VersionInfo : VersionInfoT<VersionInfo>
     {
-        VersionInfo() = default;
 
         static uint32_t WASDKReleaseMajor();
         static uint32_t WASDKReleaseMinor();
