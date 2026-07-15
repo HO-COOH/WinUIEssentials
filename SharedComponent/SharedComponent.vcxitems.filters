@@ -219,10 +219,13 @@
     <Midl Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.idl">
       <Filter>Table\Xaml\TableAlternateRowColor</Filter>
     </Midl>
-    <Midl Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.idl">
-      <Filter>Table\Xaml\TableData</Filter>
-    </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)ContextMenuRequestedEventArgs.idl">
+      <Filter>Table\Xaml\Table</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.idl">
+      <Filter>Table\Xaml\Table</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.idl">
       <Filter>Table\Xaml\Table</Filter>
     </Midl>
   </ItemGroup>
@@ -450,10 +453,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.h">
       <Filter>Table\D2D</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.h">
-      <Filter>Table\Xaml\TableData</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ContextMenuRequestedEventArgs.h">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.h">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.h">
       <Filter>Table\Xaml\Table</Filter>
     </ClInclude>
   </ItemGroup>
@@ -638,10 +644,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)D2DPrimitiveHelper.cpp">
       <Filter>Table\D2D</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.cpp">
-      <Filter>Table\Xaml\TableData</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ContextMenuRequestedEventArgs.cpp">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.cpp">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.cpp">
       <Filter>Table\Xaml\Table</Filter>
     </ClCompile>
   </ItemGroup>

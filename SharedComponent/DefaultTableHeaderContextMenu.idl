@@ -1,0 +1,12 @@
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass DefaultTableHeaderContextMenu : WinUINamespace.UI.Xaml.Controls.MenuFlyout
+    {
+        DefaultTableHeaderContextMenu();
+
+        Boolean IsSortAscendingEnabled{ get; };
+        Boolean IsSortDescendingEnabled{ get; };
+    }
+}

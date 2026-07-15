@@ -6,4 +6,5 @@
 
 namespace winrt::PackageRoot::implementation
 {
+
 }

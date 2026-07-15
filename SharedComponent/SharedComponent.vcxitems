@@ -28,6 +28,7 @@
     <Midl Include="$(MSBuildThisFileDirectory)ConverterGroup.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)CursorController.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)DependentValue.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)EqualPanel.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)FontIconExtension.idl" />
@@ -77,6 +78,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ConverterGroup.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CursorController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DependentValue.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)DWriteInterop.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)EditControlOverlay.cpp" />
@@ -143,6 +145,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)CursorController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)D2DConvert.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultTableContextMenu.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DependentValue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DispatcherAdapter.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)DWriteInterop.h" />

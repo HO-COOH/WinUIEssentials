@@ -8,6 +8,8 @@
 #include "D2DConvert.hpp"
 #include "ContextMenuRequestedEventArgs.h"
 #include <algorithm>
+#include "DefaultTableContextMenu.h"
+#include "DefaultTableHeaderContextMenu.h"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -791,54 +793,61 @@ namespace winrt::PackageRoot::implementation
 
 	void Table::onRightClicked(winrt::WinUINamespace::UI::Input::PointerPoint const& pointer)
 	{
-		if (!m_contextMenuRequestedEvent)
-			return;
+        auto const [x, y] = pointer.Position();
+        auto const headerRowHeight = m_d2dContent.m_tableHeight.HeaderRowHeight();
 
-		auto const [x, y] = pointer.Position();
-		auto const headerRowHeight = m_d2dContent.m_tableHeight.HeaderRowHeight();
+        winrt::WinUINamespace::UI::Xaml::Controls::MenuFlyout menu{ nullptr };
+        int columnIndex = -1;
+        int const rowIndex = y <= headerRowHeight ? -1 : static_cast<int>((y - headerRowHeight + m_d2dContent.ScrollOffsetY()) / m_d2dContent.m_tableHeight.ContentRowHeight());
+        if (rowIndex >= m_d2dContent.DataCount())
+            return;
 
-		//ignore right-clicks on the header
-		if (y < headerRowHeight)
-			return;
+        if (m_contextMenuRequestedEvent)
+        {
+            //hit-test column
+            auto& widthManager = m_d2dContent.m_columnWidthManager;
+            auto const numColumns = static_cast<int>(widthManager.NumColumns());
+            float columnLeft = -m_d2dContent.ScrollOffsetX();
+            for (int i = 0; i < numColumns; ++i)
+            {
+                float const width = widthManager.Get(i);
+                if (x >= columnLeft && x < columnLeft + width)
+                {
+                    columnIndex = i;
+                    break;
+                }
+                columnLeft += width;
+            }
+            if (columnIndex < 0)
+                return;
 
-		//hit-test column
-		auto& widthManager = m_d2dContent.m_columnWidthManager;
-		auto const numColumns = static_cast<int>(widthManager.NumColumns());
-		float columnLeft = -m_d2dContent.ScrollOffsetX();
-		int columnIndex = -1;
-		for (int i = 0; i < numColumns; ++i)
-		{
-			float const width = widthManager.Get(i);
-			if (x >= columnLeft && x < columnLeft + width)
-			{
-				columnIndex = i;
-				break;
-			}
-			columnLeft += width;
-		}
-		if (columnIndex < 0)
-			return;
+            auto args = winrt::make_self<implementation::ContextMenuRequestedEventArgs>(rowIndex, columnIndex);
+            //DataContext: use the built-in TableRow when the user is filling `Items`; otherwise pass the ITableData source.
+            if (m_tableRowDataSource)
+                args->m_dataContext = m_tableRowDataSource->Items().GetAt(rowIndex);
+            else if (m_itemsSource)
+                args->m_dataContext = m_itemsSource;
 
-		//hit-test row
-		int const rowIndex = static_cast<int>((y - headerRowHeight + m_d2dContent.ScrollOffsetY()) / m_d2dContent.m_tableHeight.ContentRowHeight());
-		if (rowIndex < 0 || rowIndex >= m_d2dContent.DataCount())
-			return;
+            m_contextMenuRequestedEvent(*this, *args);
 
-		auto args = winrt::make_self<implementation::ContextMenuRequestedEventArgs>(rowIndex, columnIndex);
-		//DataContext: use the built-in TableRow when the user is filling `Items`; otherwise pass the ITableData source.
-		if (m_tableRowDataSource)
-			args->m_dataContext = m_tableRowDataSource->Items().GetAt(rowIndex);
-		else if (m_itemsSource)
-			args->m_dataContext = m_itemsSource;
 
-		m_contextMenuRequestedEvent(*this, *args);
+            if (args->Handled())
+            {
+                menu = args->ContextMenu();
+                if (!menu)
+                    return;
+            }
+        }
 
-		auto menu = args->ContextMenu();
-		if (!menu)
-			return;
-
-		auto const [px, py] = pointer.Position();
-		menu.ShowAt(*this, winrt::Windows::Foundation::Point{ px, py });
+        if (!menu)
+        {
+            if (rowIndex < 0)
+                menu = *winrt::make_self<implementation::DefaultTableHeaderContextMenu>(this);
+            else
+                menu = *winrt::make_self<implementation::DefaultTableContextMenu>();
+        }
+        auto const [px, py] = pointer.Position();
+        menu.ShowAt(*this, winrt::Windows::Foundation::Point{ px, py });
 	}
 
 	winrt::event_token Table::ContextMenuRequested(

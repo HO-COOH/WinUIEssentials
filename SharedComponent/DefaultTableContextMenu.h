@@ -6,6 +6,8 @@ namespace winrt::PackageRoot::implementation
 {
     struct DefaultTableContextMenu : DefaultTableContextMenuT<DefaultTableContextMenu>
     {
+        DefaultTableContextMenu() = default;
+
     };
 }
 

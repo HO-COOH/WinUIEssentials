@@ -604,5 +604,8 @@
     <Page Include="DefaultTableContextMenu.xaml">
       <Filter>Controls\Table</Filter>
     </Page>
+    <Page Include="DefaultTableHeaderContextMenu.xaml">
+      <Filter>Controls\Table</Filter>
+    </Page>
   </ItemGroup>
 </Project>
