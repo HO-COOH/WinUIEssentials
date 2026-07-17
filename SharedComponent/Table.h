@@ -14,6 +14,7 @@
 #include "TableOverlayManager.h"
 #include "TableRowDataSource.h"
 #include "TableAlternateRowColorCollection.h"
+#include "TableSortContext.hpp"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -144,6 +145,10 @@ namespace winrt::PackageRoot::implementation
         winrt::com_ptr<implementation::TableAlternateRowColorCollection> m_alternateRowColors;
         winrt::PackageRoot::ITableData m_itemsSource{ nullptr };
         winrt::PackageRoot::ITableData m_tableData{ nullptr };
+
+        //sorting
+        TableSortContext m_sortContext;
+		void SetSort(TableSortParameter sortParameter);
     private:
         //Request a redraw and immediately refresh the scrollbars.
         void requestDraw(bool redraw = false);
@@ -165,10 +170,12 @@ namespace winrt::PackageRoot::implementation
         //pointer events
         void onLeftClicked(winrt::WinUINamespace::UI::Input::PointerPoint const& pointer);
         void onRightClicked(winrt::WinUINamespace::UI::Input::PointerPoint const& pointer);
+        int hitTestDataRow(float y) const;
+        int hitTestColumn(float x) const;
 
         //resizing
         ResizeRequest m_resizeRequest;
-        
+
         //fps
 #if defined Build_WinUIPackage
         winrt::Microsoft::UI::Dispatching::DispatcherQueueTimer m_fpsTimer{ nullptr };
@@ -276,6 +283,10 @@ namespace winrt::PackageRoot::implementation
 			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
 			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 		);
+
+        void sortObjectImpl(int rowCount);
+        void sortStringImpl(int rowCount);
+
         winrt::PackageRoot::ITableData::UpdateRowData_revoker m_updateRowDataRevoker;
 
         winrt::event<winrt::Windows::Foundation::TypedEventHandler<

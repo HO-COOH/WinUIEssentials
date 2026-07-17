@@ -8,8 +8,48 @@
 #include "D2DConvert.hpp"
 #include "ContextMenuRequestedEventArgs.h"
 #include <algorithm>
+#include <numeric>
+#include <vector>
 #include "DefaultTableContextMenu.h"
 #include "DefaultTableHeaderContextMenu.h"
+
+//Best-effort string form of a cell for lexical comparison.
+static inline winrt::hstring GetString(winrt::Windows::Foundation::IInspectable const& value)
+{
+    if (!value)
+        return {};
+    if (auto const str = value.try_as<winrt::hstring>())
+        return *str;
+    if (auto const pv = value.try_as<winrt::Windows::Foundation::IPropertyValue>(); pv && pv.Type() == winrt::Windows::Foundation::PropertyType::String)
+        return pv.GetString();
+    return {};
+}
+
+static inline std::partial_ordering compareObject(
+    winrt::Windows::Foundation::IInspectable const& lhs,
+    winrt::Windows::Foundation::IInspectable const& rhs)
+{
+    auto const lhsValue = lhs.as<winrt::Windows::Foundation::IPropertyValue>();
+    auto const rhsValue = rhs.as<winrt::Windows::Foundation::IPropertyValue>();
+
+    switch (lhsValue.Type())
+    {
+        case winrt::Windows::Foundation::PropertyType::Int16: return lhsValue.GetInt16() <=> rhsValue.GetInt16();
+        case winrt::Windows::Foundation::PropertyType::Int32: return lhsValue.GetInt32() <=> rhsValue.GetInt32();
+        case winrt::Windows::Foundation::PropertyType::Int64: return lhsValue.GetInt64() <=> rhsValue.GetInt64();
+        case winrt::Windows::Foundation::PropertyType::UInt8: return lhsValue.GetUInt8() <=> rhsValue.GetUInt8();
+        case winrt::Windows::Foundation::PropertyType::UInt16: return lhsValue.GetUInt16() <=> rhsValue.GetUInt16();
+        case winrt::Windows::Foundation::PropertyType::UInt32: return lhsValue.GetUInt32() <=> rhsValue.GetUInt32();
+        case winrt::Windows::Foundation::PropertyType::UInt64: return lhsValue.GetUInt64() <=> rhsValue.GetUInt64();
+        case winrt::Windows::Foundation::PropertyType::Single: return lhsValue.GetSingle() <=> rhsValue.GetSingle();
+        case winrt::Windows::Foundation::PropertyType::Double: return lhsValue.GetDouble() <=> rhsValue.GetDouble();
+        case winrt::Windows::Foundation::PropertyType::Boolean: return lhsValue.GetBoolean() <=> rhsValue.GetBoolean();
+        case winrt::Windows::Foundation::PropertyType::String:
+            return std::wstring_view{ GetString(lhs) } <=> std::wstring_view{ GetString(rhs) };
+        default:
+            throw std::invalid_argument("Unsupported property type for comparison");
+    }
+}
 
 namespace winrt::PackageRoot::implementation
 {
@@ -196,6 +236,41 @@ namespace winrt::PackageRoot::implementation
         
         if (!headerForegroundSet || !contentForegroundSet)
             requestDraw(true);
+    }
+
+    void Table::SetSort(TableSortParameter sortParameter)
+    {
+        if (sortParameter.sortDirection == TableSortDirection::None)
+            sortParameter.sortColumn = -1;
+
+        if (m_sortContext.sortParameter == sortParameter)
+            return;
+
+        m_sortContext.sortParameter = sortParameter;
+        m_sortContext.sortedIndices.clear();
+
+        if (sortParameter.sortColumn >= 0 && m_tableData)
+        {
+            int const rowCount = m_tableData.RowCount();
+
+            //The built-in TableRowDataSource keeps the cell objects in memory, so
+            //we can read typed keys directly. An external ITableData only feeds us
+            //rows through RowRequested, so fetch the whole set into the cache first
+            //and compare the cached strings.
+            if (!m_tableRowDataSource && rowCount > 0)
+            {
+                auto args = winrt::make_self<winrt::PackageRoot::implementation::RowRequestedEventArgs>(0, rowCount - 1, *this);
+                m_tableData.RowRequested(*args);
+            }
+
+            auto& indices = m_sortContext.sortedIndices;
+            indices.resize(rowCount);
+            std::iota(indices.begin(), indices.end(), size_t{ 0 });
+
+            m_tableRowDataSource ? sortObjectImpl(rowCount) : sortStringImpl(rowCount);
+        }
+
+        requestDraw(true);
     }
 
     void Table::requestDraw(bool redraw)
@@ -791,40 +866,47 @@ namespace winrt::PackageRoot::implementation
         return;
     }
 
+	int Table::hitTestDataRow(float y) const
+	{
+		return static_cast<int>((y - m_d2dContent.m_tableHeight.HeaderRowHeight() + m_d2dContent.ScrollOffsetY()) / m_d2dContent.m_tableHeight.ContentRowHeight());
+	}
+
+	int Table::hitTestColumn(float x) const
+	{
+		auto& widthManager = m_d2dContent.m_columnWidthManager;
+		auto const numColumns = static_cast<int>(widthManager.NumColumns());
+		float columnLeft = -m_d2dContent.ScrollOffsetX();
+		for (int i = 0; i < numColumns; ++i)
+		{
+			float const width = widthManager.Get(i);
+			if (x >= columnLeft && x < columnLeft + width)
+				return i;
+			columnLeft += width;
+		}
+		return -1;
+	}
+
 	void Table::onRightClicked(winrt::WinUINamespace::UI::Input::PointerPoint const& pointer)
 	{
         auto const [x, y] = pointer.Position();
         auto const headerRowHeight = m_d2dContent.m_tableHeight.HeaderRowHeight();
 
-        winrt::WinUINamespace::UI::Xaml::Controls::MenuFlyout menu{ nullptr };
-        int columnIndex = -1;
-        int const rowIndex = y <= headerRowHeight ? -1 : static_cast<int>((y - headerRowHeight + m_d2dContent.ScrollOffsetY()) / m_d2dContent.m_tableHeight.ContentRowHeight());
+        int const rowIndex = y <= headerRowHeight ? -1 : hitTestDataRow(y);
         if (rowIndex >= m_d2dContent.DataCount())
             return;
+        int const columnIndex = hitTestColumn(x);
 
+        winrt::WinUINamespace::UI::Xaml::Controls::MenuFlyout menu{ nullptr };
         if (m_contextMenuRequestedEvent)
         {
-            //hit-test column
-            auto& widthManager = m_d2dContent.m_columnWidthManager;
-            auto const numColumns = static_cast<int>(widthManager.NumColumns());
-            float columnLeft = -m_d2dContent.ScrollOffsetX();
-            for (int i = 0; i < numColumns; ++i)
-            {
-                float const width = widthManager.Get(i);
-                if (x >= columnLeft && x < columnLeft + width)
-                {
-                    columnIndex = i;
-                    break;
-                }
-                columnLeft += width;
-            }
             if (columnIndex < 0)
                 return;
 
             auto args = winrt::make_self<implementation::ContextMenuRequestedEventArgs>(rowIndex, columnIndex);
             //DataContext: use the built-in TableRow when the user is filling `Items`; otherwise pass the ITableData source.
-            if (m_tableRowDataSource)
-                args->m_dataContext = m_tableRowDataSource->Items().GetAt(rowIndex);
+            //Map the display row to its source row so sorting returns the right item.
+            if (m_tableRowDataSource && rowIndex >= 0)
+                args->m_dataContext = m_tableRowDataSource->Items().GetAt(m_sortContext.Source(rowIndex));
             else if (m_itemsSource)
                 args->m_dataContext = m_itemsSource;
 
@@ -842,9 +924,9 @@ namespace winrt::PackageRoot::implementation
         if (!menu)
         {
             if (rowIndex < 0)
-                menu = *winrt::make_self<implementation::DefaultTableHeaderContextMenu>(this);
+                menu = *winrt::make_self<implementation::DefaultTableHeaderContextMenu>(this, columnIndex);
             else
-                menu = *winrt::make_self<implementation::DefaultTableContextMenu>();
+                menu = *winrt::make_self<implementation::DefaultTableContextMenu>(this, rowIndex, columnIndex);
         }
         auto const [px, py] = pointer.Position();
         menu.ShowAt(*this, winrt::Windows::Foundation::Point{ px, py });
@@ -894,25 +976,12 @@ namespace winrt::PackageRoot::implementation
             return;
 
         //hit-test column
-        auto& widthManager = m_d2dContent.m_columnWidthManager;
-        auto const numColumns = static_cast<int>(widthManager.NumColumns());
-        float columnLeft = -m_d2dContent.ScrollOffsetX();
-        int columnIndex = -1;
-        for (int i = 0; i < numColumns; ++i)
-        {
-            float const width = widthManager.Get(i);
-            if (x >= columnLeft && x < columnLeft + width)
-            {
-                columnIndex = i;
-                break;
-            }
-            columnLeft += width;
-        }
+        int const columnIndex = hitTestColumn(x);
         if (columnIndex < 0)
             return;
 
         //hit-test row
-        int const row = static_cast<int>((y - headerRowHeight + m_d2dContent.ScrollOffsetY()) / m_d2dContent.m_tableHeight.ContentRowHeight());
+        int const row = hitTestDataRow(y);
         if (row < 0 || row >= m_d2dContent.DataCount())
             return;
 
@@ -1151,6 +1220,30 @@ namespace winrt::PackageRoot::implementation
 			self->m_d2dContent.m_request.Set(FrameRequest::Flag::AlternateRowDirty);
 		}
 	}
+
+    void Table::sortObjectImpl(int rowCount)
+    {
+        std::ranges::stable_sort(m_sortContext.sortedIndices, [this](size_t lhsIndex, size_t rhsIndex)
+        {
+            auto const cmp = compareObject(
+                m_tableRowDataSource->m_items->m_data[lhsIndex]->m_data[m_sortContext.sortParameter.sortColumn],
+                m_tableRowDataSource->m_items->m_data[rhsIndex]->m_data[m_sortContext.sortParameter.sortColumn]
+            );
+            return m_sortContext.sortParameter.sortDirection == TableSortDirection::Ascending ? std::is_lt(cmp) : std::is_gt(cmp);
+        });
+    }
+
+    void Table::sortStringImpl(int rowCount)
+    {
+        std::ranges::stable_sort(m_sortContext.sortedIndices, [this](size_t lhsIndex, size_t rhsIndex)
+        {
+            auto const cmp = 
+                m_d2dContent.m_textLayoutCache.GetCellContent(lhsIndex, m_sortContext.sortParameter.sortColumn) <=>
+                m_d2dContent.m_textLayoutCache.GetCellContent(rhsIndex, m_sortContext.sortParameter.sortColumn)
+            ;
+            return m_sortContext.sortParameter.sortDirection == TableSortDirection::Ascending ? std::is_lt(cmp) : std::is_gt(cmp);
+        });
+    }
 
     void Table::onContentFontStretchChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {

@@ -200,7 +200,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHorizontalLines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableRow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableRowCollection.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableRowDataSource.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortContext.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortDirection.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />

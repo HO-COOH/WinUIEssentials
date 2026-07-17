@@ -378,7 +378,12 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 
 	if (auto const rowCount = static_cast<int>(m_textLayoutCache.RowCount()); rowCount > 0 && m_table_ref.m_tableData)
 	{
-		auto [first, last] = GetVisibleRowRangeInclusive(scrollOffsetY, rowCount);
+		//When sorted, a visible display row can map (via m_sortContext.Source) to
+		//any source row, so the whole data set must be present in the cache rather
+		//than just the visible window.
+		auto const [first, last] = m_table_ref.m_sortContext
+			? std::pair{ 0, rowCount - 1 }
+			: GetVisibleRowRangeInclusive(scrollOffsetY, rowCount);
 		if (std::ranges::any_of(std::ranges::iota_view{ first, last + 1 }, [this](int r) { return m_textLayoutCache.IsRowStale(r); }))
 		{
 			//Draw-thread call. ITableData implementations must be free-threaded
@@ -591,7 +596,7 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 					m_d2dContext->DrawTextLayout({ currentX + verticalLineSpace + padLeft, padTop }, layout, m_resource.m_headerTextBrush.get());
 			}
 
-			if (m_sortColumnIndex == static_cast<int>(column))
+			if (m_table_ref.m_sortContext.sortParameter.sortColumn == static_cast<int>(column))
 			{
 				//draw sort indicator here
 			}
@@ -650,7 +655,8 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 			if (currentX >= rawWidth && !m_initialSizing) //all later columns are off-screen-right
 				return;
 
-			auto const layoutCache = m_textLayoutCache.GetOrCreate(row, column);
+			//Render the cell of the source row this display row maps to when sorted.
+			auto const layoutCache = m_textLayoutCache.GetOrCreate(m_table_ref.m_sortContext.Source(row), column);
 			if (!m_initialSizing && layoutCache)
 			{
 				m_d2dContext->DrawTextLayout(

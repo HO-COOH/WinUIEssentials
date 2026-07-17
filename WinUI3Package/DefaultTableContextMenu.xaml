@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <MenuFlyoutItem Text="Copy cell">
+    <MenuFlyoutItem Click="CopyCell_Click" Text="Copy cell">
         <MenuFlyoutItem.Icon>
             <PathIcon
                 HorizontalAlignment="Center"
@@ -17,7 +17,7 @@
         </MenuFlyoutItem.Icon>
     </MenuFlyoutItem>
 
-    <MenuFlyoutItem Text="Copy row">
+    <MenuFlyoutItem Click="CopyRow_Click" Text="Copy row">
         <MenuFlyoutItem.Icon>
             <PathIcon
                 HorizontalAlignment="Center"

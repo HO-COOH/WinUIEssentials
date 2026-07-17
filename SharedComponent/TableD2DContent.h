@@ -151,12 +151,9 @@ public:
 	TableHeightManager m_tableHeight{ m_dwriteFactory.get() };
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData, m_tableHeight };
-public:
+
 	//All per-frame draw-thread signals (Draw, FullRedraw, HeaderDirty,
-	//SwapChainDirty, Stop) packed into one atomic word. Initial state requests
-	//the first frame to do a full redraw and build the header cache.
-	//Public so callers can OR in a dirty flag (m_request.Set(flag)) without
-	//waking the draw thread when the redraw will already be triggered later.
+	//SwapChainDirty, Stop) packed into one atomic word
 	FrameRequest m_request{ FrameRequest::Flag::FullRedraw | FrameRequest::Flag::HeaderDirty };
 private:
 	TableD2DResource m_resource{ m_textLayoutCache };
@@ -169,7 +166,6 @@ private:
 	std::atomic<bool> m_isScrolling{ false };
 
 	std::atomic<int> m_hoveredResizeColumn{ TableConstants::ResizeColumnIndexNone };
-	int m_sortColumnIndex = -1;
 
 	int m_prevHoveredRow{ TableConstants::HoveredRowNone };
 

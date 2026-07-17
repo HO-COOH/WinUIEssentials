@@ -7,14 +7,9 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    TableRowDataSource::TableRowDataSource()
-    {
-        m_items = winrt::single_threaded_vector<winrt::PackageRoot::TableRow>();
-    }
-
     winrt::Windows::Foundation::Collections::IVector<winrt::PackageRoot::TableRow> TableRowDataSource::Items()
     {
-        return m_items;
+        return *m_items;
     }
 
     void TableRowDataSource::Changed(ChangedCallback callback)
@@ -33,44 +28,36 @@ namespace winrt::PackageRoot::implementation
 
     int32_t TableRowDataSource::RowCount()
     {
-        return static_cast<int32_t>(m_items.Size());
+        return static_cast<int32_t>(m_items->Size());
     }
 
     int32_t TableRowDataSource::RowRequested(winrt::PackageRoot::RowRequestedEventArgs const& args)
     {
-        if (m_items.Size() == 0)
+        if (m_items->Size() == 0)
             return 0;
 
         int32_t const start = args.StartRow();
-        int32_t const end = (std::min)(args.EndRow(), static_cast<int32_t>(m_items.Size()) - 1);
+        int32_t const end = (std::min)(args.EndRow(), static_cast<int32_t>(m_items->Size()) - 1);
         if (end < start)
             return 0;
 
         std::vector<winrt::Windows::Foundation::IInspectable> cells;
         for (int32_t row = start; row <= end; ++row)
         {
-            auto const rowItems = m_items.GetAt(row);
+            auto const rowItems = m_items->GetAt(row);
             args.SetRow(row, winrt::get_self<TableRow>(rowItems)->m_data);
         }
         return end - start + 1;
     }
 
-    void TableRowDataSource::ContextMenuRequested(winrt::PackageRoot::ContextMenuRequestedEventArgs const& args)
-    {
-        winrt::WinUINamespace::UI::Xaml::Controls::MenuFlyout menuFlyout;
-        winrt::WinUINamespace::UI::Xaml::Controls::MenuFlyoutItem copyItem;
-        
-        args.ContextMenu();
-    }
-
     void TableRowDataSource::SetData(int32_t row, int32_t column, winrt::Windows::Foundation::IInspectable const& value)
     {
-        if (row < 0 || column < 0 || row >= m_items.Size())
+        if (row < 0 || column < 0 || row >= m_items->Size())
             return;
 
         bool changed = false;
 
-        auto const rowItems = m_items.GetAt(row);
+        auto const rowItems = m_items->GetAt(row);
         if (rowItems.GetAt(column) != value)
         {
             rowItems.SetAt(column, value);

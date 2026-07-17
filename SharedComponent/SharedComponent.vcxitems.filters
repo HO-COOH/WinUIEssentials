@@ -462,6 +462,15 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.h">
       <Filter>Table\Xaml\Table</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortContext.hpp">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortDirection.h">
+      <Filter>Table\Xaml\Table</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableRowCollection.hpp">
+      <Filter>Table\Xaml\TableRow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">

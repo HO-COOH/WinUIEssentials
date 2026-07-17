@@ -32,13 +32,13 @@ namespace winrt::PackageRoot::implementation
 			L"SortEnabled",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &TableColumn::onSortEnabledChanged }
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(TableColumnData::DefaultSortEnabled), &TableColumn::onSortEnabledChanged }
 		);
 		s_isResizableProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"IsResizable",
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
-			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &TableColumn::onIsResizableChanged }
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ winrt::box_value(TableColumnData::DefaultIsResizable), &TableColumn::onIsResizableChanged }
 		);
 	}
 

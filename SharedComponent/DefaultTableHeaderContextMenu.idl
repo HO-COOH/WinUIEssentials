@@ -1,4 +1,4 @@
-namespace PackageRoot
+﻿namespace PackageRoot
 {
     [bindable]
     [default_interface]
@@ -8,5 +8,6 @@ namespace PackageRoot
 
         Boolean IsSortAscendingEnabled{ get; };
         Boolean IsSortDescendingEnabled{ get; };
+		Boolean IsClearSortEnabled{ get; };
     }
 }
