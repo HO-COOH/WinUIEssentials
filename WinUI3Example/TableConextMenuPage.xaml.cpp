@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "TableConextMenuPage.xaml.h"
 #if __has_include("TableConextMenuPage.g.cpp")
 #include "TableConextMenuPage.g.cpp"
@@ -11,6 +11,12 @@ namespace winrt::WinUI3Example::implementation
         winrt::WinUI3Package::Table const&,
         winrt::WinUI3Package::ContextMenuRequestedEventArgs const& args)
     {
+        if (!EnableContextMenuSwitch().IsOn())
+        {
+			args.Handled(true);
+			return;
+        }
+
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout flyout;
 
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyoutItem item;

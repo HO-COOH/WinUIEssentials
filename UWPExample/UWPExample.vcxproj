@@ -474,6 +474,10 @@
       <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TableContextMenuPage.h">
+      <DependentUpon>TableContextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="TableGridLinesPage.h">
       <DependentUpon>TableGridLinesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -609,6 +613,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TableAlternateRowColorsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TableContextMenuPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TableGridLinesPage.xaml">
@@ -817,6 +824,10 @@
       <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="TableContextMenuPage.cpp">
+      <DependentUpon>TableContextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TableGridLinesPage.cpp">
       <DependentUpon>TableGridLinesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -972,6 +983,10 @@
     </Midl>
     <Midl Include="TableAlternateRowColorsPage.idl">
       <DependentUpon>TableAlternateRowColorsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TableContextMenuPage.idl">
+      <DependentUpon>TableContextMenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TableGridLinesPage.idl">

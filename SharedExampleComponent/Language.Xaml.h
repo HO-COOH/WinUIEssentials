@@ -1,10 +1,11 @@
-#pragma once
+﻿#pragma once
 
 namespace ColorCode
 {
 	namespace Xaml
 	{
 		constexpr static auto Comment = LR"(<!--[\s\S]*?-->)";
+		constexpr static auto TextContent = LR"(>[^<]*)";
 		constexpr static auto String = LR"("[^"{]*"|'[^'{]*')";
 		constexpr static auto MarkupValueOpenQuote = LR"(["'](?=\{))";
 		constexpr static auto MarkupValueCloseQuote = LR"(\}["'])";

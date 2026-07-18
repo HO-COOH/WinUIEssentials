@@ -64,6 +64,7 @@ namespace ColorCode
                     LanguageRule{Xaml::Comment, Scope::Comment},
                     LanguageRule{Xaml::MarkupValueOpenQuote, Scope::PlainText},
                     LanguageRule{Xaml::MarkupValueCloseQuote, Scope::PlainText},
+                    LanguageRule{Xaml::TextContent, Scope::PlainText},
                     LanguageRule{Xaml::String, Scope::String},
                     LanguageRule{Xaml::Intrinsic, Scope::Keyword},
                     LanguageRule{Xaml::MarkupExtension, Scope::Keyword},

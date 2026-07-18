@@ -1,0 +1,66 @@
+﻿<MenuFlyout
+    x:Class="UWPPackage.DefaultTableHeaderContextMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:UWPPackage"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <MenuFlyoutItem
+        Click="SortAscend_Click"
+        IsEnabled="{Binding IsSortAscendingEnabled}"
+        Text="Sort Ascending">
+        <MenuFlyoutItem.Icon>
+            <PathIcon
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Data="F1 M 18.75 9.375 C 18.75 9.544271 18.68815 9.690756 18.564453 9.814453 C 18.440754 9.938151 18.29427 10 18.125 10 C 17.955729 10 17.809244 9.938151 17.685547 9.814453 L 10 2.138672 L 10 19.375 C 10 19.544271 9.93815 19.690756 9.814453 19.814453 C 9.690755 19.93815 9.544271 20 9.375 20 C 9.205729 20 9.059244 19.93815 8.935547 19.814453 C 8.811849 19.690756 8.75 19.544271 8.75 19.375 L 8.75 2.138672 L 1.064453 9.814453 C 0.940755 9.938151 0.794271 10 0.625 10 C 0.455729 10 0.309245 9.938151 0.185547 9.814453 C 0.061849 9.690756 0 9.544271 0 9.375 C 0 9.205729 0.061849 9.059245 0.185547 8.935547 L 8.90625 0.214844 C 8.977864 0.14323 9.047852 0.08952 9.116211 0.053711 C 9.18457 0.017904 9.270833 0 9.375 0 C 9.479166 0 9.56543 0.017904 9.633789 0.053711 C 9.702148 0.08952 9.772135 0.14323 9.84375 0.214844 L 18.564453 8.935547 C 18.68815 9.059245 18.75 9.205729 18.75 9.375 Z " />
+        </MenuFlyoutItem.Icon>
+    </MenuFlyoutItem>
+    <MenuFlyoutItem
+        Click="SortDescend_Click"
+        IsEnabled="{Binding IsSortDescendingEnabled}"
+        Text="Sort Descending">
+        <MenuFlyoutItem.Icon>
+            <PathIcon
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Data="F1 M 18.75 10.625 C 18.75 10.794271 18.68815 10.940756 18.564453 11.064453 L 9.84375 19.785156 C 9.772135 19.856771 9.702148 19.910482 9.633789 19.946289 C 9.56543 19.982096 9.479166 20 9.375 20 C 9.270833 20 9.18457 19.982096 9.116211 19.946289 C 9.047852 19.910482 8.977864 19.856771 8.90625 19.785156 L 0.185547 11.064453 C 0.061849 10.940756 0 10.794271 0 10.625 C 0 10.455729 0.061849 10.309245 0.185547 10.185547 C 0.309245 10.06185 0.455729 10 0.625 10 C 0.794271 10 0.940755 10.06185 1.064453 10.185547 L 8.75 17.861328 L 8.75 0.625 C 8.75 0.45573 8.811849 0.309246 8.935547 0.185547 C 9.059244 0.06185 9.205729 0 9.375 0 C 9.544271 0 9.690755 0.06185 9.814453 0.185547 C 9.93815 0.309246 10 0.45573 10 0.625 L 10 17.861328 L 17.685547 10.185547 C 17.809244 10.06185 17.955729 10 18.125 10 C 18.29427 10 18.440754 10.06185 18.564453 10.185547 C 18.68815 10.309245 18.75 10.455729 18.75 10.625 Z " />
+        </MenuFlyoutItem.Icon>
+    </MenuFlyoutItem>
+    <MenuFlyoutItem
+        Click="ClearSorting_Click"
+        IsEnabled="{Binding IsClearSortEnabled}"
+        Text="Clear Sorting" />
+
+    <MenuFlyoutSeparator />
+    <MenuFlyoutItem Text="Clear Filter" />
+    <!--  Search box  -->
+    <MenuFlyoutItem>
+        <MenuFlyoutItem.Template>
+            <ControlTemplate TargetType="MenuFlyoutItem">
+                <TextBox PlaceholderText="Search..." />
+            </ControlTemplate>
+        </MenuFlyoutItem.Template>
+    </MenuFlyoutItem>
+
+    <!--  Select All  -->
+    <MenuFlyoutItem>
+        <MenuFlyoutItem.Template>
+            <ControlTemplate TargetType="MenuFlyoutItem">
+                <CheckBox Content="(Select All)" />
+            </ControlTemplate>
+        </MenuFlyoutItem.Template>
+    </MenuFlyoutItem>
+    <MenuFlyoutSeparator />
+
+    <!--  Filter result  -->
+    <MenuFlyoutItem>
+        <MenuFlyoutItem.Template>
+            <ControlTemplate TargetType="MenuFlyoutItem">
+                <ListView />
+            </ControlTemplate>
+        </MenuFlyoutItem.Template>
+    </MenuFlyoutItem>
+</MenuFlyout>

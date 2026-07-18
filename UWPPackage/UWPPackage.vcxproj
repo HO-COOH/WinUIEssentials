@@ -496,6 +496,10 @@
       <DependentUpon>DefaultTableContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="DefaultTableHeaderContextMenu.h">
+      <DependentUpon>DefaultTableHeaderContextMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Export.h" />
     <ClInclude Include="GroupBox_Resource.h">
       <DependentUpon>GroupBox_Resource.xaml</DependentUpon>
@@ -660,6 +664,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="DefaultTableContextMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DefaultTableHeaderContextMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="GroupBox_Resource.xaml">

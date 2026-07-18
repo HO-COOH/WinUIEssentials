@@ -13,6 +13,9 @@
     <Filter Include="Controls\Segmented">
       <UniqueIdentifier>{37121013-2205-49ac-aff0-8d7f90a69296}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Table">
+      <UniqueIdentifier>{f30efe60-ccda-451a-84ce-b5442f19dbb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -111,7 +114,13 @@
       <Filter>Controls</Filter>
     </Page>
     <Page Include="Table.xaml">
-      <Filter>Controls</Filter>
+      <Filter>Controls\Table</Filter>
+    </Page>
+    <Page Include="DefaultTableHeaderContextMenu.xaml">
+      <Filter>Controls\Table</Filter>
+    </Page>
+    <Page Include="DefaultTableContextMenu.xaml">
+      <Filter>Controls\Table</Filter>
     </Page>
   </ItemGroup>
 </Project>
