@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <atomic>
 #include <cstdint>
 
@@ -51,6 +51,17 @@ public:
 	void WaitForDraw() noexcept
 	{
 		m_state.wait(0, std::memory_order_acquire);
+	}
+
+	Flags ClearDraw() noexcept
+	{
+		Flags const drawBit = static_cast<Flags>(Flag::Draw);
+		return m_state.fetch_and(~drawBit, std::memory_order_acq_rel) & ~drawBit;
+	}
+
+	void WaitChanged(Flags previous) noexcept
+	{
+		m_state.wait(previous, std::memory_order_acquire);
 	}
 
 	void WakeOne() noexcept 

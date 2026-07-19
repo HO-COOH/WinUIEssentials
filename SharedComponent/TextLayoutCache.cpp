@@ -59,7 +59,7 @@ void TextLayoutCache::Clear()
 	for (auto& row : m_perCellCache)
 	{
 		for (auto& cell : row)
-			cell.content.clear();
+			cell.layout = nullptr;
 	}
 }
 
@@ -84,7 +84,7 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(
 		headerCache.resize(m_perColumnCache.size());
 	auto& columnHeaderCache = headerCache[column];
 
-	if (str != columnHeaderCache.content)
+	if (!columnHeaderCache.layout || str != columnHeaderCache.content)
 	{
 		winrt::check_hresult(m_dwriteFactory->CreateTextLayout(
 			str.data(),
@@ -154,10 +154,32 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column)
 		return nullptr;
 
 	auto& cache = rowCache[column];
-	if (!cache.layout)
-		return nullptr;
+	auto& columnCache = m_perColumnCache[column];
 
-	if (auto& columnCache = m_perColumnCache[column]; std::exchange(cache.m_contentLayoutVersion, columnCache.m_contentLayoutVersion) != columnCache.m_contentLayoutVersion)
+	if (!cache.layout)
+	{
+		//Layout was dropped (font size / DPI scale changed). Rebuild it from the
+		//cached content at the current cell format - no data re-fetch needed.
+		if (cache.content.empty())
+			return nullptr;
+
+		winrt::check_hresult(m_dwriteFactory->CreateTextLayout(
+			cache.content.data(),
+			static_cast<uint32_t>(cache.content.size()),
+			m_cellTextFormat.get(),
+			columnCache.maxWidth,
+			columnCache.contentMaxHeight,
+			cache.layout.put()
+		));
+		constexpr DWRITE_TRIMMING trimmingOption{ .granularity = DWRITE_TRIMMING_GRANULARITY::DWRITE_TRIMMING_GRANULARITY_CHARACTER };
+		winrt::check_hresult(cache.layout->SetTrimming(&trimmingOption, m_cellTrimming.get()));
+		winrt::check_hresult(cache.layout->SetTextAlignment(columnCache.ContentHorizontalAlignment));
+		winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
+		cache.m_contentLayoutVersion = columnCache.m_contentLayoutVersion;
+		return cache.layout.get();
+	}
+
+	if (std::exchange(cache.m_contentLayoutVersion, columnCache.m_contentLayoutVersion) != columnCache.m_contentLayoutVersion)
 	{
 		winrt::check_hresult(cache.layout->SetMaxHeight(columnCache.contentMaxHeight));
 		winrt::check_hresult(cache.layout->SetMaxWidth(columnCache.maxWidth));

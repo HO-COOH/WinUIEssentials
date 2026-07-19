@@ -285,6 +285,21 @@ void TableD2DContent::drawThreadProc()
 			m_request.WaitForDraw();
 		}
 
+		bool const canDraw = m_swapChain.get()
+			&& m_swapChain.CurrentSize.Width > 0 
+			&& m_swapChain.CurrentSize.Height > 0
+			&& static_cast<bool>(m_table_ref.m_tableData);
+		if (!canDraw)
+		{
+			//Drop the Draw request but keep queued dirty flags (e.g. AlternateRowDirty) 
+			//so nothing is consumed before the table can actually draw.
+			auto const rest = m_request.ClearDraw();
+			if (rest & FrameRequest::Flag::Stop)
+				break;
+			m_request.WaitChanged(rest);
+			continue;
+		}
+
 		auto drawRequest = m_request.ClearAll();
 		if (drawRequest & FrameRequest::Flag::Stop)
 			break;
@@ -439,8 +454,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	);
 	m_d2dContext->EndDraw();
 
-	DXGI_PRESENT_PARAMETERS presentParameters{};
-	winrt::check_hresult(m_swapChain->Present1(0, 0, &presentParameters));
+	winrt::check_hresult(m_swapChain->Present(0, 0));
 	Frames.fetch_add(1, std::memory_order_relaxed);
 
 	if (m_initialSizing && m_textLayoutCache.RowCount() > 0)
