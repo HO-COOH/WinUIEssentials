@@ -59,6 +59,7 @@ public:
 
 	void OnInitializedComponent();
 	void OnLoaded();
+	void OnColumnsInitialized();
 
 	void SetCellContent(
 		int row,

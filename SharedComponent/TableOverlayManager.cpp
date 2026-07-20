@@ -6,6 +6,7 @@
 #include "TableColumnCollection.h"
 #include <ranges>
 #include <variant>
+#include "TableCellDataWrapper.h"
 
 #if defined Build_UWPPackage
 #include <winrt/Windows.Foundation.Metadata.h>
@@ -101,9 +102,6 @@ TableOverlayManager::CellSlot& TableOverlayManager::createSlot(ColumnState& stat
 	cellContent.HorizontalAlignment(tableColumn.HorizontalAlignment());
 	cellContent.Width(cellContentWidth(column));
 
-	if (!columnData.m_editTemplate)
-		cellContent.IsHitTestVisible(false); //make the control read-only
-
 	m_children.Append(cellContent);
 	state.slots.push_back(CellSlot{ cellContent, -1 });
 	return state.slots.back();
@@ -183,22 +181,24 @@ void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Fo
 	if (!itemTemplate)
 		return;
 
-	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
-	if (column >= static_cast<int>(widthManager.NumColumns()))
-		return;
-
-	auto& columnState = ensureColumn(column);
-
-	//cache cell data
+	if (static_cast<int>(m_columns.size()) <= column)
+		m_columns.resize(column + 1);
+	auto& columnState = m_columns[column];
 	if (row >= static_cast<int>(columnState.rowDataCache.size()))
 		columnState.rowDataCache.resize(row + 1);
 	columnState.rowDataCache[row] = cellObject;
 
+	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
+	if (column >= static_cast<int>(widthManager.NumColumns()))
+		return; //widths not ready yet; OnColumnsInitialized rebinds from cache once they are
+
+	ensureColumn(column);
 	auto& slot = getOrCreateFreeSlot(columnState, row, column);
 	bool const recycled = std::exchange(slot.row, row) != row;
 	if (recycled)
 	{
-		slot.element.DataContext(cellObject);
+		auto wrapper = winrt::make<winrt::PackageRoot::implementation::TableCellDataWrapper>(m_table, row, column, cellObject);
+		slot.element.DataContext(wrapper);
 		m_cellExpression.SetReferenceParameter(L"ColumnProperty", columnState.ColumnProperty);
 		auto const& tableHeight = m_table.m_d2dContent.m_tableHeight;
 		float const cellY = tableHeight.HeaderRowHeight() + row * tableHeight.ContentRowHeight();
@@ -231,12 +231,20 @@ void TableOverlayManager::OnColumnResized(int resizedColumn)
 	}
 }
 
+void TableOverlayManager::OnColumnsInitialized()
+{
+	rebindVisibleRows(m_table.m_d2dContent.ScrollOffsetY());
+}
+
 void TableOverlayManager::rebindVisibleRows(float targetY)
 {
 	auto const [first, last] = m_table.m_d2dContent.GetVisibleRowRangeInclusive(targetY);
 	for (int col = 0; col < m_columns.size(); ++ col)
 	{
-		if (!m_columns[col].ColumnProperty)
+		//Gate on cached data, not ColumnProperty: cells pushed before widths existed
+		//were cached but never got a ColumnProperty (ensureColumn runs past the width
+		//guard in SetCellContent). SetCellContent creates it now that widths are known.
+		if (m_columns[col].rowDataCache.empty())
 			continue;
 
 		int const rEnd = (std::min)(last, static_cast<int>(m_columns[col].rowDataCache.size()) - 1);

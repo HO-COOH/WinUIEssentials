@@ -228,6 +228,9 @@
     <Midl Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.idl">
       <Filter>Table\Xaml\Table</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.idl">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h">
@@ -471,6 +474,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableRowCollection.hpp">
       <Filter>Table\Xaml\TableRow</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.h">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -661,6 +667,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.cpp">
       <Filter>Table\Xaml\Table</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.cpp">
+      <Filter>Table\Xaml\ControlsOverlay</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

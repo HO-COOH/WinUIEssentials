@@ -56,6 +56,7 @@
     <Midl Include="$(MSBuildThisFileDirectory)Table.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableColumn.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableColumnCollection.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)TableRow.idl" />
@@ -113,6 +114,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Table.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
@@ -188,6 +190,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Table.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableAlternateRowColor.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableAlternateRowColorCollection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnData.h" />

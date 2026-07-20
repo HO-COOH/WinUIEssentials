@@ -49,8 +49,8 @@
                 <essential:TableColumn Content="Active At" />
                 <essential:TableColumn Content="Is Active">
                     <essential:TableColumn.ItemTemplate>
-                        <DataTemplate x:DataType="x:Boolean">
-                            <CheckBox IsChecked="{x:Bind}" />
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Value, Mode=TwoWay}" />
                         </DataTemplate>
                     </essential:TableColumn.ItemTemplate>
                 </essential:TableColumn>
@@ -109,8 +109,8 @@
         &lt;essential:TableColumn Content=&quot;Active At&quot; /&gt;
         &lt;essential:TableColumn Content=&quot;Is Active&quot;&gt;
             &lt;essential:TableColumn.ItemTemplate&gt;
-                &lt;DataTemplate x:DataType=&quot;x:Boolean&quot;&gt;
-                    &lt;CheckBox IsChecked=&quot;{x:Bind}&quot; /&gt;
+                &lt;DataTemplate&gt;
+                    &lt;CheckBox IsChecked=&quot;{Binding Value, Mode=TwoWay}&quot; /&gt;
                 &lt;/DataTemplate&gt;
             &lt;/essential:TableColumn.ItemTemplate&gt;
         &lt;/essential:TableColumn&gt;
