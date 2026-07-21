@@ -2,6 +2,7 @@
 
 #include "App.h"
 #include "MainPage.h"
+#pragma comment(lib, "user32.lib")
 
 using namespace winrt;
 using namespace Windows::ApplicationModel;

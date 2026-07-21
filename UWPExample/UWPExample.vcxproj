@@ -130,6 +130,9 @@
     <AppxBundle>Always</AppxBundle>
     <AppInstallerUri>E:\</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <MultiProcMIDL>true</MultiProcMIDL>
@@ -264,7 +267,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;NDEBUG;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_UNICODE;UNICODE</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>

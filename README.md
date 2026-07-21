@@ -1,4 +1,4 @@
-![](MainLogo.png) 
+﻿![](MainLogo.png) 
 # WinUI Essentials
 A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
 
@@ -8,15 +8,25 @@ For UWP: [![](https://img.shields.io/nuget/v/WinUIEssential.UWP?label=WinUIEssen
 
 For WinUI3 (Windows App SDK): [![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3?label=WinUIEssential.WinUI3)](https://www.nuget.org/packages/WinUIEssential.WinUI3)
 
+UWP Svg: [![](https://img.shields.io/nuget/v/WinUIEssential.UWP.Svg?label=WinUIEssential.UWP.Svg)](https://www.nuget.org/packages/WinUIEssential.UWP.Svg)
+
 WinUI3 Svg: [![](https://img.shields.io/nuget/v/WinUIEssential.WinUI3.Svg?label=WinUIEssential.WinUI3.Svg)](https://www.nuget.org/packages/WinUIEssential.WinUI3.Svg)
 
 
 ## Example Gallery
-[Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9?hl=en-us&gl=US&ocid=pdpshare)
+### WinUI3
+[Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9)
 
 
-<a href="https://apps.microsoft.com/detail/9pcc690bcmt9?referrer=appbadge&mode=direct">
-	<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>
+<a href="https://get.microsoft.com/installer/download/9pcc690bcmt9?referrer=appbadge" target="_self" >
+	<img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/>
+</a>
+
+### UWP
+[Download from Microsoft Store!](https://apps.microsoft.com/detail/9pg350gp1tbf)
+
+<a href="https://get.microsoft.com/installer/download/9pg350gp1tbf?referrer=appbadge" target="_self" >
+	<img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/>
 </a>
 
 ---
@@ -132,7 +142,7 @@ You can reference Github Action for detailed build steps.
 |RevealFocusPanel | :x: | :white_check_mark: | Control
 |TenMica | :x: | :white_check_mark: | WinRT component
 |WindowedContentDialog | :x: | :white_check_mark: | Control
-|SvgImageSource | :x: | :white_check_mark: | WinRT component
+|SvgImageSource | :white_check_mark: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 

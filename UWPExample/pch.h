@@ -1,6 +1,8 @@
 ﻿#pragma once
+
 #include <windows.h>
 #include <unknwn.h>
+#undef GetCurrentTime
 #include <restrictederrorinfo.h>
 #include <hstring.h>
 #include <winrt/Windows.Foundation.h>

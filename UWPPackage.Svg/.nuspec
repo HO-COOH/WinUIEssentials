@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinUIEssential.UWP.Svg</id>
@@ -12,7 +12,6 @@
         <dependencies>
             <group targetFramework="native">
                 <dependency id="Microsoft.Windows.CppWinRT" version="3.0.260520.1"/>
-                <dependency id="Microsoft.Windows.ImplementationLibrary" version="1.0.260126.7"/>
             </group>
         </dependencies>
         <license type="expression">MIT</license>

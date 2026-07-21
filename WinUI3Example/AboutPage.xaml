@@ -104,6 +104,7 @@
                         <local:NugetPackageInfo PackageId="WinUIEssential.WinUI3" />
                         <local:NugetPackageInfo PackageId="WinUIEssential.WinUI3.Svg" />
                         <local:NugetPackageInfo PackageId="WinUIEssential.UWP" />
+                        <local:NugetPackageInfo PackageId="WinUIEssential.UWP.Svg" />
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="local:NugetPackageInfo">
