@@ -95,9 +95,15 @@
                     </essential:SettingsCard.HeaderIcon>
 
                     <ItemsControl x:Name="NugetInfos">
+                        <ItemsControl.ItemContainerTransitions>
+                            <TransitionCollection>
+                                <RepositionThemeTransition />
+                            </TransitionCollection>
+                        </ItemsControl.ItemContainerTransitions>
+
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <essential:WrapPanel HorizontalSpacing="8" />
+                                <essential:WrapPanel HorizontalSpacing="16" VerticalSpacing="8" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
 
@@ -243,6 +249,32 @@
                     <VisualState.Setters>
                         <Setter Target="ContributorsGridView.Visibility" Value="Collapsed" />
                         <Setter Target="GetContributorFailedBar.IsOpen" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="NugetLayoutStates">
+                <!--  Wide: no width cap, all four badges fit on one line  -->
+                <VisualState x:Name="NugetWideLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1400" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <!--  Medium: cap the WrapPanel so it fits two badges per line, wrapping into two rows  -->
+                <VisualState x:Name="NugetMediumLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="760" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="NugetInfos.MaxWidth" Value="560" />
+                    </VisualState.Setters>
+                </VisualState>
+                <!--  Small: cap tighter than a single badge pair so each badge gets its own line  -->
+                <VisualState x:Name="NugetNarrowLayout">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="NugetInfos.MaxWidth" Value="280" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

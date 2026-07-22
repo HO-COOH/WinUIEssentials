@@ -441,10 +441,10 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	drawRows(scrollOffsetX, scrollOffsetY, hoveredRow);
 	auto const rawHorizontalStroke = m_resource.m_localTableData.m_horizontalLineThickness * scale;
 	auto const rawDataBottomY = rawHeaderHeight + m_textLayoutCache.RowCount() * rawRowHeight - scrollOffsetY * scale;
-	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY - rawHorizontalStroke, rawHorizontalStroke);
+	m_horizontalLines.Draw(m_d2dContext.get(), scrollOffsetY * scale, rawDataBottomY + rawHorizontalStroke, rawHorizontalStroke);
 
 	if (m_verticalLines)
-		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale, rawDataBottomY - rawHorizontalStroke);
+		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale, rawDataBottomY + rawHorizontalStroke);
 
 	m_d2dContext->DrawBitmap(
 		m_headerBitmap.Get(),

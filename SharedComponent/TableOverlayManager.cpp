@@ -262,6 +262,10 @@ void TableOverlayManager::OnMouseScroll(float targetY)
 	rebindVisibleRows(targetY);
 	m_scrollAnimation.InsertKeyFrame(1.f, targetY, m_scrollEasingFunction);
 	TableProperty.StartAnimation(L"ScrollOffsetY", m_scrollAnimation);
+
+	//see TableConstants::ScrollOverlayHeadStart
+	if (auto const controller = TableProperty.TryGetAnimationController(L"ScrollOffsetY"))
+		controller.Progress(TableConstants::ScrollOverlayHeadStart);
 }
 
 void TableOverlayManager::OnScrollYChanged(float newScrollY)

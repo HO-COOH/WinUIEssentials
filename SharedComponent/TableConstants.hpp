@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <chrono>
 
 namespace TableConstants
@@ -11,4 +11,6 @@ namespace TableConstants
 	constexpr int HoveredRowNone = -1;
 	
 	constexpr std::chrono::milliseconds SmoothScrollDuration{ 250 };
+	//overshoot xaml composition animation to visually match direct2d scrolling animation
+	constexpr float ScrollOverlayHeadStart = 0.08f;
 }

@@ -5,7 +5,7 @@
   <Identity
     Name="HO-COOH.WinUIEssentials.UWPExample"
     Publisher="CN=0000973C-93A8-4716-8C14-5EC442A69DBE"
-    Version="1.0.0.0"/>
+    Version="1.0.1.0"/>
   <mp:PhoneIdentity PhoneProductId="9005b3b6-60b6-483e-8d4c-6539cfd25436" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
   <Properties>
     <DisplayName>WinUIEssentials.UWPExample</DisplayName>
