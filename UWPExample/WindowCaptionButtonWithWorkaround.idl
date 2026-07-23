@@ -1,0 +1,8 @@
+﻿namespace UWPExample
+{
+    [default_interface]
+    runtimeclass WindowCaptionButtonWithWorkaround : Windows.UI.Xaml.Controls.Page
+    {
+        WindowCaptionButtonWithWorkaround();
+    }
+}

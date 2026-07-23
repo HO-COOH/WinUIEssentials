@@ -1,0 +1,8 @@
+﻿namespace UWPExample
+{
+    [default_interface]
+    runtimeclass DefaultWindowBrokenCaptionButton : Windows.UI.Xaml.Controls.Page
+    {
+        DefaultWindowBrokenCaptionButton();
+    }
+}

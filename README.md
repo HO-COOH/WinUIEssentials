@@ -129,7 +129,7 @@ You can reference Github Action for detailed build steps.
 |ToolTipHelper | :x: | :white_check_mark: | WinRT component
 |CommandBarHelper | :x: | :white_check_mark: | WinRT component
 |IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only
-|WindowCaptionButtonThemeWorkaround | :x: | :white_check_mark: | WinRT component
+|WindowCaptionButtonThemeWorkaround | :white_check_mark: | :white_check_mark: | WinRT component
 |MicaBackdropWithFallback | :x: | :white_check_mark: | WinRT component
 |NonMaximizableWindowWorkaround | :x: | :white_check_mark: | WinRT component
 |DatePickerHelper | :x: | :white_check_mark: | WinRT component
@@ -1017,6 +1017,20 @@ When you have `Window.ExtendsContentIntoTitleBar(true)`, the caption buttons oft
 This helper fixed it by working as a hidden control and listens to theme change message, and make corresponding changes to caption buttons.
 
 To use, simply put it under a Xaml control (such as `Grid`) that can accept child contents.
+
+For UWP:
+
+```xml
+<Page>
+    ...
+    <Grid x:Name="RootGrid">
+        <essential:WindowCaptionButtonThemeWorkaround />
+    </Grid>
+</Page>
+```
+
+
+For WinUI3:
 
 ```xml
 <Window>

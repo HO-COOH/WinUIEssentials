@@ -562,6 +562,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="VisualTreeHelper.hpp" />
+    <ClInclude Include="WindowCaptionButtonThemeWorkaround.h">
+      <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GroupBox_Resource.cpp">
@@ -606,6 +610,10 @@
     </ClCompile>
     <ClCompile Include="Shimmer_Resource.cpp">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="WindowCaptionButtonThemeWorkaround.cpp">
+      <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
   </ItemGroup>
@@ -657,6 +665,9 @@
     <Midl Include="Shimmer_Resource.idl">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
+      <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>
   <ItemGroup>

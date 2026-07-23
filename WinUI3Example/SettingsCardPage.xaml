@@ -50,8 +50,7 @@
         &lt;x:String&gt;Option 2&lt;/x:String&gt;
         &lt;x:String&gt;Option 3&lt;/x:String&gt;
     &lt;/ComboBox&gt;
-&lt;/essential:SettingsCard&gt;
-                        </x:String>
+&lt;/essential:SettingsCard&gt;</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind local:ControlExample.BooleanToString(IsCardEnabled.IsOn), Mode=OneWay}" />
@@ -64,7 +63,7 @@
         <local:ControlExample HeaderText="Use a custom header icon">
             <essential:SettingsCard Description="You can use a FontIcon, SymbolIcon or BitmapIcon to set the cards HeaderIcon." Header="Icon options">
                 <essential:SettingsCard.HeaderIcon>
-                    <BitmapIcon UriSource="ms-appx:///Assets/Square44x44Logo.scale-100.png" />
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Square44x44Logo.scale-100.png" />
                 </essential:SettingsCard.HeaderIcon>
             </essential:SettingsCard>
             <local:ControlExample.Xaml>
@@ -72,10 +71,9 @@
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve"> &lt;essential:SettingsCard Description=&quot;You can use a FontIcon, SymbolIcon or BitmapIcon to set the cards HeaderIcon.&quot; Header=&quot;Icon options&quot;&gt;
     &lt;essential:SettingsCard.HeaderIcon&gt;
-        &lt;BitmapIcon UriSource=&quot;ms-appx:///Assets/Square44x44Logo.scale-100.png&quot; /&gt;
+        &lt;BitmapIcon ShowAsMonochrome=&quot;False&quot; UriSource=&quot;ms-appx:///Assets/Square44x44Logo.scale-100.png&quot; /&gt;
     &lt;/essential:SettingsCard.HeaderIcon&gt;
-&lt;/essential:SettingsCard&gt;
-                        </x:String>
+&lt;/essential:SettingsCard&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
@@ -96,8 +94,7 @@
         &lt;HyperlinkButton Content=&quot;Learn more about Phone Link&quot; /&gt;
     &lt;/essential:SettingsCard.Description&gt;
     &lt;Button Content=&quot;Open Phone Link&quot; Style=&quot;{StaticResource AccentButtonStyle}&quot; /&gt;
-&lt;/essential:SettingsCard&gt;
-                        </x:String>
+&lt;/essential:SettingsCard&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
@@ -118,7 +115,9 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">&lt;essential:SettingsCard Description=&quot;When resizing a SettingsCard, the Content will wrap vertically. You can override this breakpoint by setting the SettingsCardWrapThreshold resource. For edge cases, you can also hide the icon by setting SettingsCardWrapNoIconThreshold.&quot; Header=&quot;Adaptive layouts&quot;&gt;
+                        <x:String xml:space="preserve">&lt;essential:SettingsCard 
+    Description=&quot;When resizing a SettingsCard, the Content will wrap vertically. You can override this breakpoint by setting the SettingsCardWrapThreshold resource. For edge cases, you can also hide the icon by setting SettingsCardWrapNoIconThreshold.&quot;
+    Header=&quot;Adaptive layouts&quot;&gt;
     &lt;essential:SettingsCard.Resources&gt;
         &lt;x:Double x:Key=&quot;SettingsCardWrapThreshold&quot;&gt;800&lt;/x:Double&gt;
         &lt;x:Double x:Key=&quot;SettingsCardWrapNoIconThreshold&quot;&gt;600&lt;/x:Double&gt;
@@ -127,8 +126,7 @@
         &lt;FontIcon Glyph=&quot;&amp;#xE745;&quot; /&gt;
     &lt;/essential:SettingsCard.HeaderIcon&gt;
     &lt;Button Content=&quot;This control will wrap vertically!&quot; Style=&quot;{StaticResource AccentButtonStyle}&quot; /&gt;
-&lt;/essential:SettingsCard&gt;                            
-                        </x:String>
+&lt;/essential:SettingsCard&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
@@ -146,9 +144,14 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-                            
-                        </x:String>
+                        <x:String xml:space="preserve">&lt;essential:SettingsCard
+    Description=&quot;A SettingsCard can be made clickable and you can leverage the Command property or Click event.&quot;
+    Header=&quot;A clickable SettingsCard&quot;
+    IsClickEnabled=&quot;True&quot;&gt;
+    &lt;essential:SettingsCard.HeaderIcon&gt;
+        &lt;FontIcon Glyph=&quot;&amp;#xE799;&quot; /&gt;
+    &lt;/essential:SettingsCard.HeaderIcon&gt;
+&lt;/essential:SettingsCard&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
@@ -178,6 +181,36 @@
                     </essential:SettingsCard.HeaderIcon>
                 </essential:SettingsCard>
             </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;StackPanel&gt;
+    &lt;essential:SettingsCard
+        ActionIconToolTip=&quot;Open in new window&quot;
+        Description=&quot;You can customize the ActionIcon and ActionIconToolTip.&quot;
+        Header=&quot;Customizing the ActionIcon&quot;
+        IsClickEnabled=&quot;True&quot;&gt;
+        &lt;essential:SettingsCard.ActionIcon&gt;
+            &lt;FontIcon Glyph=&quot;&amp;#xE8A7;&quot; /&gt;
+        &lt;/essential:SettingsCard.ActionIcon&gt;
+        &lt;essential:SettingsCard.HeaderIcon&gt;
+            &lt;FontIcon Glyph=&quot;&amp;#xE774;&quot; /&gt;
+        &lt;/essential:SettingsCard.HeaderIcon&gt;
+    &lt;/essential:SettingsCard&gt;
+
+    &lt;essential:SettingsCard
+        Header=&quot;Hiding the ActionIcon&quot;
+        IsActionIconVisible=&quot;False&quot;
+        IsClickEnabled=&quot;True&quot;&gt;
+        &lt;essential:SettingsCard.HeaderIcon&gt;
+            &lt;FontIcon Glyph=&quot;&amp;#xE72E;&quot; /&gt;
+        &lt;/essential:SettingsCard.HeaderIcon&gt;
+    &lt;/essential:SettingsCard&gt;
+&lt;/StackPanel&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
         </local:ControlExample>
     </StackPanel>
 </Page>

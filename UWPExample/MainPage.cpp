@@ -11,8 +11,6 @@ namespace winrt::UWPExample::implementation
 		auto titlebar = winrt::Windows::UI::ViewManagement::ApplicationView::GetForCurrentView().TitleBar();
 		titlebar.ButtonBackgroundColor(winrt::Windows::UI::Colors::Transparent());
 		titlebar.ButtonInactiveBackgroundColor(winrt::Windows::UI::Colors::Transparent());
-		//InitializeComponent();
-		//winrt::Windows::UI::Xaml::Window::Current().SetTitleBar(AppTitleBar());
 	}
 
 	void MainPage::NavigationView_SelectionChanged(

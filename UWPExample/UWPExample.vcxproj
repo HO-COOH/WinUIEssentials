@@ -378,6 +378,10 @@
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="DefaultWindowBrokenCaptionButton.h">
+      <DependentUpon>DefaultWindowBrokenCaptionButton.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="DemoTableData.h">
       <DependentUpon>DemoTableData.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -525,6 +529,14 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WindowCaptionButtonThemeWorkaroundPage.h">
+      <DependentUpon>WindowCaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="WindowCaptionButtonWithWorkaround.h">
+      <DependentUpon>WindowCaptionButtonWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="XamlTableDataPage.h">
       <DependentUpon>XamlTableDataPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -553,6 +565,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="CursorControllerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DefaultWindowBrokenCaptionButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="DependentValuePage.xaml">
@@ -645,6 +660,12 @@
     <Page Include="UriPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="WindowCaptionButtonThemeWorkaroundPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WindowCaptionButtonWithWorkaround.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="XamlTableDataPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -723,6 +744,10 @@
     </ClCompile>
     <ClCompile Include="CursorControllerPage.cpp">
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="DefaultWindowBrokenCaptionButton.cpp">
+      <DependentUpon>DefaultWindowBrokenCaptionButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="DemoTableData.cpp">
@@ -871,6 +896,14 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WindowCaptionButtonThemeWorkaroundPage.cpp">
+      <DependentUpon>WindowCaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="WindowCaptionButtonWithWorkaround.cpp">
+      <DependentUpon>WindowCaptionButtonWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="XamlTableDataPage.cpp">
       <DependentUpon>XamlTableDataPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -894,6 +927,10 @@
     </Midl>
     <Midl Include="CursorControllerPage.idl">
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="DefaultWindowBrokenCaptionButton.idl">
+      <DependentUpon>DefaultWindowBrokenCaptionButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="DemoTableData.idl">
@@ -1027,6 +1064,14 @@
     </Midl>
     <Midl Include="UriPage.idl">
       <DependentUpon>UriPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WindowCaptionButtonThemeWorkaroundPage.idl">
+      <DependentUpon>WindowCaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WindowCaptionButtonWithWorkaround.idl">
+      <DependentUpon>WindowCaptionButtonWithWorkaround.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="XamlTableDataPage.idl">

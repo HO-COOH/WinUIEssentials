@@ -16,6 +16,9 @@
     <Filter Include="Controls\Table">
       <UniqueIdentifier>{f30efe60-ccda-451a-84ce-b5442f19dbb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Helper">
+      <UniqueIdentifier>{7f96abb5-4ce1-43b3-93fe-df775d27c492}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -87,6 +90,9 @@
   <ItemGroup>
     <Midl Include="SettingsPaneEx.idl" />
     <Midl Include="SettingsCommandEx.idl" />
+    <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
+      <Filter>Helper</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="SettingsCard_Resource.xaml">

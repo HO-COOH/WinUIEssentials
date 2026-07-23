@@ -113,6 +113,15 @@
     <Page Include="TableContextMenuPage.xaml">
       <Filter>Pages\TablePage</Filter>
     </Page>
+    <Page Include="WindowCaptionButtonThemeWorkaroundPage.xaml">
+      <Filter>Pages\WindowCaptionButtonWorkaroundPage</Filter>
+    </Page>
+    <Page Include="DefaultWindowBrokenCaptionButton.xaml">
+      <Filter>Pages\WindowCaptionButtonWorkaroundPage</Filter>
+    </Page>
+    <Page Include="WindowCaptionButtonWithWorkaround.xaml">
+      <Filter>Pages\WindowCaptionButtonWorkaroundPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -336,6 +345,9 @@
     </Filter>
     <Filter Include="Pages\Extensions\TypeNameExtension">
       <UniqueIdentifier>{8f9e597c-9d7e-44a3-a295-4f889b14259e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\WindowCaptionButtonWorkaroundPage">
+      <UniqueIdentifier>{14307778-1c5f-480e-bd1b-82ef8d7d1552}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
