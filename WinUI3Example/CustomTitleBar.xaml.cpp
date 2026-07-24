@@ -17,16 +17,17 @@ namespace winrt::WinUI3Example::implementation
     }
 
     void CustomTitleBar::myButton_Click(
-        winrt::Windows::Foundation::IInspectable const&, 
+        winrt::Windows::Foundation::IInspectable const& sender, 
         winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
-        myButton().Content(box_value(L"Clicked"));
+        sender.as<winrt::Microsoft::UI::Xaml::Controls::Button>().Content(box_value(L"Clicked"));
     }
 
     void CustomTitleBar::PersonPic_PointerPressed(
         winrt::Windows::Foundation::IInspectable const& sender, 
         winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const&)
     {
-        PersonPicMenu().ShowAt(sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>());
+		auto element = sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+        element.ContextFlyout().ShowAt(element);
     }
 }

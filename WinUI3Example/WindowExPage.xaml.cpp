@@ -13,7 +13,7 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-	void WindowExPage::Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	/*void WindowExPage::Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
 		WinUI3Package::WindowEx window;
 
@@ -38,14 +38,17 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Microsoft::UI::Xaml::Controls::Button button;
 		button.Content(winrt::box_value(L"Click"));
 		window.Content(button);
-		//window.ExtendsContentIntoTitleBar(true);
-		//window.SystemBackdrop(WinUI3Package::TransparentBackdrop{});
 		window.Activate();
-		//window.Activated(
-		//	[window](auto...) {
-		//		window.AppWindow().Presenter().as<winrt::Microsoft::UI::Windowing::OverlappedPresenter>().SetBorderAndTitleBar(false, false);
+	}*/
 
-		//	}
-		//);
+	void WindowExPage::CreateWin32Window_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		WinUI3Example::Win32TitleBar{}.Activate();
+	}
+
+
+	void WindowExPage::CreateCustomWindow_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		WinUI3Example::CustomTitleBar{}.Activate();
 	}
 }

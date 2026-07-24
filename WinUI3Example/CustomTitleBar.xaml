@@ -19,38 +19,44 @@
         </Grid.RowDefinitions>
 
         <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind}" />
-        <Grid x:Name="AppTitleBar">
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="LeftPaddingColumn" Width="10" />
-                <ColumnDefinition x:Name="IconColumn" Width="Auto" />
-                <ColumnDefinition x:Name="TitleColumn" Width="Auto" />
-                <ColumnDefinition x:Name="LeftDragColumn" Width="*" />
-                <ColumnDefinition
-                    x:Name="SearchColumn"
-                    Width="4*"
-                    MinWidth="220" />
-                <ColumnDefinition
-                    x:Name="RightDragColumn"
-                    Width="*"
-                    MinWidth="48" />
-                <ColumnDefinition x:Name="AccountColumn" Width="Auto" />
+                <!--  Left padding  -->
+                <ColumnDefinition Width="10" />
+
+                <!--  Icon column  -->
+                <ColumnDefinition Width="Auto" />
+
+                <!--  Title column  -->
+                <ColumnDefinition Width="Auto" />
+
+                <!--  drag area  -->
+                <ColumnDefinition Width="*" />
+
+                <!--  AutoSuggestBox column  -->
+                <ColumnDefinition Width="4*" MinWidth="220" />
+
+                <!--  drag area  -->
+                <ColumnDefinition Width="*" MinWidth="48" />
+
+                <!--  PersonPicture control  -->
+                <ColumnDefinition Width="Auto" />
+
+                <!--  drag area  -->
                 <ColumnDefinition Width="140" />
             </Grid.ColumnDefinitions>
             <Image
-                x:Name="TitleBarIcon"
                 Grid.Column="1"
                 Width="16"
                 Height="16"
                 Margin="8,0,16,0"
                 Source="ms-appx:///Assets/StoreLogo.png" />
             <TextBlock
-                x:Name="TitleBarTextBlock"
                 Grid.Column="2"
                 VerticalAlignment="Center"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="App title" />
             <AutoSuggestBox
-                x:Name="TitleBarSearchBox"
                 Grid.Column="4"
                 MaxWidth="600"
                 VerticalAlignment="Center"
@@ -64,12 +70,9 @@
                 Orientation="Horizontal"
                 Spacing="10">
                 <ToggleButton>Button on titlebar</ToggleButton>
-                <PersonPicture
-                    x:Name="PersonPic"
-                    Height="32"
-                    PointerPressed="PersonPic_PointerPressed">
+                <PersonPicture Height="32" PointerPressed="PersonPic_PointerPressed">
                     <PersonPicture.ContextFlyout>
-                        <MenuFlyout x:Name="PersonPicMenu">
+                        <MenuFlyout>
                             <MenuFlyoutItem Text="Settings" />
                             <MenuFlyoutSeparator />
                             <MenuFlyoutItem Text="About Me" />
@@ -77,7 +80,6 @@
                     </PersonPicture.ContextFlyout>
                 </PersonPicture>
             </StackPanel>
-
         </Grid>
 
         <StackPanel
@@ -85,7 +87,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Orientation="Horizontal">
-            <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+            <Button Click="myButton_Click">Click Me</Button>
         </StackPanel>
     </Grid>
 </Window>

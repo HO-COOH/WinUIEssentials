@@ -725,10 +725,6 @@
       <DependentUpon>TimePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="TitleBarPage.xaml.h">
-      <DependentUpon>TitleBarPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="ToastPage.xaml.h">
       <DependentUpon>ToastPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1044,9 +1040,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TimePickerHelperPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="TitleBarPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ToastPage.xaml">
@@ -1479,10 +1472,6 @@
       <DependentUpon>TimePickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="TitleBarPage.xaml.cpp">
-      <DependentUpon>TitleBarPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="ToastPage.xaml.cpp">
       <DependentUpon>ToastPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1913,10 +1902,6 @@
     </Midl>
     <Midl Include="TimePickerHelperPage.idl">
       <DependentUpon>TimePickerHelperPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="TitleBarPage.idl">
-      <DependentUpon>TitleBarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ToastPage.idl">

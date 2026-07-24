@@ -38,9 +38,6 @@
     <Page Include="MarqueeTextPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="TitleBarPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="Win32TitleBar.xaml">
       <Filter>Windows</Filter>
     </Page>
