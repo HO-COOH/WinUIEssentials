@@ -56,8 +56,6 @@
                 <Setter Property="NamespaceColor" Value="{ThemeResource CodeNamespaceColor}" />
             </Style>
 
-            <local:ElementThemeToStringConverter x:Name="ElementThemeToStringConverter" />
-
             <Style x:Key="ControlExamplesStackPanelStyle" TargetType="StackPanel">
                 <Setter Property="Spacing" Value="5" />
                 <Setter Property="ChildrenTransitions">

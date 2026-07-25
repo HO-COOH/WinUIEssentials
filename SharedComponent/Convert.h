@@ -58,6 +58,11 @@ namespace winrt::PackageRoot::implementation
         {
             return value == winrt::WinUINamespace::UI::Xaml::Visibility::Visible ? winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed : winrt::WinUINamespace::UI::Xaml::Visibility::Visible;
         }
+
+		constexpr static int32_t UInt32ToInt32(uint32_t value) noexcept
+		{
+			return static_cast<int32_t>(value);
+		}
     };
 }
 

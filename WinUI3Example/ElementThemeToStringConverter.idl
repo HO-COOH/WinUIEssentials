@@ -1,9 +1,0 @@
-﻿namespace WinUI3Example
-{
-    [bindable]
-    [default_interface]
-	runtimeclass ElementThemeToStringConverter : Microsoft.UI.Xaml.Data.IValueConverter
-    {
-        ElementThemeToStringConverter();
-    }
-}

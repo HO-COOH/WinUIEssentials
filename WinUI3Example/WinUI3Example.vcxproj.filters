@@ -343,9 +343,6 @@
     <Midl Include="PhotoDataItemWithDimension.idl">
       <Filter>Pages\WrapPanelPage</Filter>
     </Midl>
-    <Midl Include="ElementThemeToStringConverter.idl">
-      <Filter>Helper</Filter>
-    </Midl>
     <Midl Include="LineGraph.idl">
       <Filter>Pages\Experimental\LineGraph</Filter>
     </Midl>

@@ -429,10 +429,6 @@
       <DependentUpon>EffectToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ElementThemeToStringConverter.h">
-      <DependentUpon>ElementThemeToStringConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="EntranceAnimationDemo.xaml.h">
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1179,10 +1175,6 @@
       <DependentUpon>EffectToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ElementThemeToStringConverter.cpp">
-      <DependentUpon>ElementThemeToStringConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="EntranceAnimationDemo.xaml.cpp">
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1630,9 +1622,6 @@
     <Midl Include="EffectToggleButton.idl">
       <DependentUpon>EffectToggleButton.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="ElementThemeToStringConverter.idl">
-      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="EntranceAnimationDemo.idl">
       <DependentUpon>EntranceAnimationDemo.xaml</DependentUpon>

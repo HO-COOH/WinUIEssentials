@@ -31,5 +31,7 @@ namespace PackageRoot
 
         static Boolean ReverseBool(Boolean value);
         static WinUINamespace.UI.Xaml.Visibility ReverseVisibility(WinUINamespace.UI.Xaml.Visibility value);
+
+		static Int32 UInt32ToInt32(UInt32 value);
     }
 }

@@ -775,7 +775,10 @@
             Style="{StaticResource ModifiedNavigationViewStyle}">
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Helpers">
+                <NavigationViewItem x:Name="HelpersItem" Content="Helpers">
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(HelpersItem.MenuItems.Size)}" />
+                    </NavigationViewItem.InfoBadge>
                     <NavigationViewItem.Icon>
                         <PathIcon
                             HorizontalAlignment="Center"
@@ -796,7 +799,10 @@
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="Controls">
+                <NavigationViewItem x:Name="ControlsItem" Content="Controls">
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(ControlsItem.MenuItems.Size)}" />
+                    </NavigationViewItem.InfoBadge>
                     <NavigationViewItem.Icon>
                         <PathIcon
                             HorizontalAlignment="Center"
@@ -855,7 +861,10 @@
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="Extensions">
+                <NavigationViewItem x:Name="ExtensionsItem" Content="Extensions">
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(ExtensionsItem.MenuItems.Size)}" />
+                    </NavigationViewItem.InfoBadge>
                     <NavigationViewItem.Icon>
                         <PathIcon
                             HorizontalAlignment="Center"
@@ -870,7 +879,10 @@
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="Backdrops">
+                <NavigationViewItem x:Name="BackdropsItem" Content="Backdrops">
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(BackdropsItem.MenuItems.Size)}" />
+                    </NavigationViewItem.InfoBadge>
                     <NavigationViewItem.Icon>
                         <PathIcon
                             HorizontalAlignment="Center"
@@ -894,7 +906,10 @@
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="Windows">
+                <NavigationViewItem x:Name="WindowsItem" Content="Windows">
+                    <NavigationViewItem.InfoBadge>
+                        <InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(WindowsItem.MenuItems.Size)}" />
+                    </NavigationViewItem.InfoBadge>
                     <NavigationViewItem.Icon>
                         <PathIcon
                             HorizontalAlignment="Center"

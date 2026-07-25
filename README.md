@@ -383,6 +383,8 @@ runtimeclass Convert
 
     static Boolean ReverseBool(Boolean value);
     static Microsoft.UI.Xaml.Visibility ReverseVisibility(Microsoft.UI.Xaml.Visibility value);
+
+    static Int32 UInt32ToInt32(UInt32 value);
 }
 ```
 
