@@ -59,14 +59,14 @@ namespace winrt::PackageRoot::implementation
         constexpr static auto ResourceUri = L"ms-appx:///UWPPackage/SettingsCard_Resource.xaml";
 #endif
     private:
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_descriptionProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerIconProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_actionIconProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_actionIconToolTipProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isClickEnabledProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isActionIconVisibleProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_contentAlignmentProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_descriptionProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerIconProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_actionIconProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_actionIconToolTipProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isClickEnabledProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isActionIconVisibleProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_contentAlignmentProperty;
 
         void onIsClickEnabledChanged();
         void onActionIconChanged();

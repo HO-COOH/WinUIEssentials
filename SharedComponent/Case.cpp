@@ -6,6 +6,10 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty Case::s_contentProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty Case::s_isDefaultProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty Case::s_valueProperty = nullptr;
+
 	void Case::EnsureDependencyProperties()
 	{
 		if (s_contentProperty) return;

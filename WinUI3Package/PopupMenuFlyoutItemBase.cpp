@@ -6,6 +6,9 @@
 #include "PopupMenu.h"
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItemBase::s_visibilityProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItemBase::s_isEnabledProperty = nullptr;
+
 	void PopupMenuFlyoutItemBase::EnsureDependencyProperties()
 	{
 		if (s_visibilityProperty) return;

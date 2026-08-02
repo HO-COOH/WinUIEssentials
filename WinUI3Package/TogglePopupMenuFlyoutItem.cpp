@@ -8,6 +8,8 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty TogglePopupMenuFlyoutItem::s_isCheckedProperty = nullptr;
+
 	void TogglePopupMenuFlyoutItem::EnsureDependencyProperties()
 	{
 		if (s_isCheckedProperty) return;

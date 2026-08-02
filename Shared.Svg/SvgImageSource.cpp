@@ -31,6 +31,11 @@ static double getDpiScale([[maybe_unused]] auto&& imageControl)
 
 namespace winrt::PackageRoot::Svg::implementation
 {
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SvgImageSource::s_uriSourceProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SvgImageSource::s_stringSourceProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SvgImageSource::s_rasterizePixelWidthProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty SvgImageSource::s_rasterizePixelHeightProperty = nullptr;
+
     resvg_options* SvgImageSource::GetResvgOptions()
     {
         static resvg_options* opts = []() {

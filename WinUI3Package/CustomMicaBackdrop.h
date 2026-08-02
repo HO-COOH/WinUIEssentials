@@ -57,7 +57,7 @@ namespace winrt::WinUI3Package::implementation
 
         OverrideChecker m_overrideChecker;
 
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty;
 
         void makeController(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& target);
         void disposeController();

@@ -6,6 +6,13 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlSizeTrigger::m_canTriggerProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlSizeTrigger::m_maxWidthProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlSizeTrigger::m_minWidthProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlSizeTrigger::m_maxHeightProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlSizeTrigger::m_minHeightProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlSizeTrigger::m_targetElementProperty = nullptr;
+
 	void ControlSizeTrigger::EnsureDependencyProperties()
 	{
 		if (m_canTriggerProperty) return;

@@ -64,16 +64,16 @@ namespace winrt::PackageRoot::implementation
         winrt::PackageRoot::Language m_language{ winrt::PackageRoot::Language::Undefined };
         winrt::WinUINamespace::UI::Xaml::Documents::InlineCollection m_highlighted{ nullptr };
 
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_commentColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_stringColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_keywordColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_typeColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_preprocessorColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_operatorColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_identifierColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_plainTextColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_functionColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_namespaceColorProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_commentColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_stringColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_keywordColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_typeColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_preprocessorColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_operatorColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_identifierColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_plainTextColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_functionColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_namespaceColorProperty;
 
         static inline std::array<winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush, 10> s_brushes
         {

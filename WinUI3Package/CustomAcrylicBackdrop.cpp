@@ -7,6 +7,9 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_kindProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::s_requestedThemeProperty = nullptr;
+
 	void CustomAcrylicBackdrop::OnTargetConnected(
 		winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget,
 		winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)

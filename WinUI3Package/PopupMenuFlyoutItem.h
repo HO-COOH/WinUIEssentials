@@ -33,10 +33,10 @@ namespace winrt::WinUI3Package::implementation
         winrt::event_token Click(winrt::Microsoft::UI::Xaml::RoutedEventHandler const& handler);
         void Click(winrt::event_token const& token);
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_commandProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_commandParameterProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_commandProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_commandParameterProperty;
 
         winrt::event<winrt::Microsoft::UI::Xaml::RoutedEventHandler> m_clickEvent;
 

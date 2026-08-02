@@ -10,12 +10,8 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	void RevealFocusPanel::EnsureDependencyProperties()
-	{
-		if (s_attachToPanelProperty) 
-            return;
-
-		s_attachToPanelProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+	winrt::Microsoft::UI::Xaml::DependencyProperty RevealFocusPanel::s_attachToPanelProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
 		    L"AttachToPanel",
 		    winrt::xaml_typename<class_type>(),
 		    winrt::xaml_typename<class_type>(),
@@ -24,7 +20,6 @@ namespace winrt::WinUI3Package::implementation
 		        &RevealFocusPanel::onAttachToPanelChanged
 		    }
 		);
-	}
 
     RevealFocusPanel::RevealFocusPanel()
 	{

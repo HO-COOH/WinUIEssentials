@@ -8,6 +8,10 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SwitchPresenter::s_currentCaseProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SwitchPresenter::s_switchCasesProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SwitchPresenter::s_valueProperty = nullptr;
+
 	void SwitchPresenter::EnsureDependencyProperties()
 	{
 		if (s_currentCaseProperty) return;

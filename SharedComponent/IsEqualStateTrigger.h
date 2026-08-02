@@ -18,8 +18,8 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ToProperty();
 
     private:
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_toProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_valueProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_toProperty;
 
         static void onValuePropertyChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject d,

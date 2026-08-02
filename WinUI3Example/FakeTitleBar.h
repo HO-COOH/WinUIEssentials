@@ -21,7 +21,7 @@ namespace winrt::WinUI3Example::implementation
 
         FlipWindow* ParentWindow{};
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_titleProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleProperty;
     };
 }
 

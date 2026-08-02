@@ -23,9 +23,9 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ValueProperty();
 
     private:
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_currentCaseProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_switchCasesProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_valueProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_currentCaseProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_switchCasesProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_valueProperty;
 
         static void onSwitchCasesChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,

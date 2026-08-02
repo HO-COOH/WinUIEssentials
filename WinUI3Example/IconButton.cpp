@@ -7,6 +7,9 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty IconButton::m_iconProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty IconButton::m_isExpandedProperty = nullptr;
+
 	void IconButton::EnsureDependencyProperties()
 	{
 		if (m_iconProperty) return;

@@ -23,8 +23,8 @@ namespace winrt::WinUI3Package::implementation
         void IsEnabled(bool value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty IsEnabledProperty();
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_visibilityProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_isEnabledProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_visibilityProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isEnabledProperty;
     };
 }
 

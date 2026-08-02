@@ -37,12 +37,12 @@ namespace winrt::PackageRoot::implementation
 
         bool IsActive();
     private:
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_canTriggerProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_maxWidthProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_minWidthProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_maxHeightProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_minHeightProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_targetElementProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_canTriggerProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_maxWidthProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_minWidthProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_maxHeightProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_minHeightProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_targetElementProperty;
         bool m_isActive{};
         void updateTrigger();
         winrt::event_token m_onTargetElementSizeChanged;

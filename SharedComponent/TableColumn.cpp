@@ -6,6 +6,12 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::s_contentProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::s_itemTemplateProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::s_editTemplateProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::s_sortEnabledProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::s_isResizableProperty = nullptr;
+
 	void TableColumn::EnsureDependencyProperties()
 	{
 		if (s_contentProperty) return;

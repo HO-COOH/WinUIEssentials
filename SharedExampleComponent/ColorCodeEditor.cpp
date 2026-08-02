@@ -37,6 +37,17 @@ struct std::formatter<ColorCode::Scope, wchar_t> : std::formatter<std::wstring_v
 
 namespace winrt::PackageRoot::implementation
 {
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_commentColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_stringColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_keywordColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_typeColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_preprocessorColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_operatorColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_identifierColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_plainTextColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_functionColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ColorCodeEditor::m_namespaceColorProperty = nullptr;
+
     void ColorCodeEditor::EnsureDependencyProperties()
     {
         if (m_commentColorProperty)

@@ -22,9 +22,9 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ValueProperty();
 
     private:
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_isDefaultProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_valueProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_isDefaultProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_valueProperty;
     };
 }
 

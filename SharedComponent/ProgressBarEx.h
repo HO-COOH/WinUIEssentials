@@ -45,10 +45,10 @@ namespace winrt::PackageRoot::implementation
         //winrt::WinUINamespace::UI::Composition::Vector2KeyFrameAnimation m_valueAnimation{ nullptr };
 
         void setSpriteSize();
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_highColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_baseColorProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_percentProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_valueProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_highColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_baseColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_percentProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_valueProperty;
 
         static constexpr winrt::Windows::UI::Color DefaultHighColor{ 255, 0, 255, 0 };
         static constexpr winrt::Windows::UI::Color DefaultBaseColor{ 100, 0, 255, 0 };

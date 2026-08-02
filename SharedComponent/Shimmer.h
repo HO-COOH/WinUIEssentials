@@ -29,8 +29,8 @@ namespace winrt::PackageRoot::implementation
 
         void OnApplyTemplate();
     private:
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_isLoadingProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_gradientStopsProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_isLoadingProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_gradientStopsProperty;
         winrt::WinUINamespace::UI::Xaml::FrameworkElement m_animationContainer{ nullptr };
         winrt::WinUINamespace::UI::Xaml::FrameworkElement::SizeChanged_revoker m_animationSizeChangedRevoker;
         void startAnimation();

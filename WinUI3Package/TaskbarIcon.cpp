@@ -8,6 +8,9 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty TaskbarIcon::s_tooltipProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty TaskbarIcon::s_guidProperty = nullptr;
+
 	TaskbarIcon::TaskbarIcon()
 	{
 		RegisterPropertyChangedCallback(

@@ -6,6 +6,11 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ProgressBarEx::s_highColorProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ProgressBarEx::s_baseColorProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ProgressBarEx::s_percentProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ProgressBarEx::s_valueProperty = nullptr;
+
 	void ProgressBarEx::EnsureDependencyProperties()
 	{
 		if (s_highColorProperty) return;

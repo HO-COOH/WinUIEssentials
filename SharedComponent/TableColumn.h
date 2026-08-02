@@ -54,11 +54,11 @@ namespace winrt::PackageRoot::implementation
         TableColumnData m_data;
     private:
         winrt::WinUINamespace::UI::Xaml::Controls::Flyout m_flyout{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentProperty{ nullptr };
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_itemTemplateProperty{ nullptr };
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_editTemplateProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_sortEnabledProperty{ nullptr };
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_isResizableProperty{ nullptr };
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_itemTemplateProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_editTemplateProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_sortEnabledProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_isResizableProperty;
 
         static void onStringContentChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,

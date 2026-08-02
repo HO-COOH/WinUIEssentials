@@ -27,9 +27,9 @@ namespace winrt::PackageRoot::implementation
         winrt::Windows::Foundation::Size MeasureOverride(winrt::Windows::Foundation::Size availableSize);
         winrt::Windows::Foundation::Size ArrangeOverride(winrt::Windows::Foundation::Size finalSize);
     private:
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalSpacingProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalSpacingProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_orientationProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalSpacingProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalSpacingProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_orientationProperty;
         bool hasMoreSpaceAvailable(winrt::Windows::Foundation::Size availableSize);
         auto filterVisibleChildren() const
         {

@@ -7,6 +7,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+    winrt::Microsoft::UI::Xaml::DependencyProperty FakeTitleBar::s_titleProperty = nullptr;
+
     void FakeTitleBar::EnsureDependencyProperties()
     {
         if (s_titleProperty)

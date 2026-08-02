@@ -18,7 +18,7 @@ namespace winrt::PackageRoot::implementation
         void ValueChanged(winrt::event_token const& token);
     private:
         winrt::event<winrt::Windows::Foundation::EventHandler<double>> m_valueChanged;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_valueProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_valueProperty;
     };
 }
 

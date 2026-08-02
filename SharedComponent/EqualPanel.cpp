@@ -8,6 +8,10 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty EqualPanel::s_horizontalSpacingProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty EqualPanel::s_verticalSpacingProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty EqualPanel::s_orientationProperty = nullptr;
+
 	void EqualPanel::EnsureDependencyProperties()
 	{
 		if (s_horizontalSpacingProperty) 

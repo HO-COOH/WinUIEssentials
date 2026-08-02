@@ -42,10 +42,10 @@ namespace winrt::PackageRoot::Svg::implementation
         // weak_ref breaks the otherwise-circular Image.Source -> SvgImageSource -> Image chain.
         winrt::weak_ref<winrt::WinUINamespace::UI::Xaml::Controls::Image> m_boundImage;
 
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_uriSourceProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_stringSourceProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_rasterizePixelWidthProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_rasterizePixelHeightProperty{ nullptr };
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_uriSourceProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_stringSourceProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_rasterizePixelWidthProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_rasterizePixelHeightProperty;
 
         std::variant<std::monostate, winrt::Windows::Foundation::Uri, winrt::hstring> m_currentSource;
         std::mutex m_treeMutex;

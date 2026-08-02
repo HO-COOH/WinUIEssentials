@@ -67,8 +67,8 @@ namespace winrt::WinUI3Package::implementation
 
         static void EnsureDependencyProperties();
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_tooltipProperty{ nullptr };
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_guidProperty{ nullptr };
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_tooltipProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_guidProperty;
 
         ThemeAdaptiveIcon& getThemeAdaptiveIcon();
         NormalTaskbarIcon& getNormalIcon();

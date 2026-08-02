@@ -7,6 +7,9 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty IsEqualStateTrigger::m_valueProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty IsEqualStateTrigger::m_toProperty = nullptr;
+
 	void IsEqualStateTrigger::EnsureDependencyProperties()
 	{
 		if (m_valueProperty) return;

@@ -55,8 +55,8 @@ namespace winrt::WinUI3Package::implementation
 
 
 
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_requestedThemeProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_kindProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_requestedThemeProperty;
         static void onKindPropertyChanged(
             winrt::Microsoft::UI::Xaml::DependencyObject const& backdrop,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args

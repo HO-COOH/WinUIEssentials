@@ -53,6 +53,26 @@ static inline std::partial_ordering compareObject(
 
 namespace winrt::PackageRoot::implementation
 {
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_headerForegroundProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_contentForegroundProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_headerBackgroundProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_pointerOverBackgroundProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_headerFontSizeProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_contentFontSizeProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_headerFontWeightProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_contentFontWeightProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_headerFontStyleProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_contentFontStyleProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_headerFontStretchProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_contentFontStretchProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_contentPaddingProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_fontFamilyProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_horizontalLineColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_horizontalLineThicknessProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_verticalLineColorProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_verticalLineThicknessProperty = nullptr;
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::s_alternateRowColorsProperty = nullptr;
+
     void Table::EnsureDependencyProperties()
     {
         if (s_headerForegroundProperty) return;

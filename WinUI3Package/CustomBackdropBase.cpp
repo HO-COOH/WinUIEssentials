@@ -6,6 +6,12 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_enableWhenInactiveProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_fallbackColorProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_luminosityOpacityProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_tintColorProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::s_tintOpacityProperty = nullptr;
+
 	void CustomBackdropBase::EnsureDependencyProperties()
 	{
 		if (s_enableWhenInactiveProperty) return;

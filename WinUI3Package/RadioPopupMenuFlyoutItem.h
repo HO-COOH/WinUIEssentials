@@ -27,8 +27,8 @@ namespace winrt::WinUI3Package::implementation
 
         void SetGroupHelper(RadioPopupMenuItemGroup& groupHelper);
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_groupNameProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_groupNameProperty;
         RadioPopupMenuItemGroup* m_groupHelper{ nullptr };
     };
 }

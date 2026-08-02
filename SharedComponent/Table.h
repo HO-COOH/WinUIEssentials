@@ -182,30 +182,30 @@ namespace winrt::PackageRoot::implementation
 #else
         winrt::Windows::UI::Xaml::DispatcherTimer m_fpsTimer;
 #endif
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerForegroundProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentForegroundProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerBackgroundProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_pointerOverBackgroundProperty{ nullptr };
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerForegroundProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentForegroundProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerBackgroundProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_pointerOverBackgroundProperty;
         //fonts
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontSizeProperty{ nullptr };
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontSizeProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontSizeProperty;
 
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontWeightProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontWeightProperty{ nullptr };
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontWeightProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontWeightProperty;
 
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontStyleProperty{ nullptr };
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontStyleProperty{ nullptr };
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontStyleProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontStyleProperty;
 
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontStretchProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontStretchProperty{ nullptr };
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_headerFontStretchProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentFontStretchProperty;
 
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentPaddingProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_fontFamilyProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineColorProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineThicknessProperty{ nullptr };
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineColorProperty{ nullptr };
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineThicknessProperty{ nullptr };
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty s_alternateRowColorsProperty{ nullptr };
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_contentPaddingProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_fontFamilyProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineColorProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_horizontalLineThicknessProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineColorProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_verticalLineThicknessProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_alternateRowColorsProperty;
 
         static void onHeaderForegroundChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,

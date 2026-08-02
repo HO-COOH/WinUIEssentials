@@ -6,6 +6,8 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty DependentValue::m_valueProperty = nullptr;
+
 	void DependentValue::EnsureDependencyProperties()
 	{
 		if (m_valueProperty) return;

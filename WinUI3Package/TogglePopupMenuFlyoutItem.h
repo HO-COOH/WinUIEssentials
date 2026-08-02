@@ -19,7 +19,7 @@ namespace winrt::WinUI3Package::implementation
         void IsChecked(bool value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty IsCheckedProperty();
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isCheckedProperty;
     };
 }
 

@@ -16,7 +16,7 @@ namespace winrt::WinUI3Package::implementation
         void BlurAmount(float value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty BlurAmountProperty();
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_blurAmountProperty{ nullptr };
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_blurAmountProperty;
 
         winrt::Windows::UI::Composition::CompositionEffectBrush m_effectBrush{ nullptr };
 

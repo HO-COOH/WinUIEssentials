@@ -77,17 +77,17 @@ namespace winrt::PackageRoot::implementation
 #pragma endregion
 
     private:
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_contentProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_descriptionProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerIconProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemsHeaderProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemsFooterProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isExpandedProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemsProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemsSourceProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemTemplateProperty = nullptr;
-        static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemContainerStyleSelectorProperty = nullptr;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_contentProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_descriptionProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerIconProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemsHeaderProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemsFooterProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isExpandedProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemsProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemsSourceProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemTemplateProperty;
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_itemContainerStyleSelectorProperty;
 
         winrt::event<PackageRoot::SignalDelegate> m_expandedEvent;
         winrt::event<PackageRoot::SignalDelegate> m_collapsedEvent;

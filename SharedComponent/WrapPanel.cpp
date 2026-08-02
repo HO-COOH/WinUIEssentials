@@ -6,6 +6,10 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty WrapPanel::s_horizontalSpacingProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty WrapPanel::s_verticalSpacingProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty WrapPanel::s_orientationProperty = nullptr;
+
 	void WrapPanel::EnsureDependencyProperties()
 	{
 		if (s_horizontalSpacingProperty) return;

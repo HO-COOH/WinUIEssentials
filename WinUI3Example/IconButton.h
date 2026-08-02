@@ -35,8 +35,8 @@ namespace winrt::WinUI3Example::implementation
             winrt::Microsoft::UI::Xaml::DependencyObject d,
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs args
         );
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_iconProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty m_isExpandedProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty m_iconProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty m_isExpandedProperty;
         winrt::Microsoft::UI::Xaml::Media::Animation::Storyboard m_storyboard{ nullptr };
         winrt::Microsoft::UI::Xaml::Media::Animation::DoubleAnimation m_widthAnimation{ nullptr };
         winrt::Microsoft::UI::Xaml::Controls::ContentPresenter m_iconContent{ nullptr };

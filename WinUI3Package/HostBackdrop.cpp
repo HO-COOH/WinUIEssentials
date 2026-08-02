@@ -8,6 +8,8 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty HostBackdrop::s_blurAmountProperty = nullptr;
+
 	void HostBackdrop::EnsureDependencyProperties()
 	{
 		if (s_blurAmountProperty)

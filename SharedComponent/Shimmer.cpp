@@ -7,6 +7,9 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty Shimmer::s_isLoadingProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty Shimmer::s_gradientStopsProperty = nullptr;
+
 	void Shimmer::EnsureDependencyProperties()
 	{
 		if (s_isLoadingProperty) return;

@@ -23,9 +23,45 @@ namespace WinUI3Package
         String DocumentTitle{ get; };
         static Microsoft.UI.Xaml.DependencyProperty DocumentTitleProperty{ get; };
 
-        Windows.UI.Xaml.Controls.WebViewSettings Settings{ get; };
+        Windows.Web.UI.WebViewControlSettings Settings{ get; };
 
         Windows.Foundation.Uri Source;
         static Microsoft.UI.Xaml.DependencyProperty SourceProperty{ get; };
+
+        void AddInitializeScript(String script);
+        Windows.Foundation.Uri BuildLocalStreamUri(String contentIdentifier, String relativePath);
+		Windows.Foundation.IAsyncAction CapturePreviewToStreamAsync(Windows.Storage.Streams.IRandomAccessStream stream);
+		Windows.Foundation.IAsyncOperation<Windows.ApplicationModel.DataTransfer.DataPackage> CaptureSelectedContentToDataPackageAsync();
+        void Close();
+		void GetDeferredPermissionRequestById(UInt32 id, out Windows.Web.UI.WebViewControlDeferredPermissionRequest deferredPermissionRequest);
+		void GoBack();
+		void GoForward();
+        Windows.Foundation.IAsyncOperation<String> InvokeScriptAsync(String scriptName, Windows.Foundation.Collections.IIterable<String> arguments);
+		void MoveFocus(Windows.Web.UI.Interop.WebViewControlMoveFocusReason reason);
+		void Navigate(Windows.Foundation.Uri source);
+		void NavigateToLocalStreamUri(Windows.Foundation.Uri source, Windows.Web.IUriToStreamResolver streamResolver);
+		void NavigateToString(String text);
+		void NavigateWithHttpRequestMessage(Windows.Web.Http.HttpRequestMessage requestMessage);
+		void Refresh();
+        void Stop();
+
+        //https://learn.microsoft.com/en-us/uwp/api/windows.web.ui.interop.webviewcontrol?view=winrt-28000
+        //https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.webview?view=winrt-28000
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlContentLoadingEventArgs> ContentLoading;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlDOMContentLoadedEventArgs> DOMContentLoaded;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlContentLoadingEventArgs> FrameContentLoading;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlDOMContentLoadedEventArgs> FrameDOMContentLoaded;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlNavigationStartingEventArgs> FrameNavigationStarting;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.Interop.WebViewControlMoveFocusRequestedEventArgs> MoveFocusRequested;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlLongRunningScriptDetectedEventArgs> LongRunningScriptDetected;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlNavigationStartingEventArgs> NavigationStarting;
+        event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlNavigationCompletedEventArgs> NavigationCompleted;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlNewWindowRequestedEventArgs> NewWindowRequested;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlPermissionRequestedEventArgs> PermissionRequested;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlScriptNotifyEventArgs> ScriptNotify;
+		event Windows.Foundation.TypedEventHandler<WebView, Object> UnsafeContentWarningDisplaying;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlUnsupportedUriSchemeIdentifiedEventArgs> UnsupportedUriSchemeIdentified;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlUnviewableContentIdentifiedEventArgs> UnviewableContentIdentified;
+		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlWebResourceRequestedEventArgs> WebResourceRequested;
     }
 }

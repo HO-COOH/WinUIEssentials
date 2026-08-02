@@ -6,6 +6,15 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::m_headerProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::m_descriptionProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::m_headerIconProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::m_actionIconProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::m_actionIconToolTipProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::m_isClickEnabledProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::m_isActionIconVisibleProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsCard::m_contentAlignmentProperty = nullptr;
+
 	void SettingsCard::EnsureDependencyProperties()
 	{
 		if (m_headerProperty) 

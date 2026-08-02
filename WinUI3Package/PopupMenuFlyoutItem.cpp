@@ -10,6 +10,11 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_iconProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_textProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_commandProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::s_commandParameterProperty = nullptr;
+
 	void PopupMenuFlyoutItem::EnsureDependencyProperties()
 	{
 		if (s_iconProperty) return;

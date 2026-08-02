@@ -6,6 +6,18 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_headerProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_contentProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_descriptionProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_headerIconProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_itemsHeaderProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_itemsFooterProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_isExpandedProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_itemsProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_itemsSourceProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_itemTemplateProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty SettingsExpander::m_itemContainerStyleSelectorProperty = nullptr;
+
 	void SettingsExpander::EnsureDependencyProperties()
 	{
 		if (m_headerIconProperty) return;

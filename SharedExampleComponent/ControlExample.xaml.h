@@ -50,15 +50,15 @@ namespace winrt::PackageRoot::implementation
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> CodeItems();
 	private:
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerTextProperty = nullptr;
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_exampleProperty = nullptr;
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_optionsProperty = nullptr;
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_outputProperty = nullptr;
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_xamlProperty = nullptr;
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_idlProperty = nullptr;
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerProperty = nullptr;
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_cppProperty = nullptr;
-		static inline winrt::WinUINamespace::UI::Xaml::DependencyProperty m_substitutionsProperty = nullptr;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerTextProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_exampleProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_optionsProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_outputProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_xamlProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_idlProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_cppProperty;
+		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_substitutionsProperty;
 		static inline winrt::WinUINamespace::UI::Composition::ScalarKeyFrameAnimation m_iconShowAnimation{ nullptr };
 		static inline winrt::WinUINamespace::UI::Composition::ScalarKeyFrameAnimation m_iconHideAnimation{ nullptr };
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_codeItems = winrt::single_threaded_vector<winrt::Windows::Foundation::IInspectable>();

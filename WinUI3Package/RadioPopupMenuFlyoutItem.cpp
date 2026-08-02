@@ -7,6 +7,9 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty RadioPopupMenuFlyoutItem::s_isCheckedProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty RadioPopupMenuFlyoutItem::s_groupNameProperty = nullptr;
+
 	void RadioPopupMenuFlyoutItem::EnsureDependencyProperties()
 	{
 		if (s_isCheckedProperty) return;

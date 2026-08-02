@@ -9,6 +9,8 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty CustomMicaBackdrop::s_kindProperty = nullptr;
+
 	void CustomMicaBackdrop::OnTargetConnected(
 		winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget,
 		winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)

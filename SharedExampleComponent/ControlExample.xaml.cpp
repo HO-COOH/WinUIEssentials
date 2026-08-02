@@ -14,6 +14,16 @@ using namespace WinUINamespace::UI::Xaml;
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_headerTextProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_exampleProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_optionsProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_outputProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_xamlProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_idlProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_headerProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_cppProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty ControlExample::m_substitutionsProperty = nullptr;
+
 	void ControlExample::EnsureDependencyProperties()
 	{
 		if (m_headerTextProperty) return;

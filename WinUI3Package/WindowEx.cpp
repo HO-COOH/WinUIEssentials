@@ -25,12 +25,8 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	void WindowEx::EnsureDependencyProperties()
-	{
-		if (s_nonClientRegionKindProperty) 
-			return;
-
-		s_nonClientRegionKindProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_nonClientRegionKindProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
 			L"NonClientRegionKind",
 			winrt::xaml_typename<winrt::Microsoft::UI::Input::NonClientRegionKind>(),
 			winrt::xaml_typename<class_type>(),
@@ -88,14 +84,13 @@ namespace winrt::WinUI3Package::implementation
 			}
 		);
 
-		s_rootWindowProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_rootWindowProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
 			L"RootWindow",
 			winrt::xaml_typename<uint64_t>(),
 			winrt::xaml_typename<class_type>(),
 			nullptr
 		);
-		
-	}
 
 	//std::unordered_map<HWND, std::unordered_set<void*>> WindowEx::s_allWindows;
 	std::unordered_map<HWND, winrt::event_token> WindowEx::s_windowResizeRevokers;

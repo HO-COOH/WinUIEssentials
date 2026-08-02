@@ -33,8 +33,8 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty TextProperty();
 
     private:
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty = nullptr;
-        static inline winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty = nullptr;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_textProperty;
         winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> m_items{ winrt::single_threaded_vector<winrt::WinUI3Package::PopupMenuFlyoutItemBase>() };
     };
 }

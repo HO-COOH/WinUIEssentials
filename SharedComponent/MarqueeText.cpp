@@ -6,6 +6,14 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty MarqueeText::m_speedProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty MarqueeText::m_repeatBehaviorProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty MarqueeText::m_behaviorProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty MarqueeText::m_directionProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty MarqueeText::m_textProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty MarqueeText::m_pauseOnHoverProperty = nullptr;
+	winrt::WinUINamespace::UI::Xaml::DependencyProperty MarqueeText::m_intervalSpaceProperty = nullptr;
+
 	void MarqueeText::EnsureDependencyProperties()
 	{
 		if (m_speedProperty) 
