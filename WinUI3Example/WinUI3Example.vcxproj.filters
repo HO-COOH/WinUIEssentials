@@ -300,6 +300,9 @@
     <Page Include="TableConextMenuPage.xaml">
       <Filter>Pages\TablePage</Filter>
     </Page>
+    <Page Include="WebViewPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

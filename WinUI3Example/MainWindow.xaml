@@ -819,6 +819,7 @@
                         <NavigationViewItem Content="SettingsExpander" Tag="{essential:TypeName Type=local:SettingsExpanderPage}" />
                         <NavigationViewItem Content="Shimmer" Tag="{essential:TypeName Type=local:ShimmerPage}" />
                         <NavigationViewItem Content="SwitchPresenter" Tag="{essential:TypeName Type=local:SwitchPresenterPage}" />
+                        <NavigationViewItem Content="WebView" Tag="{essential:TypeName Type=local:WebViewPage}" />
                         <NavigationViewItem Content="WrapPanel" Tag="{essential:TypeName Type=local:WrapPanelPage}" />
                         <NavigationViewItem Content="Table Overview" Tag="{essential:TypeName Type=local:TablePage}">
                             <NavigationViewItem.MenuItems>

@@ -1,16 +1,31 @@
 ﻿#pragma once
 
 #include "VersionInfo.g.h"
+#include <WindowsAppSDK-VersionInfo.h>
 
 namespace winrt::WinUI3Package::implementation
 {
     struct VersionInfo : VersionInfoT<VersionInfo>
     {
+        constexpr static uint32_t WASDKReleaseMajor()
+        {
+            return WINDOWSAPPSDK_RELEASE_MAJOR;
+        }
 
-        static uint32_t WASDKReleaseMajor();
-        static uint32_t WASDKReleaseMinor();
-        static uint32_t WASDKReleasePatch();
-        static uint32_t WASDKReleaseMajorMinor();
+        constexpr static uint32_t WASDKReleaseMinor()
+        {
+            return WINDOWSAPPSDK_RELEASE_MINOR;
+        }
+
+        constexpr static uint32_t WASDKReleasePatch()
+        {
+            return WINDOWSAPPSDK_RELEASE_PATCH;
+        }
+        constexpr static uint32_t WASDKReleaseMajorMinor()
+        {
+            return WINDOWSAPPSDK_RELEASE_MAJORMINOR;
+        }
+
         static winrt::hstring WASDKReleaseChannel();
     };
 }

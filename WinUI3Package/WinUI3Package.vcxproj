@@ -538,6 +538,10 @@
     </ClInclude>
     <ClInclude Include="WallpaperInfo.h" />
     <ClInclude Include="WallpaperManager.h" />
+    <ClInclude Include="WebView.h">
+      <DependentUpon>WebView.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WindowCaptionButtonThemeWorkaround.h">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -759,6 +763,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WallpaperManager.cpp" />
+    <ClCompile Include="WebView.cpp">
+      <DependentUpon>WebView.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="WindowCaptionButtonThemeWorkaround.cpp">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -918,6 +926,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="VersionInfo.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="WebView.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowCaptionButtonThemeWorkaround.idl">

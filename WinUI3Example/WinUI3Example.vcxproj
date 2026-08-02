@@ -758,6 +758,10 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WebViewPage.xaml.h">
+      <DependentUpon>WebViewPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Win32TitleBar.xaml.h">
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1057,6 +1061,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UriPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WebViewPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Win32TitleBar.xaml">
@@ -1501,6 +1508,10 @@
       <DependentUpon>UriPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WebViewPage.xaml.cpp">
+      <DependentUpon>WebViewPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Win32TitleBar.xaml.cpp">
       <DependentUpon>Win32TitleBar.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1925,6 +1936,10 @@
     </Midl>
     <Midl Include="UriPage.idl">
       <DependentUpon>UriPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WebViewPage.idl">
+      <DependentUpon>WebViewPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Win32TitleBar.idl">

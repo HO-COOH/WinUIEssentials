@@ -557,6 +557,9 @@
     <Midl Include="HostBackdrop.idl">
       <Filter>Backdrop\HostBackdrop</Filter>
     </Midl>
+    <Midl Include="WebView.idl">
+      <Filter>Controls</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="SettingsCard_Resource.xaml">

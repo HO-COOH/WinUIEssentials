@@ -1,0 +1,31 @@
+namespace WinUI3Package
+{
+    [bindable]
+    [default_interface]
+    runtimeclass WebView : Microsoft.UI.Xaml.Controls.Control
+    {
+        WebView();
+
+        Boolean CanGoBack{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty CanGoBackProperty{ get; };
+
+        Boolean CanGoForward{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty CanGoForwardProperty{ get; };
+
+        Boolean ContainsFullScreenElement{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty ContainsFullScreenElementProperty{ get; };
+
+        Windows.UI.Color DefaultBackgroundColor;
+        static Microsoft.UI.Xaml.DependencyProperty DefaultBackgroundColorProperty{ get; };
+
+        Windows.Foundation.Collections.IVector<Windows.UI.Xaml.Controls.WebViewDeferredPermissionRequest> DeferredPermissionRequests{ get; };
+
+        String DocumentTitle{ get; };
+        static Microsoft.UI.Xaml.DependencyProperty DocumentTitleProperty{ get; };
+
+        Windows.UI.Xaml.Controls.WebViewSettings Settings{ get; };
+
+        Windows.Foundation.Uri Source;
+        static Microsoft.UI.Xaml.DependencyProperty SourceProperty{ get; };
+    }
+}
