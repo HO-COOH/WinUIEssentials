@@ -88,6 +88,9 @@
     <Filter Include="Helper">
       <UniqueIdentifier>{1180320b-83c2-4360-8269-75c12030d77a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Table\Xaml\Table\Sort">
+      <UniqueIdentifier>{4d1388a0-ff0c-4a2c-9f96-f054c3a59b81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Convert.idl">
@@ -465,17 +468,23 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)DefaultTableHeaderContextMenu.h">
       <Filter>Table\Xaml\Table</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortContext.hpp">
-      <Filter>Table\Xaml\Table</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortDirection.h">
-      <Filter>Table\Xaml\Table</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableRowCollection.hpp">
       <Filter>Table\Xaml\TableRow</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.h">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortContext.hpp">
+      <Filter>Table\Xaml\Table\Sort</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableCompare.hpp">
+      <Filter>Table\Xaml\Table\Sort</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortDirection.h">
+      <Filter>Table\Xaml\Table\Sort</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortParameter.hpp">
+      <Filter>Table\Xaml\Table\Sort</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -670,6 +679,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.cpp">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnData.cpp">
+      <Filter>Table\Xaml\TableColumn</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableSortContext.cpp">
+      <Filter>Table\Xaml\Table\Sort</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

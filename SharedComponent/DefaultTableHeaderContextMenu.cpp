@@ -22,17 +22,17 @@ namespace winrt::PackageRoot::implementation
 
 	bool DefaultTableHeaderContextMenu::IsSortAscendingEnabled()
 	{
-		return isSortable() && m_table->m_sortContext.sortParameter.sortDirection != TableSortDirection::Ascending;
+		return isSortable() && m_table->m_sortContext.SortDirection() != TableSortDirection::Ascending;
 	}
 
 	bool DefaultTableHeaderContextMenu::IsSortDescendingEnabled()
 	{
-		return isSortable() && m_table->m_sortContext.sortParameter.sortDirection != TableSortDirection::Descending;
+		return isSortable() && m_table->m_sortContext.SortDirection() != TableSortDirection::Descending;
 	}
 
 	bool DefaultTableHeaderContextMenu::IsClearSortEnabled()
 	{
-		return m_table->m_sortContext.sortParameter;
+		return static_cast<bool>(m_table->m_sortContext);
 	}
 
 	void DefaultTableHeaderContextMenu::SortAscend_Click(

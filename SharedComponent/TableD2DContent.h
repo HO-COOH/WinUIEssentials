@@ -148,7 +148,7 @@ private:
 	SwapChainInterop m_swapChain;
 
 public:
-	TableHeightManager m_tableHeight{ m_dwriteFactory.get() };
+	TableHeightManager m_tableHeight;
 	TextLayoutCache m_textLayoutCache{ m_dwriteFactory.get() };
 	ColumnWidthManager m_columnWidthManager{ m_textLayoutCache, m_resource.m_localTableData, m_tableHeight };
 

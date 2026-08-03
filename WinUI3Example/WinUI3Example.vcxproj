@@ -474,6 +474,10 @@
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="HeaderlessTablePage.xaml.h">
+      <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="HostBackdropPage.xaml.h">
       <DependentUpon>HostBackdropPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -887,6 +891,9 @@
     <Page Include="GroupBoxPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="HeaderlessTablePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="HostBackdropPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1225,6 +1232,10 @@
     </ClCompile>
     <ClCompile Include="GroupBoxPage.xaml.cpp">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="HeaderlessTablePage.xaml.cpp">
+      <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="HostBackdropPage.xaml.cpp">
@@ -1674,6 +1685,10 @@
     </Midl>
     <Midl Include="GroupBoxPage.idl">
       <DependentUpon>GroupBoxPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="HeaderlessTablePage.idl">
+      <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="HostBackdropPage.idl">

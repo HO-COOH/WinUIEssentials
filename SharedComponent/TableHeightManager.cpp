@@ -2,6 +2,7 @@
 #include "TableHeightManager.h"
 #include <dwrite_3.h>
 #include "TableProperty.h"
+#include "Table.h"
 
 
 winrt::com_ptr<IDWriteFontCollection2>& TableHeightManager::ensureSystemFontCollection()
@@ -52,7 +53,8 @@ DWRITE_FONT_METRICS1 TableHeightManager::getFontMetrics(std::wstring_view fontFa
 	return result;
 }
 
-TableHeightManager::TableHeightManager(IDWriteFactory6* factory) : m_factory{ factory }
+TableHeightManager::TableHeightManager(IDWriteFactory6* factory, winrt::PackageRoot::implementation::Table& table) :
+	m_table{ table }, m_factory{ factory }
 {
 	if (m_lastFontSource.empty())
 	{
@@ -103,6 +105,8 @@ float TableHeightManager::ContentFontHeight() const
 
 float TableHeightManager::HeaderRowHeight() const
 {
+	if (!m_table.m_hasHeader.load(std::memory_order_relaxed))
+		return 0.f;
 	return HeaderFontHeight() + m_verticalPadding.load(std::memory_order_relaxed);
 }
 

@@ -12,4 +12,6 @@ struct TableColumnData
 	winrt::WinUINamespace::UI::Xaml::HorizontalAlignment m_horizontalAlignment{ winrt::WinUINamespace::UI::Xaml::HorizontalAlignment::Left };
 	bool m_sortEnabled = DefaultSortEnabled;
 	bool m_isResizable = DefaultSortEnabled;
+
+	bool HasContent() const noexcept;
 };

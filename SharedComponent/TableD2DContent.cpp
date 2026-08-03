@@ -11,9 +11,10 @@
 #include "Easing.hpp"
 #include "RowRequestedEventArgs.h"
 
-TableD2DContent::TableD2DContent(winrt::PackageRoot::implementation::Table& table) : 
+TableD2DContent::TableD2DContent(winrt::PackageRoot::implementation::Table& table) :
 	m_dispatcher{ table },
-	m_table_ref{ table }, 
+	m_tableHeight{ m_dwriteFactory.get(), table },
+	m_table_ref{ table },
 	m_drawThread{ [this] { try { drawThreadProc(); } catch (winrt::hresult const&) {} } }
 {
 	m_swapChain.Set(m_d3dDevice.get(), table);
@@ -389,7 +390,7 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 
 	//SetCellContent indexes m_perColumnCache, so columns must be sized
 	//before any RowRequested-driven push reaches the cache.
-	m_textLayoutCache.SetNumColumns(m_table_ref.m_columns->m_data.size());
+	m_textLayoutCache.SetNumColumns(m_table_ref.NumColumns());
 
 	if (auto const rowCount = static_cast<int>(m_textLayoutCache.RowCount()); rowCount > 0 && m_table_ref.m_tableData)
 	{
@@ -430,7 +431,7 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	auto const rawHeaderHeight = m_tableHeight.HeaderRowHeight() * scale;
 	m_horizontalLines.Rebuild(rawViewportWidth, rawViewportHeight, rawRowHeight, rawHeaderHeight);
 
-	if (!m_headerBitmap || headerDirty)
+	if (rawHeaderHeight > 0.f && (!m_headerBitmap || headerDirty))
 		renderHeaderBitmap(hoveredResizeColumn, scrollOffsetX);
 
 	drawVerticalLines();
@@ -446,12 +447,13 @@ void TableD2DContent::drawFull(float scrollOffsetX, float scrollOffsetY, int hov
 	if (m_verticalLines)
 		m_verticalLines.Draw(m_d2dContext.get(), -scrollOffsetX * scale, rawDataBottomY + rawHorizontalStroke);
 
-	m_d2dContext->DrawBitmap(
-		m_headerBitmap.Get(),
-		D2D1::RectF(0, 0, rawViewportWidth, rawHeaderHeight),
-		1.0f,
-		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR
-	);
+	if (rawHeaderHeight > 0.f)
+		m_d2dContext->DrawBitmap(
+			m_headerBitmap.Get(),
+			D2D1::RectF(0, 0, rawViewportWidth, rawHeaderHeight),
+			1.0f,
+			D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR
+		);
 	m_d2dContext->EndDraw();
 
 	winrt::check_hresult(m_swapChain->Present(0, 0));
@@ -613,10 +615,10 @@ void TableD2DContent::drawHeader(int hoveredResizeColumn, float scrollOffsetX)
 					m_d2dContext->DrawTextLayout({ currentX + verticalLineSpace + padLeft, padTop }, layout, m_resource.m_headerTextBrush.get());
 			}
 
-			if (m_table_ref.m_sortContext.sortParameter.sortColumn == static_cast<int>(column))
-			{
-				//draw sort indicator here
-			}
+			//if (m_table_ref.m_sortContext.sortParameter.sortColumn == static_cast<int>(column))
+			//{
+			//	//draw sort indicator here
+			//}
 		}
 		currentX += rawColumnWidth;
 	}
@@ -664,7 +666,8 @@ void TableD2DContent::drawRowCells(int row, float rowY, float scrollOffsetX, flo
 	auto const rawWidth = m_swapChain.CurrentSize.Width * scale;
 	auto currentX = -scrollOffsetX * scale;
 	auto* const textBrush = getAlternateRowForegroundBrush(row);
-	for (size_t column = 0; column < m_table_ref.m_columns->m_data.size(); ++column)
+	auto const numColumns = m_table_ref.NumColumns();
+	for (size_t column = 0; column < numColumns; ++column)
 	{
 		auto const rawColumnWidth = m_initialSizing? (std::numeric_limits<float>::max)() : m_columnWidthManager.Get(column) * scale;
 		if (currentX + rawColumnWidth > 0 || m_initialSizing)
@@ -717,7 +720,7 @@ void TableD2DContent::drawVerticalLines()
 	if (!m_resource.m_verticalLineBrush)
 		return;
 
-	auto const numColumns = m_table_ref.m_columns->m_data.size();
+	auto const numColumns = m_table_ref.NumColumns();
 	if (numColumns == 0 || m_initialSizing.load(std::memory_order_relaxed))
 		return;
 

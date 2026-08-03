@@ -8,13 +8,13 @@
 #include "CachedCursor.hpp"
 #include <include/PropertyChangeHelper.hpp>
 #include "include/EnsureDependencyProperty.hpp"
-#include "TableColumnCollection.h"
 #include "TableProperty.h"
 #include "SharedDataBase.hpp"
 #include "TableOverlayManager.h"
 #include "TableRowDataSource.h"
 #include "TableAlternateRowColorCollection.h"
 #include "TableSortContext.hpp"
+#include "TableColumnCollection.h"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -120,12 +120,15 @@ namespace winrt::PackageRoot::implementation
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty AlternateRowColorsProperty();
 
         winrt::PackageRoot::TableColumnCollection Columns();
-
         winrt::PackageRoot::ITableData ItemsSource();
         void ItemsSource(winrt::PackageRoot::ITableData const& data);
 
         winrt::Windows::Foundation::Collections::IVector<winrt::PackageRoot::TableRow> Items();
 
+        bool isHeaderless() const;
+
+        //Single source of truth for the column count across the library.
+        constexpr size_t NumColumns() const noexcept { return m_columns->m_data.size(); }
         //events
         winrt::event_token ContextMenuRequested(
             winrt::Windows::Foundation::TypedEventHandler<
@@ -140,11 +143,12 @@ namespace winrt::PackageRoot::implementation
         TableD2DContent m_d2dContent{ *this };
         TableOverlayManager m_overlayManager{ *this };
 
-        winrt::com_ptr<TableColumnCollection> m_columns = winrt::make_self<TableColumnCollection>();
+        winrt::com_ptr<TableColumnCollection> m_columns{ winrt::make_self<TableColumnCollection>() };
         winrt::com_ptr<TableRowDataSource> m_tableRowDataSource;
         winrt::com_ptr<implementation::TableAlternateRowColorCollection> m_alternateRowColors;
         winrt::PackageRoot::ITableData m_itemsSource{ nullptr };
         winrt::PackageRoot::ITableData m_tableData{ nullptr };
+        std::atomic_bool m_hasHeader{ true };
 
         //sorting
         TableSortContext m_sortContext;
@@ -283,9 +287,6 @@ namespace winrt::PackageRoot::implementation
 			winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
 			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
 		);
-
-        void sortObjectImpl(int rowCount);
-        void sortStringImpl(int rowCount);
 
         winrt::PackageRoot::ITableData::UpdateRowData_revoker m_updateRowDataRevoker;
 

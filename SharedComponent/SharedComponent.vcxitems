@@ -117,6 +117,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumn.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnCollection.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableRow.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableRowDataSource.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TableSortContext.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableVerticalLines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TextLayoutCache.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TypeNameExtension.cpp" />
@@ -194,6 +196,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumn.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnCollection.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableColumnData.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableCompare.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableConstants.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DContent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableD2DResource.h" />
@@ -207,6 +210,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableRowDataSource.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableSortContext.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableSortDirection.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TableSortParameter.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableVerticalLines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TextLayoutCache.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeNameExtension.h" />

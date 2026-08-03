@@ -303,6 +303,9 @@
     <Page Include="WebViewPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="HeaderlessTablePage.xaml">
+      <Filter>Pages\TablePage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

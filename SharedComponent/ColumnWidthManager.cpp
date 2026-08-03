@@ -38,29 +38,30 @@ constexpr static void weightedSum(std::vector<float>& result, float rawWidth, fl
 	);
 }
 
-//available width is not enough to fit the natural width of content, we use MinWidth/MaxWidth if set and measuredWidth if not
-//resulting content overflows the table space, horizontal scrollbar will appear
+//Final pass over the computed widths: clamp each to its MinWidth/MaxWidth if set.
+//Floors template/overlay columns (zero measured width) up to MinWidth, and caps any
+//column exceeding MaxWidth. If the clamped total overflows the table, the horizontal
+//scrollbar appears.
 constexpr static void clampToColumnConstraints(
 	std::vector<float>& measuredWidths,
-	std::vector<winrt::com_ptr<winrt::PackageRoot::implementation::TableColumn>> const& columnDefinitions)
+	std::vector<winrt::com_ptr<winrt::PackageRoot::implementation::TableColumn>> const& columnDefinitions,
+	float horizontalPadding)
 {
 	for (size_t col = 0; col < measuredWidths.size(); ++col)
 	{
 		auto const minWidth = columnDefinitions[col]->m_minWidth;
 		auto const maxWidth = columnDefinitions[col]->m_maxWidth;
-		auto const lo = minWidth >= 0.f ? minWidth : 0.f;
-		auto const hi = maxWidth >= 0.f ? maxWidth : (std::numeric_limits<float>::max)();
+		auto const lo = (std::max)(minWidth >= 0.f ? minWidth : 0.f, horizontalPadding);
+		auto const hi = maxWidth >= 0.f ? (std::max)(maxWidth, horizontalPadding) : (std::numeric_limits<float>::max)();
 		measuredWidths[col] = std::clamp(measuredWidths[col], lo, hi);
 	}
 }
 
 void ColumnWidthManager::InitializeColumnWidth(float width, float scale, std::vector<winrt::com_ptr<winrt::PackageRoot::implementation::TableColumn>> const& columnDefinitions)
 {
-	auto const& layoutCache = m_layoutCacheRef.m_perCellCache;
-	auto const& headerRow = layoutCache.front();
-	assert(!layoutCache.empty() && !headerRow.empty());
-
-	auto const numColumns = headerRow.size();
+	auto const numColumns = columnDefinitions.size();
+	if (numColumns == 0)
+		return;
 
 	//if the vertical line color is not transparent, deduct its width from total width
 	if (m_tableDataRef.m_verticalLineColor.a > 0.f)
@@ -75,14 +76,16 @@ void ColumnWidthManager::InitializeColumnWidth(float width, float scale, std::ve
 
 	auto const& padding = m_tableDataRef.m_contentPadding;
 	auto const horizontalPadding = static_cast<float>(padding.Left + padding.Right);
-	std::vector<float> finalWidths(headerRow.size(), horizontalPadding);
+	std::vector<float> finalWidths(numColumns, horizontalPadding);
 
+	auto const& layoutCache = m_layoutCacheRef.m_perCellCache;
 	DWRITE_TEXT_METRICS metrics;
 	switch (m_sizingMode)
 	{
 		case winrt::PackageRoot::ColumnSizingMode::HeaderContent:
 		{
-			for (size_t col = 0; col < numColumns; ++col)
+			auto const& headerRow = layoutCache.front();
+			for (size_t col = 0; col < numColumns && col < headerRow.size(); ++col)
 				finalWidths[col] += measureNaturalRawWidth(metrics, headerRow[col].layout.get()) / scale;
 			break;
 		}
@@ -102,8 +105,8 @@ void ColumnWidthManager::InitializeColumnWidth(float width, float scale, std::ve
 
 	if (auto const [enough, sum] = isAvailableColumnWidthEnough(finalWidths, width); enough)
 		weightedSum(finalWidths, width, sum);
-	else
-		clampToColumnConstraints(finalWidths, columnDefinitions);
+
+	clampToColumnConstraints(finalWidths, columnDefinitions, horizontalPadding);
 	initialize(finalWidths);
 }
 
@@ -167,10 +170,11 @@ void ColumnWidthManager::pushColumnBoundsToCache(int column, float width, Column
 	++columnLayout.m_contentLayoutVersion;
 	//Width is shared with the header — push it directly so the header layout
 	//doesn't have to wait for the next drawHeader pass. Header maxHeight is
-	//independent and managed by drawHeader itself.
+	//independent and managed by drawHeader itself. In headerless mode drawHeader
+	//never runs, so the header row stays empty — skip the shared-width push then.
 	auto& headerRow = m_layoutCacheRef.m_perCellCache.front();
-	auto& headerLayout = headerRow[column].layout;
-	winrt::check_hresult(headerLayout->SetMaxWidth(paddedMaxWidth));
+	if (static_cast<size_t>(column) < headerRow.size() && headerRow[column].layout)
+		winrt::check_hresult(headerRow[column].layout->SetMaxWidth(paddedMaxWidth));
 }
 
 void ColumnWidthManager::initialize(std::vector<float> const& result)

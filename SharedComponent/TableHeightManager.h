@@ -4,12 +4,18 @@
 
 struct IDWriteFactory6;
 
+namespace winrt::PackageRoot::implementation
+{
+	struct Table;
+}
+
 class TableHeightManager
 {
 	static inline winrt::com_ptr<IDWriteFontCollection2> m_systemFontCollection;
 	static inline std::wstring m_lastFontSource;
 	static inline DWRITE_FONT_METRICS1 m_lastFontMetrics;
 
+	winrt::PackageRoot::implementation::Table& m_table;
 	IDWriteFactory6* m_factory;
 	std::atomic<float> m_headerFontHeight{};
 	std::atomic<float> m_contentFontHeight{};
@@ -24,7 +30,7 @@ class TableHeightManager
 		return (m_lastFontMetrics.ascent + m_lastFontMetrics.descent + m_lastFontMetrics.lineGap) * scale;
 	}
 public:
-	TableHeightManager(IDWriteFactory6* factory);
+	TableHeightManager(IDWriteFactory6* factory, winrt::PackageRoot::implementation::Table& table);
 
 	void UpdateFont(winrt::WinUINamespace::UI::Xaml::Media::FontFamily const& fontFamily);
 	[[maybe_unused]] float SetHeaderFontSize(float fontSize); //return the new calculated value

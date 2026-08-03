@@ -91,16 +91,14 @@ TableOverlayManager::ColumnState& TableOverlayManager::ensureColumn(int column)
 
 TableOverlayManager::CellSlot& TableOverlayManager::createSlot(ColumnState& state, int column)
 {
-	auto& tableColumn = *m_table.m_columns->m_data[column];
-	auto& columnData = tableColumn.m_data;
+	auto& columnData = m_table.m_columns->m_data[column]->m_data;
 	auto cellContent = columnData.m_itemTemplate
 		.LoadContent()
 		.as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
 
-	winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(cellContent, true);
+	cellContent.MaxWidth(cellContentWidth(column));
 
-	cellContent.HorizontalAlignment(tableColumn.HorizontalAlignment());
-	cellContent.Width(cellContentWidth(column));
+	winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(cellContent, true);
 
 	m_children.Append(cellContent);
 	state.slots.push_back(CellSlot{ cellContent, -1 });
@@ -163,8 +161,7 @@ void TableOverlayManager::OnLoaded()
 			continue;
 
 		winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::SetIsTranslationEnabled(control, true);
-		control.HorizontalAlignment(columns[col]->HorizontalAlignment());
-		control.Width(cellContentWidth(static_cast<int>(col)));
+		control.MaxWidth(cellContentWidth(static_cast<int>(col)));
 		control.Height(headerHeight);
 		m_headerChildren.Append(control);
 
@@ -217,12 +214,12 @@ void TableOverlayManager::OnColumnResized(int resizedColumn)
 	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
 	auto const leading = cellLeftOffset();
 
-	//change xaml control width of the column
+	//change xaml control width cap of the column
 	auto const newWidth = cellContentWidth(resizedColumn);
 	for (auto& slot : m_columns[resizedColumn].slots)
-		slot.element.Width(newWidth);
+		slot.element.MaxWidth(newWidth);
 	if (auto& header = m_columns[resizedColumn].headerElement)
-		header.Width(newWidth);
+		header.MaxWidth(newWidth);
 
 	for (int c = resizedColumn + 1; c < numColumns; ++c)
 	{

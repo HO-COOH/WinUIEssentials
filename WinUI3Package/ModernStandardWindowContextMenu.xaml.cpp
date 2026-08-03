@@ -102,14 +102,6 @@ namespace winrt::WinUI3Package::implementation
     {
         wil::unique_hmenu systemMenu{ GetSystemMenu(m_parent, false) };
         auto const systemMenuItemCount = GetMenuItemCount(systemMenu.get());
-        
-        std::vector<MENUITEMINFOW> items;
-        for (int i = 0; i < systemMenuItemCount; ++i)
-        {
-            MENUITEMINFOW item{ .cbSize = sizeof(item), .fMask = MIIM_BITMAP | MIIM_FTYPE };
-            winrt::check_bool(GetMenuItemInfoW(systemMenu.get(), i, true, &item));
-            items.push_back(item);
-        }
 
         if (systemMenuItemCount >= nonResizableWindowContextMenuItemCount)
         {

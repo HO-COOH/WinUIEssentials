@@ -1,43 +1,53 @@
 ﻿#pragma once
-#include "TableSortDirection.h"
+#include "TableSortParameter.hpp"
 #include <vector>
+#include <numeric>
 
-struct TableSortParameter
+namespace winrt::PackageRoot::implementation
 {
-	int sortColumn = -1;
-	TableSortDirection sortDirection{};
+	struct TableRow;
+}
 
-	constexpr operator bool() const
-	{
-		return sortColumn >= 0;
-	}
+class TextLayoutCache;
 
-	constexpr bool operator==(TableSortParameter const&) const = default;
-};
-
-struct TableSortContext
+class TableSortContext
 {
-	TableSortParameter sortParameter;
-	std::vector<size_t> sortedIndices;
-
-	explicit operator bool() const
+	TableSortParameter m_sortParameter;
+	std::vector<size_t> m_sortedIndices;
+	
+	constexpr void makeSortIndices(int rowCount)
 	{
-		return static_cast<bool>(sortParameter);
+		m_sortedIndices.resize(rowCount);
+		std::iota(m_sortedIndices.begin(), m_sortedIndices.end(), size_t{ 0 });
+	}
+public:
+	constexpr explicit operator bool() const
+	{
+		return static_cast<bool>(m_sortParameter);
 	}
 
-	//Map a display row to its underlying source row. Falls back to the
-	//identity when unsorted or out of range.
-	size_t Source(size_t displayRow) const
+	constexpr size_t Source(size_t displayRow) const
 	{
-		if (sortParameter && displayRow < sortedIndices.size())
-			return sortedIndices[displayRow];
-		return displayRow;
+		return m_sortParameter ? m_sortedIndices[displayRow] : displayRow;
 	}
 
-	void Clear()
+	constexpr TableSortDirection SortDirection() const
 	{
-		sortParameter.sortColumn = -1;
-		sortParameter.sortDirection = TableSortDirection::None;
-		sortedIndices.clear();
+		return m_sortParameter.sortDirection;
 	}
+
+	constexpr void SetSortParameter(TableSortParameter sortParameter)
+	{
+		if (sortParameter.sortDirection == TableSortDirection::None)
+			sortParameter.sortColumn = -1;
+
+		if (m_sortParameter == sortParameter)
+			return;
+
+		m_sortParameter = sortParameter;
+		m_sortedIndices.clear();
+	}
+
+	void SortObject(int rowCount, std::vector<winrt::com_ptr<winrt::PackageRoot::implementation::TableRow>> const& tableRows);
+	void SortString(int rowCount, TextLayoutCache const& textLayoutCache);
 };
