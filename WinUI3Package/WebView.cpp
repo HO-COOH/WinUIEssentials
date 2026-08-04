@@ -90,6 +90,8 @@ namespace winrt::WinUI3Package::implementation
 				m_webview.Close();
 				m_webview = nullptr;
 			}
+			m_mouseHook.reset();
+			m_hostHwnd = nullptr;
 			::ResetEvent(m_loaded.get());
 		});
 		LayoutUpdated([this](auto&&...) 
@@ -461,7 +463,17 @@ namespace winrt::WinUI3Package::implementation
 		m_webview.FrameNavigationStarting([this](auto const&, auto const& args) { m_frameNavigationStarting(*this, args); });
 		m_webview.LongRunningScriptDetected([this](auto const&, auto const& args) { m_longRunningScriptDetected(*this, args); });
 		m_webview.NavigationStarting([this](auto const&, auto const& args) { m_navigationStarting(*this, args); });
-		m_webview.NavigationCompleted([this](auto const&, auto const& args) { m_navigationCompleted(*this, args); });
+		m_webview.NavigationCompleted([this](auto const&, auto const& args)
+		{
+			SetValue(s_canGoBackProperty, winrt::box_value(m_webview.CanGoBack()));
+			SetValue(s_canGoForwardProperty, winrt::box_value(m_webview.CanGoForward()));
+			SetValue(s_documentTitleProperty, winrt::box_value(m_webview.DocumentTitle()));
+			m_navigationCompleted(*this, args);
+		});
+		m_webview.ContainsFullScreenElementChanged([this](auto const&, auto const&)
+		{
+			SetValue(s_containsFullScreenElementProperty, winrt::box_value(m_webview.ContainsFullScreenElement()));
+		});
 		m_webview.NewWindowRequested([this](auto const&, auto const& args) { m_newWindowRequested(*this, args); });
 		m_webview.PermissionRequested([this](auto const&, auto const& args) { m_permissionRequested(*this, args); });
 		m_webview.ScriptNotify([this](auto const&, auto const& args) { m_scriptNotify(*this, args); });
@@ -472,8 +484,33 @@ namespace winrt::WinUI3Package::implementation
 
 		setProperties();
 
+		// Intercept right-clicks that land inside the webview so the window-level context
+		// menu is never raised. See WebViewMouseHook.
+		m_hostHwnd = hwnd;
+		m_mouseHook.emplace(this);
+
 		// Release any callers parked in waitForLoadAsync().
 		::SetEvent(m_loaded.get());
+	}
+
+	bool WebView::isPointInWebView(POINT screenPoint) const
+	{
+		// m_cachedBounds is the webview's rectangle in the host window's client area
+		// (physical pixels), kept up to date by LayoutUpdated.
+		if (!m_hostHwnd || m_cachedBounds.Width <= 0 || m_cachedBounds.Height <= 0)
+			return false;
+
+		POINT topLeft{ static_cast<LONG>(m_cachedBounds.X), static_cast<LONG>(m_cachedBounds.Y) };
+		if (!::ClientToScreen(m_hostHwnd, &topLeft))
+			return false;
+
+		RECT const rect{
+			topLeft.x,
+			topLeft.y,
+			topLeft.x + static_cast<LONG>(m_cachedBounds.Width),
+			topLeft.y + static_cast<LONG>(m_cachedBounds.Height)
+		};
+		return ::PtInRect(&rect, screenPoint);
 	}
 
 	winrt::Windows::Foundation::IAsyncAction WebView::waitForLoadAsync()

@@ -143,6 +143,7 @@ You can reference Github Action for detailed build steps.
 |TenMica | :x: | :white_check_mark: | WinRT component
 |WindowedContentDialog | :x: | :white_check_mark: | Control
 |SvgImageSource | :white_check_mark: | :white_check_mark: | WinRT component
+|WebView | :x: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -1258,3 +1259,71 @@ The WinUI3's built-in `SvgImageSource` has these [known limitations](https://lea
 |RasterizePixelWidth | :white_check_mark: | The pixel width of the svg rasterized, not compatible with `BindSizeTo`
 |RasterizePixelHeight | :white_check_mark: | The pixel height of the svg rasterized, not compatible with `BindSizeTo`
 |BindSizeTo | :white_check_mark: | The `Image` control to bind to automatically adjust rasterized size. Not compatible with `RasterizedPixelWidth` and `RasterizedPixelHeight`
+
+## WebView
+I brought back the WebView (based on legacy EdgeHTML) control, and it should have exactly the same API
+surfaces (except for `CornerRadius`) as the `Windows.UI.Xaml.Controls.WebView` in UWP.
+It is more efficient and has better performance than WebView2, making it more preferrable the web content 
+you are showing is simple and target older version of browsers.
+
+Usage:
+```xml
+<essential:WebView Source="https://www.microsoft.com" />
+```
+
+### Properties
+|Property| Type | DependencyProperty? | Description
+|---|---|---|---|
+|Source | Windows.Foundation.Uri | :white_check_mark: | The `Uri` currently navigated to; set it to navigate
+|CanGoBack | Boolean | :white_check_mark: | `true` if there is a page to navigate back to (read-only)
+|CanGoForward | Boolean | :white_check_mark: | `true` if there is a page to navigate forward to (read-only)
+|ContainsFullScreenElement | Boolean | :white_check_mark: | `true` while the page has an element in full-screen mode (read-only)
+|DocumentTitle | String | :white_check_mark: | The title of the current document (read-only)
+|DefaultBackgroundColor | Windows.UI.Color | :white_check_mark: | The background color shown before/behind page content
+|DeferredPermissionRequests | IVector\<WebViewDeferredPermissionRequest\> | :x: | The permission requests that were deferred (read-only)
+|Settings | Windows.Web.UI.WebViewControlSettings | :x: | The underlying control settings, e.g. scripting/IndexedDB toggles (read-only)
+
+### Methods
+|Method| Description
+|---|---|
+|void Navigate(Uri source) | Navigate to the given `Uri`
+|void NavigateToString(String text) | Load the given HTML string as the page content
+|void NavigateToLocalStreamUri(Uri source, IUriToStreamResolver streamResolver) | Navigate to a local `ms-local-stream://` `Uri` resolved through a custom resolver
+|void NavigateWithHttpRequestMessage(HttpRequestMessage requestMessage) | Navigate using a fully-specified HTTP request
+|Uri BuildLocalStreamUri(String contentIdentifier, String relativePath) | Build an `ms-local-stream://` `Uri` for use with `NavigateToLocalStreamUri`
+|void GoBack() | Navigate to the previous page in history
+|void GoForward() | Navigate to the next page in history
+|void Refresh() | Reload the current page
+|void Stop() | Stop the current navigation
+|void Close() | Close the webview and release the underlying process
+|void AddInitializeScript(String script) | Register a script that runs before any page script on every navigation
+|IAsyncOperation\<String\> InvokeScriptAsync(String scriptName, IIterable\<String\> arguments) | Invoke a JavaScript function on the current page and return its result
+|IAsyncAction CapturePreviewToStreamAsync(IRandomAccessStream stream) | Write a preview image of the current page into the stream
+|IAsyncOperation\<DataPackage\> CaptureSelectedContentToDataPackageAsync() | Capture the current selection into a `DataPackage`
+|void MoveFocus(WebViewControlMoveFocusReason reason) | Move focus into the webview content
+|void GetDeferredPermissionRequestById(UInt32 id, out WebViewControlDeferredPermissionRequest request) | Retrieve a previously deferred permission request by id
+
+### Events
+|Event| EventArgs | Description
+|---|---|---|
+|NavigationStarting | WebViewControlNavigationStartingEventArgs | The top-level page is about to navigate; cancelable
+|ContentLoading | WebViewControlContentLoadingEventArgs | The top-level content has started loading
+|DOMContentLoaded | WebViewControlDOMContentLoadedEventArgs | The top-level DOM content has finished loading
+|NavigationCompleted | WebViewControlNavigationCompletedEventArgs | The top-level navigation has completed (success or failure)
+|FrameNavigationStarting | WebViewControlNavigationStartingEventArgs | A subframe is about to navigate
+|FrameContentLoading | WebViewControlContentLoadingEventArgs | A subframe has started loading content
+|FrameDOMContentLoaded | WebViewControlDOMContentLoadedEventArgs | A subframe's DOM content has finished loading
+|ScriptNotify | WebViewControlScriptNotifyEventArgs | The page called `window.external.notify`
+|LongRunningScriptDetected | WebViewControlLongRunningScriptDetectedEventArgs | A long-running script was detected; can be halted
+|UnsafeContentWarningDisplaying | / | A SmartScreen unsafe-content warning is being displayed
+|UnsupportedUriSchemeIdentified | WebViewControlUnsupportedUriSchemeIdentifiedEventArgs | Navigation to an unsupported URI scheme was requested; cancelable
+|UnviewableContentIdentified | WebViewControlUnviewableContentIdentifiedEventArgs | The content cannot be displayed (e.g. a download)
+|NewWindowRequested | WebViewControlNewWindowRequestedEventArgs | The page requested a new window; cancelable
+|PermissionRequested | WebViewControlPermissionRequestedEventArgs | The page requested a permission (geolocation, media, etc.)
+|WebResourceRequested | WebViewControlWebResourceRequestedEventArgs | A web resource is being requested; allows interception
+|MoveFocusRequested | WebViewControlMoveFocusRequestedEventArgs | The content requested focus be moved out of the webview
+
+> [!NOTE]
+> Right-clicks inside the webview are intercepted so the win32 window context menu is never raised
+> (see the `WebViewMouseHook`); this also suppresses the webview's own native context menu within its bounds.
+

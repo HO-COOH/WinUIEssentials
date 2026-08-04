@@ -88,6 +88,9 @@
     <ClCompile Include="GaussianBlurEffectInterop.cpp">
       <Filter>Backdrop\HostBackdrop</Filter>
     </ClCompile>
+    <ClCompile Include="WebViewMouseHook.cpp">
+      <Filter>Controls\WebView</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -319,6 +322,9 @@
     <ClInclude Include="GaussianBlurEffectInterop.h">
       <Filter>Backdrop\HostBackdrop</Filter>
     </ClInclude>
+    <ClInclude Include="WebViewMouseHook.h">
+      <Filter>Controls\WebView</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -423,6 +429,9 @@
     </Filter>
     <Filter Include="Controls\Table">
       <UniqueIdentifier>{6454c2bb-bcca-46f0-8543-24ae61aa898b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\WebView">
+      <UniqueIdentifier>{efbf208c-fdb4-4752-9102-5e4189160912}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -558,7 +567,7 @@
       <Filter>Backdrop\HostBackdrop</Filter>
     </Midl>
     <Midl Include="WebView.idl">
-      <Filter>Controls</Filter>
+      <Filter>Controls\WebView</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

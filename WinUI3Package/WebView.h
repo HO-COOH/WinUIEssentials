@@ -1,14 +1,19 @@
 ﻿#pragma once
 
 #include "WebView.g.h"
+#include <optional>
 #include <winrt/Windows.Web.UI.h>
 #include <winrt/Windows.Web.UI.Interop.h>
 #include "include/EnsureDependencyProperty.hpp"
+#include "WebViewMouseHook.h"
 
 namespace winrt::WinUI3Package::implementation
 {
 	struct WebView : WebViewT<WebView>, EnsureDependencyProperty<WebView>
     {
+		// Grants the mouse hook access to the private isPointInWebView hit-test.
+		friend class WebViewMouseHook;
+
 		static void EnsureDependencyProperties();
 
         WebView();
@@ -144,12 +149,13 @@ namespace winrt::WinUI3Package::implementation
         );
 
         void setProperties();
-
-        // Completes immediately if m_webview is already created; otherwise suspends until
-        // onLoaded signals m_loaded, then resumes on the UI thread.
         winrt::Windows::Foundation::IAsyncAction waitForLoadAsync();
+        [[nodiscard]] winrt::Windows::Foundation::Rect getBounds(double scale);
 
-        winrt::Windows::Foundation::Rect getBounds(double scale);
+        [[nodiscard]] bool isPointInWebView(POINT screenPoint) const;
+
+        std::optional<WebViewMouseHook> m_mouseHook;
+        HWND m_hostHwnd{ nullptr };
 
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_canGoBackProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty s_canGoForwardProperty;
