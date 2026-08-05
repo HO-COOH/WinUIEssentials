@@ -23,17 +23,27 @@ namespace winrt::WinUI3Example::implementation
 
 	void WindowBackgroundHelper::Window(winrt::Microsoft::UI::Xaml::Window const& value)
 	{
+		if (m_window == value)
+			return;
 		m_window = value;
-		SystemBackdrop(m_type);
+		applyBackdrop();
 	}
 
 	void WindowBackgroundHelper::SystemBackdrop(SystemBackdropType type)
 	{
+		//Only rebuild when the requested type actually changed (or nothing has been applied yet).
+		if (m_type == type && m_backdropApplied)
+			return;
 		m_type = type;
+		applyBackdrop();
+	}
+
+	void WindowBackgroundHelper::applyBackdrop()
+	{
 		if (!m_window)
 			return;
 
-		switch (type)
+		switch (m_type)
 		{
 			case SystemBackdropType::Automatic:
 			{
@@ -52,6 +62,7 @@ namespace winrt::WinUI3Example::implementation
 				m_window.SystemBackdrop(nullptr);
 				break;
 		}
+		m_backdropApplied = true;
 		setBackgroundWithType();
 	}
 

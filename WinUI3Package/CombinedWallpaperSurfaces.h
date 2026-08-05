@@ -2,13 +2,14 @@
 #include "CombinedWallpaper.h"
 #include <winrt/Windows.UI.Composition.h>
 #include <d2d1_1.h>
+#include "AutoResizeBitmap.h"
 
 class WallpaperManager;
 
 class CombinedWallpaperSurfaces
 {
-	CombinedWallpaper m_combinedWallpaperLight;
-	CombinedWallpaper m_combinedWallpaperDark;
+	CombinedWallpaper m_combinedWallpaper;
+	AutoResizeBitmap m_blurredWallpaper;
 
 	winrt::Windows::UI::Composition::CompositionGraphicsDevice graphicsDevice{ nullptr };
 	winrt::com_ptr<ID2D1Effect> m_blurEffect;
@@ -18,6 +19,7 @@ class CombinedWallpaperSurfaces
 	winrt::com_ptr<ID2D1Effect> tintColorEffect;
 
 	void createD2DEffects(ID2D1DeviceContext* d2dContext);
+	void buildBlurredWallpaper(WallpaperManager& wallpaper);
 
 	static winrt::Windows::UI::Composition::CompositionSurfaceBrush initSurfaceBrush(
 		winrt::Windows::UI::Composition::Compositor const& compositor,
@@ -29,7 +31,7 @@ class CombinedWallpaperSurfaces
 		WallpaperManager& wallpaper
 	);
 
-	void setEffectValues(bool isLight);
+	void setEffectForTheme(bool isLight);
 public:
 	winrt::Windows::UI::Composition::CompositionDrawingSurface m_surfaceLight{ nullptr };
 	winrt::Windows::UI::Composition::CompositionDrawingSurface m_surfaceDark{ nullptr };

@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "TableHeaderBitmap.h"
+#include "AutoResizeBitmap.h"
 
 struct ID2D1DeviceContext;
 
-class TableVerticalLines : public TableHeaderBitmap
+class TableVerticalLines : public AutoResizeBitmap
 {
 	uint32_t m_widthVersion{};
 	bool m_dirty{};

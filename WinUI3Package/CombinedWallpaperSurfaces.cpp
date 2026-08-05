@@ -44,7 +44,7 @@ void CombinedWallpaperSurfaces::createD2DEffects(ID2D1DeviceContext* d2dContext)
 	
 	winrt::check_hresult(luminosityBlendEffect->SetValue(D2D1_BLEND_PROP_MODE, D2D1_BLEND_MODE_LUMINOSITY));
 
-	luminosityBlendEffect->SetInputEffect(0, m_blurEffect.get());
+	//Input 0 is the pre-blurred wallpaper bitmap (m_blurredWallpaper), wired up per draw once it exists
 	luminosityBlendEffect->SetInputEffect(1, luminosityColorEffect.get());
 
 	winrt::check_hresult(m_finalBlend->SetValue(D2D1_BLEND_PROP_MODE, D2D1_BLEND_MODE_COLOR));
@@ -65,23 +65,53 @@ winrt::Windows::UI::Composition::CompositionSurfaceBrush CombinedWallpaperSurfac
 	return brush;
 }
 
+void CombinedWallpaperSurfaces::buildBlurredWallpaper(WallpaperManager& wallpaper)
+{
+	//IDesktopWallpaper::GetPosition is a blocking out-of-process COM call that pumps the message queue while
+	//waiting for the reply. This must be called first to ensure no message between BeginDraw & EndDraw re-entry
+	auto const position = wallpaper.Position();
+
+	auto const screenSize = D2D1::SizeU(
+		GetSystemMetricsForDpi(SM_CXVIRTUALSCREEN, 96),
+		GetSystemMetricsForDpi(SM_CYVIRTUALSCREEN, 96)
+	);
+
+	winrt::com_ptr<ID2D1DeviceContext> d2dContext;
+	winrt::check_hresult(t_d2dDevice->CreateDeviceContext(D2D1_DEVICE_CONTEXT_OPTIONS::D2D1_DEVICE_CONTEXT_OPTIONS_NONE, d2dContext.put()));
+	d2dContext->SetUnitMode(D2D1_UNIT_MODE::D2D1_UNIT_MODE_PIXELS);
+	createD2DEffects(d2dContext.get());
+
+	auto blurredWallpaperTarget = m_blurredWallpaper.RecreateIfNeeded(d2dContext.get(), screenSize);
+	d2dContext->BeginDraw();
+	auto combinedWallpaper = m_combinedWallpaper.Draw(wallpaper.Get(), position, screenSize, d2dContext.get());
+	m_blurEffect->SetInput(0, combinedWallpaper);
+	d2dContext->SetTarget(blurredWallpaperTarget);
+	d2dContext->SetTransform(D2D1::Matrix3x2F::Identity());
+	d2dContext->Clear();
+	d2dContext->DrawImage(m_blurEffect.get());
+	winrt::check_hresult(d2dContext->EndDraw());
+
+	//The blurred bitmap is the luminosity blend's base input, shared by both theme surfaces.
+	luminosityBlendEffect->SetInput(0, blurredWallpaperTarget);
+}
+
 void CombinedWallpaperSurfaces::drawToSurfaceImpl(bool isLight, WallpaperManager& wallpaper)
 {
+	if (isLight || !m_blurredWallpaper)
+		buildBlurredWallpaper(wallpaper);
+
 	auto surfaceInterop = (isLight? m_surfaceLight : m_surfaceDark).as<ABI::Windows::UI::Composition::ICompositionDrawingSurfaceInterop>();
 	winrt::com_ptr<ID2D1DeviceContext> d2dContext;
 	POINT offset{};
 	winrt::check_hresult(surfaceInterop->BeginDraw(nullptr, IID_PPV_ARGS(d2dContext.put()), &offset));
 	d2dContext->SetTransform(D2D1::Matrix3x2F::Translation(static_cast<float>(offset.x), static_cast<float>(offset.y)));
 	d2dContext->SetUnitMode(D2D1_UNIT_MODE::D2D1_UNIT_MODE_PIXELS);
-	auto combinedWallpaper = (isLight? m_combinedWallpaperLight : m_combinedWallpaperDark).Draw(wallpaper.Get(), wallpaper.Position(), d2dContext.get());
-	createD2DEffects(d2dContext.get());
-	setEffectValues(isLight);
-	m_blurEffect->SetInput(0, combinedWallpaper);
+	setEffectForTheme(isLight);
 	d2dContext->DrawImage(m_finalBlend.get());
 	winrt::check_hresult(surfaceInterop->EndDraw());
 }
 
-void CombinedWallpaperSurfaces::setEffectValues(bool isLight)
+void CombinedWallpaperSurfaces::setEffectForTheme(bool isLight)
 {
 	auto baseColor = isLight ? TenMicaConstants::D2D::LuminosityColorLight : TenMicaConstants::D2D::LuminosityColorDark;
 	winrt::check_hresult(luminosityColorEffect->SetValue(D2D1_FLOOD_PROP_COLOR, baseColor));

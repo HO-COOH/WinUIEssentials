@@ -120,7 +120,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)TableColumnData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DContent.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableD2DResource.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AutoResizeBitmap.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHeightManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableHorizontalLines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableOverlayManager.cpp" />
@@ -203,7 +203,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHeightManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableOverlayManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableProperty.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AutoResizeBitmap.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableHorizontalLines.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableRow.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TableRowCollection.hpp" />

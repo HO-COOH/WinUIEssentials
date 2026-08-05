@@ -1,51 +1,18 @@
 ﻿#include "pch.h"
 #include "CombinedWallpaper.h"
 
-
-bool CombinedWallpaper::createNewBitmapIfSizeChanged(ID2D1DeviceContext* d2dContext)
-{
-	auto const currentSize = D2D1::SizeU(
-		GetSystemMetricsForDpi(SM_CXVIRTUALSCREEN, 96),
-		GetSystemMetricsForDpi(SM_CYVIRTUALSCREEN, 96)
-	);
-
-	if (m_currentSize == currentSize)
-		return false;
-
-	auto combinedWallpaperProperties = D2D1::BitmapProperties1(
-		D2D1_BITMAP_OPTIONS::D2D1_BITMAP_OPTIONS_TARGET,
-		D2D1::PixelFormat(DXGI_FORMAT::DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE::D2D1_ALPHA_MODE_PREMULTIPLIED)
-	);
-	winrt::check_hresult(d2dContext->CreateBitmap(
-		currentSize,
-		nullptr,
-		0,
-		&combinedWallpaperProperties,
-		m_combinedWallpaperBitmap.put()
-	));
-	m_currentSize = currentSize;
-
-	return true;
-}
-
 void CombinedWallpaper::drawBitmapImpl(ID2D1DeviceContext* d2dContext, ID2D1Bitmap* bitmap, D2D1_RECT_F rect)
 {
 	d2dContext->DrawBitmap(bitmap, rect);
-}
-
-void CombinedWallpaper::Reset()
-{
-	m_currentSize = {};
 }
 
 void CombinedWallpaper::draw_span(ID2D1DeviceContext* d2dContext, WallpaperInfo const& wallpaperInfo)
 {
 	auto wallpaperBitmap = createBitmap(d2dContext, wallpaperInfo.wallpaper.get());
 	auto const wallpaperSize = wallpaperBitmap->GetPixelSize();
-	float const width = static_cast<float>(m_currentSize.width);
-	float const height = static_cast<float>(m_currentSize.height);
-	auto const scaleX = width / wallpaperSize.width;
-	auto const scaleY = height / wallpaperSize.height;
+	auto [width, height] = m_combinedWallpaperBitmap.Size();
+	auto const scaleX = static_cast<float>(width) / wallpaperSize.width;
+	auto const scaleY = static_cast<float>(height) / wallpaperSize.height;
 	auto const finalScale = (std::max)(scaleX, scaleY);
 
 	auto const destWidth = wallpaperSize.width * finalScale;

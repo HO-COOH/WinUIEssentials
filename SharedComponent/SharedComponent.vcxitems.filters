@@ -399,7 +399,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)FrameRequest.h">
       <Filter>Table\D2D</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)AutoResizeBitmap.h">
       <Filter>Table\D2D</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.h">
@@ -620,7 +620,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ScrollRequest.cpp">
       <Filter>Table</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)TableHeaderBitmap.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)AutoResizeBitmap.cpp">
       <Filter>Table\D2D</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)RowRequestedEventArgs.cpp">

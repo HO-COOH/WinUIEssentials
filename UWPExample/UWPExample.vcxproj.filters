@@ -122,6 +122,9 @@
     <Page Include="WindowCaptionButtonWithWorkaround.xaml">
       <Filter>Pages\WindowCaptionButtonWorkaroundPage</Filter>
     </Page>
+    <Page Include="HeaderlessTablePage.xaml">
+      <Filter>Pages\TablePage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

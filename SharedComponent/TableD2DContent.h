@@ -17,7 +17,7 @@
 #include "TableHorizontalLines.h"
 #include "TableD2DResource.h"
 #include "FrameRequest.h"
-#include "TableHeaderBitmap.h"
+#include "AutoResizeBitmap.h"
 #include "TableVerticalLines.h"
 #include "TableHeightManager.h"
 
@@ -127,7 +127,7 @@ private:
 	}
 
 	void drawHeader(int hoveredResizeColumn, float scrollOffsetX);
-	//Renders the header into m_headerBitmap; called only when header state
+	//Renders the header into m_bitmap; called only when header state
 	//changed (column widths, horizontal scroll, hovered resize column, scale,
 	//viewport width, shared data, initial sizing). Scroll frames blit this
 	//bitmap instead of re-running the per-column text + line pass.
@@ -188,7 +188,7 @@ private:
 	ScrollRequest m_pendingScrollRequest;
 	ScrollRequest m_activeScrollRequest;
 
-	TableHeaderBitmap m_headerBitmap;
+	AutoResizeBitmap m_headerBitmap;
 
 	winrt::PackageRoot::implementation::Table& m_table_ref;
 

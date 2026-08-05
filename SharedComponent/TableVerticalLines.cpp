@@ -5,11 +5,11 @@
 
 void TableVerticalLines::Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetX, float bottom)
 {
-	auto const clampedBottom = std::clamp(bottom, 0.f, static_cast<float>(m_rawHeight));
-	auto const src = D2D1::RectF(0.f, 0.f, static_cast<float>(m_rawWidth), clampedBottom);
-	auto const dst = D2D1::RectF(scrollOffsetX, 0.f, scrollOffsetX + m_rawWidth, clampedBottom);
+	auto const clampedBottom = std::clamp(bottom, 0.f, static_cast<float>(m_size.height));
+	auto const src = D2D1::RectF(0.f, 0.f, static_cast<float>(m_size.width), clampedBottom);
+	auto const dst = D2D1::RectF(scrollOffsetX, 0.f, scrollOffsetX + m_size.width, clampedBottom);
 	d2dContext->DrawBitmap(
-		m_headerBitmap.get(),
+		m_bitmap.get(),
 		dst,
 		1.0f,
 		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
@@ -19,10 +19,10 @@ void TableVerticalLines::Draw(ID2D1DeviceContext* d2dContext, float scrollOffset
 
 void TableVerticalLines::Draw(ID2D1DeviceContext* d2dContext, float scrollOffsetX, float top, float bottom)
 {
-	auto const src = D2D1::RectF(0.f, top, static_cast<float>(m_rawWidth), bottom);
-	auto const dst = D2D1::RectF(scrollOffsetX, top, scrollOffsetX + m_rawWidth, bottom);
+	auto const src = D2D1::RectF(0.f, top, static_cast<float>(m_size.width), bottom);
+	auto const dst = D2D1::RectF(scrollOffsetX, top, scrollOffsetX + m_size.width, bottom);
 	d2dContext->DrawBitmap(
-		m_headerBitmap.get(),
+		m_bitmap.get(),
 		dst,
 		1.0f,
 		D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR,
