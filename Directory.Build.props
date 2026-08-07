@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <!--
+    Raise the precompiled-header virtual-memory reservation for the compiler.
+    C++/WinRT + WinUI PCHs can exceed the default /Zm range even on the x64
+    compiler, producing "Failed to create virtual memory for PCH" and
+    "internal heap limit reached". Tune the /Zm value if needed:
+      - if the heap-limit error persists, raise it (e.g. /Zm300)
+      - if "failed to create virtual memory" gets worse, lower it (e.g. /Zm100)
+  -->
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalOptions>%(AdditionalOptions) /Zm200</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+</Project>

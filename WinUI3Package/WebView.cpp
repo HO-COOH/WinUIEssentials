@@ -5,9 +5,48 @@
 #endif
 #include <include/HwndHelper.hpp>
 #include <winrt/Microsoft.UI.Dispatching.h>
+#include <commctrl.h>
+#pragma comment(lib, "comctl32.lib")
+
+
+constexpr static UINT_PTR kHostSubclassId = 0x57'42'56'01; // 'WBV\1'
 
 namespace winrt::WinUI3Package::implementation
 {
+	LRESULT CALLBACK WebView::hostSubclassProc(
+		HWND hwnd, 
+		UINT msg, 
+		WPARAM wParam, 
+		LPARAM lParam,
+		UINT_PTR /*id*/, 
+		DWORD_PTR ref)
+	{
+		if (msg == WM_NCLBUTTONUP)
+		{
+			UINT command = 0;
+			switch (wParam)
+			{
+				case HTCLOSE:     command = SC_CLOSE; break;
+				case HTMINBUTTON: command = SC_MINIMIZE; break;
+				case HTMAXBUTTON: command = ::IsZoomed(hwnd) ? SC_RESTORE : SC_MAXIMIZE; break;
+				default:          break;
+			}
+			if (command)
+			{
+				if (command == SC_CLOSE)
+				{
+					if (auto* self = reinterpret_cast<WebView*>(ref))
+						self->m_mouseHook.reset();
+				}
+
+				::PostMessageW(hwnd, WM_SYSCOMMAND, command, lParam);
+				return 0; // handled: skip DefWindowProc so the command is not raised twice
+			}
+		}
+
+		return ::DefSubclassProc(hwnd, msg, wParam, lParam);
+	}
+
 	constexpr static auto operator*(winrt::Windows::Foundation::Rect rect, float scale)
 	{
 		return winrt::Windows::Foundation::Rect
@@ -85,11 +124,7 @@ namespace winrt::WinUI3Package::implementation
 		});
 		Unloaded([this](auto&&...)
 		{
-			if (m_webview)
-			{
-				m_webview.Close();
-				m_webview = nullptr;
-			}
+			Close();
 			m_mouseHook.reset();
 			m_hostHwnd = nullptr;
 			::ResetEvent(m_loaded.get());
@@ -377,8 +412,11 @@ namespace winrt::WinUI3Package::implementation
 	}
 	void WebView::Close()
 	{
-		if (m_webview)
-			m_webview.Close();
+		if (m_hostHwnd)
+			::RemoveWindowSubclass(m_hostHwnd, &WebView::hostSubclassProc, kHostSubclassId);
+
+		if (auto webview = std::exchange(m_webview, nullptr))
+			webview.Close();
 	}
 	void WebView::GetDeferredPermissionRequestById(uint32_t id, winrt::Windows::Web::UI::WebViewControlDeferredPermissionRequest& request)
 	{
@@ -436,6 +474,10 @@ namespace winrt::WinUI3Package::implementation
 		if (m_webview)
 			m_webview.Stop();
 	}
+	WebView::~WebView()
+	{
+		m_mouseHook.reset();
+	}
 #pragma endregion
 
 	winrt::fire_and_forget WebView::onLoaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args)
@@ -488,6 +530,19 @@ namespace winrt::WinUI3Package::implementation
 		// menu is never raised. See WebViewMouseHook.
 		m_hostHwnd = hwnd;
 		m_mouseHook.emplace(this);
+
+		// Subclass the top-level window so a click on the caption buttons is not eaten
+		// on the first click (with a beep) while the out-of-process web content holds
+		// focus. Removed in Close().
+		if (m_hostHwnd)
+		{
+			::SetWindowSubclass(
+				m_hostHwnd, 
+				&WebView::hostSubclassProc, 
+				kHostSubclassId,
+				reinterpret_cast<DWORD_PTR>(this)
+			);
+		}
 
 		// Release any callers parked in waitForLoadAsync().
 		::SetEvent(m_loaded.get());

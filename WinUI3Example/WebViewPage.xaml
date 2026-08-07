@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Page
     x:Class="WinUI3Example.WebViewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -13,12 +13,12 @@
         HorizontalContentAlignment="Stretch"
         VerticalContentAlignment="Stretch"
         HeaderText="Bring back the WebView1 control from UWP!">
-        <essential:WebView Source="https://www.google.com" />
+        <essential:WebView Source="https://www.bing.com" />
 
         <local:ControlExample.Xaml>
             <local:CodeSource>
                 <local:CodeSource.Code>
-                    <x:String xml:space="preserve">&lt;essential:WebView Source=&quot;https://www.google.com&quot; /&gt;</x:String>
+                    <x:String xml:space="preserve">&lt;essential:WebView Source=&quot;https://www.bing.com&quot; /&gt;</x:String>
                 </local:CodeSource.Code>
             </local:CodeSource>
         </local:ControlExample.Xaml>

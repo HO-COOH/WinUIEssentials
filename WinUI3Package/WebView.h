@@ -115,7 +115,7 @@ namespace winrt::WinUI3Package::implementation
 		void Refresh();
 		void Stop();
 #pragma endregion
-
+        ~WebView();
     private:
         winrt::Windows::Web::UI::Interop::WebViewControlProcess m_process;
         winrt::Windows::Web::UI::Interop::WebViewControl m_webview{ nullptr };
@@ -153,6 +153,12 @@ namespace winrt::WinUI3Package::implementation
         [[nodiscard]] winrt::Windows::Foundation::Rect getBounds(double scale);
 
         [[nodiscard]] bool isPointInWebView(POINT screenPoint) const;
+
+        // Subclasses the host window so caption buttons respond on the first click while
+        // the out-of-process web content holds foreground. The instance is passed as the
+        // subclass ref-data. See WebView.cpp.
+        static LRESULT CALLBACK hostSubclassProc(
+            HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR id, DWORD_PTR ref);
 
         std::optional<WebViewMouseHook> m_mouseHook;
         HWND m_hostHwnd{ nullptr };
