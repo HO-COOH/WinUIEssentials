@@ -47,6 +47,7 @@ namespace WinUI3Package
 
         //https://learn.microsoft.com/en-us/uwp/api/windows.web.ui.interop.webviewcontrol?view=winrt-28000
         //https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.webview?view=winrt-28000
+        event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.Interop.WebViewControlAcceleratorKeyPressedEventArgs> AcceleratorKeyPressed;
 		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlContentLoadingEventArgs> ContentLoading;
 		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlDOMContentLoadedEventArgs> DOMContentLoaded;
 		event Windows.Foundation.TypedEventHandler<WebView, Windows.Web.UI.WebViewControlContentLoadingEventArgs> FrameContentLoading;

@@ -4,5 +4,7 @@ namespace WinUI3Example
     runtimeclass WebViewPage : Microsoft.UI.Xaml.Controls.Page
     {
         WebViewPage();
+
+        WinUI3Package.WebView WebView{ get; };
     }
 }

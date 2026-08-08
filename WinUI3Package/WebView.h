@@ -44,12 +44,10 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty SourceProperty();
 #pragma endregion
 #pragma region Events
-        winrt::event_token ContentLoading(
-            winrt::Windows::Foundation::TypedEventHandler<
-                winrt::WinUI3Package::WebView, 
-                winrt::Windows::Web::UI::WebViewControlContentLoadingEventArgs
-            > const& handler
-        );
+		winrt::event_token AcceleratorKeyPressed(winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::Interop::WebViewControlAcceleratorKeyPressedEventArgs> const& handler);
+		void AcceleratorKeyPressed(winrt::event_token const& token);
+
+        winrt::event_token ContentLoading(winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlContentLoadingEventArgs> const& handler);
 		void ContentLoading(winrt::event_token const& token);
 
 		winrt::event_token DOMContentLoaded(winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlDOMContentLoadedEventArgs> const& handler);
@@ -122,11 +120,8 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::Rect m_cachedBounds{};
         winrt::handle m_loaded{ ::CreateEventW(nullptr, true /*manual reset*/, false, nullptr) };
 
-        winrt::event<winrt::Windows::Foundation::TypedEventHandler<
-            winrt::WinUI3Package::WebView,
-            winrt::Windows::Web::UI::WebViewControlContentLoadingEventArgs
-        >> m_contentLoading;
-
+		winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::Interop::WebViewControlAcceleratorKeyPressedEventArgs>> m_acceleratorKeyPressed;
+        winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlContentLoadingEventArgs>> m_contentLoading;
         winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlDOMContentLoadedEventArgs>> m_domContentLoaded;
         winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlContentLoadingEventArgs>> m_frameContentLoading;
         winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlDOMContentLoadedEventArgs>> m_frameDOMContentLoaded;
@@ -151,6 +146,7 @@ namespace winrt::WinUI3Package::implementation
         void setProperties();
         winrt::Windows::Foundation::IAsyncAction waitForLoadAsync();
         [[nodiscard]] winrt::Windows::Foundation::Rect getBounds(double scale);
+		void source(winrt::Windows::Foundation::Uri const& value);
 
         [[nodiscard]] bool isPointInWebView(POINT screenPoint) const;
 
@@ -162,6 +158,7 @@ namespace winrt::WinUI3Package::implementation
 
         std::optional<WebViewMouseHook> m_mouseHook;
         HWND m_hostHwnd{ nullptr };
+		bool m_isUpdatingSource{ false };
 
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_canGoBackProperty;
 		static winrt::Microsoft::UI::Xaml::DependencyProperty s_canGoForwardProperty;

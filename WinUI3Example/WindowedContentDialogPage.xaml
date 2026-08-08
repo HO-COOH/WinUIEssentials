@@ -10,12 +10,6 @@
     mc:Ignorable="d">
 
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
-        <InfoBar
-            IsClosable="False"
-            IsOpen="True"
-            Message="This component is still in demo only and not in package yet!"
-            Severity="Warning" />
-
         <local:ControlExample HeaderText="ModernDialogBox">
             <Button Click="Button_Click">Create</Button>
         </local:ControlExample>

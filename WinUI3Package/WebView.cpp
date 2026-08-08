@@ -196,7 +196,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::hstring WebView::DocumentTitle()
 	{
-		return winrt::unbox_value<winrt::hstring>(GetValue(s_documentTitleProperty));
+		return winrt::unbox_value_or<winrt::hstring>(GetValue(s_documentTitleProperty), L"");
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty WebView::DocumentTitleProperty()
@@ -211,7 +211,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Windows::Foundation::Uri WebView::Source()
 	{
-		return GetValue(s_sourceProperty).as<winrt::Windows::Foundation::Uri>();
+		return GetValue(s_sourceProperty).try_as<winrt::Windows::Foundation::Uri>();
 	}
 
 	void WebView::Source(winrt::Windows::Foundation::Uri const& value)
@@ -222,6 +222,16 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Microsoft::UI::Xaml::DependencyProperty WebView::SourceProperty()
 	{
 		return s_sourceProperty;
+	}
+
+	winrt::event_token WebView::AcceleratorKeyPressed(winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::Interop::WebViewControlAcceleratorKeyPressedEventArgs> const& handler)
+	{
+		return m_acceleratorKeyPressed.add(handler);
+	}
+
+	void WebView::AcceleratorKeyPressed(winrt::event_token const& token)
+	{
+		m_acceleratorKeyPressed.remove(token);
 	}
 
 #pragma region Events
@@ -497,14 +507,18 @@ namespace winrt::WinUI3Package::implementation
 				winrt::Microsoft::UI::Xaml::Input::FocusManager::TryMoveFocus(direction);
 				m_moveFocusRequested(*this, args);
 			});
-
+		m_webview.AcceleratorKeyPressed([this](auto const&, auto const& args) { m_acceleratorKeyPressed(*this, args); });
 		m_webview.ContentLoading([this](auto const&, auto const& args) { m_contentLoading(*this, args); });
 		m_webview.DOMContentLoaded([this](auto const&, auto const& args) { m_domContentLoaded(*this, args); });
 		m_webview.FrameContentLoading([this](auto const&, auto const& args) { m_frameContentLoading(*this, args); });
 		m_webview.FrameDOMContentLoaded([this](auto const&, auto const& args) { m_frameDOMContentLoaded(*this, args); });
 		m_webview.FrameNavigationStarting([this](auto const&, auto const& args) { m_frameNavigationStarting(*this, args); });
 		m_webview.LongRunningScriptDetected([this](auto const&, auto const& args) { m_longRunningScriptDetected(*this, args); });
-		m_webview.NavigationStarting([this](auto const&, auto const& args) { m_navigationStarting(*this, args); });
+		m_webview.NavigationStarting([this](auto const&, auto const& args) 
+		{ 
+			source(args.Uri());
+			m_navigationStarting(*this, args); 
+		});
 		m_webview.NavigationCompleted([this](auto const&, auto const& args)
 		{
 			SetValue(s_canGoBackProperty, winrt::box_value(m_webview.CanGoBack()));
@@ -599,6 +613,18 @@ namespace winrt::WinUI3Package::implementation
 		}) * scale;
 	}
 
+	void WebView::source(winrt::Windows::Foundation::Uri const& value)
+	{
+		if (!value)
+			return;
+
+		m_isUpdatingSource = true;
+		auto reset = wil::scope_exit([this] { m_isUpdatingSource = false; });
+
+		if (auto source = Source(); !source || !source.Equals(value))
+			SetValue(s_sourceProperty, value);
+	}
+
 	void WebView::onDefaultBackgroundColorChanged(
 		winrt::Microsoft::UI::Xaml::DependencyObject const& d, 
 		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
@@ -613,6 +639,8 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
 		auto self = GetSelf(d);
+		if (self->m_isUpdatingSource)
+			return;
 		if (self->m_webview)
 			self->m_webview.Source(e.NewValue().as<winrt::Windows::Foundation::Uri>());
 	}
