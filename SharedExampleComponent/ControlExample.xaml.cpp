@@ -5,6 +5,7 @@
 #endif
 #include "CodeSource.h"
 #include <winrt/Microsoft.Web.WebView2.Core.h>
+#include "CodeWindow.xaml.h"
 
 using namespace winrt;
 using namespace WinUINamespace::UI::Xaml;
@@ -368,4 +369,14 @@ namespace winrt::PackageRoot::implementation
 		startExpanderIconAnimations(m_iconShowAnimation);
 	}
 
+	void ControlExample::OpenCodeInNewWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e)
+	{
+		//winrt::Microsoft::UI::Xaml::Window window;
+		//winrt::WinUI3Example::CodePivot codePivot;
+		//codePivot.ItemsSource(CodeItems());
+		//window.Content(codePivot);
+		//window.Activate();
+
+		winrt::make_self<CodeWindow>(HeaderText(), m_codeItems)->Activate();
+	}
 }

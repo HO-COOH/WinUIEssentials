@@ -49,6 +49,7 @@ namespace winrt::PackageRoot::implementation
 		static winrt::hstring BooleanToString(bool value);
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> CodeItems();
+		void OpenCodeInNewWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
 	private:
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerTextProperty;
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_exampleProperty;

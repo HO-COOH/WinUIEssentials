@@ -81,6 +81,7 @@
       <Filter>ColorCode</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CodePivot.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
@@ -110,6 +111,9 @@
     </Midl>
     <Midl Include="$(MSBuildThisFileDirectory)ColorCodeEditor.idl">
       <Filter>Editor</Filter>
+    </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)CodePivot.idl">
+      <Filter>ControlExample</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -148,5 +152,6 @@
       <Filter>Editor</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)CodePivot.cpp" />
   </ItemGroup>
 </Project>

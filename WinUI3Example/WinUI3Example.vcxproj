@@ -356,6 +356,14 @@
       <DependentUpon>CaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CodePivot.xaml.h">
+      <DependentUpon>CodePivot.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="CodeWindow.xaml.h">
+      <DependentUpon>CodeWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ColorCodeEditor.xaml.h">
       <DependentUpon>ColorCodeEditor.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -818,6 +826,12 @@
     <Page Include="CaptionButtonThemeWorkaroundPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CodePivot.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CodeWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ColorCodeEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1124,6 +1138,10 @@
     </ClCompile>
     <ClCompile Include="CaptionButtonThemeWorkaroundPage.xaml.cpp">
       <DependentUpon>CaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CodeWindow.xaml.cpp">
+      <DependentUpon>CodeWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ColorTile.xaml.cpp">
@@ -1585,6 +1603,10 @@
     </Midl>
     <Midl Include="CaptionButtonThemeWorkaroundPage.idl">
       <DependentUpon>CaptionButtonThemeWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="CodeWindow.idl">
+      <DependentUpon>CodeWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ColorTile.idl">

@@ -1,0 +1,10 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass CodeWindow : Microsoft.UI.Xaml.Window
+    {
+        CodeWindow();
+       
+        Windows.Foundation.Collections.IVector<Object> CodeItems{ get; };
+    }
+}
