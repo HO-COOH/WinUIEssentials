@@ -1,11 +1,20 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ControlExample.xaml.h"
 #if __has_include("ControlExample.g.cpp")
 #include "ControlExample.g.cpp"
 #endif
 #include "CodeSource.h"
 #include <winrt/Microsoft.Web.WebView2.Core.h>
+#if defined Build_WinUIExample
 #include "CodeWindow.xaml.h"
+#else
+#include <winrt/Windows.UI.Core.h>
+#include <winrt/Windows.UI.WindowManagement.h>
+#include <winrt/Windows.UI.Xaml.Hosting.h>
+#include <winrt/Windows.Foundation.Metadata.h>
+#include "CodeSource.h"
+#include "CodeWindowPage.h"
+#endif
 
 using namespace winrt;
 using namespace WinUINamespace::UI::Xaml;
@@ -369,14 +378,66 @@ namespace winrt::PackageRoot::implementation
 		startExpanderIconAnimations(m_iconShowAnimation);
 	}
 
+#if defined Build_WinUIExample
 	void ControlExample::OpenCodeInNewWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e)
 	{
-		//winrt::Microsoft::UI::Xaml::Window window;
-		//winrt::WinUI3Example::CodePivot codePivot;
-		//codePivot.ItemsSource(CodeItems());
-		//window.Content(codePivot);
-		//window.Activate();
 
 		winrt::make_self<CodeWindow>(HeaderText(), m_codeItems)->Activate();
+
+
 	}
+#else
+
+	std::vector<ControlExample::CodeItemData> ControlExample::cloneCodeItem()
+	{
+		std::vector<ControlExample::CodeItemData> data;
+		data.reserve(m_codeItems.Size());
+		std::ranges::transform(m_codeItems, std::back_inserter(data), [](winrt::Windows::Foundation::IInspectable const& item) {
+			auto codeSource = item.as<winrt::PackageRoot::CodeSource>();
+			auto codeSourceImpl = winrt::get_self<CodeSource>(codeSource);
+			return ControlExample::CodeItemData{
+				codeSourceImpl->m_code,
+				codeSourceImpl->m_codeLanguage
+			};
+		});
+		return data;
+	}
+
+	winrt::fire_and_forget ControlExample::OpenCodeInNewWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e)
+	{
+		if (winrt::Windows::Foundation::Metadata::ApiInformation::IsTypePresent(L"Windows.UI.WindowManagement.AppWindow"))
+		{
+			//18362+ same thread new window
+			auto appWindow = co_await winrt::Windows::UI::WindowManagement::AppWindow::TryCreateAsync();
+			winrt::PackageRoot::CodePivot codePivot;
+			codePivot.ItemsSource(m_codeItems);
+			winrt::Windows::UI::Xaml::Hosting::ElementCompositionPreview::SetAppWindowContent(appWindow, codePivot);
+			appWindow.Title(HeaderText());
+			appWindow.TryShowAsync();
+			co_return;
+		}
+
+
+		auto newView = winrt::Windows::ApplicationModel::Core::CoreApplication::CreateNewView();
+		newView.Dispatcher().RunAsync({}, [title = HeaderText(), codeItem = cloneCodeItem()]
+		{
+			auto window = winrt::Windows::UI::Xaml::Window::Current();
+
+			std::vector<winrt::Windows::Foundation::IInspectable> copiedCodeItems;
+			std::ranges::transform(codeItem, std::back_inserter(copiedCodeItems), [](ControlExample::CodeItemData const& data) {
+				return winrt::Windows::Foundation::IInspectable{ *winrt::make_self<CodeSource>(data.language, data.m_code) };
+			});
+
+			window.Content(
+				winrt::make<CodeWindowPage>(title, winrt::single_threaded_vector(std::move(copiedCodeItems)))
+			);
+			winrt::Windows::UI::ViewManagement::ApplicationView::GetForCurrentView().Title(title);
+			window.Activate();
+
+			winrt::Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(
+				winrt::Windows::UI::ViewManagement::ApplicationView::GetForCurrentView().Id()
+			);
+		});
+	}
+#endif
 }

@@ -2,6 +2,7 @@
 
 #include "ColorCodeEditor.g.h"
 #include <EnsureDependencyProperty.hpp>
+#include "Scope.h"
 
 namespace winrt::PackageRoot::implementation
 {
@@ -75,11 +76,15 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_functionColorProperty;
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_namespaceColorProperty;
 
-        static inline std::array<winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush, 10> s_brushes
+#if defined Build_WinUIExample
+        static inline std::array<winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush, static_cast<size_t>(ColorCode::Scope::MaxValue_)> s_brushes
         {
             nullptr, nullptr, nullptr, nullptr, nullptr,
             nullptr, nullptr, nullptr, nullptr, nullptr
         };
+#endif
+        static std::array<winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush, static_cast<size_t>(ColorCode::Scope::MaxValue_)>& brushes();
+
 
         static void commentColorChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,

@@ -13,6 +13,7 @@ namespace ColorCode
 		Identifier,
 		PlainText,
 		Function,
-		Namespace
+		Namespace,
+		MaxValue_
 	};
 }

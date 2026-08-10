@@ -1,0 +1,65 @@
+﻿<Pivot
+    x:Class="UWPExample.CodePivot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:UWPPackage"
+    xmlns:local="using:UWPExample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Pivot.HeaderTemplate>
+        <DataTemplate x:DataType="local:CodeSource">
+            <essential:SwitchPresenter Margin="-4,0,0,0" Value="{x:Bind CodeLanguage}">
+                <essential:SwitchPresenter.Resources>
+                    <Style TargetType="Viewbox">
+                        <Setter Property="Width" Value="24" />
+                        <Setter Property="Height" Value="24" />
+                    </Style>
+                </essential:SwitchPresenter.Resources>
+                <essential:Case>
+                    <essential:Case.Value>
+                        <local:Language>Xaml</local:Language>
+                    </essential:Case.Value>
+                    <Viewbox>
+                        <PathIcon Data="{StaticResource XamlIcon}" ToolTipService.ToolTip="Xaml" />
+                    </Viewbox>
+                </essential:Case>
+                <essential:Case>
+                    <essential:Case.Value>
+                        <local:Language>H</local:Language>
+                    </essential:Case.Value>
+                    <Viewbox>
+                        <PathIcon Data="{StaticResource HIcon}" ToolTipService.ToolTip="C++ Header" />
+                    </Viewbox>
+                </essential:Case>
+                <essential:Case>
+                    <essential:Case.Value>
+                        <local:Language>Cpp</local:Language>
+                    </essential:Case.Value>
+                    <Viewbox>
+                        <PathIcon Data="{StaticResource CppIcon}" ToolTipService.ToolTip="C++ Source" />
+                    </Viewbox>
+                </essential:Case>
+                <essential:Case IsDefault="True">
+                    <Viewbox>
+                        <PathIcon Data="{StaticResource IdlIcon}" ToolTipService.ToolTip="Idl" />
+                    </Viewbox>
+                </essential:Case>
+            </essential:SwitchPresenter>
+        </DataTemplate>
+    </Pivot.HeaderTemplate>
+    <Pivot.ItemTemplate>
+        <DataTemplate x:DataType="local:CodeSource">
+            <!--<local:Editor
+         Margin="0,4"
+         Code="{x:Bind Code}"
+         CodeLanguage="{x:Bind CodeLanguage}" />-->
+            <local:ColorCodeEditor
+                Margin="0,4"
+                Code="{x:Bind Code}"
+                CodeLanguage="{x:Bind CodeLanguage}" />
+        </DataTemplate>
+    </Pivot.ItemTemplate>
+</Pivot>

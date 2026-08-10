@@ -49,7 +49,18 @@ namespace winrt::PackageRoot::implementation
 		static winrt::hstring BooleanToString(bool value);
 
 		winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> CodeItems();
+#if defined Build_WinUIExample
 		void OpenCodeInNewWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
+#else
+		struct CodeItemData
+		{
+			winrt::hstring m_code;
+			winrt::PackageRoot::Language language;
+		};
+
+		winrt::fire_and_forget OpenCodeInNewWindowButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
+		std::vector<CodeItemData> cloneCodeItem();
+#endif
 	private:
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerTextProperty;
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_exampleProperty;

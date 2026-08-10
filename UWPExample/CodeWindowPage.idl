@@ -1,0 +1,11 @@
+﻿namespace UWPExample
+{
+    [default_interface]
+    runtimeclass CodeWindowPage : Windows.UI.Xaml.Controls.Page
+    {
+        CodeWindowPage();
+
+        String WindowTitle{ get; };
+        Windows.Foundation.Collections.IVector<Object> CodeItems{ get; };
+    }
+}

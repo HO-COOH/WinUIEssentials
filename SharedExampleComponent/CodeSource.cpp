@@ -22,6 +22,13 @@ namespace winrt::PackageRoot::implementation
             }
         });
     }
+
+    CodeSource::CodeSource(winrt::PackageRoot::Language language, winrt::hstring const& code)
+        : m_codeLanguage{ language }
+        , m_code{ code }
+    {
+    }
+
     winrt::hstring CodeSource::Code()
     {
         return m_code;

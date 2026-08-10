@@ -8,6 +8,7 @@ namespace winrt::PackageRoot::implementation
     struct CodeSource : CodeSourceT<CodeSource>
     {
         CodeSource();
+        CodeSource(winrt::PackageRoot::Language language, winrt::hstring const& code);
 
         winrt::hstring Code();
         void Code(winrt::hstring const& value);
@@ -26,8 +27,8 @@ namespace winrt::PackageRoot::implementation
         winrt::PackageRoot::Language CodeLanguage();
         
         winrt::PackageRoot::Language m_codeLanguage;
-    private:
         winrt::hstring m_code;
+    private:
         winrt::Windows::Foundation::Uri m_codeUrl{ nullptr };
         winrt::Windows::Foundation::Uri m_fileUri{ nullptr };
         winrt::Windows::Foundation::Collections::IObservableVector<winrt::PackageRoot::ControlExampleSubstitution> m_substitutions = winrt::single_threaded_observable_vector<winrt::PackageRoot::ControlExampleSubstitution>();

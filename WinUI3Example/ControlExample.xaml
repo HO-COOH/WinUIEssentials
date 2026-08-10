@@ -43,11 +43,18 @@
             </Style>
 
 
+            <!--
+                The left margin takes the place of the icon StackPanel's Spacing, to stay in sync
+                with UWPExample: UWP's StackPanel charges Spacing for Collapsed children too
+                (microsoft-ui-xaml#916, only fixed in WinUI 3). A collapsed element's DesiredSize
+                is (0,0) including its margin, so doing it this way skips the hidden icons on both
+                frameworks.
+            -->
             <Style TargetType="Viewbox">
                 <Setter Property="Width" Value="20" />
                 <Setter Property="Height" Value="20" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="0,-6,0,0" />
+                <Setter Property="Margin" Value="8,-6,0,0" />
                 <Setter Property="Opacity" Value="0.7" />
             </Style>
         </ResourceDictionary>
@@ -170,8 +177,7 @@
                         <StackPanel
                             Height="20"
                             essential:UIElementExtension.ClipToBounds="True"
-                            Orientation="Horizontal"
-                            Spacing="8">
+                            Orientation="Horizontal">
                             <TextBlock VerticalAlignment="Center" Text="Source code" />
                             <Viewbox x:Name="XamlIcon" Visibility="{x:Bind essential:Convert.ReferenceToVisibility(Xaml)}">
                                 <PathIcon Data="{StaticResource XamlIcon}" />

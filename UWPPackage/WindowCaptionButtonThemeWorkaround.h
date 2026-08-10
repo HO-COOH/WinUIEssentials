@@ -1,12 +1,18 @@
-﻿#pragma once
+#pragma once
 
 #include "WindowCaptionButtonThemeWorkaround.g.h"
+#include <winrt/Windows.UI.ViewManagement.h>
 
 namespace winrt::UWPPackage::implementation
 {
     struct WindowCaptionButtonThemeWorkaround : WindowCaptionButtonThemeWorkaroundT<WindowCaptionButtonThemeWorkaround>
     {
         WindowCaptionButtonThemeWorkaround();
+
+    private:
+        void setCaptionButtonTheme(winrt::Windows::UI::Xaml::ElementTheme const& theme);
+
+        winrt::Windows::UI::ViewManagement::ApplicationViewTitleBar m_titleBar{ nullptr };
     };
 }
 

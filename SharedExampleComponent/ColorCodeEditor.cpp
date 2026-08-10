@@ -53,7 +53,9 @@ namespace winrt::PackageRoot::implementation
         if (m_commentColorProperty)
             return;
 
+#if defined Build_WinUIExample
         std::ranges::generate(s_brushes, [] { return winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{}; });
+#endif
 
         m_commentColorProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
             L"CommentColor",
@@ -273,74 +275,97 @@ namespace winrt::PackageRoot::implementation
         return m_namespaceColorProperty;
     }
 
+
+    std::array<winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush, static_cast<size_t>(ColorCode::Scope::MaxValue_)>& ColorCodeEditor::brushes()
+    {
+#if defined Build_WinUIExample
+        return s_brushes;
+#else
+        static thread_local std::array<winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush, static_cast<size_t>(ColorCode::Scope::MaxValue_)> t_brushes
+        {
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+            winrt::WinUINamespace::UI::Xaml::Media::SolidColorBrush{},
+        };
+        return t_brushes;
+#endif  
+    }
+
     void ColorCodeEditor::commentColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::Comment)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::Comment)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::stringColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::String)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::String)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::keywordColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::Keyword)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::Keyword)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::typeColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::Type)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::Type)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::preprocessorColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::Preprocessor)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::Preprocessor)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::operatorColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::Operator)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::Operator)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::identifierColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::Identifier)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::Identifier)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::plainTextColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::PlainText)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::PlainText)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::functionColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::Function)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::Function)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     void ColorCodeEditor::namespaceColorChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        s_brushes[static_cast<size_t>(ColorCode::Scope::Namespace)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
+        brushes()[static_cast<size_t>(ColorCode::Scope::Namespace)].Color(winrt::unbox_value<winrt::Windows::UI::Color>(e.NewValue()));
     }
 
     winrt::hstring ColorCodeEditor::Code()
@@ -407,7 +432,7 @@ namespace winrt::PackageRoot::implementation
 
                 winrt::WinUINamespace::UI::Xaml::Documents::Run run;
                 run.Text(winrt::hstring{ m_code.data() + token.start, static_cast<winrt::hstring::size_type>(token.length) });
-                run.Foreground(s_brushes[static_cast<size_t>(token.scope)]);
+                run.Foreground(brushes()[static_cast<size_t>(token.scope)]);
                 m_highlighted.Append(run);
             }
         );

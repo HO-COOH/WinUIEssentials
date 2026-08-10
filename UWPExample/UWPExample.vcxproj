@@ -362,6 +362,14 @@
       <DependentUpon>CharmBarPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CodePivot.h">
+      <DependentUpon>CodePivot.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="CodeWindowPage.h">
+      <DependentUpon>CodeWindowPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ColorCodeEditor.h">
       <DependentUpon>ColorCodeEditor.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -559,6 +567,12 @@
     <Page Include="CharmBarPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CodePivot.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CodeWindowPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ColorCodeEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -743,6 +757,10 @@
     </ClCompile>
     <ClCompile Include="CharmBarPage.cpp">
       <DependentUpon>CharmBarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CodeWindowPage.cpp">
+      <DependentUpon>CodeWindowPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ConvertersPage.cpp">
@@ -930,6 +948,10 @@
     </Midl>
     <Midl Include="CharmBarPage.idl">
       <DependentUpon>CharmBarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="CodeWindowPage.idl">
+      <DependentUpon>CodeWindowPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ConvertersPage.idl">
