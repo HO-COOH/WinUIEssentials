@@ -9,7 +9,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct SettingsExpanderPage : SettingsExpanderPageT<SettingsExpanderPage>
     {
-        SettingsExpanderPage();
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> MyDataSet();
 
     private:

@@ -6,6 +6,7 @@
 #if __has_include("CursorControllerPage.g.cpp")
 #include "CursorControllerPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -15,9 +16,5 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    CursorControllerPage::CursorControllerPage()
-    {
-        InitializeComponent();
-    }
-
+    static PageTagRegister<CursorControllerPage> s_tags{ L"cursorcontroller", L"cursor", L"mouse", L"extension" };
 }

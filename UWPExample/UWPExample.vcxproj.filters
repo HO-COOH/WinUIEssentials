@@ -38,9 +38,6 @@
     <Page Include="TilesPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="IconButtonPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
     <Page Include="ProgressBarExPage.xaml">
       <Filter>Pages</Filter>
     </Page>

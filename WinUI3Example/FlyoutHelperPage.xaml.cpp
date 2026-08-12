@@ -3,6 +3,7 @@
 #if __has_include("FlyoutHelperPage.g.cpp")
 #include "FlyoutHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -10,6 +11,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<FlyoutHelperPage> s_tags{ L"flyout", L"flyouthelper", L"acrylic", L"workaround", L"helper" };
+
 	std::vector<winrt::Windows::Foundation::IInspectable> FlyoutHelperPage::Components()
 	{
 		return std::vector

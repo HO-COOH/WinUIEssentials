@@ -3,6 +3,7 @@
 #if __has_include("CaptionButtonThemeWorkaroundPage.g.cpp")
 #include "CaptionButtonThemeWorkaroundPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include "HwndHelper.hpp"
 
 using namespace winrt;
@@ -13,6 +14,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<CaptionButtonThemeWorkaroundPage> s_tags{ L"windowcaptionbuttonthemeworkaround", L"captionbutton", L"titlebar", L"theme", L"window", L"workaround" };
+
 	void CaptionButtonThemeWorkaroundPage::CreateDefaultWindowButton_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

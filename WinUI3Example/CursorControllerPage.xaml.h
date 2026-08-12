@@ -9,7 +9,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct CursorControllerPage : CursorControllerPageT<CursorControllerPage>
     {
-        CursorControllerPage();
     };
 }
 

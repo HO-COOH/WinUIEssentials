@@ -3,29 +3,19 @@
 #if __has_include("TriggersPage.g.cpp")
 #include "TriggersPage.g.cpp"
 #endif
-
-using namespace winrt;
-using namespace Windows::UI::Xaml;
+#include "PageTagRegister.h"
 
 namespace winrt::UWPExample::implementation
 {
+	static PageTagRegister<TriggersPage> s_tags{ L"trigger", L"visualstate", L"visualstatemanager" };
 
-	void TriggersPage::AddButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e)
+	void TriggersPage::AddButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Windows::UI::Xaml::RoutedEventArgs const& e)
 	{
-		if (OurList())
-		{
-			OurList().Items().Append(winrt::box_value(L"Item"));
-		}
+		OurList().Items().Append(winrt::box_value(L"Item"));
 	}
 
-
-	void TriggersPage::RemoveButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e)
+	void TriggersPage::RemoveButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Windows::UI::Xaml::RoutedEventArgs const& e)
 	{
-		if (OurList())
-		{
-			OurList().Items().RemoveAt(0);
-		}
+		OurList().Items().RemoveAt(0);
 	}
-
 }
-

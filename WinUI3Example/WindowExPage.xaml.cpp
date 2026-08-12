@@ -3,6 +3,7 @@
 #if __has_include("WindowExPage.g.cpp")
 #include "WindowExPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include <winrt/Microsoft.UI.Windowing.h>
 
 using namespace winrt;
@@ -13,6 +14,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<WindowExPage> s_tags{ L"windowex", L"window", L"titlebar", L"nonclientregion", L"presenter" };
+
 	/*void WindowExPage::Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
 		WinUI3Package::WindowEx window;

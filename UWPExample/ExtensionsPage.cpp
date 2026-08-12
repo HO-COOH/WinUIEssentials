@@ -4,9 +4,12 @@
 #include "ExtensionsPage.g.cpp"
 #endif
 #include <winrt/Windows.UI.Xaml.Media.Imaging.h>
+#include "PageTagRegister.h"
 
 namespace winrt::UWPExample::implementation
 {
+	static PageTagRegister<ExtensionsPage> s_tag{ L"image", L"imageextension", L"uielement", L"uielementextension", L"glyph", L"font", L"icon", L"extension", L"extensions"};
+	
 	void ExtensionsPage::SuccessLoadButton_Click(
 		winrt::Windows::Foundation::IInspectable const&,
 		winrt::Windows::UI::Xaml::RoutedEventArgs const&)

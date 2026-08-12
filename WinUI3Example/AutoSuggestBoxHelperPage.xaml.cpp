@@ -3,6 +3,7 @@
 #if __has_include("AutoSuggestBoxHelperPage.g.cpp")
 #include "AutoSuggestBoxHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include <boost/algorithm/string.hpp>
 
 // To learn more about WinUI, the WinUI project structure,
@@ -10,6 +11,7 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<AutoSuggestBoxHelperPage> s_tags{ L"autosuggestbox", L"autosuggestboxhelper", L"acrylic", L"workaround", L"helper" };
 
 	void AutoSuggestBoxHelperPage::Control1_SuggestionChosen(
 		winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const&, 

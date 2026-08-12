@@ -3,6 +3,7 @@
 #if __has_include("ModernStandardWindowContextMenuPage.g.cpp")
 #include "ModernStandardWindowContextMenuPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,6 +13,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<ModernStandardWindowContextMenuPage> s_tags{ L"modernstandardwindowcontextmenu", L"windowcontextmenu", L"contextmenu", L"systemmenu", L"titlebar", L"window" };
+
 	void ModernStandardWindowContextMenuPage::StandardWindowButton_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

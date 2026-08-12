@@ -3,6 +3,7 @@
 #if __has_include("TransparentBackdropPage.g.cpp")
 #include "TransparentBackdropPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,6 +13,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<TransparentBackdropPage> s_tags{ L"transparentwindow", L"transparent", L"backdrop", L"systembackdrop", L"window" };
+
 	void TransparentBackdropPage::CreateTransparentButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		WinUI3Example::TransparentWindowDemo{}.Activate();

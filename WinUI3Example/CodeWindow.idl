@@ -5,6 +5,7 @@ namespace WinUI3Example
     {
         CodeWindow();
        
+        String WindowTitle{ get; };
         Windows.Foundation.Collections.IVector<Object> CodeItems{ get; };
     }
 }

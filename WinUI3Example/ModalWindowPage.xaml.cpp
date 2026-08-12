@@ -3,6 +3,7 @@
 #if __has_include("ModalWindowPage.g.cpp")
 #include "ModalWindowPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include "App.xaml.h"
 
 // To learn more about WinUI, the WinUI project structure,
@@ -10,6 +11,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<ModalWindowPage> s_tags{ L"modalwindow", L"modal", L"dialog", L"window" };
+
 	void ModalWindowPage::Button_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		winrt::WinUI3Example::SampleModalWindow{ App::AppInstance->window }.Activate();

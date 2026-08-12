@@ -3,6 +3,7 @@
 #if __has_include("NonResizableWindowWhiteBorderWorkaroundPage.g.cpp")
 #include "NonResizableWindowWhiteBorderWorkaroundPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,6 +13,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<NonResizableWindowWhiteBorderWorkaroundPage> s_tags{ L"nonresizablewindowwhiteborderworkaround", L"nonresizable", L"whiteborder", L"border", L"window", L"workaround" };
+
 	void NonResizableWindowWhiteBorderWorkaroundPage::CreateNonResizableBtn_Click(
 		winrt::Windows::Foundation::IInspectable const&,
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

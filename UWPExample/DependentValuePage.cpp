@@ -4,12 +4,13 @@
 #include "DependentValuePage.g.cpp"
 #endif
 #include <winrt/Windows.UI.Xaml.Media.Animation.h>
-using namespace winrt;
-using namespace Windows::UI::Xaml;
+#include "PageTagRegister.h"
 
 namespace winrt::UWPExample::implementation
 {
-    void DependentValuePage::ClickHandler(IInspectable const&, RoutedEventArgs const&)
+    static PageTagRegister<DependentValuePage> s_tags{ L"dependencyproperty", L"dependencyproperties", L"animation", L"storyboard", L"value" };
+
+    void DependentValuePage::ClickHandler(winrt::Windows::Foundation::IInspectable const&, winrt::Windows::UI::Xaml::RoutedEventArgs const&)
     {
         DoubleValueAnimation().Begin();
     }

@@ -3,6 +3,7 @@
 #if __has_include("TaskbarIconPage.g.cpp")
 #include "TaskbarIconPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 #include "TaskbarIconSource.xaml.h"
 #include "MainWindow.xaml.h"
@@ -13,6 +14,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<TaskbarIconPage> s_tags{ L"taskbaricon", L"trayicon", L"tray", L"notifyicon", L"popupmenuflyout", L"taskbar" };
+
 	void TaskbarIconPage::NormalIconAdd_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

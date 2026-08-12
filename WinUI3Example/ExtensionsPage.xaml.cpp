@@ -3,6 +3,7 @@
 #if __has_include("ExtensionsPage.g.cpp")
 #include "ExtensionsPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 
 using namespace winrt;
@@ -13,6 +14,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<ExtensionsPage> s_tags{ L"uielementextension", L"uielement", L"cliptobounds", L"imageextension", L"image", L"fallbacksource", L"glyph", L"font", L"icon", L"extension", L"extensions" };
+
 	void ExtensionsPage::SuccessLoadButton_Click(
 		winrt::Windows::Foundation::IInspectable const&,
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

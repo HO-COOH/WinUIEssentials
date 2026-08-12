@@ -3,9 +3,12 @@
 #if __has_include("TypeNameExtensionPage.g.cpp")
 #include "TypeNameExtensionPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<TypeNameExtensionPage> s_tags{ L"typenameextension", L"typename", L"navigation", L"extension" };
+
 	void TypeNameExtensionPage::NavigationView_SelectionChanged(
 		winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender, 
 		winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args)

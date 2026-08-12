@@ -3,6 +3,7 @@
 #if __has_include("ToolTipHelperPage.g.cpp")
 #include "ToolTipHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,5 +13,6 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<ToolTipHelperPage> s_tags{ L"tooltip", L"tooltiphelper", L"acrylic", L"workaround", L"helper" };
 
 }

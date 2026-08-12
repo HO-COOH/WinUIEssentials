@@ -4,12 +4,12 @@
 #include "SettingsExpanderPage.g.cpp"
 #endif
 #include <winrt/Windows.System.h>
-
-using namespace winrt;
-using namespace Windows::UI::Xaml;
+#include "PageTagRegister.h"
 
 namespace winrt::UWPExample::implementation
 {
+    static PageTagRegister<SettingsExpanderPage> s_tags{ L"settingsexpander", L"setting", L"expander", L"control"};
+
     winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> SettingsExpanderPage::MyDataSet()
     {
         auto copy = m_myDataSet;

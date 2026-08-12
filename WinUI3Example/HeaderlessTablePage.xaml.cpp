@@ -3,6 +3,7 @@
 #if __has_include("HeaderlessTablePage.g.cpp")
 #include "HeaderlessTablePage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,5 +13,6 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<HeaderlessTablePage> s_tags{ L"table", L"headerless", L"header", L"datagrid", L"control" };
  
 }

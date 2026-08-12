@@ -3,11 +3,14 @@
 #if __has_include("TablePage.g.cpp")
 #include "TablePage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 #include <VisualTreeHelper.hpp>
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<TablePage> s_tags{ L"table", L"datagrid", L"datatable", L"tablecolumn", L"control" };
+
     void TablePage::OnLoaded(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
         //Walk up the visual tree to find the hosting ScrollViewer so we can

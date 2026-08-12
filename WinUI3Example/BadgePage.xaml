@@ -26,8 +26,7 @@
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">winrt::Windows::UI::Notifications::BadgeUpdateManager::CreateBadgeUpdaterForApplication()
-    .Update(BadgeGlyphs::MakeBadgeNotification({0});
-                        </x:String>
+    .Update(BadgeGlyphs::MakeBadgeNotification({0});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Value="{x:Bind NumberValue.Text, Mode=OneWay}" />
@@ -58,18 +57,17 @@
                 <x:String>unavailable</x:String>
             </ComboBox>
 
-            <local:ControlExample.Xaml>
+            <local:ControlExample.Cpp>
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">winrt::Windows::UI::Notifications::BadgeUpdateManager::CreateBadgeUpdaterForApplication()
-.Update(BadgeGlyphs::MakeBadgeNotification("{0}"));
-                </x:String>
+.Update(BadgeGlyphs::MakeBadgeNotification("{0}"));</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Value="{x:Bind local:ControlExample.UnboxString(BadgeGlyphComboBox.SelectedItem), Mode=OneWay}" />
                     </local:CodeSource.Substitutions>
                 </local:CodeSource>
-            </local:ControlExample.Xaml>
+            </local:ControlExample.Cpp>
         </local:ControlExample>
     </StackPanel>
 

@@ -3,6 +3,7 @@
 #if __has_include("SvgPage.g.cpp")
 #include "SvgPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include "TestSvgUrls.hpp"
@@ -13,6 +14,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<SvgPage> s_tags{ L"svg", L"svgimagesource", L"image", L"source", L"helper" };
+
 	winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> SvgPage::Svgs()
 	{
 		if (m_svgs)

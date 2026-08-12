@@ -6,6 +6,7 @@
 #if __has_include("SettingsExpanderPage.g.cpp")
 #include "SettingsExpanderPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include <winrt/Windows.System.h>
 
 using namespace winrt;
@@ -16,10 +17,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    SettingsExpanderPage::SettingsExpanderPage()
-    {
-        InitializeComponent();
-    }
+    static PageTagRegister<SettingsExpanderPage> s_tags{ L"settingsexpander", L"settings", L"expander", L"control" };
+
 
     winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> SettingsExpanderPage::MyDataSet()
     {

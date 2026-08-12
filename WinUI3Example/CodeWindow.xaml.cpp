@@ -8,10 +8,15 @@
 namespace winrt::WinUI3Example::implementation
 {
 	CodeWindow::CodeWindow(winrt::hstring const& title, winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& codeItems)
-		: m_codeItems{codeItems}
+		: m_title{title}
+		, m_codeItems{codeItems}
 	{
-		Title(title);
 		ExtendsContentIntoTitleBar(true);
+	}
+
+	winrt::hstring CodeWindow::WindowTitle()
+	{
+		return m_title;
 	}
 
 	winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> CodeWindow::CodeItems()

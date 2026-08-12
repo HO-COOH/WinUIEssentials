@@ -6,6 +6,7 @@
 #if __has_include("BadgePage.g.cpp")
 #include "BadgePage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include <winrt/Windows.UI.Notifications.h>
 #include <BadgeGlyphs.hpp>
 
@@ -17,6 +18,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<BadgePage> s_tags{ L"badge", L"badgeglyphs", L"badgenotification", L"notification", L"taskbar" };
+
 	void BadgePage::ComboBox_SelectionChanged(
 		winrt::Windows::Foundation::IInspectable const& sender,
 		winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e)
@@ -24,8 +27,6 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::UI::Notifications::BadgeUpdateManager::CreateBadgeUpdaterForApplication()
 			.Update(BadgeGlyphs::MakeBadgeNotification(sender.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>().SelectedItem().as<winrt::hstring>().data()));
 	}
-
-
 
 
 	void BadgePage::Button_Click(

@@ -6,6 +6,7 @@
 #if __has_include("GroupBoxPage.g.cpp")
 #include "GroupBoxPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -15,8 +16,5 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    GroupBoxPage::GroupBoxPage()
-    {
-        InitializeComponent();
-    }
+    static PageTagRegister<GroupBoxPage> s_tags{ L"groupbox", L"win32", L"control" };
 }

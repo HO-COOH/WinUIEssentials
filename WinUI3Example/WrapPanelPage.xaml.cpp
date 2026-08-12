@@ -3,6 +3,7 @@
 #if __has_include("WrapPanelPage.g.cpp")
 #include "WrapPanelPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include <random>
 #include <VisualTreeHelper.hpp>
 
@@ -14,6 +15,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<WrapPanelPage> s_tags{ L"wrappanel", L"panel", L"layout", L"control" };
+
     winrt::Windows::Foundation::Collections::IObservableVector<WinUI3Example::PhotoDataItemWithDimension> WrapPanelPage::WrapPanelCollection()
     {
         return m_wrapPanelCollection;

@@ -3,6 +3,7 @@
 #if __has_include("ExperimentPage.g.cpp")
 #include "ExperimentPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include <VisualTreeHelper.hpp>
 #include <winrt/Microsoft.UI.Composition.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
@@ -31,6 +32,8 @@ static winrt::Windows::Foundation::IAsyncAction waitForLayoutUpdateAsync(winrt::
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<ExperimentPage> s_tags{ L"experiment", L"experiments", L"acrylicvisual", L"hostbackdropvisual", L"composition" };
+
 	ExperimentPage::ExperimentPage()
 	{
 		InitializeComponent();

@@ -10,7 +10,25 @@
     mc:Ignorable="d">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind}" />
-        <local:CodePivot ItemsSource="{x:Bind CodeItems}" />
+
+        <Grid
+            x:Name="TitleBarDragRegion"
+            Height="32"
+            Background="Transparent">
+            <TextBlock
+                Margin="12,0,144,0"
+                VerticalAlignment="Center"
+                Style="{ThemeResource CaptionTextBlockStyle}"
+                Text="{x:Bind WindowTitle}"
+                TextTrimming="CharacterEllipsis"
+                TextWrapping="NoWrap" />
+        </Grid>
+
+        <local:CodePivot Grid.Row="1" ItemsSource="{x:Bind CodeItems}" />
     </Grid>
 </Window>

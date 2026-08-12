@@ -3,6 +3,7 @@
 #if __has_include("TimePickerHelperPage.g.cpp")
 #include "TimePickerHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,6 +13,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<TimePickerHelperPage> s_tags{ L"timepicker", L"timepickerhelper", L"acrylic", L"workaround", L"helper" };
+
 	winrt::Windows::Foundation::TimeSpan TimePickerHelperPage::CurrentTime()
 	{
 		SYSTEMTIME st;

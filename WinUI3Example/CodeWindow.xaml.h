@@ -7,10 +7,12 @@ namespace winrt::WinUI3Example::implementation
     struct CodeWindow : CodeWindowT<CodeWindow>
     {
         CodeWindow() = default;
-
         CodeWindow(winrt::hstring const& title, winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& codeItems);
 
+        winrt::hstring WindowTitle();
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> CodeItems();
+
+        winrt::hstring m_title;
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> m_codeItems{ nullptr };
     };
 }

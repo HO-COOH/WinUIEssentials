@@ -3,6 +3,7 @@
 #if __has_include("NonMaximizableWindowWorkaroundPage.g.cpp")
 #include "NonMaximizableWindowWorkaroundPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,6 +13,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<NonMaximizableWindowWorkaroundPage> s_tags{ L"nonmaximizablewindowworkaround", L"nonmaximizable", L"maximize", L"window", L"workaround" };
+
 	void NonMaximizableWindowWorkaroundPage::NormalButton_Click(
 		winrt::Windows::Foundation::IInspectable const&,
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

@@ -3,6 +3,7 @@
 #if __has_include("SwitchPresenterPage.g.cpp")
 #include "SwitchPresenterPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,4 +13,5 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<SwitchPresenterPage> s_tags{ L"switchpresenter", L"switch", L"case", L"control" };
 }

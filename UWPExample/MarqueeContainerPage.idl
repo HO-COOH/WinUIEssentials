@@ -12,9 +12,6 @@
         Windows.UI.Xaml.Controls.ComboBox MarqueeDirectionComboBox{ get; };
         Windows.UI.Xaml.Controls.ComboBox MarqueeBehaviorComboBox{ get; };
 
-        static UWPPackage.MarqueeBehavior GetBehaviorFromIndex(Int32 value);
-        static UWPPackage.MarqueeDirection GetDirectionFromIndex(Int32 value);
-
         //UWPExample.MarqueeContainer Test{ get; };
         UWPPackage.MarqueeText Test{ get; };
     }

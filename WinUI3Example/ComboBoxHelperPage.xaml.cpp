@@ -3,6 +3,7 @@
 #if __has_include("ComboBoxHelperPage.g.cpp")
 #include "ComboBoxHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,6 +13,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<ComboBoxHelperPage> s_tags{ L"combobox", L"comboboxhelper", L"acrylic", L"workaround", L"helper" };
+
 	ComboBoxHelperPage::ComboBoxHelperPage()
 	{
 		std::vector<winrt::Windows::Foundation::IInspectable> fontSizes(c_fontSizes.size());

@@ -3,6 +3,7 @@
 #if __has_include("WindowedContentDialogPage.g.cpp")
 #include "WindowedContentDialogPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include "App.xaml.h"
 
 #include <ScopedButtonDisabler.hpp>
@@ -12,6 +13,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<WindowedContentDialogPage> s_tags{ L"windowedcontentdialog", L"contentdialog", L"dialog", L"underlay", L"window" };
+
 	winrt::fire_and_forget WindowedContentDialogPage::Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{		
     	ScopedButtonDisabler disabler{ sender };

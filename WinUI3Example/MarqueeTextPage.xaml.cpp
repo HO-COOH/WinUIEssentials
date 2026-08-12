@@ -6,6 +6,7 @@
 #if __has_include("MarqueeTextPage.g.cpp")
 #include "MarqueeTextPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -15,4 +16,5 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<MarqueeTextPage> s_tags{ L"marqueetext", L"marquee", L"text", L"textblock", L"animation", L"control" };
 }

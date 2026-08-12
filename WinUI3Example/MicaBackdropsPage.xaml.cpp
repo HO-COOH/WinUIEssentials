@@ -3,6 +3,7 @@
 #if __has_include("MicaBackdropsPage.g.cpp")
 #include "MicaBackdropsPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -10,6 +11,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<MicaBackdropsPage> s_tags{ L"custommicabackdrop", L"micabackdropwithfallback", L"mica", L"backdrop", L"systembackdrop", L"fallback" };
+
 	void MicaBackdropsPage::CreateDefaultMicaButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		WinUI3Example::DefaultMicaWindow{}.Activate();

@@ -5,9 +5,12 @@
 #endif
 #include <ScopedButtonDisabler.hpp>
 #include <winrt/Windows.Storage.Pickers.h>
+#include "PageTagRegister.h"
 
 namespace winrt::UWPExample::implementation
 {
+    static PageTagRegister<ScopedButtonDisablerPage> s_tags{ L"scopedbuttondisable", L"button", L"helper"};
+
     winrt::Windows::Foundation::IAsyncAction ScopedButtonDisablerPage::ClickHandler(
         winrt::Windows::Foundation::IInspectable const&, 
         winrt::Windows::UI::Xaml::RoutedEventArgs const&)

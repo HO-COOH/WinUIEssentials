@@ -3,6 +3,7 @@
 #if __has_include("DatePickerHelperPage.g.cpp")
 #include "DatePickerHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,5 +13,6 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<DatePickerHelperPage> s_tags{ L"datepicker", L"datepickerhelper", L"acrylic", L"workaround", L"helper" };
 
 }

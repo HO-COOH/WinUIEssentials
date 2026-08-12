@@ -3,6 +3,7 @@
 #if __has_include("InitializeWithWindowHelperPage.g.cpp")
 #include "InitializeWithWindowHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 #include <IInitializeWithWindowHelper.hpp>
 #include <winrt/Windows.ApplicationModel.Contacts.h>
@@ -15,6 +16,7 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<InitializeWithWindowHelperPage> s_tags{ L"iinitializewithwindow", L"initializewithwindow", L"picker", L"fileopenpicker", L"hwnd", L"helper" };
 
 	winrt::Windows::Foundation::IAsyncAction InitializeWithWindowHelperPage::PinnedContactManagerButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{

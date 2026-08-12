@@ -28,6 +28,9 @@
     <Filter Include="ColorCode">
       <UniqueIdentifier>{700e8dea-6964-439c-9f51-7db67de7e5c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PageTags">
+      <UniqueIdentifier>{b789de2e-59a4-4e34-a841-113ee0dcee6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CodeSource.h">
@@ -82,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)TableTestData.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CodePivot.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PageTag.h">
+      <Filter>PageTags</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)PageTagRegister.h">
+      <Filter>PageTags</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
@@ -153,5 +162,8 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)CodePivot.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PageTag.cpp">
+      <Filter>PageTags</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

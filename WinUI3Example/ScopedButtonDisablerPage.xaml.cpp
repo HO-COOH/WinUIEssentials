@@ -3,6 +3,7 @@
 #if __has_include("ScopedButtonDisablerPage.g.cpp")
 #include "ScopedButtonDisablerPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 #include <ScopedButtonDisabler.hpp>
 #include <IInitializeWithWindowHelper.hpp>
@@ -12,6 +13,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<ScopedButtonDisablerPage> s_tags{ L"scopedbuttondisabler", L"button", L"disable", L"raii", L"helper" };
+
     winrt::Windows::Foundation::IAsyncAction ScopedButtonDisablerPage::ClickHandler(
         winrt::Windows::Foundation::IInspectable const&,
         winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

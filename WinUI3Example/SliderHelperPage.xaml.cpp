@@ -3,6 +3,7 @@
 #if __has_include("SliderHelperPage.g.cpp")
 #include "SliderHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -10,4 +11,5 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<SliderHelperPage> s_tags{ L"slider", L"sliderhelper", L"acrylic", L"workaround", L"helper" };
 }

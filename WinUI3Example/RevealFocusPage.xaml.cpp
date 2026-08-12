@@ -3,6 +3,7 @@
 #if __has_include("RevealFocusPage.g.cpp")
 #include "RevealFocusPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 #include <numeric>
 // To learn more about WinUI, the WinUI project structure,
@@ -10,6 +11,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<RevealFocusPage> s_tags{ L"revealfocus", L"revealfocuspanel", L"reveal", L"focus", L"control" };
+
     void RevealFocusPage::OnNavigatedTo(winrt::Microsoft::UI::Xaml::Navigation::NavigationEventArgs const& e)
     {
         BaseListView().ItemsSource(winrt::single_threaded_observable_vector(GetContactAsync()));

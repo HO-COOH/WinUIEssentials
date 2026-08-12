@@ -6,9 +6,12 @@
 #include "../SharedExampleComponent/TestSvgUrls.hpp"
 #include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.UI.Xaml.Media.Imaging.h>
+#include "PageTagRegister.h"
 
 namespace winrt::UWPExample::implementation
 {
+	static PageTagRegister<SvgPage> s_tags{ L"svg", L"image", L"source", L"helper" };
+
 	winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> SvgPage::Svgs()
 	{
 		if (m_svgs)

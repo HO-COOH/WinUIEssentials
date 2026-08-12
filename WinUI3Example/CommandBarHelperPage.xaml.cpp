@@ -3,6 +3,7 @@
 #if __has_include("CommandBarHelperPage.g.cpp")
 #include "CommandBarHelperPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -12,13 +13,5 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    int32_t CommandBarHelperPage::MyProperty()
-    {
-        throw hresult_not_implemented();
-    }
-
-    void CommandBarHelperPage::MyProperty(int32_t /* value */)
-    {
-        throw hresult_not_implemented();
-    }
+    static PageTagRegister<CommandBarHelperPage> s_tags{ L"commandbar", L"commandbarhelper", L"acrylic", L"workaround", L"helper" };
 }

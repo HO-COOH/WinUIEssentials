@@ -418,10 +418,6 @@
       <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="IconButtonPage.h">
-      <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="MarqueeContainerPage.h">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -604,9 +600,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="HeaderlessTablePage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="IconButtonPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
@@ -803,10 +796,6 @@
       <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="IconButtonPage.cpp">
-      <DependentUpon>IconButtonPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="MarqueeContainerPage.cpp">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -991,10 +980,6 @@
     </Midl>
     <Midl Include="HeaderlessTablePage.idl">
       <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="IconButtonPage.idl">
-      <DependentUpon>IconButtonPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MainPage.idl">

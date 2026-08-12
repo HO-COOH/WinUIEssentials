@@ -3,6 +3,7 @@
 #if __has_include("TenMicaPage.g.cpp")
 #include "TenMicaPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -10,6 +11,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+    static PageTagRegister<TenMicaPage> s_tags{ L"tenmicabackdrop", L"tenmica", L"mica", L"backdrop", L"systembackdrop", L"windows10" };
+
     void TenMicaPage::Button_Click_1(
         winrt::Windows::Foundation::IInspectable const&, 
         winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

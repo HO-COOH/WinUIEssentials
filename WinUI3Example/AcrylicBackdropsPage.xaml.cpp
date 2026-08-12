@@ -3,6 +3,7 @@
 #if __has_include("AcrylicBackdropsPage.g.cpp")
 #include "AcrylicBackdropsPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 
 
 // To learn more about WinUI, the WinUI project structure,
@@ -10,6 +11,8 @@
 
 namespace winrt::WinUI3Example::implementation
 {
+	static PageTagRegister<AcrylicBackdropsPage> s_tags{ L"customacrylicbackdrop", L"acrylic", L"backdrop", L"systembackdrop", L"blur" };
+
 	void AcrylicBackdropsPage::CreateDefaultAcrylicButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		WinUI3Example::DefaultAcrylicWindow{}.Activate();

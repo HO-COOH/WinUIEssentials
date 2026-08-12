@@ -6,6 +6,7 @@
 #if __has_include("ToastPage.g.cpp")
 #include "ToastPage.g.cpp"
 #endif
+#include "PageTagRegister.h"
 #include <ToastTemplates.hpp>
 #include <winrt/Microsoft.Windows.AppNotifications.Builder.h>
 
@@ -17,10 +18,8 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    ToastPage::ToastPage()
-    {
-        InitializeComponent();
-    }
+    static PageTagRegister<ToastPage> s_tags{ L"toast", L"toastnotification", L"toasttemplates", L"notification" };
+
 
 	void ToastPage::BodyTextOnlyBtn_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
