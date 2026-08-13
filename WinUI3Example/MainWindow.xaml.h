@@ -8,6 +8,7 @@
 #include <string_view>
 #include <winrt/Microsoft.UI.Xaml.Markup.h>
 #include "ButtonAnimations.h"
+#include "NavigationHelper.h"
 
 
 namespace winrt::WinUI3Example::implementation
@@ -55,6 +56,10 @@ namespace winrt::WinUI3Example::implementation
         void GithubFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void StoreFlyoutItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         static inline std::chrono::steady_clock::time_point AppStartTime{ std::chrono::steady_clock::now() };
+        void AutoSuggestBox_QuerySubmitted(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& sender, winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBoxQuerySubmittedEventArgs const& args);
+        void AutoSuggestBox_TextChanged(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& sender, winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBoxTextChangedEventArgs const& args);
+    private:
+        NavigationHelper m_navigationHelper;
     };
 }
 

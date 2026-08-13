@@ -91,6 +91,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PageTagRegister.h">
       <Filter>PageTags</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)NavigationHelper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PageSearchItem.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
@@ -124,6 +126,7 @@
     <Midl Include="$(MSBuildThisFileDirectory)CodePivot.idl">
       <Filter>ControlExample</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)PageSearchItem.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)CodeSource.cpp">
@@ -165,5 +168,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PageTag.cpp">
       <Filter>PageTags</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)NavigationHelper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PageSearchItem.cpp" />
   </ItemGroup>
 </Project>

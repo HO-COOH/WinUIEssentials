@@ -27,7 +27,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)GithubRequest.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Language.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NamedUrl.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)NavigationHelper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)NugetPackageInfo.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PageSearchItem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PageTag.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)RepoInfo.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)TableTestData.cpp" />
@@ -47,7 +49,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Language.Xaml.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LanguageRule.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NamedUrl.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)NavigationHelper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)NugetPackageInfo.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PageSearchItem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PageTag.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PageTagRegister.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)RepoInfo.h" />
@@ -68,6 +72,7 @@
     <Midl Include="$(MSBuildThisFileDirectory)Language.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NamedUrl.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)NugetPackageInfo.idl" />
+    <Midl Include="$(MSBuildThisFileDirectory)PageSearchItem.idl" />
     <Midl Include="$(MSBuildThisFileDirectory)ThemeToggleButton.idl" />
   </ItemGroup>
 </Project>

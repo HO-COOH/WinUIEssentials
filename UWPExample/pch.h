@@ -32,3 +32,4 @@
 #include "NamedUrl.h"
 #include "CodeSource.h"
 #include "ControlExampleSubstitution.h"
+#include "PageSearchItem.h"

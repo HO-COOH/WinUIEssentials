@@ -688,10 +688,88 @@
         </Grid>
 
         <muxc:NavigationView
+            x:Name="NavView"
             Grid.Row="1"
             IsBackButtonVisible="Collapsed"
             SelectionChanged="NavigationView_SelectionChanged"
             Style="{StaticResource ModifiedNavigationViewStyle}">
+
+            <muxc:NavigationView.AutoSuggestBox>
+                <AutoSuggestBox
+                    PlaceholderText="Search for names, functionalities ..."
+                    QueryIcon="Find"
+                    QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                    TextChanged="AutoSuggestBox_TextChanged"
+                    TextMemberPath="Name">
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="local:PageSearchItem">
+                            <StackPanel Margin="0,4" Spacing="4">
+                                <!--  Component name. Left aligned so the ring below is the width of the name, not of the row  -->
+                                <Grid HorizontalAlignment="Left">
+                                    <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}" Text="{x:Bind Name}" />
+                                    <!--  If page name matched, add a accent highlighted border to it  -->
+                                    <Border
+                                        Margin="-4,-1"
+                                        BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="{ThemeResource ControlCornerRadius}"
+                                        Visibility="{x:Bind essential:Convert.StringToVisibilityReverse(MatchedTag)}" />
+                                </Grid>
+
+                                <Grid>
+                                    <!--  Individual tags  -->
+                                    <ItemsControl
+                                        MaxHeight="44"
+                                        essential:UIElementExtension.ClipToBounds="True"
+                                        ItemsSource="{x:Bind Tags}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <essential:WrapPanel HorizontalSpacing="4" VerticalSpacing="4" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                    Height="20"
+                                                    Padding="6,0"
+                                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                    BorderThickness="1"
+                                                    CornerRadius="{ThemeResource ControlCornerRadius}">
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                                        Style="{ThemeResource CaptionTextBlockStyle}"
+                                                        Text="{Binding}" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <!--  First tag is the matched tag, add a accent highlight to it by overlapping it  -->
+                                    <Border
+                                        Height="20"
+                                        Padding="6,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        BorderBrush="{ThemeResource AccentFillColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="{ThemeResource ControlCornerRadius}"
+                                        Visibility="{x:Bind essential:Convert.StringToVisibility(MatchedTag)}">
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Opacity="0"
+                                            Style="{ThemeResource CaptionTextBlockStyle}"
+                                            Text="{x:Bind MatchedTag}" />
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
+            </muxc:NavigationView.AutoSuggestBox>
+
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem x:Name="HelpersItem" Content="Helpers">
                     <muxc:NavigationViewItem.Icon>

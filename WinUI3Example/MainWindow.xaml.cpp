@@ -134,4 +134,22 @@ namespace winrt::WinUI3Example::implementation
 	{
 		winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri{ L"ms-windows-store://pdp/?productid=9PCC690BCMT9" });
 	}
+
+	void MainWindow::AutoSuggestBox_QuerySubmitted(
+		winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const&,
+		winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBoxQuerySubmittedEventArgs const& args)
+	{
+		m_navigationHelper.OnAutoSuggestBoxQuerySubmitted(args, NavView());
+	}
+
+	void MainWindow::AutoSuggestBox_TextChanged(
+		winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& sender,
+		winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBoxTextChangedEventArgs const& args)
+	{
+		if (args.Reason() != winrt::Microsoft::UI::Xaml::Controls::AutoSuggestionBoxTextChangeReason::UserInput)
+			return;
+
+		m_navigationHelper.OnAutoSuggestBoxTextChanged(sender);
+	}
+
 }

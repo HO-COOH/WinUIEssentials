@@ -40,3 +40,4 @@
 #include "ControlExampleSubstitution.h"
 #include "ContributorItem.h"
 #include "NugetPackageInfo.h"
+#include "PageSearchItem.h"

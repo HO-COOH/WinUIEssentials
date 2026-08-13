@@ -1,0 +1,13 @@
+namespace PackageRoot
+{
+    [bindable]
+    [default_interface]
+    runtimeclass PageSearchItem 
+    {
+        PageSearchItem();
+        
+        String Name{ get; };
+        String MatchedTag{ get; };
+        Windows.Foundation.Collections.IVector<Object> Tags{ get; };
+    }
+}

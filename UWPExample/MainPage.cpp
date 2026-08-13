@@ -45,4 +45,21 @@ namespace winrt::UWPExample::implementation
 		settingsButton.Content(winrt::box_value(L"About"));
 	}
 
+	void MainPage::AutoSuggestBox_QuerySubmitted(
+		winrt::Windows::UI::Xaml::Controls::AutoSuggestBox const&,
+		winrt::Windows::UI::Xaml::Controls::AutoSuggestBoxQuerySubmittedEventArgs const& args)
+	{
+		m_navigationHelper.OnAutoSuggestBoxQuerySubmitted(args, NavView());
+	}
+
+	void MainPage::AutoSuggestBox_TextChanged(
+		winrt::Windows::UI::Xaml::Controls::AutoSuggestBox const& sender,
+		winrt::Windows::UI::Xaml::Controls::AutoSuggestBoxTextChangedEventArgs const& args)
+	{
+		if (args.Reason() != winrt::Windows::UI::Xaml::Controls::AutoSuggestionBoxTextChangeReason::UserInput)
+			return;
+
+		m_navigationHelper.OnAutoSuggestBoxTextChanged(sender);
+	}
+
 }
