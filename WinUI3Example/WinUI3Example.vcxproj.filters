@@ -710,6 +710,9 @@
     <None Include="vcpkg.json" />
     <None Include="vcpkg-configuration.json" />
     <None Include="Package.StoreAssociation.xml" />
+    <None Include="Assets\SVG_Logo.svg">
+      <Filter>Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="DisplacementMapGenerator.hlsl">

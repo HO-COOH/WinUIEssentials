@@ -5,6 +5,7 @@ namespace UWPExample
     {
         SvgPage();
 
+        Windows.UI.Xaml.Controls.Image LocalUriImage{ get; };
         Windows.UI.Xaml.Controls.Image SvgUrlImage{ get; };
 		Windows.UI.Xaml.Controls.Image SvgStringImage{ get; };
         Windows.UI.Xaml.Controls.TextBox SvgUrl{ get; };

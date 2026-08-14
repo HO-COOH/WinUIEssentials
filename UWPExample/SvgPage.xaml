@@ -11,6 +11,26 @@
     mc:Ignorable="d">
 
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
+        <local:ControlExample HeaderText="Using local file with Svg.UriSource">
+            <Image x:Name="LocalUriImage" MaxWidth="300">
+                <Image.Source>
+                    <svg:SvgImageSource BindSizeTo="{x:Bind LocalUriImage}" UriSource="ms-appx:///Assets/SVG_Logo.svg" />
+                </Image.Source>
+            </Image>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Image x:Name=&quot;LocalUriImage&quot; MaxWidth=&quot;300&quot;&gt;
+    &lt;Image.Source&gt;
+        &lt;svg:SvgImageSource BindSizeTo=&quot;{x:Bind LocalUriImage}&quot; UriSource=&quot;ms-appx:///Assets/SVG_Logo.svg&quot; /&gt;
+    &lt;/Image.Source&gt;
+&lt;/Image&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
         <local:ControlExample HeaderText="Paste in svg urls">
             <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>

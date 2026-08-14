@@ -73,32 +73,10 @@ namespace winrt::PackageRoot::Svg::implementation
         winrt::Windows::Foundation::IAsyncAction loadFromString(winrt::hstring str);
         winrt::Windows::Foundation::IAsyncAction renderAsync(double rasterWidth, double rasterHeight);
 
-        struct ScaleResult
-        {
-            float scale;
-            uint32_t width;
-            uint32_t height;
-        };
+
 
         static resvg_options* GetResvgOptions();
 
-        constexpr static auto getUniformScale(double rasterWidth, double rasterHeight, float naturalWidth, float naturalHeight)
-        {
-            float scale = 1.0f;
-            if (rasterWidth > 0.0 || rasterHeight > 0.0)
-            {
-                float scaleX = (rasterWidth > 0.0) ? static_cast<float>(rasterWidth) / static_cast<float>(naturalWidth) : std::numeric_limits<float>::infinity();
-                float scaleY = (rasterHeight > 0.0) ? static_cast<float>(rasterHeight) / static_cast<float>(naturalHeight) : std::numeric_limits<float>::infinity();
-                scale = (std::min)(scaleX, scaleY);
-                return ScaleResult
-                {
-                    .scale = scale,
-                    .width = static_cast<uint32_t>(std::ceil(naturalWidth * scale)),
-                    .height = static_cast<uint32_t>(std::ceil(naturalHeight * scale))
-                };
-            }
-            return ScaleResult{ scale, static_cast<uint32_t>(naturalWidth), static_cast<uint32_t>(naturalHeight) };
-        }
 
         winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::Streams::IBuffer> getSvgContent(winrt::Windows::Foundation::Uri uri);
     };

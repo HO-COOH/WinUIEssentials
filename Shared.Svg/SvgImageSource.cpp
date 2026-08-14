@@ -16,6 +16,8 @@
 #include <cmath>
 #include <limits>
 #include "RenderTree.h"
+#include "ScaleResult.h"
+#include <winrt/Windows.Storage.h>
 
 static double getDpiScale([[maybe_unused]] auto&& imageControl)
 {
@@ -201,8 +203,8 @@ namespace winrt::PackageRoot::Svg::implementation
         winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        auto str = winrt::unbox_value_or<winrt::hstring>(e.NewValue(), winrt::hstring{});
-        auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
+        auto str = winrt::unbox_value_or<winrt::hstring>(e.NewValue(), L"");
+        auto self = GetSelf(d);
         if (str.empty())
         {
             self->m_currentSource = std::monostate{};
@@ -276,7 +278,7 @@ namespace winrt::PackageRoot::Svg::implementation
             co_return;
 
         std::vector<uint8_t> pixels;
-        uint32_t width = 0, height = 0;
+        ScaleResult scaleResult;
         {
             std::lock_guard lock(strong->m_treeMutex);
             if (!strong->m_tree)
@@ -286,10 +288,8 @@ namespace winrt::PackageRoot::Svg::implementation
             if (naturalWidth == 0 || naturalHeight == 0)
                 co_return;
 
-            auto scaled = getUniformScale(rasterWidth, rasterHeight, naturalWidth, naturalHeight);
-            width = scaled.width;
-            height = scaled.height;
-            pixels = strong->m_tree.Render(scaled.scale, width, height);
+            scaleResult = ScaleResult{ rasterWidth, rasterHeight, naturalWidth, naturalHeight };
+            pixels = strong->m_tree.Render(scaleResult.scale, scaleResult.width, scaleResult.height);
         }
 
         if (cancel())
@@ -300,7 +300,7 @@ namespace winrt::PackageRoot::Svg::implementation
         encoder.SetPixelData(
             winrt::Windows::Graphics::Imaging::BitmapPixelFormat::Rgba8,
             winrt::Windows::Graphics::Imaging::BitmapAlphaMode::Premultiplied,
-            width, height,
+            scaleResult.width, scaleResult.height,
             96.0, 96.0,
             winrt::array_view<uint8_t const>{ pixels.data(), pixels.data() + pixels.size() });
         co_await encoder.FlushAsync();
@@ -362,9 +362,43 @@ namespace winrt::PackageRoot::Svg::implementation
         return m_boundImage.get();
     }
 
+    static auto localPathFromFileUri(winrt::Windows::Foundation::Uri const& uri)
+    {
+        std::wstring path{ winrt::Windows::Foundation::Uri::UnescapeComponent(uri.Path()) };
+        if (auto const host = uri.Host(); !host.empty())
+        {
+            /*
+                host not empty, eg:  file://server/share/a.svg  Host: server, Path: /share/a.svg
+                after:     \\server/share/a.svg
+            */
+            path.insert(0, std::format(L"\\\\{}", host));
+        }
+        else if (!path.empty() && path.front() == L'/')
+        {
+            /*
+                host empty, path not empty and starts with /, eg: file:///C:/tmp/b.svg Host: empty, Path: /C:/tmp/b.svg
+                after:  C:/tmp/b.svg
+            */
+            path.erase(0, 1);
+        }
+        //else, Path is empty or not Path not start with L'/', throw exception in StorageFile.GetFileFromPathAsync()
+        std::ranges::replace(path, L'/', L'\\');
+        return path;
+    }
+
     winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::Streams::IBuffer> SvgImageSource::getSvgContent(winrt::Windows::Foundation::Uri uri)
     {
-        static winrt::Windows::Web::Http::HttpClient httpClient;
-        co_return co_await httpClient.GetBufferAsync(uri);
+        auto const scheme = uri.SchemeName();
+
+        if (scheme == L"http" || scheme == L"https")
+        {
+            static winrt::Windows::Web::Http::HttpClient httpClient;
+            co_return co_await httpClient.GetBufferAsync(uri);
+        }
+
+        auto file = (scheme == L"file")
+            ? co_await winrt::Windows::Storage::StorageFile::GetFileFromPathAsync(localPathFromFileUri(uri))
+            : co_await winrt::Windows::Storage::StorageFile::GetFileFromApplicationUriAsync(uri);
+        co_return co_await winrt::Windows::Storage::FileIO::ReadBufferAsync(file);
     }
 }

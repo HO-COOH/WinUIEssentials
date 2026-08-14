@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)RenderTree.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScaleResult.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SvgImageSource.h" />
   </ItemGroup>
   <ItemGroup>
