@@ -324,6 +324,12 @@ namespace winrt::PackageRoot::Svg::implementation
 
     void SvgImageSource::BindSizeTo(winrt::WinUINamespace::UI::Xaml::Controls::Image const& image)
     {
+        m_sizeChangedRevoker.revoke();
+        m_boundImage = {};
+
+        if (!image)
+            return;
+
         m_boundImage = image;
         m_isHandlingImageSizeChanged = true;
         auto scopeExit = wil::scope_exit([&]() { m_isHandlingImageSizeChanged = false; });
@@ -331,7 +337,7 @@ namespace winrt::PackageRoot::Svg::implementation
         auto height = image.ActualHeight();
         RasterizePixelWidth(width);
         RasterizePixelHeight(height);
-		double const scale = getDpiScale(image);
+        double const scale = getDpiScale(image);
         replaceOp(renderAsync(width * scale, height * scale));
 
         m_sizeChangedRevoker = image.SizeChanged(
@@ -348,7 +354,7 @@ namespace winrt::PackageRoot::Svg::implementation
                     return;
                 auto image = sender.as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
                 double const scale = getDpiScale(image);
-                
+
                 auto [width, height] = e.NewSize();
                 self->RasterizePixelWidth(width);
                 self->RasterizePixelHeight(height);
