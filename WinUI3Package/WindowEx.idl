@@ -58,12 +58,6 @@
         Boolean IsShownInSwitcher;
         static Microsoft.UI.Xaml.DependencyProperty IsShownInSwitcherProperty{ get; };
 
-        Boolean TitleBarDarkMode;
-        static Microsoft.UI.Xaml.DependencyProperty TitleBarDarkModeProperty{ get; };
-
-        Boolean TitleBarAutoDarkMode;
-        static Microsoft.UI.Xaml.DependencyProperty TitleBarAutoDarkModeProperty{ get; };
-
         Microsoft.UI.Xaml.Controls.MenuFlyout ContextMenu;
         static Microsoft.UI.Xaml.DependencyProperty ContextMenuProperty{ get; };
 

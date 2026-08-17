@@ -70,6 +70,9 @@ namespace winrt::WinUI3Package::implementation
 
     void WindowCaptionButtonThemeWorkaround::setCaptionButtonTheme(winrt::Microsoft::UI::Xaml::ElementTheme const& theme)
     {
+        if (!m_titleBar)
+            return;
+
         try
         {
             auto const foreground = theme == winrt::Microsoft::UI::Xaml::ElementTheme::Dark ? winrt::Windows::UI::Colors::White() : winrt::Windows::UI::Colors::Black();

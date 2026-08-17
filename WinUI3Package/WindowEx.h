@@ -117,14 +117,6 @@ namespace winrt::WinUI3Package::implementation
         void HasTitleBar(bool value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty HasTitleBarProperty();
 
-        bool TitleBarDarkMode();
-        void TitleBarDarkMode(bool value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty TitleBarDarkModeProperty();
-
-        bool TitleBarAutoDarkMode();
-        void TitleBarAutoDarkMode(bool value);
-        static winrt::Microsoft::UI::Xaml::DependencyProperty TitleBarAutoDarkModeProperty();
-
         winrt::hstring Icon();
         void Icon(winrt::hstring const& value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty IconProperty();
@@ -173,8 +165,6 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_isShownInSwitcherProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_hasBorderProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_hasTitleBarProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleBarDarkModeProperty;
-        static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleBarAutoDarkModeProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_contextMenuProperty;
 
@@ -194,10 +184,10 @@ namespace winrt::WinUI3Package::implementation
 
         /*Both sources can outlive us, and both handlers hold us raw, so revoke by hand*/
         winrt::event_token m_appWindowChangedToken{};
-        winrt::Microsoft::UI::Xaml::Window::Closed_revoker m_windowClosedToken{};
+        winrt::Microsoft::UI::Xaml::Window::Closed_revoker m_windowClosedToken;
+        winrt::Microsoft::UI::Xaml::FrameworkElement::ActualThemeChanged_revoker m_themeChangedRevoker;
 
-
-
+        void setWin32TitlebarTheme(BOOL isLight);
 
         static int scaleForDpi(int value, int dpi);
         static int unscaleForDpi(int value, int dpi);
@@ -228,7 +218,6 @@ namespace winrt::WinUI3Package::implementation
         );
 
         LRESULT onGetMinMaxInfo(WPARAM, LPARAM pMinMaxInfo);
-        void onSettingChange();
         void clampWindowSize();
         static void updateNonClientRegions(winrt::Microsoft::UI::Input::NonClientRegionKind kind, HWND hwnd);
         bool clearBackground(HWND hwnd, HDC hdc);
@@ -267,12 +256,6 @@ namespace winrt::WinUI3Package::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void onHasTitleBarChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
-            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
-        static void onTitleBarDarkModeChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
-            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
-        static void onTitleBarAutoDarkModeChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void onIconChanged(

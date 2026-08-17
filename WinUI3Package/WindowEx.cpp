@@ -64,8 +64,6 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_isShownInSwitcherProperty = nullptr;
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_hasBorderProperty = nullptr;
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_hasTitleBarProperty = nullptr;
-	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_titleBarDarkModeProperty = nullptr;
-	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_titleBarAutoDarkModeProperty = nullptr;
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_iconProperty = nullptr;
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_contextMenuProperty = nullptr;
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_nonClientRegionKindProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
@@ -159,20 +157,6 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<bool>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &WindowEx::onHasTitleBarChanged }
-		);
-
-		s_titleBarDarkModeProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"TitleBarDarkMode",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &WindowEx::onTitleBarDarkModeChanged }
-		);
-
-		s_titleBarAutoDarkModeProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
-			L"TitleBarAutoDarkMode",
-			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &WindowEx::onTitleBarAutoDarkModeChanged }
 		);
 
 		s_iconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
@@ -643,36 +627,6 @@ namespace winrt::WinUI3Package::implementation
 		return s_hasTitleBarProperty;
 	}
 
-	bool WindowEx::TitleBarDarkMode()
-	{
-		return winrt::unbox_value<bool>(GetValue(s_titleBarDarkModeProperty));
-	}
-
-	void WindowEx::TitleBarDarkMode(bool value)
-	{
-		SetValue(s_titleBarDarkModeProperty, winrt::box_value(value));
-	}
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::TitleBarDarkModeProperty()
-	{
-		return s_titleBarDarkModeProperty;
-	}
-
-	bool WindowEx::TitleBarAutoDarkMode()
-	{
-		return winrt::unbox_value<bool>(GetValue(s_titleBarAutoDarkModeProperty));
-	}
-
-	void WindowEx::TitleBarAutoDarkMode(bool value)
-	{
-		SetValue(s_titleBarAutoDarkModeProperty, winrt::box_value(value));
-	}
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::TitleBarAutoDarkModeProperty()
-	{
-		return s_titleBarAutoDarkModeProperty;
-	}
-
 	winrt::hstring WindowEx::Icon()
 	{
 		return winrt::unbox_value<winrt::hstring>(GetValue(s_iconProperty));
@@ -747,6 +701,16 @@ namespace winrt::WinUI3Package::implementation
 	}
 
 
+	void WindowEx::setWin32TitlebarTheme(BOOL isDark)
+	{
+		DwmSetWindowAttribute(
+			m_hwnd,
+			GetWindowsVersion().dwBuildNumber >= 19041 ? 20 : 19,
+			&isDark,
+			sizeof(isDark)
+		);
+	}
+
 	/*Rounded, and in 64 bit, so that a size survives a scale/unscale round trip*/
 	int WindowEx::scaleForDpi(int value, int dpi)
 	{
@@ -791,9 +755,6 @@ namespace winrt::WinUI3Package::implementation
 			case WM_ERASEBKGND:
 				if (ptr->clearBackground(hwnd, reinterpret_cast<HDC>(wparam)))
 					return 1;
-				break;
-			case WM_SETTINGCHANGE:
-				ptr->onSettingChange();
 				break;
 			case WM_CONTEXTMENU:
 			{
@@ -845,12 +806,6 @@ namespace winrt::WinUI3Package::implementation
 		DWORD bytes = sizeof(value);
 		auto hr = RegGetValue(key, nullptr, LR"(AppsUseLightTheme)", RRF_RT_DWORD, nullptr, &value, &bytes);
 		return static_cast<bool>(value);
-	}
-
-	void WindowEx::onSettingChange()
-	{
-		if (TitleBarAutoDarkMode() || ExtendsContentIntoTitleBar())
-			TitleBarDarkMode(!isLightTheme());
 	}
 
 	void WindowEx::clampWindowSize()
@@ -917,9 +872,21 @@ namespace winrt::WinUI3Package::implementation
 		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
 		auto self = GetSelf(d);
-		//register to change the caption button color when the system theme changes
-		self->setSubClassIfNeeded();
-		self->m_window.ExtendsContentIntoTitleBar(winrt::unbox_value<bool>(e.NewValue()));
+		auto const value = winrt::unbox_value<bool>(e.NewValue());
+		self->m_window.ExtendsContentIntoTitleBar(value);
+		
+		if (value)
+			return;
+		self->setWin32TitlebarTheme(self->ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Dark);
+		
+		if (self->m_themeChangedRevoker)
+			return;
+
+		self->m_themeChangedRevoker = self->ActualThemeChanged(winrt::auto_revoke, [self](auto&&...)
+		{
+			if (!self->ExtendsContentIntoTitleBar())
+				self->setWin32TitlebarTheme(self->ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Dark);
+		});
 	}
 
 	void WindowEx::onSystemBackdropChanged(
@@ -1000,40 +967,6 @@ namespace winrt::WinUI3Package::implementation
 			hasBorder = true;
 
 		self->m_overlappedPresenter.SetBorderAndTitleBar(hasBorder, hasTitleBar);
-	}
-
-	void WindowEx::onTitleBarDarkModeChanged(
-		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
-		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
-	{
-		auto self = GetSelf(d);
-		BOOL copy = winrt::unbox_value<bool>(e.NewValue());
-		DwmSetWindowAttribute(
-			self->m_hwnd,
-			GetWindowsVersion().dwBuildNumber >= 19041 ? 20 : 19,
-			&copy,
-			sizeof(copy)
-		);
-		if (self->ExtendsContentIntoTitleBar())
-		{
-			self->m_appWindowTitleBar.ButtonForegroundColor(copy ?
-				winrt::Windows::UI::Colors::White() :
-				winrt::Windows::UI::Colors::Black()
-			);
-		}
-	}
-
-	void WindowEx::onTitleBarAutoDarkModeChanged(
-		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
-		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
-	{
-		auto self = GetSelf(d);
-		if (!winrt::unbox_value<bool>(e.NewValue()))
-			return;
-
-		//subscribe to WM_SETTINGCHANGE
-		self->setSubClassIfNeeded();
-		self->TitleBarDarkMode(!isLightTheme());
 	}
 
 	void WindowEx::onIconChanged(
@@ -1194,5 +1127,13 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Xaml::DependencyProperty const& property)
 	{
 		attachToWindow();
+		if (!ExtendsContentIntoTitleBar())
+			setWin32TitlebarTheme(ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Dark);
+
+		m_themeChangedRevoker = ActualThemeChanged(winrt::auto_revoke, [this](auto&&...) 
+		{
+			if (!ExtendsContentIntoTitleBar())
+				setWin32TitlebarTheme(ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Dark);
+		});
 	}
 }

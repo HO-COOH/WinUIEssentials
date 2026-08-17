@@ -9,8 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Activated="WindowEx_Activated"
     Closed="WindowEx_Closed"
+    ExtendsContentIntoTitleBar="True"
     Icon="Assets/MainLogo.ico"
-    TitleBarAutoDarkMode="True"
     mc:Ignorable="d">
 
     <Grid x:Name="RootGrid" Loaded="RootGrid_Loaded">
@@ -1049,7 +1049,7 @@
 
             <NavigationView.FooterMenuItems>
                 <StackPanel Orientation="Horizontal" Spacing="4">
-                    <local:ThemeToggleButton Root="{x:Bind RootGrid}" />
+                    <local:ThemeToggleButton Root="{x:Bind}" />
                     <local:EffectToggleButton Window="{x:Bind WindowBackgroundHelper}" />
                 </StackPanel>
             </NavigationView.FooterMenuItems>
