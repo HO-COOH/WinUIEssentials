@@ -1,45 +1,76 @@
 ﻿namespace WinUI3Package
 {
-   [bindable]
+    [bindable]
     [default_interface]
-    unsealed runtimeclass WindowEx : Microsoft.UI.Xaml.Window
+    unsealed runtimeclass WindowEx : Microsoft.UI.Xaml.Controls.ContentControl, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         WindowEx();
-        
-        /*MinMaxSize*/
-        Int32 MinWidth;
-        Int32 MaxWidth;
-        Int32 MinHeight;
-        Int32 MaxHeight;
 
-        /*Size*/
-        Int32 Width;
-        Int32 Height;
-        Int32 RawWidth;
-        Int32 RawHeight;
+        Microsoft.UI.Xaml.Window Window{ get; };
+
+        String Title;
+        static Microsoft.UI.Xaml.DependencyProperty TitleProperty{ get; };
+
+        Boolean ExtendsContentIntoTitleBar;
+        static Microsoft.UI.Xaml.DependencyProperty ExtendsContentIntoTitleBarProperty{ get; };
+
+        Microsoft.UI.Xaml.Media.SystemBackdrop SystemBackdrop;
+        static Microsoft.UI.Xaml.DependencyProperty SystemBackdropProperty{ get; };
+
+        void Activate();
+        void Close();
+        void SetTitleBar(Microsoft.UI.Xaml.UIElement titleBar);
+
+        event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.WindowActivatedEventArgs> Activated;
+        event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.WindowEventArgs> Closed;
+        event Windows.Foundation.TypedEventHandler<Object, Microsoft.UI.Xaml.WindowVisibilityChangedEventArgs> VisibilityChanged;
+
+        Int32 RawWidth{ get; };
+        Int32 RawHeight{ get; };
+
         UInt32 Dpi{ get; };
 
         Int32 LeftInset{ get; };
         Int32 RightInset{ get; };
         Int32 LeftInsetRaw{ get; };
         Int32 RightInsetRaw{ get; };
-        
+
         /*CaptionButton*/
         Boolean IsMinimizable;
+        static Microsoft.UI.Xaml.DependencyProperty IsMinimizableProperty{ get; };
+
         Boolean IsMaximizable;
+        static Microsoft.UI.Xaml.DependencyProperty IsMaximizableProperty{ get; };
 
         /*Win32WindowStyle*/
         Boolean HasBorder;
-        Boolean HasTitleBar;
-        Boolean IsResizable;
-        Boolean IsAlwaysOnTop;
-        Boolean IsShownInSwitcher;
-        Boolean TitleBarDarkMode;
-        Boolean TitleBarAutoDarkMode;
-        Microsoft.UI.Xaml.Controls.MenuFlyout ContextMenu;
-        String Icon;
+        static Microsoft.UI.Xaml.DependencyProperty HasBorderProperty{ get; };
 
-        //Microsoft.UI.Windowing.AppWindow AppWindow{ get; };
+        Boolean HasTitleBar;
+        static Microsoft.UI.Xaml.DependencyProperty HasTitleBarProperty{ get; };
+
+        Boolean IsResizable;
+        static Microsoft.UI.Xaml.DependencyProperty IsResizableProperty{ get; };
+
+        Boolean IsAlwaysOnTop;
+        static Microsoft.UI.Xaml.DependencyProperty IsAlwaysOnTopProperty{ get; };
+
+        Boolean IsShownInSwitcher;
+        static Microsoft.UI.Xaml.DependencyProperty IsShownInSwitcherProperty{ get; };
+
+        Boolean TitleBarDarkMode;
+        static Microsoft.UI.Xaml.DependencyProperty TitleBarDarkModeProperty{ get; };
+
+        Boolean TitleBarAutoDarkMode;
+        static Microsoft.UI.Xaml.DependencyProperty TitleBarAutoDarkModeProperty{ get; };
+
+        Microsoft.UI.Xaml.Controls.MenuFlyout ContextMenu;
+        static Microsoft.UI.Xaml.DependencyProperty ContextMenuProperty{ get; };
+
+        String Icon;
+        static Microsoft.UI.Xaml.DependencyProperty IconProperty{ get; };
+
+        Microsoft.UI.Windowing.AppWindow AppWindow{ get; };
         UInt64 Hwnd{ get; };
 
 

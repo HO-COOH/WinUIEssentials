@@ -2,57 +2,75 @@
 
 #include "WindowEx.g.h"
 #include <winrt/Microsoft.UI.Windowing.h>
+#include <winrt/Microsoft.UI.Xaml.Media.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 #include <unordered_map>
-#include <unordered_set>
 #include "TransparentMenuFlyoutHost.h"
 #include <winrt/Microsoft.UI.Interop.h>
+#include "include/EnsureDependencyProperty.hpp"
+#include "include/PropertyChangeHelper.hpp"
+#include <HwndHelper.hpp>
+
+#pragma push_macro("min")
+#pragma push_macro("max")
+#undef min
+#undef max
+#include <tiny/optional.h>
+#pragma pop_macro("max")
+#pragma pop_macro("min")
 
 namespace winrt::WinUI3Package::implementation
 {
-    //Prevent order of setter causing invalid combination
-    struct TitleBarAndBorderSetting
-    {
-        struct DefaultValue
-        {
-            constexpr static auto HasTitleBar = true;
-            constexpr static auto HasBorder = true;
-        };
-
-        std::optional<bool> m_hasTitleBar;
-        std::optional<bool> m_hasBorder;
-    };
-    struct WindowEx : WindowExT<WindowEx>
+    struct WindowEx : WindowExT<WindowEx>, EnsureDependencyProperty<WindowEx>, MvvmHelper::PropertyChangeHelper<WindowEx>
     {
         WindowEx();
+        ~WindowEx();
 
-#pragma region MinimumSize
-        int MinWidth();
-        void MinWidth(int value);
+        static void EnsureDependencyProperties();
 
-        int MaxWidth();
-        void MaxWidth(int value);
+        winrt::Microsoft::UI::Xaml::Window Window();
 
-        int MinHeight();
-        void MinHeight(int value);
 
-        int MaxHeight();
-        void MaxHeight(int value);
+#pragma region WindowForwarding
+        winrt::hstring Title();
+        void Title(winrt::hstring const& value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty TitleProperty();
+
+        bool ExtendsContentIntoTitleBar();
+        void ExtendsContentIntoTitleBar(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty ExtendsContentIntoTitleBarProperty();
+
+        winrt::Microsoft::UI::Xaml::Media::SystemBackdrop SystemBackdrop();
+        void SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::SystemBackdrop const& value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty SystemBackdropProperty();
+
+        void Activate();
+        void Close();
+        void SetTitleBar(winrt::Microsoft::UI::Xaml::UIElement const& titleBar);
+
+        winrt::event_token Activated(winrt::Windows::Foundation::TypedEventHandler<
+            winrt::Windows::Foundation::IInspectable,
+            winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs> const& handler);
+        void Activated(winrt::event_token const& token);
+
+        winrt::event_token Closed(winrt::Windows::Foundation::TypedEventHandler<
+            winrt::Windows::Foundation::IInspectable,
+            winrt::Microsoft::UI::Xaml::WindowEventArgs> const& handler);
+        void Closed(winrt::event_token const& token);
+
+        winrt::event_token VisibilityChanged(winrt::Windows::Foundation::TypedEventHandler<
+            winrt::Windows::Foundation::IInspectable,
+            winrt::Microsoft::UI::Xaml::WindowVisibilityChangedEventArgs> const& handler);
+        void VisibilityChanged(winrt::event_token const& token);
 #pragma endregion
 
 
 #pragma region Size
-        int Width();
-        void Width(int value);
-
-        int Height();
-        void Height(int value);
-
+        /*
+            Width / Height / MinWidth / MaxWidth / MinHeight / MaxHeight come from FrameworkElement
+        */
         int RawWidth();
-        void RawWidth(int value);
-
         int RawHeight();
-        void RawHeight(int value);
 
         int LeftInset();
         int LeftInsetRaw();
@@ -60,45 +78,60 @@ namespace winrt::WinUI3Package::implementation
         int RightInsetRaw();
 
         unsigned int Dpi();
+
+        /*Width/Height are the whole window, only the client area is ours to lay out in*/
+        winrt::Windows::Foundation::Size MeasureOverride(winrt::Windows::Foundation::Size availableSize);
+        winrt::Windows::Foundation::Size ArrangeOverride(winrt::Windows::Foundation::Size finalSize);
 #pragma endregion
 
 
 #pragma region CaptionButton
         bool IsMinimizable();
         void IsMinimizable(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty IsMinimizableProperty();
 
         bool IsMaximizable();
         void IsMaximizable(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty IsMaximizableProperty();
 
         bool IsResizable();
         void IsResizable(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty IsResizableProperty();
 
         bool IsAlwaysOnTop();
         void IsAlwaysOnTop(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty IsAlwaysOnTopProperty();
 
         bool IsShownInSwitcher();
         void IsShownInSwitcher(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty IsShownInSwitcherProperty();
 #pragma endregion
 
 
 #pragma region Win32WindowStyle
         bool HasBorder();
         void HasBorder(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty HasBorderProperty();
 
         bool HasTitleBar();
         void HasTitleBar(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty HasTitleBarProperty();
 
         bool TitleBarDarkMode();
         void TitleBarDarkMode(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty TitleBarDarkModeProperty();
 
         bool TitleBarAutoDarkMode();
         void TitleBarAutoDarkMode(bool value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty TitleBarAutoDarkModeProperty();
 
         winrt::hstring Icon();
-        void Icon(winrt::hstring value);
+        void Icon(winrt::hstring const& value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty IconProperty();
 
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout ContextMenu();
-        void ContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout value);
+        void ContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty ContextMenuProperty();
 #pragma endregion
 
         winrt::Microsoft::UI::Windowing::AppWindow AppWindow();
@@ -124,68 +157,60 @@ namespace winrt::WinUI3Package::implementation
         }
 
     private:
+        winrt::Microsoft::UI::Xaml::Window m_window;
+        HWND m_hwnd = GetHwnd(m_window);
+        winrt::Microsoft::UI::Windowing::AppWindow m_appWindow = m_window.AppWindow();
+        winrt::Microsoft::UI::Windowing::OverlappedPresenter m_overlappedPresenter = m_appWindow.Presenter().as<decltype(m_overlappedPresenter)>();
+        winrt::Microsoft::UI::Windowing::AppWindowTitleBar m_appWindowTitleBar = m_appWindow.TitleBar();
+
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_extendsContentIntoTitleBarProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_systemBackdropProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isMinimizableProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isMaximizableProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isResizableProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isAlwaysOnTopProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_isShownInSwitcherProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_hasBorderProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_hasTitleBarProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleBarDarkModeProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleBarAutoDarkModeProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_contextMenuProperty;
+
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_nonClientRegionKindProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_rootWindowProperty;
         static inline std::unordered_map<HWND, std::list<winrt::weak_ref<winrt::Microsoft::UI::Xaml::FrameworkElement>>> s_allWindows;
         static std::unordered_map<HWND, winrt::event_token> s_windowResizeRevokers;
-        template<typename T, T Sentinel>
-        class Optional
-        {
-            T m_value = Sentinel;
-        public:
-            Optional& operator=(T value) { m_value = value; return *this; }
-            T value_or(T value)
-            {
-                return m_value == Sentinel ? value : m_value;
-            }
-            T value_or()
-            {
-                return m_value;
-            }
-
-            constexpr operator bool()
-            {
-                return m_value != Sentinel;
-            }
-
-            constexpr bool has_value()
-            {
-                return (bool)*this;
-            }
-
-            T operator*() const
-            {
-                return m_value;
-            }
-        };
-
-        bool m_titleBarDarkMode{};
         bool m_setMinMax{};
-        bool m_titleBarAutoDarkMode{};
         bool m_registered{};
-        bool m_extendContents{};
         bool m_transparent{};
-        TitleBarAndBorderSetting m_titleBarBorderSetting;
+        /*Set while we are pushing the live window size into Width/Height, so the
+          property changed handlers don't resize the window right back*/
+        bool m_syncingSizeFromWindow{};
+        bool m_attachedToWindow{};
+        /*Nothing may hand out a reference to us before the constructor returned*/
+        bool m_constructed{};
+
+        /*Both sources can outlive us, and both handlers hold us raw, so revoke by hand*/
+        winrt::event_token m_appWindowChangedToken{};
+        winrt::Microsoft::UI::Xaml::Window::Closed_revoker m_windowClosedToken{};
+
+
 
 
         static int scaleForDpi(int value, int dpi);
         static int unscaleForDpi(int value, int dpi);
 
-
-        Optional<int, -1> m_minWidth;
-        Optional<int, -1> m_minHeight;
-        Optional<int, INT_MAX> m_maxWidth;
-        Optional<int, INT_MAX> m_maxHeight;
-        HWND m_hwnd{};
+        tiny::optional<int, -1> m_minWidth;
+        tiny::optional<int, -1> m_minHeight;
+        tiny::optional<int, -1> m_maxWidth;
+        tiny::optional<int, -1> m_maxHeight;
+  
         HBRUSH m_backgroundBlackBrush = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
-        winrt::hstring m_icon;
 
-        winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_contextMenu{ nullptr };
         TransparentMenuFlyoutHost m_contextMenuHost{ nullptr };
 
-        winrt::Microsoft::UI::Windowing::AppWindow m_appWindow{ nullptr };
-        winrt::Microsoft::UI::Windowing::OverlappedPresenter m_overlappedPresenter{ nullptr };
-        winrt::Microsoft::UI::Windowing::AppWindowTitleBar m_appWindowTitleBar{ nullptr };
 
 
         constexpr static UINT SubClassId = 101;
@@ -206,124 +231,108 @@ namespace winrt::WinUI3Package::implementation
         void onSettingChange();
         void clampWindowSize();
         static void updateNonClientRegions(winrt::Microsoft::UI::Input::NonClientRegionKind kind, HWND hwnd);
-        void extendsContentIntoTitleBar(bool value);
-        bool extendsContentIntoTitleBar();
         bool clearBackground(HWND hwnd, HDC hdc);
 
         static bool isLightTheme();
-        static RECT getAdjustedWindowRect(HWND hwnd, unsigned dpi);
 
         static HWND getHwndFromElement(winrt::Microsoft::UI::Xaml::FrameworkElement const& element);
         static winrt::Microsoft::UI::Windowing::AppWindow getAppWindowFromElement(winrt::Microsoft::UI::Xaml::FrameworkElement const& element);
-    };
 
-    template<typename Container>
-    struct InputNonClientPointerSourceSet
-    {
-        using RectType = winrt::Windows::Graphics::RectInt32;
-        std::vector<RectType> close;
-        std::vector<RectType> maximize;
-        std::vector<RectType> minimize;
-        std::vector<RectType> icon;
-        std::vector<RectType> caption;
-        std::vector<RectType> topBorder;
-        std::vector<RectType> leftBorder;
-        std::vector<RectType> bottomBorder;
-        std::vector<RectType> rightBorder;
-        std::vector<RectType> passthrough;
+#pragma region PropertyChangedHandlers
+        static void onTitleChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onExtendsContentIntoTitleBarChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onSystemBackdropChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onIsMinimizableChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onIsMaximizableChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onIsResizableChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onIsAlwaysOnTopChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onIsShownInSwitcherChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onHasBorderChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onHasTitleBarChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onTitleBarDarkModeChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onTitleBarAutoDarkModeChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onIconChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onContextMenuChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onNonClientRegionKindChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
-        winrt::Microsoft::UI::Input::InputNonClientPointerSource m_source;
-    public:
-        InputNonClientPointerSourceSet(Container& elementContainer, HWND hwnd)
-            : m_source{ winrt::Microsoft::UI::Input::InputNonClientPointerSource::GetForWindowId(winrt::Microsoft::UI::GetWindowIdFromWindow(hwnd)) }
-        {
-            winrt::Microsoft::UI::Xaml::UIElement rootElement{ nullptr };
-            for (auto& element : elementContainer)
-            {
-                if (!rootElement)
-                    rootElement = element.XamlRoot().Content();
+        void onFrameworkWidthChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
+            winrt::Microsoft::UI::Xaml::DependencyProperty const& property);
+        void onFrameworkHeightChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
+            winrt::Microsoft::UI::Xaml::DependencyProperty const& property);
+        void onFrameworkMinWidthChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
+            winrt::Microsoft::UI::Xaml::DependencyProperty const& property);
+        void onFrameworkMaxWidthChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
+            winrt::Microsoft::UI::Xaml::DependencyProperty const& property);
+        void onFrameworkMinHeightChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
+            winrt::Microsoft::UI::Xaml::DependencyProperty const& property);
+        void onFrameworkMaxHeightChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
+            winrt::Microsoft::UI::Xaml::DependencyProperty const& property);
 
-                auto const dpi = GetDpiForWindow(hwnd);
-                auto transformedBounds = WindowEx::scaleRect(element.TransformToVisual(rootElement).TransformBounds(
-                    winrt::Windows::Foundation::Rect
-                    {
-                        winrt::Windows::Foundation::Point{0, 0},
-                        winrt::Windows::Foundation::Size
-                        {
-                            static_cast<float>(WindowEx::element.ActualWidth()),
-                            static_cast<float>(WindowEx::element.ActualHeight())
-                        }
-                    }
-                ));
+        void onAppWindowChanged(
+            winrt::Microsoft::UI::Windowing::AppWindow const& sender,
+            winrt::Microsoft::UI::Windowing::AppWindowChangedEventArgs const& args);
 
-                switch (WindowEx::GetNonClientRegionKind(element))
-                {
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::Close:
-                        close.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::Maximize:
-                        maximize.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::Minimize:
-                        minimize.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::Icon:
-                        icon.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::Caption:
-                        caption.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::TopBorder:
-                        topBorder.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::LeftBorder:
-                        leftBorder.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::BottomBorder:
-                        bottomBorder.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::RightBorder:
-                        rightBorder.push_back(transformedBounds);
-                        break;
-                    case winrt::Microsoft::UI::Input::NonClientRegionKind::Passthrough:
-                        passthrough.push_back(transformedBounds);
-                        break;
-                }
-            }
-        }
+        void onContentChanged(
+            winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
+            winrt::Microsoft::UI::Xaml::DependencyProperty const& property);
+#pragma endregion
 
-        void Apply()
-        {
-            if (!close.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::Close, close);
+        /*The window rect, i.e. the size Spy++ reports, in physical pixels*/
+        winrt::Windows::Graphics::SizeInt32 windowSizeInPixels();
+        void resizeWindowInPixels(int widthInPixels, int heightInPixels);
 
-            if (!maximize.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::Maximize, maximize);
+        /*The same rect in DIPs, the FrameworkElement Width/Height may well be NaN*/
+        int currentWidth();
+        int currentHeight();
+        void resizeWindow(int widthInDips, int heightInDips);
 
-            if (!minimize.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::Minimize, minimize);
+        /*The window rect minus whatever the current window styles take*/
+        winrt::Windows::Foundation::Size clientSizeInDips();
+        winrt::Windows::Foundation::Size layoutSize(winrt::Windows::Foundation::Size const& availableSize);
+        void addFrameworkPropertyCallbacks();
+        void syncWindowStateToProperties();
+        void revokeAppWindowChanged() noexcept;
 
-            if (!icon.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::Icon, icon);
-
-            if (!caption.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::Caption, caption);
-
-            if (!topBorder.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::TopBorder, topBorder);
-
-            if (!leftBorder.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::LeftBorder, leftBorder);
-
-            if (!bottomBorder.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::BottomBorder, bottomBorder);
-
-            if (!rightBorder.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::RightBorder, rightBorder);
-
-            if (!passthrough.empty())
-                m_source.SetRegionRects(winrt::Microsoft::UI::Input::NonClientRegionKind::Passthrough, passthrough);
-        }
+        /*Makes the window show us, once we are allowed to hand out a reference to ourselves*/
+        void attachToWindow();
+        /*Everything that can put the window on screen goes through here*/
+        void prepareToShow();
     };
 }
 

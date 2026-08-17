@@ -15,7 +15,7 @@ namespace winrt::WinUI3Example::implementation
 
 	void ModalWindowPage::Button_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		winrt::WinUI3Example::SampleModalWindow{ App::AppInstance->window }.Activate();
+		winrt::WinUI3Example::SampleModalWindow{ App::AppInstance->window.Window() }.Activate();
 	}
 
 }

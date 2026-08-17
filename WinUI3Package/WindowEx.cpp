@@ -3,13 +3,13 @@
 #if __has_include("WindowEx.g.cpp")
 #include "WindowEx.g.cpp"
 #endif
-#include "HwndHelper.hpp"
 
 #include <winrt/Windows.ApplicationModel.h>
 #include <winrt/Microsoft.UI.Input.h>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 #include "WindowsVersion.hpp"
 #include <windowsx.h> //For GET_X_LPARAM and GET_Y_LPARAM
+#include <cmath>
 
 #pragma comment(lib, "user32.lib")
 #pragma comment(lib, "gdi32.lib")
@@ -22,78 +22,173 @@
 #include <winrt/Microsoft.UI.Content.h>
 #include <wil/resource.h>
 
+/*
+	std::clamp is UB when lo > hi, which a caller setting MinWidth > MaxWidth would do.
+	Written out longhand because windows.h defines min/max as macros here.
+*/
+constexpr int safeClamp(int value, int lo, int hi)
+{
+	if (value > hi)
+		value = hi;
+	if (value < lo)
+		value = lo;
+	return value;
+}
+
+/*
+	FrameworkElement's size properties are doubles, and use NaN (Width/Height),
+	0 (MinWidth/MinHeight) and +infinity (MaxWidth/MaxHeight) to mean "not set".
+	Fold all of those onto the empty optional.
+*/
+tiny::optional<int, -1> safeSize(double value)
+{
+	if (!std::isfinite(value) || value <= 0.0)
+		return {};
+
+	if (value > static_cast<double>(INT_MAX))
+		return INT_MAX;
+
+	return static_cast<int>(value);
+}
 
 namespace winrt::WinUI3Package::implementation
 {
-	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_nonClientRegionKindProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"NonClientRegionKind",
-			winrt::xaml_typename<winrt::Microsoft::UI::Input::NonClientRegionKind>(),
-			winrt::xaml_typename<class_type>(),
-			winrt::Microsoft::UI::Xaml::PropertyMetadata{
-				winrt::box_value(false),
-				[](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
-				{
-					auto newValue = e.NewValue();
-					if (!newValue)
-					return;
 
-					auto element = d.try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
-					if (!element)
-						return;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_titleProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_extendsContentIntoTitleBarProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_systemBackdropProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_isMinimizableProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_isMaximizableProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_isResizableProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_isAlwaysOnTopProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_isShownInSwitcherProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_hasBorderProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_hasTitleBarProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_titleBarDarkModeProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_titleBarAutoDarkModeProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_iconProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_contextMenuProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_nonClientRegionKindProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+		L"NonClientRegionKind",
+		winrt::xaml_typename<winrt::Microsoft::UI::Input::NonClientRegionKind>(),
+		winrt::xaml_typename<class_type>(),
+		winrt::Microsoft::UI::Xaml::PropertyMetadata{
+			winrt::box_value(winrt::Microsoft::UI::Input::NonClientRegionKind::Passthrough),
+			&WindowEx::onNonClientRegionKindChanged
+		}
+	);
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_rootWindowProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+		L"RootWindow",
+		winrt::xaml_typename<uint64_t>(),
+		winrt::xaml_typename<class_type>(),
+		nullptr
+	);
 
-					element.LayoutUpdated([weakRef = winrt::make_weak(element), refAdded = false, lastBounds = winrt::Windows::Foundation::Rect{}](auto const& sender, auto...) mutable
-					{
-						if (auto element = weakRef.get())
-						{
-							auto const hwnd = getHwndFromElement(element);
-							if (!hwnd || !element.IsLoaded())
-								return;
-
-							if (!refAdded)
-							{
-								s_allWindows[hwnd].push_back(winrt::make_weak(element));
-								auto elementRefIter = --s_allWindows[hwnd].end();
-
-								element.Unloaded([hwnd, elementRefIter](auto&&...) {
-									auto& thisWindow = s_allWindows.at(hwnd);
-									thisWindow.erase(elementRefIter);
-									if (thisWindow.empty())
-										s_allWindows.erase(hwnd);
-									});
-
-								refAdded = true;
-							}
-
-							auto transform = element.TransformToVisual(nullptr);
-							auto const newBounds = transform.TransformBounds(winrt::Windows::Foundation::Rect{
-								0.f,
-								0.f,
-								static_cast<float>(element.ActualWidth()),
-								static_cast<float>(element.ActualHeight())
-								});
-							if (newBounds == lastBounds)
-								return;
-
-							lastBounds = newBounds;
-							updateNonClientRegions(GetNonClientRegionKind(element), hwnd);
-						}
-					});
-
-				}
-			}
-		);
-
-	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_rootWindowProperty =
-		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-			L"RootWindow",
-			winrt::xaml_typename<uint64_t>(),
-			winrt::xaml_typename<class_type>(),
-			nullptr
-		);
-
-	//std::unordered_map<HWND, std::unordered_set<void*>> WindowEx::s_allWindows;
 	std::unordered_map<HWND, winrt::event_token> WindowEx::s_windowResizeRevokers;
+
+	void WindowEx::EnsureDependencyProperties()
+	{
+		if (s_titleProperty)
+			return;
+
+		s_titleProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Title",
+			winrt::xaml_typename<winrt::hstring>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::hstring{}), &WindowEx::onTitleChanged }
+		);
+
+		s_extendsContentIntoTitleBarProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ExtendsContentIntoTitleBar",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &WindowEx::onExtendsContentIntoTitleBarChanged }
+		);
+
+		s_systemBackdropProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"SystemBackdrop",
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Media::SystemBackdrop>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &WindowEx::onSystemBackdropChanged }
+		);
+
+		s_isMinimizableProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"IsMinimizable",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &WindowEx::onIsMinimizableChanged }
+		);
+
+		s_isMaximizableProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"IsMaximizable",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &WindowEx::onIsMaximizableChanged }
+		);
+
+		s_isResizableProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"IsResizable",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &WindowEx::onIsResizableChanged }
+		);
+
+		s_isAlwaysOnTopProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"IsAlwaysOnTop",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &WindowEx::onIsAlwaysOnTopChanged }
+		);
+
+		s_isShownInSwitcherProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"IsShownInSwitcher",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &WindowEx::onIsShownInSwitcherChanged }
+		);
+
+		s_hasBorderProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"HasBorder",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &WindowEx::onHasBorderChanged }
+		);
+
+		s_hasTitleBarProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"HasTitleBar",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(true), &WindowEx::onHasTitleBarChanged }
+		);
+
+		s_titleBarDarkModeProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"TitleBarDarkMode",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &WindowEx::onTitleBarDarkModeChanged }
+		);
+
+		s_titleBarAutoDarkModeProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"TitleBarAutoDarkMode",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(false), &WindowEx::onTitleBarAutoDarkModeChanged }
+		);
+
+		s_iconProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"Icon",
+			winrt::xaml_typename<winrt::hstring>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ winrt::box_value(winrt::hstring{}), &WindowEx::onIconChanged }
+		);
+
+		s_contextMenuProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"ContextMenu",
+			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &WindowEx::onContextMenuChanged }
+		);
+	}
 
 	HWND WindowEx::getHwndFromElement(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
 	{
@@ -114,110 +209,223 @@ namespace winrt::WinUI3Package::implementation
 		return winrt::Microsoft::UI::Windowing::AppWindow::GetFromWindowId(winrt::Microsoft::UI::GetWindowIdFromWindow(getHwndFromElement(element)));
 	}
 
-	WindowEx::WindowEx() :
-		m_hwnd{ GetHwnd(*this) },
-		m_appWindow{ GetAppWindow(m_hwnd) },
-		m_overlappedPresenter{ m_appWindow.Presenter().as<decltype(m_overlappedPresenter)>() },
-		m_appWindowTitleBar{ m_appWindow.TitleBar() }
+	WindowEx::WindowEx()
 	{
+		HorizontalContentAlignment(winrt::Microsoft::UI::Xaml::HorizontalAlignment::Stretch);
+		VerticalContentAlignment(winrt::Microsoft::UI::Xaml::VerticalAlignment::Stretch);
+		m_windowClosedToken = m_window.Closed(winrt::auto_revoke, [this](auto&&...)
+		{
+			revokeAppWindowChanged();
+		});
+
+		//Keeps RawWidth/RawHeight following the window, so they are usable as binding sources
+		m_appWindowChangedToken = m_appWindow.Changed({ this, &WindowEx::onAppWindowChanged });
+
+		addFrameworkPropertyCallbacks();
+		syncWindowStateToProperties();
+
+		m_constructed = true;
+	}
+
+	WindowEx::~WindowEx()
+	{
+		revokeAppWindowChanged();
+	}
+
+	void WindowEx::attachToWindow()
+	{
+		/*
+			Setting the content is what makes the window keep a reference to us, so refuse while
+			the constructor is still running, no matter who asks. See the constructor.
+		*/
+		if (!m_constructed || std::exchange(m_attachedToWindow, true))
+			return;
+
+		m_window.Content(*this);
+	}
+
+	void WindowEx::prepareToShow()
+	{
+		attachToWindow();
+
+		/*
+			Startup runs in one call stack, nothing has pumped yet, so the queued layout pass
+			would only happen after the window is already on screen. Do it now instead.
+		*/
+		if (m_attachedToWindow)
+			UpdateLayout();
+	}
+
+	void WindowEx::revokeAppWindowChanged() noexcept
+	{
+		if (!m_appWindowChangedToken)
+			return;
+
 		try
 		{
-			if (auto package = winrt::Windows::ApplicationModel::Package::Current())
-				Title(package.DisplayName());
+			m_appWindow.Changed(std::exchange(m_appWindowChangedToken, {}));
 		}
 		catch (...)
 		{
 		}
 	}
 
-	int WindowEx::MinWidth()
+	void WindowEx::addFrameworkPropertyCallbacks()
 	{
-		return m_minWidth.value_or();
-	}
-	void WindowEx::MinWidth(int value)
-	{
-		setSubClassIfNeeded();
-		m_minWidth = value;
-		m_setMinMax = true;
-		clampWindowSize();
-	}
-	int WindowEx::MaxWidth()
-	{
-		return m_maxWidth.value_or();
-	}
-	void WindowEx::MaxWidth(int value)
-	{
-		setSubClassIfNeeded();
-		m_maxWidth = value;
-		m_setMinMax = true;
-		clampWindowSize();
+		RegisterPropertyChangedCallback(winrt::Microsoft::UI::Xaml::Controls::ContentControl::ContentProperty(), { this, &WindowEx::onContentChanged });
+		RegisterPropertyChangedCallback(winrt::Microsoft::UI::Xaml::FrameworkElement::WidthProperty(), { this, &WindowEx::onFrameworkWidthChanged });
+		RegisterPropertyChangedCallback(winrt::Microsoft::UI::Xaml::FrameworkElement::HeightProperty(), { this, &WindowEx::onFrameworkHeightChanged });
+		RegisterPropertyChangedCallback(winrt::Microsoft::UI::Xaml::FrameworkElement::MinWidthProperty(), { this, &WindowEx::onFrameworkMinWidthChanged });
+		RegisterPropertyChangedCallback(winrt::Microsoft::UI::Xaml::FrameworkElement::MaxWidthProperty(), { this, &WindowEx::onFrameworkMaxWidthChanged });
+		RegisterPropertyChangedCallback(winrt::Microsoft::UI::Xaml::FrameworkElement::MinHeightProperty(), { this, &WindowEx::onFrameworkMinHeightChanged });
+		RegisterPropertyChangedCallback(winrt::Microsoft::UI::Xaml::FrameworkElement::MaxHeightProperty(), { this, &WindowEx::onFrameworkMaxHeightChanged });
 	}
 
-	int WindowEx::MinHeight()
+	void WindowEx::syncWindowStateToProperties()
 	{
-		return m_minHeight.value_or();
+		/*
+			Seed the properties from the window we just created, so a read before the first
+			write reports reality rather than the registered default.
+		*/
+		m_syncingSizeFromWindow = true;
+		auto const size = windowSizeInPixels();
+		m_syncingSizeFromWindow = false;
+
+		SetValue(s_isMinimizableProperty, winrt::box_value(m_overlappedPresenter.IsMinimizable()));
+		SetValue(s_isMaximizableProperty, winrt::box_value(m_overlappedPresenter.IsMaximizable()));
+		SetValue(s_isResizableProperty, winrt::box_value(m_overlappedPresenter.IsResizable()));
+		SetValue(s_isAlwaysOnTopProperty, winrt::box_value(m_overlappedPresenter.IsAlwaysOnTop()));
+		SetValue(s_isShownInSwitcherProperty, winrt::box_value(m_appWindow.IsShownInSwitchers()));
 	}
-	void WindowEx::MinHeight(int value)
+
+	winrt::Microsoft::UI::Xaml::Window WindowEx::Window()
 	{
-		setSubClassIfNeeded();
-		m_minHeight = value;
-		m_setMinMax = true;
-		clampWindowSize();
+		//The earliest point a XAML declared window touches us, x:Bind runs it from InitializeComponent
+		attachToWindow();
+		return m_window;
 	}
-	int WindowEx::MaxHeight()
+
+
+#pragma region WindowForwarding
+	winrt::hstring WindowEx::Title()
 	{
-		return m_maxHeight.value_or();
+		return winrt::unbox_value<winrt::hstring>(GetValue(s_titleProperty));
 	}
-	void WindowEx::MaxHeight(int value)
+
+	void WindowEx::Title(winrt::hstring const& value)
 	{
-		setSubClassIfNeeded();
-		m_maxHeight = value;
-		m_setMinMax = true;
-		clampWindowSize();
+		SetValue(s_titleProperty, winrt::box_value(value));
 	}
-	int WindowEx::Width()
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::TitleProperty()
 	{
-		return unscaleForDpi(RawWidth(), Dpi());
+		return s_titleProperty;
 	}
-	void WindowEx::Width(int value)
+
+	bool WindowEx::ExtendsContentIntoTitleBar()
 	{
-		auto const dpi = Dpi();
-		m_appWindow.Resize({
-			scaleForDpi(std::clamp(value, MinWidth(), MaxWidth()), dpi),
-			scaleForDpi(Height(), dpi)
-			});
+		return winrt::unbox_value<bool>(GetValue(s_extendsContentIntoTitleBarProperty));
 	}
-	int WindowEx::Height()
+
+	void WindowEx::ExtendsContentIntoTitleBar(bool value)
 	{
-		return unscaleForDpi(RawHeight(), Dpi());
+		SetValue(s_extendsContentIntoTitleBarProperty, winrt::box_value(value));
 	}
-	void WindowEx::Height(int value)
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::ExtendsContentIntoTitleBarProperty()
 	{
-		auto const dpi = Dpi();
-		m_appWindow.Resize({
-			scaleForDpi(Width(), dpi),
-			scaleForDpi(std::clamp(value, MinHeight(), MaxHeight()), dpi)
-			});
+		return s_extendsContentIntoTitleBarProperty;
 	}
+
+	winrt::Microsoft::UI::Xaml::Media::SystemBackdrop WindowEx::SystemBackdrop()
+	{
+		return GetValue(s_systemBackdropProperty).try_as<winrt::Microsoft::UI::Xaml::Media::SystemBackdrop>();
+	}
+
+	void WindowEx::SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::SystemBackdrop const& value)
+	{
+		SetValue(s_systemBackdropProperty, value);
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::SystemBackdropProperty()
+	{
+		return s_systemBackdropProperty;
+	}
+
+	void WindowEx::Activate()
+	{
+		prepareToShow();
+		m_window.Activate();
+	}
+
+	void WindowEx::Close()
+	{
+		m_window.Close();
+	}
+
+	void WindowEx::SetTitleBar(winrt::Microsoft::UI::Xaml::UIElement const& titleBar)
+	{
+		//The element only counts as a title bar while it is inside the window content
+		attachToWindow();
+		m_window.SetTitleBar(titleBar);
+	}
+
+	winrt::event_token WindowEx::Activated(winrt::Windows::Foundation::TypedEventHandler<
+		winrt::Windows::Foundation::IInspectable,
+		winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs> const& handler)
+	{
+		return m_window.Activated(handler);
+	}
+
+	void WindowEx::Activated(winrt::event_token const& token)
+	{
+		m_window.Activated(token);
+	}
+
+	winrt::event_token WindowEx::Closed(winrt::Windows::Foundation::TypedEventHandler<
+		winrt::Windows::Foundation::IInspectable,
+		winrt::Microsoft::UI::Xaml::WindowEventArgs> const& handler)
+	{
+		return m_window.Closed(handler);
+	}
+
+	void WindowEx::Closed(winrt::event_token const& token)
+	{
+		m_window.Closed(token);
+	}
+
+	winrt::event_token WindowEx::VisibilityChanged(winrt::Windows::Foundation::TypedEventHandler<
+		winrt::Windows::Foundation::IInspectable,
+		winrt::Microsoft::UI::Xaml::WindowVisibilityChangedEventArgs> const& handler)
+	{
+		return m_window.VisibilityChanged(handler);
+	}
+
+	void WindowEx::VisibilityChanged(winrt::event_token const& token)
+	{
+		m_window.VisibilityChanged(token);
+	}
+#pragma endregion
+
+
+#pragma region Size
+	/*
+		Read the live window rather than a cached copy, so a read straight after a Resize is
+		not stale. onAppWindowChanged raises PropertyChanged so bindings keep up.
+	*/
 	int WindowEx::RawWidth()
 	{
-		return m_appWindow.Size().Width;
+		return windowSizeInPixels().Width;
 	}
-	void WindowEx::RawWidth(int value)
-	{
-		m_appWindow.Resize({ value, RawHeight() });
-	}
+
 	int WindowEx::RawHeight()
 	{
-		return m_appWindow.Size().Height;
+		return windowSizeInPixels().Height;
 	}
-	void WindowEx::RawHeight(int value)
-	{
-		m_appWindow.Resize({ RawWidth(), value });
-	}
+
 	int WindowEx::LeftInset()
 	{
-		return LeftInsetRaw() * 96 / Dpi();
+		return unscaleForDpi(LeftInsetRaw(), Dpi());
 	}
 	int WindowEx::LeftInsetRaw()
 	{
@@ -225,7 +433,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	int WindowEx::RightInset()
 	{
-		return RightInsetRaw() * 96 / Dpi();
+		return unscaleForDpi(RightInsetRaw(), Dpi());
 	}
 	int WindowEx::RightInsetRaw()
 	{
@@ -235,140 +443,279 @@ namespace winrt::WinUI3Package::implementation
 	{
 		return GetDpiForWindow(m_hwnd);
 	}
+
+	winrt::Windows::Graphics::SizeInt32 WindowEx::windowSizeInPixels()
+	{
+		RECT rect{};
+		if (!GetWindowRect(m_hwnd, &rect))
+			return m_appWindow.Size();
+
+		return {
+			static_cast<int32_t>(rect.right - rect.left),
+			static_cast<int32_t>(rect.bottom - rect.top)
+		};
+	}
+
+	void WindowEx::resizeWindowInPixels(int widthInPixels, int heightInPixels)
+	{
+		SetWindowPos(
+			m_hwnd,
+			nullptr,
+			0,
+			0,
+			widthInPixels,
+			heightInPixels,
+			SWP_NOMOVE | SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOACTIVATE
+		);
+	}
+
+	int WindowEx::currentWidth()
+	{
+		return unscaleForDpi(windowSizeInPixels().Width, Dpi());
+	}
+
+	int WindowEx::currentHeight()
+	{
+		return unscaleForDpi(windowSizeInPixels().Height, Dpi());
+	}
+
+	void WindowEx::resizeWindow(int widthInDips, int heightInDips)
+	{
+		auto const dpi = Dpi();
+		resizeWindowInPixels(
+			scaleForDpi(safeClamp(widthInDips, m_minWidth.value_or(0), m_maxWidth.value_or(INT_MAX)), dpi),
+			scaleForDpi(safeClamp(heightInDips, m_minHeight.value_or(0), m_maxHeight.value_or(INT_MAX)), dpi)
+		);
+	}
+
+	winrt::Windows::Foundation::Size WindowEx::clientSizeInDips()
+	{
+		//The island fills the client area, and XamlRoot reports it in DIPs already
+		if (auto const xamlRoot = XamlRoot())
+			return xamlRoot.Size();
+
+		RECT client{};
+		if (!GetClientRect(m_hwnd, &client))
+			return {};
+
+		auto const dpi = static_cast<float>(Dpi());
+		return {
+			(client.right - client.left) * 96.f / dpi,
+			(client.bottom - client.top) * 96.f / dpi
+		};
+	}
+
+	winrt::Windows::Foundation::Size WindowEx::layoutSize(winrt::Windows::Foundation::Size const& availableSize)
+	{
+		/*
+			Width/Height size the whole window, frame included, so laying out against them
+			would push the content under the frame. Lay out in the client area instead, and
+			fall back to what the framework offered while the client area is empty (minimized).
+		*/
+		auto const client = clientSizeInDips();
+		return {
+			client.Width > 0.f ? client.Width : availableSize.Width,
+			client.Height > 0.f ? client.Height : availableSize.Height
+		};
+	}
+
+	winrt::Windows::Foundation::Size WindowEx::MeasureOverride(winrt::Windows::Foundation::Size availableSize)
+	{
+		auto const size = layoutSize(availableSize);
+		base_type::MeasureOverride(size);
+		return size;
+	}
+
+	winrt::Windows::Foundation::Size WindowEx::ArrangeOverride(winrt::Windows::Foundation::Size finalSize)
+	{
+		auto const size = layoutSize(finalSize);
+		base_type::ArrangeOverride(size);
+		return size;
+	}
+#pragma endregion
+
+#pragma region CaptionButton
 	bool WindowEx::IsMinimizable()
 	{
-		return m_overlappedPresenter.IsMinimizable();
+		return winrt::unbox_value<bool>(GetValue(s_isMinimizableProperty));
 	}
+
 	void WindowEx::IsMinimizable(bool value)
 	{
-		m_overlappedPresenter.IsMinimizable(value);
+		SetValue(s_isMinimizableProperty, winrt::box_value(value));
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::IsMinimizableProperty()
+	{
+		return s_isMinimizableProperty;
+	}
+
 	bool WindowEx::IsMaximizable()
 	{
-		return m_overlappedPresenter.IsMaximizable();
+		return winrt::unbox_value<bool>(GetValue(s_isMaximizableProperty));
 	}
+
 	void WindowEx::IsMaximizable(bool value)
 	{
-		if (!value)
-			setSubClassIfNeeded();
-		m_overlappedPresenter.IsMaximizable(value);
+		SetValue(s_isMaximizableProperty, winrt::box_value(value));
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::IsMaximizableProperty()
+	{
+		return s_isMaximizableProperty;
+	}
+
 	bool WindowEx::IsResizable()
 	{
-		return m_overlappedPresenter.IsResizable();
+		return winrt::unbox_value<bool>(GetValue(s_isResizableProperty));
 	}
+
 	void WindowEx::IsResizable(bool value)
 	{
-		m_overlappedPresenter.IsResizable(value);
+		SetValue(s_isResizableProperty, winrt::box_value(value));
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::IsResizableProperty()
+	{
+		return s_isResizableProperty;
+	}
+
 	bool WindowEx::IsAlwaysOnTop()
 	{
-		return m_overlappedPresenter.IsAlwaysOnTop();
+		return winrt::unbox_value<bool>(GetValue(s_isAlwaysOnTopProperty));
 	}
+
 	void WindowEx::IsAlwaysOnTop(bool value)
 	{
-		m_overlappedPresenter.IsAlwaysOnTop(value);
+		SetValue(s_isAlwaysOnTopProperty, winrt::box_value(value));
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::IsAlwaysOnTopProperty()
+	{
+		return s_isAlwaysOnTopProperty;
+	}
+
 	bool WindowEx::IsShownInSwitcher()
 	{
-		return m_appWindow.IsShownInSwitchers();
+		return winrt::unbox_value<bool>(GetValue(s_isShownInSwitcherProperty));
 	}
+
 	void WindowEx::IsShownInSwitcher(bool value)
 	{
-		m_appWindow.IsShownInSwitchers(value);
+		SetValue(s_isShownInSwitcherProperty, winrt::box_value(value));
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::IsShownInSwitcherProperty()
+	{
+		return s_isShownInSwitcherProperty;
+	}
+#pragma endregion
+
+
+#pragma region Win32WindowStyle
 	bool WindowEx::HasBorder()
 	{
-		return m_titleBarBorderSetting.m_hasBorder.value_or(TitleBarAndBorderSetting::DefaultValue::HasBorder);
+		return winrt::unbox_value<bool>(GetValue(s_hasBorderProperty));
 	}
+
 	void WindowEx::HasBorder(bool value)
 	{
-		m_titleBarBorderSetting.m_hasBorder = value;
-
-		auto hasTitleBarValue = HasTitleBar();
-		if (!value && hasTitleBarValue)
-			hasTitleBarValue = false;
-		m_overlappedPresenter.SetBorderAndTitleBar(value, hasTitleBarValue);
+		SetValue(s_hasBorderProperty, winrt::box_value(value));
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::HasBorderProperty()
+	{
+		return s_hasBorderProperty;
+	}
+
 	bool WindowEx::HasTitleBar()
 	{
-		return m_titleBarBorderSetting.m_hasTitleBar.value_or(TitleBarAndBorderSetting::DefaultValue::HasTitleBar);
+		return winrt::unbox_value<bool>(GetValue(s_hasTitleBarProperty));
 	}
+
 	void WindowEx::HasTitleBar(bool value)
 	{
-		m_titleBarBorderSetting.m_hasTitleBar = value;
-		auto hasBorderValue = HasBorder();
-		if (value && !hasBorderValue)
-			hasBorderValue = true;
-		m_overlappedPresenter.SetBorderAndTitleBar(hasBorderValue, value);
+		SetValue(s_hasTitleBarProperty, winrt::box_value(value));
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::HasTitleBarProperty()
+	{
+		return s_hasTitleBarProperty;
+	}
+
 	bool WindowEx::TitleBarDarkMode()
 	{
-		return m_titleBarDarkMode;
+		return winrt::unbox_value<bool>(GetValue(s_titleBarDarkModeProperty));
 	}
+
 	void WindowEx::TitleBarDarkMode(bool value)
 	{
-		BOOL copy = value;
-		DwmSetWindowAttribute(
-			m_hwnd,
-			GetWindowsVersion().dwBuildNumber >= 19041 ? 20 : 19,
-			&copy,
-			sizeof(copy)
-		);
-		if (extendsContentIntoTitleBar())
-		{
-			m_appWindowTitleBar.ButtonForegroundColor(value ?
-				winrt::Windows::UI::Colors::White() :
-				winrt::Windows::UI::Colors::Black()
-			);
-		}
-		m_titleBarDarkMode = value;
+		SetValue(s_titleBarDarkModeProperty, winrt::box_value(value));
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::TitleBarDarkModeProperty()
+	{
+		return s_titleBarDarkModeProperty;
+	}
+
 	bool WindowEx::TitleBarAutoDarkMode()
 	{
-		return m_titleBarAutoDarkMode;
+		return winrt::unbox_value<bool>(GetValue(s_titleBarAutoDarkModeProperty));
 	}
+
 	void WindowEx::TitleBarAutoDarkMode(bool value)
 	{
-		if (value && !m_titleBarAutoDarkMode)
-		{
-			//subscribe
-			setSubClassIfNeeded();
-			TitleBarDarkMode(!isLightTheme());
-		}
-		m_titleBarAutoDarkMode = true;
+		SetValue(s_titleBarAutoDarkModeProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::TitleBarAutoDarkModeProperty()
+	{
+		return s_titleBarAutoDarkModeProperty;
 	}
 
 	winrt::hstring WindowEx::Icon()
 	{
-		return m_icon;
+		return winrt::unbox_value<winrt::hstring>(GetValue(s_iconProperty));
 	}
 
-	void WindowEx::Icon(winrt::hstring value)
+	void WindowEx::Icon(winrt::hstring const& value)
 	{
-		m_appWindow.SetIcon(value);
-		m_icon = value;
+		SetValue(s_iconProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::IconProperty()
+	{
+		return s_iconProperty;
 	}
 
 	winrt::Microsoft::UI::Xaml::Controls::MenuFlyout WindowEx::ContextMenu()
 	{
-		return m_contextMenu;
+		return GetValue(s_contextMenuProperty).try_as<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>();
 	}
 
-	void WindowEx::ContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout value)
+	void WindowEx::ContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value)
 	{
-		m_contextMenu = value;
-		if (auto modernStandardMenu = m_contextMenu.try_as<WinUI3Package::ModernStandardWindowContextMenu>())
-			modernStandardMenu.Window(*this);
+		SetValue(s_contextMenuProperty, value);
 	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::ContextMenuProperty()
+	{
+		return s_contextMenuProperty;
+	}
+#pragma endregion
+
 
 	winrt::Microsoft::UI::Windowing::AppWindow WindowEx::AppWindow()
 	{
+		//AppWindow().Show() shows the window without going through us, so be ready for it
+		prepareToShow();
 		return m_appWindow;
 	}
 
 	uint64_t WindowEx::Hwnd()
 	{
+		//Same for whatever win32 does with it, ShowWindow included
+		prepareToShow();
 		return reinterpret_cast<uint64_t>(m_hwnd);
 	}
 
@@ -400,14 +747,19 @@ namespace winrt::WinUI3Package::implementation
 	}
 
 
+	/*Rounded, and in 64 bit, so that a size survives a scale/unscale round trip*/
 	int WindowEx::scaleForDpi(int value, int dpi)
 	{
-		return value * dpi / 96;
+		auto const scaled = (static_cast<long long>(value) * dpi + 48) / 96;
+		return scaled > INT_MAX ? INT_MAX : static_cast<int>(scaled);
 	}
 
 	int WindowEx::unscaleForDpi(int value, int dpi)
 	{
-		return value * 96 / dpi;
+		if (dpi <= 0)
+			return value;
+
+		return static_cast<int>((static_cast<long long>(value) * 96 + dpi / 2) / dpi);
 	}
 
 	void WindowEx::setSubClassIfNeeded()
@@ -436,31 +788,31 @@ namespace winrt::WinUI3Package::implementation
 		auto ptr = reinterpret_cast<WindowEx*>(dwRefData);
 		switch (msg)
 		{
-		case WM_ERASEBKGND:
-			if (ptr->clearBackground(hwnd, reinterpret_cast<HDC>(wparam)))
-				return 1;
-			break;
-		case WM_SETTINGCHANGE:
-			ptr->onSettingChange();
-			break;
-		case WM_CONTEXTMENU:
-		{
-			if (ptr->m_contextMenu)
+			case WM_ERASEBKGND:
+				if (ptr->clearBackground(hwnd, reinterpret_cast<HDC>(wparam)))
+					return 1;
+				break;
+			case WM_SETTINGCHANGE:
+				ptr->onSettingChange();
+				break;
+			case WM_CONTEXTMENU:
 			{
-				if (!ptr->m_contextMenuHost)
-					ptr->m_contextMenuHost = {};
-				ptr->m_contextMenuHost.Move({ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) });
-				ptr->m_contextMenu.ShowAt(ptr->m_contextMenuHost);
-				return 0;
+				if (auto contextMenu = ptr->ContextMenu())
+				{
+					if (!ptr->m_contextMenuHost)
+						ptr->m_contextMenuHost = {};
+					ptr->m_contextMenuHost.Move({ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) });
+					contextMenu.ShowAt(ptr->m_contextMenuHost);
+					return 0;
+				}
+				break;
 			}
-			break;
-		}
-		case WM_GETMINMAXINFO:
-			return ptr->onGetMinMaxInfo(wparam, lparam);
-		case WM_SYSCOMMAND:
-			if (wparam == SC_MAXIMIZE && !ptr->m_overlappedPresenter.IsMaximizable())
-				return 1;
-			break;
+			case WM_GETMINMAXINFO:
+				return ptr->onGetMinMaxInfo(wparam, lparam);
+			case WM_SYSCOMMAND:
+				if (wparam == SC_MAXIMIZE && !ptr->m_overlappedPresenter.IsMaximizable())
+					return 1;
+				break;
 		}
 		return DefSubclassProc(hwnd, msg, wparam, lparam);
 	}
@@ -472,17 +824,16 @@ namespace winrt::WinUI3Package::implementation
 
 		auto pt = reinterpret_cast<MINMAXINFO*>(pMinMaxInfo);
 
-
+		//The track sizes are window sizes, which is what Min/Max Width/Height already are
 		auto const dpi = Dpi();
-		RECT const rect = getAdjustedWindowRect(m_hwnd, dpi);
 		if (m_minWidth)
-			pt->ptMinTrackSize.x = scaleForDpi(*m_minWidth, dpi) + rect.right - rect.left - 2;
+			pt->ptMinTrackSize.x = scaleForDpi(*m_minWidth, dpi);
 		if (m_maxWidth)
-			pt->ptMaxTrackSize.x = scaleForDpi(*m_maxWidth, dpi) + rect.right - rect.left - 2;
+			pt->ptMaxTrackSize.x = scaleForDpi(*m_maxWidth, dpi);
 		if (m_minHeight)
-			pt->ptMinTrackSize.y = scaleForDpi(*m_minHeight, dpi) + rect.right - 1;
+			pt->ptMinTrackSize.y = scaleForDpi(*m_minHeight, dpi);
 		if (m_maxHeight)
-			pt->ptMaxTrackSize.y = scaleForDpi(*m_maxHeight, dpi) + rect.right - 1;
+			pt->ptMaxTrackSize.y = scaleForDpi(*m_maxHeight, dpi);
 		return 0;
 	}
 
@@ -498,17 +849,20 @@ namespace winrt::WinUI3Package::implementation
 
 	void WindowEx::onSettingChange()
 	{
-		if (m_titleBarAutoDarkMode || m_extendContents)
-			TitleBarDarkMode(!isLightTheme());;
+		if (TitleBarAutoDarkMode() || ExtendsContentIntoTitleBar())
+			TitleBarDarkMode(!isLightTheme());
 	}
+
 	void WindowEx::clampWindowSize()
 	{
-		auto const [width, height] = m_appWindow.Size();
+		//Min/Max Width/Height are in DIPs, so compare in DIPs
+		auto const width = currentWidth();
+		auto const height = currentHeight();
 
-		auto const clampedWidth = std::clamp(width, MinWidth(), MaxWidth());
-		auto const clampedHeight = std::clamp(height, MinHeight(), MaxHeight());
+		auto const clampedWidth = safeClamp(width, m_minWidth.value_or(0), m_maxWidth.value_or(INT_MAX));
+		auto const clampedHeight = safeClamp(height, m_minHeight.value_or(0), m_maxHeight.value_or(INT_MAX));
 		if (width != clampedWidth || height != clampedHeight)
-			m_appWindow.Resize({ .Width = clampedWidth, .Height = clampedHeight });
+			resizeWindow(clampedWidth, clampedHeight);
 	}
 
 	void WindowEx::updateNonClientRegions(winrt::Microsoft::UI::Input::NonClientRegionKind kind, HWND hwnd)
@@ -537,21 +891,6 @@ namespace winrt::WinUI3Package::implementation
 			.SetRegionRects(kind, rectArray);
 	}
 
-	void WindowEx::extendsContentIntoTitleBar(bool value)
-	{
-		if (value == m_extendContents)
-			return;
-		//register to change the caption button color
-		setSubClassIfNeeded();
-		ExtendsContentIntoTitleBar(value);
-		m_extendContents = value;
-	}
-
-	bool WindowEx::extendsContentIntoTitleBar()
-	{
-		return m_extendContents;
-	}
-
 	bool WindowEx::clearBackground(HWND hwnd, HDC hdc)
 	{
 		RECT rect{};
@@ -564,10 +903,296 @@ namespace winrt::WinUI3Package::implementation
 	}
 
 
-	RECT WindowEx::getAdjustedWindowRect(HWND hwnd, unsigned dpi)
+
+#pragma region PropertyChangedHandlers
+	void WindowEx::onTitleChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
-		RECT rect{};
-		AdjustWindowRectExForDpi(&rect, GetWindowLongPtr(hwnd, GWL_STYLE), false, GetWindowLongPtr(hwnd, GWL_EXSTYLE), dpi);
-		return rect;
+		GetSelf(d)->m_window.Title(winrt::unbox_value<winrt::hstring>(e.NewValue()));
+	}
+
+	void WindowEx::onExtendsContentIntoTitleBarChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = GetSelf(d);
+		//register to change the caption button color when the system theme changes
+		self->setSubClassIfNeeded();
+		self->m_window.ExtendsContentIntoTitleBar(winrt::unbox_value<bool>(e.NewValue()));
+	}
+
+	void WindowEx::onSystemBackdropChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto newValue = e.NewValue();
+		GetSelf(d)->m_window.SystemBackdrop(
+			newValue ? newValue.try_as<winrt::Microsoft::UI::Xaml::Media::SystemBackdrop>() : nullptr
+		);
+	}
+
+	void WindowEx::onIsMinimizableChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		GetSelf(d)->m_overlappedPresenter.IsMinimizable(winrt::unbox_value<bool>(e.NewValue()));
+	}
+
+	void WindowEx::onIsMaximizableChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = GetSelf(d);
+		auto const value = winrt::unbox_value<bool>(e.NewValue());
+		//WM_SYSCOMMAND/SC_MAXIMIZE has to be swallowed for this to actually stick
+		if (!value)
+			self->setSubClassIfNeeded();
+		self->m_overlappedPresenter.IsMaximizable(value);
+	}
+
+	void WindowEx::onIsResizableChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		GetSelf(d)->m_overlappedPresenter.IsResizable(winrt::unbox_value<bool>(e.NewValue()));
+	}
+
+	void WindowEx::onIsAlwaysOnTopChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		GetSelf(d)->m_overlappedPresenter.IsAlwaysOnTop(winrt::unbox_value<bool>(e.NewValue()));
+	}
+
+	void WindowEx::onIsShownInSwitcherChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		GetSelf(d)->m_appWindow.IsShownInSwitchers(winrt::unbox_value<bool>(e.NewValue()));
+	}
+
+	void WindowEx::onHasBorderChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = GetSelf(d);
+		auto const hasBorder = winrt::unbox_value<bool>(e.NewValue());
+
+		//A window without a border cannot have a title bar
+		auto hasTitleBar = self->HasTitleBar();
+		if (!hasBorder && hasTitleBar)
+			hasTitleBar = false;
+
+		self->m_overlappedPresenter.SetBorderAndTitleBar(hasBorder, hasTitleBar);
+	}
+
+	void WindowEx::onHasTitleBarChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = GetSelf(d);
+		auto const hasTitleBar = winrt::unbox_value<bool>(e.NewValue());
+
+		//A title bar requires a border
+		auto hasBorder = self->HasBorder();
+		if (hasTitleBar && !hasBorder)
+			hasBorder = true;
+
+		self->m_overlappedPresenter.SetBorderAndTitleBar(hasBorder, hasTitleBar);
+	}
+
+	void WindowEx::onTitleBarDarkModeChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = GetSelf(d);
+		BOOL copy = winrt::unbox_value<bool>(e.NewValue());
+		DwmSetWindowAttribute(
+			self->m_hwnd,
+			GetWindowsVersion().dwBuildNumber >= 19041 ? 20 : 19,
+			&copy,
+			sizeof(copy)
+		);
+		if (self->ExtendsContentIntoTitleBar())
+		{
+			self->m_appWindowTitleBar.ButtonForegroundColor(copy ?
+				winrt::Windows::UI::Colors::White() :
+				winrt::Windows::UI::Colors::Black()
+			);
+		}
+	}
+
+	void WindowEx::onTitleBarAutoDarkModeChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto self = GetSelf(d);
+		if (!winrt::unbox_value<bool>(e.NewValue()))
+			return;
+
+		//subscribe to WM_SETTINGCHANGE
+		self->setSubClassIfNeeded();
+		self->TitleBarDarkMode(!isLightTheme());
+	}
+
+	void WindowEx::onIconChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto const value = winrt::unbox_value<winrt::hstring>(e.NewValue());
+		//SetIcon throws on an empty path, and clearing the icon is not something it can express
+		if (value.empty())
+			return;
+
+		GetSelf(d)->m_appWindow.SetIcon(value);
+	}
+
+	void WindowEx::onContextMenuChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto newValue = e.NewValue();
+		if (!newValue)
+			return;
+
+		if (auto modernStandardMenu = newValue.try_as<WinUI3Package::ModernStandardWindowContextMenu>())
+			modernStandardMenu.Window(GetSelf(d)->m_window);
+	}
+
+	void WindowEx::onNonClientRegionKindChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		auto newValue = e.NewValue();
+		if (!newValue)
+			return;
+
+		auto element = d.try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
+		if (!element)
+			return;
+
+		element.LayoutUpdated([weakRef = winrt::make_weak(element), refAdded = false, lastBounds = winrt::Windows::Foundation::Rect{}](auto const& sender, auto...) mutable
+		{
+			if (auto element = weakRef.get())
+			{
+				auto const hwnd = getHwndFromElement(element);
+				if (!hwnd || !element.IsLoaded())
+					return;
+
+				if (!refAdded)
+				{
+					s_allWindows[hwnd].push_back(winrt::make_weak(element));
+					auto elementRefIter = --s_allWindows[hwnd].end();
+
+					element.Unloaded([hwnd, elementRefIter](auto&&...) {
+						auto& thisWindow = s_allWindows.at(hwnd);
+						thisWindow.erase(elementRefIter);
+						if (thisWindow.empty())
+							s_allWindows.erase(hwnd);
+					});
+
+					refAdded = true;
+				}
+
+				auto transform = element.TransformToVisual(nullptr);
+				auto const newBounds = transform.TransformBounds(winrt::Windows::Foundation::Rect{
+					0.f,
+					0.f,
+					static_cast<float>(element.ActualWidth()),
+					static_cast<float>(element.ActualHeight())
+					});
+				if (newBounds == lastBounds)
+					return;
+
+				lastBounds = newBounds;
+				updateNonClientRegions(GetNonClientRegionKind(element), hwnd);
+			}
+		});
+	}
+
+	void WindowEx::onFrameworkWidthChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const&,
+		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
+	{
+		if (m_syncingSizeFromWindow)
+			return;
+
+		auto const value = Width();
+		if (!std::isfinite(value))
+			return;
+
+		resizeWindow(static_cast<int>(value), currentHeight());
+	}
+
+	void WindowEx::onFrameworkHeightChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const&,
+		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
+	{
+		if (m_syncingSizeFromWindow)
+			return;
+
+		auto const value = Height();
+		if (!std::isfinite(value))
+			return;
+
+		resizeWindow(currentWidth(), static_cast<int>(value));
+	}
+
+	void WindowEx::onFrameworkMinWidthChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const&,
+		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
+	{
+		setSubClassIfNeeded();
+		m_minWidth = safeSize(MinWidth());
+		m_setMinMax = true;
+		clampWindowSize();
+	}
+
+	void WindowEx::onFrameworkMaxWidthChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const&,
+		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
+	{
+		setSubClassIfNeeded();
+		m_maxWidth = safeSize(MaxWidth());
+		m_setMinMax = true;
+		clampWindowSize();
+	}
+
+	void WindowEx::onFrameworkMinHeightChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const&,
+		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
+	{
+		setSubClassIfNeeded();
+		m_minHeight = safeSize(MinHeight());
+		m_setMinMax = true;
+		clampWindowSize();
+	}
+
+	void WindowEx::onFrameworkMaxHeightChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const&,
+		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
+	{
+		setSubClassIfNeeded();
+		m_maxHeight = safeSize(MaxHeight());
+		m_setMinMax = true;
+		clampWindowSize();
+	}
+#pragma endregion
+
+	void WindowEx::onAppWindowChanged(
+		winrt::Microsoft::UI::Windowing::AppWindow const& sender,
+		winrt::Microsoft::UI::Windowing::AppWindowChangedEventArgs const& args)
+	{
+		if (!args.DidSizeChange())
+			return;
+
+		raisePropertyChange(L"RawWidth");
+		raisePropertyChange(L"RawHeight");
+	}
+
+	void WindowEx::onContentChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const& sender,
+		winrt::Microsoft::UI::Xaml::DependencyProperty const& property)
+	{
+		attachToWindow();
 	}
 }

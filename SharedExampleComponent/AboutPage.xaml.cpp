@@ -226,13 +226,6 @@ namespace winrt::PackageRoot::implementation
 		}
 	}
 
-	winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Data::Json::JsonObject> AboutPage::getNugetInfoFromId(std::wstring_view endPoint, std::wstring_view packageId)
-	{
-		auto url = std::format(L"{}?q=packageid:{}", endPoint, packageId);
-		auto nugetInfo = co_await client.GetStringAsync(winrt::Windows::Foundation::Uri{ url });
-		co_return winrt::Windows::Data::Json::JsonObject::Parse(nugetInfo).GetNamedArray(L"data").GetAt(0).GetObject();
-	}
-
 	winrt::fire_and_forget AboutPage::loadNugetInfo()
 	{
 		try

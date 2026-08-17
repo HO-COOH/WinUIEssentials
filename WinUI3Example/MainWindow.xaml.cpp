@@ -21,11 +21,8 @@ namespace winrt::WinUI3Example::implementation
 
 	MainWindow::MainWindow()
 	{
-		Hwnd = GetHwnd(*this);
-		ExtendsContentIntoTitleBar(true);
-		InitializeComponent();
+		Hwnd = GetHwnd(Window());
 	}
-
 
 	void MainWindow::NavigationView_SelectionChanged(
 		winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender,
@@ -66,7 +63,9 @@ namespace winrt::WinUI3Example::implementation
 
 	void MainWindow::WindowEx_Closed(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::WindowEventArgs const&)
 	{
-		CloseAllWebViews(Content());
+		//WindowEx is a ContentControl now, so Content() is an IInspectable
+		if (auto content = Content().try_as<winrt::Microsoft::UI::Xaml::DependencyObject>())
+			CloseAllWebViews(content);
 		MainIcon().Remove();
 	}
 

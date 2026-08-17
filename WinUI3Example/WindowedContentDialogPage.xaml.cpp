@@ -33,7 +33,7 @@ namespace winrt::WinUI3Example::implementation
 
 		dialog.UnderlaySystemBackdrop(BackdropOptions);
 
-		co_await dialog.ShowAsync(App::AppInstance->window);
+		co_await dialog.ShowAsync(App::AppInstance->window.Window());
 
 	}
 
@@ -41,7 +41,7 @@ namespace winrt::WinUI3Example::implementation
 	{
 		ScopedButtonDisabler disabler{ sender };
 		auto const result = co_await WinUI3Example::SampleWindowedContentDialog{}.ShowAsync(
-			App::AppInstance->window, 
+			App::AppInstance->window.Window(),
 			winrt::unbox_value<winrt::WinUI3Package::UnderlayMode>(UnderlayModeComboBox().SelectedItem().as<winrt::Microsoft::UI::Xaml::Controls::ComboBoxItem>().Tag())
 		);
 		switch (result)
