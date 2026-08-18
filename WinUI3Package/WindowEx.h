@@ -10,14 +10,8 @@
 #include "include/EnsureDependencyProperty.hpp"
 #include "include/PropertyChangeHelper.hpp"
 #include <HwndHelper.hpp>
+#include "MinMaxSize.hpp"
 
-#pragma push_macro("min")
-#pragma push_macro("max")
-#undef min
-#undef max
-#include <tiny/optional.h>
-#pragma pop_macro("max")
-#pragma pop_macro("min")
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -172,7 +166,6 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_rootWindowProperty;
         static inline std::unordered_map<HWND, std::list<winrt::weak_ref<winrt::Microsoft::UI::Xaml::FrameworkElement>>> s_allWindows;
         static std::unordered_map<HWND, winrt::event_token> s_windowResizeRevokers;
-        bool m_setMinMax{};
         bool m_registered{};
         bool m_transparent{};
         /*Set while we are pushing the live window size into Width/Height, so the
@@ -181,6 +174,8 @@ namespace winrt::WinUI3Package::implementation
         bool m_attachedToWindow{};
         /*Nothing may hand out a reference to us before the constructor returned*/
         bool m_constructed{};
+
+        MinMaxSize m_minMaxSize;
 
         /*Both sources can outlive us, and both handlers hold us raw, so revoke by hand*/
         winrt::event_token m_appWindowChangedToken{};
@@ -192,10 +187,6 @@ namespace winrt::WinUI3Package::implementation
         static int scaleForDpi(int value, int dpi);
         static int unscaleForDpi(int value, int dpi);
 
-        tiny::optional<int, -1> m_minWidth;
-        tiny::optional<int, -1> m_minHeight;
-        tiny::optional<int, -1> m_maxWidth;
-        tiny::optional<int, -1> m_maxHeight;
   
         HBRUSH m_backgroundBlackBrush = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
 

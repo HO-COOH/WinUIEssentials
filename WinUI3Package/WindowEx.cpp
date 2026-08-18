@@ -467,8 +467,8 @@ namespace winrt::WinUI3Package::implementation
 	{
 		auto const dpi = Dpi();
 		resizeWindowInPixels(
-			scaleForDpi(safeClamp(widthInDips, m_minWidth.value_or(0), m_maxWidth.value_or(INT_MAX)), dpi),
-			scaleForDpi(safeClamp(heightInDips, m_minHeight.value_or(0), m_maxHeight.value_or(INT_MAX)), dpi)
+			scaleForDpi(safeClamp(widthInDips, m_minMaxSize.MinWidth(), m_minMaxSize.MaxWidth()), dpi),
+			scaleForDpi(safeClamp(heightInDips, m_minMaxSize.MinHeight(), m_minMaxSize.MaxHeight()), dpi)
 		);
 	}
 
@@ -780,21 +780,21 @@ namespace winrt::WinUI3Package::implementation
 
 	LRESULT WindowEx::onGetMinMaxInfo(WPARAM, LPARAM pMinMaxInfo)
 	{
-		if (!m_setMinMax)
+		if (!m_minMaxSize)
 			return 1;
 
 		auto pt = reinterpret_cast<MINMAXINFO*>(pMinMaxInfo);
 
 		//The track sizes are window sizes, which is what Min/Max Width/Height already are
 		auto const dpi = Dpi();
-		if (m_minWidth)
-			pt->ptMinTrackSize.x = scaleForDpi(*m_minWidth, dpi);
-		if (m_maxWidth)
-			pt->ptMaxTrackSize.x = scaleForDpi(*m_maxWidth, dpi);
-		if (m_minHeight)
-			pt->ptMinTrackSize.y = scaleForDpi(*m_minHeight, dpi);
-		if (m_maxHeight)
-			pt->ptMaxTrackSize.y = scaleForDpi(*m_maxHeight, dpi);
+		if (m_minMaxSize.m_minWidth)
+			pt->ptMinTrackSize.x = scaleForDpi(*m_minMaxSize.m_minWidth, dpi);
+		if (m_minMaxSize.m_maxWidth)
+			pt->ptMaxTrackSize.x = scaleForDpi(*m_minMaxSize.m_maxWidth, dpi);
+		if (m_minMaxSize.m_minHeight)
+			pt->ptMinTrackSize.y = scaleForDpi(*m_minMaxSize.m_minHeight, dpi);
+		if (m_minMaxSize.m_maxHeight)
+			pt->ptMaxTrackSize.y = scaleForDpi(*m_minMaxSize.m_maxHeight, dpi);
 		return 0;
 	}
 
@@ -814,8 +814,8 @@ namespace winrt::WinUI3Package::implementation
 		auto const width = currentWidth();
 		auto const height = currentHeight();
 
-		auto const clampedWidth = safeClamp(width, m_minWidth.value_or(0), m_maxWidth.value_or(INT_MAX));
-		auto const clampedHeight = safeClamp(height, m_minHeight.value_or(0), m_maxHeight.value_or(INT_MAX));
+		auto const clampedWidth = safeClamp(width, m_minMaxSize.MinWidth(), m_minMaxSize.MaxWidth());
+		auto const clampedHeight = safeClamp(height, m_minMaxSize.MinHeight(), m_minMaxSize.MaxHeight());
 		if (width != clampedWidth || height != clampedHeight)
 			resizeWindow(clampedWidth, clampedHeight);
 	}
@@ -1075,8 +1075,7 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
 	{
 		setSubClassIfNeeded();
-		m_minWidth = safeSize(MinWidth());
-		m_setMinMax = true;
+		m_minMaxSize.MinWidth(safeSize(MinWidth()));
 		clampWindowSize();
 	}
 
@@ -1085,8 +1084,7 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
 	{
 		setSubClassIfNeeded();
-		m_maxWidth = safeSize(MaxWidth());
-		m_setMinMax = true;
+		m_minMaxSize.MaxWidth(safeSize(MaxWidth()));
 		clampWindowSize();
 	}
 
@@ -1095,8 +1093,7 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
 	{
 		setSubClassIfNeeded();
-		m_minHeight = safeSize(MinHeight());
-		m_setMinMax = true;
+		m_minMaxSize.MinHeight(safeSize(MinHeight()));
 		clampWindowSize();
 	}
 
@@ -1105,8 +1102,7 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Xaml::DependencyProperty const&)
 	{
 		setSubClassIfNeeded();
-		m_maxHeight = safeSize(MaxHeight());
-		m_setMinMax = true;
+		m_minMaxSize.MaxHeight(safeSize(MaxHeight()));
 		clampWindowSize();
 	}
 #pragma endregion

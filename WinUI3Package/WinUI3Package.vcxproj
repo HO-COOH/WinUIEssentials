@@ -282,6 +282,26 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
+  <!--
+    tiny-optional implements its "store the empty flag in unused bits" type punning only for
+    x86/x64 (see tiny/optional.h: TINY_OPTIONAL_x86 / TINY_OPTIONAL_x64) and hard-#errors on any
+    other architecture. WindowEx.h includes it, so ARM64 does not compile without opting out of
+    the UB tricks. This costs nothing here: our only use is tiny::optional<int, -1>, whose layout
+    comes from the explicit sentinel rather than from the bit tricks.
+
+    Note: the setting is baked into tiny-optional's inline namespace, so every translation unit
+    that includes tiny/optional.h must agree on it. Currently that is only this project - no
+    public header under include/ pulls it in.
+
+    Must come after the per-configuration ItemDefinitionGroups above: those assign
+    PreprocessorDefinitions without inheriting %(PreprocessorDefinitions), so an earlier group
+    would be overwritten.
+  -->
+  <ItemDefinitionGroup Condition="'$(Platform)'=='ARM64'">
+    <ClCompile>
+      <PreprocessorDefinitions>TINY_OPTIONAL_USE_SEPARATE_BOOL_INSTEAD_OF_UB_TRICKS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AcrylicVisual.h">
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
@@ -400,6 +420,7 @@
       <DependentUpon>MicaBackdropWithFallback.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MinMaxSize.hpp" />
     <ClInclude Include="ModalWindow.h">
       <DependentUpon>ModalWindow.idl</DependentUpon>
       <SubType>Code</SubType>

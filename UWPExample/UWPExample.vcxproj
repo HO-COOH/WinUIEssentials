@@ -1126,6 +1126,16 @@
       <DeploymentContent>false</DeploymentContent>
     </Text>
   </ItemGroup>
+  <!--
+    See the matching comment in WinUI3Example.vcxproj: the CI configurations build a single
+    platform per job, so bundling must be off. Otherwise the appx bundle targets rebuild this
+    project and its project references once per platform in AppxBundlePlatforms, regardless of
+    the /p:Platform passed on the command line.
+    Must be set before Microsoft.Cpp.targets imports the appx packaging targets.
+  -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release_CI2' or '$(Configuration)'=='Debug_CI2'">
+    <AppxBundle>Never</AppxBundle>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Web.WebView2.1.0.2849.39\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.2849.39\build\native\Microsoft.Web.WebView2.targets')" />

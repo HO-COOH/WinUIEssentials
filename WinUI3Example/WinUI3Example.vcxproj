@@ -2142,6 +2142,16 @@
     <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
     <AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
   </PropertyGroup>
+  <!--
+    CI builds a single platform per job, so bundling is undesirable: the appx bundle targets
+    rebuild this project and all of its project references once per platform in
+    AppxBundlePlatforms, ignoring the /p:Platform passed on the command line. That made the
+    x64 job also build ARM64. Produce a single-architecture package instead.
+    Must be set before Microsoft.Cpp.targets imports the appx packaging targets.
+  -->
+  <PropertyGroup Condition="'$(Configuration)'=='Release_CI2' or '$(Configuration)'=='Debug_CI2'">
+    <AppxBundle>Never</AppxBundle>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.240405.15\build\native\Microsoft.Windows.CppWinRT.targets')" />
