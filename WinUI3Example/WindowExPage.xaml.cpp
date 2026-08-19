@@ -49,9 +49,19 @@ namespace winrt::WinUI3Example::implementation
 		WinUI3Example::Win32TitleBar{}.Activate();
 	}
 
-
 	void WindowExPage::CreateCustomWindow_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		WinUI3Example::CustomTitleBar{}.Activate();
 	}
+
+	void WindowExPage::CreateAnimatedSizeWindow_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		WinUI3Example::AnimatedWindowSize{}.Activate();
+	}
+
+	void WindowExPage::PropertyBindingSampleWindow_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	{
+		WinUI3Example::PropertyBindingSampleWindow{}.Activate();
+	}
+
 }

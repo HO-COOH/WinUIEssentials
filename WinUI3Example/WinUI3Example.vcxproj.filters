@@ -38,16 +38,10 @@
     <Page Include="MarqueeTextPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="Win32TitleBar.xaml">
-      <Filter>Windows</Filter>
-    </Page>
     <Page Include="CustomTitleBar.xaml">
       <Filter>Windows</Filter>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
-      <Filter>Pages</Filter>
-    </Page>
-    <Page Include="WindowExPage.xaml">
       <Filter>Pages</Filter>
     </Page>
     <Page Include="SegmentedPage.xaml">
@@ -311,6 +305,18 @@
     </Page>
     <Page Include="CodeWindow.xaml">
       <Filter>Helper</Filter>
+    </Page>
+    <Page Include="WindowExPage.xaml">
+      <Filter>Pages\WindowExPage</Filter>
+    </Page>
+    <Page Include="Win32TitleBar.xaml">
+      <Filter>Pages\WindowExPage</Filter>
+    </Page>
+    <Page Include="AnimatedWindowSize.xaml">
+      <Filter>Pages\WindowExPage</Filter>
+    </Page>
+    <Page Include="PropertyBindingSampleWindow.xaml">
+      <Filter>Pages\WindowExPage</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -697,6 +703,9 @@
     </Filter>
     <Filter Include="Pages\BackdropPage\HostBackdrop">
       <UniqueIdentifier>{fbb8b8be-4eb6-4cf6-b5b9-adf0d4cbcc1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\WindowExPage">
+      <UniqueIdentifier>{ae2acd36-e806-4c29-ad04-5f18853bfca8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

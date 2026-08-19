@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<essential:WindowEx
+    x:Class="WinUI3Example.AnimatedWindowSize"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="RootWindow"
+    Title="AnimatedWindowSize"
+    Width="500"
+    Height="600"
+    mc:Ignorable="d">
+
+    <Button
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Click="Button_Click">
+        Click to animate window width
+        <Button.Resources>
+            <Storyboard x:Name="WindowAnimation">
+                <DoubleAnimation
+                    EnableDependentAnimation="True"
+                    Storyboard.TargetName="RootWindow"
+                    Storyboard.TargetProperty="Width"
+                    From="500"
+                    To="1000">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="5" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </Button.Resources>
+    </Button>
+</essential:WindowEx>

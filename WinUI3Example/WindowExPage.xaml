@@ -9,28 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <!--<essential:GroupBox Header="Window options (indeterminate state means uses default value)">
-        <StackPanel>
-            <StackPanel.Resources>
-                <Style TargetType="CheckBox" BasedOn="{StaticResource DefaultCheckBoxStyle}">
-                    <Setter Property="IsThreeState" Value="True"/>
-                    <Setter Property="IsChecked" Value="{x:Null}"/>
-                </Style>
-            </StackPanel.Resources>
-            <CheckBox x:Name="ExtendContentIntoTitleBarCheckBox">ExtendContentIntoTitleBar</CheckBox>
-            <CheckBox x:Name="HasBorderCheckBox">HasBorder</CheckBox>
-            <CheckBox x:Name="HasTitleBarCheckBox">HasTitleBar</CheckBox>
-            <CheckBox x:Name="IsResizableCheckBox">IsResizable</CheckBox>
-            <CheckBox x:Name="IsMinimizableCheckBox">IsMinimizable</CheckBox>
-            <CheckBox x:Name="IsMaximizableCheckBox">IsMaximizable</CheckBox>
-            <CheckBox x:Name="TransparentCheckBox">Transparent</CheckBox>
-
-            <Button Click="Button_Click">Create window</Button>
-        </StackPanel>
-    </essential:GroupBox>-->
-
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
-        <local:ControlExample HeaderText="Win32 titlebar">
+        <local:ControlExample HeaderText="The simplest window, with a Win32 titlebar. Because WindowEx is a ContentControl, you can set its RequiredTheme. Then the titlebar background (inactive state) automatically sync with its Content's theme">
             <Button x:Name="CreateWin32Window" Click="CreateWin32Window_Click">Click to create window with win32 titlebar with automatic dark mode</Button>
             <local:ControlExample.Xaml>
                 <local:CodeSource>
@@ -39,13 +19,120 @@
     x:Class=&quot;WinUI3Example.Win32TitleBar&quot;
     xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
     xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-    xmlns:local=&quot;using:WinUI3Example&quot;
-    xmlns:essential=&quot;using:WinUI3Package&quot;
     xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
     xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
-    TitleBarAutoDarkMode=&quot;True&quot;
     mc:Ignorable=&quot;d&quot;&gt;
 
+    &lt;Grid Background=&quot;{ThemeResource SolidBackgroundFillColorBaseBrush}&quot;&gt;
+        &lt;local:ThemeToggleButton
+            HorizontalAlignment=&quot;Left&quot;
+            VerticalAlignment=&quot;Bottom&quot;
+            Root=&quot;{x:Bind}&quot; /&gt;
+
+        &lt;TextBlock
+            HorizontalAlignment=&quot;Center&quot;
+            VerticalAlignment=&quot;Center&quot;
+            Text=&quot;Some text&quot; /&gt;
+    &lt;/Grid&gt;
+&lt;/essential:WindowEx&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Since WindowEx is a DependencyObject, most of its dynamic settable properties are DependencyProperty, which can be targets of Storyboard animations">
+            <Button x:Name="CreateAnimatedSizeWindow" Click="CreateAnimatedSizeWindow_Click">Click to create Window with animated width</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:WindowEx
+    x:Class=&quot;WinUI3Example.AnimatedWindowSize&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    x:Name=&quot;RootWindow&quot;
+    Title=&quot;AnimatedWindowSize&quot;
+    Width=&quot;500&quot;
+    Height=&quot;600&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+
+    &lt;Button
+        HorizontalAlignment=&quot;Center&quot;
+        VerticalAlignment=&quot;Center&quot;
+        Click=&quot;Button_Click&quot;&gt;
+        Click to animate window width
+        &lt;Button.Resources&gt;
+            &lt;Storyboard x:Name=&quot;WindowAnimation&quot;&gt;
+                &lt;DoubleAnimation
+                    EnableDependentAnimation=&quot;True&quot;
+                    Storyboard.TargetName=&quot;RootWindow&quot;
+                    Storyboard.TargetProperty=&quot;Width&quot;
+                    From=&quot;500&quot;
+                    To=&quot;1000&quot; /&gt;
+            &lt;/Storyboard&gt;
+        &lt;/Button.Resources&gt;
+    &lt;/Button&gt;
+&lt;/essential:WindowEx&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+
+            <local:ControlExample.Cpp>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">	void winrt::WinUI3Example::implementation::AnimatedWindowSize::Button_Click(winrt::Windows::Foundation::IInspectable const&amp;, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&amp;)
+{
+	WindowAnimation().Begin();
+}</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Cpp>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Also, the majority of settable properties are DependencyProperty. Other readonly properties are notifying properties you can bind to">
+            <Button x:Name="PropertyBindingSampleWindow" Click="PropertyBindingSampleWindow_Click">Demo WindowEx property bindings</Button>
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;essential:WindowEx
+    x:Class=&quot;WinUI3Example.PropertyBindingSampleWindow&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    Title=&quot;PropertyBindingSampleWindow&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+
+    &lt;StackPanel
+        HorizontalAlignment=&quot;Center&quot;
+        VerticalAlignment=&quot;Center&quot;
+        Spacing=&quot;8&quot;&gt;
+        &lt;ToggleSwitch
+            x:Name=&quot;ExtendsContentIntoTitleBarToggle&quot;
+            Header=&quot;ExtendsContentIntoTitleBar&quot;
+            IsOn=&quot;{x:Bind ExtendsContentIntoTitleBar, Mode=TwoWay}&quot; /&gt;
+        &lt;TextBlock&gt;
+            &lt;Run&gt;Dpi:&lt;/Run&gt;
+            &lt;Run Text=&quot;{x:Bind Dpi, Mode=OneWay}&quot; /&gt;
+        &lt;/TextBlock&gt;
+        &lt;TextBlock&gt;
+            &lt;Run&gt;Raw Size:&lt;/Run&gt;
+            &lt;Run Text=&quot;{x:Bind RawWidth, Mode=OneWay}&quot; /&gt;
+            &lt;Run&gt;,&lt;/Run&gt;
+            &lt;Run Text=&quot;{x:Bind RawHeight, Mode=OneWay}&quot; /&gt;
+        &lt;/TextBlock&gt;
+        &lt;CheckBox Content=&quot;HasTitleBar&quot; IsChecked=&quot;{x:Bind HasTitleBar, Mode=TwoWay}&quot; /&gt;
+        &lt;CheckBox Content=&quot;IsResizable&quot; IsChecked=&quot;{x:Bind IsResizable, Mode=TwoWay}&quot; /&gt;
+        &lt;CheckBox Content=&quot;IsAlwaysOnTop&quot; IsChecked=&quot;{x:Bind IsAlwaysOnTop, Mode=TwoWay}&quot; /&gt;
+        &lt;CheckBox Content=&quot;IsShownInSwicther&quot; IsChecked=&quot;{x:Bind IsShownInSwitcher, Mode=TwoWay}&quot; /&gt;
+    &lt;/StackPanel&gt;
 &lt;/essential:WindowEx&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>

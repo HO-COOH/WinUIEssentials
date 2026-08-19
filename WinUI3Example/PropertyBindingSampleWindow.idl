@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass PropertyBindingSampleWindow : WinUI3Package.WindowEx
+    {
+        PropertyBindingSampleWindow();
+    }
+}

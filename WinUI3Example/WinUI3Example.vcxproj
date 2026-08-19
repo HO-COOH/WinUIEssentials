@@ -339,6 +339,10 @@
       <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="AnimatedWindowSize.xaml.h">
+      <DependentUpon>AnimatedWindowSize.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="AutoSuggestBoxHelperPage.xaml.h">
       <DependentUpon>AutoSuggestBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -602,6 +606,10 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="PropertyBindingSampleWindow.xaml.h">
+      <DependentUpon>PropertyBindingSampleWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="RevealFocusPage.xaml.h">
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
@@ -814,6 +822,9 @@
     <Page Include="AnimatedNumber_Resource.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="AnimatedWindowSize.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AutoSuggestBoxHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -973,6 +984,9 @@
     <Page Include="ProgressBarExPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PropertyBindingSampleWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="RevealFocusPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1121,6 +1135,10 @@
     </ClCompile>
     <ClCompile Include="AnimatedNumber_Resource.cpp">
       <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="AnimatedWindowSize.xaml.cpp">
+      <DependentUpon>AnimatedWindowSize.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="AutoSuggestBoxHelperPage.xaml.cpp">
@@ -1375,6 +1393,10 @@
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="PropertyBindingSampleWindow.xaml.cpp">
+      <DependentUpon>PropertyBindingSampleWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="RevealFocusPage.xaml.cpp">
       <DependentUpon>RevealFocusPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1583,6 +1605,10 @@
     </Midl>
     <Midl Include="AnimatedNumber_Resource.idl">
       <DependentUpon>AnimatedNumber_Resource.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="AnimatedWindowSize.idl">
+      <DependentUpon>AnimatedWindowSize.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="App.idl">
@@ -1817,6 +1843,10 @@
     </Midl>
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="PropertyBindingSampleWindow.idl">
+      <DependentUpon>PropertyBindingSampleWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="RevealFocusPage.idl">
