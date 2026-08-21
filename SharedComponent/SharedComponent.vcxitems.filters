@@ -85,9 +85,6 @@
     <Filter Include="Table\Xaml\TableAlternateRowColor">
       <UniqueIdentifier>{43306578-2d54-45a8-bec2-48b4cd4a16c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Helper">
-      <UniqueIdentifier>{1180320b-83c2-4360-8269-75c12030d77a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Table\Xaml\Table\Sort">
       <UniqueIdentifier>{4d1388a0-ff0c-4a2c-9f96-f054c3a59b81}</UniqueIdentifier>
     </Filter>

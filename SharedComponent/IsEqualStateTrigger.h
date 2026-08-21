@@ -22,7 +22,7 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_toProperty;
 
         static void onValuePropertyChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
         void updateTrigger();

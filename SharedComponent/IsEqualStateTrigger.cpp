@@ -58,10 +58,10 @@ namespace winrt::PackageRoot::implementation
 	}
 
 	void IsEqualStateTrigger::onValuePropertyChanged(
-		winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
 		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
-		winrt::get_self<IsEqualStateTrigger>(d.as<PackageRoot::IsEqualStateTrigger>())->updateTrigger();
+		GetSelf(d)->updateTrigger();
 	}
 
 	void IsEqualStateTrigger::updateTrigger()

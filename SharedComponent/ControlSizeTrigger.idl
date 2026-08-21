@@ -1,6 +1,5 @@
 ﻿namespace PackageRoot
 {
-    [bindable]
     [default_interface]
     runtimeclass ControlSizeTrigger : WinUINamespace.UI.Xaml.StateTriggerBase
     {
@@ -23,7 +22,5 @@
 
         WinUINamespace.UI.Xaml.FrameworkElement TargetElement;
         static WinUINamespace.UI.Xaml.DependencyProperty TargetElementProperty{ get; };
-
-        Boolean IsActive{ get; };
     }
 }

@@ -4,8 +4,7 @@
 #include "TransparentWindow.g.cpp"
 #endif
 #include "HwndHelper.hpp"
-#include <dwmapi.h>
-#include "WindowsVersion.hpp"
+
 namespace winrt::WinUI3Package::implementation
 {
     TransparentWindow::TransparentWindow()

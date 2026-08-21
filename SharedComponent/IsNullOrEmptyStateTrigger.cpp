@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "IsNullOrEmptyStateTrigger.h"
 #if __has_include("IsNullOrEmptyStateTrigger.g.cpp")
 #include "IsNullOrEmptyStateTrigger.g.cpp"
@@ -11,6 +11,36 @@
 
 namespace winrt::PackageRoot::implementation
 {
+	static bool isEmpty(winrt::hstring const& str)
+	{
+		return str.empty();
+	}
+
+	static bool isEmpty(winrt::WinUINamespace::UI::Xaml::Interop::IBindableVector const& container)
+	{
+		return container.Size() == 0;
+	}
+
+	static bool isEmpty(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& container)
+	{
+		return container.Size() == 0;
+	}
+
+	static bool isEmpty(winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Foundation::IInspectable> const& container)
+	{
+		return container.Size() == 0;
+	}
+
+	static bool isEmpty(winrt::Windows::Foundation::Collections::IMap<winrt::Windows::Foundation::IInspectable, winrt::Windows::Foundation::IInspectable> const& container)
+	{
+		return container.Size() == 0;
+	}
+
+	static bool isEmpty(winrt::Windows::Foundation::Collections::IIterable<winrt::Windows::Foundation::IInspectable> const& container)
+	{
+		return !container.First().HasCurrent();
+	}
+
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty IsNullOrEmptyStateTrigger::m_valueProperty = nullptr;
 
 	void IsNullOrEmptyStateTrigger::EnsureDependencyProperties()
@@ -25,11 +55,6 @@ namespace winrt::PackageRoot::implementation
 				&IsNullOrEmptyStateTrigger::onValuePropertyChanged
 			}
 		);
-	}
-
-	IsNullOrEmptyStateTrigger::IsNullOrEmptyStateTrigger()
-	{
-		updateTrigger();
 	}
 
 	winrt::Windows::Foundation::IInspectable IsNullOrEmptyStateTrigger::Value()
@@ -47,9 +72,11 @@ namespace winrt::PackageRoot::implementation
 		return m_valueProperty;
 	}
 
-	void IsNullOrEmptyStateTrigger::onValuePropertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const e)
+	void IsNullOrEmptyStateTrigger::onValuePropertyChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, 
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
-		winrt::get_self<IsNullOrEmptyStateTrigger>(d.as<PackageRoot::IsNullOrEmptyStateTrigger>())->updateTrigger();
+		GetSelf(d)->updateTrigger();
 	}
 
 	void IsNullOrEmptyStateTrigger::updateTrigger()
@@ -57,58 +84,49 @@ namespace winrt::PackageRoot::implementation
 		auto val = Value();
 		SetActive(isNullOrEmpty(val));
 
+		m_revoker = {};
+
 		if (!val)
 			return;
 
-		if (auto valNotifyCollection = val.try_as<winrt::WinUINamespace::UI::Xaml::Interop::INotifyCollectionChanged>())
+		auto onContainerChanged = [weakThis = get_weak()](auto&&, auto&&)
 		{
-			valNotifyCollection.CollectionChanged([weakThis = get_weak()](auto sender, auto)
-				{
-					if (auto strongThis = weakThis.get())
-						strongThis->SetActive(isNullOrEmpty(sender));
-				});
-			return;
-		}
+			if (auto strongThis = weakThis.get())
+				strongThis->SetActive(isNullOrEmpty(strongThis->Value()));
+		};
 
-		if (auto valObservableVector = val.try_as<winrt::Windows::Foundation::Collections::IObservableVector<winrt::Windows::Foundation::IInspectable>>())
-		{
-			valObservableVector.VectorChanged([weakThis = get_weak()](auto sender, auto)
-				{
-					if (auto strongThis = weakThis.get())
-						strongThis->SetActive(isNullOrEmpty(sender));
-				});
-			return;
-		}
-
-		if (auto valObservableMap = val.try_as<winrt::Windows::Foundation::Collections::IObservableMap<winrt::Windows::Foundation::IInspectable, winrt::Windows::Foundation::IInspectable>>())
-		{
-			valObservableMap.MapChanged([weakThis = get_weak()](auto sender, auto)
-				{
-					if (auto strongThis = weakThis.get())
-						strongThis->SetActive(isNullOrEmpty(sender));
-				});
-		}
+		if (auto notifyCollection = val.try_as<winrt::WinUINamespace::UI::Xaml::Interop::INotifyCollectionChanged>())
+			m_revoker = notifyCollection.CollectionChanged(winrt::auto_revoke, onContainerChanged);
+		else if (auto bindableObservableVector = val.try_as<winrt::WinUINamespace::UI::Xaml::Interop::IBindableObservableVector>())
+			m_revoker = bindableObservableVector.VectorChanged(winrt::auto_revoke, onContainerChanged);
+		else if (auto observableVector = val.try_as<winrt::Windows::Foundation::Collections::IObservableVector<winrt::Windows::Foundation::IInspectable>>())
+			m_revoker = observableVector.VectorChanged(winrt::auto_revoke, onContainerChanged);
+		else if (auto observableMap = val.try_as<winrt::Windows::Foundation::Collections::IObservableMap<winrt::Windows::Foundation::IInspectable, winrt::Windows::Foundation::IInspectable>>())
+			m_revoker = observableMap.MapChanged(winrt::auto_revoke, onContainerChanged);
 	}
 
-	bool IsNullOrEmptyStateTrigger::isNullOrEmpty(winrt::Windows::Foundation::IInspectable val)
+	bool IsNullOrEmptyStateTrigger::isNullOrEmpty(winrt::Windows::Foundation::IInspectable const& val)
 	{
 		if (!val)
 			return true;
 
 		if (auto valString = val.try_as<winrt::hstring>())
-		{
-			return valString->empty();
-		}
+			return isEmpty(*valString);
 
-		if (auto valCollection = val.try_as<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>())
-			return valCollection.Size() == 0;
+		if (auto bindableVector = val.try_as<winrt::WinUINamespace::UI::Xaml::Interop::IBindableVector>())
+			return isEmpty(bindableVector);
 
-		if (auto valEnumerable = val.try_as<winrt::Windows::Foundation::Collections::IIterable<winrt::Windows::Foundation::IInspectable>>())
-		{
-			for (auto item : valEnumerable)
-				return false;
-			return true;
-		}
+		if (auto vector = val.try_as<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>())
+			return isEmpty(vector);
+
+		if (auto vectorView = val.try_as<winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Foundation::IInspectable>>())
+			return isEmpty(vectorView);
+
+		if (auto map = val.try_as<winrt::Windows::Foundation::Collections::IMap<winrt::Windows::Foundation::IInspectable, winrt::Windows::Foundation::IInspectable>>())
+			return isEmpty(map);
+
+		if (auto iterable = val.try_as<winrt::Windows::Foundation::Collections::IIterable<winrt::Windows::Foundation::IInspectable>>())
+			return isEmpty(iterable);
 
 		return false;
 	}

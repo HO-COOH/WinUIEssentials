@@ -1,6 +1,5 @@
 ﻿namespace PackageRoot
 {
-    [bindable]
     [default_interface]
     runtimeclass FontIconExtension : WinUINamespace.UI.Xaml.Markup.MarkupExtension
     {

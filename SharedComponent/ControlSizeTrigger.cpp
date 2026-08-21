@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "ControlSizeTrigger.h"
 #if __has_include("ControlSizeTrigger.g.cpp")
 #include "ControlSizeTrigger.g.cpp"
@@ -19,7 +19,7 @@ namespace winrt::PackageRoot::implementation
 		m_canTriggerProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"CanTrigger",
 			winrt::xaml_typename<bool>(),
-			winrt::xaml_typename<PackageRoot::ControlSizeTrigger>(),
+			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(true),
 				&ControlSizeTrigger::valueChangeCallback
@@ -28,7 +28,7 @@ namespace winrt::PackageRoot::implementation
 		m_maxWidthProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"MaxWidth",
 			winrt::xaml_typename<double>(),
-			winrt::xaml_typename<PackageRoot::ControlSizeTrigger>(),
+			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(DBL_MAX),
 				&ControlSizeTrigger::valueChangeCallback
@@ -37,7 +37,7 @@ namespace winrt::PackageRoot::implementation
 		m_minWidthProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"MinWidth",
 			winrt::xaml_typename<double>(),
-			winrt::xaml_typename<PackageRoot::ControlSizeTrigger>(),
+			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(0.0),
 				&ControlSizeTrigger::valueChangeCallback
@@ -46,7 +46,7 @@ namespace winrt::PackageRoot::implementation
 		m_maxHeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"MaxHeight",
 			winrt::xaml_typename<double>(),
-			winrt::xaml_typename<PackageRoot::ControlSizeTrigger>(),
+			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(DBL_MAX),
 				&ControlSizeTrigger::valueChangeCallback
@@ -55,7 +55,7 @@ namespace winrt::PackageRoot::implementation
 		m_minHeightProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"MinHeight",
 			winrt::xaml_typename<double>(),
-			winrt::xaml_typename<PackageRoot::ControlSizeTrigger>(),
+			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(0.0),
 				&ControlSizeTrigger::valueChangeCallback
@@ -64,7 +64,7 @@ namespace winrt::PackageRoot::implementation
 		m_targetElementProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"TargetElement",
 			winrt::xaml_typename<winrt::WinUINamespace::UI::Xaml::FrameworkElement>(),
-			winrt::xaml_typename<PackageRoot::ControlSizeTrigger>(),
+			winrt::xaml_typename<class_type>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				nullptr,
 				&ControlSizeTrigger::onTargetElementPropertyChanged
@@ -152,7 +152,7 @@ namespace winrt::PackageRoot::implementation
 		return GetValue(m_targetElementProperty).as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
 	}
 
-	void ControlSizeTrigger::TargetElement(winrt::WinUINamespace::UI::Xaml::FrameworkElement value)
+	void ControlSizeTrigger::TargetElement(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& value)
 	{
 		SetValue(m_targetElementProperty, value);
 	}
@@ -162,57 +162,52 @@ namespace winrt::PackageRoot::implementation
 		return m_targetElementProperty;
 	}
 
-	bool ControlSizeTrigger::IsActive()
-	{
-		return m_isActive;
-	}
-
 	void ControlSizeTrigger::updateTrigger()
 	{
-		if (!TargetElement() || !CanTrigger())
+		updateTrigger(TargetElement());
+	}
+
+	void ControlSizeTrigger::updateTrigger(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& target)
+	{
+		if (!target || !CanTrigger())
 		{
 			SetActive(false);
 			return;
 		}
 
-		bool const active =
-			MinWidth() <= TargetElement().ActualWidth() &&
-			TargetElement().ActualWidth() < MaxWidth() &&
-			MinHeight() <= TargetElement().ActualHeight() &&
-			TargetElement().ActualHeight() < MaxHeight();
+		auto const width = target.ActualWidth();
+		auto const height = target.ActualHeight();
 
-		m_isActive = active;
-		SetActive(active);
+		SetActive(
+			MinWidth() <= width && width < MaxWidth() &&
+			MinHeight() <= height && height < MaxHeight()
+		);
 	}
 	void ControlSizeTrigger::valueChangeCallback(
-		winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
 		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
-		winrt::get_self<ControlSizeTrigger>(d.as<PackageRoot::ControlSizeTrigger>())->updateTrigger();
+		GetSelf(d)->updateTrigger();
 	}
 
 	void ControlSizeTrigger::onTargetElementPropertyChanged(
-		winrt::WinUINamespace::UI::Xaml::DependencyObject d,
-		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs e)
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
-		winrt::get_self<ControlSizeTrigger>(d.as<PackageRoot::ControlSizeTrigger>())->updateTargetElement(
-			e.OldValue().as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>(),
-			e.NewValue().as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>()
-		);
-	}
-	void ControlSizeTrigger::updateTargetElement(
-		winrt::WinUINamespace::UI::Xaml::FrameworkElement oldValue,
-		winrt::WinUINamespace::UI::Xaml::FrameworkElement newValue)
-	{
-		if (oldValue)
-			oldValue.SizeChanged(m_onTargetElementSizeChanged);
-		if (newValue)
+		auto self = GetSelf(d);
+		auto const newElement = e.NewValue().try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>();
+		if (newElement)
 		{
-			m_onTargetElementSizeChanged = newValue.SizeChanged([this](auto...)
+			self->m_onTargetElementSizeChanged = newElement.SizeChanged(
+				winrt::auto_revoke,
+				[self](auto&& sender, auto&&)
 				{
-					updateTrigger();
+					self->updateTrigger(sender.as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>());
 				});
 		}
-		updateTrigger();
+		else
+			self->m_onTargetElementSizeChanged = {};
+
+		self->updateTrigger(newElement);
 	}
 }

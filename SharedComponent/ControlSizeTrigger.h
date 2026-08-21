@@ -31,11 +31,10 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty MinHeightProperty();
 
         winrt::WinUINamespace::UI::Xaml::FrameworkElement TargetElement();
-        void TargetElement(winrt::WinUINamespace::UI::Xaml::FrameworkElement value);
+        void TargetElement(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty TargetElementProperty();
 #pragma endregion
 
-        bool IsActive();
     private:
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_canTriggerProperty;
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_maxWidthProperty;
@@ -43,18 +42,16 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_maxHeightProperty;
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_minHeightProperty;
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_targetElementProperty;
-        bool m_isActive{};
         void updateTrigger();
-        winrt::event_token m_onTargetElementSizeChanged;
-        static void valueChangeCallback(winrt::WinUINamespace::UI::Xaml::DependencyObject d,
-            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
-        static void onTargetElementPropertyChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
-            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs e
+        void updateTrigger(winrt::WinUINamespace::UI::Xaml::FrameworkElement const& target);
+        winrt::WinUINamespace::UI::Xaml::FrameworkElement::SizeChanged_revoker m_onTargetElementSizeChanged;
+        static void valueChangeCallback(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
-        void updateTargetElement(
-            winrt::WinUINamespace::UI::Xaml::FrameworkElement oldValue,
-            winrt::WinUINamespace::UI::Xaml::FrameworkElement newValue
+        static void onTargetElementPropertyChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
     };
 }
