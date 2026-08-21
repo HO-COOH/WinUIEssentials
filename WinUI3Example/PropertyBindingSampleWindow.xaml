@@ -32,5 +32,31 @@
         <CheckBox Content="IsResizable" IsChecked="{x:Bind IsResizable, Mode=TwoWay}" />
         <CheckBox Content="IsAlwaysOnTop" IsChecked="{x:Bind IsAlwaysOnTop, Mode=TwoWay}" />
         <CheckBox Content="IsShownInSwicther" IsChecked="{x:Bind IsShownInSwitcher, Mode=TwoWay}" />
+        <RadioButtons
+            xmlns:windowing="using:Microsoft.UI.Windowing"
+            Header="TitleBarHeight"
+            IsEnabled="{x:Bind ExtendsContentIntoTitleBarToggle.IsOn, Mode=OneWay}"
+            SelectionChanged="RadioButtons_SelectionChanged">
+            <!--  This is currently not working, see https://github.com/microsoft/microsoft-ui-xaml/issues/11554  -->
+            <!--<RadioButton Content="Standard">
+                <RadioButton.Tag>
+                    <windowing:TitleBarHeightOption>Standard</windowing:TitleBarHeightOption>
+                </RadioButton.Tag>
+            </RadioButton>
+            <RadioButton Content="Tall">
+                <RadioButton.Tag>
+                    <windowing:TitleBarHeightOption>Tall</windowing:TitleBarHeightOption>
+                </RadioButton.Tag>
+            </RadioButton>
+            <RadioButton Content="Collapsed">
+                <RadioButton.Tag>
+                    <windowing:TitleBarHeightOption>Collapsed</windowing:TitleBarHeightOption>
+                </RadioButton.Tag>
+            </RadioButton>-->
+
+            <RadioButton Content="Standard" />
+            <RadioButton Content="Tall" />
+            <RadioButton Content="Collapsed" />
+        </RadioButtons>
     </StackPanel>
 </essential:WindowEx>

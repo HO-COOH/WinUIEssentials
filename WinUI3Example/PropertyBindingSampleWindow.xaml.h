@@ -6,6 +6,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct PropertyBindingSampleWindow : PropertyBindingSampleWindowT<PropertyBindingSampleWindow>
     {
+        void RadioButtons_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
     };
 }
 

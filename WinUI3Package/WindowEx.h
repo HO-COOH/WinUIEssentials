@@ -118,6 +118,10 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout ContextMenu();
         void ContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty ContextMenuProperty();
+
+        winrt::Microsoft::UI::Windowing::TitleBarHeightOption TitleBarHeight();
+        void TitleBarHeight(winrt::Microsoft::UI::Windowing::TitleBarHeightOption value);
+        static winrt::Microsoft::UI::Xaml::DependencyProperty TitleBarHeightProperty();
 #pragma endregion
 
         winrt::Microsoft::UI::Windowing::AppWindow AppWindow();
@@ -161,6 +165,7 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_hasTitleBarProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_iconProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_contextMenuProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleBarHeightProperty;
 
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_nonClientRegionKindProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_rootWindowProperty;
@@ -253,6 +258,9 @@ namespace winrt::WinUI3Package::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void onContextMenuChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void onTitleBarHeightChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void onNonClientRegionKindChanged(

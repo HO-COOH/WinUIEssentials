@@ -58,6 +58,9 @@
         Boolean IsShownInSwitcher;
         static Microsoft.UI.Xaml.DependencyProperty IsShownInSwitcherProperty{ get; };
 
+        Microsoft.UI.Windowing.TitleBarHeightOption TitleBarHeight;
+        static Microsoft.UI.Xaml.DependencyProperty TitleBarHeightProperty{ get; };
+
         Microsoft.UI.Xaml.Controls.MenuFlyout ContextMenu;
         static Microsoft.UI.Xaml.DependencyProperty ContextMenuProperty{ get; };
 

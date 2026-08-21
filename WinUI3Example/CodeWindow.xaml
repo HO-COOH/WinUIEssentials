@@ -29,6 +29,8 @@
                 TextWrapping="NoWrap" />
         </Grid>
 
-        <local:CodePivot Grid.Row="1" ItemsSource="{x:Bind CodeItems}" />
+        <ScrollView Grid.Row="1">
+            <local:CodePivot ItemsSource="{x:Bind CodeItems}" />
+        </ScrollView>
     </Grid>
 </Window>

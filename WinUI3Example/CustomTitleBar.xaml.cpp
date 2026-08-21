@@ -25,8 +25,11 @@ namespace winrt::WinUI3Example::implementation
 
     void CustomTitleBar::PersonPic_PointerPressed(
         winrt::Windows::Foundation::IInspectable const& sender, 
-        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const&)
+        winrt::Microsoft::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
+        if (!e.GetCurrentPoint(sender.as<winrt::Microsoft::UI::Xaml::UIElement>()).Properties().IsLeftButtonPressed())
+            return;
+
 		auto element = sender.as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
         element.ContextFlyout().ShowAt(element);
     }

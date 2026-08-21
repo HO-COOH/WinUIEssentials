@@ -66,6 +66,7 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_hasTitleBarProperty = nullptr;
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_iconProperty = nullptr;
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_contextMenuProperty = nullptr;
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_titleBarHeightProperty = nullptr;
 	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::s_nonClientRegionKindProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
 		L"NonClientRegionKind",
 		winrt::xaml_typename<winrt::Microsoft::UI::Input::NonClientRegionKind>(),
@@ -171,6 +172,17 @@ namespace winrt::WinUI3Package::implementation
 			winrt::xaml_typename<winrt::Microsoft::UI::Xaml::Controls::MenuFlyout>(),
 			winrt::xaml_typename<class_type>(),
 			winrt::Microsoft::UI::Xaml::PropertyMetadata{ nullptr, &WindowEx::onContextMenuChanged }
+		);
+
+		s_titleBarHeightProperty = winrt::Microsoft::UI::Xaml::DependencyProperty::Register(
+			L"TitleBarHeight",
+			winrt::xaml_typename<winrt::Microsoft::UI::Windowing::TitleBarHeightOption>(),
+			winrt::xaml_typename<class_type>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata
+			{
+				winrt::box_value(winrt::Microsoft::UI::Windowing::TitleBarHeightOption::Standard),
+				&WindowEx::onTitleBarHeightChanged
+			}
 		);
 	}
 
@@ -656,6 +668,21 @@ namespace winrt::WinUI3Package::implementation
 	{
 		return s_contextMenuProperty;
 	}
+
+	winrt::Microsoft::UI::Windowing::TitleBarHeightOption WindowEx::TitleBarHeight()
+	{
+		return winrt::unbox_value<winrt::Microsoft::UI::Windowing::TitleBarHeightOption>(GetValue(s_titleBarHeightProperty));
+	}
+
+	void WindowEx::TitleBarHeight(winrt::Microsoft::UI::Windowing::TitleBarHeightOption value)
+	{
+		SetValue(s_titleBarHeightProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty WindowEx::TitleBarHeightProperty()
+	{
+		return s_titleBarHeightProperty;
+	}
 #pragma endregion
 
 
@@ -991,6 +1018,13 @@ namespace winrt::WinUI3Package::implementation
 
 		if (auto modernStandardMenu = newValue.try_as<WinUI3Package::ModernStandardWindowContextMenu>())
 			modernStandardMenu.Window(GetSelf(d)->m_window);
+	}
+
+	void WindowEx::onTitleBarHeightChanged(
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, 
+		winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+	{
+		GetSelf(d)->m_appWindowTitleBar.PreferredHeightOption(winrt::unbox_value<winrt::Microsoft::UI::Windowing::TitleBarHeightOption>(e.NewValue()));
 	}
 
 	void WindowEx::onNonClientRegionKindChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
