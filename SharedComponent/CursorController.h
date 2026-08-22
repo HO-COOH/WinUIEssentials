@@ -4,14 +4,17 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    struct CursorController : CursorControllerT<CursorController>
+    struct CursorController
     {
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty TypeProperty();
-        static void SetType(winrt::WinUINamespace::UI::Xaml::UIElement obj, winrt::Windows::UI::Core::CoreCursorType type);
-        static winrt::Windows::UI::Core::CoreCursorType GetType(winrt::WinUINamespace::UI::Xaml::UIElement obj);
+        static void SetType(winrt::WinUINamespace::UI::Xaml::UIElement const& obj, winrt::Windows::UI::Core::CoreCursorType type);
+        static winrt::Windows::UI::Core::CoreCursorType GetType(winrt::WinUINamespace::UI::Xaml::UIElement const& obj);
 
     private:
-        static void CursorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject obj, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs e);
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_typeProperty;
+        static void cursorChanged(
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& obj, 
+            winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
     };
 }
 

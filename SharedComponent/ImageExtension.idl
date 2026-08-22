@@ -1,7 +1,6 @@
 ﻿namespace PackageRoot
 {
-    [default_interface]
-    runtimeclass ImageExtension : WinUINamespace.UI.Xaml.DependencyObject
+    static runtimeclass ImageExtension
     {
         static WinUINamespace.UI.Xaml.DependencyProperty FallbackSourceProperty{ get; };
         static void SetFallbackSource(WinUINamespace.UI.Xaml.Controls.Image image, WinUINamespace.UI.Xaml.Media.ImageSource source);

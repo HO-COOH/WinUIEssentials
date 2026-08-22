@@ -5,7 +5,7 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    struct ImageExtension : ImageExtensionT<ImageExtension>
+    struct ImageExtension
     {
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty FallbackSourceProperty();
         
@@ -18,6 +18,7 @@ namespace winrt::PackageRoot::implementation
         );
 
     private:
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_fallbackProperty;
         static void fallbackSourceChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& image,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e

@@ -6,14 +6,15 @@
 
 namespace winrt::PackageRoot::implementation
 {
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty ImageExtension::s_fallbackProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::RegisterAttached(
+        L"FallbackSource",
+        winrt::xaml_typename<winrt::WinUINamespace::UI::Xaml::Media::ImageSource>(),
+        winrt::xaml_typename<winrt::PackageRoot::ImageExtension>(),
+        winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &ImageExtension::fallbackSourceChanged }
+    );
+
     winrt::WinUINamespace::UI::Xaml::DependencyProperty ImageExtension::FallbackSourceProperty()
     {
-        static auto s_fallbackProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::RegisterAttached(
-            L"FallbackSource",
-            winrt::xaml_typename<winrt::WinUINamespace::UI::Xaml::Media::ImageSource>(),
-            winrt::xaml_typename<class_type>(),
-            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &ImageExtension::fallbackSourceChanged }
-        );
         return s_fallbackProperty;
     }
 

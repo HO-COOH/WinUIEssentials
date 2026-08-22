@@ -1,7 +1,6 @@
 ﻿namespace PackageRoot
 {
-    [default_interface]
-    runtimeclass CursorController : WinUINamespace.UI.Xaml.DependencyObject
+    static runtimeclass CursorController
     {
         static WinUINamespace.UI.Xaml.DependencyProperty TypeProperty{get; };
         static Windows.UI.Core.CoreCursorType GetType(WinUINamespace.UI.Xaml.UIElement obj);

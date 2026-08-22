@@ -25,10 +25,10 @@ namespace winrt::PackageRoot::implementation
         void FontStyle(winrt::Windows::UI::Text::FontStyle value);
 
         winrt::WinUINamespace::UI::Xaml::Media::Brush Foreground();
-        void Foreground(winrt::WinUINamespace::UI::Xaml::Media::Brush value);
+        void Foreground(winrt::WinUINamespace::UI::Xaml::Media::Brush const& value);
 
         winrt::hstring Glyph();
-        void Glyph(winrt::hstring value);
+        void Glyph(winrt::hstring const& value);
 
         bool IsTextScaleFactorEnabled();
         void IsTextScaleFactorEnabled(bool value);
@@ -40,7 +40,7 @@ namespace winrt::PackageRoot::implementation
 
 #if defined Build_WinUIPackage
         winrt::Windows::Foundation::IInspectable ProvideValue(
-            winrt::Microsoft::UI::Xaml::IXamlServiceProvider provider
+            winrt::Microsoft::UI::Xaml::IXamlServiceProvider const& provider
         )
         {
             return ProvideValue();

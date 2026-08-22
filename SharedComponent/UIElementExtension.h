@@ -4,14 +4,15 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    struct UIElementExtension : UIElementExtensionT<UIElementExtension>
+    struct UIElementExtension
     {
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ClipToBoundsProperty();
-        static bool GetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement element);
-        static void SetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement element, bool value);
+        static bool GetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement const& element);
+        static void SetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement const& element, bool value);
     private:
+        static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_clipToBoundsProperty;
         static void onClipToBoundsPropertyChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
     };

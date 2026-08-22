@@ -12,28 +12,31 @@
 
 namespace winrt::PackageRoot::implementation
 {
+    winrt::WinUINamespace::UI::Xaml::DependencyProperty UIElementExtension::s_clipToBoundsProperty =
+        winrt::WinUINamespace::UI::Xaml::DependencyProperty::RegisterAttached(
+            L"ClipToBounds",
+            winrt::xaml_typename<bool>(),
+            winrt::xaml_typename<winrt::PackageRoot::UIElementExtension>(),
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &UIElementExtension::onClipToBoundsPropertyChanged }
+        );
+
     winrt::WinUINamespace::UI::Xaml::DependencyProperty UIElementExtension::ClipToBoundsProperty()
     {
-		static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_clipToBoundsProperty = 
-			winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
-					L"ClipToBounds",
-					winrt::xaml_typename<bool>(),
-					winrt::xaml_typename<class_type>(),
-					winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr, &UIElementExtension::onClipToBoundsPropertyChanged }
-		);
 		return s_clipToBoundsProperty;
 	}
-    bool UIElementExtension::GetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement element)
+
+    bool UIElementExtension::GetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement const& element)
     {
         return winrt::unbox_value<bool>(element.GetValue(ClipToBoundsProperty()));
     }
-    void UIElementExtension::SetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement element, bool value)
+
+    void UIElementExtension::SetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement const& element, bool value)
     {
         element.SetValue(ClipToBoundsProperty(), winrt::box_value(value));
     }
 
     void UIElementExtension::onClipToBoundsPropertyChanged(
-        winrt::WinUINamespace::UI::Xaml::DependencyObject d, 
+        winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, 
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         if (auto element = d.try_as<winrt::WinUINamespace::UI::Xaml::UIElement>())

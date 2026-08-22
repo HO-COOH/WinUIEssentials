@@ -42,7 +42,7 @@ namespace winrt::PackageRoot::implementation
     {
         return m_foreground;
     }
-    void FontIconExtension::Foreground(winrt::WinUINamespace::UI::Xaml::Media::Brush value)
+    void FontIconExtension::Foreground(winrt::WinUINamespace::UI::Xaml::Media::Brush const& value)
     {
         m_foreground = value;
     }
@@ -50,7 +50,7 @@ namespace winrt::PackageRoot::implementation
     {
         return m_glyph;
     }
-    void FontIconExtension::Glyph(winrt::hstring value)
+    void FontIconExtension::Glyph(winrt::hstring const& value)
     {
         m_glyph = value;
     }

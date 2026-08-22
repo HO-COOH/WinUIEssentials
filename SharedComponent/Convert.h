@@ -4,7 +4,7 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    struct Convert : ConvertT<Convert>
+    struct Convert
     {
         constexpr static float DoubleToSingle(double value) noexcept
         {

@@ -1,8 +1,6 @@
 namespace PackageRoot
 {
-    [bindable]
-    [default_interface]
-    runtimeclass Convert
+    static runtimeclass Convert
     {
         static Single DoubleToSingle(Double value);
         static Int32 DoubleToInt32(Double value);
