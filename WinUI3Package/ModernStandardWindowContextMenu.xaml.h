@@ -2,24 +2,25 @@
 
 #include "ModernStandardWindowContextMenu.g.h"
 #include <winrt/Microsoft.UI.Content.h>
-#include "MenuFlyoutItemPaddingWorkaroundWrapper.hpp"
+#include "WindowContextMenuBase.hpp"
 #include "TemplateControlHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
     struct ModernStandardWindowContextMenu : 
         ModernStandardWindowContextMenuT<ModernStandardWindowContextMenu>,
-        XamlResourceHelper<ModernStandardWindowContextMenu>,
-        private MenuFlyoutItemPaddingWorkaroundWrapper
+        WindowContextMenuBase<ModernStandardWindowContextMenu, 0x22001>,
+        XamlResourceHelper<ModernStandardWindowContextMenu>
     {
         ModernStandardWindowContextMenu() = default;
         ModernStandardWindowContextMenu(winrt::Microsoft::UI::Xaml::Window const& value);
 
-        winrt::Microsoft::UI::Xaml::Window Window();
+        //Declaring the setter hides the inherited getter, bring it back
+        using WindowContextMenuBase::Window;
         void Window(winrt::Microsoft::UI::Xaml::Window const& value);
 
-        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/ModernStandardWindowContextMenu_Resource.xaml";
-    private:
+        winrt::Microsoft::UI::Xaml::Controls::MenuFlyout Menu();
+
         static LRESULT CALLBACK subclassProc(
             HWND hwnd,
             UINT msg,
@@ -29,10 +30,8 @@ namespace winrt::WinUI3Package::implementation
             DWORD_PTR dwRefData
         );
 
-        winrt::Microsoft::UI::Xaml::Window m_xamlRoot{ nullptr };
-        HWND m_parent{};
-        winrt::Microsoft::UI::Content::ContentCoordinateConverter m_converter{ nullptr };
-
+        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/ModernStandardWindowContextMenu_Resource.xaml";
+    private:
         //{x:Bind} is not supported in this class, we need to set UI in code-behind!
         void setMenuItemText();
         static std::array<wchar_t, 64> getMenuItemText(HMENU hMenu, UINT item);

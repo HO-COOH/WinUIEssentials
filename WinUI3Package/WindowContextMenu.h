@@ -1,18 +1,14 @@
 ﻿#pragma once
 
 #include "WindowContextMenu.g.h"
-#include "MenuFlyoutItemPaddingWorkaroundWrapper.hpp"
+#include "WindowContextMenuBase.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
     struct WindowContextMenu : 
         WindowContextMenuT<WindowContextMenu>,
-        private MenuFlyoutItemPaddingWorkaroundWrapper
+        WindowContextMenuBase<WindowContextMenu, 0x22002>
     {
-
-        winrt::Microsoft::UI::Xaml::Window Window();
-        void Window(winrt::Microsoft::UI::Xaml::Window const& window);
-
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout Menu();
         void Menu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value);
 
@@ -26,9 +22,6 @@ namespace winrt::WinUI3Package::implementation
         );
     private:
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout m_menu{ nullptr };
-        winrt::Microsoft::UI::Xaml::Window m_xamlRoot{ nullptr };
-        HWND m_parent{};
-        winrt::Microsoft::UI::Content::ContentCoordinateConverter m_converter{ nullptr };
     };
 }
 

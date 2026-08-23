@@ -325,6 +325,10 @@
     <ClInclude Include="WebViewMouseHook.h">
       <Filter>Controls\WebView</Filter>
     </ClInclude>
+    <ClInclude Include="MinMaxSize.hpp" />
+    <ClInclude Include="WindowContextMenuBase.hpp">
+      <Filter>Windows\WindowContextMenu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -433,6 +437,9 @@
     <Filter Include="Controls\WebView">
       <UniqueIdentifier>{efbf208c-fdb4-4752-9102-5e4189160912}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Windows\WindowContextMenu">
+      <UniqueIdentifier>{a9c1ae2b-3467-4385-8fcd-d3ab2c88e393}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="HostBackdropVisual.idl">
@@ -475,9 +482,6 @@
       <Filter>TaskbarIcon\TaskbarIconMenu\PopupMenu\Xaml</Filter>
     </Midl>
     <Midl Include="ThemeSettings.idl" />
-    <Midl Include="WindowContextMenu.idl">
-      <Filter>Windows</Filter>
-    </Midl>
     <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">
       <Filter>Windows</Filter>
     </Midl>
@@ -569,6 +573,9 @@
     <Midl Include="WebView.idl">
       <Filter>Controls\WebView</Filter>
     </Midl>
+    <Midl Include="WindowContextMenu.idl">
+      <Filter>Windows\WindowContextMenu</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <Page Include="SettingsCard_Resource.xaml">
@@ -576,12 +583,6 @@
     </Page>
     <Page Include="Segmented_Resource.xaml">
       <Filter>Controls\Segmented</Filter>
-    </Page>
-    <Page Include="ModernStandardWindowContextMenu.xaml">
-      <Filter>Windows</Filter>
-    </Page>
-    <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
-      <Filter>Windows</Filter>
     </Page>
     <Page Include="ModernDialogBoxContent_Resource.xaml">
       <Filter>Controls\WindowedContentDialog\ModernDialogBox\Content</Filter>
@@ -618,6 +619,12 @@
     </Page>
     <Page Include="DefaultTableHeaderContextMenu.xaml">
       <Filter>Controls\Table</Filter>
+    </Page>
+    <Page Include="ModernStandardWindowContextMenu.xaml">
+      <Filter>Windows\WindowContextMenu</Filter>
+    </Page>
+    <Page Include="ModernStandardWindowContextMenu_Resource.xaml">
+      <Filter>Windows\WindowContextMenu</Filter>
     </Page>
   </ItemGroup>
 </Project>

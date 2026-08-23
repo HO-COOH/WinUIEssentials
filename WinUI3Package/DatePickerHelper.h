@@ -4,7 +4,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct DatePickerHelper : DatePickerHelperT<DatePickerHelper>
+    struct DatePickerHelper
     {
         static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
         static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::DatePicker const& datePicker);
@@ -14,6 +14,7 @@ namespace winrt::WinUI3Package::implementation
         );
 
     private:
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
         static bool modifyDatePickerFlyoutPresenter(
             winrt::Microsoft::UI::Xaml::Controls::DatePickerFlyoutPresenter const& presenter

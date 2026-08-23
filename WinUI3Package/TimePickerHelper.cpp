@@ -8,18 +8,19 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+	winrt::Microsoft::UI::Xaml::DependencyProperty TimePickerHelper::s_acrylicWorkaroundProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+			L"AcrylicWorkaround",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<winrt::WinUI3Package::TimePickerHelper>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				&TimePickerHelper::acrylicWorkaroundChanged
+			}
+		);
+
 	winrt::Microsoft::UI::Xaml::DependencyProperty TimePickerHelper::AcrylicWorkaroundProperty()
 	{
-		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty = 
-			winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
-				L"AcrylicWorkaround",
-				winrt::xaml_typename<bool>(),
-				winrt::xaml_typename<class_type>(),
-				winrt::Microsoft::UI::Xaml::PropertyMetadata{
-					nullptr,
-					&TimePickerHelper::acrylicWorkaroundChanged
-				}
-			);
 		return s_acrylicWorkaroundProperty;
 	}
 

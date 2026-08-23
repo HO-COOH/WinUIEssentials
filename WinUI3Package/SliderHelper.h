@@ -4,7 +4,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct SliderHelper : SliderHelperT<SliderHelper>
+    struct SliderHelper
     {
 		static winrt::Microsoft::UI::Xaml::DependencyProperty AcrylicWorkaroundProperty();
 		static bool GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Slider const& slider);
@@ -14,6 +14,7 @@ namespace winrt::WinUI3Package::implementation
 		);
 
 	private:
+		static winrt::Microsoft::UI::Xaml::DependencyProperty s_acrylicWorkaroundProperty;
 
 		static void applyThumbAcrylic(winrt::Microsoft::UI::Xaml::Controls::Primitives::Thumb const& thumb);
 

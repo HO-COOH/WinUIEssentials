@@ -1,8 +1,6 @@
 ﻿namespace WinUI3Package
 {
-    [bindable]
-    [default_interface]
-    runtimeclass DatePickerHelper 
+    static runtimeclass DatePickerHelper
     {
         static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{ get; };
         static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.DatePicker datePicker);

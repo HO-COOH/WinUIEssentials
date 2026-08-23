@@ -24,20 +24,11 @@ namespace winrt::WinUI3Package::implementation
         Window(value);
     }
 
-    winrt::Microsoft::UI::Xaml::Window ModernStandardWindowContextMenu::Window()
-    {
-        return m_xamlRoot;
-    }
-
     void ModernStandardWindowContextMenu::Window(winrt::Microsoft::UI::Xaml::Window const& value)
     {
-		if (m_xamlRoot == value)
+        if (!WindowContextMenuBase::Window(value))
             return;
 
-        m_xamlRoot = value;
-        m_converter = winrt::Microsoft::UI::Content::ContentCoordinateConverter::CreateForWindowId(value.AppWindow().Id());
-        m_parent = GetHwnd(value);
-        
         //force refresh isMaximized
         m_isMaximized = !IsZoomed(m_parent);
 		isMaximized(!m_isMaximized);
@@ -50,50 +41,41 @@ namespace winrt::WinUI3Package::implementation
 
         //After getting the text from default system menu, we remove it from window
         setMenuItemText();
-        SetWindowSubclass(m_parent, &subclassProc, 0x22001, reinterpret_cast<DWORD_PTR>(this));
     }
 
-    LRESULT ModernStandardWindowContextMenu::subclassProc(
-        HWND hwnd, 
-        UINT msg, 
-        WPARAM wparam, 
-        LPARAM lparam, 
-        UINT_PTR uIdSubclass, 
+    winrt::Microsoft::UI::Xaml::Controls::MenuFlyout ModernStandardWindowContextMenu::Menu()
+    {
+        return *this;
+    }
+
+    LRESULT CALLBACK ModernStandardWindowContextMenu::subclassProc(
+        HWND hwnd,
+        UINT msg,
+        WPARAM wparam,
+        LPARAM lparam,
+        UINT_PTR,
         DWORD_PTR dwRefData)
     {
+        auto self = reinterpret_cast<ModernStandardWindowContextMenu*>(dwRefData);
         switch (msg)
         {
             case WM_CONTEXTMENU:
             case WM_NCRBUTTONDOWN:
             case WM_NCRBUTTONUP:
-            {
-                auto self = reinterpret_cast<ModernStandardWindowContextMenu*>(dwRefData);
-                auto wrapperBase = static_cast<MenuFlyoutItemPaddingWorkaroundWrapper*>(self);
-                if (wrapperBase->IsFirstShow())
-                    self->XamlRoot(self->m_xamlRoot.Content().XamlRoot());
-                wrapperBase->ShowAtImpl(
-                    winrt::Microsoft::UI::Xaml::Controls::MenuFlyout{ *self }, 
-                    nullptr, 
-                    WindowContextMenuUtils::GetFlyoutShowOptions(self->m_parent, lparam, self->m_converter)
-                );
-                return 0;
-            }
-            case WM_SIZE:
-            {
-				//handle menu state changes by detecting if the window is maximized
-				auto ptr = reinterpret_cast<ModernStandardWindowContextMenu*>(dwRefData);
-				ptr->isMaximized(wparam == SIZE_MAXIMIZED);
+                if (self->showMenu(self->Menu(), lparam))
+                    return 0;
                 break;
-            }
+            case WM_SIZE:
+				//handle menu state changes by detecting if the window is maximized
+				self->isMaximized(wparam == SIZE_MAXIMIZED);
+                break;
             case WM_STYLECHANGED:
-            {
-				if (auto ptr = reinterpret_cast<ModernStandardWindowContextMenu*>(dwRefData); wparam == GWL_STYLE)
-				{
-					auto const style = reinterpret_cast<STYLESTRUCT*>(lparam);
-					ptr->isResizable(style->styleNew & WS_THICKFRAME);
-				}
+				if (wparam == GWL_STYLE)
+					self->isResizable(reinterpret_cast<STYLESTRUCT*>(lparam)->styleNew & WS_THICKFRAME);
 				break;
-            }
+            case WM_NCDESTROY:
+                self->removeSubclassIfSet();
+                break;
         }
         return DefSubclassProc(hwnd, msg, wparam, lparam);
     }

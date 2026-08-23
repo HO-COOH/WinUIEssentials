@@ -572,6 +572,7 @@
       <DependentUpon>WindowContextMenu.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="WindowContextMenuBase.hpp" />
     <ClInclude Include="WindowContextMenuUtils.h" />
     <ClInclude Include="WindowedContentDialog.h">
       <DependentUpon>WindowedContentDialog.idl</DependentUpon>
