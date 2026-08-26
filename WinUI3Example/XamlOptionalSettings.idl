@@ -1,0 +1,16 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass XamlOptionalSettings : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        XamlOptionalSettings();
+        
+        Boolean DefaultStyleOptimizations;
+        Boolean DeferContextFlyoutInit;
+        Boolean IconNoGridOptimization;
+        Boolean OptimizeApplyStyles;
+
+        Boolean RequiresRestart{ get; };
+        Int32 EnabledCount{ get; };
+    }
+}

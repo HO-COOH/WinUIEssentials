@@ -385,6 +385,9 @@
     <Midl Include="DemoTableData.idl">
       <Filter>Pages\TablePage</Filter>
     </Midl>
+    <Midl Include="XamlOptionalSettings.idl">
+      <Filter>Helper</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -403,6 +406,10 @@
       <Filter>Helper</Filter>
     </ClCompile>
     <ClCompile Include="StoreUpdateChecker.cpp">
+      <Filter>Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="XamlOptionalSettingsStore.cpp">
       <Filter>Helper</Filter>
     </ClCompile>
   </ItemGroup>
@@ -425,6 +432,9 @@
       <Filter>Helper</Filter>
     </ClInclude>
     <ClInclude Include="ButtonAnimations.h">
+      <Filter>Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="XamlOptionalSettingsStore.h">
       <Filter>Helper</Filter>
     </ClInclude>
   </ItemGroup>

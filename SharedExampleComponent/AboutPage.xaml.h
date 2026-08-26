@@ -37,6 +37,13 @@ namespace winrt::PackageRoot::implementation
             winrt::Windows::Foundation::IInspectable const& sender, 
             winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e);
 
+#if defined Build_WinUIExample
+        void RestartButton_Click(
+            winrt::Windows::Foundation::IInspectable const& sender,
+            winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e
+        );
+#endif
+
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Contributors();
 
         winrt::WinUINamespace::UI::Xaml::Visibility IsLoadingContributors();

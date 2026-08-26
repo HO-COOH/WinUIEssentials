@@ -5,6 +5,9 @@
 #endif
 #if defined Build_WinUIExample
 #include <WindowsAppSDK-VersionInfo.h>
+#include <appmodel.h>
+#include <shellapi.h>
+#pragma comment(lib, "Shell32.lib")
 #endif
 
 #include <winrt/Windows.System.h>
@@ -16,6 +19,7 @@
 #if defined GetObjectW
 #undef GetObjectW
 #endif
+#include <winrt/Windows.Storage.h>
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -133,6 +137,36 @@ namespace winrt::PackageRoot::implementation
 	{
 		winrt::Windows::System::Launcher::LaunchUriAsync(winrt::Windows::Foundation::Uri{ L"https://github.com/HO-COOH/WinUIEssentials" });
 	}
+
+#if defined Build_WinUIExample
+	static bool relaunchViaAppsFolder()
+	{
+		wchar_t aumid[APPLICATION_USER_MODEL_ID_MAX_LENGTH]{};
+		UINT32 length = std::size(aumid);
+		if (::GetCurrentApplicationUserModelId(&length, aumid) != ERROR_SUCCESS)
+			return false;
+
+		auto const target = std::wstring{ L"shell:AppsFolder\\" } + aumid;
+
+		SHELLEXECUTEINFOW info
+		{
+			.cbSize = sizeof(SHELLEXECUTEINFOW),
+			.fMask = SEE_MASK_NOASYNC,
+			.lpVerb = L"open",
+			.lpFile = target.c_str(),
+			.nShow = SW_SHOWNORMAL
+		};
+		return ::ShellExecuteExW(&info) != FALSE;
+	}
+
+	void AboutPage::RestartButton_Click(
+		winrt::Windows::Foundation::IInspectable const&,
+		winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const&)
+	{
+		if (relaunchViaAppsFolder())
+			winrt::WinUINamespace::UI::Xaml::Application::Current().Exit();
+	}
+#endif
 
 	winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> AboutPage::Contributors()
 	{

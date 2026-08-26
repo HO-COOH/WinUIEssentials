@@ -9,6 +9,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <local:XamlOptionalSettings x:Name="XamlOptionalSettings" />
+    </Page.Resources>
+
     <StackPanel>
         <essential:SettingsExpander
             Description="A toolkit for WinUi3 C++ developers"
@@ -241,6 +245,43 @@
             </essential:SettingsExpander.Items>
 
 
+        </essential:SettingsExpander>
+
+        <essential:SettingsExpander Description="Test for enabling XAML optional settings which may improve performance or fix behavior." Header="Xaml optional settings">
+            <essential:SettingsExpander.ItemsHeader>
+                <InfoBar
+                    x:Name="XamlOptionalSettingsWarning"
+                    Title="Warning"
+                    BorderThickness="0"
+                    CornerRadius="0"
+                    IsOpen="{x:Bind XamlOptionalSettings.RequiresRestart, Mode=OneWay}"
+                    Message="Changing the XAML optional settings requires app restart to take effect!"
+                    Severity="Warning">
+                    <InfoBar.ActionButton>
+                        <Button
+                            HorizontalAlignment="Right"
+                            Click="RestartButton_Click"
+                            Style="{ThemeResource AccentButtonStyle}">
+                            Restart
+                        </Button>
+                    </InfoBar.ActionButton>
+                </InfoBar>
+            </essential:SettingsExpander.ItemsHeader>
+            <essential:SettingsExpander.Items>
+                <essential:SettingsCard ContentAlignment="Left">
+                    <StackPanel>
+                        <CheckBox Content="DefaultStyleOptimizations" IsChecked="{x:Bind XamlOptionalSettings.DefaultStyleOptimizations, Mode=TwoWay}" />
+                        <CheckBox Content="DeferContextFlyoutInit" IsChecked="{x:Bind XamlOptionalSettings.DeferContextFlyoutInit, Mode=TwoWay}" />
+                        <CheckBox Content="IconNoGridOptimization" IsChecked="{x:Bind XamlOptionalSettings.IconNoGridOptimization, Mode=TwoWay}" />
+                        <CheckBox Content="OptimizeApplyStyles" IsChecked="{x:Bind XamlOptionalSettings.OptimizeApplyStyles, Mode=TwoWay}" />
+                    </StackPanel>
+                </essential:SettingsCard>
+            </essential:SettingsExpander.Items>
+
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <InfoBadge Value="{x:Bind XamlOptionalSettings.EnabledCount, Mode=OneWay}" />
+                <TextBlock Text="Enabled" />
+            </StackPanel>
         </essential:SettingsExpander>
 
         <VisualStateManager.VisualStateGroups>

@@ -1,5 +1,8 @@
 ﻿import "ContributorItem.idl";
 import "NugetPackageInfo.idl";
+#if defined Build_WinUIExample
+import "XamlOptionalSettings.idl";
+#endif
 
 namespace PackageRoot
 {
@@ -10,6 +13,10 @@ namespace PackageRoot
 
         static String WASDKReleaseVersion{ get; };
         static String WASDKRuntimeVersion{ get; };
+
+#if defined Build_WinUIExample
+        XamlOptionalSettings XamlOptionalSettings{ get; };
+#endif
 
         static String FormatVersion(
             UInt32 major,
