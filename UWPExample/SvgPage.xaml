@@ -181,18 +181,21 @@
                                     Height="200"
                                     Stretch="Uniform">
                                     <Image.Source>
-                                        <svg:SvgImageSource UriSource="{Binding}" />
+                                        <svg:SvgImageSource UriSource="{x:Bind}" />
                                     </Image.Source>
                                 </Image>
-                                <TextBlock Text="{Binding}" />
+                                <TextBlock Text="{x:Bind}" />
                             </StackPanel>
 
                             <StackPanel Spacing="8">
                                 <Image
                                     Width="200"
                                     Height="200"
-                                    Source="{Binding}"
-                                    Stretch="Uniform" />
+                                    Stretch="Uniform">
+                                    <Image.Source>
+                                        <SvgImageSource UriSource="{x:Bind}" />
+                                    </Image.Source>
+                                </Image>
                             </StackPanel>
 
                             <StackPanel Spacing="8">

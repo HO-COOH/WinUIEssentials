@@ -813,7 +813,7 @@
                                         </ItemsControl.ItemsPanel>
 
                                         <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
+                                            <DataTemplate x:DataType="x:String">
                                                 <Border
                                                     Height="20"
                                                     Padding="6,0"
@@ -825,7 +825,7 @@
                                                         VerticalAlignment="Center"
                                                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                         Style="{ThemeResource CaptionTextBlockStyle}"
-                                                        Text="{Binding}" />
+                                                        Text="{x:Bind}" />
                                                 </Border>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>

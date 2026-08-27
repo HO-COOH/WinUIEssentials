@@ -4,6 +4,9 @@
     runtimeclass SwitchPresenterPage : Windows.UI.Xaml.Controls.Page
     {
         SwitchPresenterPage();
+
+        Windows.UI.Xaml.Controls.ComboBox Lookup{ get; };
+        Windows.UI.Xaml.Controls.ComboBox AnimalPicker{ get; };
         Windows.UI.Xaml.Controls.ToggleSwitch LoadingState{ get; };
     }
 }

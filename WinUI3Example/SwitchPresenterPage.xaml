@@ -25,7 +25,7 @@
                 </ComboBox>
             </local:ControlExample.Options>
 
-            <essential:SwitchPresenter Value="{Binding SelectedItem, ElementName=Lookup}">
+            <essential:SwitchPresenter Value="{x:Bind Lookup.SelectedItem, Mode=OneWay}">
                 <essential:Case Value="Confirmation Code">
                     <StackPanel>
                         <TextBox
@@ -59,8 +59,7 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-&lt;essential:SwitchPresenter Value=&quot;{Binding SelectedItem, ElementName=Lookup}&quot;&gt;
+                        <x:String xml:space="preserve">&lt;essential:SwitchPresenter Value=&quot;{x:Bind Lookup.SelectedItem, Mode=OneWay}&quot;&gt;
     &lt;essential:Case Value=&quot;Confirmation Code&quot;&gt;
         &lt;StackPanel&gt;
             &lt;TextBox
@@ -114,7 +113,7 @@
                 </ComboBox>
             </local:ControlExample.Options>
 
-            <essential:SwitchPresenter Padding="16" Value="{Binding SelectedItem, ElementName=AnimalPicker}">
+            <essential:SwitchPresenter Padding="16" Value="{x:Bind AnimalPicker.SelectedItem, Mode=OneWay}">
                 <essential:Case Value="Bunny">
                     <TextBlock FontSize="32" Text="🐇" />
                 </essential:Case>
@@ -147,8 +146,7 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-&lt;essential:SwitchPresenter Padding=&quot;16&quot; Value=&quot;{Binding SelectedItem, ElementName=AnimalPicker}&quot;&gt;
+                        <x:String xml:space="preserve">&lt;essential:SwitchPresenter Padding=&quot;16&quot; Value=&quot;{x:Bind AnimalPicker.SelectedItem, Mode=OneWay}&quot;&gt;
     &lt;essential:Case Value=&quot;Bunny&quot;&gt;
         &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🐇&quot; /&gt;
     &lt;/essential:Case&gt;
@@ -176,8 +174,7 @@
     &lt;essential:Case Value=&quot;Squirrel&quot;&gt;
         &lt;TextBlock FontSize=&quot;32&quot; Text=&quot;🐿&quot; /&gt;
     &lt;/essential:Case&gt;
-&lt;/essential:SwitchPresenter&gt;
-                        </x:String>
+&lt;/essential:SwitchPresenter&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
@@ -189,7 +186,7 @@
             <essential:SwitchPresenter
                 Grid.Column="0"
                 HorizontalAlignment="Center"
-                Value="{Binding IsOn, ElementName=LoadingState, Mode=OneWay}">
+                Value="{x:Bind LoadingState.IsOn, Mode=OneWay}">
                 <essential:Case>
                     <essential:Case.Value>
                         <x:Boolean>True</x:Boolean>
@@ -229,11 +226,10 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-&lt;essential:SwitchPresenter
+                        <x:String xml:space="preserve">&lt;essential:SwitchPresenter
     Grid.Column=&quot;0&quot;
     HorizontalAlignment=&quot;Center&quot;
-    Value=&quot;{Binding IsOn, ElementName=LoadingState, Mode=OneWay}&quot;&gt;
+    Value=&quot;{x:Bind LoadingState.IsOn, Mode=OneWay}&quot;&gt;
     &lt;essential:Case&gt;
         &lt;essential:Case.Value&gt;
             &lt;x:Boolean&gt;True&lt;/x:Boolean&gt;
@@ -261,8 +257,7 @@
             &lt;Run Text=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&quot; /&gt;
         &lt;/TextBlock&gt;
     &lt;/essential:Case&gt;
-&lt;/essential:SwitchPresenter&gt;
-                        </x:String>
+&lt;/essential:SwitchPresenter&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>

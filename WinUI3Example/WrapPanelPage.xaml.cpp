@@ -65,24 +65,22 @@ namespace winrt::WinUI3Example::implementation
         winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
     {
         auto wrapPanelContainer = WrapPanelContainer();
-        if (auto sampleWrapPanel = VisualTreeHelper::FindVisualChildByType<winrt::WinUI3Package::WrapPanel>(wrapPanelContainer))
+        auto sampleWrapPanel = wrapPanelContainer.ItemsPanelRoot().as<WinUI3Package::WrapPanel>();
+        if (sampleWrapPanel.Orientation() == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal)
         {
-            if (sampleWrapPanel.Orientation() == winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal)
-            {
-                sampleWrapPanel.Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation::Vertical);
-                winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollMode(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollMode::Disabled);
-                winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollBarVisibility(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollBarVisibility::Disabled);
-                winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetHorizontalScrollMode(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollMode::Auto);
-                winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetHorizontalScrollBarVisibility(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollBarVisibility::Auto);
-            }
-            else
-            {
-                sampleWrapPanel.Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal);
-                winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollMode(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollMode::Auto);
-                winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollBarVisibility(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollBarVisibility::Auto);
-                winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetHorizontalScrollMode(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollMode::Disabled);
-                winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetHorizontalScrollBarVisibility(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollBarVisibility::Disabled);
-            }
+            sampleWrapPanel.Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation::Vertical);
+            winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollMode(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollMode::Disabled);
+            winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollBarVisibility(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollBarVisibility::Disabled);
+            winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetHorizontalScrollMode(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollMode::Auto);
+            winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetHorizontalScrollBarVisibility(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollBarVisibility::Auto);
+        }
+        else
+        {
+            sampleWrapPanel.Orientation(winrt::Microsoft::UI::Xaml::Controls::Orientation::Horizontal);
+            winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollMode(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollMode::Auto);
+            winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetVerticalScrollBarVisibility(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollBarVisibility::Auto);
+            winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetHorizontalScrollMode(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollMode::Disabled);
+            winrt::Microsoft::UI::Xaml::Controls::ScrollViewer::SetHorizontalScrollBarVisibility(wrapPanelContainer, winrt::Microsoft::UI::Xaml::Controls::ScrollBarVisibility::Disabled);
         }
     }
 }

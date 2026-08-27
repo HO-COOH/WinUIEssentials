@@ -128,6 +128,9 @@
     <Page Include="CodeWindowPage.xaml">
       <Filter>Helper</Filter>
     </Page>
+    <Page Include="WrapPanelPage.xaml">
+      <Filter>Pages\WrapPanelPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -149,6 +152,9 @@
     </Midl>
     <Midl Include="DemoTableData.idl">
       <Filter>Pages\TablePage</Filter>
+    </Midl>
+    <Midl Include="PhotoDataItemWithDimension.idl">
+      <Filter>Pages\WrapPanelPage</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -354,6 +360,9 @@
     </Filter>
     <Filter Include="Pages\WindowCaptionButtonWorkaroundPage">
       <UniqueIdentifier>{14307778-1c5f-480e-bd1b-82ef8d7d1552}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\WrapPanelPage">
+      <UniqueIdentifier>{aa791461-4280-4133-831c-7d3b036903b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

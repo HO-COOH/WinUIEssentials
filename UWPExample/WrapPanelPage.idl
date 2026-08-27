@@ -1,0 +1,11 @@
+import "PhotoDataItemWithDimension.idl";
+
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass WrapPanelPage : Windows.UI.Xaml.Controls.Page
+    {
+        WrapPanelPage();
+        Windows.Foundation.Collections.IObservableVector<PhotoDataItemWithDimension> WrapPanelCollection{ get; };
+    }
+}

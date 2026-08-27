@@ -437,6 +437,10 @@
     <ClInclude Include="MainPage.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="PhotoDataItemWithDimension.h">
+      <DependentUpon>PhotoDataItemWithDimension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ProgressBarExPage.h">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -543,6 +547,10 @@
     </ClInclude>
     <ClInclude Include="WindowCaptionButtonWithWorkaround.h">
       <DependentUpon>WindowCaptionButtonWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="WrapPanelPage.h">
+      <DependentUpon>WrapPanelPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="XamlTableDataPage.h">
@@ -678,6 +686,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="WindowCaptionButtonWithWorkaround.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WrapPanelPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="XamlTableDataPage.xaml">
@@ -818,6 +829,10 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="PhotoDataItemWithDimension.cpp">
+      <DependentUpon>PhotoDataItemWithDimension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ProgressBarExPage.cpp">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -922,6 +937,10 @@
       <DependentUpon>WindowCaptionButtonWithWorkaround.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WrapPanelPage.cpp">
+      <DependentUpon>WrapPanelPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="XamlTableDataPage.cpp">
       <DependentUpon>XamlTableDataPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -993,6 +1012,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MyDataModelTemplateSelector.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="PhotoDataItemWithDimension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ProgressBarExPage.idl">
@@ -1094,6 +1116,10 @@
     </Midl>
     <Midl Include="WindowCaptionButtonWithWorkaround.idl">
       <DependentUpon>WindowCaptionButtonWithWorkaround.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WrapPanelPage.idl">
+      <DependentUpon>WrapPanelPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="XamlTableDataPage.idl">
