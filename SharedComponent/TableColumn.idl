@@ -27,6 +27,6 @@ namespace PackageRoot
         Double MinWidth;
         Double MaxWidth;
 
-        WinUINamespace.UI.Xaml.Controls.Flyout Flyout;
+        WinUINamespace.UI.Xaml.Controls.Flyout ContextFlyout;
     }
 }

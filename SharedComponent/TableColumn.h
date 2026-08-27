@@ -30,8 +30,8 @@ namespace winrt::PackageRoot::implementation
 		void IsResizable(bool value);
 		static winrt::WinUINamespace::UI::Xaml::DependencyProperty IsResizableProperty();
 
-        winrt::WinUINamespace::UI::Xaml::Controls::Flyout Flyout();
-		void Flyout(winrt::WinUINamespace::UI::Xaml::Controls::Flyout const& value);
+        winrt::WinUINamespace::UI::Xaml::Controls::Flyout ContextFlyout();
+		void ContextFlyout(winrt::WinUINamespace::UI::Xaml::Controls::Flyout const& value);
 
         constexpr winrt::WinUINamespace::UI::Xaml::HorizontalAlignment HorizontalAlignment() const
         {

@@ -144,6 +144,7 @@ You can reference Github Action for detailed build steps.
 |WindowedContentDialog | :x: | :white_check_mark: | Control
 |SvgImageSource | :white_check_mark: | :white_check_mark: | WinRT component
 |WebView | :x: | :white_check_mark: | Control
+|Table | :white_check_mark: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -1337,3 +1338,85 @@ Usage:
 > Right-clicks inside the webview are intercepted so the win32 window context menu is never raised
 > (see the `WebViewMouseHook`); this also suppresses the webview's own native context menu within its bounds.
 
+## Table
+A lightweight yet extremely high performance Table / DataGrid control for displaying structured data.
+
+### Property
+|Property| Type | DependencyProperty? | Description
+|---|---|---|---|
+|Columns | TableColumnCollection | :x: | Define table columns in xaml|
+|ItemsSource | ITableData | :x: | Provide row data in code|
+|Items | IVector\<TableRow\> | :x: | Provide row data in xaml|
+|HeaderForeground | Windows.UI.Color | :white_check_mark: | \ |
+|ContentForeground | Windows.UI.Color | :white_check_mark: | \ |
+|HeaderBackground | Windows.UI.Color | :white_check_mark: | \ |
+|AlternateRowColors | IVector\<TableAlternateRowColor\> | :white_check_mark: | Define row foreground and background colors|
+|HeaderFontSize | Double | :white_check_mark: | \ |
+|ContentFontSize | Double | :white_check_mark: | \ |
+|HeaderFontStretch | Windows.UI.Text.FontStretch | :white_check_mark: | \ |
+|ContentFontStretch | Windows.UI.Text.FontStretch | :white_check_mark: | \ |
+|HeaderFontStyle | Windows.UI.Text.FontStyle | :white_check_mark: | \ |
+|ContentFontStyle | Windows.UI.Text.FontStyle | :white_check_mark: | \ |
+|FontFamily | \<WinUI Namespace\>.UI.Xaml.Media.FontFamily | :white_check_mark: | Controls font family for both the header and content
+|ContentPadding | \<WinUI Namespace\>.UI.Xaml.Thickness | :white_check_mark: | Controls text & xaml control padding for both the header and content
+|HorizontalLineColor | Windows.UI.Color | :white_check_mark: | Controls the table horizontal lines colors (border line is controled by `Border.BorderBrush`)
+|VerticalLineColor | Windows.UI.Color | :white_check_mark: | Controls the table vertical lines colors
+|HorizontalLineThickness | Double | :white_check_mark: | Controls the table horizontal lines thickness (border line is controled by `Border.BorderThickness`)
+|VerticalLineThickness | Double | :white_check_mark: | Controls the table vertical lines thickness
+
+### Events
+`event Windows.Foundation.TypedEventHandler<Table, ContextMenuRequestedEventArgs> ContextMenuRequested`: sent when right-clicked on a table cell.
+
+#### `ContextMenuRequestedEventArgs` object
+|Property| Type | Description
+|---|---|---|
+|RowIndex| Int32 | The row number (starts from 1) of the right-click
+|ColumnIndex| Int32 | The column number (starts from 1) of the right-click
+|DataContext| Object | The data of the cell content of the right-click
+|ContextMenu | WinUINamespace.UI.Xaml.Controls.MenuFlyout | The `MenuFlyout` that you needs to provide for handling this request
+|Handled | Boolean | Indicate whether you have handled the request, if set to `true` then the `ContextMenu` will be used. Otherwise this right-click will be treated as no-op.
+
+### Providing data to Table
+You can use either `TableRow` objects for mostly static data or implement the `ITableData` interface.
+
+#### `TableRow` object
+This class is used for defining table data within xaml. It is basically a container of `Object`, where it can be either a `String` or a xaml Control. 
+A `String` type will be rendered directly in direct2d. 
+The number of elements in a `TableRow` has to match the number of columns you defined in `Table.Columns`.
+
+#### `ITableData` interface
+You implement 4 methods:
+1. `Int32 RowCount()`: Return the number of total rows when called
+2. `Int32 RowRequested(RowRequestedEventArgs args)`: Return the number of filled rows when called. This is the main mechanism for rendering data in `Table`. We will break it down later.
+3. `void SetData(Int32 row, Int32 column, Object data)`: Called when there is an update to a table cell. This is analogous to a `TwoWay` binding in xaml.
+4. `event Windows.Foundation.EventHandler<UpdateRowDataEventArgs> UpdateRowData`: This is for you to raise a data change for a specific cell data update. After this event gets raised, `Table` will call `RowRequested` for new data retreival.
+
+##### `RowRequestedEventArgs` object
+This is the data request from `Table` to your data. It provides information for this request, and also a function for you to fill-in the actual data.
+
+|Property| Type | Description
+|---|---|---|
+|StartRow | Int32 | The start row number of the data you need to provide
+|EndRow | Int32 | The end row number (inclusive) of the data you need to provide
+
+`void SetRow(Int32 row, Object[] content)`: Fill in one row of data
+
+##### `UpdateRowDataEventArgs` struct
+It is simply a pair of `Int32` indicating the start row and end row
+|Property| Type | Description
+|---|---|---|
+|StartRow | Int32 | The start row number of the data you need to provide
+|EndRow | Int32 | The end row number (inclusive) of the data you need to provide
+
+#### Defining the columns with `TableColumn` object
+|Property| Type | DependencyProperty? | Description
+|---|---|---|---|
+|Content| Object | :white_check_mark: | It can be either a `String` (rendered with D2D) or any Xaml Controls
+|ItemTemplate| DataTemplate | :white_check_mark: | Specify the `DataTemplate` which is used for displaying your cell data of this column
+|EditTemplate| DataTemplate | :white_check_mark: | Specify the `DataTemplate` which is used when user double-click a cell to edit it. If not specified, double-clicking is disabled.
+|SortEnabled | Boolean | :white_check_mark: | Controls whether this column is sortable
+|IsResizable | Boolean | :white_check_mark: | Controls whether this column is resizable
+|HorizontalAlignment | HorizontalAlignment | :x: | Controls how the cell content gets horizontally laid out
+|MinWidth | Double | :x: | Controls the minimum width this column can be resized to
+|MaxWidth | Double | :x: | Controls the maximum width this column can be resized to
+|ContextFlyout | WinUINamespace.UI.Xaml.Controls.Flyout | :x: | The right-click flyout to be displayed on this column header. Note: This is different from the table's `ContextMenuRequested` event.

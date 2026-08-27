@@ -15,13 +15,7 @@ namespace winrt::PackageRoot::implementation
         int StartRow();
         int EndRow();
         void SetRow(int row, winrt::array_view<winrt::Windows::Foundation::IInspectable const> const& content);
-        bool IsCanceled();
-
-        winrt::event_token Canceled(winrt::Windows::Foundation::EventHandler<winrt::PackageRoot::RowRequestedEventArgs> const& handler);
-        void Canceled(winrt::event_token const& token);
-
     private:
-        winrt::event<winrt::Windows::Foundation::EventHandler<winrt::PackageRoot::RowRequestedEventArgs>> m_canceled;
         int m_startRow{};
         int m_endRow{};
 		Table& m_table;

@@ -27,7 +27,7 @@
             <StackPanel MaxWidth="400">
                 <Grid
                     x:Name="ParentGrid"
-                    Width="{Binding Value, ElementName=Slider, Mode=OneWay}"
+                    Width="{x:Bind Slider.Value, Mode=OneWay}"
                     Height="32"
                     Background="Blue"
                     CornerRadius="4" />
@@ -48,7 +48,7 @@
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">&lt;Grid
     x:Name=&quot;ParentGrid&quot;
-    Width=&quot;{Binding Value, ElementName=Slider, Mode=OneWay}&quot;
+    Width=&quot;{x:Bind Slider.Value, Mode=OneWay}&quot;
     Height=&quot;32&quot;
     Background=&quot;Blue&quot;
     CornerRadius=&quot;4&quot; /&gt;
@@ -70,7 +70,7 @@
                 &lt;essential:ControlSizeTrigger
                                         MinWidth=&quot;400&quot;
                                         MaxWidth=&quot;501&quot;
-                                        TargetElement=&quot;{Binding ElementName=ParentGrid}&quot; /&gt;
+                                        TargetElement=&quot;{x:Bind ParentGrid}&quot; /&gt;
             &lt;/VisualState.StateTriggers&gt;
             &lt;VisualState.Setters&gt;
                 &lt;Setter Target=&quot;ResizingText.Text&quot; Value=&quot;more than 400&quot; /&gt;
@@ -157,7 +157,7 @@
         &lt;VisualState x:Name=&quot;checkstate&quot;&gt;
             &lt;VisualState.StateTriggers&gt;
                 &lt;!--  Checkbox is null when indeterminate  --&gt;
-                &lt;essential:IsEqualStateTrigger Value=&quot;{Binding IsChecked, ElementName=checkbox, Mode=OneWay}&quot; To=&quot;{x:Null}&quot; /&gt;
+                &lt;essential:IsEqualStateTrigger Value=&quot;{x:Bind checkbox.IsChecked, Mode=OneWay}&quot; To=&quot;{x:Null}&quot; /&gt;
             &lt;/VisualState.StateTriggers&gt;
             &lt;VisualState.Setters&gt;
                 &lt;Setter Target=&quot;checkStatus.Text&quot; Value=&quot;indeterminate&quot; /&gt;
@@ -167,7 +167,7 @@
     &lt;VisualStateGroup&gt;
         &lt;VisualState x:Name=&quot;sliderstate&quot;&gt;
             &lt;VisualState.StateTriggers&gt;
-                &lt;essential:IsEqualStateTrigger Value=&quot;{Binding Value, ElementName=slider2, Mode=OneWay}&quot; To=&quot;0&quot; /&gt;
+                &lt;essential:IsEqualStateTrigger Value=&quot;{x:Bind slider2.Value, Mode=OneWay}&quot; To=&quot;0&quot; /&gt;
             &lt;/VisualState.StateTriggers&gt;
             &lt;VisualState.Setters&gt;
                 &lt;Setter Target=&quot;sliderStatus.Text&quot; Value=&quot;0&quot; /&gt;
@@ -204,7 +204,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="x:String">
                             <Grid>
-                                <TextBlock Text="{Binding}" />
+                                <TextBlock Text="{x:Bind}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -248,7 +248,7 @@
     &lt;ListView.ItemTemplate&gt;
         &lt;DataTemplate x:DataType=&quot;x:String&quot;&gt;
             &lt;Grid&gt;
-                &lt;TextBlock Text=&quot;{Binding}&quot; /&gt;
+                &lt;TextBlock Text=&quot;{x:Bind}&quot; /&gt;
             &lt;/Grid&gt;
         &lt;/DataTemplate&gt;
     &lt;/ListView.ItemTemplate&gt;
@@ -269,7 +269,7 @@
         &lt;VisualState x:Name=&quot;TextBoxNotEmptyState&quot; /&gt;
         &lt;VisualState x:Name=&quot;TextBoxEmptyState&quot;&gt;
             &lt;VisualState.StateTriggers&gt;
-                &lt;essential:IsNullOrEmptyStateTrigger Value=&quot;{Binding Text, ElementName=OurTextBox, Mode=OneWay}&quot; /&gt;
+                &lt;essential:IsNullOrEmptyStateTrigger Value=&quot;{x:Bind OurTextBox.Text, Mode=OneWay}&quot; /&gt;
             &lt;/VisualState.StateTriggers&gt;
             &lt;VisualState.Setters&gt;
                 &lt;Setter Target=&quot;OurTextBox.BorderBrush&quot; Value=&quot;Red&quot; /&gt;
@@ -281,7 +281,7 @@
         &lt;VisualState x:Name=&quot;ListNotEmptyState&quot; /&gt;
         &lt;VisualState x:Name=&quot;ListEmptyState&quot;&gt;
             &lt;VisualState.StateTriggers&gt;
-                &lt;essential:IsNullOrEmptyStateTrigger Value=&quot;{Binding Items, ElementName=OurList, Mode=OneWay}&quot; /&gt;
+                &lt;essential:IsNullOrEmptyStateTrigger Value=&quot;{x:Bind OurList.Items, Mode=OneWay}&quot; /&gt;
             &lt;/VisualState.StateTriggers&gt;
             &lt;VisualState.Setters&gt;
                 &lt;Setter Target=&quot;RemoveButton.IsEnabled&quot; Value=&quot;False&quot; /&gt;
@@ -303,17 +303,18 @@
                         <essential:ControlSizeTrigger
                             MinWidth="400"
                             MaxWidth="501"
-                            TargetElement="{Binding ElementName=ParentGrid}" />
+                            TargetElement="{x:Bind ParentGrid}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ResizingText.Text" Value="more than 400" />
                     </VisualState.Setters>
                 </VisualState>
-
+            </VisualStateGroup>
+            <VisualStateGroup>
                 <VisualState x:Name="checkstate">
                     <VisualState.StateTriggers>
                         <!--  Checkbox is null when indeterminate  -->
-                        <essential:IsEqualStateTrigger Value="{Binding IsChecked, ElementName=checkbox, Mode=OneWay}" To="{x:Null}" />
+                        <essential:IsEqualStateTrigger Value="{x:Bind checkbox.IsChecked, Mode=OneWay}" To="{x:Null}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="checkStatus.Text" Value="indeterminate" />
@@ -323,7 +324,7 @@
             <VisualStateGroup>
                 <VisualState x:Name="sliderstate">
                     <VisualState.StateTriggers>
-                        <essential:IsEqualStateTrigger Value="{Binding Value, ElementName=slider2, Mode=OneWay}" To="0" />
+                        <essential:IsEqualStateTrigger Value="{x:Bind slider2.Value, Mode=OneWay}" To="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="sliderStatus.Text" Value="0" />
@@ -335,7 +336,7 @@
                 <VisualState x:Name="TextBoxNotEmptyState" />
                 <VisualState x:Name="TextBoxEmptyState">
                     <VisualState.StateTriggers>
-                        <essential:IsNullOrEmptyStateTrigger Value="{Binding Text, ElementName=OurTextBox, Mode=OneWay}" />
+                        <essential:IsNullOrEmptyStateTrigger Value="{x:Bind OurTextBox.Text, Mode=OneWay}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="OurTextBox.BorderBrush" Value="Red" />
@@ -347,7 +348,7 @@
                 <VisualState x:Name="ListNotEmptyState" />
                 <VisualState x:Name="ListEmptyState">
                     <VisualState.StateTriggers>
-                        <essential:IsNullOrEmptyStateTrigger Value="{Binding Items, ElementName=OurList, Mode=OneWay}" />
+                        <essential:IsNullOrEmptyStateTrigger Value="{x:Bind OurList.Items, Mode=OneWay}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RemoveButton.IsEnabled" Value="False" />

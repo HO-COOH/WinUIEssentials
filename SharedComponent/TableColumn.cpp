@@ -123,12 +123,12 @@ namespace winrt::PackageRoot::implementation
 		return s_isResizableProperty;
 	}
 
-	winrt::WinUINamespace::UI::Xaml::Controls::Flyout TableColumn::Flyout()
+	winrt::WinUINamespace::UI::Xaml::Controls::Flyout TableColumn::ContextFlyout()
 	{
 		return m_flyout;
 	}
 
-	void TableColumn::Flyout(winrt::WinUINamespace::UI::Xaml::Controls::Flyout const& value)
+	void TableColumn::ContextFlyout(winrt::WinUINamespace::UI::Xaml::Controls::Flyout const& value)
 	{
 		m_flyout = value;
 	}

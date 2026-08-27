@@ -46,19 +46,4 @@ namespace winrt::PackageRoot::implementation
 		}
 		m_table.m_d2dContent.m_textLayoutCache.MarkRowFresh(row);
 	}
-
-	bool RowRequestedEventArgs::IsCanceled()
-	{
-		return false;
-	}
-
-	winrt::event_token RowRequestedEventArgs::Canceled(winrt::Windows::Foundation::EventHandler<winrt::PackageRoot::RowRequestedEventArgs> const& handler)
-	{
-		return m_canceled.add(handler);
-	}
-
-	void RowRequestedEventArgs::Canceled(winrt::event_token const& token)
-	{
-		m_canceled.remove(token);
-	}
 }

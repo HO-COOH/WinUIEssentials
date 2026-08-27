@@ -323,6 +323,9 @@
     <Image Include="Assets\Owl.jpg">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\BigFourSummerHeat.jpg">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />

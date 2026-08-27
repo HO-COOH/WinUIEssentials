@@ -4,5 +4,12 @@
     runtimeclass TriggersPage : Windows.UI.Xaml.Controls.Page
     {
         TriggersPage();
+
+        Windows.UI.Xaml.Controls.Slider Slider{ get; };
+        Windows.UI.Xaml.Controls.ListView OurList{ get; };
+        Windows.UI.Xaml.Controls.TextBox OurTextBox{ get; };
+        Windows.UI.Xaml.Controls.Slider slider2{ get; };
+        Windows.UI.Xaml.Controls.CheckBox checkbox{ get; };
+        Windows.UI.Xaml.Controls.Grid ParentGrid{ get; };
     }
 }
