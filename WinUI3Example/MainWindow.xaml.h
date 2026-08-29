@@ -6,7 +6,9 @@
 #include "MainWindow.g.h"
 #include <ranges>
 #include <string_view>
+#include <utility>
 #include <winrt/Microsoft.UI.Xaml.Markup.h>
+#include <winrt/Microsoft.UI.Dispatching.h>
 #include "ButtonAnimations.h"
 #include "NavigationHelper.h"
 
@@ -60,6 +62,35 @@ namespace winrt::WinUI3Example::implementation
         void AutoSuggestBox_TextChanged(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& sender, winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBoxTextChangedEventArgs const& args);
     private:
         NavigationHelper m_navigationHelper;
+
+        /*
+            The window is kept hidden from construction until XAML has drawn a few frames of it, so
+            it is never seen empty and the system's open animation plays over finished content.
+        */
+        void onRendering();
+        void onRevealTimerTick();
+        void showWindow();
+
+        /*
+            Holds the window back until it has something to show, and answers the close button
+            directly, because WinUI spends most of a second in its own teardown otherwise. The window
+            carries a pointer to us, so the state both need can live here instead of at file scope.
+        */
+        static LRESULT CALLBACK subclassProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp, UINT_PTR id, DWORD_PTR ref);
+        void exitNow();
+
+        /*
+            Set once the window is allowed on screen. Until then the show request that Activate()
+            makes is swallowed, which is what keeps the empty window from being seen.
+        */
+        bool m_allowShow{};
+
+        winrt::event_token m_renderingToken{};
+        winrt::Microsoft::UI::Dispatching::DispatcherQueueTimer m_revealTimer{ nullptr };
+        winrt::event_token m_revealTimerToken{};
+        int m_renderedFrames{};
+        int m_ticks{};
+        bool m_shown{};
     };
 }
 
