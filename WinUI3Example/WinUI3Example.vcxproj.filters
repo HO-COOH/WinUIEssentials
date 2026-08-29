@@ -318,6 +318,15 @@
     <Page Include="PropertyBindingSampleWindow.xaml">
       <Filter>Pages\WindowExPage</Filter>
     </Page>
+    <Page Include="StringResourcePage.xaml">
+      <Filter>Pages\StringResourcePage</Filter>
+    </Page>
+    <Page Include="LocalizedWindow.xaml">
+      <Filter>Pages\StringResourcePage</Filter>
+    </Page>
+    <Page Include="LocalizedContentDialog.xaml">
+      <Filter>Pages\StringResourcePage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -717,6 +726,18 @@
     <Filter Include="Pages\WindowExPage">
       <UniqueIdentifier>{ae2acd36-e806-4c29-ad04-5f18853bfca8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Strings">
+      <UniqueIdentifier>{bb667b38-3305-4a37-8a73-c0a534e8ea87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings\en-US">
+      <UniqueIdentifier>{cc955716-50a4-4a2b-ba59-cc92e4ffd8e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings\zh-CN">
+      <UniqueIdentifier>{a123af66-718e-4f6b-a949-7fe9754a0e2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages\StringResourcePage">
+      <UniqueIdentifier>{594d6f11-d5b8-4b93-814e-9707f59e8b19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
@@ -745,5 +766,13 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <Filter>Strings\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="Strings\zh-CN\Resources.resw">
+      <Filter>Strings\zh-CN</Filter>
+    </PRIResource>
   </ItemGroup>
 </Project>

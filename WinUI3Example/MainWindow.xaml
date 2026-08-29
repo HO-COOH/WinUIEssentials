@@ -958,6 +958,7 @@
                         <NavigationViewItem Content="UIElementExtension" Tag="{essential:TypeName Type=local:ExtensionsPage}" />
                         <NavigationViewItem Content="FontIconExtension" Tag="{essential:TypeName Type=local:FontIconExtensionPage}" />
                         <NavigationViewItem Content="TypeNameExtension" Tag="{essential:TypeName Type=local:TypeNameExtensionPage}" />
+                        <NavigationViewItem Content="StringResourceExtension" Tag="{essential:TypeName Type=local:StringResourcePage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 

@@ -499,6 +499,10 @@
       <DependentUpon>SliderHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="StringResourceExtension.h">
+      <DependentUpon>StringResourceExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Table.h">
       <DependentUpon>Table.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -735,6 +739,10 @@
       <DependentUpon>SliderHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="StringResourceExtension.cpp">
+      <DependentUpon>StringResourceExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="TaskbarIcon.cpp">
       <DependentUpon>TaskbarIcon.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -917,6 +925,9 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="SliderHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="StringResourceExtension.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TaskbarIcon.idl">

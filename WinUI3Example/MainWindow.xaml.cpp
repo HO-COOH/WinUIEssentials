@@ -48,24 +48,8 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Microsoft::UI::Xaml::Application::Current().Exit();
 	}
 
-
-	static void CloseAllWebViews(winrt::Microsoft::UI::Xaml::DependencyObject const& root)
-	{
-		if (auto webview = root.try_as<winrt::Microsoft::UI::Xaml::Controls::WebView2>())
-		{
-			webview.Close();
-			return;
-		}
-		auto count = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChildrenCount(root);
-		for (int i = 0; i < count; ++i)
-			CloseAllWebViews(winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(root, i));
-	}
-
 	void MainWindow::WindowEx_Closed(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::WindowEventArgs const&)
 	{
-		//WindowEx is a ContentControl now, so Content() is an IInspectable
-		if (auto content = Content().try_as<winrt::Microsoft::UI::Xaml::DependencyObject>())
-			CloseAllWebViews(content);
 		MainIcon().Remove();
 	}
 

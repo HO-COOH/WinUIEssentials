@@ -440,6 +440,9 @@
     <Filter Include="Windows\WindowContextMenu">
       <UniqueIdentifier>{a9c1ae2b-3467-4385-8fcd-d3ab2c88e393}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extensions">
+      <UniqueIdentifier>{06234f58-94db-42ac-b675-e64fd4095716}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="HostBackdropVisual.idl">
@@ -575,6 +578,9 @@
     </Midl>
     <Midl Include="WindowContextMenu.idl">
       <Filter>Windows\WindowContextMenu</Filter>
+    </Midl>
+    <Midl Include="StringResourceExtension.idl">
+      <Filter>Extensions</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

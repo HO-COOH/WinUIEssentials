@@ -145,6 +145,8 @@ You can reference Github Action for detailed build steps.
 |SvgImageSource | :white_check_mark: | :white_check_mark: | WinRT component
 |WebView | :x: | :white_check_mark: | Control
 |Table | :white_check_mark: | :white_check_mark: | Control
+|TypeName | :white_check_mark: | :white_check_mark: | MarkupExtension
+|StringResource | :x: | :white_check_mark: | MarkupExtension
 
 *means additional settings required, see the sections for info
 
@@ -415,16 +417,6 @@ Note: For the reason of lacking reflection, we cannot implement `IsEqualStateTri
 ## SettingsCard --- *namespace `SettingsCard`*
 See the same class in [Community Tookit](https://github.com/CommunityToolkit/Windows) for documentation.
 - Add this to `App.xaml` (UWP)
-```xml
-<Application.Resources>
-    <controls:XamlControlsResources>
-        <controls:XamlControlsResources.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///UWPPackage/SettingsCard_Resource.xaml"/>
-            ...
-        </controls:XamlControlsResources.MergedDictionaries>
-    </controls:XamlControlsResources>
-</Application.Resources>
-```
 
 > [!NOTE]
 > For WinUI3, add `#include #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>` to your `pch.h`
@@ -432,18 +424,7 @@ See the same class in [Community Tookit](https://github.com/CommunityToolkit/Win
 ## SettingsExpander --- *namespace `SettingsExpander`*
 See the same class in [Community Tookit](https://github.com/CommunityToolkit/Windows) for documentation.
 ![](assets/settings-expander.png)
-Add this to `App.xaml` (UWP)
-```xml
-<Application.Resources>
-    <controls:XamlControlsResources>
-        <controls:XamlControlsResources.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///UWPPackage/SettingsCard_Resource.xaml"/>
-            <ResourceDictionary Source="ms-appx:///UWPPackage/SettingsExpander_Resource.xaml"/>
-            ...
-        </controls:XamlControlsResources.MergedDictionaries>
-    </controls:XamlControlsResources>
-</Application.Resources>
-```
+
 
 > [!NOTE]
 > For WinUI3, add `#include #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>` to your `pch.h`
@@ -550,17 +531,6 @@ A progress bar with animated highlight colors (and animated progress). Default t
 |Value | :white_check_mark: | normalized percent, range: 0.0~1.0
 
 ![](assets/progressbarex.gif)
-Add this to `App.xaml` (UWP)
-```xml
-<Application.Resources>
-    <controls:XamlControlsResources>
-        <controls:XamlControlsResources.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///Glyphs.xaml"/>
-            ...
-        </controls:XamlControlsResources.MergedDictionaries>
-    </controls:XamlControlsResources>
-</Application.Resources>
-```
 
 ## WindowEx --- *namespace `WindowEx`*
 ### Basic Property
@@ -767,19 +737,6 @@ Almost like the `Segmented` control in [Community Toolkit](https://github.com/Co
     ...
 ```
 
-Usage:
-- Add this to `App.xaml` (UWP)
-```xml
-<Application.Resources>
-    <controls:XamlControlsResources>
-        <controls:XamlControlsResources.MergedDictionaries>
-            <ResourceDictionary Source="ms-appx:///UWPPackage/Segmented_Resource.xaml"/>
-            ...
-        </controls:XamlControlsResources.MergedDictionaries>
-    </controls:XamlControlsResources>
-</Application.Resources>
-```
-
 ## CustomAcrylicBackdrop
 A customizable acrylic backdrop with bindable properties, and can be set as active when the window is inactive.
 
@@ -813,8 +770,10 @@ Also, the `ShimmerGradientStops` is a resource of type `Windows.UI.Xaml.Media.Gr
 |---|---|---|
 |IsLoading| Boolean | :white_check_mark:
 
-![](./assets/shimmer-light.gif)
-![](./assets/shimmer-dark.gif)
+|Light|Dark|
+|---|---|
+|![](./assets/shimmer-light.gif)|![](./assets/shimmer-dark.gif)|
+
 
 ## ScopedButtonDisabler
 ```cpp
@@ -835,7 +794,6 @@ winrt::Windows::Storage::Pickers::FileOpenPicker picker;
 picker.FileTypeFilter().Append(L"*");
 auto file = co_await picker.PickSingleFileAsync();
 ```
-![](./assets/shimmer-dark.gif)
 
 ## ImageExtension
 Automatically display a fallback image when `Image` failed to load.
@@ -926,13 +884,10 @@ This controls helps to workaround it by providing a simple syntax you declare ri
 </Window>
 ```
 
-Before:
+|Before|After|
+|---|---|
+|![](assets/non-resizable-window-white-border.png)|![](assets/non-resizable-window-white-border-workaround.png)|
 
-![](assets/non-resizable-window-white-border.png)
-
-After:
-
-![](assets/non-resizable-window-white-border-workaround.png)
 
 ## ComboBoxHelper
 The WinUI3's built-in `ComboBox` does not have [Acrylic background](https://github.com/microsoft/microsoft-ui-xaml/issues/9523). We fixed it for you. To use it, simply add `ComboBoxHelper.AcrylicWorkaround="True"` as an attached property on your `ComboBox`.
@@ -1420,3 +1375,34 @@ It is simply a pair of `Int32` indicating the start row and end row
 |MinWidth | Double | :x: | Controls the minimum width this column can be resized to
 |MaxWidth | Double | :x: | Controls the maximum width this column can be resized to
 |ContextFlyout | WinUINamespace.UI.Xaml.Controls.Flyout | :x: | The right-click flyout to be displayed on this column header. Note: This is different from the table's `ContextMenuRequested` event.
+
+## TypeName
+A markup extension for constructing a `Windows.UI.Xaml.Interop.TypeName` object in xaml. This is typically used for navigation. 
+For example, you can assign a `TypeName` object to a `NavigationViewItem.Tag` property, then you can easily retrieve it in code-behind to navigate to the page.
+
+Xaml example:
+```xml
+<NavigationViewItem Content="CursorController" Tag="{essential:TypeName Type=local:CursorControllerPage}" />
+```
+
+Then in code-behind, you can simply use this to navigate:
+```cpp
+void :NavigationView_SelectionChanged(
+    winrt::Microsoft::UI::Xaml::Controls::NavigationView const& sender,
+    winrt::Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args)
+{
+	if (auto tag = args.SelectedItemContainer().Tag())
+		ContentFrame().Navigate(winrt::unbox_value<winrt::Windows::UI::Xaml::Interop::TypeName>(tag));
+}
+```
+
+## StringResource
+A markup extension for localized string retreival from `resw` files. This is typically used when `x:Uid` is either not convenient or not possible.
+For example, currently in order to localize `Window.Title`, you have to retrieve the string in code-behind.
+Now you can directly assign a `StringResource` extension to it.
+
+```xml
+<Window Title="{essential:StringResource Name=WindowTitle}"
+    ...
+>
+```

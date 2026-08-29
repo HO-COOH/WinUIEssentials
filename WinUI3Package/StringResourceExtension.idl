@@ -1,0 +1,12 @@
+namespace WinUI3Package
+{
+    [default_interface]
+    runtimeclass StringResourceExtension : Microsoft.UI.Xaml.Markup.MarkupExtension
+    {
+        StringResourceExtension();
+        
+        String Name;
+        String ResourceMap;
+        String PriPath;
+    }
+}

@@ -866,6 +866,7 @@
                 </muxc:NavigationViewItem>
 
                 <muxc:NavigationViewItem Content="Badge" Tag="{essential:TypeName Type=local:BadgePage}" />
+                <muxc:NavigationViewItem Content="CharmBar" Tag="{essential:TypeName Type=local:CharmBarPage}" />
                 <muxc:NavigationViewItem Content="Converters" Tag="{essential:TypeName Type=local:ConvertersPage}" />
                 <muxc:NavigationViewItem Content="DependentValue" Tag="{essential:TypeName Type=local:DependentValuePage}" />
                 <muxc:NavigationViewItem Content="Toasts" Tag="{essential:TypeName Type=local:ToastPage}" />

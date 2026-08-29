@@ -20,6 +20,7 @@
                 <Slider
                     x:Name="Slider"
                     Width="400"
+                    Header="Width:"
                     Maximum="500"
                     Minimum="1" />
             </local:ControlExample.Options>

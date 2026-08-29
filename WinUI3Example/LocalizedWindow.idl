@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass LocalizedWindow : Microsoft.UI.Xaml.Window
+    {
+        LocalizedWindow();
+    }
+}

@@ -12,7 +12,6 @@
 #include <winrt/Windows.UI.WindowManagement.h>
 #include <winrt/Windows.UI.Xaml.Hosting.h>
 #include <winrt/Windows.Foundation.Metadata.h>
-#include "CodeSource.h"
 #include "CodeWindowPage.h"
 #endif
 

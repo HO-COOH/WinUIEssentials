@@ -519,6 +519,14 @@
       <DependentUpon>LineGraphControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="LocalizedContentDialog.xaml.h">
+      <DependentUpon>LocalizedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="LocalizedWindow.xaml.h">
+      <DependentUpon>LocalizedWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MarqueeTextPage.xaml.h">
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -677,6 +685,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="StoreUpdateChecker.h" />
+    <ClInclude Include="StringResourcePage.xaml.h">
+      <DependentUpon>StringResourcePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="SvgPage.xaml.h">
       <DependentUpon>SvgPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -941,6 +953,12 @@
     <Page Include="LineGraphControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="LocalizedContentDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LocalizedWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml" />
     <Page Include="MarqueeTextPage.xaml">
       <SubType>Designer</SubType>
@@ -1036,6 +1054,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="StandardWindowWithMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StringResourcePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TableAlternateRowColorsPage.xaml">
@@ -1308,6 +1329,14 @@
       <DependentUpon>LineGraphControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="LocalizedContentDialog.xaml.cpp">
+      <DependentUpon>LocalizedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="LocalizedWindow.xaml.cpp">
+      <DependentUpon>LocalizedWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MarqueeTextPage.xaml.cpp">
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
@@ -1469,6 +1498,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="StoreUpdateChecker.cpp" />
+    <ClCompile Include="StringResourcePage.xaml.cpp">
+      <DependentUpon>StringResourcePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="SvgPage.xaml.cpp">
       <DependentUpon>SvgPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1777,6 +1810,14 @@
       <DependentUpon>LineGraphControl.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="LocalizedContentDialog.idl">
+      <DependentUpon>LocalizedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="LocalizedWindow.idl">
+      <DependentUpon>LocalizedWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="MainWindow.idl">
       <SubType>Code</SubType>
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -1922,6 +1963,10 @@
     </Midl>
     <Midl Include="StandardWindowWithMenu.idl">
       <DependentUpon>StandardWindowWithMenu.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="StringResourcePage.idl">
+      <DependentUpon>StringResourcePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="SvgPage.idl">
@@ -2317,5 +2362,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
 </Project>

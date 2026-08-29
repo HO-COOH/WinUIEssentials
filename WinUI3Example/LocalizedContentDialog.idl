@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass LocalizedContentDialog : Microsoft.UI.Xaml.Controls.ContentDialog
+    {
+        LocalizedContentDialog();
+    }
+}
