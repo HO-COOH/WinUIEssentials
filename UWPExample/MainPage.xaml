@@ -862,6 +862,7 @@
                         <muxc:NavigationViewItem Content="FontIconExtension" Tag="{essential:TypeName Type=local:FontIconExtensionPage}" />
                         <muxc:NavigationViewItem Content="UIElementExtension" Tag="{essential:TypeName Type=local:ExtensionsPage}" />
                         <muxc:NavigationViewItem Content="TypeNameExtension" Tag="{essential:TypeName Type=local:TypeNameExtensionPage}" />
+                        <muxc:NavigationViewItem Content="StringResource" Tag="{essential:TypeName Type=local:StringResourcePage}" />
                     </muxc:NavigationViewItem.MenuItems>
                 </muxc:NavigationViewItem>
 

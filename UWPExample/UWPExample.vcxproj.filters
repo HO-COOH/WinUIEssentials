@@ -131,6 +131,12 @@
     <Page Include="WrapPanelPage.xaml">
       <Filter>Pages\WrapPanelPage</Filter>
     </Page>
+    <Page Include="StringResourcePage.xaml">
+      <Filter>Pages\Extensions\StringResource</Filter>
+    </Page>
+    <Page Include="LocalizedContentDialog.xaml">
+      <Filter>Pages\Extensions\StringResource</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -367,6 +373,18 @@
     <Filter Include="Pages\WrapPanelPage">
       <UniqueIdentifier>{aa791461-4280-4133-831c-7d3b036903b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pages\Extensions\StringResource">
+      <UniqueIdentifier>{ebce7936-44b3-428b-ad06-9d2669dd3b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings">
+      <UniqueIdentifier>{83dd9ec8-abc6-4d7c-8a44-4861b500bbea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings\en-UIS">
+      <UniqueIdentifier>{740054ae-b24a-45d9-9083-325b435bb52b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings\zh-CN">
+      <UniqueIdentifier>{e09e3d54-be2d-4df4-82b9-275eb85e87b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="PropertySheet.props" />
@@ -380,5 +398,13 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <Filter>Strings\en-UIS</Filter>
+    </PRIResource>
+    <PRIResource Include="Strings\zh-CN\Resources.resw">
+      <Filter>Strings\zh-CN</Filter>
+    </PRIResource>
   </ItemGroup>
 </Project>

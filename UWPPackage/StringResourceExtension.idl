@@ -1,0 +1,11 @@
+namespace UWPPackage
+{
+    [default_interface]
+    runtimeclass StringResourceExtension : Windows.UI.Xaml.Markup.MarkupExtension
+    {
+        StringResourceExtension();
+
+        String Name;
+        String ResourceMap;
+    }
+}

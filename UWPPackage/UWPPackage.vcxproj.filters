@@ -93,6 +93,7 @@
     <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
       <Filter>Helper</Filter>
     </Midl>
+    <Midl Include="StringResourceExtension.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="SettingsCard_Resource.xaml">

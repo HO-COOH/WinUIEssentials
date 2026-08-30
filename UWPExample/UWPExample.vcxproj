@@ -418,6 +418,10 @@
       <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="LocalizedContentDialog.h">
+      <DependentUpon>LocalizedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MarqueeContainerPage.h">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -479,6 +483,10 @@
     </ClInclude>
     <ClInclude Include="ShimmerPage.h">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="StringResourcePage.h">
+      <DependentUpon>StringResourcePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="SvgPage.h">
@@ -610,6 +618,9 @@
     <Page Include="HeaderlessTablePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="LocalizedContentDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -644,6 +655,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ShimmerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="StringResourcePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SvgPage.xaml">
@@ -808,6 +822,10 @@
       <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="LocalizedContentDialog.cpp">
+      <DependentUpon>LocalizedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MarqueeContainerPage.cpp">
       <DependentUpon>MarqueeContainerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -872,6 +890,10 @@
     </ClCompile>
     <ClCompile Include="ShimmerPage.cpp">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="StringResourcePage.cpp">
+      <DependentUpon>StringResourcePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="SvgPage.cpp">
@@ -1002,6 +1024,10 @@
       <DependentUpon>HeaderlessTablePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="LocalizedContentDialog.idl">
+      <DependentUpon>LocalizedContentDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="MainPage.idl">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Midl>
@@ -1056,6 +1082,10 @@
     </Midl>
     <Midl Include="ShimmerPage.idl">
       <DependentUpon>ShimmerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="StringResourcePage.idl">
+      <DependentUpon>StringResourcePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="SvgPage.idl">
@@ -1176,6 +1206,10 @@
     <ProjectReference Include="..\UWPPackage\UWPPackage.vcxproj">
       <Project>{0e40ea1b-f85d-42f9-b0af-8c50c08dd498}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

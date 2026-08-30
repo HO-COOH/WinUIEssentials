@@ -557,6 +557,10 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="StringResourceExtension.h">
+      <DependentUpon>StringResourceExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Table.h">
       <DependentUpon>Table.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -612,6 +616,10 @@
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="StringResourceExtension.cpp">
+      <DependentUpon>StringResourceExtension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="WindowCaptionButtonThemeWorkaround.cpp">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -665,6 +673,9 @@
     <Midl Include="Shimmer_Resource.idl">
       <DependentUpon>Shimmer_Resource.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="StringResourceExtension.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
       <SubType>Designer</SubType>
