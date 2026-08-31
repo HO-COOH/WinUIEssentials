@@ -776,29 +776,32 @@ namespace winrt::WinUI3Package::implementation
 		if (uIdSubclass != SubClassId)
 			return DefSubclassProc(hwnd, msg, wparam, lparam);
 
-		auto ptr = reinterpret_cast<WindowEx*>(dwRefData);
+		auto self = reinterpret_cast<WindowEx*>(dwRefData);
 		switch (msg)
 		{
+			case WM_WINDOWPOSCHANGING:
+				self->m_delayWindowShowHelper.OnWM_WindowPosChanging(*reinterpret_cast<WINDOWPOS*>(lparam));
+				break;
 			case WM_ERASEBKGND:
-				if (ptr->clearBackground(hwnd, reinterpret_cast<HDC>(wparam)))
+				if (self->clearBackground(hwnd, reinterpret_cast<HDC>(wparam)))
 					return 1;
 				break;
 			case WM_CONTEXTMENU:
 			{
-				if (auto contextMenu = ptr->ContextMenu())
+				if (auto contextMenu = self->ContextMenu())
 				{
-					if (!ptr->m_contextMenuHost)
-						ptr->m_contextMenuHost = {};
-					ptr->m_contextMenuHost.Move({ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) });
-					contextMenu.ShowAt(ptr->m_contextMenuHost);
+					if (!self->m_contextMenuHost)
+						self->m_contextMenuHost = {};
+					self->m_contextMenuHost.Move({ GET_X_LPARAM(lparam), GET_Y_LPARAM(lparam) });
+					contextMenu.ShowAt(self->m_contextMenuHost);
 					return 0;
 				}
 				break;
 			}
 			case WM_GETMINMAXINFO:
-				return ptr->onGetMinMaxInfo(wparam, lparam);
+				return self->onGetMinMaxInfo(wparam, lparam);
 			case WM_SYSCOMMAND:
-				if (wparam == SC_MAXIMIZE && !ptr->m_overlappedPresenter.IsMaximizable())
+				if (wparam == SC_MAXIMIZE && !self->m_overlappedPresenter.IsMaximizable())
 					return 1;
 				break;
 		}

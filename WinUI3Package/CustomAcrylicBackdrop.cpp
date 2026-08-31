@@ -41,12 +41,12 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind CustomAcrylicBackdrop::Kind()
 	{
-		return winrt::unbox_value<winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind>(GetValue(KindProperty()));
+		return winrt::unbox_value<winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind>(GetValue(s_kindProperty));
 	}
 
 	void CustomAcrylicBackdrop::Kind(winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind value)
 	{
-		SetValue(KindProperty(), winrt::box_value(value));
+		SetValue(s_kindProperty, winrt::box_value(value));
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty CustomAcrylicBackdrop::KindProperty()
@@ -127,26 +127,26 @@ namespace winrt::WinUI3Package::implementation
 		m_controller = {};
 
 		auto const unsetValue = winrt::Microsoft::UI::Xaml::DependencyProperty::UnsetValue();
-		if (auto requestedTheme = ReadLocalValue(RequestedThemeProperty()); requestedTheme != unsetValue)
+		if (auto requestedTheme = ReadLocalValue(s_requestedThemeProperty); requestedTheme != unsetValue)
 			m_configuration.Theme(toBackdropTheme(winrt::unbox_value<winrt::Microsoft::UI::Xaml::ElementTheme>(requestedTheme)));
 
 		m_controller.AddSystemBackdropTarget(target);
 		m_controller.SetSystemBackdropConfiguration(m_configuration);
 
 		//set properties
-		if (auto fallbackColor = ReadLocalValue(FallbackColorProperty()); fallbackColor != unsetValue)
+		if (auto fallbackColor = ReadLocalValue(s_fallbackColorProperty); fallbackColor != unsetValue)
 			m_controller.FallbackColor(winrt::unbox_value<winrt::Windows::UI::Color>(fallbackColor));
 
-		if (auto kind = ReadLocalValue(KindProperty()); kind != unsetValue)
+		if (auto kind = ReadLocalValue(s_kindProperty); kind != unsetValue)
 			m_controller.Kind(winrt::unbox_value<winrt::Microsoft::UI::Composition::SystemBackdrops::DesktopAcrylicKind>(kind));
 
-		if (auto luminosityOpacity = ReadLocalValue(LuminosityOpacityProperty()); luminosityOpacity != unsetValue)
+		if (auto luminosityOpacity = ReadLocalValue(s_luminosityOpacityProperty); luminosityOpacity != unsetValue)
 			m_controller.LuminosityOpacity(winrt::unbox_value<float>(luminosityOpacity));
 
-		if (auto tintColor = ReadLocalValue(TintColorProperty()); tintColor != unsetValue)
+		if (auto tintColor = ReadLocalValue(s_tintColorProperty); tintColor != unsetValue)
 			m_controller.TintColor(winrt::unbox_value<winrt::Windows::UI::Color>(tintColor));
 
-		if (auto tintOpacity = ReadLocalValue(TintOpacityProperty()); tintOpacity != unsetValue)
+		if (auto tintOpacity = ReadLocalValue(s_tintOpacityProperty); tintOpacity != unsetValue)
 			m_controller.TintOpacity(winrt::unbox_value<float>(tintOpacity));
 	}
 

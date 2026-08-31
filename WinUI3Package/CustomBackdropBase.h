@@ -54,7 +54,7 @@ namespace winrt::WinUI3Package::implementation
             winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args
         );
         #pragma endregion
-    private:
+    protected:
         bool m_enableWhenInactive{ false };
 
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_enableWhenInactiveProperty;

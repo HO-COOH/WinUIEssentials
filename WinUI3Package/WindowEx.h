@@ -11,6 +11,7 @@
 #include "include/PropertyChangeHelper.hpp"
 #include <HwndHelper.hpp>
 #include "MinMaxSize.hpp"
+#include "DelayWindowShowHelper.h"
 
 
 namespace winrt::WinUI3Package::implementation
@@ -152,6 +153,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Windowing::AppWindow m_appWindow = m_window.AppWindow();
         winrt::Microsoft::UI::Windowing::OverlappedPresenter m_overlappedPresenter = m_appWindow.Presenter().as<decltype(m_overlappedPresenter)>();
         winrt::Microsoft::UI::Windowing::AppWindowTitleBar m_appWindowTitleBar = m_appWindow.TitleBar();
+        DelayWindowShowHelper m_delayWindowShowHelper{ m_hwnd, DispatcherQueue() };
 
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_titleProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty s_extendsContentIntoTitleBarProperty;

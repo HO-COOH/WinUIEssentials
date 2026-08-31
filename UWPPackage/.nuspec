@@ -10,7 +10,9 @@
         <description>Essential helpers for developing WinUI(UWP)</description>
         <icon>assets\MainLogo.png</icon>
         <dependencies>
-            <dependency id="Microsoft.UI.Xaml" version="2.8.7"/>
+            <group targetFramework="native">
+                <dependency id="Microsoft.UI.Xaml" version="2.8.7"/>
+            </group>
         </dependencies>
         <license type="expression">MIT</license>
         <readme>docs\README.md</readme>
@@ -29,27 +31,37 @@
         <file src="..\x64\Debug\UWPPackage\UWPPackage.dll" target="lib/native/Debug/x64"/>
         <file src="..\x64\Debug\UWPPackage\UWPPackage.pri" target="lib/native/Debug/x64"/>
         <file src="..\x64\Debug\UWPPackage\UWPPackage\*.*" target="lib/native/Debug/x64/UWPPackage"/>
+        <file src="..\x64\Debug\UWPPackage\UWPPackage.pdb" target="lib/native/Debug/x64"/>
+
         <file src="..\ARM64\Debug\UWPPackage\UWPPackage.winmd" target="lib/native/Debug/ARM64"/>
         <file src="..\ARM64\Debug\UWPPackage\UWPPackage.dll" target="lib/native/Debug/ARM64"/>
         <file src="..\ARM64\Debug\UWPPackage\UWPPackage.pri" target="lib/native/Debug/ARM64"/>
         <file src="..\ARM64\Debug\UWPPackage\UWPPackage\*.*" target="lib/native/Debug/ARM64/UWPPackage"/>
+        <file src="..\ARM64\Debug\UWPPackage\UWPPackage.pdb" target="lib/native/Debug/ARM64"/>
+
         <file src="..\Debug\UWPPackage\UWPPackage.winmd" target="lib/native/Debug/Win32"/>
         <file src="..\Debug\UWPPackage\UWPPackage.dll" target="lib/native/Debug/Win32"/>
         <file src="..\Debug\UWPPackage\UWPPackage.pri" target="lib/native/Debug/Win32"/>
         <file src="..\Debug\UWPPackage\UWPPackage\*.*" target="lib/native/Debug/Win32/UWPPackage"/>
+        <file src="..\Debug\UWPPackage\UWPPackage.pdb" target="lib/native/Debug/Win32"/>
 
         <file src="..\x64\Release\UWPPackage\UWPPackage.winmd" target="lib/native/Release/x64"/>
         <file src="..\x64\Release\UWPPackage\UWPPackage.dll" target="lib/native/Release/x64"/>
         <file src="..\x64\Release\UWPPackage\UWPPackage.pri" target="lib/native/Release/x64"/>
         <file src="..\x64\Release\UWPPackage\UWPPackage\*.*" target="lib/native/Release/x64/UWPPackage"/>
+        <file src="..\x64\Release\UWPPackage\UWPPackage.pdb" target="lib/native/Release/x64"/>
+
         <file src="..\ARM64\Release\UWPPackage\UWPPackage.winmd" target="lib/native/Release/ARM64"/>
         <file src="..\ARM64\Release\UWPPackage\UWPPackage.dll" target="lib/native/Release/ARM64"/>
         <file src="..\ARM64\Release\UWPPackage\UWPPackage.pri" target="lib/native/Release/ARM64"/>
         <file src="..\ARM64\Release\UWPPackage\UWPPackage\*.*" target="lib/native/Release/ARM64/UWPPackage"/>
+        <file src="..\ARM64\Release\UWPPackage\UWPPackage.pdb" target="lib/native/Release/ARM64"/>
+
         <file src="..\Release\UWPPackage\UWPPackage.winmd" target="lib/native/Release/Win32"/>
         <file src="..\Release\UWPPackage\UWPPackage.dll" target="lib/native/Release/Win32"/>
         <file src="..\Release\UWPPackage\UWPPackage.pri" target="lib/native/Release/Win32"/>
         <file src="..\Release\UWPPackage\UWPPackage\*.*" target="lib/native/Release/Win32/UWPPackage"/>
+        <file src="..\Release\UWPPackage\UWPPackage.pdb" target="lib/native/Release/Win32"/>
 
         <!--For C#-->
         <!--<file src="..\x64\Release\UWPPackage\UWPPackage.winmd" target="lib/uap10.0"/>

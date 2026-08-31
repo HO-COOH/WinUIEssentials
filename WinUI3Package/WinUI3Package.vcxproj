@@ -359,6 +359,7 @@
       <DependentUpon>DefaultTableHeaderContextMenu.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="DelayWindowShowHelper.h" />
     <ClInclude Include="EffectInterop.hpp" />
     <ClInclude Include="EffectPropertyHelper.h" />
     <ClInclude Include="EffectPropertyMapping.h" />
@@ -636,6 +637,7 @@
       <DependentUpon>DatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="DelayWindowShowHelper.cpp" />
     <ClCompile Include="EffectPropertyHelper.cpp" />
     <ClCompile Include="EnsureSystemDispatcherQueueController.cpp" />
     <ClCompile Include="FlyoutHelper.cpp">

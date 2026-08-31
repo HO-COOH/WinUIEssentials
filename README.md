@@ -105,8 +105,8 @@ You can reference Github Action for detailed build steps.
 |ControlSizeTrigger | :white_check_mark: | :white_check_mark: | WinRT component
 |CharmBar | :white_check_mark: | :x: | WinRT component
 |GroupBox | :white_check_mark: | :white_check_mark: | Control
-|SettingsCard | :white_check_mark: | :white_check_mark:* | Control
-|SettingsExpander | :white_check_mark: | :white_check_mark:* | Control
+|SettingsCard | :white_check_mark: | :white_check_mark: | Control
+|SettingsExpander | :white_check_mark: | :white_check_mark: | Control
 |FontIconExtension | :white_check_mark: | :white_check_mark: | WinRT component
 |DependentValue| :white_check_mark: | :white_check_mark: | WinRT component
 |Taskbar| :x: | :white_check_mark: | Header only
@@ -120,7 +120,7 @@ You can reference Github Action for detailed build steps.
 |Shimmer | :white_check_mark: | :white_check_mark: | Control
 |ImageExtension | :white_check_mark: | :white_check_mark: | WinRT component
 |SwitchPresenter | :white_check_mark: | :white_check_mark: | Control
-|ModernStandardWindowContextMenu| :x: | * :white_check_mark: | WinRT component
+|ModernStandardWindowContextMenu| :x: | :white_check_mark: | WinRT component
 |WindowContextMenu | :x: | :white_check_mark: | WinRT component
 |NonResizableWindowWhiteBorderWorkaround | :x: | :white_check_mark: | WinRT component
 |ComboBoxHelper | :x: | :white_check_mark: | WinRT component
@@ -146,7 +146,7 @@ You can reference Github Action for detailed build steps.
 |WebView | :x: | :white_check_mark: | Control
 |Table | :white_check_mark: | :white_check_mark: | Control
 |TypeName | :white_check_mark: | :white_check_mark: | MarkupExtension
-|StringResource | :x: | :white_check_mark: | MarkupExtension
+|StringResource | :white_check_mark: | :white_check_mark: | MarkupExtension
 
 *means additional settings required, see the sections for info
 

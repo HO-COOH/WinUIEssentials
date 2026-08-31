@@ -13,7 +13,11 @@
         <local:XamlOptionalSettings x:Name="XamlOptionalSettings" />
     </Page.Resources>
 
-    <StackPanel>
+    <StackPanel Spacing="8">
+        <StackPanel.ChildrenTransitions>
+            <RepositionThemeTransition />
+        </StackPanel.ChildrenTransitions>
+        
         <essential:SettingsExpander
             Description="A toolkit for WinUi3 C++ developers"
             Header="WinUIEssential Gallery"

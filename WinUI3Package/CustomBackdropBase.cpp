@@ -57,7 +57,7 @@ namespace winrt::WinUI3Package::implementation
     void CustomBackdropBase::EnableWhenInactive(bool value)
     {
         m_enableWhenInactive = value;
-        SetValue(EnableWhenInactiveProperty(), winrt::box_value(value));
+        SetValue(s_enableWhenInactiveProperty, winrt::box_value(value));
     }
 
     winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::EnableWhenInactiveProperty()
@@ -67,12 +67,12 @@ namespace winrt::WinUI3Package::implementation
 
     winrt::Windows::UI::Color CustomBackdropBase::FallbackColor()
     {
-        return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(FallbackColorProperty()));
+        return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(s_fallbackColorProperty));
     }
 
     void CustomBackdropBase::FallbackColor(winrt::Windows::UI::Color value)
     {
-        SetValue(FallbackColorProperty(), winrt::box_value(value));
+        SetValue(s_fallbackColorProperty, winrt::box_value(value));
     }
 
     winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::FallbackColorProperty()
@@ -82,12 +82,12 @@ namespace winrt::WinUI3Package::implementation
 
     float CustomBackdropBase::LuminosityOpacity()
     {
-        return winrt::unbox_value<float>(GetValue(LuminosityOpacityProperty()));
+        return winrt::unbox_value<float>(GetValue(s_luminosityOpacityProperty));
     }
 
     void CustomBackdropBase::LuminosityOpacity(float value)
     {
-        SetValue(LuminosityOpacityProperty(), winrt::box_value(value));
+        SetValue(s_luminosityOpacityProperty, winrt::box_value(value));
     }
 
     winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::LuminosityOpacityProperty()
@@ -97,12 +97,12 @@ namespace winrt::WinUI3Package::implementation
 
     winrt::Windows::UI::Color CustomBackdropBase::TintColor()
     {
-        return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(TintColorProperty()));
+        return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(s_tintColorProperty));
     }
 
     void CustomBackdropBase::TintColor(winrt::Windows::UI::Color value)
     {
-        SetValue(TintColorProperty(), winrt::box_value(value));
+        SetValue(s_tintColorProperty, winrt::box_value(value));
     }
 
     winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::TintColorProperty()
@@ -112,11 +112,11 @@ namespace winrt::WinUI3Package::implementation
 
     float CustomBackdropBase::TintOpacity()
     {
-        return winrt::unbox_value<float>(GetValue(TintOpacityProperty()));
+        return winrt::unbox_value<float>(GetValue(s_tintOpacityProperty));
     }
     void CustomBackdropBase::TintOpacity(float value)
     {
-        SetValue(TintOpacityProperty(), winrt::box_value(value));
+        SetValue(s_tintOpacityProperty, winrt::box_value(value));
     }
 
     winrt::Microsoft::UI::Xaml::DependencyProperty CustomBackdropBase::TintOpacityProperty()

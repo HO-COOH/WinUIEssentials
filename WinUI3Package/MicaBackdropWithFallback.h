@@ -25,7 +25,7 @@ namespace winrt::WinUI3Package::implementation
         );
     private:
         winrt::Microsoft::UI::Xaml::Media::SystemBackdrop m_fallback{ nullptr };
-        bool const m_isMicaSupported = winrt::Microsoft::UI::Composition::SystemBackdrops::MicaController::IsSupported();
+        static bool isMicaSupported();
     };
 }
 

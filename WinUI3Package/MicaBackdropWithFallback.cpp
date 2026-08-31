@@ -23,7 +23,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void MicaBackdropWithFallback::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
 	{
-		if (m_isMicaSupported)
+		if (isMicaSupported())
 			base_type::OnTargetConnected(connectedTarget, xamlRoot);
 		else
 			m_fallback.OnTargetConnected(connectedTarget, xamlRoot);
@@ -31,7 +31,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void MicaBackdropWithFallback::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
 	{
-		if (m_isMicaSupported)
+		if (isMicaSupported())
 			base_type::OnTargetDisconnected(connectedTarget);
 		else
 			m_fallback.OnTargetDisconnected(connectedTarget);
@@ -42,9 +42,15 @@ namespace winrt::WinUI3Package::implementation
 		winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot
 	)
 	{
-		if (m_isMicaSupported)
+		if (isMicaSupported())
 			base_type::OnDefaultSystemBackdropConfigurationChanged(connectedTarget, xamlRoot);
 		else
 			m_fallback.OnDefaultSystemBackdropConfigurationChanged(connectedTarget, xamlRoot);
+	}
+
+	bool MicaBackdropWithFallback::isMicaSupported()
+	{
+		static auto value = winrt::Microsoft::UI::Composition::SystemBackdrops::MicaController::IsSupported();
+		return value;
 	}
 }
