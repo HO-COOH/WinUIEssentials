@@ -4,6 +4,5 @@ namespace WinUI3Example
     runtimeclass MicaBackdropWithTenMicaFallback : Microsoft.UI.Xaml.Window
     {
         MicaBackdropWithTenMicaFallback();
-        Int32 MyProperty;
     }
 }

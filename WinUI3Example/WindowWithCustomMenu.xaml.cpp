@@ -12,18 +12,10 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    int32_t WindowWithCustomMenu::MyProperty()
+    void WindowWithCustomMenu::myButton_Click(
+        winrt::Windows::Foundation::IInspectable const& sender, 
+        winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
-        throw hresult_not_implemented();
-    }
-
-    void WindowWithCustomMenu::MyProperty(int32_t /* value */)
-    {
-        throw hresult_not_implemented();
-    }
-
-    void WindowWithCustomMenu::myButton_Click(IInspectable const&, RoutedEventArgs const&)
-    {
-        myButton().Content(box_value(L"Clicked"));
+        sender.as<winrt::Microsoft::UI::Xaml::Controls::Button>().Content(winrt::box_value(L"Clicked"));
     }
 }

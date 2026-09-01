@@ -40,12 +40,12 @@ namespace winrt::WinUI3Package::implementation
 
 	bool NavigationViewHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& navigationView)
 	{
-		return winrt::unbox_value<bool>(navigationView.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(navigationView.GetValue(s_acrylicWorkaroundProperty));
 	}
 
 	void NavigationViewHelper::SetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& navigationView, bool value)
 	{
-		navigationView.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		navigationView.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
 	}
 
 	winrt::Microsoft::UI::Xaml::DependencyProperty NavigationViewHelper::ClipToBoundsProperty()
@@ -55,12 +55,12 @@ namespace winrt::WinUI3Package::implementation
 
 	bool NavigationViewHelper::GetClipToBounds(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& element)
 	{
-		return winrt::unbox_value<bool>(element.GetValue(ClipToBoundsProperty()));
+		return winrt::unbox_value<bool>(element.GetValue(s_clipToBoundsProperty));
 	}
 
 	void NavigationViewHelper::SetClipToBounds(winrt::Microsoft::UI::Xaml::Controls::NavigationView const& element, bool value)
 	{
-		element.SetValue(ClipToBoundsProperty(), winrt::box_value(value));
+		element.SetValue(s_clipToBoundsProperty, winrt::box_value(value));
 	}
 
 	void NavigationViewHelper::acrylicWorkaroundChanged(

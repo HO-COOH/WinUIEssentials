@@ -47,12 +47,12 @@ namespace winrt::PackageRoot::implementation
 
 	PackageRoot::Case SwitchPresenter::CurrentCase()
 	{
-		return GetValue(CurrentCaseProperty()).try_as<PackageRoot::Case>();
+		return GetValue(s_currentCaseProperty).try_as<PackageRoot::Case>();
 	}
 
 	void SwitchPresenter::CurrentCase(PackageRoot::Case const& value)
 	{
-		SetValue(CurrentCaseProperty(), value);
+		SetValue(s_currentCaseProperty, value);
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty SwitchPresenter::CurrentCaseProperty()
@@ -77,12 +77,12 @@ namespace winrt::PackageRoot::implementation
 
 	winrt::Windows::Foundation::IInspectable SwitchPresenter::Value()
 	{
-		return GetValue(ValueProperty());
+		return GetValue(s_valueProperty);
 	}
 
 	void SwitchPresenter::Value(winrt::Windows::Foundation::IInspectable const& value)
 	{
-		SetValue(ValueProperty(), value);
+		SetValue(s_valueProperty, value);
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty SwitchPresenter::ValueProperty()

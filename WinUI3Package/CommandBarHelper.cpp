@@ -24,7 +24,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool CommandBarHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::CommandBar const& commandBar)
 	{
-		return winrt::unbox_value<bool>(commandBar.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(commandBar.GetValue(s_acrylicWorkaroundProperty));
 	}
 
 	void CommandBarHelper::SetAcrylicWorkaround(
@@ -32,7 +32,7 @@ namespace winrt::WinUI3Package::implementation
 		bool value
 	)
 	{
-		commandBar.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		commandBar.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
 	}
 
 	void CommandBarHelper::acrylicWorkaroundChanged(

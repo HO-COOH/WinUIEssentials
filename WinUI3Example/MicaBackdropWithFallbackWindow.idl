@@ -4,6 +4,5 @@
     runtimeclass MicaBackdropWithFallbackWindow : Microsoft.UI.Xaml.Window
     {
         MicaBackdropWithFallbackWindow();
-        Int32 MyProperty;
     }
 }

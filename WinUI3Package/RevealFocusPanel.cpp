@@ -41,12 +41,12 @@ namespace winrt::WinUI3Package::implementation
 		winrt::WinUI3Package::RevealFocusPanel const& panel
 	)
 	{
-		element.SetValue(AttachToPanelProperty(), panel);
+		element.SetValue(s_attachToPanelProperty, panel);
 	}
 
 	winrt::WinUI3Package::RevealFocusPanel RevealFocusPanel::GetAttachToPanel(winrt::Microsoft::UI::Xaml::FrameworkElement const& element)
 	{
-		return element.GetValue(AttachToPanelProperty()).as<winrt::WinUI3Package::RevealFocusPanel>();
+		return element.GetValue(s_attachToPanelProperty).as<winrt::WinUI3Package::RevealFocusPanel>();
 	}
 
     static void bindToCornerRadiusPropertyImpl(

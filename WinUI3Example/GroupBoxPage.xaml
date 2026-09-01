@@ -20,8 +20,7 @@
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">&lt;essential:GroupBox Header=&quot;Me&quot;&gt;
     &lt;Button&gt;Button inside GroupBox&lt;/Button&gt;
-&lt;/essential:GroupBox&gt;
-                        </x:String>
+&lt;/essential:GroupBox&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>

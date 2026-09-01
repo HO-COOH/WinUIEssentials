@@ -22,12 +22,12 @@ namespace winrt::PackageRoot::implementation
         winrt::WinUINamespace::UI::Xaml::Controls::Image const& image,
         winrt::WinUINamespace::UI::Xaml::Media::ImageSource const& source)
     {
-        image.SetValue(FallbackSourceProperty(), source);
+        image.SetValue(s_fallbackProperty, source);
     }
 
     winrt::WinUINamespace::UI::Xaml::Media::ImageSource ImageExtension::GetFallbackSource(winrt::WinUINamespace::UI::Xaml::Controls::Image const& image)
     {
-        return image.GetValue(FallbackSourceProperty()).as<winrt::WinUINamespace::UI::Xaml::Media::ImageSource>();
+        return image.GetValue(s_fallbackProperty).as<winrt::WinUINamespace::UI::Xaml::Media::ImageSource>();
     }
 
     void ImageExtension::fallbackSourceChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& image, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)

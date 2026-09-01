@@ -4,6 +4,5 @@
     runtimeclass WindowWithCustomMenu : Microsoft.UI.Xaml.Window
     {
         WindowWithCustomMenu();
-        Int32 MyProperty;
     }
 }

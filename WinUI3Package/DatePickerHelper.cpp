@@ -27,7 +27,7 @@ namespace winrt::WinUI3Package::implementation
 
     bool DatePickerHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::DatePicker const& datePicker)
     {
-        return winrt::unbox_value<bool>(datePicker.GetValue(AcrylicWorkaroundProperty()));
+        return winrt::unbox_value<bool>(datePicker.GetValue(s_acrylicWorkaroundProperty));
     }
 
     void DatePickerHelper::SetAcrylicWorkaround(
@@ -35,7 +35,7 @@ namespace winrt::WinUI3Package::implementation
         bool value
     )
     {
-        datePicker.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+        datePicker.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
     }
 
     bool DatePickerHelper::modifyDatePickerFlyoutPresenter(winrt::Microsoft::UI::Xaml::Controls::DatePickerFlyoutPresenter const& presenter)

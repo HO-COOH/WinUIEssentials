@@ -36,12 +36,12 @@ namespace winrt::WinUI3Example::implementation
 
     winrt::hstring FakeTitleBar::Title()
     {
-        return winrt::unbox_value<winrt::hstring>(GetValue(TitleProperty()));
+        return winrt::unbox_value<winrt::hstring>(GetValue(s_titleProperty));
     }
 
     void FakeTitleBar::Title(winrt::hstring const& value)
     {
-        SetValue(TitleProperty(), winrt::box_value(value));
+        SetValue(s_titleProperty, winrt::box_value(value));
     }
 
     winrt::Microsoft::UI::Xaml::DependencyProperty FakeTitleBar::TitleProperty()

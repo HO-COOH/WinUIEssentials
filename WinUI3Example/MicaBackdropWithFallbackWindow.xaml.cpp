@@ -12,13 +12,4 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    int32_t MicaBackdropWithFallbackWindow::MyProperty()
-    {
-        throw hresult_not_implemented();
-    }
-
-    void MicaBackdropWithFallbackWindow::MyProperty(int32_t /* value */)
-    {
-        throw hresult_not_implemented();
-    }
 }

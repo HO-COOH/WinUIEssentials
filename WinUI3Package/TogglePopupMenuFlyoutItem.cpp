@@ -28,11 +28,11 @@ namespace winrt::WinUI3Package::implementation
 
 	bool TogglePopupMenuFlyoutItem::IsChecked()
 	{
-		return winrt::unbox_value<bool>(GetValue(IsCheckedProperty()));
+		return winrt::unbox_value<bool>(GetValue(s_isCheckedProperty));
 	}
 	void TogglePopupMenuFlyoutItem::IsChecked(bool value)
 	{
-		SetValue(IsCheckedProperty(), winrt::box_value(value));
+		SetValue(s_isCheckedProperty, winrt::box_value(value));
 	}
 	winrt::Microsoft::UI::Xaml::DependencyProperty TogglePopupMenuFlyoutItem::IsCheckedProperty()
 	{

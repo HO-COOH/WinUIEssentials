@@ -35,12 +35,12 @@ namespace winrt::PackageRoot::implementation
 
 	winrt::Windows::Foundation::IInspectable Case::Content()
 	{
-		return GetValue(ContentProperty());
+		return GetValue(s_contentProperty);
 	}
 
 	void Case::Content(winrt::Windows::Foundation::IInspectable const& value)
 	{
-		SetValue(ContentProperty(), value);
+		SetValue(s_contentProperty, value);
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty Case::ContentProperty()
@@ -50,12 +50,12 @@ namespace winrt::PackageRoot::implementation
 
 	bool Case::IsDefault()
 	{
-		return winrt::unbox_value<bool>(GetValue(IsDefaultProperty()));
+		return winrt::unbox_value<bool>(GetValue(s_isDefaultProperty));
 	}
 
 	void Case::IsDefault(bool value)
 	{
-		SetValue(IsDefaultProperty(), winrt::box_value(value));
+		SetValue(s_isDefaultProperty, winrt::box_value(value));
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty Case::IsDefaultProperty()
@@ -65,12 +65,12 @@ namespace winrt::PackageRoot::implementation
 
 	winrt::Windows::Foundation::IInspectable Case::Value()
 	{
-		return GetValue(ValueProperty());
+		return GetValue(s_valueProperty);
 	}
 
 	void Case::Value(winrt::Windows::Foundation::IInspectable const& value)
 	{
-		SetValue(ValueProperty(), value);
+		SetValue(s_valueProperty, value);
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty Case::ValueProperty()

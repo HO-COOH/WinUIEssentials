@@ -51,12 +51,12 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Microsoft::UI::Xaml::Controls::IconElement PopupMenuFlyoutItem::Icon()
 	{
-		return GetValue(IconProperty()).as<winrt::Microsoft::UI::Xaml::Controls::IconElement>();
+		return GetValue(s_iconProperty).as<winrt::Microsoft::UI::Xaml::Controls::IconElement>();
 	}
 
 	void PopupMenuFlyoutItem::Icon(winrt::Microsoft::UI::Xaml::Controls::IconElement const& value)
 	{
-		SetValue(IconProperty(), value);
+		SetValue(s_iconProperty, value);
 		if (m_parentMenu)
 		{
 			::PopupMenu::setMenuItemGlyph(
@@ -77,11 +77,11 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::hstring PopupMenuFlyoutItem::Text()
 	{
-		return winrt::unbox_value<winrt::hstring>(GetValue(TextProperty()));
+		return winrt::unbox_value<winrt::hstring>(GetValue(s_textProperty));
 	}
 	void PopupMenuFlyoutItem::Text(winrt::hstring const& value)
 	{
-		SetValue(TextProperty(), winrt::box_value(value));
+		SetValue(s_textProperty, winrt::box_value(value));
 		if (m_parentMenu)
 		{
 			MENUITEMINFO itemInfo{ .cbSize = sizeof(itemInfo), .fMask = MIIM_STRING, .dwTypeData = const_cast<LPWSTR>(Text().data()) };
@@ -108,12 +108,12 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Windows::Foundation::IInspectable PopupMenuFlyoutItem::CommandParameter()
 	{
-		return GetValue(CommandParameterProperty());
+		return GetValue(s_commandProperty);
 	}
 
 	void PopupMenuFlyoutItem::CommandParameter(winrt::Windows::Foundation::IInspectable const& value)
 	{
-		SetValue(CommandParameterProperty(), value);
+		SetValue(s_commandProperty, value);
 	}
 	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItem::CommandParameterProperty()
 	{

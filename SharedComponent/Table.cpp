@@ -280,12 +280,12 @@ namespace winrt::PackageRoot::implementation
 
     winrt::Windows::UI::Color Table::HeaderForeground()
     {
-        return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(HeaderForegroundProperty()));
+        return winrt::unbox_value<winrt::Windows::UI::Color>(GetValue(s_headerForegroundProperty));
     }
 
     void Table::HeaderForeground(winrt::Windows::UI::Color const& value)
     {
-        SetValue(HeaderForegroundProperty(), winrt::box_value(value));
+        SetValue(s_headerForegroundProperty, winrt::box_value(value));
     }
 
     winrt::Windows::UI::Color Table::ContentForeground()
@@ -340,12 +340,12 @@ namespace winrt::PackageRoot::implementation
 
     double Table::HeaderFontSize()
     {
-        return winrt::unbox_value<double>(GetValue(HeaderFontSizeProperty()));
+        return winrt::unbox_value<double>(GetValue(s_headerFontSizeProperty));
     }
 
     void Table::HeaderFontSize(double value)
     {
-        SetValue(HeaderFontSizeProperty(), winrt::box_value(value));
+        SetValue(s_headerFontSizeProperty, winrt::box_value(value));
     }
 
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::HeaderFontSizeProperty()
@@ -355,12 +355,12 @@ namespace winrt::PackageRoot::implementation
 
     winrt::WinUINamespace::UI::Xaml::Thickness Table::ContentPadding()
     {
-        return winrt::unbox_value<winrt::WinUINamespace::UI::Xaml::Thickness>(GetValue(ContentPaddingProperty()));
+        return winrt::unbox_value<winrt::WinUINamespace::UI::Xaml::Thickness>(GetValue(s_contentPaddingProperty));
     }
 
     void Table::ContentPadding(winrt::WinUINamespace::UI::Xaml::Thickness const& value)
     {
-        SetValue(ContentPaddingProperty(), winrt::box_value(value));
+        SetValue(s_contentPaddingProperty, winrt::box_value(value));
     }
 
     winrt::WinUINamespace::UI::Xaml::DependencyProperty Table::ContentPaddingProperty()

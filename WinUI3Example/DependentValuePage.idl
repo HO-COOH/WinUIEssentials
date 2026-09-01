@@ -7,6 +7,5 @@ namespace WinUI3Example
     runtimeclass DependentValuePage : Microsoft.UI.Xaml.Controls.Page
     {
         DependentValuePage();
-        WinUI3Package.DependentValue MyDoubleValue{ get; };
     }
 }

@@ -43,12 +43,12 @@ namespace winrt::PackageRoot::implementation
 
 	bool Shimmer::IsLoading()
 	{
-		return winrt::unbox_value<bool>(GetValue(IsLoadingProperty()));
+		return winrt::unbox_value<bool>(GetValue(s_isLoadingProperty));
 	}
 
 	void Shimmer::IsLoading(bool value)
 	{
-		SetValue(IsLoadingProperty(), winrt::box_value(value));
+		SetValue(s_isLoadingProperty, winrt::box_value(value));
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty Shimmer::IsLoadingProperty()
@@ -58,12 +58,12 @@ namespace winrt::PackageRoot::implementation
 
 	winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection Shimmer::GradientStops()
 	{
-		return GetValue(GradientStopsProperty()).try_as<winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection>();
+		return GetValue(s_gradientStopsProperty).try_as<winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection>();
 	}
 
 	void Shimmer::GradientStops(winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection const& value)
 	{
-		SetValue(GradientStopsProperty(), value);
+		SetValue(s_gradientStopsProperty, value);
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty Shimmer::GradientStopsProperty()

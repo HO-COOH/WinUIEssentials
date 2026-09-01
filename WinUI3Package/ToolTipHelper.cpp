@@ -24,7 +24,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool ToolTipHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::ToolTip const& toolTip)
 	{
-		return winrt::unbox_value<bool>(toolTip.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(toolTip.GetValue(s_acrylicWorkaroundProperty));
 	}
 
 	void ToolTipHelper::SetAcrylicWorkaround(
@@ -32,7 +32,7 @@ namespace winrt::WinUI3Package::implementation
 		bool value
 	)
 	{
-		toolTip.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		toolTip.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
 	}
 
 	void ToolTipHelper::acrylicWorkaroundChanged(

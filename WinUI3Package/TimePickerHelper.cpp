@@ -26,7 +26,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool TimePickerHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::TimePicker const& timePicker)
 	{
-		return winrt::unbox_value<bool>(timePicker.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(timePicker.GetValue(s_acrylicWorkaroundProperty));
 	}
 
 	void TimePickerHelper::SetAcrylicWorkaround(
@@ -34,7 +34,7 @@ namespace winrt::WinUI3Package::implementation
 		bool value
 	)
 	{
-		timePicker.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		timePicker.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
 	}
 	
 	bool TimePickerHelper::modifyTimePickerFlyoutPresenter(winrt::Microsoft::UI::Xaml::Controls::TimePickerFlyoutPresenter const& presenter)

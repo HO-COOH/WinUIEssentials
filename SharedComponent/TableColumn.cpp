@@ -95,12 +95,12 @@ namespace winrt::PackageRoot::implementation
 
 	bool TableColumn::SortEnabled()
 	{
-		return winrt::unbox_value<bool>(GetValue(SortEnabledProperty()));
+		return winrt::unbox_value<bool>(GetValue(s_sortEnabledProperty));
 	}
 
 	void TableColumn::SortEnabled(bool value)
 	{
-		SetValue(SortEnabledProperty(), winrt::box_value(value));
+		SetValue(s_sortEnabledProperty, winrt::box_value(value));
 	}
 
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty TableColumn::SortEnabledProperty()

@@ -28,12 +28,12 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Microsoft::UI::Xaml::Visibility PopupMenuFlyoutItemBase::Visibility()
 	{
-		return winrt::unbox_value<winrt::Microsoft::UI::Xaml::Visibility>(GetValue(VisibilityProperty()));
+		return winrt::unbox_value<winrt::Microsoft::UI::Xaml::Visibility>(GetValue(s_visibilityProperty));
 	}
 
 	void PopupMenuFlyoutItemBase::Visibility(winrt::Microsoft::UI::Xaml::Visibility value)
 	{
-		SetValue(VisibilityProperty(), winrt::box_value(value));
+		SetValue(s_visibilityProperty, winrt::box_value(value));
 		if (m_parentMenu)
 		{
 
@@ -74,11 +74,11 @@ namespace winrt::WinUI3Package::implementation
 	}
 	bool PopupMenuFlyoutItemBase::IsEnabled()
 	{
-		return winrt::unbox_value<bool>(GetValue(IsEnabledProperty()));
+		return winrt::unbox_value<bool>(GetValue(s_isEnabledProperty));
 	}
 	void PopupMenuFlyoutItemBase::IsEnabled(bool value)
 	{
-		SetValue(IsEnabledProperty(), winrt::box_value(value));
+		SetValue(s_isEnabledProperty, winrt::box_value(value));
 	}
 	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutItemBase::IsEnabledProperty()
 	{

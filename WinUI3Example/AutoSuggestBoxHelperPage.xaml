@@ -25,9 +25,7 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-&lt;AutoSuggestBox x:Name=&quot;Control1&quot; Width=&quot;300&quot; SuggestionChosen=&quot;Control1_SuggestionChosen&quot; TextChanged=&quot;Control1_TextChanged&quot;/&gt;
-                        </x:String>
+                        <x:String xml:space="preserve">&lt;AutoSuggestBox x:Name=&quot;Control1&quot; Width=&quot;300&quot; SuggestionChosen=&quot;Control1_SuggestionChosen&quot; TextChanged=&quot;Control1_TextChanged&quot;/&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
@@ -49,14 +47,12 @@
             <local:ControlExample.Xaml>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-&lt;AutoSuggestBox
+                        <x:String xml:space="preserve">&lt;AutoSuggestBox
     x:Name=&quot;Control2&quot;
     Width=&quot;300&quot;
     essential:AutoSuggestBoxHelper.AcrylicWorkaround=&quot;True&quot;
     SuggestionChosen=&quot;Control2_SuggestionChosen&quot;
-    TextChanged=&quot;Control1_TextChanged&quot; /&gt;
-                        </x:String>
+    TextChanged=&quot;Control1_TextChanged&quot; /&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>

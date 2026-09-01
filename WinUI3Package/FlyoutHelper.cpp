@@ -24,7 +24,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool FlyoutHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Flyout const& flyout)
 	{
-		return winrt::unbox_value<bool>(flyout.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(flyout.GetValue(s_acrylicWorkaroundProperty));
 	}
 
 	void FlyoutHelper::SetAcrylicWorkaround(
@@ -32,7 +32,7 @@ namespace winrt::WinUI3Package::implementation
 		bool value
 	)
 	{
-		flyout.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		flyout.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
 	}
 
 	void FlyoutHelper::acrylicWorkaroundChanged(

@@ -27,12 +27,12 @@ namespace winrt::WinUI3Package::implementation
 
     bool CalendarDatePickerHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::CalendarDatePicker const& picker)
     {
-        return winrt::unbox_value<bool>(picker.GetValue(AcrylicWorkaroundProperty()));
+        return winrt::unbox_value<bool>(picker.GetValue(s_acrylicWorkaroundProperty));
     }
 
     void CalendarDatePickerHelper::SetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::CalendarDatePicker const& picker, bool value)
     {
-        picker.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+        picker.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
     }
 
     void CalendarDatePickerHelper::acrylicWorkaroundChanged(

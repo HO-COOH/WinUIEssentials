@@ -26,7 +26,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool AutoSuggestBoxHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::AutoSuggestBox const& autoSuggestBox)
 	{
-		return winrt::unbox_value<bool>(autoSuggestBox.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(autoSuggestBox.GetValue(s_acrylicWorkaroundProperty));
 	}
 
 	void AutoSuggestBoxHelper::SetAcrylicWorkaround(
@@ -34,7 +34,7 @@ namespace winrt::WinUI3Package::implementation
 		bool value
 	)
 	{
-		autoSuggestBox.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		autoSuggestBox.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
 	}
 
 	void AutoSuggestBoxHelper::acrylicWorkaroundChanged(

@@ -28,11 +28,11 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Microsoft::UI::Xaml::Controls::IconElement PopupMenuFlyoutSubItem::Icon()
 	{
-		return GetValue(IconProperty()).as<winrt::Microsoft::UI::Xaml::Controls::IconElement>();
+		return GetValue(s_iconProperty).as<winrt::Microsoft::UI::Xaml::Controls::IconElement>();
 	}
 	void PopupMenuFlyoutSubItem::Icon(winrt::Microsoft::UI::Xaml::Controls::IconElement const& value)
 	{
-		SetValue(IconProperty(), value);
+		SetValue(s_iconProperty, value);
 	}
 	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutSubItem::IconProperty()
 	{
@@ -40,11 +40,11 @@ namespace winrt::WinUI3Package::implementation
 	}
 	winrt::hstring PopupMenuFlyoutSubItem::Text()
 	{
-		return winrt::unbox_value<winrt::hstring>(GetValue(TextProperty()));
+		return winrt::unbox_value<winrt::hstring>(GetValue(s_textProperty));
 	}
 	void PopupMenuFlyoutSubItem::Text(winrt::hstring const& value)
 	{
-		SetValue(TextProperty(), winrt::box_value(value));
+		SetValue(s_textProperty, winrt::box_value(value));
 	}
 	winrt::Microsoft::UI::Xaml::DependencyProperty PopupMenuFlyoutSubItem::TextProperty()
 	{

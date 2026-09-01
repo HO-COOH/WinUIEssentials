@@ -27,12 +27,12 @@ namespace winrt::PackageRoot::implementation
 
     bool UIElementExtension::GetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement const& element)
     {
-        return winrt::unbox_value<bool>(element.GetValue(ClipToBoundsProperty()));
+        return winrt::unbox_value<bool>(element.GetValue(s_clipToBoundsProperty));
     }
 
     void UIElementExtension::SetClipToBounds(winrt::WinUINamespace::UI::Xaml::UIElement const& element, bool value)
     {
-        element.SetValue(ClipToBoundsProperty(), winrt::box_value(value));
+        element.SetValue(s_clipToBoundsProperty, winrt::box_value(value));
     }
 
     void UIElementExtension::onClipToBoundsPropertyChanged(

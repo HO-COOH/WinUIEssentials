@@ -134,13 +134,13 @@ namespace winrt::PackageRoot::Svg::implementation
         {
             auto self = get_strong().as<winrt::WinUINamespace::UI::Xaml::DependencyObject>();
             winrt::WinUINamespace::UI::Xaml::Data::BindingOperations::SetBinding(
-                self, UriSourceProperty(), binding);
+                self, s_uriSourceProperty, binding);
             return;
         }
 
         if (auto uri = value.try_as<winrt::Windows::Foundation::Uri>())
         {
-            SetValue(UriSourceProperty(), uri);
+            SetValue(s_uriSourceProperty, uri);
             return;
         }
 
@@ -152,11 +152,11 @@ namespace winrt::PackageRoot::Svg::implementation
         }
         if (!str.empty())
         {
-            SetValue(UriSourceProperty(), winrt::Windows::Foundation::Uri{ str });
+            SetValue(s_uriSourceProperty, winrt::Windows::Foundation::Uri{ str });
             return;
         }
 
-        SetValue(UriSourceProperty(), nullptr);
+        SetValue(s_uriSourceProperty, nullptr);
     }
 
     double SvgImageSource::RasterizePixelWidth() const

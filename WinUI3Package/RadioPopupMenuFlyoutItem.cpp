@@ -33,11 +33,11 @@ namespace winrt::WinUI3Package::implementation
 	}
 	bool RadioPopupMenuFlyoutItem::IsChecked()
 	{
-		return winrt::unbox_value<bool>(GetValue(IsCheckedProperty()));
+		return winrt::unbox_value<bool>(GetValue(s_isCheckedProperty));
 	}
 	void RadioPopupMenuFlyoutItem::IsChecked(bool value)
 	{
-		SetValue(IsCheckedProperty(), winrt::box_value(value));
+		SetValue(s_isCheckedProperty, winrt::box_value(value));
 
 		if (m_parentMenu)
 		{
@@ -61,7 +61,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	void RadioPopupMenuFlyoutItem::GroupName(winrt::hstring const& value)
 	{
-		SetValue(GroupNameProperty(), winrt::box_value(value));
+		SetValue(s_groupNameProperty, winrt::box_value(value));
 		if (!value.empty() && IsChecked())
 			m_groupHelper->SetCheckedItem(*this);
 	}

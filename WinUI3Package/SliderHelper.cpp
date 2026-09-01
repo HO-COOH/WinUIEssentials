@@ -26,7 +26,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool SliderHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::Slider const& slider)
 	{
-		return winrt::unbox_value<bool>(slider.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(slider.GetValue(s_acrylicWorkaroundProperty));
 	}
 
 	void SliderHelper::SetAcrylicWorkaround(
@@ -34,7 +34,7 @@ namespace winrt::WinUI3Package::implementation
 		bool value
 	)
 	{
-		slider.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		slider.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
 	}
 
 

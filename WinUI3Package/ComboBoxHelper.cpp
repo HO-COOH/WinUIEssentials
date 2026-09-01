@@ -27,7 +27,7 @@ namespace winrt::WinUI3Package::implementation
 
 	bool ComboBoxHelper::GetAcrylicWorkaround(winrt::Microsoft::UI::Xaml::Controls::ComboBox const& comboBox)
 	{
-		return winrt::unbox_value<bool>(comboBox.GetValue(AcrylicWorkaroundProperty()));
+		return winrt::unbox_value<bool>(comboBox.GetValue(s_acrylicWorkaroundProperty));
 	}
 
 	void ComboBoxHelper::SetAcrylicWorkaround(
@@ -35,7 +35,7 @@ namespace winrt::WinUI3Package::implementation
 		bool value
 	)
 	{
-		comboBox.SetValue(AcrylicWorkaroundProperty(), winrt::box_value(value));
+		comboBox.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
 	}
 
 	void ComboBoxHelper::acrylicWorkaroundChanged(
