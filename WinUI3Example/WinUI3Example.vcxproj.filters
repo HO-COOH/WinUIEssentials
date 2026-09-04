@@ -708,9 +708,6 @@
     <Filter Include="Pages\BackdropPage\TenMicaPage">
       <UniqueIdentifier>{9552aa05-013e-4657-be0f-8a173ffba4a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manifests">
-      <UniqueIdentifier>{c324f92e-6d88-4076-a551-0d172774d95d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Pages\WindowedContentDialogPage">
       <UniqueIdentifier>{75b54b22-26dd-42af-b6ba-403b943e280d}</UniqueIdentifier>
     </Filter>

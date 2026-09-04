@@ -91,7 +91,9 @@
     <ClCompile Include="WebViewMouseHook.cpp">
       <Filter>Controls\WebView</Filter>
     </ClCompile>
-    <ClCompile Include="DelayWindowShowHelper.cpp" />
+    <ClCompile Include="DelayWindowShowHelper.cpp">
+      <Filter>Windows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

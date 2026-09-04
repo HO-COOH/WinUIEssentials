@@ -15,7 +15,7 @@ namespace winrt::WinUI3Example::implementation
         void SystemBackdrop(SystemBackdropType type);
     private:
         SystemBackdropType m_type{ SystemBackdropType::Automatic };
-        winrt::Microsoft::UI::Xaml::Window m_window{ nullptr };
+        winrt::weak_ref<winrt::Microsoft::UI::Xaml::Window> m_window{ nullptr };
         bool m_backdropApplied{ false };
         void applyBackdrop();
         void setBackground(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush const& brush);

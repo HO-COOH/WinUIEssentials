@@ -10,7 +10,7 @@ namespace winrt::WinUI3Example::implementation
 	{
 		ActualThemeChanged([this](auto&&...)
 		{
-			if (!m_window)
+			if (!m_window.get())
 				return;
 			setBackgroundWithType();
 		});
@@ -18,12 +18,12 @@ namespace winrt::WinUI3Example::implementation
 
 	winrt::Microsoft::UI::Xaml::Window WindowBackgroundHelper::Window()
 	{
-		return m_window;
+		return m_window.get();
 	}
 
 	void WindowBackgroundHelper::Window(winrt::Microsoft::UI::Xaml::Window const& value)
 	{
-		if (m_window == value)
+		if (m_window.get() == value)
 			return;
 		m_window = value;
 		applyBackdrop();
@@ -40,7 +40,8 @@ namespace winrt::WinUI3Example::implementation
 
 	void WindowBackgroundHelper::applyBackdrop()
 	{
-		if (!m_window)
+		auto window = m_window.get();
+		if (!window)
 			return;
 
 		switch (m_type)
@@ -49,17 +50,17 @@ namespace winrt::WinUI3Example::implementation
 			{
 				winrt::WinUI3Package::TenMicaBackdrop tenMica;
 				tenMica.BindThemeTo(*this);
-				m_window.SystemBackdrop(winrt::WinUI3Package::MicaBackdropWithFallback{ tenMica /*winrt::Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{}*/ });
+				window.SystemBackdrop(winrt::WinUI3Package::MicaBackdropWithFallback{ tenMica /*winrt::Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{}*/ });
 				break;
 			}
 			case SystemBackdropType::Mica:
-				m_window.SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::MicaBackdrop{});
+				window.SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::MicaBackdrop{});
 				break;
 			case SystemBackdropType::Acrylic:
-				m_window.SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{});
+				window.SystemBackdrop(winrt::Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{});
 				break;
 			case SystemBackdropType::Disabled:
-				m_window.SystemBackdrop(nullptr);
+				window.SystemBackdrop(nullptr);
 				break;
 		}
 		m_backdropApplied = true;
