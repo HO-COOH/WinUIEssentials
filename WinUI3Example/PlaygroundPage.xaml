@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.PlaygroundPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:editor="using:WinUIEditor"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Prototyping the controls and helpers from WinUI3Package. You can type out XAML code in the editor below and click Load to preview it." />
+
+        <ComboBox
+            x:Name="RootKind"
+            Grid.Row="1"
+            Header="Select the Root object type to show it correctly:"
+            SelectedIndex="1">
+            <x:String>Window</x:String>
+            <x:String>essential:WindowEx</x:String>
+            <x:String>ContentDialog</x:String>
+            <x:String>WindowedContentDialog</x:String>
+        </ComboBox>
+
+        <editor:CodeEditorControl
+            x:Name="XamlString"
+            Grid.Row="2"
+            HighlightingLanguage="xml" />
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="ErrorText" Foreground="Red" />
+            <Button
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Click="LoadButton_Click"
+                Style="{StaticResource AccentButtonStyle}">
+                Load
+            </Button>
+        </Grid>
+
+    </Grid>
+
+</Page>

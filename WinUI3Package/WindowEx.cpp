@@ -250,6 +250,8 @@ namespace winrt::WinUI3Package::implementation
 		*/
 		if (m_attachedToWindow)
 			UpdateLayout();
+
+		m_delayWindowShowHelper.RequestShow();
 	}
 
 	void WindowEx::revokeAppWindowChanged() noexcept

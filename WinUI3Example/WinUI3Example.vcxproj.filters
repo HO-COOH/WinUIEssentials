@@ -327,6 +327,9 @@
     <Page Include="LocalizedContentDialog.xaml">
       <Filter>Pages\StringResourcePage</Filter>
     </Page>
+    <Page Include="PlaygroundPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

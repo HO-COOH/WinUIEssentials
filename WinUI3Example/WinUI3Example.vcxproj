@@ -611,6 +611,10 @@
       <DependentUpon>PhotoDataItemWithDimension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="PlaygroundPage.xaml.h">
+      <DependentUpon>PlaygroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ProgressBarExPage.xaml.h">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1003,6 +1007,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PageHeader.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlaygroundPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
@@ -1423,6 +1430,10 @@
     </ClCompile>
     <ClCompile Include="PhotoDataItemWithDimension.cpp">
       <DependentUpon>PhotoDataItemWithDimension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="PlaygroundPage.xaml.cpp">
+      <DependentUpon>PlaygroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ProgressBarExPage.xaml.cpp">
@@ -1894,6 +1905,10 @@
     <Midl Include="PhotoDataItemWithDimension.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="PlaygroundPage.idl">
+      <DependentUpon>PlaygroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -2262,6 +2277,7 @@
     <Import Project="..\packages\Microsoft.WindowsAppSDK.Search.2.4.4\build\native\Microsoft.WindowsAppSDK.Search.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Search.2.4.4\build\native\Microsoft.WindowsAppSDK.Search.targets')" />
     <Import Project="..\packages\Microsoft.WindowsAppSDK.WinUI.2.3.6\build\native\Microsoft.WindowsAppSDK.WinUI.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.2.3.6\build\native\Microsoft.WindowsAppSDK.WinUI.targets')" />
     <Import Project="..\packages\Microsoft.WindowsAppSDK.2.4.0\build\native\Microsoft.WindowsAppSDK.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.2.4.0\build\native\Microsoft.WindowsAppSDK.targets')" />
+    <Import Project="..\packages\WinUIEdit.0.0.5-prerelease\build\native\WinUIEdit.targets" Condition="Exists('..\packages\WinUIEdit.0.0.5-prerelease\build\native\WinUIEdit.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -2300,6 +2316,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.2.3.6\build\native\Microsoft.WindowsAppSDK.WinUI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.WinUI.2.3.6\build\native\Microsoft.WindowsAppSDK.WinUI.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.2.4.0\build\native\Microsoft.WindowsAppSDK.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.2.4.0\build\native\Microsoft.WindowsAppSDK.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.2.4.0\build\native\Microsoft.WindowsAppSDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.2.4.0\build\native\Microsoft.WindowsAppSDK.targets'))" />
+    <Error Condition="!Exists('..\packages\WinUIEdit.0.0.5-prerelease\build\native\WinUIEdit.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinUIEdit.0.0.5-prerelease\build\native\WinUIEdit.targets'))" />
   </Target>
   <ItemGroup>
     <Page Update="C:\Users\Peter\Desktop\WinUIEssentials\packages\WinUIEssential.WinUI3.1.0.7\build\native\..\..\lib\native\SettingsCard_Resource.xaml">
