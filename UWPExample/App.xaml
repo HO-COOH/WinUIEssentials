@@ -96,7 +96,23 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <controls:XamlControlsResources />
+                <!--
+                    Merge every control dictionary up front instead of letting the control
+                    constructors append them to Application.Resources on first use.
+                    The lazy append in XamlResourceHelper is guarded by a per-process static,
+                    so it only ever runs on the thread of the *first* view that constructs the
+                    control; the ThemeDictionaries it brings in are then invisible to every other
+                    view. PlaygroundPage creates a fresh CoreApplication view per Load, so the
+                    second Load failed with "Cannot find a Resource with the Name/Key
+                    SettingsCardBackground".
+                -->
+                <ResourceDictionary Source="ms-appx:///UWPPackage/SettingsCard_Resource.xaml" />
                 <ResourceDictionary Source="ms-appx:///UWPPackage/SettingsExpander_Resource.xaml" />
+                <ResourceDictionary Source="ms-appx:///UWPPackage/GroupBox_Resource.xaml" />
+                <ResourceDictionary Source="ms-appx:///UWPPackage/MarqueeText_Resource.xaml" />
+                <ResourceDictionary Source="ms-appx:///UWPPackage/ProgressBarEx_Resource.xaml" />
+                <ResourceDictionary Source="ms-appx:///UWPPackage/Segmented_Resource.xaml" />
+                <ResourceDictionary Source="ms-appx:///UWPPackage/Shimmer_Resource.xaml" />
                 <!--  Other app resources here  -->
             </ResourceDictionary.MergedDictionaries>
 

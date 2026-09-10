@@ -1,0 +1,8 @@
+namespace UWPExample
+{
+    [default_interface]
+    runtimeclass PlaygroundPage : Windows.UI.Xaml.Controls.Page
+    {
+        PlaygroundPage();
+    }
+}

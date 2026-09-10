@@ -6,44 +6,42 @@
 
 namespace winrt::UWPExample::implementation
 {
+    MyDataModel::MyDataModel(
+        winrt::hstring const& name,
+        winrt::hstring const& info,
+        winrt::hstring const& itemType,
+        winrt::hstring const& linkDescription,
+        winrt::hstring const& url) :
+        m_name{ name },
+        m_info{ info },
+        m_itemType{ itemType },
+        m_linkDescription{ linkDescription },
+        m_url{ url }
+    {
+    }
+
     winrt::hstring MyDataModel::Name()
     {
         return m_name;
     }
-    void MyDataModel::Name(winrt::hstring value)
-    {
-        m_name = value;
-    }
+
     winrt::hstring MyDataModel::Info()
     {
         return m_info;
     }
-    void MyDataModel::Info(winrt::hstring value)
-    {
-        m_info = value;
-    }
+
     winrt::hstring MyDataModel::ItemType()
     {
         return m_itemType;
     }
-    void MyDataModel::ItemType(winrt::hstring value)
-    {
-        m_itemType = value;
-    }
+
     winrt::hstring MyDataModel::LinkDescription()
     {
         return m_linkDescription;
     }
-    void MyDataModel::LinkDescription(winrt::hstring value)
-    {
-        m_linkDescription = value;
-    }
+
     winrt::hstring MyDataModel::Url()
     {
         return m_url;
-    }
-    void MyDataModel::Url(winrt::hstring value)
-    {
-        m_url = value;
     }
 }

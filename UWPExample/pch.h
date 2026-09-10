@@ -28,7 +28,7 @@
 #include <winrt/Windows.UI.Xaml.Media.h>
 #include <winrt/Windows.UI.Xaml.Input.h>
 #include <winrt/UWPPackage.Svg.h>
-
+#include <winrt/WinUIEditor.h>
 #include "NamedUrl.h"
 #include "CodeSource.h"
 #include "ControlExampleSubstitution.h"

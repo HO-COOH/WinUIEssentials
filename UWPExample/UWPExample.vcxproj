@@ -382,6 +382,7 @@
       <DependentUpon>ConvertersPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CreateWindowHelper.hpp" />
     <ClInclude Include="CursorControllerPage.h">
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -443,6 +444,10 @@
     </ClInclude>
     <ClInclude Include="PhotoDataItemWithDimension.h">
       <DependentUpon>PhotoDataItemWithDimension.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="PlaygroundPage.h">
+      <DependentUpon>PlaygroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ProgressBarExPage.h">
@@ -625,6 +630,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MarqueeContainerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PlaygroundPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ProgressBarExPage.xaml">
@@ -852,6 +860,10 @@
       <DependentUpon>PhotoDataItemWithDimension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="PlaygroundPage.cpp">
+      <DependentUpon>PlaygroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ProgressBarExPage.cpp">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1044,6 +1056,10 @@
     <Midl Include="PhotoDataItemWithDimension.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="PlaygroundPage.idl">
+      <DependentUpon>PlaygroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ProgressBarExPage.idl">
       <DependentUpon>ProgressBarExPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1198,6 +1214,7 @@
     <Import Project="..\packages\Microsoft.Web.WebView2.1.0.2849.39\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.2849.39\build\native\Microsoft.Web.WebView2.targets')" />
     <Import Project="..\packages\Microsoft.UI.Xaml.2.8.7\build\native\Microsoft.UI.Xaml.targets" Condition="Exists('..\packages\Microsoft.UI.Xaml.2.8.7\build\native\Microsoft.UI.Xaml.targets')" />
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.3.0.260520.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260520.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
+    <Import Project="..\packages\WinUIEdit.Uwp.0.0.5-prerelease\build\native\WinUIEdit.Uwp.targets" Condition="Exists('..\packages\WinUIEdit.Uwp.0.0.5-prerelease\build\native\WinUIEdit.Uwp.targets')" />
   </ImportGroup>
   <ItemGroup>
     <ProjectReference Include="..\UWPPackage.Svg\UWPPackage.Svg.vcxproj">
@@ -1220,5 +1237,6 @@
     <Error Condition="!Exists('..\packages\Microsoft.UI.Xaml.2.8.7\build\native\Microsoft.UI.Xaml.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.UI.Xaml.2.8.7\build\native\Microsoft.UI.Xaml.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260520.1\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.3.0.260520.1\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260520.1\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.3.0.260520.1\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+    <Error Condition="!Exists('..\packages\WinUIEdit.Uwp.0.0.5-prerelease\build\native\WinUIEdit.Uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinUIEdit.Uwp.0.0.5-prerelease\build\native\WinUIEdit.Uwp.targets'))" />
   </Target>
 </Project>

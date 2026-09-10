@@ -269,54 +269,43 @@
             <local:ControlExample.Idl>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-[bindable]
-[default_interface]
+                        <x:String xml:space="preserve">[default_interface]
 runtimeclass MyDataModel
 {
-    MyDataModel();
-
-    String Name;
-    String Info;
-    String ItemType;
-    String LinkDescription;
-    String Url;
-}
-                        </x:String>
+    String Name{get; };
+    String Info{ get; };
+    String ItemType{get; };
+    String LinkDescription{get; };
+    String Url{get; };
+}</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Idl>
             <local:ControlExample.Header>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-struct MyDataModel : MyDataModelT&lt;MyDataModel&gt;
+                        <x:String xml:space="preserve">struct MyDataModel : MyDataModelT&lt;MyDataModel&gt;
 {
-    MyDataModel() = default;
+    MyDataModel(
+        winrt::hstring const&amp; name, 
+        winrt::hstring const&amp; info, 
+        winrt::hstring const&amp; itemType, 
+        winrt::hstring const&amp; linkDescription, 
+        winrt::hstring const&amp; url
+    );
 
     winrt::hstring Name();
-    void Name(winrt::hstring value);
-
     winrt::hstring Info();
-    void Info(winrt::hstring value);
-
     winrt::hstring ItemType();
-    void ItemType(winrt::hstring value);
-
     winrt::hstring LinkDescription();
-    void LinkDescription(winrt::hstring value);
-
     winrt::hstring Url();
-    void Url(winrt::hstring value);
-
 private:
     winrt::hstring m_name;
     winrt::hstring m_info;
     winrt::hstring m_itemType;
     winrt::hstring m_linkDescription;
     winrt::hstring m_url;
-};
-                        </x:String>
+};</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Header>
@@ -324,48 +313,44 @@ private:
             <local:ControlExample.Cpp>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
+                        <x:String xml:space="preserve">MyDataModel::MyDataModel(
+    winrt::hstring const&amp; name,
+    winrt::hstring const&amp; info,
+    winrt::hstring const&amp; itemType,
+    winrt::hstring const&amp; linkDescription,
+    winrt::hstring const&amp; url) :
+    m_name{name},
+    info{ info },
+    itemType{ itemType },
+    linkDescription{ linkDescription },
+    url{ url }
+{
+}
+
 winrt::hstring MyDataModel::Name()
 {
     return m_name;
 }
-void MyDataModel::Name(winrt::hstring value)
-{
-    m_name = value;
-}
+
 winrt::hstring MyDataModel::Info()
 {
     return m_info;
 }
-void MyDataModel::Info(winrt::hstring value)
-{
-    m_info = value;
-}
+
 winrt::hstring MyDataModel::ItemType()
 {
     return m_itemType;
 }
-void MyDataModel::ItemType(winrt::hstring value)
-{
-    m_itemType = value;
-}
+
 winrt::hstring MyDataModel::LinkDescription()
 {
     return m_linkDescription;
 }
-void MyDataModel::LinkDescription(winrt::hstring value)
-{
-    m_linkDescription = value;
-}
+
 winrt::hstring MyDataModel::Url()
 {
     return m_url;
-}
-void MyDataModel::Url(winrt::hstring value)
-{
-    m_url = value;
-}
-                        </x:String>
+}</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Cpp>
