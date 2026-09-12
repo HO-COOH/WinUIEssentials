@@ -1,4 +1,4 @@
-namespace WinUI3Package
+﻿namespace WinUI3Package
 {
     [bindable]
     [default_interface]
@@ -18,7 +18,7 @@ namespace WinUI3Package
         Windows.UI.Color DefaultBackgroundColor;
         static Microsoft.UI.Xaml.DependencyProperty DefaultBackgroundColorProperty{ get; };
 
-        Windows.Foundation.Collections.IVector<Windows.UI.Xaml.Controls.WebViewDeferredPermissionRequest> DeferredPermissionRequests{ get; };
+        Windows.Foundation.Collections.IVectorView<Windows.Web.UI.WebViewControlDeferredPermissionRequest> DeferredPermissionRequests{ get; };
 
         String DocumentTitle{ get; };
         static Microsoft.UI.Xaml.DependencyProperty DocumentTitleProperty{ get; };

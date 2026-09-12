@@ -1246,7 +1246,7 @@ Usage:
 |ContainsFullScreenElement | Boolean | :white_check_mark: | `true` while the page has an element in full-screen mode (read-only)
 |DocumentTitle | String | :white_check_mark: | The title of the current document (read-only)
 |DefaultBackgroundColor | Windows.UI.Color | :white_check_mark: | The background color shown before/behind page content
-|DeferredPermissionRequests | IVector\<WebViewDeferredPermissionRequest\> | :x: | The permission requests that were deferred (read-only)
+|DeferredPermissionRequests | IVectorView\<WebViewDeferredPermissionRequest\> | :x: | The permission requests that were deferred (read-only)
 |Settings | Windows.Web.UI.WebViewControlSettings | :x: | The underlying control settings, e.g. scripting/IndexedDB toggles (read-only)
 
 ### Methods

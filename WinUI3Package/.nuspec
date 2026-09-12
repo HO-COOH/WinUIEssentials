@@ -52,6 +52,15 @@
         <file src="..\ARM64\Release\WinUI3Package\WinUI3Package\*.*" target="lib/native/Release/ARM64/WinUI3Package"/>
 		<file src="..\ARM64\Release\WinUI3Package\WinUI3Package.pdb" target="lib/native/Release/ARM64"/>
 
+        <!-- C# -->
+        <file 
+            src="..\WinUI3Package.CSharp\bin\x64\Release\net6.0-windows10.0.17763.0\WinUIEssential.WinUI3.dll" 
+            target="lib/net6.0-windows10.0.17763.0"/>
+        <file
+            src="..\WinUI3Package.CSharp\bin\x64\Release\net6.0-windows10.0.17763.0\WinUIEssential.WinUI3.pdb" 
+            target="lib/net6.0-windows10.0.17763.0"/>
+        
+
         <!-- Meta -->
         <file src="..\MainLogo.png" target="assets\"/>
         <file src="..\LICENSE.txt" target="licenses\"/>

@@ -189,9 +189,9 @@ namespace winrt::WinUI3Package::implementation
 		return s_defaultBackgroundColorProperty;
 	}
 
-	winrt::Windows::Foundation::Collections::IVector<winrt::Windows::UI::Xaml::Controls::WebViewDeferredPermissionRequest> WebView::DeferredPermissionRequests()
+	winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Web::UI::WebViewControlDeferredPermissionRequest> WebView::DeferredPermissionRequests()
 	{
-		return winrt::Windows::Foundation::Collections::IVector<winrt::Windows::UI::Xaml::Controls::WebViewDeferredPermissionRequest>();
+		return m_webview.DeferredPermissionRequests();
 	}
 
 	winrt::hstring WebView::DocumentTitle()

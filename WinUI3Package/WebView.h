@@ -32,7 +32,7 @@ namespace winrt::WinUI3Package::implementation
         void DefaultBackgroundColor(winrt::Windows::UI::Color value);
         static winrt::Microsoft::UI::Xaml::DependencyProperty DefaultBackgroundColorProperty();
 
-        winrt::Windows::Foundation::Collections::IVector<winrt::Windows::UI::Xaml::Controls::WebViewDeferredPermissionRequest> DeferredPermissionRequests();
+        winrt::Windows::Foundation::Collections::IVectorView<winrt::Windows::Web::UI::WebViewControlDeferredPermissionRequest> DeferredPermissionRequests();
 
         winrt::hstring DocumentTitle();
         static winrt::Microsoft::UI::Xaml::DependencyProperty DocumentTitleProperty();
