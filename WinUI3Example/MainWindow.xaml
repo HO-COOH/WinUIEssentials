@@ -901,7 +901,10 @@
                         <NavigationViewItem Content="SwitchPresenter" Tag="{essential:TypeName Type=local:SwitchPresenterPage}" />
                         <NavigationViewItem Content="WebView" Tag="{essential:TypeName Type=local:WebViewPage}" />
                         <NavigationViewItem Content="WrapPanel" Tag="{essential:TypeName Type=local:WrapPanelPage}" />
-                        <NavigationViewItem Content="Table Overview" Tag="{essential:TypeName Type=local:TablePage}">
+                        <NavigationViewItem x:Name="TablePagesItem" Content="Table Overview" Tag="{essential:TypeName Type=local:TablePage}">
+                            <NavigationViewItem.InfoBadge>
+                                <InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(TablePagesItem.MenuItems.Size)}"/>
+                            </NavigationViewItem.InfoBadge>
                             <NavigationViewItem.MenuItems>
                                 <NavigationViewItem Content="Table + Xaml data" Tag="{essential:TypeName Type=local:XamlTableDataPage}">
                                     <NavigationViewItem.Icon>

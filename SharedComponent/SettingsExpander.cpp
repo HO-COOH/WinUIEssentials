@@ -324,19 +324,11 @@ namespace winrt::PackageRoot::implementation
         if (m_itemsRepeater)
             m_itemsRepeater.ElementPrepared(m_elementPrepared);
 
-        m_itemsRepeater = GetTemplateChild(PART_ItemsRepeater).as<winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater>();
+        m_itemsRepeater = GetTemplateChild(PART_ItemsRepeater).try_as<winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater>();
         if (m_itemsRepeater)
         {
             m_elementPrepared = m_itemsRepeater.ElementPrepared({ this, &SettingsExpander::elementPrepared });
             onItemsConnectedPropertyChanged(*this, nullptr);
         }
-
-        //auto expanderHeader = GetTemplateChild(L"ExpanderHeader");
-        //expanderHeader.as<winrt::WinUINamespace::UI::Xaml::Controls::Primitives::ToggleButton>().Click(
-        //    [](auto...)
-        //    {
-        //        OutputDebugString(L"clicked\n");
-        //    }
-        //);
     }
 }

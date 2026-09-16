@@ -805,7 +805,10 @@
                         <muxc:NavigationViewItem Content="Shimmer" Tag="{essential:TypeName Type=local:ShimmerPage}" />
                         <muxc:NavigationViewItem Content="SwitchPresenter" Tag="{essential:TypeName Type=local:SwitchPresenterPage}" />
                         <muxc:NavigationViewItem Content="WrapPanel" Tag="{essential:TypeName Type=local:WrapPanelPage}" />
-                        <muxc:NavigationViewItem Content="Table Overview" Tag="{essential:TypeName Type=local:TablePage}">
+                        <muxc:NavigationViewItem x:Name="TablePagesItem" Content="Table Overview" Tag="{essential:TypeName Type=local:TablePage}">
+                            <muxc:NavigationViewItem.InfoBadge>
+                                <muxc:InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(TablePagesItem.MenuItems.Size)}" />
+                            </muxc:NavigationViewItem.InfoBadge>
                             <muxc:NavigationViewItem.MenuItems>
                                 <muxc:NavigationViewItem Content="Table + Xaml data" Tag="{essential:TypeName Type=local:XamlTableDataPage}">
                                     <muxc:NavigationViewItem.Icon>

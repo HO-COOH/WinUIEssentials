@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+		<WindowsSdkPackageVersion>10.0.17763.55</WindowsSdkPackageVersion>
+		<CheckEolTargetFramework>false</CheckEolTargetFramework>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<Platforms>x64;ARM64;x86</Platforms>
+		<AssemblyName>WinUIEssential.WinUI3</AssemblyName>
+		<IsPackable>false</IsPackable>
+
+		<CsWinRTIncludes>WinUI3Package</CsWinRTIncludes>
+		<CsWinRTWindowsMetadata>sdk</CsWinRTWindowsMetadata>
+		
+		<!-- WinUIEssential -->
+		<winuiEssentialRoot>$(MSBuildThisFileDirectory)..\</winuiEssentialRoot>
+		
+		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmdDir)' == '' and '$(Platform)' == 'x64'">$(winuiEssentialRoot)x64\$(Configuration)\WinUI3Package\WinUI3Package.winmd</WinUIEssentialWinmd>
+		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmdDir)' == '' and '$(Platform)' == 'ARM64'">$(winuiEssentialRoot)ARM64\$(Configuration)\WinUI3Package\WinUI3Package.winmd</WinUIEssentialWinmd>
+		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmdDir)' == '' and ('$(Platform)' == 'x86' or '$(Platform)' == 'Win32')">$(winuiEssentialRoot)$(Configuration)\WinUI3Package\WinUI3Package.winmd</WinUIEssentialWinmd>
+		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmd)' != ''">$([MSBuild]::NormalizePath('$(WinUIEssentialWinmd)'))</WinUIEssentialWinmd>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
+	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.1.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<CsWinRTInputs Include="$(WinUIEssentialWinmd)" />
+	</ItemGroup>
+
+	<Target Name="WinUIEssentialCheckWinmd" BeforeTargets="CsWinRTGenerateProjection">
+		<Error Condition="'$(WinUIEssentialWinmd)' == ''" Text="WinUIEssentialWinmd is not specified." />
+		<Error Condition="'$(WinUIEssentialWinmd)' != '' and !Exists('$(WinUIEssentialWinmd)')" Text="WinUIEssentialWinmd file not found: $(WinUIEssentialWinmd)" />
+	</Target>
+
+</Project>
