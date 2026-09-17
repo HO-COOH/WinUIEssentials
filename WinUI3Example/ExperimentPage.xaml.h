@@ -10,6 +10,10 @@ namespace winrt::WinUI3Example::implementation
         ExperimentPage();
         ~ExperimentPage();
 
+        void OnUnloaded(
+            winrt::Windows::Foundation::IInspectable const& sender,
+            winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+
         void OnTick(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::Foundation::IInspectable const& e);
 
         void SelfDrawnWindowButton_Click(

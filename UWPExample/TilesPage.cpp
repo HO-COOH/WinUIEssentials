@@ -29,14 +29,14 @@ namespace winrt::UWPExample::implementation
             winrt::to_hstring(id++), 
             L"displayName", 
             L"arg", 
-            winrt::Windows::Foundation::Uri{L"ms-appx:///Assets/LargeTile.scale-100.png"}, 
+            winrt::Windows::Foundation::Uri{L"ms-appx:///Assets/LargeTile.png"},
             winrt::Windows::UI::StartScreen::TileSize::Default
         };
         auto visuals = tile.VisualElements();
-        //visuals.Square71x71Logo(winrt::Windows::Foundation::Uri{ L"ms-appx:///Assets/LargeTile.scale-100.png" });
-        //visuals.Square150x150Logo(winrt::Windows::Foundation::Uri{ L"ms-appx:///Assets/LargeTile.scale-100.png" });
-        visuals.Wide310x150Logo(winrt::Windows::Foundation::Uri{ L"ms-appx:///Assets/LargeTile.scale-100.png" });
-        visuals.Square310x310Logo(winrt::Windows::Foundation::Uri{ L"ms-appx:///Assets/LargeTile.scale-100.png" });
+        //visuals.Square71x71Logo(winrt::Windows::Foundation::Uri{ L"ms-appx:///Assets/LargeTile.png" });
+        //visuals.Square150x150Logo(winrt::Windows::Foundation::Uri{ L"ms-appx:///Assets/LargeTile.png" });
+        visuals.Wide310x150Logo(winrt::Windows::Foundation::Uri{ L"ms-appx:///Assets/LargeTile.png" });
+        visuals.Square310x310Logo(winrt::Windows::Foundation::Uri{ L"ms-appx:///Assets/LargeTile.png" });
         auto updater = winrt::Windows::UI::Notifications::TileUpdateManager::CreateTileUpdaterForSecondaryTile(tile.TileId());
 
         if (co_await tile.RequestCreateAsync())

@@ -591,7 +591,7 @@ winrt::Microsoft::UI::Xaml::DataTemplate MyDataModelTemplateSelector::SelectTemp
 
                 <essential:SettingsExpander Description="© 2023. All rights reserved." Header="Community Toolkit Gallery">
                     <essential:SettingsExpander.HeaderIcon>
-                        <BitmapIcon UriSource="ms-appx:///Assets/Square44x44Logo.scale-100.png" />
+                        <BitmapIcon UriSource="ms-appx:///Assets/Square44x44Logo.png" />
                     </essential:SettingsExpander.HeaderIcon>
                     <TextBlock
                         Foreground="{ThemeResource TextFillColorSecondaryBrush}"
@@ -672,7 +672,7 @@ winrt::Microsoft::UI::Xaml::DataTemplate MyDataModelTemplateSelector::SelectTemp
 
     &lt;essential:SettingsExpander Description=&quot;© 2023. All rights reserved.&quot; Header=&quot;Community Toolkit Gallery&quot;&gt;
         &lt;essential:SettingsExpander.HeaderIcon&gt;
-            &lt;BitmapIcon UriSource=&quot;ms-appx:///Assets/Square44x44Logo.scale-100.png&quot; /&gt;
+            &lt;BitmapIcon UriSource=&quot;ms-appx:///Assets/Square44x44Logo.png&quot; /&gt;
         &lt;/essential:SettingsExpander.HeaderIcon&gt;
         &lt;TextBlock
             Foreground=&quot;{ThemeResource TextFillColorSecondaryBrush}&quot;

@@ -160,7 +160,7 @@ namespace winrt::WinUI3Example::implementation
 			L"Tile",
 			L"Tile", 
 			L"me", 
-			winrt::Windows::Foundation::Uri{L"ms-appx:///Assets/LargeTile.scale-100.png"}, 
+			winrt::Windows::Foundation::Uri{L"ms-appx:///Assets/LargeTile.png"},
 			winrt::Windows::UI::StartScreen::TileSize::Default
 		};
 		co_await tile.RequestCreateAsync();

@@ -57,11 +57,19 @@
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
 
-  <!-- Publish Properties -->
+  <!--
+    Publish Properties
+
+    These must NOT be gated on $(Configuration). The .NET SDK only adds the
+    crossgen2 (PublishReadyToRun) and ILLink (PublishTrimmed) packs to the
+    restore graph when the corresponding property is true *at restore time*.
+    A CI that restores the solution once (which evaluates as Debug) and then
+    builds Release would therefore fail with NETSDK1094 / a missing
+    Microsoft.NET.ILLink.Tasks. Both only take effect on publish, so leaving
+    them on unconditionally costs Debug builds nothing.
+  -->
   <PropertyGroup>
-    <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
-    <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
-    <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
-    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
 </Project>

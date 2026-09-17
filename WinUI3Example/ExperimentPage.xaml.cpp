@@ -39,7 +39,8 @@ namespace winrt::WinUI3Example::implementation
 		InitializeComponent();
 
 		m_timer.Interval(std::chrono::seconds(1));
-		m_timer.Tick({ this, &ExperimentPage::OnTick });
+		//a started DispatcherTimer does not keep this page alive, so the handler must only hold a weak reference
+		m_timer.Tick({ get_weak(), &ExperimentPage::OnTick });
 		m_timer.Start();
 
 		OnTick(nullptr, nullptr);
@@ -51,6 +52,13 @@ namespace winrt::WinUI3Example::implementation
 		{
 			m_timer.Stop();
 		}
+	}
+
+	void ExperimentPage::OnUnloaded(
+		winrt::Windows::Foundation::IInspectable const&,
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
+	{
+		m_timer.Stop();
 	}
 
 	void ExperimentPage::OnTick(winrt::Windows::Foundation::IInspectable const&, winrt::Windows::Foundation::IInspectable const&)

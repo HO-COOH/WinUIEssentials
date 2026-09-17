@@ -62,7 +62,7 @@
         <local:ControlExample HeaderText="Use a custom header icon">
             <essential:SettingsCard Description="You can use a FontIcon, SymbolIcon or BitmapIcon to set the cards HeaderIcon." Header="Icon options">
                 <essential:SettingsCard.HeaderIcon>
-                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Square44x44Logo.scale-100.png" />
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/Square44x44Logo.png" />
                 </essential:SettingsCard.HeaderIcon>
             </essential:SettingsCard>
             <local:ControlExample.Xaml>
@@ -70,7 +70,7 @@
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve"> &lt;essential:SettingsCard Description=&quot;You can use a FontIcon, SymbolIcon or BitmapIcon to set the cards HeaderIcon.&quot; Header=&quot;Icon options&quot;&gt;
     &lt;essential:SettingsCard.HeaderIcon&gt;
-        &lt;BitmapIcon ShowAsMonochrome=&quot;False&quot; UriSource=&quot;ms-appx:///Assets/Square44x44Logo.scale-100.png&quot; /&gt;
+        &lt;BitmapIcon ShowAsMonochrome=&quot;False&quot; UriSource=&quot;ms-appx:///Assets/Square44x44Logo.png&quot; /&gt;
     &lt;/essential:SettingsCard.HeaderIcon&gt;
 &lt;/essential:SettingsCard&gt;</x:String>
                     </local:CodeSource.Code>

@@ -143,7 +143,7 @@ menu.ShowAsync({});</x:String>
 	L&quot;Tile&quot;,
 	L&quot;Tile&quot;, 
 	L&quot;me&quot;, 
-	winrt::Windows::Foundation::Uri{L&quot;ms-appx:///Assets/LargeTile.scale-100.png&quot;}, 
+	winrt::Windows::Foundation::Uri{L&quot;ms-appx:///Assets/LargeTile.png&quot;},
 	winrt::Windows::UI::StartScreen::TileSize::Default
 };
 co_await tile.RequestCreateAsync();</x:String>
