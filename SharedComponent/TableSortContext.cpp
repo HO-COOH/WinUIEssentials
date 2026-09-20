@@ -7,6 +7,7 @@
 
 void TableSortContext::SortObject(int rowCount, std::vector<winrt::com_ptr<winrt::PackageRoot::implementation::TableRow>> const& tableRows)
 {
+	makeSortIndices(rowCount);
 	std::ranges::stable_sort(m_sortedIndices, [&tableRows, this](size_t lhsIndex, size_t rhsIndex)
 	{
 		auto const cmp = compareObject(
@@ -19,11 +20,13 @@ void TableSortContext::SortObject(int rowCount, std::vector<winrt::com_ptr<winrt
 
 void TableSortContext::SortString(int rowCount, TextLayoutCache const& textLayoutCache)
 {
+	makeSortIndices(rowCount);
 	std::ranges::stable_sort(m_sortedIndices, [&textLayoutCache, this](size_t lhsIndex, size_t rhsIndex)
 	{
+		auto const sortColumn = static_cast<size_t>(m_sortParameter.sortColumn);
 		auto const cmp =
-			textLayoutCache.GetCellContent(lhsIndex, m_sortParameter.sortColumn) <=>
-			textLayoutCache.GetCellContent(rhsIndex, m_sortParameter.sortColumn);
+			textLayoutCache.GetCellContent(static_cast<int>(lhsIndex), sortColumn) <=>
+			textLayoutCache.GetCellContent(static_cast<int>(rhsIndex), sortColumn);
 		return m_sortParameter.sortDirection == TableSortDirection::Ascending ? std::is_lt(cmp) : std::is_gt(cmp);
 	});
 }

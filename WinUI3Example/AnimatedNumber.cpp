@@ -33,7 +33,7 @@ namespace winrt::WinUI3Example::implementation
 			--childCount;
 		}
 
-		for (auto i = 0; i < digitCount; ++i)
+		for (uint32_t i = 0; i < digitCount; ++i)
 		{
 			auto digit = splitted.GetAt(i).as<AnimatedDigit>();
 			if (value[i] != digit.Value())

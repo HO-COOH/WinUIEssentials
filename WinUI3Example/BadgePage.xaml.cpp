@@ -22,7 +22,7 @@ namespace winrt::WinUI3Example::implementation
 
 	void BadgePage::ComboBox_SelectionChanged(
 		winrt::Windows::Foundation::IInspectable const& sender,
-		winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e)
+		winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const&)
 	{
 		winrt::Windows::UI::Notifications::BadgeUpdateManager::CreateBadgeUpdaterForApplication()
 			.Update(BadgeGlyphs::MakeBadgeNotification(sender.as<winrt::Microsoft::UI::Xaml::Controls::ComboBox>().SelectedItem().as<winrt::hstring>().data()));
@@ -30,8 +30,8 @@ namespace winrt::WinUI3Example::implementation
 
 
 	void BadgePage::Button_Click(
-		winrt::Windows::Foundation::IInspectable const& sender,
-		winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+		winrt::Windows::Foundation::IInspectable const&,
+		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		try
 		{

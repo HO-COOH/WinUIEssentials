@@ -69,8 +69,8 @@ void TextLayoutCache::SetNumColumns(size_t columns)
 }
 
 IDWriteTextLayout* TextLayoutCache::GetOrCreate(
-	int column, 
-	std::wstring_view str, 
+	size_t column,
+	std::wstring_view str,
 	FLOAT maxWidth, 
 	FLOAT maxHeight, 
 	DWRITE_TEXT_ALIGNMENT horizontalAlignment, 
@@ -142,7 +142,7 @@ void TextLayoutCache::SetColumnFormat(
 		++columnCache.m_contentLayoutVersion;
 }
 
-IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column)
+IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, size_t column)
 {
 	//first row for Header
 	int const rowIndex = row + 1;
@@ -150,7 +150,7 @@ IDWriteTextLayout* TextLayoutCache::GetOrCreate(int row, int column)
 		return nullptr;
 
 	auto& rowCache = m_perCellCache[rowIndex];
-	if (column >= static_cast<int>(rowCache.size()))
+	if (column >= rowCache.size())
 		return nullptr;
 
 	auto& cache = rowCache[column];
@@ -211,14 +211,14 @@ bool TextLayoutCache::IsRowStale(int row) const
 	return m_rowDataVersions[row] != m_dataVersion;
 }
 
-void TextLayoutCache::SetCellContent(int row, int column, std::wstring_view str)
+void TextLayoutCache::SetCellContent(int row, size_t column, std::wstring_view str)
 {
 	int const rowIndex = row + 1;
 	if (rowIndex >= static_cast<int>(m_perCellCache.size()))
 		m_perCellCache.resize(rowIndex + 1);
 
 	auto& rowCache = m_perCellCache[rowIndex];
-	if (column >= static_cast<int>(rowCache.size()))
+	if (column >= rowCache.size())
 		rowCache.resize(column + 1);
 
 	auto& cache = rowCache[column];
@@ -242,10 +242,20 @@ void TextLayoutCache::SetCellContent(int row, int column, std::wstring_view str)
 	winrt::check_hresult(cache.layout->SetParagraphAlignment(columnCache.ContentVerticalAlignment));
 }
 
-std::wstring_view TextLayoutCache::GetCellContent(int row, int column) const
+std::wstring_view TextLayoutCache::GetCellContent(int row, size_t column) const
 {
-	//row 0 is for header row
-	return m_perCellCache[row + 1][column].content;
+	//row 0 is for header row. Callers reach here with a source row mapped from a
+	//hit-test or the sort permutation, which can outrun the cache when rows were
+	//added but their data has not been pushed yet.
+	size_t const rowIndex = static_cast<size_t>(row) + 1;
+	if (rowIndex >= m_perCellCache.size())
+		return {};
+
+	auto const& rowCache = m_perCellCache[rowIndex];
+	if (column >= rowCache.size())
+		return {};
+
+	return rowCache[column].content;
 }
 
 void TextLayoutCache::MarkRowFresh(int row)

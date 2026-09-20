@@ -41,7 +41,7 @@ public:
 
 	//for header
 	IDWriteTextLayout* GetOrCreate(
-		int column,
+		size_t column,
 		std::wstring_view str,
 		FLOAT maxWidth,
 		FLOAT maxHeight,
@@ -57,7 +57,7 @@ public:
 	);
 	IDWriteTextLayout* GetOrCreate(
 		int row,
-		int column
+		size_t column
 	);
 
 	//Bump global data version so all rows look stale on the next draw.
@@ -67,10 +67,10 @@ public:
 	bool IsRowStale(int row) const;
 
 	//Called by RowRequestedEventArgs::SetRow during the draw-thread data fetch.
-	void SetCellContent(int row, int column, std::wstring_view str);
+	void SetCellContent(int row, size_t column, std::wstring_view str);
 
 	//Read the cached cell text, when EditTemplate is used but the ItemTemplate for that column is not set
-	std::wstring_view GetCellContent(int row, int column) const;
+	std::wstring_view GetCellContent(int row, size_t column) const;
 	
 	//Stamp `row` with the current data version. Call after every column
 	//for that row has been pushed via SetCellContent.

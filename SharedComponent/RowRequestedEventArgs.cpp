@@ -31,7 +31,7 @@ namespace winrt::PackageRoot::implementation
 		{
 			auto const& cell = content[col];
 			if (auto str = cell.try_as<winrt::hstring>())
-				m_table.m_d2dContent.m_textLayoutCache.SetCellContent(row, static_cast<int>(col), std::wstring_view{ *str });
+				m_table.m_d2dContent.m_textLayoutCache.SetCellContent(row, col, std::wstring_view{ *str });
 			else
 				m_setRowData.push_back(SetRowData{ row, static_cast<int>(col), cell });
 		}

@@ -175,7 +175,9 @@ void TableD2DContent::DrawPartialCell(int row, int column, std::wstring_view con
 	if (m_swapChain.CurrentSize.Width <= 0 || m_swapChain.CurrentSize.Height <= 0)
 		return;
 
-	m_textLayoutCache.SetCellContent(row, column, content);
+	//`row` is a display row (both callers hit-test or replay a screen position),
+	//while the text cache is keyed by source row.
+	m_textLayoutCache.SetCellContent(m_table_ref.m_sortContext.Source(row), column, content);
 
 	auto const scale = m_swapChain.Scale;
 	auto const scrollOffsetX = m_scrollOffsetX.load(std::memory_order_relaxed);
@@ -237,7 +239,8 @@ void TableD2DContent::DrawPartialCell(int row, int column, std::wstring_view con
 		auto const& dirty = dirtyCells[i];
 		if (auto* const bg = getAlternateRowBackgroundBrush(dirty.row))
 			m_d2dContext->FillRectangle(clipRects[i], bg);
-		if (auto layout = m_textLayoutCache.GetOrCreate(dirty.row, dirty.column))
+		//dirty.row is a display row; map to source for the cache lookup.
+		if (auto layout = m_textLayoutCache.GetOrCreate(m_table_ref.m_sortContext.Source(dirty.row), dirty.column))
 		{
 			m_d2dContext->DrawTextLayout(
 				D2D1::Point2F(dirty.cellLeft + padLeft, dirty.rowTop + padTop),
@@ -406,6 +409,7 @@ void TableD2DContent::draw(FrameRequest::Flags frame)
 			//or marshal internally; documented on the IDL.
 			auto args = winrt::make_self<winrt::PackageRoot::implementation::RowRequestedEventArgs>(first, last, m_table_ref);
 			m_table_ref.m_tableData.RowRequested(*args);
+			m_dispatcher.TryEnqueue([&overlayManager = m_table_ref.m_overlayManager] { overlayManager.OnRowDataFetched(); });
 			fullRedraw = true;
 		}
 	}

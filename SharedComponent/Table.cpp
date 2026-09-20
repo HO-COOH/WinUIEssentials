@@ -234,6 +234,8 @@ namespace winrt::PackageRoot::implementation
                 ? m_sortContext.SortObject(rowCount, m_tableRowDataSource->m_items->m_data)
                 : m_sortContext.SortString(rowCount, m_d2dContent.m_textLayoutCache);
         }
+
+        m_overlayManager.OnSortChanged();
         requestDraw(true);
     }
 

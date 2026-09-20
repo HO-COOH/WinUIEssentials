@@ -44,7 +44,7 @@ namespace winrt::WinUI3Example::implementation
 		TranslateAnimation().From(-Width);
 	}
 
-	void EntranceAnimationDemo::RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	void EntranceAnimationDemo::RootGrid_Loaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		if constexpr (std::string_view{ WINDOWSAPPSDK_RELEASE_CHANNEL } == "experimental")
 		{

@@ -6,6 +6,17 @@
     xmlns:local="using:WinUI3Package"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 
+    <!--
+        This dictionary styles SettingsExpander's items, which are SettingsCards, so it
+        depends on DefaultSettingsCardStyle and the SettingsCard* theme brushes. Merge the
+        SettingsCard dictionary explicitly instead of relying on a SettingsCard happening to
+        be constructed first, which is not guaranteed when SettingsExpander is the first
+        control loaded.
+    -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///WinUI3Package/SettingsCard_Resource.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
     <x:String x:Key="SettingsExpanderChevronToolTip">Show all settings</x:String>
     <Thickness x:Key="SettingsExpanderHeaderPadding">16,16,4,16</Thickness>
     <Thickness x:Key="SettingsExpanderItemPadding">58,8,44,8</Thickness>

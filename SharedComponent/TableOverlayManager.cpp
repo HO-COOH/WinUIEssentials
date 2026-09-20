@@ -184,24 +184,11 @@ void TableOverlayManager::SetCellContent(int row, int column, winrt::Windows::Fo
 	if (row >= static_cast<int>(columnState.rowDataCache.size()))
 		columnState.rowDataCache.resize(row + 1);
 	columnState.rowDataCache[row] = cellObject;
+}
 
-	auto& widthManager = m_table.m_d2dContent.m_columnWidthManager;
-	if (column >= static_cast<int>(widthManager.NumColumns()))
-		return; //widths not ready yet; OnColumnsInitialized rebinds from cache once they are
-
-	ensureColumn(column);
-	auto& slot = getOrCreateFreeSlot(columnState, row, column);
-	bool const recycled = std::exchange(slot.row, row) != row;
-	if (recycled)
-	{
-		auto wrapper = winrt::make<winrt::PackageRoot::implementation::TableCellDataWrapper>(m_table, row, column, cellObject);
-		slot.element.DataContext(wrapper);
-		m_cellExpression.SetReferenceParameter(L"ColumnProperty", columnState.ColumnProperty);
-		auto const& tableHeight = m_table.m_d2dContent.m_tableHeight;
-		float const cellY = tableHeight.HeaderRowHeight() + row * tableHeight.ContentRowHeight();
-		m_cellExpression.SetScalarParameter(L"cellY", cellY);
-		winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(slot.element).StartAnimation(L"Translation.XY", m_cellExpression);
-	}
+void TableOverlayManager::OnRowDataFetched()
+{
+	rebindVisibleRows(m_table.m_d2dContent.ScrollOffsetY());
 }
 
 void TableOverlayManager::OnColumnResized(int resizedColumn)
@@ -228,6 +215,16 @@ void TableOverlayManager::OnColumnResized(int resizedColumn)
 	}
 }
 
+void TableOverlayManager::OnSortChanged()
+{
+	for (auto& column : m_columns)
+	{
+		for (auto& slot : column.slots)
+			slot.row = -1;
+	}
+	rebindVisibleRows(m_table.m_d2dContent.ScrollOffsetY());
+}
+
 void TableOverlayManager::OnColumnsInitialized()
 {
 	rebindVisibleRows(m_table.m_d2dContent.ScrollOffsetY());
@@ -236,19 +233,38 @@ void TableOverlayManager::OnColumnsInitialized()
 void TableOverlayManager::rebindVisibleRows(float targetY)
 {
 	auto const [first, last] = m_table.m_d2dContent.GetVisibleRowRangeInclusive(targetY);
+	auto const& tableHeight = m_table.m_d2dContent.m_tableHeight;
 	for (int col = 0; col < m_columns.size(); ++ col)
 	{
-		//Gate on cached data, not ColumnProperty: cells pushed before widths existed
-		//were cached but never got a ColumnProperty (ensureColumn runs past the width
-		//guard in SetCellContent). SetCellContent creates it now that widths are known.
-		if (m_columns[col].rowDataCache.empty())
+		//Gate on cached data: a column nothing has been pushed for has no cell to bind.
+		auto const& rowDataCache = m_columns[col].rowDataCache;
+		if (rowDataCache.empty())
 			continue;
 
-		int const rEnd = (std::min)(last, static_cast<int>(m_columns[col].rowDataCache.size()) - 1);
-		for (int r = first; r <= rEnd; ++r)
+		//widths not ready yet; OnColumnsInitialized calls back once they are
+		if (col >= static_cast<int>(m_table.m_d2dContent.m_columnWidthManager.NumColumns()))
+			continue;
+
+		//first/last are display rows; the cache is keyed by source row.
+		for (int r = first; r <= last; ++r)
 		{
-			if (auto const& cached = m_columns[col].rowDataCache[r])
-				SetCellContent(r, col, cached);
+			auto const sourceRow = m_table.m_sortContext.Source(r);
+			if (sourceRow >= static_cast<int>(rowDataCache.size()))
+				continue;
+			auto const& cached = rowDataCache[sourceRow];
+			if (!cached)
+				continue;
+
+			auto& columnState = ensureColumn(col);
+			auto& slot = getOrCreateFreeSlot(columnState, r, col);
+			if (std::exchange(slot.row, r) == r)
+				continue; //already bound to this display row
+
+			auto wrapper = winrt::make<winrt::PackageRoot::implementation::TableCellDataWrapper>(m_table, sourceRow, col, cached);
+			slot.element.DataContext(wrapper);
+			m_cellExpression.SetReferenceParameter(L"ColumnProperty", columnState.ColumnProperty);
+			m_cellExpression.SetScalarParameter(L"cellY", tableHeight.HeaderRowHeight() + r * tableHeight.ContentRowHeight());
+			winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(slot.element).StartAnimation(L"Translation.XY", m_cellExpression);
 		}
 	}
 }
@@ -291,7 +307,14 @@ void TableOverlayManager::InvalidateRows(int startRow, int endRow)
 			);
 		}
 
-		for (auto& slot : column.slots | std::views::filter([&](CellSlot const& slot) { return slot.row >= startRow && slot.row <= endRow; }))
+		//startRow/endRow are source rows; slot.row is a display row.
+		for (auto& slot : column.slots | std::views::filter([&](CellSlot const& slot)
+		{
+			if (slot.row < 0)
+				return false;
+			auto const sourceRow = m_table.m_sortContext.Source(slot.row);
+			return sourceRow >= startRow && sourceRow <= endRow;
+		}))
 			slot.row = -1;
 	}
 }
@@ -302,14 +325,18 @@ void TableOverlayManager::BeginEdit(int row, int column)
 	if (!columnData.m_editTemplate)
 		return;
 
+	//`row` is a display row (hit-tested from pointer Y); both data stores are
+	//keyed by source row.
+	auto const sourceRow = m_table.m_sortContext.Source(row);
+
 	auto const hasItemTemplate = static_cast<bool>(columnData.m_itemTemplate);
 	auto editControl = m_editControl.MakeControl(
-		columnData.m_editTemplate, 
-		 hasItemTemplate?  
-			m_columns[column].rowDataCache[row] : 
-			winrt::box_value(m_table.m_d2dContent.m_textLayoutCache.GetCellContent(row, column)),
+		columnData.m_editTemplate,
+		 hasItemTemplate?
+			m_columns[column].rowDataCache[sourceRow] :
+			winrt::box_value(m_table.m_d2dContent.m_textLayoutCache.GetCellContent(sourceRow, column)),
 		!hasItemTemplate,
-		row, 
+		row,
 		column
 	);
 

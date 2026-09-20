@@ -59,7 +59,7 @@ namespace winrt::WinUI3Example::implementation
 		WinUI3Example::AnimatedWindowSize{}.Activate();
 	}
 
-	void WindowExPage::PropertyBindingSampleWindow_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+	void WindowExPage::PropertyBindingSampleWindow_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
 		WinUI3Example::PropertyBindingSampleWindow{}.Activate();
 	}

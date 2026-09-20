@@ -6,6 +6,7 @@ import "ContextMenuRequestedEventArgs.idl";
 
 namespace PackageRoot
 {
+    [bindable]
     [default_interface]
     [contentproperty("Items")]
     runtimeclass Table : WinUINamespace.UI.Xaml.Controls.SwapChainPanel, WinUINamespace.UI.Xaml.Data.INotifyPropertyChanged

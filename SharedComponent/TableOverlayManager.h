@@ -53,6 +53,9 @@ class TableOverlayManager
 	float cellContentWidth(int column) const;
 
 	void recycleControls(float targetY);
+
+	//Bind every visible display row of every column from rowDataCache, creating or
+	//recycling a slot per cell. The only path that materializes a cell element.
 	void rebindVisibleRows(float targetY);
 public:
 	TableOverlayManager(winrt::PackageRoot::implementation::Table& table);
@@ -61,13 +64,28 @@ public:
 	void OnLoaded();
 	void OnColumnsInitialized();
 
+	//`row` is a *source* row, as pushed by RowRequested. Caches only; binding is
+	//deferred to OnRowDataFetched. Binding here instead would defeat virtualization,
+	//because a sort requests every row so the comparison can see the whole data set:
+	//for a 1000-row table that is 1000 controls plus 1000 INotifyPropertyChanged
+	//subscriptions, each of which makes cppwinrt attempt (and fail) to take an agile
+	//reference on XAML's non-agile binding delegate.
 	void SetCellContent(
 		int row,
 		int column,
 		winrt::Windows::Foundation::IInspectable const& cellObject
 	);
 
+	//A RowRequested batch finished filling the cache; bind the visible window.
+	void OnRowDataFetched();
+
 	void OnColumnResized(int resizedColumn);
+
+	//The sort permutation changed, so every slot's display row now points at
+	//different data. Release all slots and rebind the visible window from cache;
+	//without this a slot keeps its old DataContext (getOrCreateFreeSlot would
+	//match the unchanged display row and skip the rebind).
+	void OnSortChanged();
 
 	//mouse scroll uses the same easing function as TableD2DContent
 	void OnMouseScroll(float targetY);

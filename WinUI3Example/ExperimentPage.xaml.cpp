@@ -94,7 +94,7 @@ namespace winrt::WinUI3Example::implementation
 	}
 
 	void ExperimentPage::SlowButtonMorph_Click(
-		winrt::Windows::Foundation::IInspectable const& sender, 
+		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
 	{
 		morphButtonToProgressBar(ButtonMorph(), ProgressBarMorph(), std::chrono::milliseconds{ 3000 });
@@ -163,8 +163,8 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		static float x = 0.01;
-		x += 0.01;
+		static float x = 0.01f;
+		x += 0.01f;
 		Graph().AddPoint(x, ValueSlider().Value());
 	}
 

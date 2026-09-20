@@ -11,7 +11,7 @@ namespace WinUIEssentials
 {
 	[[maybe_unused]] auto& InitializeWithWindow(auto&& obj, HWND hwnd)
 	{
-		obj.as<IInitializeWithWindow>()->Initialize(hwnd);
+		obj.template as<IInitializeWithWindow>()->Initialize(hwnd);
 		return obj;
 	}
 

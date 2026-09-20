@@ -209,7 +209,7 @@ namespace winrt::WinUI3Example::implementation
         ZIndexForwardAnimation().Begin();
     }
 
-    void FlipWindow::GoBackButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
+    void FlipWindow::GoBackButton_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
         m_frontVisual.RotationAngleInDegrees(0.f);
         m_backVisual.RotationAngleInDegrees(-180.f);

@@ -23,7 +23,7 @@ namespace winrt::WinUI3Example::implementation
     }
 
     void WrapPanelPage::ItemControl_ItemClick(
-        winrt::Windows::Foundation::IInspectable const& sender, 
+        winrt::Windows::Foundation::IInspectable const&, 
         winrt::Microsoft::UI::Xaml::Controls::ItemClickEventArgs const& e)
     {
         if (auto item = e.ClickedItem().try_as<WinUI3Example::PhotoDataItemWithDimension>())
@@ -35,7 +35,7 @@ namespace winrt::WinUI3Example::implementation
     }
 
     void WrapPanelPage::AddButton_Click(
-        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const&,
         winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e)
     {
         static std::mt19937 eng{ std::random_device{}() };
