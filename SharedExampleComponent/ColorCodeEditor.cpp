@@ -5,6 +5,7 @@
 #endif
 #include <ranges>
 #include "Language.h"
+#include <winrt/Windows.ApplicationModel.DataTransfer.h>
 #if defined Build_WinUI3Example
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #else
@@ -436,6 +437,21 @@ namespace winrt::PackageRoot::implementation
                 m_highlighted.Append(run);
             }
         );
+    }
+
+    void ColorCodeEditor::CopyButton_Click(
+        winrt::Windows::Foundation::IInspectable const&,
+        winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const&
+    )
+    {
+        winrt::Windows::ApplicationModel::DataTransfer::DataPackage dataPackage;
+        dataPackage.SetText(m_code);
+        winrt::Windows::ApplicationModel::DataTransfer::Clipboard::SetContent(dataPackage);
+
+        //Going straight to Copied is a no-op when we are already there, so bounce
+        //through Idle first to make a second click restart the animation.
+        winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(CopyButton(), L"Idle", false);
+        winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(CopyButton(), L"Copied", false);
     }
 }
 

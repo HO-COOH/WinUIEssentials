@@ -60,6 +60,11 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty NamespaceColorProperty();
 
         static winrt::hstring GetLineGutterFromCode(winrt::hstring const& code);
+
+        void CopyButton_Click(
+            winrt::Windows::Foundation::IInspectable const& sender,
+            winrt::WinUINamespace::UI::Xaml::RoutedEventArgs const& e
+        );
     private:
 		winrt::hstring m_code;
         winrt::PackageRoot::Language m_language{ winrt::PackageRoot::Language::Undefined };
