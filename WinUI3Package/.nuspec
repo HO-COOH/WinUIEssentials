@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinUIEssential.WinUI3</id>
-        <version>1.7.2</version>
+        <version>1.8.1</version>
         <title>WinUIEssential(WinUI3)</title>
         <authors>Peter</authors>
         <owners></owners>
@@ -59,7 +59,16 @@
         <file
             src="..\WinUI3Package.CSharp\bin\x64\Release\net6.0-windows10.0.17763.0\WinUIEssential.WinUI3.pdb" 
             target="lib/net6.0-windows10.0.17763.0"/>
-        
+        <file 
+            src="WinUIEssential.WinUI3.Managed.targets"
+            target="build/net6.0-windows10.0.17763.0/WinUIEssential.WinUI3.targets"/>
+        <file 
+            src="WinUIEssential.WinUI3.Managed.targets"
+            target="buildTransitive/net6.0-windows10.0.17763.0/WinUIEssential.WinUI3.targets"/>
+        <file src="..\x64\Release\WinUI3Package\WinUI3Package.dll" target="runtimes/win-x64/native"/>
+        <file src="..\x64\Release\WinUI3Package\WinUI3Package.pri" target="runtimes/win-x64/native"/>
+        <file src="..\ARM64\Release\WinUI3Package\WinUI3Package.dll" target="runtimes/win-arm64/native"/>
+        <file src="..\ARM64\Release\WinUI3Package\WinUI3Package.pri" target="runtimes/win-arm64/native"/>
 
         <!-- Meta -->
         <file src="..\MainLogo.png" target="assets\"/>

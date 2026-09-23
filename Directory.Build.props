@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <!--
+    C++ projects derive their default OutDir from $(SolutionDir). That is only set
+    when building the .sln, so building a consumer project directly (or referencing
+    a .vcxproj via ProjectReference) would otherwise retarget the native output to a
+    project-local tree that never receives the compiled .xbf resource dictionaries.
+    Pin it to this directory so every entry point produces the same layout.
+  -->
+  <PropertyGroup>
+    <SolutionDir Condition="'$(SolutionDir)' == '' or '$(SolutionDir)' == '*Undefined*'">$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+
+  <!--
     Raise the precompiled-header virtual-memory reservation for the compiler.
     C++/WinRT + WinUI PCHs can exceed the default /Zm range even on the x64
     compiler, producing "Failed to create virtual memory for PCH" and

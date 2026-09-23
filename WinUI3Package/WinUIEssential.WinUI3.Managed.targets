@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup Condition="'$(WinUIEssentialWinUI3RegisterWinmd)' != 'false'">
+        <WindowsMetadataReference
+            Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package.winmd"
+            Implementation="WinUI3Package.dll"/>
+    </ItemGroup>
+
+    <!--
+      The projection assembly is architecture neutral, so a project targeting an architecture this
+      package has no runtimes\win-<arch>\native\WinUI3Package.dll for still compiles and links. The
+      first sign of trouble is then a System.IO.FileNotFoundException thrown out of WinRT.Runtime.dll
+      when an activation factory is looked up at runtime, which names neither this package nor the
+      architecture. Fail the build instead.
+
+      The check probes the package layout rather than a fixed list, so it starts passing on its own
+      once an architecture is added to the package; only the list in the error message is hardcoded
+      and needs updating alongside the .nuspec. It stays quiet when no architecture is pinned
+      (AnyCPU with no RuntimeIdentifier, as in a class library), because the application that
+      eventually consumes it is what decides the architecture.
+    -->
+    <Target Name="WinUIEssentialWinUI3CheckNativeRuntime"
+            BeforeTargets="ResolveReferences">
+
+        <!-- Resolved here rather than at import time: PlatformTarget and RuntimeIdentifier are not
+             settled until the SDK targets have run, and this file is imported before them. -->
+        <PropertyGroup>
+            <!-- Always detected, never taken from the project: a hand-set value could name an architecture
+                 other than the one being built and make the check probe the wrong folder. -->
+            <WinUIEssentialWinUI3Architecture></WinUIEssentialWinUI3Architecture>
+            <!-- A RuntimeIdentifier (win-x64, win-arm64, ...) carries the architecture after its last '-'. Like the
+                 next two, this only fills the property while it is empty, so the first source found wins. -->
+            <WinUIEssentialWinUI3Architecture Condition="'$(WinUIEssentialWinUI3Architecture)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier.Substring($([MSBuild]::Add($(RuntimeIdentifier.LastIndexOf('-')), 1))))</WinUIEssentialWinUI3Architecture>
+            <!-- No RuntimeIdentifier: an explicit PlatformTarget (x64, x86, ARM64). AnyCPU pins no architecture. -->
+            <WinUIEssentialWinUI3Architecture Condition="'$(WinUIEssentialWinUI3Architecture)' == '' and '$(PlatformTarget)' != '' and '$(PlatformTarget)' != 'AnyCPU'">$(PlatformTarget)</WinUIEssentialWinUI3Architecture>
+            <!-- No usable PlatformTarget either: fall back to the build Platform, again skipping AnyCPU. -->
+            <WinUIEssentialWinUI3Architecture Condition="'$(WinUIEssentialWinUI3Architecture)' == '' and '$(Platform)' != '' and '$(Platform)' != 'AnyCPU'">$(Platform)</WinUIEssentialWinUI3Architecture>
+            <!-- Win32 is the C++ / solution platform name for 32 bit; the runtime identifier spells it x86. -->
+            <WinUIEssentialWinUI3Architecture Condition="'$(WinUIEssentialWinUI3Architecture)' == 'Win32'">x86</WinUIEssentialWinUI3Architecture>
+            <!-- Platform and PlatformTarget spell it ARM64. The Exists check below is case-insensitive; lowercasing
+                 makes the error message spell it like the runtimes\win-<arch> folders. -->
+            <WinUIEssentialWinUI3Architecture>$(WinUIEssentialWinUI3Architecture.ToLowerInvariant())</WinUIEssentialWinUI3Architecture>
+        </PropertyGroup>
+
+        <Error Code="WUE0001"
+               Condition="'$(WinUIEssentialWinUI3Architecture)' != '' and !Exists('$(MSBuildThisFileDirectory)..\..\runtimes\win-$(WinUIEssentialWinUI3Architecture)\native\WinUI3Package.dll')"
+               Text="WinUIEssential.WinUI3 has no native WinUI3Package.dll for $(WinUIEssentialWinUI3Architecture), only for: x64, arm64. Build for one of those; without it, the first use of a WinUIEssential type throws System.IO.FileNotFoundException from WinRT.Runtime.dll."/>
+    </Target>
+</Project>

@@ -1213,6 +1213,7 @@ namespace winrt::PackageRoot::implementation
 
     void Table::SwapChainPanel_PointerExited(winrt::Windows::Foundation::IInspectable const&, winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const&)
     {
+        m_resizeRequest = false;
         m_d2dContent.SetHover(-1.0);
     }
 }

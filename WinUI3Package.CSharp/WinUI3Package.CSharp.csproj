@@ -19,6 +19,14 @@
 		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmdDir)' == '' and '$(Platform)' == 'ARM64'">$(winuiEssentialRoot)ARM64\$(Configuration)\WinUI3Package\WinUI3Package.winmd</WinUIEssentialWinmd>
 		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmdDir)' == '' and ('$(Platform)' == 'x86' or '$(Platform)' == 'Win32')">$(winuiEssentialRoot)$(Configuration)\WinUI3Package\WinUI3Package.winmd</WinUIEssentialWinmd>
 		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmd)' != ''">$([MSBuild]::NormalizePath('$(WinUIEssentialWinmd)'))</WinUIEssentialWinmd>
+
+		<!--
+			The native project spells the 32 bit platform "Win32"; this project spells it "x86".
+			Map it so the ProjectReference below resolves to a configuration that WinUI3Package
+			actually declares when this project is built on its own (outside the .sln).
+		-->
+		<WinUIEssentialNativePlatform Condition="'$(Platform)' == 'x86' or '$(Platform)' == 'AnyCPU' or '$(Platform)' == ''">Win32</WinUIEssentialNativePlatform>
+		<WinUIEssentialNativePlatform Condition="'$(WinUIEssentialNativePlatform)' == ''">$(Platform)</WinUIEssentialNativePlatform>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -30,9 +38,49 @@
 		<CsWinRTInputs Include="$(WinUIEssentialWinmd)" />
 	</ItemGroup>
 
+	<!--
+		Build the native component first so the .winmd consumed above is always current.
+		ReferenceOutputAssembly is false because the projection does not reference the
+		native output as an assembly - it feeds the .winmd to cswinrt through CsWinRTInputs,
+		and CsWinRTGenerateProjection is itself incremental on that file's timestamp.
+	-->
+	<ItemGroup Condition="'$(WinUIEssentialBuildNative)' != 'false'">
+		<ProjectReference Include="..\WinUI3Package\WinUI3Package.vcxproj"
+						  ReferenceOutputAssembly="false"
+						  SkipGetTargetFrameworkProperties="true"
+						  UndefineProperties="TargetFramework;TargetFrameworks;RuntimeIdentifier"
+						  SetPlatform="Platform=$(WinUIEssentialNativePlatform)" />
+	</ItemGroup>
+
 	<Target Name="WinUIEssentialCheckWinmd" BeforeTargets="CsWinRTGenerateProjection">
 		<Error Condition="'$(WinUIEssentialWinmd)' == ''" Text="WinUIEssentialWinmd is not specified." />
 		<Error Condition="'$(WinUIEssentialWinmd)' != '' and !Exists('$(WinUIEssentialWinmd)')" Text="WinUIEssentialWinmd file not found: $(WinUIEssentialWinmd)" />
 	</Target>
+
+	<!--
+		Pack the NuGet package once everything it ships exists. This used to be a post-build event on
+		WinUI3Package.vcxproj, but that project now builds before this one, so packing there always
+		captured the previous build's WinUIEssential.WinUI3.dll. Every Release build packs, as the
+		post-build event did; the .nuspec always takes the managed assembly from bin\x64\Release, so
+		build x64 last for a package whose bits are all current.
+		Pass -p:WinUIEssentialPack=false to build without producing a package.
+	-->
+	<Target Name="WinUIEssentialPack"
+			AfterTargets="Build"
+			Condition="'$(Configuration)' == 'Release' and '$(WinUIEssentialPack)' != 'false'">
+		<Exec Command="nuget.exe pack" WorkingDirectory="$(winuiEssentialRoot)WinUI3Package" />
+	</Target>
+
+	<!--
+		FindInvalidProjectReferences compares the target platform moniker of every project reference
+		against this project's and warns (MSB3851) because WinUI3Package targets a newer UAP version
+		than the 10.0.17763.0 this projection compiles for. The check only guards assembly references,
+		and the native reference above is build-ordering only - its .winmd is consumed by cswinrt, not
+		by the C# compiler. Microsoft.WindowsAppSDK.targets turns that check on after this project body
+		is evaluated, so the warning is demoted here instead.
+	-->
+	<PropertyGroup>
+		<MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3851</MSBuildWarningsAsMessages>
+	</PropertyGroup>
 
 </Project>
