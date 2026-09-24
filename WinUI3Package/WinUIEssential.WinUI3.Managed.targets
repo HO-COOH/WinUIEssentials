@@ -44,6 +44,6 @@
 
         <Error Code="WUE0001"
                Condition="'$(WinUIEssentialWinUI3Architecture)' != '' and !Exists('$(MSBuildThisFileDirectory)..\..\runtimes\win-$(WinUIEssentialWinUI3Architecture)\native\WinUI3Package.dll')"
-               Text="WinUIEssential.WinUI3 has no native WinUI3Package.dll for $(WinUIEssentialWinUI3Architecture), only for: x64, arm64. Build for one of those; without it, the first use of a WinUIEssential type throws System.IO.FileNotFoundException from WinRT.Runtime.dll."/>
+               Text="WinUIEssential.WinUI3 has no native WinUI3Package.dll for $(WinUIEssentialWinUI3Architecture), only for: x64, arm64."/>
     </Target>
 </Project>

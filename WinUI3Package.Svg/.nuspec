@@ -47,7 +47,7 @@
         <file src="..\ARM64\Release\WinUI3Package.Svg\WinUI3Package.Svg.pdb" target="lib/native/Release/ARM64"/>
 
         <!-- Meta -->
-        <file src="..\MainLogo.png" target="assets\"/>
+        <file src="..\assets\MainLogo.png" target="assets\"/>
         <file src="..\LICENSE.txt" target="licenses\"/>
         <file src="..\README.md" target="docs\"/>
         <file src="THIRD-PARTY-NOTICES.txt" target="licenses\"/>

@@ -71,7 +71,7 @@
         <!--<file src="..\x64\Release\UWPPackage\**\*" target="lib\uap10.0.17763\UWPPackage"/>-->
 
         <!-- Meta -->
-        <file src="..\MainLogo.png" target="assets\"/>
+        <file src="..\assets\MainLogo.png" target="assets\"/>
         <file src="..\LICENSE.txt" target="licenses\"/>
         <file src="..\README.md" target="docs\"/>
     </files>

@@ -56,7 +56,7 @@
         <file src="..\Release\UWPPackage.Svg\UWPPackage.Svg.pdb" target="lib/native/Release/Win32"/>
 
         <!-- Meta -->
-        <file src="..\MainLogo.png" target="assets\"/>
+        <file src="..\assets\MainLogo.png" target="assets\"/>
         <file src="..\LICENSE.txt" target="licenses\"/>
         <file src="..\README.md" target="docs\"/>
         <file src="THIRD-PARTY-NOTICES.txt" target="licenses\"/>

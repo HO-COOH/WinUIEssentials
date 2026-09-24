@@ -11,71 +11,59 @@
     Unloaded="OnUnloaded"
     mc:Ignorable="d">
 
-    <Grid RowSpacing="5">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <muxc:InfoBar
-            Title="This component is currently for demo only and is not in Package yet!"
-            IsClosable="False"
-            IsOpen="True"
-            Severity="Warning" />
-
-        <local:ControlExample
+    <local:ControlExample
             Grid.Row="1"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Stretch"
             HeaderText="Table demo">
-            <essential:Table
+        <essential:Table
                 x:Name="DemoTable"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 CornerRadius="{StaticResource ControlCornerRadius}"
                 HeaderBackground="{ThemeResource ControlFillColorDefault}"
                 HeaderFontWeight="Normal">
-                <essential:Table.ItemsSource>
-                    <local:DemoTableData />
-                </essential:Table.ItemsSource>
-                <essential:Table.Columns>
-                    <essential:TableColumn Content="Id" />
-                    <essential:TableColumn Content="First Name" />
-                    <essential:TableColumn Content="Last Name" />
-                    <essential:TableColumn Content="Email" />
-                    <essential:TableColumn Content="Gender" />
-                    <essential:TableColumn Content="Dob" />
-                    <essential:TableColumn Content="Active At" />
-                    <essential:TableColumn Content="Is Active">
-                        <essential:TableColumn.ItemTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding Value, Mode=TwoWay}" />
-                            </DataTemplate>
-                        </essential:TableColumn.ItemTemplate>
-                    </essential:TableColumn>
+            <essential:Table.ItemsSource>
+                <local:DemoTableData />
+            </essential:Table.ItemsSource>
+            <essential:Table.Columns>
+                <essential:TableColumn Content="Id" />
+                <essential:TableColumn Content="First Name" />
+                <essential:TableColumn Content="Last Name" />
+                <essential:TableColumn Content="Email" />
+                <essential:TableColumn Content="Gender" />
+                <essential:TableColumn Content="Dob" />
+                <essential:TableColumn Content="Active At" />
+                <essential:TableColumn Content="Is Active">
+                    <essential:TableColumn.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Value, Mode=TwoWay}" />
+                        </DataTemplate>
+                    </essential:TableColumn.ItemTemplate>
+                </essential:TableColumn>
 
-                    <essential:TableColumn Content="Department" />
-                    <essential:TableColumn Content="Designation" />
-                    <essential:TableColumn Content="Address">
-                        <essential:TableColumn.EditTemplate>
-                            <DataTemplate x:DataType="x:String">
-                                <TextBox Text="{x:Bind}" />
-                            </DataTemplate>
-                        </essential:TableColumn.EditTemplate>
-                    </essential:TableColumn>
-                </essential:Table.Columns>
-            </essential:Table>
-            <local:ControlExample.Output>
-                <TextBlock MinWidth="75">
+                <essential:TableColumn Content="Department" />
+                <essential:TableColumn Content="Designation" />
+                <essential:TableColumn Content="Address">
+                    <essential:TableColumn.EditTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <TextBox Text="{x:Bind}" />
+                        </DataTemplate>
+                    </essential:TableColumn.EditTemplate>
+                </essential:TableColumn>
+            </essential:Table.Columns>
+        </essential:Table>
+        <local:ControlExample.Output>
+            <TextBlock MinWidth="75">
                     <Run Text="Fps: " />
                     <Run Text="{x:Bind DemoTable.Fps, Mode=OneWay}" />
-                </TextBlock>
-            </local:ControlExample.Output>
+            </TextBlock>
+        </local:ControlExample.Output>
 
-            <local:ControlExample.Xaml>
-                <local:CodeSource>
-                    <local:CodeSource.Code>
-                        <x:String xml:space="preserve">&lt;essential:Table
+        <local:ControlExample.Xaml>
+            <local:CodeSource>
+                <local:CodeSource.Code>
+                    <x:String xml:space="preserve">&lt;essential:Table
     x:Name=&quot;DemoTable&quot;
     HorizontalAlignment=&quot;Stretch&quot;
     VerticalAlignment=&quot;Stretch&quot;
@@ -112,10 +100,8 @@
         &lt;/essential:TableColumn&gt;
     &lt;/essential:Table.Columns&gt;
 &lt;/essential:Table&gt;</x:String>
-                    </local:CodeSource.Code>
-                </local:CodeSource>
-            </local:ControlExample.Xaml>
-        </local:ControlExample>
-
-    </Grid>
+                </local:CodeSource.Code>
+            </local:CodeSource>
+        </local:ControlExample.Xaml>
+    </local:ControlExample>
 </Page>

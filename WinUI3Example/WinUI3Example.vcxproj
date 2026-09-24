@@ -2113,8 +2113,8 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\MainLogo.ico" />
-    <Image Include="..\MainLogo.png" />
+    <Image Include="..\assets\MainLogo.ico" />
+    <Image Include="..\assets\MainLogo.png" />
     <Image Include="Assets\BigFourSummerHeat.jpg" />
     <Image Include="Assets\cliff.jpg" />
     <Image Include="Assets\LargeTile.scale-100.png" />

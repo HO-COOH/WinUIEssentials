@@ -1,6 +1,17 @@
-﻿![](MainLogo.png) 
-# WinUI Essentials
-A repo dedicated for simplifying C++ development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK).
+﻿<p align="center">
+  <img src="assets/MainLogo.png" />
+</p>
+
+<h1 align="center">WinUI Essential</h1>
+
+<p align="center">
+  A repo dedicated for simplifying development with WinUI2 (Universal Windows Platform) and WinUI3 (Windows App SDK) for both
+  <img src="assets/cpp.svg" alt="C++" height="20" valign="middle" />
+  and
+  <img src="assets/csharp.svg" alt="C#" height="20" valign="middle" />.
+</p>
+
+
 
 ## Nuget
 |Package|UWP|WinUI3|

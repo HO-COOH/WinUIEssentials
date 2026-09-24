@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>WinUIEssential.WinUI3</id>
-        <version>1.8.1</version>
+        <version>1.8.0</version>
         <title>WinUIEssential(WinUI3)</title>
         <authors>Peter</authors>
         <owners></owners>
@@ -71,7 +71,7 @@
         <file src="..\ARM64\Release\WinUI3Package\WinUI3Package.pri" target="runtimes/win-arm64/native"/>
 
         <!-- Meta -->
-        <file src="..\MainLogo.png" target="assets\"/>
+        <file src="..\assets\MainLogo.png" target="assets\"/>
         <file src="..\LICENSE.txt" target="licenses\"/>
         <file src="..\README.md" target="docs\"/>
     </files>

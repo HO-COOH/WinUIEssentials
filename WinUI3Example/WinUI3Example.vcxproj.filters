@@ -616,10 +616,10 @@
     <Image Include="Assets\cliff.jpg">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\MainLogo.png">
+    <Image Include="..\assets\MainLogo.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="..\MainLogo.ico">
+    <Image Include="..\assets\MainLogo.ico">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
