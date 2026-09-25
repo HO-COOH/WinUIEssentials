@@ -75,7 +75,7 @@ You can reference Github Action for detailed build steps.
 ### Contribute a new templated control
 0. **DO NOT submit a PR that's purely AI written WITHOUT your reviewing.** I will **NOT** review it.
 1. If it is a templated control, create a control with the `ViewModel` file template and a `ResourceDictionary` xaml file
-2. Add an entry in the `WinUIEssential.WinU3.targets` so that the `.xbf` file is properly copied (see that file for example) 
+2. Add an entry in the `WinUIEssential.WinUI3.targets` so that the `.xbf` file is properly copied (see that file for example) 
 3. Please also consider adding a demo page for the control, and add it to `MainWindow.xaml.h` `MainWindow::s_page` (see the file for example)
 
 -----
@@ -127,6 +127,7 @@ You can reference Github Action for detailed build steps.
 |ToolTipHelper | :x: | :white_check_mark: | WinRT component
 |CommandBarHelper | :x: | :white_check_mark: | WinRT component
 |IInitializeWithWindowHelper | :x: | :white_check_mark: | Header only
+|DpiUtils | :x: | :white_check_mark: | Header only
 |WindowCaptionButtonThemeWorkaround | :white_check_mark: | :white_check_mark: | WinRT component
 |MicaBackdropWithFallback | :x: | :white_check_mark: | WinRT component
 |NonMaximizableWindowWorkaround | :x: | :white_check_mark: | WinRT component
@@ -150,7 +151,7 @@ You can reference Github Action for detailed build steps.
 
 ---
 ## WinUIIncludes
-Include the WinUI2 headers in your `pch.h`, so you don't waste your time figuring out where the compilation error comming from./
+Include the WinUI2 headers in your `pch.h`, so you don't waste your time figuring out where the compilation error coming from.
 
 Usage:
 Add this in your `pch.h`
@@ -293,7 +294,7 @@ Similar to [ToastTemplates](#ToastHelper), but for strongly-typed tile templates
 ## TileBuilder --- *namespace `TileBuilder`*
 Similar to [ToastBuilder](#ToastHelper), but for building tiles.
 
-## Glphys --- *namespace `Glyphs`*
+## Glyphs --- *namespace `Glyphs`*
 Font glyphs value for Segoe MDL2 Assets fonts. Usage:
 ```cpp
 #include <Glyphs.hpp>
@@ -413,14 +414,14 @@ Note: For the reason of lacking reflection, we cannot implement `IsEqualStateTri
 ### IsNullOrEmptyStateTrigger --- *namespace `IsNullOrEmptyStateTrigger`*
 
 ## SettingsCard --- *namespace `SettingsCard`*
-See the same class in [Community Tookit](https://github.com/CommunityToolkit/Windows) for documentation.
+See the same class in [Community Toolkit](https://github.com/CommunityToolkit/Windows) for documentation.
 - Add this to `App.xaml` (UWP)
 
 > [!NOTE]
 > For WinUI3, add `#include #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>` to your `pch.h`
 
 ## SettingsExpander --- *namespace `SettingsExpander`*
-See the same class in [Community Tookit](https://github.com/CommunityToolkit/Windows) for documentation.
+See the same class in [Community Toolkit](https://github.com/CommunityToolkit/Windows) for documentation.
 ![](assets/settings-expander.png)
 
 
@@ -979,6 +980,17 @@ WinUIEssentials::Windows::Storage::Pickers::FileOpenPicker picker{ MainWindow::I
 picker.PickSingleFileAsync();
 ```
 
+## DpiUtils
+A header-only helper for converting between DIPs <=> and physical pixels.
+
+|Function|Description|
+|--------|-----------|
+|`DefaultDpi` | The dpi at which one DIP is one physical pixel, that is a scale factor of 1.0
+|`ScaleFactor(dpi)` | The scale factor of a dpi value, eg. `1.5` for 144 dpi
+|`ScaleForDpi<ResultType>(value, dpi)` | Scale a value in DIPs -> physical pixels
+|`UnscaleForDpi<ResultType>(value, dpi)` | Scale a value in physical pixels back -> DIPs
+|`ScaleRectForDpi(bound, dpi)` | Scale a `Windows.Foundation.Rect` in DIPs -> `Windows.Graphics.RectInt32` in physical pixels
+
 ## WindowCaptionButtonThemeWorkaround
 When you have `Window.ExtendsContentIntoTitleBar(true)`, the caption buttons often comes out with broken color regarding to theme. 
 This helper fixed it by working as a hidden control and listens to theme change message, and make corresponding changes to caption buttons.
@@ -1031,7 +1043,7 @@ Usage:
 Helper for workaround setting `IsMaximizable=false` but you are still able to maximize the window but double-tapping on the title bar.
 
 
-Simply delcare it under any `Resource` under a control that is inside a `Window`. Usage:
+Simply declare it under any `Resource` under a control that is inside a `Window`. Usage:
 ```xml
 <Window ...>
     <StackPanel>
@@ -1227,7 +1239,7 @@ The WinUI3's built-in `SvgImageSource` has these [known limitations](https://lea
 ## WebView
 I brought back the WebView (based on legacy EdgeHTML) control, and it should have exactly the same API
 surfaces (except for `CornerRadius`) as the `Windows.UI.Xaml.Controls.WebView` in UWP.
-It is more efficient and has better performance than WebView2, making it more preferrable the web content 
+It is more efficient and has better performance than WebView2, making it more preferable when the web content 
 you are showing is simple and target older version of browsers.
 
 Usage:
@@ -1312,9 +1324,9 @@ A lightweight yet extremely high performance Table / DataGrid control for displa
 |ContentFontStyle | Windows.UI.Text.FontStyle | :white_check_mark: | \ |
 |FontFamily | \<WinUI Namespace\>.UI.Xaml.Media.FontFamily | :white_check_mark: | Controls font family for both the header and content
 |ContentPadding | \<WinUI Namespace\>.UI.Xaml.Thickness | :white_check_mark: | Controls text & xaml control padding for both the header and content
-|HorizontalLineColor | Windows.UI.Color | :white_check_mark: | Controls the table horizontal lines colors (border line is controled by `Border.BorderBrush`)
+|HorizontalLineColor | Windows.UI.Color | :white_check_mark: | Controls the table horizontal lines colors (border line is controlled by `Border.BorderBrush`)
 |VerticalLineColor | Windows.UI.Color | :white_check_mark: | Controls the table vertical lines colors
-|HorizontalLineThickness | Double | :white_check_mark: | Controls the table horizontal lines thickness (border line is controled by `Border.BorderThickness`)
+|HorizontalLineThickness | Double | :white_check_mark: | Controls the table horizontal lines thickness (border line is controlled by `Border.BorderThickness`)
 |VerticalLineThickness | Double | :white_check_mark: | Controls the table vertical lines thickness
 
 ### Events
@@ -1342,7 +1354,7 @@ You implement 4 methods:
 1. `Int32 RowCount()`: Return the number of total rows when called
 2. `Int32 RowRequested(RowRequestedEventArgs args)`: Return the number of filled rows when called. This is the main mechanism for rendering data in `Table`. We will break it down later.
 3. `void SetData(Int32 row, Int32 column, Object data)`: Called when there is an update to a table cell. This is analogous to a `TwoWay` binding in xaml.
-4. `event Windows.Foundation.EventHandler<UpdateRowDataEventArgs> UpdateRowData`: This is for you to raise a data change for a specific cell data update. After this event gets raised, `Table` will call `RowRequested` for new data retreival.
+4. `event Windows.Foundation.EventHandler<UpdateRowDataEventArgs> UpdateRowData`: This is for you to raise a data change for a specific cell data update. After this event gets raised, `Table` will call `RowRequested` for new data retrieval.
 
 ##### `RowRequestedEventArgs` object
 This is the data request from `Table` to your data. It provides information for this request, and also a function for you to fill-in the actual data.
@@ -1395,7 +1407,7 @@ void :NavigationView_SelectionChanged(
 ```
 
 ## StringResource
-A markup extension for localized string retreival from `resw` files. This is typically used when `x:Uid` is either not convenient or not possible.
+A markup extension for localized string retrieval from `resw` files. This is typically used when `x:Uid` is either not convenient or not possible.
 For example, currently in order to localize `Window.Title`, you have to retrieve the string in code-behind.
 Now you can directly assign a `StringResource` extension to it.
 

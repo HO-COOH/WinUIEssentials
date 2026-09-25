@@ -12,6 +12,7 @@
 #include <HwndHelper.hpp>
 #include "MinMaxSize.hpp"
 #include "DelayWindowShowHelper.h"
+#include <DpiUtils.hpp>
 
 
 namespace winrt::WinUI3Package::implementation
@@ -136,17 +137,6 @@ namespace winrt::WinUI3Package::implementation
         static void SetNonClientRegionKind(winrt::Microsoft::UI::Xaml::FrameworkElement const& element, winrt::Microsoft::UI::Input::NonClientRegionKind value);
         static winrt::Microsoft::UI::Input::NonClientRegionKind GetNonClientRegionKind(winrt::Microsoft::UI::Xaml::FrameworkElement const& element);
 
-        constexpr static winrt::Windows::Graphics::RectInt32 scaleRect(winrt::Windows::Foundation::Rect const& bound, double scale)
-        {
-            scale /= 96.0;
-            return winrt::Windows::Graphics::RectInt32{
-                .X = static_cast<int>(bound.X * scale),
-                .Y = static_cast<int>(bound.Y * scale),
-                .Width = static_cast<int>(bound.Width * scale),
-                .Height = static_cast<int>(bound.Height * scale)
-            };
-        }
-
     private:
         winrt::Microsoft::UI::Xaml::Window m_window;
         HWND m_hwnd = GetHwnd(m_window);
@@ -191,10 +181,6 @@ namespace winrt::WinUI3Package::implementation
 
         void setWin32TitlebarTheme(BOOL isLight);
 
-        static int scaleForDpi(int value, int dpi);
-        static int unscaleForDpi(int value, int dpi);
-
-  
         HBRUSH m_backgroundBlackBrush = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
 
         TransparentMenuFlyoutHost m_contextMenuHost{ nullptr };

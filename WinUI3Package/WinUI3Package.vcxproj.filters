@@ -160,6 +160,9 @@
     <ClInclude Include="include\HwndHelper.hpp">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\DpiUtils.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="include\IInitializeWithWindowHelper.hpp">
       <Filter>include</Filter>
     </ClInclude>

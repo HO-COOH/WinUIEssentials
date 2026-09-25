@@ -423,7 +423,7 @@ namespace winrt::WinUI3Package::implementation
 
 	int WindowEx::LeftInset()
 	{
-		return unscaleForDpi(LeftInsetRaw(), Dpi());
+		return DpiUtils::UnscaleForDpi(LeftInsetRaw(), Dpi());
 	}
 	int WindowEx::LeftInsetRaw()
 	{
@@ -431,7 +431,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	int WindowEx::RightInset()
 	{
-		return unscaleForDpi(RightInsetRaw(), Dpi());
+		return DpiUtils::UnscaleForDpi(RightInsetRaw(), Dpi());
 	}
 	int WindowEx::RightInsetRaw()
 	{
@@ -469,20 +469,20 @@ namespace winrt::WinUI3Package::implementation
 
 	int WindowEx::currentWidth()
 	{
-		return unscaleForDpi(windowSizeInPixels().Width, Dpi());
+		return DpiUtils::UnscaleForDpi(windowSizeInPixels().Width, Dpi());
 	}
 
 	int WindowEx::currentHeight()
 	{
-		return unscaleForDpi(windowSizeInPixels().Height, Dpi());
+		return DpiUtils::UnscaleForDpi(windowSizeInPixels().Height, Dpi());
 	}
 
 	void WindowEx::resizeWindow(int widthInDips, int heightInDips)
 	{
 		auto const dpi = Dpi();
 		resizeWindowInPixels(
-			scaleForDpi(safeClamp(widthInDips, m_minMaxSize.MinWidth(), m_minMaxSize.MaxWidth()), dpi),
-			scaleForDpi(safeClamp(heightInDips, m_minMaxSize.MinHeight(), m_minMaxSize.MaxHeight()), dpi)
+			DpiUtils::ScaleForDpi(safeClamp(widthInDips, m_minMaxSize.MinWidth(), m_minMaxSize.MaxWidth()), dpi),
+			DpiUtils::ScaleForDpi(safeClamp(heightInDips, m_minMaxSize.MinHeight(), m_minMaxSize.MaxHeight()), dpi)
 		);
 	}
 
@@ -496,10 +496,10 @@ namespace winrt::WinUI3Package::implementation
 		if (!GetClientRect(m_hwnd, &client))
 			return {};
 
-		auto const dpi = static_cast<float>(Dpi());
+		auto const dpi = Dpi();
 		return {
-			(client.right - client.left) * 96.f / dpi,
-			(client.bottom - client.top) * 96.f / dpi
+			DpiUtils::UnscaleForDpi<float>(client.right - client.left, dpi),
+			DpiUtils::UnscaleForDpi<float>(client.bottom - client.top, dpi)
 		};
 	}
 
@@ -740,21 +740,6 @@ namespace winrt::WinUI3Package::implementation
 		);
 	}
 
-	/*Rounded, and in 64 bit, so that a size survives a scale/unscale round trip*/
-	int WindowEx::scaleForDpi(int value, int dpi)
-	{
-		auto const scaled = (static_cast<long long>(value) * dpi + 48) / 96;
-		return scaled > INT_MAX ? INT_MAX : static_cast<int>(scaled);
-	}
-
-	int WindowEx::unscaleForDpi(int value, int dpi)
-	{
-		if (dpi <= 0)
-			return value;
-
-		return static_cast<int>((static_cast<long long>(value) * 96 + dpi / 2) / dpi);
-	}
-
 	void WindowEx::setSubClassIfNeeded()
 	{
 		if (m_registered)
@@ -820,13 +805,13 @@ namespace winrt::WinUI3Package::implementation
 		//The track sizes are window sizes, which is what Min/Max Width/Height already are
 		auto const dpi = Dpi();
 		if (m_minMaxSize.m_minWidth)
-			pt->ptMinTrackSize.x = scaleForDpi(*m_minMaxSize.m_minWidth, dpi);
+			pt->ptMinTrackSize.x = DpiUtils::ScaleForDpi(*m_minMaxSize.m_minWidth, dpi);
 		if (m_minMaxSize.m_maxWidth)
-			pt->ptMaxTrackSize.x = scaleForDpi(*m_minMaxSize.m_maxWidth, dpi);
+			pt->ptMaxTrackSize.x = DpiUtils::ScaleForDpi(*m_minMaxSize.m_maxWidth, dpi);
 		if (m_minMaxSize.m_minHeight)
-			pt->ptMinTrackSize.y = scaleForDpi(*m_minMaxSize.m_minHeight, dpi);
+			pt->ptMinTrackSize.y = DpiUtils::ScaleForDpi(*m_minMaxSize.m_minHeight, dpi);
 		if (m_minMaxSize.m_maxHeight)
-			pt->ptMaxTrackSize.y = scaleForDpi(*m_minMaxSize.m_maxHeight, dpi);
+			pt->ptMaxTrackSize.y = DpiUtils::ScaleForDpi(*m_minMaxSize.m_maxHeight, dpi);
 		return 0;
 	}
 
@@ -854,7 +839,7 @@ namespace winrt::WinUI3Package::implementation
 
 	void WindowEx::updateNonClientRegions(winrt::Microsoft::UI::Input::NonClientRegionKind kind, HWND hwnd)
 	{
-		auto const scale = GetDpiForWindow(hwnd);
+		auto const dpi = GetDpiForWindow(hwnd);
 		std::vector<winrt::Windows::Graphics::RectInt32> rectArray;
 		for (auto controlRef : s_allWindows.at(hwnd))
 		{
@@ -869,7 +854,7 @@ namespace winrt::WinUI3Package::implementation
 						static_cast<float>(strongControl.ActualWidth()),
 						static_cast<float>(strongControl.ActualHeight())
 						});
-					rectArray.push_back(scaleRect(rect, scale));
+					rectArray.push_back(DpiUtils::ScaleRectForDpi(rect, dpi));
 				}
 			}
 		}

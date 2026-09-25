@@ -383,6 +383,7 @@
     <ClInclude Include="include\AutoRevokeWorkaround.hpp" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
+    <ClInclude Include="include\DpiUtils.hpp" />
     <ClInclude Include="include\EnsureDependencyProperty.hpp" />
     <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />

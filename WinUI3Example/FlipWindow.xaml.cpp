@@ -7,12 +7,8 @@
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include "FakeTitleBar.h"
 #include <HwndHelper.hpp>
+#include <DpiUtils.hpp>
 
-template<typename T>
-T ScaleForDpi(auto value, UINT dpi)
-{
-    return value * dpi / 96.0;
-}
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -89,8 +85,8 @@ namespace winrt::WinUI3Example::implementation
     {
         auto const dpi = GetDpiForWindow(GetHwnd(*this));
         AppWindow().ResizeClient({
-            ScaleForDpi<int>(c_WindowWidth, dpi),
-            ScaleForDpi<int>(c_WindowHeight, dpi)
+            DpiUtils::ScaleForDpi<int>(c_WindowWidth, dpi),
+            DpiUtils::ScaleForDpi<int>(c_WindowHeight, dpi)
         });
         FlipWindowT::InitializeComponent();
 
@@ -107,8 +103,8 @@ namespace winrt::WinUI3Example::implementation
                     {
                         .X = 0,
                         .Y = 0,
-                        .Width = ScaleForDpi<int>(c_WindowWidth - 150, dpi),
-                        .Height = ScaleForDpi<int>(50, dpi)
+                        .Width = DpiUtils::ScaleForDpi<int>(c_WindowWidth - 150, dpi),
+                        .Height = DpiUtils::ScaleForDpi<int>(50, dpi)
                     }
                 }
             );

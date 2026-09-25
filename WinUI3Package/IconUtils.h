@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <string_view>
 #include <winrt/Microsoft.UI.Xaml.h>
+#include <DpiUtils.hpp>
 
 #pragma region Forward declaration
 namespace Gdiplus
@@ -32,19 +33,10 @@ public:
 	 */
 	static UINT GetPrimaryMonitorDpi();
 
-	/**
-	 * constexpr function for calculating dpi value
-	 */
-	template<typename T>
-	static constexpr T ScaleForDpi(T value, UINT dpi)
-	{
-		return value * (dpi / 96.0);
-	}
-
 private:
 	constexpr static auto scaledMenuItemBitmapSize(UINT dpi)
 	{
-		return ScaleForDpi(MenuItemBitmapSize, dpi);
+		return DpiUtils::ScaleForDpi(MenuItemBitmapSize, dpi);
 	}
 };
 

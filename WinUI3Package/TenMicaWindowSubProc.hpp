@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <DpiUtils.hpp>
 
 template<typename Derived>
 class TenMicaWindowSubProc
@@ -15,7 +16,7 @@ class TenMicaWindowSubProc
 
 	int m_borderPadding{};
 
-	WORD m_dpi = 96;
+	UINT m_dpi = DpiUtils::DefaultDpi;
 
 	void updateBorderPadding()
 	{
