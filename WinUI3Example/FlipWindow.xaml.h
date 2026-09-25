@@ -6,7 +6,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct FlipWindow : FlipWindowT<FlipWindow>
     {
-        FlipWindow();
+        void InitializeComponent();
 
         void myButton_Click(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
 

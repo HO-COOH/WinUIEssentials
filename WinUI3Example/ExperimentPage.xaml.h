@@ -7,7 +7,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct ExperimentPage : ExperimentPageT<ExperimentPage>
     {
-        ExperimentPage();
+        void InitializeComponent();
         ~ExperimentPage();
 
         void OnUnloaded(

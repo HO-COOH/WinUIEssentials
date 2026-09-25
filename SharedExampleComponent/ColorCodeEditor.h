@@ -9,7 +9,8 @@ namespace winrt::PackageRoot::implementation
     struct ColorCodeEditor : ColorCodeEditorT<ColorCodeEditor>, EnsureDependencyProperty<ColorCodeEditor>
     {
         static void EnsureDependencyProperties();
-        ColorCodeEditor();
+
+        void InitializeComponent();
 
         winrt::hstring Code();
         void Code(winrt::hstring const& value);

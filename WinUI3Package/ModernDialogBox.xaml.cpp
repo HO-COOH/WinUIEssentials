@@ -15,9 +15,9 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	ModernDialogBox::ModernDialogBox() {
+	void ModernDialogBox::InitializeComponent() {
 
-		InitializeComponent();
+		ModernDialogBoxT::InitializeComponent();
 
 		ExtendsContentIntoTitleBar(true);
 

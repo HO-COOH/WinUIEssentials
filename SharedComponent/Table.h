@@ -22,7 +22,7 @@ namespace winrt::PackageRoot::implementation
     {
         static void EnsureDependencyProperties();
 
-        Table();
+        void InitializeComponent();
 
         void SwapChainPanel_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& e);
         void SwapChainPanel_CompositionScaleChanged(winrt::WinUINamespace::UI::Xaml::Controls::SwapChainPanel const& sender, winrt::Windows::Foundation::IInspectable const& args);

@@ -120,9 +120,9 @@ namespace winrt::PackageRoot::implementation
         );
     }
 
-    ColorCodeEditor::ColorCodeEditor()
+    void ColorCodeEditor::InitializeComponent()
     {
-        InitializeComponent();
+        ColorCodeEditorT::InitializeComponent();
         m_highlighted = HighlightedParagraph().Inlines();
 	}
 

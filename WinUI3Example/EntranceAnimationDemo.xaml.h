@@ -47,8 +47,7 @@ namespace winrt::WinUI3Example::implementation
 
     struct EntranceAnimationDemo : EntranceAnimationDemoT<EntranceAnimationDemo>
     {
-        EntranceAnimationDemo();
-
+        void InitializeComponent();
 
         template<typename HasRadius>
         void CreateVisual(HasRadius const& element)

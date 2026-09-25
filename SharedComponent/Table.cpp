@@ -161,9 +161,9 @@ namespace winrt::PackageRoot::implementation
 		);
     }
 
-    Table::Table()
+    void Table::InitializeComponent()
     {
-        InitializeComponent();
+        TableT::InitializeComponent();
         m_tableProperty.InitializeForTheme(ActualTheme());
         m_overlayManager.OnInitializedComponent();
 

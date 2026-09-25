@@ -28,9 +28,9 @@ namespace winrt::WinUI3Example::implementation
 
 	winrt::Windows::System::DispatcherQueueController EntranceAnimationDemo::s_queue{ nullptr };
 
-	EntranceAnimationDemo::EntranceAnimationDemo()
+	void EntranceAnimationDemo::InitializeComponent()
 	{
-		InitializeComponent();
+		EntranceAnimationDemoT::InitializeComponent();
 
 		constexpr static auto Width = 500;
 		constexpr static auto Height = 200;

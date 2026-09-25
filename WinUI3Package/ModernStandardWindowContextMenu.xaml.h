@@ -15,6 +15,8 @@ namespace winrt::WinUI3Package::implementation
         ModernStandardWindowContextMenu() = default;
         ModernStandardWindowContextMenu(winrt::Microsoft::UI::Xaml::Window const& value);
 
+        void InitializeComponent();
+
         //Declaring the setter hides the inherited getter, bring it back
         using WindowContextMenuBase::Window;
         void Window(winrt::Microsoft::UI::Xaml::Window const& value);
@@ -48,6 +50,9 @@ namespace winrt::WinUI3Package::implementation
 		void addAdditionalItems(HMENU hMenu, int itemsCount);
         constexpr static auto standardWindowContextMenuItemCount = 7;
         constexpr static auto nonResizableWindowContextMenuItemCount = 2;
+
+        //Window passed to the constructor, applied from InitializeComponent once the markup is loaded
+        winrt::Microsoft::UI::Xaml::Window m_pendingWindow{ nullptr };
     public:
         void RestoreItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
         void MoveItem_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);

@@ -16,11 +16,6 @@ using namespace Microsoft::UI::Xaml;
 
 namespace winrt::WinUI3Example::implementation
 {
-    TaskbarPage::TaskbarPage()
-    {
-        InitializeComponent();
-    }
-
 	void TaskbarPage::ComboBox_SelectionChanged(
 		winrt::Windows::Foundation::IInspectable const& sender,
 		winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e)

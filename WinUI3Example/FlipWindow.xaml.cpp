@@ -85,14 +85,14 @@ namespace winrt::WinUI3Example::implementation
         winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetImplicitHideAnimation(RootCanvas(), group);
     }
 
-    FlipWindow::FlipWindow()
+    void FlipWindow::InitializeComponent()
     {
         auto const dpi = GetDpiForWindow(GetHwnd(*this));
-        AppWindow().ResizeClient({ 
-            ScaleForDpi<int>(c_WindowWidth, dpi), 
-            ScaleForDpi<int>(c_WindowHeight, dpi) 
+        AppWindow().ResizeClient({
+            ScaleForDpi<int>(c_WindowWidth, dpi),
+            ScaleForDpi<int>(c_WindowHeight, dpi)
         });
-        InitializeComponent();
+        FlipWindowT::InitializeComponent();
 
         addWindowShowAnimation();
         addWindowCloseAnimation();

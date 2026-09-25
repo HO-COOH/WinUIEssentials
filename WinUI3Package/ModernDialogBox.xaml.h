@@ -12,7 +12,7 @@ namespace winrt::WinUI3Package::implementation
 
 	struct ModernDialogBox : ModernDialogBoxT<ModernDialogBox>, ModalWindowBase<ModernDialogBox>
 	{
-		ModernDialogBox();
+		void InitializeComponent();
 
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync();
 		winrt::Windows::Foundation::IAsyncOperation<Microsoft::UI::Xaml::Controls::ContentDialogResult> ShowAsync(Microsoft::UI::Xaml::Window const& parent);

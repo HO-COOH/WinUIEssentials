@@ -34,9 +34,9 @@ namespace winrt::WinUI3Example::implementation
 {
 	static PageTagRegister<ExperimentPage> s_tags{ L"experiment", L"experiments", L"acrylicvisual", L"hostbackdropvisual", L"composition" };
 
-	ExperimentPage::ExperimentPage()
+	void ExperimentPage::InitializeComponent()
 	{
-		InitializeComponent();
+		ExperimentPageT::InitializeComponent();
 
 		m_timer.Interval(std::chrono::seconds(1));
 		//a started DispatcherTimer does not keep this page alive, so the handler must only hold a weak reference

@@ -9,7 +9,6 @@ namespace winrt::WinUI3Example::implementation
 {
     struct TaskbarPage : TaskbarPageT<TaskbarPage>
     {
-        TaskbarPage();
         void ComboBox_SelectionChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
         void Slider_ValueChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::Controls::Primitives::RangeBaseValueChangedEventArgs const& e);
     };

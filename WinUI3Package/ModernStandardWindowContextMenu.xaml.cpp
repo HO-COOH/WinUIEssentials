@@ -18,10 +18,17 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    ModernStandardWindowContextMenu::ModernStandardWindowContextMenu(winrt::Microsoft::UI::Xaml::Window const& value)
+    ModernStandardWindowContextMenu::ModernStandardWindowContextMenu(winrt::Microsoft::UI::Xaml::Window const& value) :
+        m_pendingWindow{ value }
     {
-        InitializeComponent();
-        Window(value);
+    }
+
+    void ModernStandardWindowContextMenu::InitializeComponent()
+    {
+        ModernStandardWindowContextMenuT::InitializeComponent();
+        //Window() reads the x:Name'd MenuFlyoutItems, which only exist once the markup is loaded
+        if (auto const pendingWindow = std::exchange(m_pendingWindow, nullptr))
+            Window(pendingWindow);
     }
 
     void ModernStandardWindowContextMenu::Window(winrt::Microsoft::UI::Xaml::Window const& value)
