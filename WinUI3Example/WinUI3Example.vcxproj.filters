@@ -146,9 +146,6 @@
     <Page Include="CommandBarHelperPage.xaml">
       <Filter>Pages</Filter>
     </Page>
-    <Page Include="LineGraphControl.xaml">
-      <Filter>Pages\Experimental\LineGraph</Filter>
-    </Page>
     <Page Include="CaptionButtonThemeWorkaroundPage.xaml">
       <Filter>Pages\CaptionButtonThemeWorkaroundPage</Filter>
     </Page>
@@ -372,9 +369,6 @@
     </Midl>
     <Midl Include="PhotoDataItemWithDimension.idl">
       <Filter>Pages\WrapPanelPage</Filter>
-    </Midl>
-    <Midl Include="LineGraph.idl">
-      <Filter>Pages\Experimental\LineGraph</Filter>
     </Midl>
     <Midl Include="IconButton.idl">
       <Filter>Pages\Experimental\IconButton</Filter>
@@ -671,9 +665,6 @@
     </Filter>
     <Filter Include="Pages\Experimental\Shaders">
       <UniqueIdentifier>{14b6b5b0-f8ac-45c2-a356-ecedd7875f3d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pages\Experimental\LineGraph">
-      <UniqueIdentifier>{a74b251b-6170-40c0-a62e-d99c3c5c2093}</UniqueIdentifier>
     </Filter>
     <Filter Include="Pages\CaptionButtonThemeWorkaroundPage">
       <UniqueIdentifier>{575b8090-63bc-41a8-ade3-f274106c59a7}</UniqueIdentifier>

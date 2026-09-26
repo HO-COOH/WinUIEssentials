@@ -24,7 +24,7 @@ namespace winrt::WinUI3Package::implementation
             winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot
         );
     private:
-        winrt::Microsoft::UI::Xaml::Media::SystemBackdrop m_fallback{ nullptr };
+        winrt::Microsoft::UI::Xaml::Media::ISystemBackdropOverrides m_fallbackOverrides{ nullptr };
         static bool isMicaSupported();
     };
 }

@@ -7,18 +7,22 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	MicaBackdropWithFallback::MicaBackdropWithFallback(winrt::Microsoft::UI::Xaml::Media::SystemBackdrop const& fallback) : m_fallback{fallback}
+	MicaBackdropWithFallback::MicaBackdropWithFallback(winrt::Microsoft::UI::Xaml::Media::SystemBackdrop const& fallback) :
+		m_fallbackOverrides{ fallback ?
+			fallback.as<winrt::Microsoft::UI::Xaml::Media::ISystemBackdropOverrides>() : nullptr }
 	{
 	}
 
 	winrt::Microsoft::UI::Xaml::Media::SystemBackdrop MicaBackdropWithFallback::Fallback()
 	{
-		return m_fallback;
+		return m_fallbackOverrides.try_as<winrt::Microsoft::UI::Xaml::Media::SystemBackdrop>();
 	}
 
 	void MicaBackdropWithFallback::Fallback(winrt::Microsoft::UI::Xaml::Media::SystemBackdrop const& value)
 	{
-		m_fallback = value;
+		m_fallbackOverrides = value ?
+			value.as<winrt::Microsoft::UI::Xaml::Media::ISystemBackdropOverrides>() : 
+			nullptr;
 	}
 
 	void MicaBackdropWithFallback::OnTargetConnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget, winrt::Microsoft::UI::Xaml::XamlRoot const& xamlRoot)
@@ -26,7 +30,7 @@ namespace winrt::WinUI3Package::implementation
 		if (isMicaSupported())
 			base_type::OnTargetConnected(connectedTarget, xamlRoot);
 		else
-			m_fallback.OnTargetConnected(connectedTarget, xamlRoot);
+			m_fallbackOverrides.OnTargetConnected(connectedTarget, xamlRoot);
 	}
 
 	void MicaBackdropWithFallback::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
@@ -34,7 +38,7 @@ namespace winrt::WinUI3Package::implementation
 		if (isMicaSupported())
 			base_type::OnTargetDisconnected(connectedTarget);
 		else
-			m_fallback.OnTargetDisconnected(connectedTarget);
+			m_fallbackOverrides.OnTargetDisconnected(connectedTarget);
 	}
 
 	void MicaBackdropWithFallback::OnDefaultSystemBackdropConfigurationChanged(
@@ -45,7 +49,7 @@ namespace winrt::WinUI3Package::implementation
 		if (isMicaSupported())
 			base_type::OnDefaultSystemBackdropConfigurationChanged(connectedTarget, xamlRoot);
 		else
-			m_fallback.OnDefaultSystemBackdropConfigurationChanged(connectedTarget, xamlRoot);
+			m_fallbackOverrides.OnDefaultSystemBackdropConfigurationChanged(connectedTarget, xamlRoot);
 	}
 
 	bool MicaBackdropWithFallback::isMicaSupported()

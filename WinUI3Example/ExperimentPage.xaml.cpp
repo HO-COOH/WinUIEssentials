@@ -159,15 +159,6 @@ namespace winrt::WinUI3Example::implementation
 		progressBarVisual.StartAnimationGroup(progressBarAnimationGroup);
 	}
 
-	void ExperimentPage::AddValueButton_Click(
-		winrt::Windows::Foundation::IInspectable const&, 
-		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
-	{
-		static float x = 0.01f;
-		x += 0.01f;
-		Graph().AddPoint(x, ValueSlider().Value());
-	}
-
 	void ExperimentPage::NormalInnerButton_Click(
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)

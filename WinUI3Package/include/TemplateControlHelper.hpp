@@ -2,6 +2,7 @@
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Microsoft.UI.Xaml.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.h>
 
 template<typename Self, bool useXamlResource = true>
 struct XamlResourceHelper
@@ -47,6 +48,12 @@ struct TemplateControlHelper : public XamlResourceHelper<Self, useXamlResource>
 	TemplateControlHelper()
 	{
 		using ProjectionType = Self::class_type;
-		static_cast<Self*>(this)->DefaultStyleKey(winrt::box_value(winrt::xaml_typename<ProjectionType>()));
+		//`DefaultStyleKey` comes from IControlProtected, which C++/WinRT 3.0 inherits as `protected`
+		//in the generated base, so it isn't reachable from this mixin. Set the backing property instead.
+		static_cast<Self*>(this)
+			->SetValue(
+				winrt::Microsoft::UI::Xaml::Controls::Control::DefaultStyleKeyProperty(),
+				winrt::box_value(winrt::xaml_typename<ProjectionType>())
+			);
 	}
 };

@@ -33,7 +33,6 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.AnimatedVisuals.h>
 #include <winrt/Microsoft.UI.Xaml.Documents.h>
 #include <winrt/Windows.Storage.Streams.h>
-#include "WASDK headers/Microsoft.Graphics.Canvas.hpp"
 #include "WASDK headers/Microsoft.UI.hpp"
 #include "NamedUrl.h"
 #include "CodeSource.h"

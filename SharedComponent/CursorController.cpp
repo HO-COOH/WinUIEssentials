@@ -80,7 +80,10 @@ namespace winrt::PackageRoot::implementation
 #else
 		auto value = winrt::unbox_value<winrt::Windows::UI::Core::CoreCursorType>(e.NewValue());
 		winrt::Windows::UI::Core::CoreCursor cursor{ value, 1 };
-		element.ProtectedCursor(winrt::WinUINamespace::UI::Input::InputCursor::CreateFromCoreCursor(cursor));
+		//C++/WinRT 3.0 no longer exposes IUIElementProtected members on the projected UIElement
+		element
+			.as<winrt::WinUINamespace::UI::Xaml::IUIElementProtected>()
+			.ProtectedCursor(winrt::WinUINamespace::UI::Input::InputCursor::CreateFromCoreCursor(cursor));
 #endif
 	}
 }

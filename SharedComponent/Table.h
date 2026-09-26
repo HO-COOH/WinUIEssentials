@@ -20,6 +20,10 @@ namespace winrt::PackageRoot::implementation
 {
     struct Table : TableT<Table>, CachedCursor<Table>, MvvmHelper::PropertyChangeHelper<Table>, EnsureDependencyProperty<Table>
     {
+        //`ProtectedCursor` comes from IUIElementProtected, which C++/WinRT 3.0 inherits as `protected`
+        //in the generated base, so CachedCursor needs to be a friend to reach it.
+        friend class CachedCursor<Table>;
+
         static void EnsureDependencyProperties();
 
         void InitializeComponent();

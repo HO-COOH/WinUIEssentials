@@ -40,7 +40,7 @@ namespace winrt::PackageRoot::implementation
 
 #if defined Build_WinUIPackage
         winrt::Windows::Foundation::IInspectable ProvideValue(
-            winrt::Microsoft::UI::Xaml::IXamlServiceProvider const& provider
+            winrt::Microsoft::UI::Xaml::IXamlServiceProvider const&
         )
         {
             return ProvideValue();

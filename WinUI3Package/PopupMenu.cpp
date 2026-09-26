@@ -27,7 +27,8 @@ void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winr
 			continue;
 		}
 
-		switch (item.Type())
+		//C++/WinRT 3.0 no longer exposes overridable members on the projected type
+		switch (item.as<winrt::WinUI3Package::IPopupMenuFlyoutItemBaseOverrides>().Type())
 		{
 		case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutItem:
 		{
@@ -208,7 +209,7 @@ void PopupMenu::redrawMenuIcon(HMENU menu, winrt::Windows::Foundation::Collectio
 		if (info.hbmpItem || info.hSubMenu)
 		{
 			auto itemToRedraw = items.GetAt(i);
-			switch (itemToRedraw.Type())
+			switch (itemToRedraw.as<winrt::WinUI3Package::IPopupMenuFlyoutItemBaseOverrides>().Type())
 			{
 			case winrt::WinUI3Package::PopupMenuFlyoutItemType::MenuFlyoutItem:
 				if (auto icon = itemToRedraw.as<winrt::WinUI3Package::PopupMenuFlyoutItem>().Icon())
