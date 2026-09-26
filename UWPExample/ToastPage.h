@@ -6,12 +6,6 @@ namespace winrt::UWPExample::implementation
 {
     struct ToastPage : ToastPageT<ToastPage>
     {
-        ToastPage() 
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
-
         void BodyTextOnlyBtn_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         void SingleLineHeaderWithBodyBtn_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
         void TwoLineHeaderWithBodyBtn_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
@@ -24,6 +18,7 @@ namespace winrt::UWPExample::implementation
 
     private:
         winrt::hstring getAudioSelection();
+        void showArgumentToDialog(winrt::Windows::ApplicationModel::Activation::ToastNotificationActivatedEventArgs const& args);
     };
 }
 

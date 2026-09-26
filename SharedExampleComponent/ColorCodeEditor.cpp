@@ -377,7 +377,10 @@ namespace winrt::PackageRoot::implementation
     void ColorCodeEditor::Code(winrt::hstring const& value)
     {
         m_code = value;
+        if (m_highlighted)
+            m_highlighted.Clear();
         renderToRichTextBlock();
+        raisePropertyChange(L"Code");
     }
 
     winrt::PackageRoot::Language ColorCodeEditor::CodeLanguage()
@@ -399,22 +402,19 @@ namespace winrt::PackageRoot::implementation
 
     winrt::hstring ColorCodeEditor::GetLineGutterFromCode(winrt::hstring const& code)
     {
-		auto const lineCount = std::count(code.begin(), code.end(), L'\n') + 1;
-		std::wstring gutter;
-        for (auto line : std::views::iota(1, lineCount + 1))
-        {
-            gutter += (line == lineCount) ?
-                std::format(L"{}", line) :
-                std::format(L"{}\n", line);
-        }
-        return winrt::hstring{ std::move(gutter) };
+        auto const lineCount = std::ranges::count(code, L'\n') + 1;
+        std::wstring gutter{ L"1" };
+        for (auto line : std::views::iota(2, lineCount + 1))
+            std::format_to(std::back_inserter(gutter), L"\n{}", line);
+        return winrt::hstring{ gutter };
     }
 
-
+#if defined _DEBUG || defined DEBUG
     static void DebugToken(ColorCode::Token token, winrt::hstring const& code)
     {
         OutputDebugString(std::format(L"{}: {}\n", std::wstring_view{ &code[token.start], token.length }, token.scope).data());
     }
+#endif
 
     void ColorCodeEditor::renderToRichTextBlock()
     {
@@ -429,7 +429,9 @@ namespace winrt::PackageRoot::implementation
             m_language == winrt::PackageRoot::Language::Xaml? ColorCode::Language::Xaml() : ColorCode::Language::Cpp(),
             [this](ColorCode::Token token)
             {
+#if defined _DEBUG || defined DEBUG
                 DebugToken(token, m_code);
+#endif
 
                 winrt::WinUINamespace::UI::Xaml::Documents::Run run;
                 run.Text(winrt::hstring{ m_code.data() + token.start, static_cast<winrt::hstring::size_type>(token.length) });

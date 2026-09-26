@@ -1,11 +1,12 @@
 ﻿#pragma once
 
 #include "CodeSource.g.h"
+#include "PropertyChangeHelper.hpp"
 #include <functional>
 
 namespace winrt::PackageRoot::implementation
 {
-    struct CodeSource : CodeSourceT<CodeSource>
+    struct CodeSource : CodeSourceT<CodeSource>, MvvmHelper::PropertyChangeHelper<CodeSource>
     {
         CodeSource();
         CodeSource(winrt::PackageRoot::Language language, winrt::hstring const& code);
@@ -21,7 +22,6 @@ namespace winrt::PackageRoot::implementation
 
         winrt::Windows::Foundation::Collections::IVector<winrt::PackageRoot::ControlExampleSubstitution> Substitutions();
 
-        std::function<void(std::wstring const& value)> ValueChanged;
         std::wstring FormatCode();
 
         winrt::PackageRoot::Language CodeLanguage();

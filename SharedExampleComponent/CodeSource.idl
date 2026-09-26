@@ -5,7 +5,7 @@ namespace PackageRoot
 {
     [bindable]
     [default_interface]
-    runtimeclass CodeSource
+    runtimeclass CodeSource : WinUINamespace.UI.Xaml.Data.INotifyPropertyChanged
     {
         CodeSource();
         

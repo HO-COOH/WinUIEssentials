@@ -395,7 +395,9 @@ namespace winrt::PackageRoot::implementation
 			auto codeSource = item.as<winrt::PackageRoot::CodeSource>();
 			auto codeSourceImpl = winrt::get_self<CodeSource>(codeSource);
 			return ControlExample::CodeItemData{
-				codeSourceImpl->m_code,
+				//Clone the formatted text: the copy carries no Substitutions, so it cannot
+				//expand "{0}" or unescape "{{" on its own.
+				winrt::hstring{ codeSourceImpl->FormatCode() },
 				codeSourceImpl->m_codeLanguage
 			};
 		});

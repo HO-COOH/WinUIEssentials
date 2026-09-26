@@ -29,9 +29,7 @@
             <local:ControlExample.Cpp>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-                            winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier().Show(ToastTemplates::BodyTextOnly{{L&quot;{0}&quot;}});
-                        </x:String>
+                        <x:String xml:space="preserve">winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier().Show(ToastTemplates::BodyTextOnly{{L&quot;{0}&quot;}});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind Body1.Text, Mode=OneWay}" />
@@ -53,7 +51,7 @@
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
-.Show(ToastTemplates::SingleLineHeaderWithBody{{ L&quot;{0}&quot;, L&quot;{1}&quot; }});</x:String>
+    .Show(ToastTemplates::SingleLineHeaderWithBody{{ L&quot;{0}&quot;, L&quot;{1}&quot; }});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind Header2.Text, Mode=OneWay}" />
@@ -75,7 +73,7 @@
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
-	.Show(ToastTemplates::TwoLineHeaderWithBody{{ L&quot;{0}&quot;, L&quot;{1}&quot; }});</x:String>
+    .Show(ToastTemplates::TwoLineHeaderWithBody{{ L&quot;{0}&quot;, L&quot;{1}&quot; }});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind Header3.Text, Mode=OneWay}" />
@@ -98,7 +96,7 @@
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
-			.Show(ToastTemplates::HeaderWithTwoSingleLineBody{{ L&quot;{0}&quot;, L&quot;{1}&quot;, L&quot;{2}&quot; }});</x:String>
+    .Show(ToastTemplates::HeaderWithTwoSingleLineBody{{ L&quot;{0}&quot;, L&quot;{1}&quot;, L&quot;{2}&quot; }});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind Header4.Text, Mode=OneWay}" />
@@ -118,7 +116,7 @@
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
-			.Show(ToastTemplates::ImageWithBodyOnly{{ L&quot;ms-appx:///Assets/Windows 11.png&quot;, L&quot;{0}&quot; }});</x:String>
+    .Show(ToastTemplates::ImageWithBodyOnly{{ L&quot;ms-appx:///Assets/Windows 11.png&quot;, L&quot;{0}&quot; }});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind Body5.Text, Mode=OneWay}" />
@@ -139,7 +137,7 @@
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
-			.Show(ToastTemplates::ImageWithHeaderAndBody{{ L&quot;ms-appx:///Assets/Windows 11.png&quot;, L&quot;{0}&quot;, L&quot;{1}&quot; }});</x:String>
+    .Show(ToastTemplates::ImageWithHeaderAndBody{{ L&quot;ms-appx:///Assets/Windows 11.png&quot;, L&quot;{0}&quot;, L&quot;{1}&quot; }});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind Header6.Text, Mode=OneWay}" />
@@ -161,8 +159,7 @@
                 <local:CodeSource>
                     <local:CodeSource.Code>
                         <x:String xml:space="preserve">winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
-			.Show(ToastTemplates::ImageWithTwoLineHeaderAndBody{{ L&quot;ms-appx:///Assets/Windows 11.png&quot;, L&quot;{0}&quot;, L&quot;body&quot; }});
-                        </x:String>
+    .Show(ToastTemplates::ImageWithTwoLineHeaderAndBody{{ L&quot;ms-appx:///Assets/Windows 11.png&quot;, L&quot;{0}&quot;, L&quot;{1}&quot; }});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind Header7.Text, Mode=OneWay}" />
@@ -184,8 +181,8 @@
             <local:ControlExample.Cpp>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">		winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
-			.Show(ToastTemplates::ImageWithHeaderAndTwoSingleLineBody{{ L&quot;ms-appx:///Assets/Windows 11.png&quot;, L&quot;{0}&quot;, L&quot;{1}&quot;, L&quot;{2}&quot; }});</x:String>
+                        <x:String xml:space="preserve">winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
+    .Show(ToastTemplates::ImageWithHeaderAndTwoSingleLineBody{{ L&quot;ms-appx:///Assets/Windows 11.png&quot;, L&quot;{0}&quot;, L&quot;{1}&quot;, L&quot;{2}&quot; }});</x:String>
                     </local:CodeSource.Code>
                     <local:CodeSource.Substitutions>
                         <local:ControlExampleSubstitution Key="0" Value="{x:Bind Header8.Text, Mode=OneWay}" />
@@ -238,44 +235,42 @@
             <local:ControlExample.Cpp>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">
-using namespace ToastBuilder;
+                        <x:String xml:space="preserve">using namespace ToastBuilder;
 
 auto const audio = getAudioSelection();
 winrt::Windows::UI::Notifications::ToastNotificationManager::CreateToastNotifier()
-	.Show(
-		Toast().Duration(Long).Scenario(Reminder).UseButtonStyle(true).Launch(L&quot;launch arg&quot;)
-		(
-			Visual()
-			(
-				Binding().Template(L&quot;ToastText04&quot;)
-				(
-					Text().Id(1)(L&quot;headline&quot;),
-					Text().Id(2)(L&quot;body text1&quot;),
-					Text().Id(3)(L&quot;body text2&quot;)
-				)
-			),
-			Actions()
-			(
-				Action().Content(L&quot;Single Argument&quot;).Arguments(L&quot;singleArgument&quot;)
-				.Click([this](winrt::Microsoft::Windows::AppNotifications::AppNotificationActivatedEventArgs const&amp; args)
-				{
-					DispatcherQueue().TryEnqueue([this, args] {
-						showArgumentToDialog(args);
-					});
-				}),
-				Action().Content(L&quot;Cancel&quot;).Arguments(L&quot;arg1=value1;arg2=value2&quot;)
-				.Click([this](winrt::Microsoft::Windows::AppNotifications::AppNotificationActivatedEventArgs const&amp; args)
-				{
-					DispatcherQueue().TryEnqueue([this, args] {
-						showArgumentToDialog(args);
-					});
-				})
-			),
-			Audio().Src(audio.data()).Loop(LoopingToggle().IsOn())
-		)
-	);
-                        </x:String>
+    .Show(
+        Toast().Duration(Long).Scenario(Reminder).UseButtonStyle(true).Launch(L&quot;launch arg&quot;)
+        (
+            Visual()
+            (
+                Binding().Template(L&quot;ToastText04&quot;)
+                (
+                    Text().Id(1)(L&quot;headline&quot;),
+                    Text().Id(2)(L&quot;body text1&quot;),
+                    Text().Id(3)(L&quot;body text2&quot;)
+                )
+            ),
+            Actions()
+            (
+                Action().Content(L&quot;Single Argument&quot;).Arguments(L&quot;singleArgument&quot;)
+                .Click([this](winrt::Microsoft::Windows::AppNotifications::AppNotificationActivatedEventArgs const&amp; args)
+                {
+                    DispatcherQueue().TryEnqueue([this, args] {
+                        showArgumentToDialog(args);
+                    });
+                }),
+                Action().Content(L&quot;Cancel&quot;).Arguments(L&quot;arg1=value1;arg2=value2&quot;)
+                .Click([this](winrt::Microsoft::Windows::AppNotifications::AppNotificationActivatedEventArgs const&amp; args)
+                {
+                    DispatcherQueue().TryEnqueue([this, args] {
+                        showArgumentToDialog(args);
+                    });
+                })
+            ),
+            Audio().Src(audio.data()).Loop(LoopingToggle().IsOn())
+        )
+    );</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Cpp>

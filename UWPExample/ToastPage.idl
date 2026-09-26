@@ -1,8 +1,32 @@
-﻿namespace UWPExample
+namespace UWPExample
 {
     [default_interface]
     runtimeclass ToastPage : Windows.UI.Xaml.Controls.Page
     {
         ToastPage();
+
+        Windows.UI.Xaml.Controls.TextBox Body1{ get; };
+
+        Windows.UI.Xaml.Controls.TextBox Header2{ get; };
+        Windows.UI.Xaml.Controls.TextBox Body2{ get; };
+
+        Windows.UI.Xaml.Controls.TextBox Header3{ get; };
+        Windows.UI.Xaml.Controls.TextBox Body3{ get; };
+
+        Windows.UI.Xaml.Controls.TextBox Header4{ get; };
+        Windows.UI.Xaml.Controls.TextBox Body4_1{ get; };
+        Windows.UI.Xaml.Controls.TextBox Body4_2{ get; };
+
+        Windows.UI.Xaml.Controls.TextBox Body5{ get; };
+
+        Windows.UI.Xaml.Controls.TextBox Header6{ get; };
+        Windows.UI.Xaml.Controls.TextBox Body6{ get; };
+
+        Windows.UI.Xaml.Controls.TextBox Header7{ get; };
+        Windows.UI.Xaml.Controls.TextBox Body7{ get; };
+
+        Windows.UI.Xaml.Controls.TextBox Header8{ get; };
+        Windows.UI.Xaml.Controls.TextBox Body8_1{ get; };
+        Windows.UI.Xaml.Controls.TextBox Body8_2{ get; };
     }
 }

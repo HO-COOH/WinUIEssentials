@@ -16,8 +16,7 @@ namespace winrt::PackageRoot::implementation
             if (arg.CollectionChange() == winrt::Windows::Foundation::Collections::CollectionChange::ItemInserted)
             {
                 winrt::get_self<ControlExampleSubstitution>(sender.GetAt(arg.Index()))->ValueChanged = [this]() {
-                    if (ValueChanged)
-                        ValueChanged(FormatCode());
+                    raisePropertyChange(L"Code");
                 };
             }
         });
@@ -31,7 +30,7 @@ namespace winrt::PackageRoot::implementation
 
     winrt::hstring CodeSource::Code()
     {
-        return m_code;
+        return winrt::hstring{ FormatCode() };
     }
     void CodeSource::Code(winrt::hstring const& value)
     {
@@ -39,8 +38,7 @@ namespace winrt::PackageRoot::implementation
             return;
 
         m_code = value;
-        if (ValueChanged)
-            ValueChanged(FormatCode());
+        raisePropertyChange(L"Code");
     }
     winrt::Windows::Foundation::Uri CodeSource::CodeUrl()
     {
@@ -113,6 +111,7 @@ namespace winrt::PackageRoot::implementation
         default:
             //Too many substitutions?
             assert(false);
+            return std::wstring{ m_code };
         }
     }
     winrt::PackageRoot::Language CodeSource::CodeLanguage()

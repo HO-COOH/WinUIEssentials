@@ -58,7 +58,7 @@
             CodeLanguage="{x:Bind CodeLanguage}" />-->
             <local:ColorCodeEditor
                 Margin="0,4"
-                Code="{x:Bind Code}"
+                Code="{x:Bind Code, Mode=OneWay}"
                 CodeLanguage="{x:Bind CodeLanguage}" />
         </DataTemplate>
     </Pivot.ItemTemplate>

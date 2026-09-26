@@ -2,11 +2,12 @@
 
 #include "ColorCodeEditor.g.h"
 #include <EnsureDependencyProperty.hpp>
+#include "PropertyChangeHelper.hpp"
 #include "Scope.h"
 
 namespace winrt::PackageRoot::implementation
 {
-    struct ColorCodeEditor : ColorCodeEditorT<ColorCodeEditor>, EnsureDependencyProperty<ColorCodeEditor>
+    struct ColorCodeEditor : ColorCodeEditorT<ColorCodeEditor>, EnsureDependencyProperty<ColorCodeEditor>, MvvmHelper::PropertyChangeHelper<ColorCodeEditor>
     {
         static void EnsureDependencyProperties();
 

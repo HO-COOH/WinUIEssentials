@@ -211,7 +211,7 @@
             x:Name="LineGutter"
             FontFamily="Consolas"
             Foreground="#596172"
-            Text="{x:Bind local:ColorCodeEditor.GetLineGutterFromCode(Code)}"
+            Text="{x:Bind local:ColorCodeEditor.GetLineGutterFromCode(Code), Mode=OneWay}"
             TextAlignment="Right" />
 
         <RichTextBlock
