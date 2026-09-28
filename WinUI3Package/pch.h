@@ -44,6 +44,7 @@
 #include "NegateBoolConverter.h"
 #include "StringToBoolConverter.h"
 #include "ReferenceToBoolConverter.h"
+#include "ReferenceToVisibilityConverter.h"
 #include "FontIconExtension.h"
 #include "ControlSizeTrigger.h"
 #include "IsEqualStateTrigger.h"

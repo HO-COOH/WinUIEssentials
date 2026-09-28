@@ -7,10 +7,11 @@ namespace winrt::UWPExample::implementation
     struct UriGroup : UriGroupT<UriGroup>
     {
         UriGroup(
-            winrt::hstring title,
-            winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> uris
+            winrt::hstring const& title,
+            winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& uris
         ) :m_title{ title }, m_uris{ uris }
-        {}
+        {
+        }
 
         winrt::hstring Title() { return m_title; }
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Uris() { return m_uris; }

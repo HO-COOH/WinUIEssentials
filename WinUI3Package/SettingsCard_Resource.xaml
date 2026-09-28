@@ -72,19 +72,6 @@
     <x:Double x:Key="SettingsCardWrapThreshold">476</x:Double>
     <x:Double x:Key="SettingsCardWrapNoIconThreshold">286</x:Double>
 
-    <!--
-        HeaderIcon is an Object, so chain Object -> Boolean -> Visibility.
-
-        This must be a classic Binding, not an x:Bind. Both load paths for this dictionary
-        instantiate a plain ResourceDictionary via Source= (TemplateControlHelper.hpp and
-        the host app's App.xaml), never a generated class, so InitializeComponent and
-        therefore GetBindingConnector never run and every x:Bind in this file silently
-        never evaluates. Classic bindings need no generated class, and no x:Class.
-
-        Note this only collapses the empty icon slot so it stops reserving its Margin.
-        The E_INVALIDARG during measure is prevented by PART_HeaderIconPresenter being a
-        ContentControl rather than a ContentPresenter, see the comment there.
-    -->
     <local:ReferenceToVisibilityConverter x:Key="SettingsCardReferenceToVisibilityConverter" />
 
     <Style BasedOn="{StaticResource DefaultSettingsCardStyle}" TargetType="local:SettingsCard" />
@@ -149,19 +136,8 @@
                                 MaxHeight="{ThemeResource SettingsCardHeaderIconMaxSize}"
                                 Margin="{ThemeResource SettingsCardHeaderIconMargin}"
                                 Visibility="{Binding HeaderIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource SettingsCardReferenceToVisibilityConverter}}">
-                                <!--
-                                    ContentControl, not ContentPresenter. A ContentPresenter inside a
-                                    ControlTemplate whose Content has no effective value implicitly
-                                    aliases the templated parent's Content. HeaderIcon is often unset,
-                                    so the TemplateBinding resolves to null, the aliasing engages, and
-                                    this element tries to parent the very same UIElement that
-                                    PART_ContentPresenter already hosts. Two visual parents for one
-                                    element fails measure with E_INVALIDARG. ContentControl.Content is
-                                    an ordinary DP with no such fallback: null renders nothing.
-                                -->
-                                <ContentControl
+                                <ContentPresenter
                                     x:Name="PART_HeaderIconPresenter"
-                                    IsTabStop="False"
                                     win:AutomationProperties.AccessibilityView="Raw"
                                     win:HighContrastAdjustment="None"
                                     Content="{TemplateBinding HeaderIcon}" />

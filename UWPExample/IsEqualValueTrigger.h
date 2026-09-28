@@ -8,11 +8,11 @@ namespace winrt::UWPExample::implementation
     {
 
         winrt::Windows::Foundation::IInspectable From();
-        void From(winrt::Windows::Foundation::IInspectable value);
+        void From(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::Windows::UI::Xaml::DependencyProperty FromProperty();
 
         winrt::Windows::Foundation::IInspectable To();
-        void To(winrt::Windows::Foundation::IInspectable value);
+        void To(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::Windows::UI::Xaml::DependencyProperty ToProperty();
 
     private:
@@ -20,7 +20,7 @@ namespace winrt::UWPExample::implementation
         static winrt::Windows::UI::Xaml::DependencyProperty m_toProperty;
 
         static void onValuePropertyChanged(
-            winrt::Windows::UI::Xaml::DependencyObject d,
+            winrt::Windows::UI::Xaml::DependencyObject const& d,
             winrt::Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
         void updateTrigger();

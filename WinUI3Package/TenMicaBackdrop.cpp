@@ -18,7 +18,7 @@ namespace winrt::WinUI3Package::implementation
         return m_bindThemeTo.get();
     }
 
-    void TenMicaBackdrop::BindThemeTo(winrt::Microsoft::UI::Xaml::FrameworkElement const value)
+    void TenMicaBackdrop::BindThemeTo(winrt::Microsoft::UI::Xaml::FrameworkElement const& value)
     {
         m_bindThemeTo = value;
         m_bindThemeRevoker = value.ActualThemeChanged(winrt::auto_revoke, [this](winrt::Microsoft::UI::Xaml::FrameworkElement const& sender, auto&&)

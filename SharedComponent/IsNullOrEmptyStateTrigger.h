@@ -11,7 +11,7 @@ namespace winrt::PackageRoot::implementation
         static void EnsureDependencyProperties();
 
         winrt::Windows::Foundation::IInspectable Value();
-        void Value(winrt::Windows::Foundation::IInspectable value);
+        void Value(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ValueProperty();
 
     private:

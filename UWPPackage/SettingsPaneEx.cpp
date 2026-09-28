@@ -36,13 +36,13 @@ namespace winrt::UWPPackage::implementation
     }
 
     void SettingsPaneEx::SetSettings(
-        winrt::Windows::Foundation::IInspectable element,
-        winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> value)
+        winrt::Windows::Foundation::IInspectable const& element,
+        winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> const& value)
     {
         s_globalSettingsCommands = value;
     }
 
-    winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> SettingsPaneEx::GetSettings(winrt::Windows::Foundation::IInspectable element)
+    winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> SettingsPaneEx::GetSettings(winrt::Windows::Foundation::IInspectable const& element)
     {
         return s_globalSettingsCommands;
     }
@@ -54,7 +54,7 @@ namespace winrt::UWPPackage::implementation
         static bool init = true;
         if (init || s_lastInvokedInstance)
         {
-            view.CommandsRequested([](auto, winrt::Windows::UI::ApplicationSettings::SettingsPaneCommandsRequestedEventArgs args)
+            view.CommandsRequested([](auto, winrt::Windows::UI::ApplicationSettings::SettingsPaneCommandsRequestedEventArgs const& args)
                 {
                     addCommandToPane(s_globalSettingsCommands, args);
                 });
@@ -70,7 +70,7 @@ namespace winrt::UWPPackage::implementation
         auto view = winrt::Windows::UI::ApplicationSettings::SettingsPane::GetForCurrentView();
         if (m_init || s_lastInvokedInstance != winrt::make_weak<UWPPackage::SettingsPaneEx>(*this))
         {
-            view.CommandsRequested([this](auto, winrt::Windows::UI::ApplicationSettings::SettingsPaneCommandsRequestedEventArgs args)
+            view.CommandsRequested([this](auto, winrt::Windows::UI::ApplicationSettings::SettingsPaneCommandsRequestedEventArgs const& args)
                 {
                     addCommandToPane(m_content, args);
                 });
@@ -95,7 +95,7 @@ namespace winrt::UWPPackage::implementation
         return ((static_cast<uint32_t>(winrt::Windows::UI::Core::CoreWindow::GetForCurrentThread().GetKeyState(virtualKeys)) & static_cast<uint32_t>(winrt::Windows::UI::Core::CoreVirtualKeyStates::Down)) || ...);
     }
 
-    void SettingsPaneEx::SetKeyboardAccelerator(winrt::Windows::Foundation::IInspectable element, winrt::Windows::UI::Xaml::Input::KeyboardAccelerator key)
+    void SettingsPaneEx::SetKeyboardAccelerator(winrt::Windows::Foundation::IInspectable const& element, winrt::Windows::UI::Xaml::Input::KeyboardAccelerator const& key)
     {
         winrt::Windows::System::Threading::ThreadPool::RunAsync([key](auto...) -> winrt::Windows::Foundation::IAsyncAction {
             auto keyCopy = key;
@@ -111,7 +111,7 @@ namespace winrt::UWPPackage::implementation
                 if (!coreDispatcher)
                     continue;
 
-                coreDispatcher.AcceleratorKeyActivated([keyCopy](auto, winrt::Windows::UI::Core::AcceleratorKeyEventArgs arg)
+                coreDispatcher.AcceleratorKeyActivated([keyCopy](auto, winrt::Windows::UI::Core::AcceleratorKeyEventArgs const& arg)
                     {
                         arg.Handled(true);
                         bool modifierKeyCorrect = false;
@@ -149,7 +149,7 @@ namespace winrt::UWPPackage::implementation
             });
     }
 
-    winrt::Windows::UI::Xaml::Input::KeyboardAccelerator SettingsPaneEx::GetKeyboardAccelerator(winrt::Windows::Foundation::IInspectable element)
+    winrt::Windows::UI::Xaml::Input::KeyboardAccelerator SettingsPaneEx::GetKeyboardAccelerator(winrt::Windows::Foundation::IInspectable const& element)
     {
         return {};
     }

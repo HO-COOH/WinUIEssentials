@@ -126,7 +126,7 @@ namespace winrt::WinUI3Example::implementation
 		return GetValue(m_iconProperty);
 	}
 
-	void IconButton::Icon(winrt::Windows::Foundation::IInspectable value)
+	void IconButton::Icon(winrt::Windows::Foundation::IInspectable const& value)
 	{
 		if (!m_iconContent)
 			m_iconContent = {};
@@ -189,11 +189,11 @@ namespace winrt::WinUI3Example::implementation
 	{
 		return m_container;
 	}
-	void IconButton::Container(winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase value)
+	void IconButton::Container(winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase const& value)
 	{
 		m_container = value;
 	}
-	void IconButton::isExpandedPropertyChanged(winrt::Microsoft::UI::Xaml::DependencyObject d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs args)
+	void IconButton::isExpandedPropertyChanged(winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 	{
 		auto newValue = winrt::unbox_value<bool>(args.NewValue());
 		auto const oldValue = !newValue;

@@ -8,9 +8,9 @@
 namespace winrt::PackageRoot::implementation
 {
     ContributorItem::ContributorItem(
-        winrt::hstring name, 
-        winrt::Windows::Foundation::Uri avator, 
-        winrt::Windows::Foundation::Uri profile) : m_name{ name }, m_avator{ avator }, m_profile{ profile }
+        winrt::hstring const& name, 
+        winrt::Windows::Foundation::Uri const& avator, 
+        winrt::Windows::Foundation::Uri const& profile) : m_name{ name }, m_avator{ avator }, m_profile{ profile }
     {
     }
 

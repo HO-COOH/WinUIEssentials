@@ -26,7 +26,7 @@ namespace winrt::PackageRoot::implementation
     {
         return m_fontFamily;
     }
-    void FontIconExtension::FontFamily(winrt::WinUINamespace::UI::Xaml::Media::FontFamily value)
+    void FontIconExtension::FontFamily(winrt::WinUINamespace::UI::Xaml::Media::FontFamily const& value)
     {
         m_fontFamily = value;
     }

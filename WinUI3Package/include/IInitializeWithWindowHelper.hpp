@@ -15,7 +15,7 @@ namespace WinUIEssentials
 		return obj;
 	}
 
-	[[maybe_unused]] auto& InitializeWithWindow(auto&& obj, winrt::Microsoft::UI::Xaml::Window window)
+	[[maybe_unused]] auto& InitializeWithWindow(auto&& obj, winrt::Microsoft::UI::Xaml::Window const& window)
 	{
 		return InitializeWithWindow(obj, GetHwnd(window));
 	}
@@ -30,7 +30,7 @@ namespace WinUIEssentials
 				T::template as<IInitializeWithWindow>()->Initialize(hwnd);
 			}
 
-			IInitializeWithWindowConstructorHelper(winrt::Microsoft::UI::Xaml::Window window) :
+			IInitializeWithWindowConstructorHelper(winrt::Microsoft::UI::Xaml::Window const& window) :
 				IInitializeWithWindowConstructorHelper{ GetHwnd(window) }
 			{
 
@@ -47,7 +47,7 @@ namespace WinUIEssentials
 			}
 
 			template<typename... Args>
-			IInitializeWithWindowConstructorHelperWithArg(winrt::Microsoft::UI::Xaml::Window window, Args&&... args) :
+			IInitializeWithWindowConstructorHelperWithArg(winrt::Microsoft::UI::Xaml::Window const& window, Args&&... args) :
 				IInitializeWithWindowConstructorHelperWithArg{ GetHwnd(window), std::forward<Args>(args)... }
 			{
 			}
@@ -184,7 +184,7 @@ namespace WinUIEssentials::Windows::UI::Core
 		{
 		}
 
-		CoreWindowDialog(winrt::Microsoft::UI::Xaml::Window window) : Conditional{ window }
+		CoreWindowDialog(winrt::Microsoft::UI::Xaml::Window const& window) : Conditional{ window }
 		{
 		}
 
@@ -192,7 +192,7 @@ namespace WinUIEssentials::Windows::UI::Core
 		{
 		}
 
-		CoreWindowDialog(winrt::Microsoft::UI::Xaml::Window window, winrt::hstring const& title) : Conditional{ window, title }
+		CoreWindowDialog(winrt::Microsoft::UI::Xaml::Window const& window, winrt::hstring const& title) : Conditional{ window, title }
 		{
 		}
 	};
@@ -203,7 +203,7 @@ namespace WinUIEssentials::Windows::UI::Core
 		{
 		}
 
-		CoreWindowFlyout(winrt::Microsoft::UI::Xaml::Window window, winrt::Windows::Foundation::Point position) : Conditional{ window, position }
+		CoreWindowFlyout(winrt::Microsoft::UI::Xaml::Window const& window, winrt::Windows::Foundation::Point position) : Conditional{ window, position }
 		{
 		}
 
@@ -211,7 +211,7 @@ namespace WinUIEssentials::Windows::UI::Core
 		{
 		}
 
-		CoreWindowFlyout(winrt::Microsoft::UI::Xaml::Window window, winrt::Windows::Foundation::Point position, winrt::hstring const& title) : Conditional{ window, position, title }
+		CoreWindowFlyout(winrt::Microsoft::UI::Xaml::Window const& window, winrt::Windows::Foundation::Point position, winrt::hstring const& title) : Conditional{ window, position, title }
 		{
 		}
 	};
@@ -228,7 +228,7 @@ namespace WinUIEssentials::Windows::UI::Popups
 		{
 		}
 
-		MessageDialog(winrt::Microsoft::UI::Xaml::Window window, winrt::hstring const& content) : IInitializeWithWindowConstructorHelperWithArg{ window, content }
+		MessageDialog(winrt::Microsoft::UI::Xaml::Window const& window, winrt::hstring const& content) : IInitializeWithWindowConstructorHelperWithArg{ window, content }
 		{
 		}
 
@@ -237,7 +237,7 @@ namespace WinUIEssentials::Windows::UI::Popups
 		{
 		}
 
-		MessageDialog(winrt::Microsoft::UI::Xaml::Window window, winrt::hstring const& content, winrt::hstring const& title) :
+		MessageDialog(winrt::Microsoft::UI::Xaml::Window const& window, winrt::hstring const& content, winrt::hstring const& title) :
 			IInitializeWithWindowConstructorHelperWithArg{ window, content, title }
 		{
 		}
@@ -257,7 +257,7 @@ namespace WinUIEssentials::Windows::UI::StartScreen
 		{
 		}
 
-		SecondaryTile(winrt::Microsoft::UI::Xaml::Window window) : IInitializeWithWindowConstructorHelperWithArg{ window }
+		SecondaryTile(winrt::Microsoft::UI::Xaml::Window const& window) : IInitializeWithWindowConstructorHelperWithArg{ window }
 		{
 		}
 
@@ -265,7 +265,7 @@ namespace WinUIEssentials::Windows::UI::StartScreen
 		{
 		}
 
-		SecondaryTile(winrt::Microsoft::UI::Xaml::Window window, winrt::hstring const& tileId) : IInitializeWithWindowConstructorHelperWithArg{ window, tileId }
+		SecondaryTile(winrt::Microsoft::UI::Xaml::Window const& window, winrt::hstring const& tileId) : IInitializeWithWindowConstructorHelperWithArg{ window, tileId }
 		{
 		}
 
@@ -281,7 +281,7 @@ namespace WinUIEssentials::Windows::UI::StartScreen
 		}
 
 		SecondaryTile(
-			winrt::Microsoft::UI::Xaml::Window window,
+			winrt::Microsoft::UI::Xaml::Window const& window,
 			winrt::hstring const& tileId,
 			winrt::hstring const& displayName,
 			winrt::hstring const& arguments,
@@ -304,7 +304,7 @@ namespace WinUIEssentials::Windows::UI::StartScreen
 		}
 
 		SecondaryTile(
-			winrt::Microsoft::UI::Xaml::Window window,
+			winrt::Microsoft::UI::Xaml::Window const& window,
 			winrt::hstring const& tileId,
 			winrt::hstring const& shortName,
 			winrt::hstring const& displayName,
@@ -329,7 +329,7 @@ namespace WinUIEssentials::Windows::UI::StartScreen
 		}
 
 		SecondaryTile(
-			winrt::Microsoft::UI::Xaml::Window window,
+			winrt::Microsoft::UI::Xaml::Window const& window,
 			winrt::hstring const& tileId,
 			winrt::hstring const& shortName,
 			winrt::hstring const& displayName,

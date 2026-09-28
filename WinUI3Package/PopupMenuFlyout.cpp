@@ -10,7 +10,7 @@ namespace winrt::WinUI3Package::implementation
 	{
 		return m_items;
 	}
-	void PopupMenuFlyout::Items(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> value)
+	void PopupMenuFlyout::Items(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> const& value)
 	{
 		OutputDebugString(std::format(L"{}\n", value.Size()).data());
 	}

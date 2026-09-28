@@ -34,7 +34,7 @@ namespace winrt::PackageRoot::implementation
         return m_converters;
     }
 
-    void ConverterGroup::Converters(winrt::Windows::Foundation::Collections::IVector<winrt::WinUINamespace::UI::Xaml::Data::IValueConverter> value)
+    void ConverterGroup::Converters(winrt::Windows::Foundation::Collections::IVector<winrt::WinUINamespace::UI::Xaml::Data::IValueConverter> const& value)
     {
         m_converters = value;
     }

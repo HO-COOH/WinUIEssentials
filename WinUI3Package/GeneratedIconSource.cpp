@@ -11,7 +11,7 @@ namespace winrt::WinUI3Package::implementation
     {
         return m_text;
     }
-    void GeneratedIconSource::Text(winrt::hstring value)
+    void GeneratedIconSource::Text(winrt::hstring const& value)
     {
         m_text = value;
     }

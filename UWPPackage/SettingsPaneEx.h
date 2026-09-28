@@ -11,23 +11,23 @@ namespace winrt::UWPPackage::implementation
         static winrt::Windows::UI::Xaml::DependencyProperty SettingsProperty();
 
         static void SetSettings(
-            winrt::Windows::Foundation::IInspectable element,
-            winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> value
+            winrt::Windows::Foundation::IInspectable const& element,
+            winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> const& value
         );
 
-        static winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> GetSettings(winrt::Windows::Foundation::IInspectable element);
+        static winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> GetSettings(winrt::Windows::Foundation::IInspectable const& element);
 
         static void Show();
         void ShowCurrent();
 
         static winrt::Windows::UI::Xaml::DependencyProperty KeyboardAcceleratorProperty();
-        static void SetKeyboardAccelerator(winrt::Windows::Foundation::IInspectable element, winrt::Windows::UI::Xaml::Input::KeyboardAccelerator key);
-        static winrt::Windows::UI::Xaml::Input::KeyboardAccelerator GetKeyboardAccelerator(winrt::Windows::Foundation::IInspectable element);
+        static void SetKeyboardAccelerator(winrt::Windows::Foundation::IInspectable const& element, winrt::Windows::UI::Xaml::Input::KeyboardAccelerator const& key);
+        static winrt::Windows::UI::Xaml::Input::KeyboardAccelerator GetKeyboardAccelerator(winrt::Windows::Foundation::IInspectable const& element);
 
         winrt::Windows::Foundation::Collections::IVector<winrt::UWPPackage::SettingsCommandEx> Content();
     private:
 
-        static void addCommandToPane(auto&& commandVector, winrt::Windows::UI::ApplicationSettings::SettingsPaneCommandsRequestedEventArgs& args)
+        static void addCommandToPane(auto&& commandVector, winrt::Windows::UI::ApplicationSettings::SettingsPaneCommandsRequestedEventArgs const& args)
         {
             auto toAdd = args.Request().ApplicationCommands();
             toAdd.Clear();

@@ -62,7 +62,7 @@ namespace winrt::PackageRoot::implementation
 		return GetValue(m_valueProperty);
 	}
 
-	void IsNullOrEmptyStateTrigger::Value(winrt::Windows::Foundation::IInspectable value)
+	void IsNullOrEmptyStateTrigger::Value(winrt::Windows::Foundation::IInspectable const& value)
 	{
 		SetValue(m_valueProperty, value);
 	}

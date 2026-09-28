@@ -19,7 +19,7 @@ namespace winrt::PackageRoot::implementation
         void FontWeight(winrt::Windows::UI::Text::FontWeight value);
 
         winrt::WinUINamespace::UI::Xaml::Media::FontFamily FontFamily();
-        void FontFamily(winrt::WinUINamespace::UI::Xaml::Media::FontFamily value);
+        void FontFamily(winrt::WinUINamespace::UI::Xaml::Media::FontFamily const& value);
 
         winrt::Windows::UI::Text::FontStyle FontStyle();
         void FontStyle(winrt::Windows::UI::Text::FontStyle value);

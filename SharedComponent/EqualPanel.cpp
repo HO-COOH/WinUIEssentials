@@ -38,7 +38,7 @@ namespace winrt::PackageRoot::implementation
             winrt::WinUINamespace::UI::Xaml::PropertyMetadata
             {
                 winrt::box_value(winrt::WinUINamespace::UI::Xaml::Controls::Orientation::Horizontal),
-                [](winrt::WinUINamespace::UI::Xaml::DependencyObject obj, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs args)
+                [](winrt::WinUINamespace::UI::Xaml::DependencyObject const& obj, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
                 {
                     winrt::get_self<EqualPanel>(obj.as<class_type>())->UpdateLayout();
                 }

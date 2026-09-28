@@ -17,7 +17,7 @@ namespace winrt::WinUI3Package::implementation
     {
 
         winrt::Microsoft::UI::Xaml::FrameworkElement BindThemeTo();
-        void BindThemeTo(winrt::Microsoft::UI::Xaml::FrameworkElement const value);
+        void BindThemeTo(winrt::Microsoft::UI::Xaml::FrameworkElement const& value);
 
         void OnTargetConnected(
             winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget,

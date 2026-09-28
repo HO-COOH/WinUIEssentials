@@ -20,27 +20,27 @@ namespace winrt::PackageRoot::implementation
 #endif
 #pragma region Properties
         winrt::Windows::Foundation::IInspectable Header();
-        void Header(winrt::Windows::Foundation::IInspectable header);
+        void Header(winrt::Windows::Foundation::IInspectable const& header);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderProperty();
 
         winrt::Windows::Foundation::IInspectable Content();
-        void Content(winrt::Windows::Foundation::IInspectable value);
+        void Content(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ContentProperty();
 
         winrt::Windows::Foundation::IInspectable Description();
-        void Description(winrt::Windows::Foundation::IInspectable title);
+        void Description(winrt::Windows::Foundation::IInspectable const& title);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty DescriptionProperty();
 
         winrt::Windows::Foundation::IInspectable HeaderIcon();
-        void HeaderIcon(winrt::Windows::Foundation::IInspectable symbol);
+        void HeaderIcon(winrt::Windows::Foundation::IInspectable const& symbol);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderIconProperty();
 
         winrt::WinUINamespace::UI::Xaml::UIElement ItemsHeader();
-        void ItemsHeader(winrt::WinUINamespace::UI::Xaml::UIElement expanderContent);
+        void ItemsHeader(winrt::WinUINamespace::UI::Xaml::UIElement const& expanderContent);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ItemsHeaderProperty();
 
         winrt::WinUINamespace::UI::Xaml::UIElement ItemsFooter();
-        void ItemsFooter(winrt::WinUINamespace::UI::Xaml::UIElement expanderContent);
+        void ItemsFooter(winrt::WinUINamespace::UI::Xaml::UIElement const& expanderContent);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ItemsFooterProperty();
 
         bool IsExpanded();
@@ -58,19 +58,19 @@ namespace winrt::PackageRoot::implementation
 
 #pragma region ItemsControl
         winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> Items();
-        void Items(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> value);
+        void Items(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ItemsProperty();
 
         winrt::Windows::Foundation::IInspectable ItemsSource();
-        void ItemsSource(winrt::Windows::Foundation::IInspectable value);
+        void ItemsSource(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ItemsSourceProperty();
 
         winrt::Windows::Foundation::IInspectable ItemTemplate();
-        void ItemTemplate(winrt::Windows::Foundation::IInspectable value);
+        void ItemTemplate(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ItemTemplateProperty();
 
         winrt::WinUINamespace::UI::Xaml::Controls::StyleSelector ItemContainerStyleSelector();
-        void ItemContainerStyleSelector(winrt::WinUINamespace::UI::Xaml::Controls::StyleSelector value);
+        void ItemContainerStyleSelector(winrt::WinUINamespace::UI::Xaml::Controls::StyleSelector const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ItemContainerStyleSelectorProperty();
 
 
@@ -107,12 +107,12 @@ namespace winrt::PackageRoot::implementation
         }
 
         static void onItemsConnectedPropertyChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
         void elementPrepared(
-            winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater sender,
+            winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater const& sender,
             winrt::Microsoft::UI::Xaml::Controls::ItemsRepeaterElementPreparedEventArgs const& args
         );
 

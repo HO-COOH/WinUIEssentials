@@ -14,7 +14,7 @@
 #pragma endregion
 
 #if __has_include("winrt/Microsoft.UI.Xaml.Controls.h")
-void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu, HMENU menu, int& index)
+void PopupMenu::appendMenu(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> const& xamlMenu, HMENU menu, int& index)
 {
 	auto const dpi = Utils::GetPrimaryMonitorDpi();
 	for (auto item : xamlMenu)

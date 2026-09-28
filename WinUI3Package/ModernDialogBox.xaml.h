@@ -47,7 +47,7 @@ namespace winrt::WinUI3Package::implementation
 		void setupSmokeLayer();
 		void setupSystemBackdrop();
 		void cleanupUnderlay();
-		void sizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window);
+		void sizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement const& element, Microsoft::UI::Xaml::Window const& window);
 		int getTitleBarOffset();
 		void onOwnerWindowSizeChanged(winrt::Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::WindowSizeChangedEventArgs const& args);
 

@@ -11,7 +11,7 @@ namespace winrt::UWPExample::implementation
     {
         return m_buttonTemplate;
     }
-    void MyDataModelTemplateSelector::ButtonTemplate(winrt::Windows::UI::Xaml::DataTemplate value)
+    void MyDataModelTemplateSelector::ButtonTemplate(winrt::Windows::UI::Xaml::DataTemplate const& value)
     {
         m_buttonTemplate = value;
     }
@@ -19,7 +19,7 @@ namespace winrt::UWPExample::implementation
     {
         return m_linkButtonTemplate;
     }
-    void MyDataModelTemplateSelector::LinkButtonTemplate(winrt::Windows::UI::Xaml::DataTemplate value)
+    void MyDataModelTemplateSelector::LinkButtonTemplate(winrt::Windows::UI::Xaml::DataTemplate const& value)
     {
         m_linkButtonTemplate = value;
     }
@@ -27,11 +27,11 @@ namespace winrt::UWPExample::implementation
     {
         return m_noButtonTemplate;
     }
-    void MyDataModelTemplateSelector::NoButtonTemplate(winrt::Windows::UI::Xaml::DataTemplate value)
+    void MyDataModelTemplateSelector::NoButtonTemplate(winrt::Windows::UI::Xaml::DataTemplate const& value)
     {
         m_noButtonTemplate = value;
     }
-    winrt::Windows::UI::Xaml::DataTemplate MyDataModelTemplateSelector::SelectTemplateCore(winrt::Windows::Foundation::IInspectable item)
+    winrt::Windows::UI::Xaml::DataTemplate MyDataModelTemplateSelector::SelectTemplateCore(winrt::Windows::Foundation::IInspectable const& item)
     {
         auto itm = item.as<UWPExample::MyDataModel>();
         if (itm.ItemType().ends_with(L"Button"))

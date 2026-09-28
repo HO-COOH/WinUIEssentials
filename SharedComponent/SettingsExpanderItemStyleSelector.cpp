@@ -10,7 +10,7 @@ namespace winrt::PackageRoot::implementation
 	{
 		return m_defaultStyle;
 	}
-	void SettingsExpanderItemStyleSelector::DefaultStyle(winrt::WinUINamespace::UI::Xaml::Style value)
+	void SettingsExpanderItemStyleSelector::DefaultStyle(winrt::WinUINamespace::UI::Xaml::Style const& value)
 	{
 		m_defaultStyle = value;
 	}
@@ -18,13 +18,13 @@ namespace winrt::PackageRoot::implementation
 	{
 		return m_clickableStyle;
 	}
-	void SettingsExpanderItemStyleSelector::ClickableStyle(winrt::WinUINamespace::UI::Xaml::Style value)
+	void SettingsExpanderItemStyleSelector::ClickableStyle(winrt::WinUINamespace::UI::Xaml::Style const& value)
 	{
 		m_clickableStyle = value;
 	}
 	winrt::WinUINamespace::UI::Xaml::Style SettingsExpanderItemStyleSelector::SelectStyleCore(
-		winrt::Windows::Foundation::IInspectable item,
-		winrt::WinUINamespace::UI::Xaml::DependencyObject container)
+		winrt::Windows::Foundation::IInspectable const& item,
+		winrt::WinUINamespace::UI::Xaml::DependencyObject const& container)
 	{
 		if (auto card = container.try_as<winrt::PackageRoot::SettingsCard>(); card && card.IsClickEnabled())
 			return m_clickableStyle;

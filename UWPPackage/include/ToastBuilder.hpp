@@ -57,7 +57,7 @@ namespace ToastBuilder
          * @param handler The handler
         */
         template<typename Handler>
-        void HandleAction(winrt::hstring arg, Handler&& handler)
+        void HandleAction(winrt::hstring const& arg, Handler&& handler)
         {
             m_actionHandler.emplace(arg, std::forward<Handler>(handler));
         }

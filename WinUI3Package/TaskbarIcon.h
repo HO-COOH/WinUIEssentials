@@ -23,25 +23,25 @@ namespace winrt::WinUI3Package::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty GuidProperty();
 
         winrt::Windows::Foundation::Uri Icon() { return nullptr; }
-        void Icon(winrt::Windows::Foundation::Uri value);
+        void Icon(winrt::Windows::Foundation::Uri const& value);
 
         winrt::hstring IconFile();
         void IconFile(winrt::hstring const& value);
 
         WinUI3Package::GeneratedIconSource LightThemeIconSource();
-        void LightThemeIconSource(WinUI3Package::GeneratedIconSource value);
+        void LightThemeIconSource(WinUI3Package::GeneratedIconSource const& value);
 
         winrt::Windows::Foundation::Uri LightThemeIcon();
-        void LightThemeIcon(winrt::Windows::Foundation::Uri value);
+        void LightThemeIcon(winrt::Windows::Foundation::Uri const& value);
 
         winrt::hstring LightThemeIconFile();
         void LightThemeIconFile(winrt::hstring const& value);
 
         WinUI3Package::GeneratedIconSource DarkThemeIconSource();
-        void DarkThemeIconSource(WinUI3Package::GeneratedIconSource value);
+        void DarkThemeIconSource(WinUI3Package::GeneratedIconSource const& value);
 
         winrt::Windows::Foundation::Uri DarkThemeIcon();
-        void DarkThemeIcon(winrt::Windows::Foundation::Uri value);
+        void DarkThemeIcon(winrt::Windows::Foundation::Uri const& value);
 
         winrt::hstring DarkThemeIconFile();
         void DarkThemeIconFile(winrt::hstring const& value);

@@ -40,7 +40,7 @@ class PopupMenu : public MenuBase
 	std::optional<RadioPopupMenuItemGroup> m_radioGroup;
 
 	void appendMenu(
-		winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> xamlMenu,
+		winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> const& xamlMenu,
 		HMENU menu,
 		int& index);
 

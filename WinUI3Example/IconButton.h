@@ -15,7 +15,7 @@ namespace winrt::WinUI3Example::implementation
         void OnApplyTemplate();
 
         winrt::Windows::Foundation::IInspectable Icon();
-        void Icon(winrt::Windows::Foundation::IInspectable value);
+        void Icon(winrt::Windows::Foundation::IInspectable const& value);
 
         static winrt::Microsoft::UI::Xaml::DependencyProperty IconProperty();
 
@@ -27,13 +27,13 @@ namespace winrt::WinUI3Example::implementation
         static winrt::Microsoft::UI::Xaml::DependencyProperty IsExpandedProperty();
 
         winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase Container();
-        void Container(winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase value);
+        void Container(winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase const& value);
     private:
         winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase m_container{ nullptr };
 
         static void isExpandedPropertyChanged(
-            winrt::Microsoft::UI::Xaml::DependencyObject d,
-            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs args
+            winrt::Microsoft::UI::Xaml::DependencyObject const& d,
+            winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& args
         );
         static winrt::Microsoft::UI::Xaml::DependencyProperty m_iconProperty;
         static winrt::Microsoft::UI::Xaml::DependencyProperty m_isExpandedProperty;

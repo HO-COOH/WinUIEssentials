@@ -7,8 +7,8 @@ namespace winrt::WinUI3Example::implementation
     struct UriGroup : UriGroupT<UriGroup>
     {
         UriGroup(
-            winrt::hstring title,
-            winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> uris
+            winrt::hstring const& title,
+            winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& uris
         ) :m_title{ title }, m_uris{ uris }
         {}
 

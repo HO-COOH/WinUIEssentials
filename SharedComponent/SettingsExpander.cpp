@@ -51,7 +51,7 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<PackageRoot::SettingsExpander>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(false),
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs e)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 				{
 					winrt::get_self<SettingsExpander>(d.as<PackageRoot::SettingsExpander>())->onIsExpandedPropertyChanged(
 						winrt::unbox_value<bool>(e.OldValue()),
@@ -109,7 +109,7 @@ namespace winrt::PackageRoot::implementation
     {
         return GetValue(m_headerProperty);
     }
-    void SettingsExpander::Header(winrt::Windows::Foundation::IInspectable header)
+    void SettingsExpander::Header(winrt::Windows::Foundation::IInspectable const& header)
     {
         SetValue(m_headerProperty, header);
     }
@@ -123,7 +123,7 @@ namespace winrt::PackageRoot::implementation
         return GetValue(m_contentProperty);
     }
 
-    void SettingsExpander::Content(winrt::Windows::Foundation::IInspectable value)
+    void SettingsExpander::Content(winrt::Windows::Foundation::IInspectable const& value)
     {
         SetValue(m_contentProperty, value);
     }
@@ -138,7 +138,7 @@ namespace winrt::PackageRoot::implementation
     {
         return winrt::unbox_value<winrt::Windows::Foundation::IInspectable>(GetValue(m_descriptionProperty));
     }
-    void SettingsExpander::Description(winrt::Windows::Foundation::IInspectable title)
+    void SettingsExpander::Description(winrt::Windows::Foundation::IInspectable const& title)
     {
         SetValue(m_descriptionProperty, winrt::box_value(title));
     }
@@ -152,7 +152,7 @@ namespace winrt::PackageRoot::implementation
     {
         return GetValue(m_headerIconProperty);
     }
-    void SettingsExpander::HeaderIcon(winrt::Windows::Foundation::IInspectable symbol)
+    void SettingsExpander::HeaderIcon(winrt::Windows::Foundation::IInspectable const& symbol)
     {
         SetValue(m_headerIconProperty, symbol);
     }
@@ -166,7 +166,7 @@ namespace winrt::PackageRoot::implementation
     {
         return GetValue(m_itemsHeaderProperty).as<winrt::WinUINamespace::UI::Xaml::UIElement>();
     }
-    void SettingsExpander::ItemsHeader(winrt::WinUINamespace::UI::Xaml::UIElement expanderContent)
+    void SettingsExpander::ItemsHeader(winrt::WinUINamespace::UI::Xaml::UIElement const& expanderContent)
     {
         SetValue(m_itemsHeaderProperty, expanderContent);
     }
@@ -180,7 +180,7 @@ namespace winrt::PackageRoot::implementation
     {
         return GetValue(m_itemsFooterProperty).as<winrt::WinUINamespace::UI::Xaml::UIElement>();
     }
-    void SettingsExpander::ItemsFooter(winrt::WinUINamespace::UI::Xaml::UIElement expanderContent)
+    void SettingsExpander::ItemsFooter(winrt::WinUINamespace::UI::Xaml::UIElement const& expanderContent)
     {
         SetValue(m_itemsFooterProperty, expanderContent);
     }
@@ -228,7 +228,7 @@ namespace winrt::PackageRoot::implementation
         return GetValue(m_itemsProperty).as<winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable>>();
     }
 
-    void SettingsExpander::Items(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> value)
+    void SettingsExpander::Items(winrt::Windows::Foundation::Collections::IVector<winrt::Windows::Foundation::IInspectable> const& value)
     {
         SetValue(m_itemsProperty, value);
     }
@@ -243,7 +243,7 @@ namespace winrt::PackageRoot::implementation
         return GetValue(m_itemsSourceProperty);
     }
 
-    void SettingsExpander::ItemsSource(winrt::Windows::Foundation::IInspectable value)
+    void SettingsExpander::ItemsSource(winrt::Windows::Foundation::IInspectable const& value)
     {
         SetValue(m_itemsSourceProperty, value);
     }
@@ -258,7 +258,7 @@ namespace winrt::PackageRoot::implementation
         return GetValue(m_itemTemplateProperty);
     }
 
-    void SettingsExpander::ItemTemplate(winrt::Windows::Foundation::IInspectable value)
+    void SettingsExpander::ItemTemplate(winrt::Windows::Foundation::IInspectable const& value)
     {
         SetValue(m_itemTemplateProperty, value);
     }
@@ -273,7 +273,7 @@ namespace winrt::PackageRoot::implementation
         return GetValue(m_itemContainerStyleSelectorProperty).as<winrt::WinUINamespace::UI::Xaml::Controls::StyleSelector>();
     }
 
-    void SettingsExpander::ItemContainerStyleSelector(winrt::WinUINamespace::UI::Xaml::Controls::StyleSelector value)
+    void SettingsExpander::ItemContainerStyleSelector(winrt::WinUINamespace::UI::Xaml::Controls::StyleSelector const& value)
     {
         SetValue(m_itemContainerStyleSelectorProperty, value);
     }
@@ -284,7 +284,7 @@ namespace winrt::PackageRoot::implementation
     }
 
     void SettingsExpander::onItemsConnectedPropertyChanged(
-        winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+        winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         if (auto expander = winrt::get_self<SettingsExpander>(d.try_as<PackageRoot::SettingsExpander>()); expander && expander->m_itemsRepeater)
@@ -298,7 +298,7 @@ namespace winrt::PackageRoot::implementation
     }
 
     void SettingsExpander::elementPrepared(
-        winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater sender,
+        winrt::Microsoft::UI::Xaml::Controls::ItemsRepeater const& sender,
         winrt::Microsoft::UI::Xaml::Controls::ItemsRepeaterElementPreparedEventArgs const& args)
     {
         if (ItemContainerStyleSelector())

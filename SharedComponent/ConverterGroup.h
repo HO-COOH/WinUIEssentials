@@ -22,7 +22,7 @@ namespace winrt::PackageRoot::implementation
         );
 
         winrt::Windows::Foundation::Collections::IVector<winrt::WinUINamespace::UI::Xaml::Data::IValueConverter> Converters();
-        void Converters(winrt::Windows::Foundation::Collections::IVector<winrt::WinUINamespace::UI::Xaml::Data::IValueConverter> value);
+        void Converters(winrt::Windows::Foundation::Collections::IVector<winrt::WinUINamespace::UI::Xaml::Data::IValueConverter> const& value);
     private:
         winrt::Windows::Foundation::Collections::IVector<winrt::WinUINamespace::UI::Xaml::Data::IValueConverter> m_converters =
             winrt::single_threaded_vector<winrt::WinUINamespace::UI::Xaml::Data::IValueConverter>();

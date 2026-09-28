@@ -353,7 +353,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	}
 
-	void ModernDialogBox::sizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement element, Microsoft::UI::Xaml::Window window)
+	void ModernDialogBox::sizeToXamlRoot(Microsoft::UI::Xaml::FrameworkElement const& element, Microsoft::UI::Xaml::Window const& window)
 	{
 		if (!window || !window.Content() || !window.Content().XamlRoot()) return;
 

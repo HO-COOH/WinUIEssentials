@@ -32,7 +32,7 @@ namespace winrt::UWPExample::implementation
 		return GetValue(m_fromProperty);
 	}
 
-	void IsEqualValueTrigger::From(winrt::Windows::Foundation::IInspectable value)
+	void IsEqualValueTrigger::From(winrt::Windows::Foundation::IInspectable const& value)
 	{
 		SetValue(m_fromProperty, value);
 	}
@@ -47,7 +47,7 @@ namespace winrt::UWPExample::implementation
 		return GetValue(m_toProperty);
 	}
 
-	void IsEqualValueTrigger::To(winrt::Windows::Foundation::IInspectable value)
+	void IsEqualValueTrigger::To(winrt::Windows::Foundation::IInspectable const& value)
 	{
 		SetValue(m_toProperty, value);
 	}
@@ -58,7 +58,7 @@ namespace winrt::UWPExample::implementation
 	}
 
 	void IsEqualValueTrigger::onValuePropertyChanged(
-		winrt::Windows::UI::Xaml::DependencyObject d,
+		winrt::Windows::UI::Xaml::DependencyObject const& d,
 		winrt::Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
 		winrt::get_self<IsEqualValueTrigger>(d.as<UWPExample::IsEqualValueTrigger>())->updateTrigger();

@@ -6,7 +6,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct UriModel : UriModelT<UriModel>
     {
-        UriModel(winrt::hstring name, winrt::Windows::Foundation::Uri uri)
+        UriModel(winrt::hstring const& name, winrt::Windows::Foundation::Uri const& uri)
             : m_name{ name },
             m_uri{ uri }
         {

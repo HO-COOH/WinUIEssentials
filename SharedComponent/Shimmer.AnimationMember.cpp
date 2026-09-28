@@ -34,7 +34,7 @@ ShimmerAnimationMember::ShimmerAnimationMember(
 	m_gradientStopPointAnimation.InsertKeyFrame(1.0f, { -InitialStartPointX, 1.0f });
 }
 
-void ShimmerAnimationMember::SetGradientStops(winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection gradientStops)
+void ShimmerAnimationMember::SetGradientStops(winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection const& gradientStops)
 {
 	auto stops = m_shimmerMaskGradient.ColorStops();
 	stops.Clear();
@@ -83,5 +83,3 @@ ShimmerAnimationMember::~ShimmerAnimationMember()
 {
 	StopAnimation();
 }
-
-

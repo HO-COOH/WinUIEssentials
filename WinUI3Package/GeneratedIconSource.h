@@ -12,7 +12,7 @@ namespace winrt::WinUI3Package::implementation
         }
         
         winrt::hstring Text();
-        void Text(winrt::hstring value);
+        void Text(winrt::hstring const& value);
 
         winrt::Windows::UI::Color Foreground() { return {}; }
         void Foreground(winrt::Windows::UI::Color) {}

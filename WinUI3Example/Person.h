@@ -6,7 +6,7 @@ namespace winrt::WinUI3Example::implementation
 {
     struct Person : PersonT<Person>
     {
-        Person(winrt::hstring name);
+        Person(winrt::hstring const& name);
 
         winrt::hstring Name();
     private:

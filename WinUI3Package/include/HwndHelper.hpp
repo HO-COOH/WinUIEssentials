@@ -7,7 +7,7 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/Microsoft.UI.Content.h>
 
-inline HWND GetHwnd(winrt::Microsoft::UI::Xaml::Window window)
+inline HWND GetHwnd(winrt::Microsoft::UI::Xaml::Window const& window)
 {
     HWND hwnd{};
     window.as<IWindowNative>()->get_WindowHandle(&hwnd);

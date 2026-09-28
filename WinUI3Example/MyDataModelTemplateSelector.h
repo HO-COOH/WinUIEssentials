@@ -8,21 +8,21 @@ namespace winrt::WinUI3Example::implementation
     {
 
         winrt::Microsoft::UI::Xaml::DataTemplate ButtonTemplate();
-        void ButtonTemplate(winrt::Microsoft::UI::Xaml::DataTemplate value);
+        void ButtonTemplate(winrt::Microsoft::UI::Xaml::DataTemplate const& value);
 
         winrt::Microsoft::UI::Xaml::DataTemplate LinkButtonTemplate();
-        void LinkButtonTemplate(winrt::Microsoft::UI::Xaml::DataTemplate value);
+        void LinkButtonTemplate(winrt::Microsoft::UI::Xaml::DataTemplate const& value);
 
         winrt::Microsoft::UI::Xaml::DataTemplate NoButtonTemplate();
-        void NoButtonTemplate(winrt::Microsoft::UI::Xaml::DataTemplate value);
+        void NoButtonTemplate(winrt::Microsoft::UI::Xaml::DataTemplate const& value);
 
         winrt::Microsoft::UI::Xaml::DataTemplate SelectTemplateCore(
-            winrt::Windows::Foundation::IInspectable item
+            winrt::Windows::Foundation::IInspectable const& item
         );
 
         winrt::Microsoft::UI::Xaml::DataTemplate SelectTemplateCore(
-            winrt::Windows::Foundation::IInspectable item,
-            winrt::Microsoft::UI::Xaml::DependencyObject container
+            winrt::Windows::Foundation::IInspectable const& item,
+            winrt::Microsoft::UI::Xaml::DependencyObject const& container
         )
         {
             return SelectTemplateCore(item);

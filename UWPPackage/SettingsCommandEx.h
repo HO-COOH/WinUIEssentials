@@ -8,16 +8,16 @@ namespace winrt::UWPPackage::implementation
     {
 
         winrt::Windows::Foundation::IInspectable Id();
-        void Id(winrt::Windows::Foundation::IInspectable value);
+        void Id(winrt::Windows::Foundation::IInspectable const& value);
 
         winrt::hstring Label();
-        void Label(winrt::hstring value);
+        void Label(winrt::hstring const& value);
 
-        winrt::event_token Invoke(winrt::Windows::Foundation::EventHandler<winrt::Windows::UI::Popups::IUICommand> const handler);
+        winrt::event_token Invoke(winrt::Windows::Foundation::EventHandler<winrt::Windows::UI::Popups::IUICommand> const& handler);
         void Invoke(winrt::event_token const& token) noexcept;
 
         winrt::Windows::UI::Popups::UICommandInvokedHandler Invoked();
-        void Invoked(winrt::Windows::UI::Popups::UICommandInvokedHandler value);
+        void Invoked(winrt::Windows::UI::Popups::UICommandInvokedHandler const& value);
 
     private:
         winrt::Windows::Foundation::IInspectable m_id;

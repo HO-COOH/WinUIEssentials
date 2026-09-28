@@ -171,7 +171,7 @@ namespace winrt::PackageRoot::implementation
         return winrt::unbox_value<winrt::hstring>(GetValue(m_textProperty));
     }
 
-    void MarqueeText::Text(winrt::hstring value)
+    void MarqueeText::Text(winrt::hstring const& value)
     {
         SetValue(m_textProperty, winrt::box_value(value));
     }
@@ -235,7 +235,7 @@ namespace winrt::PackageRoot::implementation
         }
     }
 
-    void MarqueeText::propertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    void MarqueeText::propertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         if (auto control = d.try_as<PackageRoot::MarqueeText>())
         {
@@ -243,7 +243,7 @@ namespace winrt::PackageRoot::implementation
         }
     }
 
-    void MarqueeText::behaviorPropertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    void MarqueeText::behaviorPropertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto container = d.as<PackageRoot::MarqueeText>();
         if (!container)
@@ -259,7 +259,7 @@ namespace winrt::PackageRoot::implementation
         control->startMarquee();
     }
 
-    void MarqueeText::directionPropertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    void MarqueeText::directionPropertyChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto container = d.as<PackageRoot::MarqueeText>();
         if (!container)
@@ -284,7 +284,7 @@ namespace winrt::PackageRoot::implementation
         control->startMarquee();
     }
 
-    void MarqueeText::pauseOnHoverChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    void MarqueeText::pauseOnHoverChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto container = d.as<PackageRoot::MarqueeText>();
         if (!container)
@@ -312,7 +312,7 @@ namespace winrt::PackageRoot::implementation
         }
     }
 
-    void MarqueeText::spaceIntervalChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
+    void MarqueeText::spaceIntervalChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
         auto container = d.as<PackageRoot::MarqueeText>();
         if (!container)
@@ -351,7 +351,7 @@ namespace winrt::PackageRoot::implementation
             marqueeStoryboard.Resume();
     }
 
-    void MarqueeText::container_SizeChanged(winrt::Windows::Foundation::IInspectable sender, winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& e)
+    void MarqueeText::container_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender, winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& e)
     {
         if (!marqueeContainer)
             return;
@@ -545,8 +545,8 @@ namespace winrt::PackageRoot::implementation
     }
 
     void MarqueeText::storyboard_completed(
-        winrt::Windows::Foundation::IInspectable sender,
-        winrt::Windows::Foundation::IInspectable e)
+        winrt::Windows::Foundation::IInspectable const& sender,
+        winrt::Windows::Foundation::IInspectable const& e)
     {
         stopMarquee(true);
         marqueeCompleted();

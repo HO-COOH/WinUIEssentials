@@ -10,7 +10,7 @@ namespace winrt::UWPPackage::implementation
 	{
 		return m_id;
 	}
-	void SettingsCommandEx::Id(winrt::Windows::Foundation::IInspectable value)
+	void SettingsCommandEx::Id(winrt::Windows::Foundation::IInspectable const& value)
 	{
 		m_id = value;
 	}
@@ -18,11 +18,11 @@ namespace winrt::UWPPackage::implementation
 	{
 		return m_label;
 	}
-	void SettingsCommandEx::Label(winrt::hstring value)
+	void SettingsCommandEx::Label(winrt::hstring const& value)
 	{
 		m_label = value;
 	}
-	winrt::event_token SettingsCommandEx::Invoke(winrt::Windows::Foundation::EventHandler<winrt::Windows::UI::Popups::IUICommand> const handler)
+	winrt::event_token SettingsCommandEx::Invoke(winrt::Windows::Foundation::EventHandler<winrt::Windows::UI::Popups::IUICommand> const& handler)
 	{
 		return m_InvokeEvent.add(handler);
 	}
@@ -34,7 +34,7 @@ namespace winrt::UWPPackage::implementation
 	{
 		return m_invokeHandler;
 	}
-	void SettingsCommandEx::Invoked(winrt::Windows::UI::Popups::UICommandInvokedHandler)
+	void SettingsCommandEx::Invoked(winrt::Windows::UI::Popups::UICommandInvokedHandler const&)
 	{
 	}
 }

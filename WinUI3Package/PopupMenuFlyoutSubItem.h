@@ -19,7 +19,7 @@ namespace winrt::WinUI3Package::implementation
             return m_items;
         }
 
-        void Items(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> value)
+        void Items(winrt::Windows::Foundation::Collections::IVector<winrt::WinUI3Package::PopupMenuFlyoutItemBase> const& value)
         {
 
         }

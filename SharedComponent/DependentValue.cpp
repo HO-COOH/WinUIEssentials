@@ -17,7 +17,7 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<winrt::PackageRoot::DependentValue>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(0.0),
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject obj, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs args)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject const& obj, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& args)
 				{
 					obj.as<winrt::PackageRoot::DependentValue>().Value(winrt::unbox_value<double>(args.NewValue()));
 				}

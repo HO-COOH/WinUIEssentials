@@ -17,7 +17,7 @@ namespace winrt::UWPExample::implementation
         glyphs.reserve(size);
 
 
-        std::ranges::transform(dict, std::back_inserter(glyphs), [](winrt::Windows::Foundation::Collections::IKeyValuePair<winrt::Windows::Foundation::IInspectable, winrt::Windows::Foundation::IInspectable> p)
+        std::ranges::transform(dict, std::back_inserter(glyphs), [](winrt::Windows::Foundation::Collections::IKeyValuePair<winrt::Windows::Foundation::IInspectable, winrt::Windows::Foundation::IInspectable> const& p)
         {
             return UWPExample::Icon{
                 .Glyph = winrt::unbox_value<winrt::hstring>(p.Value()),

@@ -52,3 +52,4 @@
 #include "RowRequestedEventArgs.h"
 #include "ContextMenuRequestedEventArgs.h"
 #include "DefaultTableContextMenu.h"
+#include "ReferenceToVisibilityConverter.h"

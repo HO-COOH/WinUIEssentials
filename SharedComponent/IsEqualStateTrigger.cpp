@@ -32,7 +32,7 @@ namespace winrt::PackageRoot::implementation
 		return GetValue(m_valueProperty);
 	}
 
-	void IsEqualStateTrigger::Value(winrt::Windows::Foundation::IInspectable value)
+	void IsEqualStateTrigger::Value(winrt::Windows::Foundation::IInspectable const& value)
 	{
 		SetValue(m_valueProperty, value);
 	}
@@ -47,7 +47,7 @@ namespace winrt::PackageRoot::implementation
 		return GetValue(m_toProperty);
 	}
 
-	void IsEqualStateTrigger::To(winrt::Windows::Foundation::IInspectable value)
+	void IsEqualStateTrigger::To(winrt::Windows::Foundation::IInspectable const& value)
 	{
 		SetValue(m_toProperty, value);
 	}

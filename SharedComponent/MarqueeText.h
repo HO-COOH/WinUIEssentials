@@ -35,7 +35,7 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty DirectionProperty();
 
         winrt::hstring Text();
-        void Text(winrt::hstring value);
+        void Text(winrt::hstring const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty TextProperty();
 
         bool PauseOnHover();
@@ -60,27 +60,27 @@ namespace winrt::PackageRoot::implementation
 
         //https://github.com/CommunityToolkit/Labs-Windows/blob/main/components/MarqueeText/src/MarqueeText.Properties.cs
         static void propertyChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
         static void behaviorPropertyChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
         static void directionPropertyChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
         static void pauseOnHoverChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
         static void spaceIntervalChanged(
-            winrt::WinUINamespace::UI::Xaml::DependencyObject d,
+            winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
@@ -119,7 +119,7 @@ namespace winrt::PackageRoot::implementation
         winrt::WinUINamespace::UI::Xaml::Media::Animation::Storyboard marqueeStoryboard{ nullptr };
 
         bool isActive{};
-        void container_SizeChanged(winrt::Windows::Foundation::IInspectable sender,
+        void container_SizeChanged(winrt::Windows::Foundation::IInspectable const& sender,
             winrt::WinUINamespace::UI::Xaml::SizeChangedEventArgs const& e);
 
         constexpr static std::wstring_view getVisualStateName(MarqueeDirection direction);
@@ -144,8 +144,8 @@ namespace winrt::PackageRoot::implementation
             std::wstring_view targetProperty
         );
         void storyboard_completed(
-            winrt::Windows::Foundation::IInspectable sender,
-            winrt::Windows::Foundation::IInspectable e
+            winrt::Windows::Foundation::IInspectable const& sender,
+            winrt::Windows::Foundation::IInspectable const& e
         );
         static bool isHorizontal(MarqueeDirection direction);
     };

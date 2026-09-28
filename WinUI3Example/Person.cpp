@@ -6,7 +6,7 @@
 
 namespace winrt::WinUI3Example::implementation
 {
-	Person::Person(winrt::hstring name) : m_name{std::move(name)}
+	Person::Person(winrt::hstring const& name) : m_name{std::move(name)}
 	{
 	}
 	winrt::hstring Person::Name()

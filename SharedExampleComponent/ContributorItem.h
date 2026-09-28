@@ -7,9 +7,9 @@ namespace winrt::PackageRoot::implementation
     struct ContributorItem : ContributorItemT<ContributorItem>
     {
         ContributorItem(
-            winrt::hstring name,
-            winrt::Windows::Foundation::Uri avator,
-            winrt::Windows::Foundation::Uri profile
+            winrt::hstring const& name,
+            winrt::Windows::Foundation::Uri const& avator,
+            winrt::Windows::Foundation::Uri const& profile
         );
 
 		ContributorItem(winrt::Windows::Data::Json::JsonObject const& json);

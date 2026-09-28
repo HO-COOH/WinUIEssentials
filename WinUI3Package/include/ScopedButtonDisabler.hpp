@@ -16,7 +16,7 @@ public:
 	 * @param button Can be a `Button`, `HyperlinkButton`, `RepeatButton` and `ToggleButton`
 	 * @param initialDisabled Whether or not disable the `button` upon construction
 	 */
-	ScopedButtonDisabler(winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase button, bool initialDisabled = true) :
+	ScopedButtonDisabler(winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase const& button, bool initialDisabled = true) :
 		m_button{ button }
 	{
 		if (initialDisabled)
@@ -30,7 +30,7 @@ public:
 	 * \param button
 	 * \param initialDisabled Whether or not disable the `button` upon construction
 	 */
-	ScopedButtonDisabler(winrt::Windows::Foundation::IInspectable button, bool initialDisabled = true) :
+	ScopedButtonDisabler(winrt::Windows::Foundation::IInspectable const& button, bool initialDisabled = true) :
 		ScopedButtonDisabler{ button.as<winrt::Microsoft::UI::Xaml::Controls::Primitives::ButtonBase>(), initialDisabled }
 	{
 	}

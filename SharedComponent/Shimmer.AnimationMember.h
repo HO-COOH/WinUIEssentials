@@ -30,7 +30,7 @@ public:
         winrt::Windows::Foundation::TimeSpan duration
     );
 
-    void SetGradientStops(winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection gradientStops);
+    void SetGradientStops(winrt::WinUINamespace::UI::Xaml::Media::GradientStopCollection const& gradientStops);
 
     template<std::size_t N>
     void SetGradientStops(std::array<winrt::Windows::UI::Color, N> colors, std::array<float, N> gradientStopOffsets)
