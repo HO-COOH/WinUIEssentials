@@ -231,6 +231,9 @@
     <Midl Include="$(MSBuildThisFileDirectory)TableCellDataWrapper.idl">
       <Filter>Table\Xaml\ControlsOverlay</Filter>
     </Midl>
+    <Midl Include="$(MSBuildThisFileDirectory)ReferenceToVisibilityConverter.idl">
+      <Filter>Converter</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Convert.h">
@@ -483,6 +486,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TableSortParameter.hpp">
       <Filter>Table\Xaml\Table\Sort</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ReferenceToVisibilityConverter.h">
+      <Filter>Converter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">
@@ -682,6 +688,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TableSortContext.cpp">
       <Filter>Table\Xaml\Table\Sort</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ReferenceToVisibilityConverter.cpp">
+      <Filter>Converter</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

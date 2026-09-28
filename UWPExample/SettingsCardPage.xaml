@@ -24,7 +24,6 @@
                     <x:String>Option 3</x:String>
                 </ComboBox>
             </essential:SettingsCard>
-
             <local:ControlExample.Options>
                 <ToggleSwitch
                     x:Name="IsCardEnabled"

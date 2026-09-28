@@ -23,37 +23,19 @@ namespace winrt::PackageRoot::implementation
 			L"Header",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<PackageRoot::SettingsCard>(),
-			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
-				nullptr,
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
-				{
-					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onHeaderChanged();
-				}
-			}
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr }
 		);
 		m_descriptionProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"Description",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<PackageRoot::SettingsCard>(),
-			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
-				nullptr,
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
-				{
-					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onDescriptionChanged();
-				}
-			}
+            winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr }
 		);
 		m_headerIconProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"HeaderIcon",
 			winrt::xaml_typename<winrt::Windows::Foundation::IInspectable>(),
 			winrt::xaml_typename<PackageRoot::SettingsCard>(),
-			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
-				nullptr,
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
-				{
-					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onHeaderIconChanged();
-				}
-			}
+			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{ nullptr }
 		);
 		m_actionIconProperty = winrt::WinUINamespace::UI::Xaml::DependencyProperty::Register(
 			L"ActionIcon",
@@ -73,7 +55,7 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<PackageRoot::SettingsCard>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(false),
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, auto)
 				{
 					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onIsClickEnabledChanged();
 				}
@@ -85,7 +67,7 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<PackageRoot::SettingsCard>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(true),
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, auto)
 				{
 					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onActionIconChanged();
 				}
@@ -103,9 +85,6 @@ namespace winrt::PackageRoot::implementation
     {
         base_type::OnApplyTemplate();
         onActionIconChanged();
-        onHeaderChanged();
-        onHeaderIconChanged();
-        onDescriptionChanged();
         onIsClickEnabledChanged();
         winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(
             *this,
@@ -119,7 +98,7 @@ namespace winrt::PackageRoot::implementation
     {
         return GetValue(m_headerProperty);
     }
-    void SettingsCard::Header(winrt::Windows::Foundation::IInspectable value)
+    void SettingsCard::Header(winrt::Windows::Foundation::IInspectable const& value)
     {
         SetValue(m_headerProperty, value);
     }
@@ -133,7 +112,7 @@ namespace winrt::PackageRoot::implementation
     {
         return GetValue(m_descriptionProperty);
     }
-    void SettingsCard::Description(winrt::Windows::Foundation::IInspectable value)
+    void SettingsCard::Description(winrt::Windows::Foundation::IInspectable const& value)
     {
         SetValue(m_descriptionProperty, value);
     }
@@ -147,7 +126,7 @@ namespace winrt::PackageRoot::implementation
     {
         return GetValue(m_headerIconProperty);
     }
-    void SettingsCard::HeaderIcon(winrt::Windows::Foundation::IInspectable value)
+    void SettingsCard::HeaderIcon(winrt::Windows::Foundation::IInspectable const& value)
     {
         SetValue(m_headerIconProperty, value);
     }
@@ -161,7 +140,7 @@ namespace winrt::PackageRoot::implementation
     {
         return GetValue(m_actionIconProperty);
     }
-    void SettingsCard::ActionIcon(winrt::Windows::Foundation::IInspectable value)
+    void SettingsCard::ActionIcon(winrt::Windows::Foundation::IInspectable const& value)
     {
         SetValue(m_actionIconProperty, value);
     }
@@ -175,7 +154,7 @@ namespace winrt::PackageRoot::implementation
     {
         return winrt::unbox_value<winrt::hstring>(GetValue(m_actionIconToolTipProperty));
     }
-    void SettingsCard::ActionIconToolTip(winrt::hstring value)
+    void SettingsCard::ActionIconToolTip(winrt::hstring const& value)
     {
         SetValue(m_actionIconToolTipProperty, winrt::box_value(value));
     }
@@ -249,6 +228,17 @@ namespace winrt::PackageRoot::implementation
 
     void SettingsCard::OnContentChanged(winrt::Windows::Foundation::IInspectable const& oldContent, winrt::Windows::Foundation::IInspectable const& newContent)
     {
+        if (m_contentResource)
+        {
+            if (auto oldElement = oldContent.try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>())
+            {
+                auto mergedDictionaries = oldElement.Resources().MergedDictionaries();
+                if (uint32_t index{}; mergedDictionaries.IndexOf(m_contentResource, index))
+                    mergedDictionaries.RemoveAt(index);
+            }
+            m_contentResource = nullptr;
+        }
+
         if (!newContent)
             return;
 
@@ -256,17 +246,11 @@ namespace winrt::PackageRoot::implementation
         if (!frameworkElement)
             return;
 
-        winrt::WinUINamespace::UI::Xaml::ResourceDictionary thisResource;
-        thisResource.Source(winrt::Windows::Foundation::Uri
-        { 
-#if defined Build_WinUIPackage
-            L"ms-appx:///WinUI3Package/SettingsCard_ContentResource.xaml" 
-#else
-            L"ms-appx:///UWPPackage/SettingsCard_ContentResource.xaml"
-#endif
-        });
+        m_contentResource = winrt::WinUINamespace::UI::Xaml::ResourceDictionary{};
+        m_contentResource.Source(winrt::Windows::Foundation::Uri{ ContentResourceUri });
 
-        frameworkElement.Resources().MergedDictionaries().Append(thisResource);
+        //Insert at the front instead of Append because merged dictionaries resolve in reverse order
+        frameworkElement.Resources().MergedDictionaries().InsertAt(0, m_contentResource);
     }
 
     void SettingsCard::onIsClickEnabledChanged()
@@ -298,47 +282,8 @@ namespace winrt::PackageRoot::implementation
         }
     }
 
-    void SettingsCard::onHeaderChanged()
-    {
-        if (auto headerPresenter = GetTemplateChild(HeaderPresenter)
-            .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>())
-        {
-            headerPresenter.Visibility(
-                Header() ?
-                winrt::WinUINamespace::UI::Xaml::Visibility::Visible :
-                winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed
-            );
-        }
-    }
-
-    void SettingsCard::onHeaderIconChanged()
-    {
-        if (auto headerIconPresenter = GetTemplateChild(HeaderIconPresenterHolder)
-            .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>())
-        {
-            headerIconPresenter.Visibility(
-                HeaderIcon() ?
-                winrt::WinUINamespace::UI::Xaml::Visibility::Visible :
-                winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed
-            );
-        }
-    }
-
-    void SettingsCard::onDescriptionChanged()
-    {
-        if (auto descriptionPresenter = GetTemplateChild(DescriptionPresenter)
-            .try_as<winrt::WinUINamespace::UI::Xaml::FrameworkElement>())
-        {
-            descriptionPresenter.Visibility(
-                Description() ?
-                winrt::WinUINamespace::UI::Xaml::Visibility::Visible :
-                winrt::WinUINamespace::UI::Xaml::Visibility::Collapsed
-            );
-        }
-    }
-
     void SettingsCard::onIsEnabledChanged(
-        winrt::Windows::Foundation::IInspectable,
+        winrt::Windows::Foundation::IInspectable const&,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const&)
     {
         winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(
@@ -375,7 +320,7 @@ namespace winrt::PackageRoot::implementation
 
 
     void SettingsCard::pointerEntered(
-        winrt::Windows::Foundation::IInspectable sender,
+        winrt::Windows::Foundation::IInspectable const& sender,
         winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerEntered(e);
@@ -384,7 +329,7 @@ namespace winrt::PackageRoot::implementation
     }
 
     void SettingsCard::pointerExited(
-        winrt::Windows::Foundation::IInspectable sender,
+        winrt::Windows::Foundation::IInspectable const& sender,
         winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerExited(e);
@@ -393,7 +338,7 @@ namespace winrt::PackageRoot::implementation
     }
 
     void SettingsCard::pointerCaptureLost(
-        winrt::Windows::Foundation::IInspectable sender,
+        winrt::Windows::Foundation::IInspectable const& sender,
         winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerCaptureLost(e);
@@ -401,7 +346,7 @@ namespace winrt::PackageRoot::implementation
     }
 
     void SettingsCard::pointerCanceled(
-        winrt::Windows::Foundation::IInspectable sender,
+        winrt::Windows::Foundation::IInspectable const& sender,
         winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e)
     {
         base_type::OnPointerCanceled(e);
@@ -409,7 +354,7 @@ namespace winrt::PackageRoot::implementation
     }
 
     void SettingsCard::previewKeyUp(
-        winrt::Windows::Foundation::IInspectable sender,
+        winrt::Windows::Foundation::IInspectable const& sender,
         winrt::WinUINamespace::UI::Xaml::Input::KeyRoutedEventArgs const& e)
     {
         if (contains(PreviewKeys, e.Key()))
@@ -419,7 +364,7 @@ namespace winrt::PackageRoot::implementation
     }
 
     void SettingsCard::previewKeyDown(
-        winrt::Windows::Foundation::IInspectable sender,
+        winrt::Windows::Foundation::IInspectable const& sender,
         winrt::WinUINamespace::UI::Xaml::Input::KeyRoutedEventArgs const& e)
     {
         if (contains(PreviewKeys, e.Key()))

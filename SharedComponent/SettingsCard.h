@@ -17,23 +17,23 @@ namespace winrt::PackageRoot::implementation
 
 #pragma region Properties
         winrt::Windows::Foundation::IInspectable Header();
-        void Header(winrt::Windows::Foundation::IInspectable value);
+        void Header(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderProperty();
 
         winrt::Windows::Foundation::IInspectable Description();
-        void Description(winrt::Windows::Foundation::IInspectable value);
+        void Description(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty DescriptionProperty();
 
         winrt::Windows::Foundation::IInspectable HeaderIcon();
-        void HeaderIcon(winrt::Windows::Foundation::IInspectable value);
+        void HeaderIcon(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty HeaderIconProperty();
 
         winrt::Windows::Foundation::IInspectable ActionIcon();
-        void ActionIcon(winrt::Windows::Foundation::IInspectable value);
+        void ActionIcon(winrt::Windows::Foundation::IInspectable const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ActionIconProperty();
 
         winrt::hstring ActionIconToolTip();
-        void ActionIconToolTip(winrt::hstring value);
+        void ActionIconToolTip(winrt::hstring const& value);
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty ActionIconToolTipProperty();
 
         bool IsClickEnabled();
@@ -55,8 +55,10 @@ namespace winrt::PackageRoot::implementation
 
 #if defined Build_WinUIPackage
         constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/SettingsCard_Resource.xaml";
+        constexpr static auto ContentResourceUri = L"ms-appx:///WinUI3Package/SettingsCard_ContentResource.xaml";
 #else
         constexpr static auto ResourceUri = L"ms-appx:///UWPPackage/SettingsCard_Resource.xaml";
+        constexpr static auto ContentResourceUri = L"ms-appx:///UWPPackage/SettingsCard_ContentResource.xaml";
 #endif
     private:
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_headerProperty;
@@ -70,11 +72,8 @@ namespace winrt::PackageRoot::implementation
 
         void onIsClickEnabledChanged();
         void onActionIconChanged();
-        void onHeaderChanged();
-        void onHeaderIconChanged();
-        void onDescriptionChanged();
         void onIsEnabledChanged(
-            winrt::Windows::Foundation::IInspectable sender,
+            winrt::Windows::Foundation::IInspectable const& sender,
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
         void enableButtonInteraction();
@@ -89,23 +88,27 @@ namespace winrt::PackageRoot::implementation
 
         bool m_isPointerOver{};
 
+        //The content resource dictionary we merged into the current content, so that we
+        //can remove it again when the content changes, instead of stacking up duplicates.
+        winrt::WinUINamespace::UI::Xaml::ResourceDictionary m_contentResource{ nullptr };
+
         void pointerEntered(
-            winrt::Windows::Foundation::IInspectable sender,
+            winrt::Windows::Foundation::IInspectable const& sender,
             winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void pointerExited(
-            winrt::Windows::Foundation::IInspectable sender,
+            winrt::Windows::Foundation::IInspectable const& sender,
             winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void pointerCaptureLost(
-            winrt::Windows::Foundation::IInspectable sender,
+            winrt::Windows::Foundation::IInspectable const& sender,
             winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void pointerCanceled(
-            winrt::Windows::Foundation::IInspectable sender,
+            winrt::Windows::Foundation::IInspectable const& sender,
             winrt::WinUINamespace::UI::Xaml::Input::PointerRoutedEventArgs const& e);
         void previewKeyUp(
-            winrt::Windows::Foundation::IInspectable sender,
+            winrt::Windows::Foundation::IInspectable const& sender,
             winrt::WinUINamespace::UI::Xaml::Input::KeyRoutedEventArgs const& e);
         void previewKeyDown(
-            winrt::Windows::Foundation::IInspectable sender,
+            winrt::Windows::Foundation::IInspectable const& sender,
             winrt::WinUINamespace::UI::Xaml::Input::KeyRoutedEventArgs const& e);
 
 

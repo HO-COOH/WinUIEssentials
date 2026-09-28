@@ -2,11 +2,11 @@
 class ReverseConverterBase
 {
 public:
-	bool Reverse()
+	constexpr bool Reverse() noexcept
 	{
 		return m_reverse;
 	}
-	void Reverse(bool value)
+	constexpr void Reverse(bool value) noexcept
 	{
 		m_reverse = value;
 	}
