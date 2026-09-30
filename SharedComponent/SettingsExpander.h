@@ -6,7 +6,7 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    struct SettingsExpander : SettingsExpanderT<SettingsExpander>, TemplateControlHelper<SettingsExpander>, EnsureDependencyProperty<SettingsExpander>
+    struct SettingsExpander : SettingsExpanderT<SettingsExpander>, TemplateControlHelper<SettingsExpander, true, false>, EnsureDependencyProperty<SettingsExpander>
     {
         static void EnsureDependencyProperties();
         SettingsExpander();

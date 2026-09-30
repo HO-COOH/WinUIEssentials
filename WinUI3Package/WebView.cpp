@@ -426,7 +426,27 @@ namespace winrt::WinUI3Package::implementation
 			::RemoveWindowSubclass(m_hostHwnd, &WebView::hostSubclassProc, kHostSubclassId);
 
 		if (auto webview = std::exchange(m_webview, nullptr))
+		{
+			webview.MoveFocusRequested(m_moveFocusRequestedToken);
+			webview.AcceleratorKeyPressed(m_acceleratorKeyPressedToken);
+			webview.ContentLoading(m_contentLoadingToken);
+			webview.DOMContentLoaded(m_domContentLoadedToken);
+			webview.FrameContentLoading(m_frameContentLoadingToken);
+			webview.FrameDOMContentLoaded(m_frameDOMContentLoadedToken);
+			webview.FrameNavigationStarting(m_frameNavigationStartingToken);
+			webview.LongRunningScriptDetected(m_longRunningScriptDetectedToken);
+			webview.NavigationStarting(m_navigationStartingToken);
+			webview.NavigationCompleted(m_navigationCompletedToken);
+			webview.ContainsFullScreenElementChanged(m_containsFullScreenElementChangedToken);
+			webview.NewWindowRequested(m_newWindowRequestedToken);
+			webview.PermissionRequested(m_permissionRequestedToken);
+			webview.ScriptNotify(m_scriptNotifyToken);
+			webview.UnsafeContentWarningDisplaying(m_unsafeContentWarningDisplayingToken);
+			webview.UnsupportedUriSchemeIdentified(m_unsupportedUriSchemeIdentifiedToken);
+			webview.UnviewableContentIdentified(m_unviewableContentIdentifiedToken);
+			webview.WebResourceRequested(m_webResourceRequestedToken);
 			webview.Close();
+		}
 	}
 	void WebView::GetDeferredPermissionRequestById(uint32_t id, winrt::Windows::Web::UI::WebViewControlDeferredPermissionRequest& request)
 	{
@@ -486,6 +506,7 @@ namespace winrt::WinUI3Package::implementation
 	}
 	WebView::~WebView()
 	{
+		Close();
 		m_mouseHook.reset();
 	}
 #pragma endregion
@@ -496,47 +517,122 @@ namespace winrt::WinUI3Package::implementation
 		auto xamlRoot = XamlRoot();
 		auto const hwnd = GetHwnd(xamlRoot);
 
-		m_webview = co_await m_process.CreateWebViewControlAsync(reinterpret_cast<int64_t>(hwnd), getBounds(xamlRoot.RasterizationScale()));
-		
-		m_webview.MoveFocusRequested(
-			[this](auto const&, winrt::Windows::Web::UI::Interop::WebViewControlMoveFocusRequestedEventArgs const& args)
+		auto webview = co_await m_process.CreateWebViewControlAsync(reinterpret_cast<int64_t>(hwnd), getBounds(xamlRoot.RasterizationScale()));
+		if (!IsLoaded())
+		{
+			webview.Close();
+			co_return;
+		}
+		m_webview = webview;
+
+		m_moveFocusRequestedToken = m_webview.MoveFocusRequested(
+			[weak = get_weak()](auto const&, winrt::Windows::Web::UI::Interop::WebViewControlMoveFocusRequestedEventArgs const& args)
 			{
+				auto self = weak.get();
+				if (!self)
+					return;
+
 				auto const direction = args.Reason() == winrt::Windows::Web::UI::Interop::WebViewControlMoveFocusReason::Previous
 					? winrt::Microsoft::UI::Xaml::Input::FocusNavigationDirection::Previous
 					: winrt::Microsoft::UI::Xaml::Input::FocusNavigationDirection::Next;
 				winrt::Microsoft::UI::Xaml::Input::FocusManager::TryMoveFocus(direction);
-				m_moveFocusRequested(*this, args);
+				self->m_moveFocusRequested(*self, args);
 			});
-		m_webview.AcceleratorKeyPressed([this](auto const&, auto const& args) { m_acceleratorKeyPressed(*this, args); });
-		m_webview.ContentLoading([this](auto const&, auto const& args) { m_contentLoading(*this, args); });
-		m_webview.DOMContentLoaded([this](auto const&, auto const& args) { m_domContentLoaded(*this, args); });
-		m_webview.FrameContentLoading([this](auto const&, auto const& args) { m_frameContentLoading(*this, args); });
-		m_webview.FrameDOMContentLoaded([this](auto const&, auto const& args) { m_frameDOMContentLoaded(*this, args); });
-		m_webview.FrameNavigationStarting([this](auto const&, auto const& args) { m_frameNavigationStarting(*this, args); });
-		m_webview.LongRunningScriptDetected([this](auto const&, auto const& args) { m_longRunningScriptDetected(*this, args); });
-		m_webview.NavigationStarting([this](auto const&, auto const& args) 
-		{ 
-			source(args.Uri());
-			m_navigationStarting(*this, args); 
-		});
-		m_webview.NavigationCompleted([this](auto const&, auto const& args)
+		m_acceleratorKeyPressedToken = m_webview.AcceleratorKeyPressed([weak = get_weak()](auto const&, winrt::Windows::Web::UI::Interop::WebViewControlAcceleratorKeyPressedEventArgs const& args)
 		{
-			SetValue(s_canGoBackProperty, winrt::box_value(m_webview.CanGoBack()));
-			SetValue(s_canGoForwardProperty, winrt::box_value(m_webview.CanGoForward()));
-			SetValue(s_documentTitleProperty, winrt::box_value(m_webview.DocumentTitle()));
-			m_navigationCompleted(*this, args);
+			if (auto self = weak.get())
+				self->m_acceleratorKeyPressed(*self, args);
 		});
-		m_webview.ContainsFullScreenElementChanged([this](auto const&, auto const&)
+		m_contentLoadingToken = m_webview.ContentLoading([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlContentLoadingEventArgs const& args)
 		{
-			SetValue(s_containsFullScreenElementProperty, winrt::box_value(m_webview.ContainsFullScreenElement()));
+			if (auto self = weak.get())
+				self->m_contentLoading(*self, args);
 		});
-		m_webview.NewWindowRequested([this](auto const&, auto const& args) { m_newWindowRequested(*this, args); });
-		m_webview.PermissionRequested([this](auto const&, auto const& args) { m_permissionRequested(*this, args); });
-		m_webview.ScriptNotify([this](auto const&, auto const& args) { m_scriptNotify(*this, args); });
-		m_webview.UnsafeContentWarningDisplaying([this](auto const&, auto const& args) { m_unsafeContentWarningDisplaying(*this, args); });
-		m_webview.UnsupportedUriSchemeIdentified([this](auto const&, auto const& args) { m_unsupportedUriSchemeIdentified(*this, args); });
-		m_webview.UnviewableContentIdentified([this](auto const&, auto const& args) { m_unviewableContentIdentified(*this, args); });
-		m_webview.WebResourceRequested([this](auto const&, auto const& args) { m_webResourceRequested(*this, args); });
+		m_domContentLoadedToken = m_webview.DOMContentLoaded([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlDOMContentLoadedEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_domContentLoaded(*self, args);
+		});
+		m_frameContentLoadingToken = m_webview.FrameContentLoading([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlContentLoadingEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_frameContentLoading(*self, args);
+		});
+		m_frameDOMContentLoadedToken = m_webview.FrameDOMContentLoaded([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlDOMContentLoadedEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_frameDOMContentLoaded(*self, args);
+		});
+		m_frameNavigationStartingToken = m_webview.FrameNavigationStarting([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlNavigationStartingEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_frameNavigationStarting(*self, args);
+		});
+		m_longRunningScriptDetectedToken = m_webview.LongRunningScriptDetected([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlLongRunningScriptDetectedEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_longRunningScriptDetected(*self, args);
+		});
+		m_navigationStartingToken = m_webview.NavigationStarting([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlNavigationStartingEventArgs const& args)
+		{
+			auto self = weak.get();
+			if (!self)
+				return;
+
+			self->source(args.Uri());
+			self->m_navigationStarting(*self, args);
+		});
+		m_navigationCompletedToken = m_webview.NavigationCompleted([weak = get_weak()](winrt::Windows::Web::UI::IWebViewControl const& sender, winrt::Windows::Web::UI::WebViewControlNavigationCompletedEventArgs const& args)
+		{
+			auto self = weak.get();
+			if (!self)
+				return;
+
+			self->SetValue(s_canGoBackProperty, winrt::box_value(sender.CanGoBack()));
+			self->SetValue(s_canGoForwardProperty, winrt::box_value(sender.CanGoForward()));
+			self->SetValue(s_documentTitleProperty, winrt::box_value(sender.DocumentTitle()));
+			self->m_navigationCompleted(*self, args);
+		});
+		m_containsFullScreenElementChangedToken = m_webview.ContainsFullScreenElementChanged([weak = get_weak()](winrt::Windows::Web::UI::IWebViewControl const& sender, auto const&)
+		{
+			if (auto self = weak.get())
+				self->SetValue(s_containsFullScreenElementProperty, winrt::box_value(sender.ContainsFullScreenElement()));
+		});
+		m_newWindowRequestedToken = m_webview.NewWindowRequested([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlNewWindowRequestedEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_newWindowRequested(*self, args);
+		});
+		m_permissionRequestedToken = m_webview.PermissionRequested([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlPermissionRequestedEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_permissionRequested(*self, args);
+		});
+		m_scriptNotifyToken = m_webview.ScriptNotify([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlScriptNotifyEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_scriptNotify(*self, args);
+		});
+		m_unsafeContentWarningDisplayingToken = m_webview.UnsafeContentWarningDisplaying([weak = get_weak()](auto const&, winrt::Windows::Foundation::IInspectable const& args)
+		{
+			if (auto self = weak.get())
+				self->m_unsafeContentWarningDisplaying(*self, args);
+		});
+		m_unsupportedUriSchemeIdentifiedToken = m_webview.UnsupportedUriSchemeIdentified([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlUnsupportedUriSchemeIdentifiedEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_unsupportedUriSchemeIdentified(*self, args);
+		});
+		m_unviewableContentIdentifiedToken = m_webview.UnviewableContentIdentified([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlUnviewableContentIdentifiedEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_unviewableContentIdentified(*self, args);
+		});
+		m_webResourceRequestedToken = m_webview.WebResourceRequested([weak = get_weak()](auto const&, winrt::Windows::Web::UI::WebViewControlWebResourceRequestedEventArgs const& args)
+		{
+			if (auto self = weak.get())
+				self->m_webResourceRequested(*self, args);
+		});
 
 		setProperties();
 

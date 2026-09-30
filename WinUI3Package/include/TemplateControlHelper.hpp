@@ -4,16 +4,17 @@
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 
-template<typename Self, bool useXamlResource = true>
+template<typename Self, bool useXamlResource = true, bool defaultStyleOnly = true>
 struct XamlResourceHelper
 {
 	XamlResourceHelper()
 	{
 		if constexpr (!useXamlResource)
 			return;
+		
 		else if constexpr (requires { Self::ResourceUri; }) //this must be inside an else if branch, otherwise it will be evaluated even when useXamlResource is false
 		{
-			if constexpr (requires {Self::DefaultStyleResourceUri(); })
+			if constexpr (defaultStyleOnly && requires (Self& self) { self.DefaultStyleResourceUri(winrt::Windows::Foundation::Uri{ Self::ResourceUri }); })
 				static_cast<Self*>(this)->DefaultStyleResourceUri(winrt::Windows::Foundation::Uri{ Self::ResourceUri });
 			else
 			{
@@ -39,21 +40,18 @@ struct XamlResourceHelper
  * @code{.cpp}
  *		struct MyControl : MyControlT<MyControl>, TemplateControlHelper<MyControl>
  * @endcode
- * If Self contains a @c constexpr @c static @c wchar_t @c const* @c ResourceUri member,
- * the corresponding ResourceDictionary is automatically loaded into Application.Current.Resources.MergedDictionaries.
+ * If Self contains a @c constexpr @c static @c wchar_t @c const* @c ResourceUri member, that dictionary is
+ * either set as the control's @c DefaultStyleResourceUri (when @p defaultStyleOnly and the control supports it),
+ * or merged into Application.Current.Resources.MergedDictionaries once per process. Use @p defaultStyleOnly = false
+ * when consumer XAML needs the dictionary's named styles or loose values (e.g. @c DefaultSettingsExpanderItemStyle).
 */
-template<typename Self, bool useXamlResource = true>
-struct TemplateControlHelper : public XamlResourceHelper<Self, useXamlResource>
+template<typename Self, bool useXamlResource = true, bool defaultStyleOnly = true>
+struct TemplateControlHelper : public XamlResourceHelper<Self, useXamlResource, defaultStyleOnly>
 {
 	TemplateControlHelper()
 	{
-		using ProjectionType = Self::class_type;
-		//`DefaultStyleKey` comes from IControlProtected, which C++/WinRT 3.0 inherits as `protected`
-		//in the generated base, so it isn't reachable from this mixin. Set the backing property instead.
 		static_cast<Self*>(this)
-			->SetValue(
-				winrt::Microsoft::UI::Xaml::Controls::Control::DefaultStyleKeyProperty(),
-				winrt::box_value(winrt::xaml_typename<ProjectionType>())
-			);
+			->template try_as<winrt::Microsoft::UI::Xaml::Controls::IControlProtected>()
+			.DefaultStyleKey(winrt::box_value(winrt::xaml_typename<Self::class_type>()));
 	}
 };

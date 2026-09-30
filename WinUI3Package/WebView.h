@@ -138,6 +138,25 @@ namespace winrt::WinUI3Package::implementation
         winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlUnviewableContentIdentifiedEventArgs>> m_unviewableContentIdentified;
         winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlWebResourceRequestedEventArgs>> m_webResourceRequested;
 
+        winrt::event_token m_moveFocusRequestedToken{};
+        winrt::event_token m_acceleratorKeyPressedToken{};
+        winrt::event_token m_contentLoadingToken{};
+        winrt::event_token m_domContentLoadedToken{};
+        winrt::event_token m_frameContentLoadingToken{};
+        winrt::event_token m_frameDOMContentLoadedToken{};
+        winrt::event_token m_frameNavigationStartingToken{};
+        winrt::event_token m_longRunningScriptDetectedToken{};
+        winrt::event_token m_navigationStartingToken{};
+        winrt::event_token m_navigationCompletedToken{};
+        winrt::event_token m_containsFullScreenElementChangedToken{};
+        winrt::event_token m_newWindowRequestedToken{};
+        winrt::event_token m_permissionRequestedToken{};
+        winrt::event_token m_scriptNotifyToken{};
+        winrt::event_token m_unsafeContentWarningDisplayingToken{};
+        winrt::event_token m_unsupportedUriSchemeIdentifiedToken{};
+        winrt::event_token m_unviewableContentIdentifiedToken{};
+        winrt::event_token m_webResourceRequestedToken{};
+
         winrt::fire_and_forget onLoaded(
             winrt::Windows::Foundation::IInspectable const& sender,
             winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args

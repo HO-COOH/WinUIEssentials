@@ -6,7 +6,7 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    struct SettingsCard : SettingsCardT<SettingsCard>, TemplateControlHelper<SettingsCard>, EnsureDependencyProperty<SettingsCard>
+    struct SettingsCard : SettingsCardT<SettingsCard>, TemplateControlHelper<SettingsCard, true, false>, EnsureDependencyProperty<SettingsCard>
     {
         static void EnsureDependencyProperties();
 
@@ -70,7 +70,7 @@ namespace winrt::PackageRoot::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_isActionIconVisibleProperty;
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty m_contentAlignmentProperty;
 
-        void onIsClickEnabledChanged();
+        void onIsClickEnabledChanged(bool isClickEnabled);
         void onActionIconChanged();
         void onIsEnabledChanged(
             winrt::Windows::Foundation::IInspectable const& sender,

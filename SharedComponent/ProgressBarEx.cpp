@@ -4,6 +4,24 @@
 #include "ProgressBarEx.g.cpp"
 #endif
 
+#if defined Build_UWPPackage
+#include <winrt/Windows.Foundation.Metadata.h>
+
+static winrt::WinUINamespace::UI::Composition::CompositionEasingFunction createValueEasingFunction(winrt::WinUINamespace::UI::Composition::Compositor const& compositor)
+{
+	if (winrt::Windows::Foundation::Metadata::ApiInformation::IsMethodPresent(
+		L"Windows.UI.Composition.CompositionEasingFunction",
+		L"CreateCircleEasingFunction"))
+	{
+		return winrt::WinUINamespace::UI::Composition::CompositionEasingFunction::CreateCircleEasingFunction(
+			compositor,
+			winrt::WinUINamespace::UI::Composition::CompositionEasingFunctionMode::InOut
+        );
+	}
+	return compositor.CreateCubicBezierEasingFunction({ 0.85f, 0.f }, { 0.15f, 1.f });
+}
+#endif
+
 namespace winrt::PackageRoot::implementation
 {
 	winrt::WinUINamespace::UI::Xaml::DependencyProperty ProgressBarEx::s_highColorProperty = nullptr;
@@ -174,7 +192,11 @@ namespace winrt::PackageRoot::implementation
 
             auto m_valueAnimation = m_compositor.CreateVector2KeyFrameAnimation();
             m_valueAnimation.StopBehavior(winrt::WinUINamespace::UI::Composition::AnimationStopBehavior::SetToFinalValue);
+#if defined Build_UWPPackage
+            auto easing = createValueEasingFunction(m_compositor);
+#else
             auto easing = winrt::WinUINamespace::UI::Composition::CompositionEasingFunction::CreateCircleEasingFunction(m_compositor, winrt::WinUINamespace::UI::Composition::CompositionEasingFunctionMode::InOut);
+#endif
             m_valueAnimation.InsertKeyFrame(1.0, { static_cast<float>(ActualWidth() * Value()), static_cast<float>(ActualHeight()) }, easing);
             //the default duration already looks good
             //animation.Duration(std::chrono::seconds{ 1 });

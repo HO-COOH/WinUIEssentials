@@ -159,14 +159,16 @@
                                     HorizontalAlignment="Left"
                                     win:HighContrastAdjustment="None"
                                     Content="{TemplateBinding Header}"
-                                    TextWrapping="Wrap" />
+                                    TextWrapping="Wrap"
+                                    Visibility="{Binding Header, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource SettingsCardReferenceToVisibilityConverter}}" />
 
                                 <ContentPresenter
                                     x:Name="PART_DescriptionPresenter"
                                     Content="{TemplateBinding Description}"
                                     FontSize="{ThemeResource SettingsCardDescriptionFontSize}"
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    TextWrapping="Wrap">
+                                    TextWrapping="Wrap"
+                                    Visibility="{Binding Description, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource SettingsCardReferenceToVisibilityConverter}}">
                                     <ContentPresenter.Resources>
                                         <Style BasedOn="{StaticResource CaptionTextBlockStyle}" TargetType="TextBlock">
                                             <Style.Setters>

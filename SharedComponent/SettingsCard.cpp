@@ -55,9 +55,9 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<PackageRoot::SettingsCard>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(false),
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 				{
-					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onIsClickEnabledChanged();
+					GetSelf(d)->onIsClickEnabledChanged(winrt::unbox_value<bool>(e.NewValue()));
 				}
 			}
 		);
@@ -67,9 +67,9 @@ namespace winrt::PackageRoot::implementation
 			winrt::xaml_typename<PackageRoot::SettingsCard>(),
 			winrt::WinUINamespace::UI::Xaml::PropertyMetadata{
 				winrt::box_value(true),
-				[](winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, auto)
+				[](winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, auto&&)
 				{
-					winrt::get_self<SettingsCard>(d.as<PackageRoot::SettingsCard>())->onActionIconChanged();
+					GetSelf(d)->onActionIconChanged();
 				}
 			}
 		);
@@ -84,8 +84,7 @@ namespace winrt::PackageRoot::implementation
     void SettingsCard::OnApplyTemplate()
     {
         base_type::OnApplyTemplate();
-        onActionIconChanged();
-        onIsClickEnabledChanged();
+        onIsClickEnabledChanged(IsClickEnabled());
         winrt::WinUINamespace::UI::Xaml::VisualStateManager::GoToState(
             *this,
             IsEnabled() ? NormalState : DisabledState,
@@ -253,10 +252,10 @@ namespace winrt::PackageRoot::implementation
         frameworkElement.Resources().MergedDictionaries().InsertAt(0, m_contentResource);
     }
 
-    void SettingsCard::onIsClickEnabledChanged()
+    void SettingsCard::onIsClickEnabledChanged(bool isClickEnabled)
     {
         onActionIconChanged();
-        if (IsClickEnabled())
+        if (isClickEnabled)
         {
             enableButtonInteraction();
         }

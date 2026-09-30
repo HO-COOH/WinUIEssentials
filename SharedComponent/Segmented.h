@@ -6,7 +6,7 @@
 
 namespace winrt::PackageRoot::implementation
 {
-    struct Segmented : ListViewBaseWorkaround<SegmentedT<Segmented>>, TemplateControlHelper<Segmented>
+    struct Segmented : ListViewBaseWorkaround<SegmentedT<Segmented>>, TemplateControlHelper<Segmented, true, false>
     {
         Segmented();
 
