@@ -72,6 +72,10 @@ namespace winrt::WinUI3Package::implementation
                 if (self->showMenu(self->Menu(), lparam))
                     return 0;
                 break;
+            case WM_SYSCOMMAND:
+                if (self->showMenuOnAltSpace(self->Menu(), wparam, lparam))
+                    return 0;
+                break;
             case WM_SIZE:
 				//handle menu state changes by detecting if the window is maximized
 				self->isMaximized(wparam == SIZE_MAXIMIZED);

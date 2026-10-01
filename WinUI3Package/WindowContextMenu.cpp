@@ -34,6 +34,10 @@ namespace winrt::WinUI3Package::implementation
                 if (self->showMenu(self->m_menu, lparam))
                     return 0;
                 break;
+            case WM_SYSCOMMAND:
+                if (self->showMenuOnAltSpace(self->m_menu, wparam, lparam))
+                    return 0;
+                break;
             case WM_NCDESTROY:
                 self->removeSubclassIfSet();
                 break;

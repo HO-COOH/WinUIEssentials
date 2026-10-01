@@ -13,6 +13,11 @@ namespace winrt::Microsoft::UI
 	{
 		struct ContentCoordinateConverter;
 	}
+
+	namespace Windowing
+	{
+		struct AppWindowTitleBar;
+	}
 }
 #pragma endregion
 
@@ -29,5 +34,15 @@ namespace WindowContextMenuUtils
 		HWND hwnd,
 		LPARAM lparam,
 		winrt::Microsoft::UI::Content::ContentCoordinateConverter const& converter
+	);
+
+	/**
+	 * @brief Get show options for Window's context menu when it is opened from keyboard, eg. Alt+Space, 
+	 * which carries no point, so the menu is placed at the left edge right below the title bar, like the system menu
+	 * @param hwnd the window handle the menu is shown for
+	 */
+	winrt::Microsoft::UI::Xaml::Controls::Primitives::FlyoutShowOptions GetFlyoutShowOptions(
+		HWND hwnd,
+		winrt::Microsoft::UI::Windowing::AppWindowTitleBar const& titleBar
 	);
 }
