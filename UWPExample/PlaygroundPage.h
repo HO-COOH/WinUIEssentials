@@ -7,7 +7,7 @@ namespace winrt::UWPExample::implementation
     struct PlaygroundPage : PlaygroundPageT<PlaygroundPage>
     {
         void InitializeComponent();
-        void LoadButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
+        winrt::fire_and_forget LoadButton_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Windows::UI::Xaml::RoutedEventArgs const& e);
     };
 }
 

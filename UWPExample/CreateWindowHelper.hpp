@@ -18,12 +18,19 @@ void CreateWindowWithPage()
 }
 
 template<typename F>
-void CreateWindowWithFactory(F&& factory)
+winrt::Windows::Foundation::IAsyncAction CreateWindowWithFactory(F&& factory)
 {
 	auto newView = winrt::Windows::ApplicationModel::Core::CoreApplication::CreateNewView();
-	newView.Dispatcher().RunAsync({}, [factory = std::move(factory)] {
+	return newView.Dispatcher().RunAsync({}, [factory = std::move(factory)] {
+		auto content = factory();
 		auto window = winrt::Windows::UI::Xaml::Window::Current();
-		window.Content(factory());
+		if (!content)
+		{
+			window.Close();
+			return;
+		}
+
+		window.Content(content);
 		window.Activate();
 
 		winrt::Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(

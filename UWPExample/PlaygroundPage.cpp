@@ -89,11 +89,10 @@ namespace winrt::UWPExample::implementation
 </Page>)");
     }
 
-    void PlaygroundPage::LoadButton_Click(
+    winrt::fire_and_forget PlaygroundPage::LoadButton_Click(
         winrt::Windows::Foundation::IInspectable const&,
         winrt::Windows::UI::Xaml::RoutedEventArgs const&)
     {
-        winrt::hstring error;
         auto const editor = XamlString().Editor();
         editor.TargetWholeDocument();
         winrt::hstring const xaml = editor.GetTargetText();
@@ -106,38 +105,61 @@ namespace winrt::UWPExample::implementation
         if (std::wstring_view{ xaml }.find(L"xmlns=") == std::wstring_view::npos)
         {
             ErrorText().Text(L"The root element needs xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"");
-            return;
+            co_return;
         }
 
-        try
+        long long loadTimeMilliseconds{};
+        winrt::hstring error;
+		auto strongThis = get_strong();
+        switch (RootKind().SelectedIndex())
         {
-
-            switch (RootKind().SelectedIndex())
+            case 0:
             {
-                case 0:
+                co_await CreateWindowWithFactory([xaml, &loadTimeMilliseconds, &error]()->winrt::Windows::UI::Xaml::UIElement
                 {
-                    CreateWindowWithFactory([xaml]() {
+                    auto const t1 = std::chrono::steady_clock::now();
+                    try 
+                    {
                         auto obj = winrt::Windows::UI::Xaml::Markup::XamlReader::Load(xaml);
-                        return obj.as<winrt::Windows::UI::Xaml::Controls::Control>();
-                    });
-                    break;
-                }
-                case 1:
+                        loadTimeMilliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - t1).count();
+                        return obj.as<winrt::Windows::UI::Xaml::UIElement>();
+                    }
+					catch (winrt::hresult_error const& e) 
+                    {
+						error = e.message();
+                        return nullptr;
+					}
+                });
+                break;
+            }
+            case 1: 
+            {
+                auto const t1 = std::chrono::steady_clock::now();
+                try
                 {
                     auto obj = winrt::Windows::UI::Xaml::Markup::XamlReader::Load(xaml);
+                    loadTimeMilliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - t1).count();
                     auto contentDialog = obj.as<winrt::Windows::UI::Xaml::Controls::ContentDialog>();
-                    //contentDialog.XamlRoot(XamlRoot());
                     contentDialog.ShowAsync();
-                    break;
                 }
-                default:
-                    break;
+                catch (winrt::hresult_error const& e)
+                {
+                    error = e.message();
+                }
+                break;
             }
+            default:
+                break;
         }
-        catch (winrt::hresult_error const& e)
-        {
-            error = e.message();
-        }
+
         ErrorText().Text(error);
+
+        if (error.empty())
+        {
+            LoadTime().Text(winrt::to_hstring(loadTimeMilliseconds));
+            LoadTimeText().Visibility(winrt::Windows::UI::Xaml::Visibility::Visible);
+        }
+        else
+            LoadTimeText().Visibility(winrt::Windows::UI::Xaml::Visibility::Collapsed);
     }
 }

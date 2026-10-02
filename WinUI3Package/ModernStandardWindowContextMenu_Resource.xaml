@@ -92,6 +92,7 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                             AutomationProperties.AccessibilityView="Raw"
+                            FontWeight="{TemplateBinding FontWeight}"
                             Foreground="{ThemeResource MenuFlyoutItemKeyboardAcceleratorTextForeground}"
                             Style="{ThemeResource CaptionTextBlockStyle}"
                             Text="{TemplateBinding KeyboardAcceleratorTextOverride}"

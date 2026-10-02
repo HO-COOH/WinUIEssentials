@@ -99,7 +99,6 @@ namespace winrt::WinUI3Example::implementation
 		winrt::Windows::Foundation::IInspectable const&, 
 		winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		winrt::hstring error;
 		auto const editor = XamlString().Editor();
 		editor.TargetWholeDocument();
 		winrt::hstring const xaml = editor.GetTargetText();
@@ -115,9 +114,13 @@ namespace winrt::WinUI3Example::implementation
 			return;
 		}
 
+        long long loadTimeMilliseconds{};
+        winrt::hstring error;
 		try
 		{
+            auto const t1 = std::chrono::steady_clock::now();
             auto obj = winrt::Microsoft::UI::Xaml::Markup::XamlReader::Load(xaml);
+			loadTimeMilliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - t1).count();
 			switch (RootKind().SelectedIndex())
 			{
 				case 0:
@@ -151,6 +154,14 @@ namespace winrt::WinUI3Example::implementation
 			error = e.message();
 		}
 		ErrorText().Text(error);
+
+		if (error.empty())
+		{
+            LoadTime().Text(winrt::to_hstring(loadTimeMilliseconds));
+			LoadTimeText().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+		}
+        else
+			LoadTimeText().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
 	}
 
 }

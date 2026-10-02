@@ -41,6 +41,11 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="ErrorText" Foreground="Red" />
+            <TextBlock x:Name="LoadTimeText" Visibility="Collapsed">
+                <Run Text="Load time: " />
+                <Run x:Name="LoadTime" />
+                <Run Text=" ms" />
+            </TextBlock>
             <Button
                 Grid.Column="1"
                 HorizontalAlignment="Right"

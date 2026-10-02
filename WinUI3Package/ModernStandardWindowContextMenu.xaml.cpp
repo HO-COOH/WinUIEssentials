@@ -7,7 +7,6 @@
 #include "HwndHelper.hpp"
 #include <winrt/Microsoft.UI.Windowing.h>
 #include "WindowContextMenuUtils.h"
-#include <wil/resource.h>
 #include "WinUIEssentialError.hpp"
 
 #undef IsMaximized
@@ -46,7 +45,6 @@ namespace winrt::WinUI3Package::implementation
         if (!(windowStyle & WS_THICKFRAME))
             isResizable(false);
 
-        //After getting the text from default system menu, we remove it from window
         setMenuItemText();
     }
 
@@ -93,15 +91,16 @@ namespace winrt::WinUI3Package::implementation
 
     void ModernStandardWindowContextMenu::setMenuItemText()
     {
-        wil::unique_hmenu systemMenu{ GetSystemMenu(m_parent, false) };
-        auto const systemMenuItemCount = GetMenuItemCount(systemMenu.get());
+        //Owned by the window, and it falls back to it whenever this menu cannot be shown, so it must not be destroyed
+        auto const systemMenu = GetSystemMenu(m_parent, false);
+        auto const systemMenuItemCount = GetMenuItemCount(systemMenu);
 
         if (systemMenuItemCount >= nonResizableWindowContextMenuItemCount)
         {
             //restore
             //close
-            RestoreItem().Text(getMenuItemText(systemMenu.get(), 0).data());
-            auto closeItemTextOriginal = getMenuItemText(systemMenu.get(), systemMenuItemCount - 1); //last item should be close
+            RestoreItem().Text(getMenuItemText(systemMenu, 0).data());
+            auto closeItemTextOriginal = getMenuItemText(systemMenu, systemMenuItemCount - 1); //last item should be close
             std::wstring_view view{ closeItemTextOriginal.data() };
             auto const index = view.find(L'\t') + 1;
             closeItemTextOriginal[index] = {};
@@ -125,14 +124,14 @@ namespace winrt::WinUI3Package::implementation
             //size
             //minimize
 			//maximize
-            MoveItem().Text(getMenuItemText(systemMenu.get(), 1).data());
-            SizeItem().Text(getMenuItemText(systemMenu.get(), 2).data());
-            MinimizeItem().Text(getMenuItemText(systemMenu.get(), 3).data());
-            MaximizeItem().Text(getMenuItemText(systemMenu.get(), 4).data());
+            MoveItem().Text(getMenuItemText(systemMenu, 1).data());
+            SizeItem().Text(getMenuItemText(systemMenu, 2).data());
+            MinimizeItem().Text(getMenuItemText(systemMenu, 3).data());
+            MaximizeItem().Text(getMenuItemText(systemMenu, 4).data());
         }
         
 		if (systemMenuItemCount > standardWindowContextMenuItemCount)
-			addAdditionalItems(systemMenu.get(), systemMenuItemCount);
+			addAdditionalItems(systemMenu, systemMenuItemCount);
     }
 
     std::array<wchar_t, 64> ModernStandardWindowContextMenu::getMenuItemText(HMENU hMenu, UINT item)
