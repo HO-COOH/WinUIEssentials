@@ -731,6 +731,7 @@
             </MenuFlyout>
         </essential:TaskbarIcon>
         <essential:WindowCaptionButtonThemeWorkaround Window="{x:Bind Window}" />
+        <essential:ModernWindowCaptionButtonToolTip Window="{x:Bind Window}" />
         <local:WindowBackgroundHelper x:Name="WindowBackgroundHelper" Window="{x:Bind Window}" />
         <Grid x:Name="AppTitleBar" Height="32">
             <Grid.ColumnDefinitions>
@@ -901,9 +902,12 @@
                         <NavigationViewItem Content="SwitchPresenter" Tag="{essential:TypeName Type=local:SwitchPresenterPage}" />
                         <NavigationViewItem Content="WebView" Tag="{essential:TypeName Type=local:WebViewPage}" />
                         <NavigationViewItem Content="WrapPanel" Tag="{essential:TypeName Type=local:WrapPanelPage}" />
-                        <NavigationViewItem x:Name="TablePagesItem" Content="Table Overview" Tag="{essential:TypeName Type=local:TablePage}">
+                        <NavigationViewItem
+                            x:Name="TablePagesItem"
+                            Content="Table Overview"
+                            Tag="{essential:TypeName Type=local:TablePage}">
                             <NavigationViewItem.InfoBadge>
-                                <InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(TablePagesItem.MenuItems.Size)}"/>
+                                <InfoBadge Value="{x:Bind essential:Convert.UInt32ToInt32(TablePagesItem.MenuItems.Size)}" />
                             </NavigationViewItem.InfoBadge>
                             <NavigationViewItem.MenuItems>
                                 <NavigationViewItem Content="Table + Xaml data" Tag="{essential:TypeName Type=local:XamlTableDataPage}">

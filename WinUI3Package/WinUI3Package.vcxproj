@@ -314,6 +314,7 @@
       <DependentUpon>CalendarDatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CaptionButton.h" />
     <ClInclude Include="CombinedWallpaper.h" />
     <ClInclude Include="CombinedWallpaperSurfaces.h" />
     <ClInclude Include="ComboBoxHelper.h">
@@ -408,6 +409,7 @@
     <ClInclude Include="include\WASDK headers\Microsoft.UI.hpp" />
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
     <ClInclude Include="include\WebView2Helper.hpp" />
+    <ClInclude Include="InputNonClientPointerSource.h" />
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
     <ClInclude Include="ListViewBaseWorkaround.hpp" />
     <ClInclude Include="MenuBase.h" />
@@ -502,6 +504,7 @@
       <DependentUpon>StringResourceExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="SystemParametersInfo.h" />
     <ClInclude Include="Table.h">
       <DependentUpon>Table.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -555,6 +558,7 @@
       <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="User32String.h" />
     <ClInclude Include="UxThemeWrapper.h" />
     <ClInclude Include="VersionInfo.h">
       <DependentUpon>VersionInfo.idl</DependentUpon>
@@ -569,6 +573,10 @@
     <ClInclude Include="WebViewMouseHook.h" />
     <ClInclude Include="WindowCaptionButtonThemeWorkaround.h">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ModernWindowCaptionButtonToolTip.h">
+      <DependentUpon>ModernWindowCaptionButtonToolTip.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="WindowContextMenu.h">
@@ -602,6 +610,7 @@
       <DependentUpon>CalendarDatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="CaptionButton.cpp" />
     <ClCompile Include="CombinedWallpaper.cpp" />
     <ClCompile Include="CombinedWallpaperSurfaces.cpp" />
     <ClCompile Include="ComboBoxHelper.cpp">
@@ -657,6 +666,7 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="IconUtils.cpp" />
+    <ClCompile Include="InputNonClientPointerSource.cpp" />
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
     <ClCompile Include="MenuFlyoutWrapper.cpp" />
     <ClCompile Include="MicaBackdropWithFallback.cpp">
@@ -743,6 +753,7 @@
       <DependentUpon>StringResourceExtension.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="SystemParametersInfo.cpp" />
     <ClCompile Include="TaskbarIcon.cpp">
       <DependentUpon>TaskbarIcon.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -789,6 +800,7 @@
       <DependentUpon>UnderlaySystemBackdropOptions.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="User32String.cpp" />
     <ClCompile Include="VersionInfo.cpp">
       <DependentUpon>VersionInfo.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -801,6 +813,10 @@
     <ClCompile Include="WebViewMouseHook.cpp" />
     <ClCompile Include="WindowCaptionButtonThemeWorkaround.cpp">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ModernWindowCaptionButtonToolTip.cpp">
+      <DependentUpon>ModernWindowCaptionButtonToolTip.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="WindowContextMenu.cpp">
@@ -967,6 +983,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowCaptionButtonThemeWorkaround.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ModernWindowCaptionButtonToolTip.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="WindowContextMenu.idl">

@@ -1,0 +1,11 @@
+namespace WinUI3Package
+{
+    [default_interface]
+    runtimeclass ModernWindowCaptionButtonToolTip : Microsoft.UI.Xaml.Controls.Control
+    {
+        ModernWindowCaptionButtonToolTip();
+        ModernWindowCaptionButtonToolTip(Microsoft.UI.Xaml.Window window);
+
+        Microsoft.UI.Xaml.Window Window;
+    }
+}

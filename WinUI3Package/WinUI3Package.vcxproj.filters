@@ -94,6 +94,18 @@
     <ClCompile Include="DelayWindowShowHelper.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
+    <ClCompile Include="SystemParametersInfo.cpp">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClCompile>
+    <ClCompile Include="User32String.cpp">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClCompile>
+    <ClCompile Include="CaptionButton.cpp">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClCompile>
+    <ClCompile Include="InputNonClientPointerSource.cpp">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -338,6 +350,18 @@
     <ClInclude Include="DelayWindowShowHelper.h">
       <Filter>Windows</Filter>
     </ClInclude>
+    <ClInclude Include="User32String.h">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemParametersInfo.h">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClInclude>
+    <ClInclude Include="CaptionButton.h">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClInclude>
+    <ClInclude Include="InputNonClientPointerSource.h">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -451,6 +475,9 @@
     </Filter>
     <Filter Include="Extensions">
       <UniqueIdentifier>{06234f58-94db-42ac-b675-e64fd4095716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Windows\ModernWindowCaptionButtonToolTip">
+      <UniqueIdentifier>{7f00feba-7746-416f-acc5-99c2d46b8ebe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -590,6 +617,9 @@
     </Midl>
     <Midl Include="StringResourceExtension.idl">
       <Filter>Extensions</Filter>
+    </Midl>
+    <Midl Include="ModernWindowCaptionButtonToolTip.idl">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
