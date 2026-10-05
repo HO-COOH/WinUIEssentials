@@ -110,7 +110,7 @@ namespace winrt::WinUI3Example::implementation
 		 */
 		if (std::wstring_view{ xaml }.find(L"xmlns=") == std::wstring_view::npos)
 		{
-			ErrorText().Text(L"The root element needs xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"");
+			ErrorText().Message(L"The root element needs xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"");
 			return;
 		}
 
@@ -153,15 +153,19 @@ namespace winrt::WinUI3Example::implementation
 		{
 			error = e.message();
 		}
-		ErrorText().Text(error);
+		ErrorText().Message(error);
 
 		if (error.empty())
 		{
-            LoadTime().Text(winrt::to_hstring(loadTimeMilliseconds));
-			LoadTimeText().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Visible);
+            LoadTimeText().Message(std::format(L"Load Time: {} ms", loadTimeMilliseconds));
+			LoadTimeText().IsOpen(true);
+            ErrorText().IsOpen(false);
 		}
         else
-			LoadTimeText().Visibility(winrt::Microsoft::UI::Xaml::Visibility::Collapsed);
+        {
+            LoadTimeText().IsOpen(false);
+            ErrorText().IsOpen(true);
+        }
 	}
 
 }

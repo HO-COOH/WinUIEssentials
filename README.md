@@ -146,6 +146,7 @@ You can reference Github Action for detailed build steps.
 |Table | :white_check_mark: | :white_check_mark: | Control
 |TypeName | :white_check_mark: | :white_check_mark: | MarkupExtension
 |StringResource | :white_check_mark: | :white_check_mark: | MarkupExtension
+|ModernWindowCaptionButtonToolTip | :x: | :white_check_mark: | Control
 
 *means additional settings required, see the sections for info
 
@@ -1415,4 +1416,17 @@ Now you can directly assign a `StringResource` extension to it.
 <Window Title="{essential:StringResource Name=WindowTitle}"
     ...
 >
+```
+
+## ModernWindowCaptionButtonToolTip
+A helper to replace the win32 caption button tooltip for WinUI3 `Window` using WinUI3's `ToolTip`. 
+It has acrylic, adapts to theme changes, and also supports the same localization as win32 did.
+
+|Windows 10|Windows 11|
+|---|---|
+|<img width="753" height="305" alt="b4610cf305a6f2fd989109badd9c154c" src="https://github.com/user-attachments/assets/de718591-1b7c-4c54-80d1-35d977d6de9b" />|<img width="532" height="359" alt="tooltip" src="https://github.com/user-attachments/assets/a98f9fbe-5772-4394-9579-62899d242e6b" />|
+
+Simply declare it under a Xaml control (such as `Grid`) that can accept child contents and binds to a WinUI3 `Window` object.
+```xml
+<essential:ModernWindowCaptionButtonToolTip Window="{x:Bind}" />
 ```
