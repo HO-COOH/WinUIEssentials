@@ -877,6 +877,7 @@
                         <NavigationViewItem Content="SliderHelper" Tag="{essential:TypeName Type=local:SliderHelperPage}" />
                         <NavigationViewItem Content="TimePickerHelper" Tag="{essential:TypeName Type=local:TimePickerHelperPage}" />
                         <NavigationViewItem Content="ToolTipHelper" Tag="{essential:TypeName Type=local:ToolTipHelperPage}" />
+                        <NavigationViewItem Content="MediaPlayerElementHelper" Tag="{essential:TypeName Type=local:MediaPlayerElementWorkaroundPage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 

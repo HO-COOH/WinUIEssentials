@@ -523,6 +523,10 @@
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MediaPlayerElementWorkaroundPage.xaml.h">
+      <DependentUpon>MediaPlayerElementWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MicaBackdropsPage.xaml.h">
       <DependentUpon>MicaBackdropsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -956,6 +960,9 @@
     <Page Include="MarqueeTextPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MediaPlayerElementWorkaroundPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MicaBackdropsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1328,6 +1335,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MarqueeTextPage.xaml.cpp">
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="MediaPlayerElementWorkaroundPage.xaml.cpp">
+      <DependentUpon>MediaPlayerElementWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MicaBackdropsPage.xaml.cpp">
@@ -1809,6 +1820,10 @@
     </Midl>
     <Midl Include="MarqueeTextPage.idl">
       <DependentUpon>MarqueeTextPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="MediaPlayerElementWorkaroundPage.idl">
+      <DependentUpon>MediaPlayerElementWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MicaBackdropsPage.idl">
@@ -2355,5 +2370,8 @@
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\ladybug.wmv" />
   </ItemGroup>
 </Project>

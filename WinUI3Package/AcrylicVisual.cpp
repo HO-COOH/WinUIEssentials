@@ -26,13 +26,8 @@ namespace winrt::WinUI3Package::implementation
 		}
 	};
 
-	AcrylicVisual::AcrylicVisual()
+	AcrylicVisual::AcrylicVisual() : PlacementVisualBase{ *this }
 	{
-		RegisterPropertyChangedCallback(
-			winrt::Microsoft::UI::Xaml::Controls::Control::CornerRadiusProperty(),
-			{ this, &AcrylicVisual::cornerRadiusChanged }
-		);
-
 		RegisterPropertyChangedCallback(
 			winrt::Microsoft::UI::Xaml::FrameworkElement::RequestedThemeProperty(),
 			[this](auto&&...)
@@ -55,12 +50,6 @@ namespace winrt::WinUI3Package::implementation
 	winrt::Windows::Foundation::Size AcrylicVisual::ArrangeOverride(winrt::Windows::Foundation::Size finalSize)
 	{
 		updateVisual();
-		m_placementVisual.Size(finalSize);
-		if (m_clip)
-		{
-			m_clip.Right(finalSize.Width + ClipOffset.z);
-			m_clip.Bottom(finalSize.Height + ClipOffset.w);
-		}
 		return finalSize;
 	}
 
@@ -71,34 +60,6 @@ namespace winrt::WinUI3Package::implementation
 			configuration.IsInputActive(true);
 			return configuration;
 		}();
-
-	void AcrylicVisual::cornerRadiusChanged(winrt::Microsoft::UI::Xaml::DependencyObject const&, winrt::Microsoft::UI::Xaml::DependencyProperty const&)
-	{
-		updateVisual();
-		auto const radius = CornerRadius();
-		if (m_clip)
-		{
-			m_clip.TopLeftRadius({ static_cast<float>(radius.TopLeft), static_cast<float>(radius.TopLeft) });
-			m_clip.TopRightRadius({ static_cast<float>(radius.TopRight), static_cast<float>(radius.TopRight) });
-			m_clip.BottomLeftRadius({ static_cast<float>(radius.BottomLeft), static_cast<float>(radius.BottomLeft) });
-			m_clip.BottomRightRadius({ static_cast<float>(radius.BottomRight), static_cast<float>(radius.BottomRight) });
-		}
-		else
-		{
-			auto const actualSize = ActualSize();
-			m_clip = winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread().CreateRectangleClip(
-				0.f + ClipOffset.x,
-				0.f + ClipOffset.y,
-				actualSize.x + ClipOffset.z,
-				actualSize.y + ClipOffset.w,
-				{ static_cast<float>(radius.TopLeft), static_cast<float>(radius.TopLeft) },
-				{ static_cast<float>(radius.TopRight), static_cast<float>(radius.TopRight) },
-				{ static_cast<float>(radius.BottomRight), static_cast<float>(radius.BottomRight) },
-				{ static_cast<float>(radius.BottomLeft), static_cast<float>(radius.BottomLeft) }
-			);
-			m_placementVisual.Clip(m_clip);
-		}
-	}
 
 	void AcrylicVisual::updateVisual()
 	{
@@ -118,6 +79,7 @@ namespace winrt::WinUI3Package::implementation
 			m_placementVisual = m_backdropLink.PlacementVisual();
 			m_placementVisual.BorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
 			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(*this, m_placementVisual);
+			BindPlacementVisualSizeToHost(*this);
 		}
 	}
 }

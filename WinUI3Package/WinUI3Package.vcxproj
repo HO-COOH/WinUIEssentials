@@ -412,6 +412,10 @@
     <ClInclude Include="InputNonClientPointerSource.h" />
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
     <ClInclude Include="ListViewBaseWorkaround.hpp" />
+    <ClInclude Include="MediaPlayerElementHelper.h">
+      <DependentUpon>MediaPlayerElementHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MenuBase.h" />
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h" />
     <ClInclude Include="MenuFlyoutItemPaddingWorkaroundWrapper.hpp" />
@@ -459,6 +463,7 @@
     <ClInclude Include="NotifyIconData.h" />
     <ClInclude Include="OverrideChecker.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="PlacementVisualBase.h" />
     <ClInclude Include="PopupMenu.h" />
     <ClInclude Include="PopupMenuFlyout.h">
       <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
@@ -667,6 +672,10 @@
     </ClCompile>
     <ClCompile Include="IconUtils.cpp" />
     <ClCompile Include="InputNonClientPointerSource.cpp" />
+    <ClCompile Include="MediaPlayerElementHelper.cpp">
+      <DependentUpon>MediaPlayerElementHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
     <ClCompile Include="MenuFlyoutWrapper.cpp" />
     <ClCompile Include="MicaBackdropWithFallback.cpp">
@@ -710,6 +719,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="PlacementVisualBase.cpp" />
     <ClCompile Include="PopupMenu.cpp" />
     <ClCompile Include="PopupMenuFlyout.cpp">
       <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
@@ -883,6 +893,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="HostBackdropVisual.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="MediaPlayerElementHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MicaBackdropWithFallback.idl">

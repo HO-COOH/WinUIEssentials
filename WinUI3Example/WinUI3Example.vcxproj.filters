@@ -327,6 +327,9 @@
     <Page Include="PlaygroundPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="MediaPlayerElementWorkaroundPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -765,5 +768,10 @@
     <PRIResource Include="Strings\zh-CN\Resources.resw">
       <Filter>Strings\zh-CN</Filter>
     </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\ladybug.wmv">
+      <Filter>Assets</Filter>
+    </Media>
   </ItemGroup>
 </Project>
