@@ -9,8 +9,6 @@ namespace winrt::PackageRoot::implementation
 {
     struct AboutPage : AboutPageT<AboutPage>, MvvmHelper::PropertyChangeHelper<AboutPage>
     {
-        AboutPage();
-
         static winrt::hstring WASDKReleaseVersion();
         static winrt::hstring WASDKRuntimeVersion();
         static winrt::hstring FormatVersion(

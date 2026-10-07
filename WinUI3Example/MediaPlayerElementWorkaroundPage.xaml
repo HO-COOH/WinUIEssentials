@@ -11,10 +11,21 @@
 
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="Original MediaPlayerElement">
-            <MediaPlayerElement
-                MaxWidth="400"
-                AreTransportControlsEnabled="True"
-                Source="ms-appx:///Assets/ladybug.wmv" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <MediaPlayerElement
+                    MaxWidth="400"
+                    AreTransportControlsEnabled="True"
+                    Source="ms-appx:///Assets/ladybug.wmv" />
+
+                <MediaPlayerElement
+                    MaxWidth="400"
+                    AreTransportControlsEnabled="True"
+                    Source="ms-appx:///Assets/ladybug.wmv">
+                    <MediaPlayerElement.TransportControls>
+                        <MediaTransportControls IsCompact="True" />
+                    </MediaPlayerElement.TransportControls>
+                </MediaPlayerElement>
+            </StackPanel>
 
             <local:ControlExample.Xaml>
                 <local:CodeSource>
@@ -22,18 +33,38 @@
                         <x:String xml:space="preserve">&lt;MediaPlayerElement
     MaxWidth=&quot;400&quot;
     AreTransportControlsEnabled=&quot;True&quot;
-    Source=&quot;ms-appx:///Assets/ladybug.wmv&quot; /&gt;</x:String>
+    Source=&quot;ms-appx:///Assets/ladybug.wmv&quot; /&gt;
+                        
+&lt;MediaPlayerElement
+    MaxWidth=&quot;400&quot;
+    AreTransportControlsEnabled=&quot;True&quot;
+    Source=&quot;ms-appx:///Assets/ladybug.wmv&quot;&gt;
+    &lt;MediaPlayerElement.TransportControls&gt;
+        &lt;MediaTransportControls IsCompact=&quot;True&quot; /&gt;
+    &lt;/MediaPlayerElement.TransportControls&gt;
+&lt;/MediaPlayerElement&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>
         </local:ControlExample>
 
         <local:ControlExample HeaderText="With MediaPlayerElementHelper.AcrylicWorkaround, you got acrylic">
-            <MediaPlayerElement
-                MaxWidth="400"
-                essential:MediaPlayerElementHelper.AcrylicWorkaround="True"
-                AreTransportControlsEnabled="True"
-                Source="ms-appx:///Assets/ladybug.wmv" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <MediaPlayerElement
+                    MaxWidth="400"
+                    essential:MediaPlayerElementHelper.AcrylicWorkaround="True"
+                    AreTransportControlsEnabled="True"
+                    Source="ms-appx:///Assets/ladybug.wmv" />
+
+                <MediaPlayerElement
+                    MaxWidth="400"
+                    AreTransportControlsEnabled="True"
+                    Source="ms-appx:///Assets/ladybug.wmv">
+                    <MediaPlayerElement.TransportControls>
+                        <MediaTransportControls essential:MediaTransportControlsHelper.AcrylicWorkaround="True" IsCompact="True" />
+                    </MediaPlayerElement.TransportControls>
+                </MediaPlayerElement>
+            </StackPanel>
 
             <local:ControlExample.Xaml>
                 <local:CodeSource>
@@ -42,7 +73,16 @@
     MaxWidth=&quot;400&quot;
     essential:MediaPlayerElementHelper.AcrylicWorkaround=&quot;True&quot;
     AreTransportControlsEnabled=&quot;True&quot;
-    Source=&quot;ms-appx:///Assets/ladybug.wmv&quot; /&gt;</x:String>
+    Source=&quot;ms-appx:///Assets/ladybug.wmv&quot; /&gt;
+
+&lt;MediaPlayerElement
+    MaxWidth=&quot;400&quot;
+    AreTransportControlsEnabled=&quot;True&quot;
+    Source=&quot;ms-appx:///Assets/ladybug.wmv&quot;&gt;
+    &lt;MediaPlayerElement.TransportControls&gt;
+        &lt;MediaTransportControls essential:MediaTransportControlsHelper.AcrylicWorkaround=&quot;True&quot; IsCompact=&quot;True&quot; /&gt;
+    &lt;/MediaPlayerElement.TransportControls&gt;
+&lt;/MediaPlayerElement&gt;</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>
             </local:ControlExample.Xaml>

@@ -421,6 +421,10 @@
       <DependentUpon>MediaPlayerElementHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="MediaTransportControlsHelper.h">
+      <DependentUpon>MediaTransportControlsHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MenuBase.h" />
     <ClInclude Include="MenuFlyoutItemPaddingWorkaround.h" />
     <ClInclude Include="MenuFlyoutItemPaddingWorkaroundWrapper.hpp" />
@@ -686,6 +690,10 @@
       <DependentUpon>MediaPlayerElementHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="MediaTransportControlsHelper.cpp">
+      <DependentUpon>MediaTransportControlsHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MenuFlyoutItemPaddingWorkaround.cpp" />
     <ClCompile Include="MenuFlyoutWrapper.cpp" />
     <ClCompile Include="MicaBackdropWithFallback.cpp">
@@ -908,6 +916,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MediaPlayerElementHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="MediaTransportControlsHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MicaBackdropWithFallback.idl">

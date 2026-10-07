@@ -26,14 +26,6 @@
 
 namespace winrt::PackageRoot::implementation
 {
-	AboutPage::AboutPage()
-	{
-		loadContributors();
-		loadRepoInfos();
-		loadCommitMessage();
-		loadNugetInfo();
-	}
-
 	winrt::hstring AboutPage::WASDKReleaseVersion()
 	{
 #if defined Build_WinUIExample
@@ -185,6 +177,11 @@ namespace winrt::PackageRoot::implementation
 		auto m_compositor = winrt::WinUINamespace::UI::Xaml::Hosting::ElementCompositionPreview::GetElementVisual(*this).Compositor();
 		addImplicitAnimationToLoading(m_compositor);
 		addHeartbeatAnimation(m_compositor);
+
+		loadContributors();
+		loadRepoInfos();
+		loadCommitMessage();
+		loadNugetInfo();
 	}
 
 	bool AboutPage::IsLoadingRepoInfo()

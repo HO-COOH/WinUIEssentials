@@ -1445,3 +1445,16 @@ The WinUI3's built-in `MediaPlayerElement` does not have Acrylic background on i
 |-|---|---|
 |Light|![](assets/mediaplayerelement-original-light.png)|![](assets/mediaplayerelement-fixed-light.png)|
 |Dark|![](assets/mediaplayerelement-original-dark.png)|![](assets/mediaplayerelement-fixed-dark.png)|
+
+When you need a compact mode `MediaTransportControls` you need to construct an instance and assign it to `MediaPlayerElement.TransportControls` property. 
+This is also supported by using `MediaTransportControlsHelper.AcrylicWorkaround`
+```xml
+<MediaPlayerElement
+    MaxWidth="400"
+    AreTransportControlsEnabled="True"
+    Source="...">
+    <MediaPlayerElement.TransportControls>
+        <MediaTransportControls essential:MediaTransportControlsHelper.AcrylicWorkaround="True" IsCompact="True" />
+    </MediaPlayerElement.TransportControls>
+</MediaPlayerElement>
+```

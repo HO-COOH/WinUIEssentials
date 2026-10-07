@@ -1,6 +1,6 @@
 namespace WinUI3Package
 {
-    runtimeclass MediaPlayerElementHelper 
+    static runtimeclass MediaPlayerElementHelper 
     {
 		static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
         static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.MediaPlayerElement MediaPlayerElement);

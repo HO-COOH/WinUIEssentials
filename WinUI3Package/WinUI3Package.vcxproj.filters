@@ -488,6 +488,9 @@
     <Filter Include="Windows\ModernWindowCaptionButtonToolTip">
       <UniqueIdentifier>{7f00feba-7746-416f-acc5-99c2d46b8ebe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Controls\Helpers\MediaPlayerElement">
+      <UniqueIdentifier>{cec3adf2-b4e1-4ff1-a8d5-d62d35699fdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="HostBackdropVisual.idl">
@@ -630,11 +633,14 @@
     <Midl Include="ModernWindowCaptionButtonToolTip.idl">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </Midl>
-    <Midl Include="MediaPlayerElementHelper.idl">
-      <Filter>Controls\Helpers</Filter>
-    </Midl>
     <Midl Include="InAppAcrylicVisual.idl">
       <Filter>Controls\AcrylicVisual</Filter>
+    </Midl>
+    <Midl Include="MediaPlayerElementHelper.idl">
+      <Filter>Controls\Helpers\MediaPlayerElement</Filter>
+    </Midl>
+    <Midl Include="MediaTransportControlsHelper.idl">
+      <Filter>Controls\Helpers\MediaPlayerElement</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

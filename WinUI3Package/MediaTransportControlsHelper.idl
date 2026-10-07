@@ -1,0 +1,9 @@
+namespace WinUI3Package
+{
+    static runtimeclass MediaTransportControlsHelper 
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.MediaTransportControls MediaTransportControls);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.MediaTransportControls MediaTransportControls, Boolean value);
+    }
+}

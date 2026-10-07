@@ -3,8 +3,7 @@
 #if __has_include("MediaPlayerElementHelper.g.cpp")
 #include "MediaPlayerElementHelper.g.cpp"
 #endif
-#include "VisualTreeHelper.hpp"
-#include "AcrylicVisualWithBoundedCornerRadius.h"
+#include "MediaTransportControlsHelper.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -47,45 +46,7 @@ namespace winrt::WinUI3Package::implementation
 			return;
 
 		auto mediaPlayerElement = d.as<winrt::Microsoft::UI::Xaml::Controls::MediaPlayerElement>();
-		auto transportControls = mediaPlayerElement.TransportControls();
-
-		auto loadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::MediaTransportControls::Loaded_revoker>();
-		*loadedRevoker = transportControls.Loaded(winrt::auto_revoke, [loadedRevoker](auto const& self, auto const&)
-		{
-			loadedRevoker->revoke();
-
-			// Find the ControlPanelGrid in the visual tree
-			auto ControlPanelGrid = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Grid>(
-				self.as<winrt::Microsoft::UI::Xaml::Controls::MediaTransportControls>(), 
-				L"ControlPanelGrid"
-			);
-			AcrylicVisualWithBoundedCornerRadius<winrt::WinUI3Package::InAppAcrylicVisual> acrylicVisual{ ControlPanelGrid };
-			winrt::Microsoft::UI::Xaml::Controls::Grid::SetRowSpan(acrylicVisual, ControlPanelGrid.RowDefinitions().Size());
-			winrt::Microsoft::UI::Xaml::Controls::Grid::SetColumnSpan(acrylicVisual, ControlPanelGrid.ColumnDefinitions().Size());
-			ControlPanelGrid.Children().InsertAt(0, acrylicVisual);
-
-			//Volumn control
-			if (auto VolumnFlyout = ControlPanelGrid.FindName(L"VolumeFlyout"))
-			{
-				if (auto flyout = VolumnFlyout.try_as<winrt::Microsoft::UI::Xaml::Controls::Flyout>())
-					winrt::WinUI3Package::FlyoutHelper::SetAcrylicWorkaround(flyout, true);
-			}
-
-			//Audio track selection flyout is dynamically created, we need to listen to the FlyoutProperty
-			if (auto AudioTracksSelectionButton = ControlPanelGrid.FindName(L"AudioTracksSelectionButton"))
-			{
-				if (auto button = AudioTracksSelectionButton.try_as<winrt::Microsoft::UI::Xaml::Controls::Button>())
-				{
-					button.RegisterPropertyChangedCallback(
-						winrt::Microsoft::UI::Xaml::Controls::Button::FlyoutProperty(),
-						[](winrt::Microsoft::UI::Xaml::DependencyObject const& d, winrt::Microsoft::UI::Xaml::DependencyProperty const& dp)
-						{
-							if (auto flyout = d.GetValue(dp).try_as<winrt::Microsoft::UI::Xaml::Controls::Flyout>())
-								winrt::WinUI3Package::FlyoutHelper::SetAcrylicWorkaround(flyout, true);
-						}
-					);
-				}
-			}
-		});
+		if (auto transportControls = mediaPlayerElement.TransportControls())
+			MediaTransportControlsHelper::ApplyAcrylicToMediaTransportControl(transportControls);
 	}
 }
