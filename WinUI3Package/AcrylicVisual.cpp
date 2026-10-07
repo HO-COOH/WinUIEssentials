@@ -26,7 +26,7 @@ namespace winrt::WinUI3Package::implementation
 		}
 	};
 
-	AcrylicVisual::AcrylicVisual() : PlacementVisualBase{ *this }
+	AcrylicVisual::AcrylicVisual()
 	{
 		RegisterPropertyChangedCallback(
 			winrt::Microsoft::UI::Xaml::FrameworkElement::RequestedThemeProperty(),
@@ -39,47 +39,22 @@ namespace winrt::WinUI3Package::implementation
 			m_configuration.Theme(elementThemeToBackdropTheme(ActualTheme()));
 			m_controller.SetSystemBackdropConfiguration(m_configuration);
 		});
-		auto compositor = winrt::Microsoft::UI::Xaml::Media::CompositionTarget::GetCompositorForCurrentThread();
-		m_backdropLink = winrt::Microsoft::UI::Content::ContentExternalBackdropLink::Create(compositor);
 		m_backdropLink.ExternalBackdropBorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
 		m_controller = {};
 
-		Loaded([this](auto&&...) {updateVisual(); });
+		m_controller.AddSystemBackdropTarget(m_backdropLink.as<winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop>());
+		m_configuration.Theme(elementThemeToBackdropTheme(ActualTheme()));
+		m_controller.SetSystemBackdropConfiguration(m_configuration);
+		m_placementVisual = m_backdropLink.PlacementVisual();
+		m_placementVisual.BorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
+		winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(*this, m_placementVisual);
+		BindPlacementVisual();
 	}
 
-	winrt::Windows::Foundation::Size AcrylicVisual::ArrangeOverride(winrt::Windows::Foundation::Size finalSize)
+	winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration AcrylicVisual::m_configuration = []()
 	{
-		updateVisual();
-		return finalSize;
-	}
-
-	winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration AcrylicVisual::m_configuration =
-		[]()
-		{
-			winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration configuration;
-			configuration.IsInputActive(true);
-			return configuration;
-		}();
-
-	void AcrylicVisual::updateVisual()
-	{
-		if (auto parent = Parent())
-		{
-			if (auto parentElement = parent.try_as<winrt::Microsoft::UI::Xaml::FrameworkElement>())
-			{
-				auto theme = parentElement.ActualTheme();
-				m_configuration.Theme(elementThemeToBackdropTheme(theme));
-			}
-		}
-
-		if (!m_placementVisual)
-		{
-			m_controller.AddSystemBackdropTarget(m_backdropLink.as<winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop>());
-			m_controller.SetSystemBackdropConfiguration(m_configuration);
-			m_placementVisual = m_backdropLink.PlacementVisual();
-			m_placementVisual.BorderMode(winrt::Microsoft::UI::Composition::CompositionBorderMode::Soft);
-			winrt::Microsoft::UI::Xaml::Hosting::ElementCompositionPreview::SetElementChildVisual(*this, m_placementVisual);
-			BindPlacementVisualSizeToHost(*this);
-		}
-	}
+		winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration configuration;
+		configuration.IsInputActive(true);
+		return configuration;
+	}();
 }

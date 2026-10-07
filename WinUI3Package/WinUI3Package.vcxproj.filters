@@ -106,8 +106,8 @@
     <ClCompile Include="InputNonClientPointerSource.cpp">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClCompile>
-    <ClCompile Include="PlacementVisualBase.cpp">
-      <Filter>Controls\AcrylicVisual</Filter>
+    <ClCompile Include="BlendEffectInterop.cpp">
+      <Filter>Backdrop\HostBackdrop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="PlacementVisualBase.h">
       <Filter>Controls\AcrylicVisual</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendEffectInterop.h">
+      <Filter>Backdrop\HostBackdrop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -629,6 +632,9 @@
     </Midl>
     <Midl Include="MediaPlayerElementHelper.idl">
       <Filter>Controls\Helpers</Filter>
+    </Midl>
+    <Midl Include="InAppAcrylicVisual.idl">
+      <Filter>Controls\AcrylicVisual</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

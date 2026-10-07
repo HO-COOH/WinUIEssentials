@@ -147,6 +147,7 @@ You can reference Github Action for detailed build steps.
 |TypeName | :white_check_mark: | :white_check_mark: | MarkupExtension
 |StringResource | :white_check_mark: | :white_check_mark: | MarkupExtension
 |ModernWindowCaptionButtonToolTip | :x: | :white_check_mark: | Control
+|MediaPlayerElementHelper | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1430,3 +1431,17 @@ Simply declare it under a Xaml control (such as `Grid`) that can accept child co
 ```xml
 <essential:ModernWindowCaptionButtonToolTip Window="{x:Bind}" />
 ```
+
+## MediaPlayerElementHelper
+The WinUI3's built-in `MediaPlayerElement` does not have Acrylic background on its transport controls. We fixed it for you. To use it, simply add `MediaPlayerElementHelper.AcrylicWorkaround="True"` as an attached property on your `MediaPlayerElement`.
+```xml
+<MediaPlayerElement
+    essential:MediaPlayerElementHelper.AcrylicWorkaround="True"
+    AreTransportControlsEnabled="True"
+    Source="..." />
+```
+
+| |Before|After|
+|-|---|---|
+|Light|![](assets/mediaplayerelement-original-light.png)|![](assets/mediaplayerelement-fixed-light.png)|
+|Dark|![](assets/mediaplayerelement-original-dark.png)|![](assets/mediaplayerelement-fixed-dark.png)|

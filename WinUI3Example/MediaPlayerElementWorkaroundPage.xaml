@@ -9,8 +9,45 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <MediaPlayerElement
-        essential:MediaPlayerElementHelper.AcrylicWorkaround="True"
-        AreTransportControlsEnabled="True"
-        Source="ms-appx:///Assets/ladybug.wmv" />
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
+        <local:ControlExample HeaderText="Original MediaPlayerElement">
+            <MediaPlayerElement
+                MaxWidth="400"
+                AreTransportControlsEnabled="True"
+                Source="ms-appx:///Assets/ladybug.wmv" />
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;MediaPlayerElement
+    MaxWidth=&quot;400&quot;
+    AreTransportControlsEnabled=&quot;True&quot;
+    Source=&quot;ms-appx:///Assets/ladybug.wmv&quot; /&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="With MediaPlayerElementHelper.AcrylicWorkaround, you got acrylic">
+            <MediaPlayerElement
+                MaxWidth="400"
+                essential:MediaPlayerElementHelper.AcrylicWorkaround="True"
+                AreTransportControlsEnabled="True"
+                Source="ms-appx:///Assets/ladybug.wmv" />
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;MediaPlayerElement
+    MaxWidth=&quot;400&quot;
+    essential:MediaPlayerElementHelper.AcrylicWorkaround=&quot;True&quot;
+    AreTransportControlsEnabled=&quot;True&quot;
+    Source=&quot;ms-appx:///Assets/ladybug.wmv&quot; /&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+    </StackPanel>
+
+
 </Page>

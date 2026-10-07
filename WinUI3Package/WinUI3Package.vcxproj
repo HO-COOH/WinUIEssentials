@@ -310,6 +310,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="BackdropWindowActiveStateWorkaroundHandler.hpp" />
+    <ClInclude Include="BlendEffectInterop.h" />
     <ClInclude Include="CalendarDatePickerHelper.h">
       <DependentUpon>CalendarDatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -381,6 +382,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="IconUtils.h" />
+    <ClInclude Include="InAppAcrylicVisual.h">
+      <DependentUpon>InAppAcrylicVisual.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="include\AutoRevokeWorkaround.hpp" />
     <ClInclude Include="include\BadgeGlyphs.hpp" />
     <ClInclude Include="include\BuiltInUris.hpp" />
@@ -611,6 +616,7 @@
       <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="BlendEffectInterop.cpp" />
     <ClCompile Include="CalendarDatePickerHelper.cpp">
       <DependentUpon>CalendarDatePickerHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -671,6 +677,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="IconUtils.cpp" />
+    <ClCompile Include="InAppAcrylicVisual.cpp">
+      <DependentUpon>InAppAcrylicVisual.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="InputNonClientPointerSource.cpp" />
     <ClCompile Include="MediaPlayerElementHelper.cpp">
       <DependentUpon>MediaPlayerElementHelper.idl</DependentUpon>
@@ -719,7 +729,6 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="PlacementVisualBase.cpp" />
     <ClCompile Include="PopupMenu.cpp" />
     <ClCompile Include="PopupMenuFlyout.cpp">
       <DependentUpon>PopupMenuFlyout.idl</DependentUpon>
@@ -893,6 +902,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="HostBackdropVisual.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="InAppAcrylicVisual.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="MediaPlayerElementHelper.idl">
