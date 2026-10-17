@@ -148,6 +148,7 @@ You can reference Github Action for detailed build steps.
 |StringResource | :white_check_mark: | :white_check_mark: | MarkupExtension
 |ModernWindowCaptionButtonToolTip | :x: | :white_check_mark: | Control
 |MediaPlayerElementHelper | :x: | :white_check_mark: | WinRT component
+|NumberBoxHelper | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1457,4 +1458,10 @@ This is also supported by using `MediaTransportControlsHelper.AcrylicWorkaround`
         <MediaTransportControls essential:MediaTransportControlsHelper.AcrylicWorkaround="True" IsCompact="True" />
     </MediaPlayerElement.TransportControls>
 </MediaPlayerElement>
+```
+
+## NumberBoxHelper
+The WinUI3's built-in `NumberBox` does not have Acrylic on its spin button popup (when you set `SpinButtonPlacementMode="Compact"`). We fixed it for you. To use it, simply add `NumberBoxHelper.AcrylicWorkaround="True"` as an attached property on your `NumberBox`.
+```xml
+
 ```

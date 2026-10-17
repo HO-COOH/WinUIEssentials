@@ -59,14 +59,15 @@ namespace winrt::WinUI3Package::implementation
 
 			if (popup.SystemBackdrop()) return;
 
+			//The popup is already open, so setting SystemBackdrop connects the backdrop immediately.
+			//Theme must be set before that, otherwise the controller starts with the system theme then transitions to the app theme
+			backdrop.RequestedTheme(tooltip.ActualTheme());
 			popup.SystemBackdrop(
 				backdrop
 			);
 			tooltip.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{
 				winrt::Windows::UI::Colors::Transparent()
-				});
-
-			backdrop.RequestedTheme(tooltip.ActualTheme());
+			});
 		});
 	}
 }

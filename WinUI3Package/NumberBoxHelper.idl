@@ -1,0 +1,9 @@
+namespace WinUI3Package
+{
+    static runtimeclass NumberBoxHelper 
+    {
+        static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{get; };
+        static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.NumberBox numberBox);
+        static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.NumberBox numberBox, Boolean value);
+    }
+}
