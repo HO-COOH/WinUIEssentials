@@ -330,6 +330,12 @@
     <Page Include="MediaPlayerElementWorkaroundPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="TeachingTipHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="NumberBoxHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

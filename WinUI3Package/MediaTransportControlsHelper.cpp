@@ -5,7 +5,7 @@
 #endif
 #include "VisualTreeHelper.hpp"
 #include "AcrylicVisualWithBoundedCornerRadius.h"
-
+#include "GridHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -80,8 +80,7 @@ namespace winrt::WinUI3Package::implementation
 			L"ControlPanelGrid"
 		);
 		AcrylicVisualWithBoundedCornerRadius<winrt::WinUI3Package::InAppAcrylicVisual> acrylicVisual{ ControlPanelGrid };
-		winrt::Microsoft::UI::Xaml::Controls::Grid::SetRowSpan(acrylicVisual, ControlPanelGrid.RowDefinitions().Size());
-		winrt::Microsoft::UI::Xaml::Controls::Grid::SetColumnSpan(acrylicVisual, ControlPanelGrid.ColumnDefinitions().Size());
+		GridHelper::SpanGrid(acrylicVisual, ControlPanelGrid);
 		ControlPanelGrid.Children().InsertAt(0, acrylicVisual);
 
 		//CompactMode VisualState sets ControlPanelGrid.Padding, we need to extend the visual

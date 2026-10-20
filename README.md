@@ -21,10 +21,10 @@
 
 
 ## Example Gallery
-|  |  |  |
+|  |  |  | |
 |:--|:--|:--|
-| **WinUI3** | [Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9) | <a href="https://get.microsoft.com/installer/download/9pcc690bcmt9?referrer=appbadge" target="_self"><img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/></a> |
-| **UWP** | [Download from Microsoft Store!](https://apps.microsoft.com/detail/9pg350gp1tbf) | <a href="https://get.microsoft.com/installer/download/9pg350gp1tbf?referrer=appbadge" target="_self"><img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/></a> |
+| **WinUI3** | [Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9) | <a href="https://get.microsoft.com/installer/download/9pcc690bcmt9?referrer=appbadge" target="_self"><img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/></a> | `winget install WinUIEssentials.WinUI3Example` |
+| **UWP** | [Download from Microsoft Store!](https://apps.microsoft.com/detail/9pg350gp1tbf) | <a href="https://get.microsoft.com/installer/download/9pg350gp1tbf?referrer=appbadge" target="_self"><img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/></a> | `winget install WinUIEssentials.UWPExample` |
 
 
 ---
@@ -149,6 +149,7 @@ You can reference Github Action for detailed build steps.
 |ModernWindowCaptionButtonToolTip | :x: | :white_check_mark: | Control
 |MediaPlayerElementHelper | :x: | :white_check_mark: | WinRT component
 |NumberBoxHelper | :x: | :white_check_mark: | WinRT component
+|TeachingTipHelper | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1463,5 +1464,31 @@ This is also supported by using `MediaTransportControlsHelper.AcrylicWorkaround`
 ## NumberBoxHelper
 The WinUI3's built-in `NumberBox` does not have Acrylic on its spin button popup (when you set `SpinButtonPlacementMode="Compact"`). We fixed it for you. To use it, simply add `NumberBoxHelper.AcrylicWorkaround="True"` as an attached property on your `NumberBox`.
 ```xml
-
+<NumberBox
+    essential:NumberBoxHelper.AcrylicWorkaround="True"
+    Header="Enter an integer:"
+    LargeChange="100"
+    SmallChange="10"
+    SpinButtonPlacementMode="Compact"
+    Value="1" />
 ```
+| |Before|After|
+|-|------|-----|
+|Light|![](assets/numberbox-original-light.png)|![](assets/numberbox-fixed-light.png)|
+|Dark|![](assets/numberbox-original-dark.png)|![](assets/numberbox-fixed-dark.png)|
+
+## TeachingTipHelper
+The WinUI3's built-in `TeachingTip` does not have Acrylic background. We fixed it for you. To use it, simply add `TeachingTipHelper.AcrylicWorkaround="True"` as an attached property on your `TeachingTip`.
+```xml
+<TeachingTip
+    x:Name="TestButton4TeachingTip"
+    Title="This is the title"
+    essential:TeachingTipHelper.AcrylicWorkaround="True"
+    Subtitle="And this is the subtitle"
+    Target="...">
+</TeachingTip>
+```
+| |Before|After|
+|-|------|-----|
+|Light|![](assets/teachingtip-original-light.png)|![](assets/teachingtip-fixed-light.png)|
+|Dark|![](assets/teachingtip-original-dark.png)|![](assets/teachingtip-fixed-dark.png)|

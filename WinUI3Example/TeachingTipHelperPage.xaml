@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="WinUI3Example.TeachingTipHelperPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:local="using:WinUI3Example"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Style x:Key="HeaderedStackPanelStyle" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Vertical" />
+            <Setter Property="Spacing" Value="12" />
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+    </Page.Resources>
+
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
+        <local:ControlExample HeaderText="Original TeachingTip">
+            <local:ControlExample.Resources>
+                <SolidColorBrush x:Key="ControlExampleDisplayBrush" Color="Transparent" />
+                <SolidColorBrush x:Key="GalleryBackgroundBrush" Color="Transparent" />
+            </local:ControlExample.Resources>
+
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <StackPanel Style="{StaticResource HeaderedStackPanelStyle}">
+                    <TextBlock Text="Show a targeted TeachingTip on a button" />
+                    <Button
+                        x:Name="TestButton1"
+                        Click="TestButton1_Click"
+                        Content="Show TeachingTip" />
+                    <TeachingTip
+                        x:Name="TestButton1TeachingTip"
+                        Title="This is the title"
+                        Subtitle="And this is the subtitle"
+                        Target="{x:Bind TestButton1}">
+                        <TeachingTip.IconSource>
+                            <SymbolIconSource Symbol="Refresh" />
+                        </TeachingTip.IconSource>
+                    </TeachingTip>
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource HeaderedStackPanelStyle}">
+                    <TextBlock Text="Show a non-targeted TeachingTip with buttons" />
+                    <Button Click="TestButton2_Click" Content="Show TeachingTip" />
+                    <TeachingTip
+                        x:Name="TestButton2TeachingTip"
+                        Title="This is the title"
+                        ActionButtonContent="Action button"
+                        CloseButtonContent="Close button"
+                        IsLightDismissEnabled="True"
+                        PlacementMargin="20"
+                        PreferredPlacement="Auto"
+                        Subtitle="And this is the subtitle" />
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource HeaderedStackPanelStyle}">
+                    <TextBlock Text="Showing a targeted TeachingTip with hero content on a button." />
+                    <Button
+                        x:Name="TestButton3"
+                        Click="TestButton3_Click"
+                        Content="Show TeachingTip" />
+                    <TeachingTip
+                        x:Name="TestButton3TeachingTip"
+                        Title="This is the title"
+                        PreferredPlacement="Bottom"
+                        Subtitle="And this is the subtitle"
+                        Target="{x:Bind TestButton3}">
+                        <TeachingTip.HeroContent>
+                            <Image AutomationProperties.Name="Sunset" Source="/Assets/Owl.jpg" />
+                        </TeachingTip.HeroContent>
+                        <TeachingTip.Content>
+                            <TextBlock
+                                Margin="0,16,0,0"
+                                Text="Description can go here"
+                                TextWrapping="WrapWholeWords" />
+                        </TeachingTip.Content>
+                    </TeachingTip>
+                </StackPanel>
+            </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;TeachingTip
+    x:Name=&quot;TestButton1TeachingTip&quot;
+    Title=&quot;This is the title&quot;
+    Subtitle=&quot;And this is the subtitle&quot;
+    Target=&quot;{x:Bind TestButton1}&quot;&gt;
+    &lt;TeachingTip.IconSource&gt;
+        &lt;SymbolIconSource Symbol=&quot;Refresh&quot; /&gt;
+    &lt;/TeachingTip.IconSource&gt;
+&lt;/TeachingTip&gt;
+
+&lt;TeachingTip
+    x:Name=&quot;TestButton2TeachingTip&quot;
+    Title=&quot;This is the title&quot;
+    ActionButtonContent=&quot;Action button&quot;
+    CloseButtonContent=&quot;Close button&quot;
+    IsLightDismissEnabled=&quot;True&quot;
+    PlacementMargin=&quot;20&quot;
+    PreferredPlacement=&quot;Auto&quot;
+    Subtitle=&quot;And this is the subtitle&quot; /&gt;
+
+&lt;TeachingTip
+    x:Name=&quot;TestButton3TeachingTip&quot;
+    Title=&quot;This is the title&quot;
+    PreferredPlacement=&quot;Bottom&quot;
+    Subtitle=&quot;And this is the subtitle&quot;
+    Target=&quot;{x:Bind TestButton3}&quot;&gt;
+    &lt;TeachingTip.HeroContent&gt;
+        &lt;Image AutomationProperties.Name=&quot;Sunset&quot; Source=&quot;/Assets/Owl.jpg&quot; /&gt;
+    &lt;/TeachingTip.HeroContent&gt;
+    &lt;TeachingTip.Content&gt;
+        &lt;TextBlock
+            Margin=&quot;0,16,0,0&quot;
+            Text=&quot;Description can go here&quot;
+            TextWrapping=&quot;WrapWholeWords&quot; /&gt;
+    &lt;/TeachingTip.Content&gt;
+&lt;/TeachingTip&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="Using TeachingTipHelper.AcrylicWorkround, you got acrylic">
+            <local:ControlExample.Resources>
+                <SolidColorBrush x:Key="ControlExampleDisplayBrush" Color="Transparent" />
+                <SolidColorBrush x:Key="GalleryBackgroundBrush" Color="Transparent" />
+            </local:ControlExample.Resources>
+
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <StackPanel Style="{StaticResource HeaderedStackPanelStyle}">
+                    <TextBlock Text="Show a targeted TeachingTip on a button" />
+                    <Button
+                        x:Name="TestButton4"
+                        Click="TestButton4_Click"
+                        Content="Show TeachingTip" />
+                    <TeachingTip
+                        x:Name="TestButton4TeachingTip"
+                        Title="This is the title"
+                        essential:TeachingTipHelper.AcrylicWorkaround="True"
+                        Subtitle="And this is the subtitle"
+                        Target="{x:Bind TestButton4}">
+                        <TeachingTip.IconSource>
+                            <SymbolIconSource Symbol="Refresh" />
+                        </TeachingTip.IconSource>
+                    </TeachingTip>
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource HeaderedStackPanelStyle}">
+                    <TextBlock Text="Show a non-targeted TeachingTip with buttons" />
+                    <Button Click="TestButton5_Click" Content="Show TeachingTip" />
+                    <TeachingTip
+                        x:Name="TestButton5TeachingTip"
+                        Title="This is the title"
+                        essential:TeachingTipHelper.AcrylicWorkaround="True"
+                        ActionButtonContent="Action button"
+                        CloseButtonContent="Close button"
+                        IsLightDismissEnabled="True"
+                        PlacementMargin="20"
+                        PreferredPlacement="Auto"
+                        ShouldConstrainToRootBounds="False"
+                        Subtitle="And this is the subtitle" />
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource HeaderedStackPanelStyle}">
+                    <TextBlock Text="Showing a targeted TeachingTip with hero content on a button." />
+                    <Button
+                        x:Name="TestButton6"
+                        Click="TestButton6_Click"
+                        Content="Show TeachingTip" />
+                    <TeachingTip
+                        x:Name="TestButton6TeachingTip"
+                        Title="This is the title"
+                        essential:TeachingTipHelper.AcrylicWorkaround="True"
+                        PreferredPlacement="Bottom"
+                        Subtitle="And this is the subtitle"
+                        Target="{x:Bind TestButton6}">
+                        <TeachingTip.HeroContent>
+                            <Image AutomationProperties.Name="Sunset" Source="/Assets/Owl.jpg" />
+                        </TeachingTip.HeroContent>
+                        <TeachingTip.Content>
+                            <TextBlock
+                                Margin="0,16,0,0"
+                                Text="Description can go here"
+                                TextWrapping="WrapWholeWords" />
+                        </TeachingTip.Content>
+                    </TeachingTip>
+                </StackPanel>
+            </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;TeachingTip
+    x:Name=&quot;TestButton4TeachingTip&quot;
+    Title=&quot;This is the title&quot;
+    essential:TeachingTipHelper.AcrylicWorkaround=&quot;True&quot;
+    Subtitle=&quot;And this is the subtitle&quot;
+    Target=&quot;{x:Bind TestButton4}&quot;&gt;
+    &lt;TeachingTip.IconSource&gt;
+        &lt;SymbolIconSource Symbol=&quot;Refresh&quot; /&gt;
+    &lt;/TeachingTip.IconSource&gt;
+&lt;/TeachingTip&gt;
+
+&lt;TeachingTip
+    x:Name=&quot;TestButton5TeachingTip&quot;
+    Title=&quot;This is the title&quot;
+    essential:TeachingTipHelper.AcrylicWorkaround=&quot;True&quot;
+    ActionButtonContent=&quot;Action button&quot;
+    CloseButtonContent=&quot;Close button&quot;
+    IsLightDismissEnabled=&quot;True&quot;
+    PlacementMargin=&quot;20&quot;
+    PreferredPlacement=&quot;Auto&quot;
+    ShouldConstrainToRootBounds=&quot;False&quot;
+    Subtitle=&quot;And this is the subtitle&quot; /&gt;
+
+&lt;TeachingTip
+    x:Name=&quot;TestButton6TeachingTip&quot;
+    Title=&quot;This is the title&quot;
+    essential:TeachingTipHelper.AcrylicWorkaround=&quot;True&quot;
+    PreferredPlacement=&quot;Bottom&quot;
+    Subtitle=&quot;And this is the subtitle&quot;
+    Target=&quot;{x:Bind TestButton6}&quot;&gt;
+    &lt;TeachingTip.HeroContent&gt;
+        &lt;Image AutomationProperties.Name=&quot;Sunset&quot; Source=&quot;/Assets/Owl.jpg&quot; /&gt;
+    &lt;/TeachingTip.HeroContent&gt;
+    &lt;TeachingTip.Content&gt;
+        &lt;TextBlock
+            Margin=&quot;0,16,0,0&quot;
+            Text=&quot;Description can go here&quot;
+            TextWrapping=&quot;WrapWholeWords&quot; /&gt;
+    &lt;/TeachingTip.Content&gt;
+&lt;/TeachingTip&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+    </StackPanel>
+</Page>

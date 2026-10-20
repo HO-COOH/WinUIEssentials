@@ -588,6 +588,10 @@
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NumberBoxHelperPage.xaml.h">
+      <DependentUpon>NumberBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="PageHeader.xaml.h">
       <DependentUpon>PageHeader.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -728,6 +732,10 @@
     </ClInclude>
     <ClInclude Include="TaskbarPage.xaml.h">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TeachingTipHelperPage.xaml.h">
+      <DependentUpon>TeachingTipHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="TemplateInformation.h">
@@ -1002,6 +1010,9 @@
     <Page Include="NormalNonResizableNoBorderWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="NumberBoxHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PageHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1090,6 +1101,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TaskbarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TeachingTipHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TenMicaBackdropWindow.xaml">
@@ -1402,6 +1416,10 @@
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NumberBoxHelperPage.xaml.cpp">
+      <DependentUpon>NumberBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="PageHeader.xaml.cpp">
       <DependentUpon>PageHeader.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1543,6 +1561,10 @@
     </ClCompile>
     <ClCompile Include="TaskbarPage.xaml.cpp">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TeachingTipHelperPage.xaml.cpp">
+      <DependentUpon>TeachingTipHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="TenMicaBackdropWindow.xaml.cpp">
@@ -1884,6 +1906,10 @@
       <DependentUpon>NormalNonResizableNoBorderWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="NumberBoxHelperPage.idl">
+      <DependentUpon>NumberBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="PageHeader.idl">
       <DependentUpon>PageHeader.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -2011,6 +2037,10 @@
     </Midl>
     <Midl Include="TaskbarPage.idl">
       <DependentUpon>TaskbarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="TeachingTipHelperPage.idl">
+      <DependentUpon>TeachingTipHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="TemplateInformation.idl">

@@ -4,6 +4,8 @@
 #include "NumberBoxHelper.g.cpp"
 #endif
 #include "AcrylicVisualWithBoundedCornerRadius.h"
+#include "BindingHelper.h"
+#include "GridHelper.hpp"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -54,7 +56,7 @@ namespace winrt::WinUI3Package::implementation
 				return;
 
 			AcrylicVisualWithBoundedCornerRadius acrylicVisual{ PopupContentRoot };
-			winrt::Microsoft::UI::Xaml::Controls::Grid::SetRowSpan(acrylicVisual, (std::max)(1, static_cast<int>(PopupContentRoot.RowDefinitions().Size())));
+			GridHelper::SpanGrid<true, false>(acrylicVisual, PopupContentRoot);
 
 			//PopupContentRoot has Padding="6", extend the visual
 			auto const padding = PopupContentRoot.Padding();
@@ -62,12 +64,7 @@ namespace winrt::WinUI3Package::implementation
 
 			//The acrylic in UpDownPopup does not follow theme changes of the NumberBox, sync it manually
 			acrylicVisual.RequestedTheme(numberBox.ActualTheme());
-			numberBox.ActualThemeChanged([weakAcrylicVisual = winrt::make_weak<winrt::Microsoft::UI::Xaml::FrameworkElement>(acrylicVisual)](
-				winrt::Microsoft::UI::Xaml::FrameworkElement const& sender, auto&&)
-			{
-				if (auto acrylicVisual = weakAcrylicVisual.get())
-					acrylicVisual.RequestedTheme(sender.ActualTheme());
-			});
+			BindingHelper::BindTheme(acrylicVisual, numberBox);
 
 			PopupContentRoot.Children().InsertAt(0, acrylicVisual);
 		});

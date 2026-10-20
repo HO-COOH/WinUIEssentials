@@ -373,6 +373,7 @@
       <DependentUpon>GeneratedIconSource.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="GridHelper.hpp" />
     <ClInclude Include="HostBackdrop.h">
       <DependentUpon>HostBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -470,6 +471,10 @@
     </ClInclude>
     <ClInclude Include="NormalTaskbarIcon.h" />
     <ClInclude Include="NotifyIconData.h" />
+    <ClInclude Include="NumberBoxHelper.h">
+      <DependentUpon>NumberBoxHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="OverrideChecker.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlacementVisualBase.h" />
@@ -523,7 +528,16 @@
       <DependentUpon>Table.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="TeachingTipAcrylicStyle.h" />
+    <ClInclude Include="TeachingTipHelper.h">
+      <DependentUpon>TeachingTipHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="TeachingTipOutline.h" />
+    <ClInclude Include="TeachingTipTail.h" />
+    <ClInclude Include="TeachingTipTailSide.hpp" />
     <ClInclude Include="TenMicaRegistry.h" />
+    <ClInclude Include="BindingHelper.h" />
     <ClInclude Include="UnderlayElement.h" />
     <ClInclude Include="TaskbarIcon.h">
       <DependentUpon>TaskbarIcon.idl</DependentUpon>
@@ -733,6 +747,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="NormalTaskbarIcon.cpp" />
+    <ClCompile Include="NumberBoxHelper.cpp">
+      <DependentUpon>NumberBoxHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -787,6 +805,13 @@
     </ClCompile>
     <ClCompile Include="TaskbarIconBase.cpp" />
     <ClCompile Include="TaskbarIconMessageWindow.cpp" />
+    <ClCompile Include="TeachingTipAcrylicStyle.cpp" />
+    <ClCompile Include="TeachingTipHelper.cpp">
+      <DependentUpon>TeachingTipHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="TeachingTipOutline.cpp" />
+    <ClCompile Include="TeachingTipTail.cpp" />
     <ClCompile Include="TenMicaBackdrop.cpp">
       <DependentUpon>TenMicaBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -796,6 +821,7 @@
     <ClCompile Include="TenMicaRegistry.cpp" />
     <ClCompile Include="TenMicaRegistryWatcher.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
+    <ClCompile Include="BindingHelper.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />
     <ClCompile Include="ThemeSettings.cpp">
       <DependentUpon>ThemeSettings.idl</DependentUpon>
@@ -951,6 +977,9 @@
     <Midl Include="NonResizableWindowWhiteBorderWorkaround.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="NumberBoxHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="PopupMenuFlyout.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -983,6 +1012,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TaskbarIcon.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="TeachingTipHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="TenMicaBackdrop.idl">

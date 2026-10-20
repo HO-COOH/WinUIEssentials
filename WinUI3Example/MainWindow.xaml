@@ -878,6 +878,8 @@
                         <NavigationViewItem Content="TimePickerHelper" Tag="{essential:TypeName Type=local:TimePickerHelperPage}" />
                         <NavigationViewItem Content="ToolTipHelper" Tag="{essential:TypeName Type=local:ToolTipHelperPage}" />
                         <NavigationViewItem Content="MediaPlayerElementHelper" Tag="{essential:TypeName Type=local:MediaPlayerElementWorkaroundPage}" />
+                        <NavigationViewItem Content="TeachingTipHelper" Tag="{essential:TypeName Type=local:TeachingTipHelperPage}" />
+                        <NavigationViewItem Content="NumberBoxHelper" Tag="{essential:TypeName Type=local:NumberBoxHelperPage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 

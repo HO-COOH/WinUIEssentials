@@ -109,6 +109,18 @@
     <ClCompile Include="BlendEffectInterop.cpp">
       <Filter>Backdrop\HostBackdrop</Filter>
     </ClCompile>
+    <ClCompile Include="TeachingTipAcrylicStyle.cpp">
+      <Filter>Controls\Helpers\TeachingTip</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachingTipTail.cpp">
+      <Filter>Controls\Helpers\TeachingTip</Filter>
+    </ClCompile>
+    <ClCompile Include="TeachingTipOutline.cpp">
+      <Filter>Controls\Helpers\TeachingTip</Filter>
+    </ClCompile>
+    <ClCompile Include="BindingHelper.cpp">
+      <Filter>Controls\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -371,6 +383,24 @@
     <ClInclude Include="BlendEffectInterop.h">
       <Filter>Backdrop\HostBackdrop</Filter>
     </ClInclude>
+    <ClInclude Include="TeachingTipAcrylicStyle.h">
+      <Filter>Controls\Helpers\TeachingTip</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachingTipTail.h">
+      <Filter>Controls\Helpers\TeachingTip</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachingTipTailSide.hpp">
+      <Filter>Controls\Helpers\TeachingTip</Filter>
+    </ClInclude>
+    <ClInclude Include="TeachingTipOutline.h">
+      <Filter>Controls\Helpers\TeachingTip</Filter>
+    </ClInclude>
+    <ClInclude Include="BindingHelper.h">
+      <Filter>Controls\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="GridHelper.hpp">
+      <Filter>Controls\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="WinUI3Package.def" />
@@ -490,6 +520,9 @@
     </Filter>
     <Filter Include="Controls\Helpers\MediaPlayerElement">
       <UniqueIdentifier>{cec3adf2-b4e1-4ff1-a8d5-d62d35699fdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls\Helpers\TeachingTip">
+      <UniqueIdentifier>{6c0a71c5-03ae-475e-8e83-d2e9e5264d15}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -641,6 +674,12 @@
     </Midl>
     <Midl Include="MediaTransportControlsHelper.idl">
       <Filter>Controls\Helpers\MediaPlayerElement</Filter>
+    </Midl>
+    <Midl Include="TeachingTipHelper.idl">
+      <Filter>Controls\Helpers\TeachingTip</Filter>
+    </Midl>
+    <Midl Include="NumberBoxHelper.idl">
+      <Filter>Controls\Helpers</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

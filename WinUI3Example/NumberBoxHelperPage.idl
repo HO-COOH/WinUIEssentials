@@ -4,6 +4,5 @@ namespace WinUI3Example
     runtimeclass NumberBoxHelperPage : Microsoft.UI.Xaml.Controls.Page
     {
         NumberBoxHelperPage();
-        Int32 MyProperty;
     }
 }
