@@ -5,46 +5,45 @@
 #endif
 #include <include/HwndHelper.hpp>
 #include <winrt/Microsoft.UI.Dispatching.h>
+#include <wil/resource.h>
 #include <commctrl.h>
+#include <algorithm>
 #pragma comment(lib, "comctl32.lib")
-
-
-constexpr static UINT_PTR kHostSubclassId = 0x57'42'56'01; // 'WBV\1'
 
 namespace winrt::WinUI3Package::implementation
 {
-	LRESULT CALLBACK WebView::hostSubclassProc(
-		HWND hwnd, 
-		UINT msg, 
-		WPARAM wParam, 
-		LPARAM lParam,
-		UINT_PTR /*id*/, 
-		DWORD_PTR ref)
-	{
-		if (msg == WM_NCLBUTTONUP)
-		{
-			UINT command = 0;
-			switch (wParam)
-			{
-				case HTCLOSE:     command = SC_CLOSE; break;
-				case HTMINBUTTON: command = SC_MINIMIZE; break;
-				case HTMAXBUTTON: command = ::IsZoomed(hwnd) ? SC_RESTORE : SC_MAXIMIZE; break;
-				default:          break;
-			}
-			if (command)
-			{
-				if (command == SC_CLOSE)
-				{
-					if (auto* self = reinterpret_cast<WebView*>(ref))
-						self->m_mouseHook.reset();
-				}
+	static thread_local std::vector<WebView*> t_attachedWebViews;
+	static thread_local wil::unique_hhook t_hostDestroyHook;
 
-				::PostMessageW(hwnd, WM_SYSCOMMAND, command, lParam);
-				return 0; // handled: skip DefWindowProc so the command is not raised twice
+	/*
+		When closing the main window, these happens:
+			1. DestroyWindow is called on the host HWND.
+			2. WM_DESTROY is sent to the window. EdgeManager subclassed the window when the control was created, and its handler (Win32WebViewControl::HostWndProc) gets the message before anything of ours.
+			3. That handler runs EdgeManager's internal Cleanup. Cleanup nulls the pointer that put_Bounds later reads ([site+0x28]).
+			4. Nothing tells WebView this happened. m_webview is still non-null, and Unloaded hasn't run; if it had, Close() would already have set m_webview to null.
+			5. On the next XAML layout pass, LayoutUpdated fires, the bounds have changed, and m_webview.Bounds() reads that null pointer inside EdgeManager (crash)
+		We need this hook to clear m_webview pointer
+	*/
+	LRESULT CALLBACK WebView::hostDestroyHookProc(int code, WPARAM wParam, LPARAM lParam)
+	{
+
+		if (code == HCBT_DESTROYWND)
+		{
+			//there could be more than one WebView in one hwnd at the same time, so use a loop to find all of them
+			while (true)
+			{
+				auto const it = std::ranges::find_if(
+					t_attachedWebViews,
+					[hwnd = reinterpret_cast<HWND>(wParam)](WebView* webview) { return webview->m_hostHwnd == hwnd; }
+				);
+				if (it == t_attachedWebViews.end())
+					break;
+				//Keep self alive in case its last reference is released while detachHost() pumps.
+				auto const self = (*it)->get_strong();
+				self->detachHost();
 			}
 		}
-
-		return ::DefSubclassProc(hwnd, msg, wParam, lParam);
+		return CallNextHookEx(nullptr, code, wParam, lParam);
 	}
 
 	constexpr static auto operator*(winrt::Windows::Foundation::Rect rect, float scale)
@@ -124,10 +123,7 @@ namespace winrt::WinUI3Package::implementation
 		});
 		Unloaded([this](auto&&...)
 		{
-			Close();
-			m_mouseHook.reset();
-			m_hostHwnd = nullptr;
-			::ResetEvent(m_loaded.get());
+			detachHost();
 		});
 		LayoutUpdated([this](auto&&...) 
 		{
@@ -422,9 +418,6 @@ namespace winrt::WinUI3Package::implementation
 	}
 	void WebView::Close()
 	{
-		if (m_hostHwnd)
-			::RemoveWindowSubclass(m_hostHwnd, &WebView::hostSubclassProc, kHostSubclassId);
-
 		if (auto webview = std::exchange(m_webview, nullptr))
 		{
 			webview.MoveFocusRequested(m_moveFocusRequestedToken);
@@ -506,10 +499,21 @@ namespace winrt::WinUI3Package::implementation
 	}
 	WebView::~WebView()
 	{
-		Close();
-		m_mouseHook.reset();
+		detachHost();
 	}
 #pragma endregion
+
+	void WebView::detachHost()
+	{
+		// Unregister first: Close() pumps messages, and the destroy hook must not find this instance again.
+		std::erase(t_attachedWebViews, this);
+		if (t_attachedWebViews.empty())
+			t_hostDestroyHook.reset();
+
+		Close();
+		m_hostHwnd = nullptr;
+		::ResetEvent(m_loaded.get());
+	}
 
 	winrt::fire_and_forget WebView::onLoaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args)
 	{
@@ -518,9 +522,11 @@ namespace winrt::WinUI3Package::implementation
 		auto const hwnd = GetHwnd(xamlRoot);
 
 		auto webview = co_await m_process.CreateWebViewControlAsync(reinterpret_cast<int64_t>(hwnd), getBounds(xamlRoot.RasterizationScale()));
+		
+		//if this is unloaded before CreateWebViewControlAsync() returns, we need to close it
 		if (!IsLoaded())
 		{
-			webview.Close();
+			DispatcherQueue().TryEnqueue([webview] { webview.Close(); });
 			co_return;
 		}
 		m_webview = webview;
@@ -636,23 +642,12 @@ namespace winrt::WinUI3Package::implementation
 
 		setProperties();
 
-		// Intercept right-clicks that land inside the webview so the window-level context
-		// menu is never raised. See WebViewMouseHook.
 		m_hostHwnd = hwnd;
-		m_mouseHook.emplace(this);
 
-		// Subclass the top-level window so a click on the caption buttons is not eaten
-		// on the first click (with a beep) while the out-of-process web content holds
-		// focus. Removed in Close().
-		if (m_hostHwnd)
-		{
-			::SetWindowSubclass(
-				m_hostHwnd, 
-				&WebView::hostSubclassProc, 
-				kHostSubclassId,
-				reinterpret_cast<DWORD_PTR>(this)
-			);
-		}
+		if (std::ranges::find(t_attachedWebViews, this) == t_attachedWebViews.end())
+			t_attachedWebViews.push_back(this);
+		if (!t_hostDestroyHook)
+			t_hostDestroyHook.reset(::SetWindowsHookExW(WH_CBT, &WebView::hostDestroyHookProc, nullptr, ::GetCurrentThreadId()));
 
 		// Release any callers parked in waitForLoadAsync().
 		::SetEvent(m_loaded.get());

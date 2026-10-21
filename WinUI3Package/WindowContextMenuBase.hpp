@@ -91,6 +91,11 @@ protected:
             RemoveWindowSubclass(m_parent, &Derived::subclassProc, SubclassId);
     }
 
+    constexpr static bool isFromChildWindow(WPARAM wparam, HWND hwnd)
+    {
+        return reinterpret_cast<HWND>(wparam) != hwnd;
+    }
+
     /*Weak, or the reference the window holds to this menu closes a cycle and neither is ever freed*/
     winrt::weak_ref<winrt::Microsoft::UI::Xaml::Window> m_window{ nullptr };
     winrt::Microsoft::UI::Content::ContentCoordinateConverter m_converter{ nullptr };

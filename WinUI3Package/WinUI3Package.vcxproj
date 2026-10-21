@@ -598,7 +598,6 @@
       <DependentUpon>WebView.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="WebViewMouseHook.h" />
     <ClInclude Include="WindowCaptionButtonThemeWorkaround.h">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -863,7 +862,6 @@
       <DependentUpon>WebView.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="WebViewMouseHook.cpp" />
     <ClCompile Include="WindowCaptionButtonThemeWorkaround.cpp">
       <DependentUpon>WindowCaptionButtonThemeWorkaround.idl</DependentUpon>
       <SubType>Code</SubType>

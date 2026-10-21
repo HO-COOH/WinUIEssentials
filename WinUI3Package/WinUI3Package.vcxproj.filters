@@ -88,9 +88,6 @@
     <ClCompile Include="GaussianBlurEffectInterop.cpp">
       <Filter>Backdrop\HostBackdrop</Filter>
     </ClCompile>
-    <ClCompile Include="WebViewMouseHook.cpp">
-      <Filter>Controls\WebView</Filter>
-    </ClCompile>
     <ClCompile Include="DelayWindowShowHelper.cpp">
       <Filter>Windows</Filter>
     </ClCompile>
@@ -354,9 +351,6 @@
     </ClInclude>
     <ClInclude Include="GaussianBlurEffectInterop.h">
       <Filter>Backdrop\HostBackdrop</Filter>
-    </ClInclude>
-    <ClInclude Include="WebViewMouseHook.h">
-      <Filter>Controls\WebView</Filter>
     </ClInclude>
     <ClInclude Include="MinMaxSize.hpp" />
     <ClInclude Include="WindowContextMenuBase.hpp">

@@ -65,6 +65,10 @@ namespace winrt::WinUI3Package::implementation
         switch (msg)
         {
             case WM_CONTEXTMENU:
+                //if this comes from a child window poping up, ignore it
+                if (isFromChildWindow(wparam, hwnd))
+                    break;
+                [[fallthrough]];
             case WM_NCRBUTTONDOWN:
             case WM_NCRBUTTONUP:
                 if (self->showMenu(self->Menu(), lparam))
