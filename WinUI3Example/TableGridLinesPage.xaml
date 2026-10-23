@@ -93,8 +93,8 @@
                 <essential:TableColumn Content="Designation" />
                 <essential:TableColumn Content="Address">
                     <essential:TableColumn.EditTemplate>
-                        <DataTemplate x:DataType="x:String">
-                            <TextBox Text="{x:Bind}" />
+                        <DataTemplate>
+                            <TextBox Text="{Binding Value, Mode=TwoWay}" />
                         </DataTemplate>
                     </essential:TableColumn.EditTemplate>
                 </essential:TableColumn>

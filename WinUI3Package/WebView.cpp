@@ -512,7 +512,7 @@ namespace winrt::WinUI3Package::implementation
 
 		Close();
 		m_hostHwnd = nullptr;
-		::ResetEvent(m_loaded.get());
+		m_loaded.ResetEvent();
 	}
 
 	winrt::fire_and_forget WebView::onLoaded(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& args)
@@ -650,7 +650,7 @@ namespace winrt::WinUI3Package::implementation
 			t_hostDestroyHook.reset(::SetWindowsHookExW(WH_CBT, &WebView::hostDestroyHookProc, nullptr, ::GetCurrentThreadId()));
 
 		// Release any callers parked in waitForLoadAsync().
-		::SetEvent(m_loaded.get());
+		m_loaded.SetEvent();
 	}
 
 	bool WebView::isPointInWebView(POINT screenPoint) const

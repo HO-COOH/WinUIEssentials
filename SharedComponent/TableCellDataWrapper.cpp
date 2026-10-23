@@ -25,6 +25,11 @@ namespace winrt::PackageRoot::implementation
         if (value == m_value)
             return;
 
+        //XAML boxes a fresh string on every source update, so compare text, not identity
+        if (auto const newString = value.try_as<winrt::hstring>(), oldString = m_value.try_as<winrt::hstring>();
+            newString && oldString && *newString == *oldString)
+            return;
+
         m_value = value;
 		m_table_ref.m_tableData.SetData(m_row, m_column, value);
         raisePropertyChange(L"Value");

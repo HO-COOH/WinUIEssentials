@@ -332,11 +332,17 @@ void TableOverlayManager::BeginEdit(int row, int column)
 	auto const hasItemTemplate = static_cast<bool>(columnData.m_itemTemplate);
 	auto editControl = m_editControl.MakeControl(
 		columnData.m_editTemplate,
-		 hasItemTemplate?
-			m_columns[column].rowDataCache[sourceRow] :
-			winrt::box_value(m_table.m_d2dContent.m_textLayoutCache.GetCellContent(sourceRow, column)),
+		winrt::make<winrt::PackageRoot::implementation::TableCellDataWrapper>(
+			m_table,
+			sourceRow,
+			column,
+			hasItemTemplate ?
+				m_columns[column].rowDataCache[sourceRow] :
+				winrt::box_value(m_table.m_d2dContent.m_textLayoutCache.GetCellContent(sourceRow, column))
+		),
 		!hasItemTemplate,
 		row,
+		sourceRow,
 		column
 	);
 
@@ -354,6 +360,7 @@ void TableOverlayManager::BeginEdit(int row, int column)
 	editControl.Height(contentRowHeight);
 	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetLeft(editControl, widthManager.SumColumnWidth(column, 0) - m_table.m_d2dContent.ScrollOffsetX());
 	winrt::WinUINamespace::UI::Xaml::Controls::Canvas::SetTop(editControl, tableHeight.HeaderRowHeight() + row * contentRowHeight - m_table.m_d2dContent.ScrollOffsetY());
+	m_editControlIndex = m_children.Size();
 	m_children.Append(editControl);
 
 	//try set focus
@@ -366,9 +373,22 @@ void TableOverlayManager::EndEdit()
 	if (!m_editControl)
 		return;
 
-	uint32_t index = 0;
-	if (m_children.IndexOf(m_editControl.Remove(m_table.m_d2dContent), index))
-		m_children.RemoveAt(index);
+	auto const result = m_editControl.Remove(m_table.m_d2dContent);
+	m_children.RemoveAt(m_editControlIndex);
+
+	//A string cell was already redrawn with its new text by Remove. An ItemTemplate
+	//cell still shows the old value, so refresh the cache and rebind its slot.
+	if (!result.changed || result.isString)
+		return;
+
+	auto& columnState = m_columns[result.column];
+	columnState.rowDataCache[result.sourceRow] = result.value;
+	for (auto& slot : columnState.slots)
+	{
+		if (slot.row == result.displayRow)
+			slot.row = -1;
+	}
+	rebindVisibleRows(m_table.m_d2dContent.ScrollOffsetY());
 }
 
 bool TableOverlayManager::IsEditing() const

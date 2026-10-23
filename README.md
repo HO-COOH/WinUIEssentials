@@ -22,7 +22,7 @@
 
 ## Example Gallery
 |  |  |  | |
-|:--|:--|:--|
+|:--|:--|:--|:--|
 | **WinUI3** | [Download from Microsoft Store!](https://apps.microsoft.com/detail/9PCC690BCMT9) | <a href="https://get.microsoft.com/installer/download/9pcc690bcmt9?referrer=appbadge" target="_self"><img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/></a> | `winget install WinUIEssentials.WinUI3Example` |
 | **UWP** | [Download from Microsoft Store!](https://apps.microsoft.com/detail/9pg350gp1tbf) | <a href="https://get.microsoft.com/installer/download/9pg350gp1tbf?referrer=appbadge" target="_self"><img src="https://get.microsoft.com/images/en-us%20light.svg" width="200"/></a> | `winget install WinUIEssentials.UWPExample` |
 
@@ -1382,7 +1382,7 @@ It is simply a pair of `Int32` indicating the start row and end row
 |---|---|---|---|
 |Content| Object | :white_check_mark: | It can be either a `String` (rendered with D2D) or any Xaml Controls
 |ItemTemplate| DataTemplate | :white_check_mark: | Specify the `DataTemplate` which is used for displaying your cell data of this column
-|EditTemplate| DataTemplate | :white_check_mark: | Specify the `DataTemplate` which is used when user double-click a cell to edit it. If not specified, double-clicking is disabled.
+|EditTemplate| DataTemplate | :white_check_mark: | Specify the `DataTemplate` which is used when user double-click a cell to edit it. If not specified, double-clicking is disabled. Like `ItemTemplate`, its `DataContext` exposes the cell data as `Value`, so bind to it with `TwoWay` to write the edit back (e.g. `<TextBox Text="{Binding Value, Mode=TwoWay}" />`). The new value is passed to `ITableData::SetData` and drawn when editing ends.
 |SortEnabled | Boolean | :white_check_mark: | Controls whether this column is sortable
 |IsResizable | Boolean | :white_check_mark: | Controls whether this column is resizable
 |HorizontalAlignment | HorizontalAlignment | :x: | Controls how the cell content gets horizontally laid out

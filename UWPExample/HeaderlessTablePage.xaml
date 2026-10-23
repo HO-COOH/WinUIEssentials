@@ -42,8 +42,8 @@
                 <essential:TableColumn />
                 <essential:TableColumn>
                     <essential:TableColumn.EditTemplate>
-                        <DataTemplate x:DataType="x:String">
-                            <TextBox Text="{x:Bind}" />
+                        <DataTemplate>
+                            <TextBox Text="{Binding Value, Mode=TwoWay}" />
                         </DataTemplate>
                     </essential:TableColumn.EditTemplate>
                 </essential:TableColumn>
@@ -84,8 +84,8 @@
         &lt;essential:TableColumn /&gt;
         &lt;essential:TableColumn&gt;
             &lt;essential:TableColumn.EditTemplate&gt;
-                &lt;DataTemplate x:DataType=&quot;x:String&quot;&gt;
-                    &lt;TextBox Text=&quot;{x:Bind}&quot; /&gt;
+                &lt;DataTemplate&gt;
+                    &lt;TextBox Text=&quot;{Binding Value, Mode=TwoWay}&quot; /&gt;
                 &lt;/DataTemplate&gt;
             &lt;/essential:TableColumn.EditTemplate&gt;
         &lt;/essential:TableColumn&gt;

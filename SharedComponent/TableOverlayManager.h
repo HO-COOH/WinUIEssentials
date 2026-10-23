@@ -39,6 +39,9 @@ class TableOverlayManager
 
 	std::vector<ColumnState> m_columns;
 	EditControlOverlay m_editControl;
+	//Index of the edit control in m_children. Slots are only ever appended and nothing
+	//else removes children, so it stays valid until EndEdit removes the control.
+	uint32_t m_editControlIndex{};
 
 	//Cached vertical-line + left-padding offset in DIPs. Lazily filled on
 	//first use; the inputs (line color, thickness, padding) don't change

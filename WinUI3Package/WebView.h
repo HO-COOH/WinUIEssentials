@@ -4,6 +4,7 @@
 #include <optional>
 #include <winrt/Windows.Web.UI.h>
 #include <winrt/Windows.Web.UI.Interop.h>
+#include <wil/resource.h>
 #include "include/EnsureDependencyProperty.hpp"
 
 namespace winrt::WinUI3Package::implementation
@@ -117,7 +118,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Web::UI::Interop::WebViewControlProcess m_process;
         winrt::Windows::Web::UI::Interop::WebViewControl m_webview{ nullptr };
         winrt::Windows::Foundation::Rect m_cachedBounds{};
-        winrt::handle m_loaded{ ::CreateEventW(nullptr, true /*manual reset*/, false, nullptr) };
+        wil::unique_event m_loaded{ wil::EventOptions::ManualReset };
 
 		winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::Interop::WebViewControlAcceleratorKeyPressedEventArgs>> m_acceleratorKeyPressed;
         winrt::event<winrt::Windows::Foundation::TypedEventHandler<winrt::WinUI3Package::WebView, winrt::Windows::Web::UI::WebViewControlContentLoadingEventArgs>> m_contentLoading;
