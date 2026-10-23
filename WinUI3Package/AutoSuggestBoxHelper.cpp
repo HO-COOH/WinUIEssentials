@@ -5,6 +5,7 @@
 #endif
 #include "VisualTreeHelper.hpp"
 #include "AcrylicVisualWithBoundedCornerRadius.h"
+#include "BindingHelper.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -68,15 +69,23 @@ namespace winrt::WinUI3Package::implementation
 
 			
 			auto borderLoadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::Border::Loaded_revoker>();
-			*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [borderLoadedRevoker](auto const& borderRef, auto&&)
+			*borderLoadedRevoker = border.Loaded(winrt::auto_revoke, [borderLoadedRevoker, autoSuggestBoxRef](auto const& borderRef, auto&&)
 			{
 				borderLoadedRevoker->revoke();
-				
+
 				auto border = borderRef.as<winrt::Microsoft::UI::Xaml::Controls::Border>();
 				auto originalChild = border.Child();
 				winrt::Microsoft::UI::Xaml::Controls::Grid scrollGrid;
 				border.Child(scrollGrid);
-				scrollGrid.Children().ReplaceAll({ AcrylicVisualWithBoundedCornerRadius{border}, originalChild});
+
+				AcrylicVisualWithBoundedCornerRadius acrylicVisual{ border };
+				if (auto autoSuggestBox = autoSuggestBoxRef.get())
+				{
+					//The acrylic in SuggestionsPopup does not follow theme changes of the AutoSuggestBox, sync it manually
+					acrylicVisual.RequestedTheme(autoSuggestBox.ActualTheme());
+					BindingHelper::BindTheme(acrylicVisual, autoSuggestBox);
+				}
+				scrollGrid.Children().ReplaceAll({ acrylicVisual, originalChild });
 			});
 		});
 

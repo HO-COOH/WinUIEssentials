@@ -6,6 +6,7 @@
 #include <winrt/Microsoft.UI.Xaml.Controls.Primitives.h>
 #include "VisualTreeHelper.hpp"
 #include "AcrylicVisualWithBoundedCornerRadius.h"
+#include "BindingHelper.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -54,14 +55,22 @@ namespace winrt::WinUI3Package::implementation
 			auto commandBar = self.as<winrt::Microsoft::UI::Xaml::Controls::CommandBar>();
 			auto overflowPopup = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>(commandBar, L"OverflowPopup");
 			auto openedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup::Opened_revoker>();
-			*openedRevoker = overflowPopup.Opened(winrt::auto_revoke, [openedRevoker](auto&& self, auto&&)
+			*openedRevoker = overflowPopup.Opened(winrt::auto_revoke, [openedRevoker, weakCommandBar = winrt::make_weak(commandBar)](auto&& self, auto&&)
 			{
 				openedRevoker->revoke();
 
 				auto popup = self.as<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>();
 				auto secondaryItemsControl = popup.FindName(L"SecondaryItemsControl").as<winrt::Microsoft::UI::Xaml::Controls::CommandBarOverflowPresenter>();
 				auto OverflowContentRoot = popup.FindName(L"SecondaryItemsControlShadowWrapper").as<winrt::Microsoft::UI::Xaml::Controls::Grid>();
-				OverflowContentRoot.Children().InsertAt(0, AcrylicVisualWithBoundedCornerRadius{secondaryItemsControl});
+
+				AcrylicVisualWithBoundedCornerRadius acrylicVisual{ secondaryItemsControl };
+				if (auto commandBar = weakCommandBar.get())
+				{
+					//The acrylic in OverflowPopup does not follow theme changes of the CommandBar, sync it manually
+					acrylicVisual.RequestedTheme(commandBar.ActualTheme());
+					BindingHelper::BindTheme(acrylicVisual, commandBar);
+				}
+				OverflowContentRoot.Children().InsertAt(0, acrylicVisual);
 				secondaryItemsControl.Background(winrt::Microsoft::UI::Xaml::Media::SolidColorBrush{ winrt::Windows::UI::Colors::Transparent() });
 			});
 		});
