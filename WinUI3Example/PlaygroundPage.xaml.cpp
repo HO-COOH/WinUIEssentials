@@ -110,7 +110,10 @@ namespace winrt::WinUI3Example::implementation
 		 */
 		if (std::wstring_view{ xaml }.find(L"xmlns=") == std::wstring_view::npos)
 		{
-			ErrorText().Message(L"The root element needs xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"");
+			showStatus(
+				winrt::Microsoft::UI::Xaml::Controls::InfoBarSeverity::Error,
+				L"Error",
+				L"The root element needs xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"");
 			return;
 		}
 
@@ -153,19 +156,26 @@ namespace winrt::WinUI3Example::implementation
 		{
 			error = e.message();
 		}
-		ErrorText().Message(error);
 
-		if (error.empty())
-		{
-            LoadTimeText().Message(std::format(L"Load Time: {} ms", loadTimeMilliseconds));
-			LoadTimeText().IsOpen(true);
-            ErrorText().IsOpen(false);
-		}
-        else
-        {
-            LoadTimeText().IsOpen(false);
-            ErrorText().IsOpen(true);
-        }
+        error.empty() ?
+            showStatus(
+                winrt::Microsoft::UI::Xaml::Controls::InfoBarSeverity::Success,
+                L"Load success!",
+                winrt::hstring{ std::format(L"Load Time: {} ms", loadTimeMilliseconds) }
+            ) :
+            showStatus(winrt::Microsoft::UI::Xaml::Controls::InfoBarSeverity::Error, L"Error", error);
+	}
+
+	void PlaygroundPage::showStatus(
+		winrt::Microsoft::UI::Xaml::Controls::InfoBarSeverity severity,
+		winrt::hstring const& title,
+		winrt::hstring const& message)
+	{
+		auto const infoBar = LoadStatus();
+		infoBar.Severity(severity);
+		infoBar.Title(title);
+		infoBar.Message(message);
+		infoBar.IsOpen(true);
 	}
 
 }
