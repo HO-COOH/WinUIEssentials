@@ -6,6 +6,7 @@ namespace WinUI3Package
         ModernWindowCaptionButtonToolTip();
         ModernWindowCaptionButtonToolTip(Microsoft.UI.Xaml.Window window);
 
+        Boolean Animate;
         Microsoft.UI.Xaml.Window Window;
     }
 }

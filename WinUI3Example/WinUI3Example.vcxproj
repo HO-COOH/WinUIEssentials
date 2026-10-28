@@ -547,6 +547,10 @@
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ModernWindowCaptionButtonToolTipPage.xaml.h">
+      <DependentUpon>ModernWindowCaptionButtonToolTipPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MorphAnimationHelper.h" />
     <ClInclude Include="MyDataModel.h">
       <DependentUpon>MyDataModel.idl</DependentUpon>
@@ -986,6 +990,9 @@
     <Page Include="ModernStandardWindowContextMenuPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ModernWindowCaptionButtonToolTipPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NavigationViewHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1373,6 +1380,10 @@
     </ClCompile>
     <ClCompile Include="ModernStandardWindowContextMenuPage.xaml.cpp">
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ModernWindowCaptionButtonToolTipPage.xaml.cpp">
+      <DependentUpon>ModernWindowCaptionButtonToolTipPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="MorphAnimationHelper.cpp" />
@@ -1866,6 +1877,10 @@
     </Midl>
     <Midl Include="ModernStandardWindowContextMenuPage.idl">
       <DependentUpon>ModernStandardWindowContextMenuPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ModernWindowCaptionButtonToolTipPage.idl">
+      <DependentUpon>ModernWindowCaptionButtonToolTipPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="MyDataModel.idl">

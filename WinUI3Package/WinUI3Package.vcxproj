@@ -305,6 +305,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="AcrylicVisualWithBoundedCornerRadius.h" />
+    <ClInclude Include="AnimatedToolTipPlacement.h" />
     <ClInclude Include="AutoSuggestBoxHelper.h">
       <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -629,6 +630,7 @@
       <DependentUpon>AcrylicVisual.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="AnimatedToolTipPlacement.cpp" />
     <ClCompile Include="AutoSuggestBoxHelper.cpp">
       <DependentUpon>AutoSuggestBoxHelper.idl</DependentUpon>
       <SubType>Code</SubType>

@@ -1017,6 +1017,7 @@
                         <NavigationViewItem Content="NonMaximizableWindowWorkaround" Tag="{essential:TypeName Type=local:NonMaximizableWindowWorkaroundPage}" />
                         <NavigationViewItem Content="WindowEx" Tag="{essential:TypeName Type=local:WindowExPage}" />
                         <NavigationViewItem Content="WindowedContentDialog" Tag="{essential:TypeName Type=local:WindowedContentDialogPage}" />
+                        <NavigationViewItem Content="ModernWindowCaptionButtonToolTip" Tag="{essential:TypeName Type=local:ModernWindowCaptionButtonToolTipPage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 

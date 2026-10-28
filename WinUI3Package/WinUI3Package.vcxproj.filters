@@ -118,6 +118,9 @@
     <ClCompile Include="BindingHelper.cpp">
       <Filter>Controls\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="AnimatedToolTipPlacement.cpp">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="GridHelper.hpp">
       <Filter>Controls\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedToolTipPlacement.h">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

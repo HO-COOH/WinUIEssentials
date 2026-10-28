@@ -492,6 +492,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ReferenceToVisibilityConverter.h">
       <Filter>Converter</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnimatedValue.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Convert.cpp">

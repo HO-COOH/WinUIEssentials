@@ -5,6 +5,7 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #include "CaptionButton.h"
 #include "InputNonClientPointerSource.h"
+#include "AnimatedToolTipPlacement.h"
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -17,17 +18,21 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::Window Window();
         void Window(winrt::Microsoft::UI::Xaml::Window const& window);
 
+        bool Animate();
+        void Animate(bool value);
+
         void SetHoveredButton(CaptionButton button);
         void CloseToolTip();
         bool m_isSuppressedUntilButtonChanges{};
     private:
+        bool m_animate = true;
+        CaptionButton m_hoveredButton{ CaptionButton::None };
         winrt::weak_ref<winrt::Microsoft::UI::Xaml::Window> m_window;
         HWND m_hwnd{};
         InputNonClientPointerSource m_nonClientInputSink{ this };
-        CaptionButton m_hoveredButton{ CaptionButton::None };
         std::chrono::steady_clock::time_point m_lastToolTipClosedTick{};
-
-        winrt::Microsoft::UI::Xaml::Controls::ToolTip m_toolTip{ nullptr };
+        winrt::Microsoft::UI::Xaml::Controls::ToolTip m_tooltip{ nullptr };
+        winrt::Microsoft::UI::Xaml::Controls::TextBlock m_toolTipText{ nullptr };
         winrt::Microsoft::UI::Xaml::Media::TranslateTransform m_placementTransform{ nullptr };
         winrt::Microsoft::UI::Dispatching::DispatcherQueueTimer m_openTimer{ nullptr };
         winrt::Microsoft::UI::Dispatching::DispatcherQueueTimer m_closeTimer{ nullptr };
@@ -36,6 +41,7 @@ namespace winrt::WinUI3Package::implementation
         //AppWindow does not support weak references, so its event cannot use auto_revoke
         winrt::Microsoft::UI::Windowing::AppWindow m_appWindow{ nullptr };
         winrt::event_token m_appWindowChangedToken{};
+        AnimatedToolTipPlacement m_animatedPlacement;
 
         void translateSelf(winrt::Windows::Foundation::Point anchor);
         void setWindow(winrt::Microsoft::UI::Xaml::Window const& window);
@@ -43,6 +49,7 @@ namespace winrt::WinUI3Package::implementation
         void ensureTimers();
         void ensureToolTip();
         void showToolTip();
+        [[nodiscard]] float measureToolTipWidth();
 
         void updateToolTipTheme();
         bool isButtonEnabled(CaptionButton button) const;

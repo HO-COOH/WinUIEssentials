@@ -81,6 +81,16 @@ namespace winrt::WinUI3Package::implementation
         setWindow(window);
     }
 
+    bool ModernWindowCaptionButtonToolTip::Animate()
+    {
+        return m_animate;
+    }
+
+    void ModernWindowCaptionButtonToolTip::Animate(bool value)
+    {
+        m_animate = value;
+    }
+
     void ModernWindowCaptionButtonToolTip::translateSelf(winrt::Windows::Foundation::Point anchor)
     {
         /*
@@ -140,7 +150,7 @@ namespace winrt::WinUI3Package::implementation
         m_isSuppressedUntilButtonChanges = false;
 
         //A tooltip that is already showing moves to the next caption button without delay
-        if (previousButton != CaptionButton::None && isButtonEnabled(button) && m_toolTip && m_toolTip.IsOpen())
+        if (previousButton != CaptionButton::None && isButtonEnabled(button) && m_tooltip && m_tooltip.IsOpen())
         {
             showToolTip();
             return;
@@ -214,13 +224,18 @@ namespace winrt::WinUI3Package::implementation
 
 	void ModernWindowCaptionButtonToolTip::ensureToolTip()
 	{
-		if (m_toolTip)
+		if (m_tooltip)
 			return;
-		m_toolTip = winrt::Microsoft::UI::Xaml::Controls::ToolTip{};
-		m_toolTip.Placement(winrt::Microsoft::UI::Xaml::Controls::Primitives::PlacementMode::Bottom);
-		m_toolTip.PlacementTarget(*this);
-		winrt::WinUI3Package::ToolTipHelper::SetAcrylicWorkaround(m_toolTip, true);
-		winrt::Microsoft::UI::Xaml::Controls::ToolTipService::SetToolTip(*this, m_toolTip);
+		m_tooltip = winrt::Microsoft::UI::Xaml::Controls::ToolTip{};
+		m_tooltip.Placement(winrt::Microsoft::UI::Xaml::Controls::Primitives::PlacementMode::Bottom);
+		m_tooltip.PlacementTarget(*this);
+
+        m_toolTipText = {};
+        m_toolTipText.TextWrapping(winrt::Microsoft::UI::Xaml::TextWrapping::NoWrap);
+        m_tooltip.Content(m_toolTipText);
+
+		winrt::WinUI3Package::ToolTipHelper::SetAcrylicWorkaround(m_tooltip, true);
+		winrt::Microsoft::UI::Xaml::Controls::ToolTipService::SetToolTip(*this, m_tooltip);
 	}
 
     void ModernWindowCaptionButtonToolTip::showToolTip()
@@ -240,37 +255,68 @@ namespace winrt::WinUI3Package::implementation
         ScreenToClient(m_hwnd, &captionTop);
 
         float const scale = xamlRoot.RasterizationScale();
-        float const cursorY = cursor.y / scale;
         winrt::Windows::Foundation::Point const anchor
         {
             cursor.x / scale,
             captionTop.y / scale
         };
 
-		translateSelf(anchor);
+        translateSelf(anchor);  //The target jumps to the destination, the animation moves the tooltip through PlacementRect relative to it
+        
+        //Where the tooltip's top edge attaches, this is what moves on screen
+        winrt::Windows::Foundation::Point const position
+        {
+            anchor.X,
+            cursor.y / scale + MouseOffset
+        };
 
         ensureToolTip();
-        auto const isOpen = m_toolTip.IsOpen();
-        //WinUI only places an open tooltip again when PlacementRect changes, we have to force a re-assign
-        if (isOpen)
-            m_toolTip.PlacementRect(nullptr);
+        auto const isOpen = m_tooltip.IsOpen();
 
-        //Below the cursor normally, but above the whole title bar when WinUI flips it for lack of space,
-        //otherwise it would cover the cursor and the caption buttons
-        m_toolTip.PlacementRect(winrt::Windows::Foundation::Rect{
-            0.f,
-            0.f,
-            1.f,
-            cursorY + MouseOffset - anchor.Y
-        });
-        m_toolTip.Content(winrt::box_value(getToolTipText(m_hoveredButton)));
+        if (isOpen && m_animate)
+        {
+            auto const widthFrom = m_animatedPlacement.IsAnimating() ? m_animatedPlacement.CurrentWidth : m_tooltip.ActualWidth();
+            m_toolTipText.Text(getToolTipText(m_hoveredButton));
+            m_animatedPlacement.StartAnimation(
+                m_tooltip,
+                widthFrom,
+                measureToolTipWidth(),
+                m_animatedPlacement.CurrentPosition,
+                position,
+                anchor
+            );
+        }
+        else
+        {
+            m_animatedPlacement.StopAnimation();
+            m_toolTipText.Text(getToolTipText(m_hoveredButton));
+            m_animatedPlacement.CurrentPosition = position;
+
+            //WinUI only places an open tooltip again when PlacementRect changes, we have to force a re-assign
+            if (isOpen)
+                m_tooltip.PlacementRect(nullptr);
+            m_tooltip.PlacementRect(winrt::Windows::Foundation::Rect{
+                0.f,
+                0.f,
+                1.f,
+                position.Y - anchor.Y
+            });
+        }
+
         updateToolTipTheme();
         if (!isOpen)
-            m_toolTip.IsOpen(true);
+            m_tooltip.IsOpen(true);
 
         m_closeTimer.Stop();
         m_closeTimer.Interval(std::chrono::seconds{ SystemParametersInfo::Accessibility::MessageDuration() });
         m_closeTimer.Start();
+    }
+
+    float ModernWindowCaptionButtonToolTip::measureToolTipWidth()
+    {
+        m_tooltip.ClearValue(winrt::Microsoft::UI::Xaml::FrameworkElement::WidthProperty());
+        m_tooltip.Measure({ std::numeric_limits<float>::infinity(), std::numeric_limits<float>::infinity() });
+        return m_tooltip.DesiredSize().Width;
     }
 
     void ModernWindowCaptionButtonToolTip::CloseToolTip()
@@ -279,23 +325,23 @@ namespace winrt::WinUI3Package::implementation
             m_openTimer.Stop();
         if (m_closeTimer)
             m_closeTimer.Stop();
-        if (m_toolTip && m_toolTip.IsOpen())
+        if (m_tooltip && m_tooltip.IsOpen())
         {
-            m_toolTip.IsOpen(false);
+            m_tooltip.IsOpen(false);
             m_lastToolTipClosedTick = std::chrono::steady_clock::now();
         }
     }
 
     void ModernWindowCaptionButtonToolTip::updateToolTipTheme()
     {
-        if (!m_toolTip)
+        if (!m_tooltip)
             return;
 
         auto const theme = ActualTheme();
-        m_toolTip.RequestedTheme(theme);
+        m_tooltip.RequestedTheme(theme);
 
         //ToolTipHelper only themes the backdrop the first time the popup loads, but the popup is reused, so we need to update it here
-        if (auto const popup = m_toolTip.Parent().try_as<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>())
+        if (auto const popup = m_tooltip.Parent().try_as<winrt::Microsoft::UI::Xaml::Controls::Primitives::Popup>())
         {
             if (auto const backdrop = popup.SystemBackdrop().try_as<winrt::WinUI3Package::CustomAcrylicBackdrop>())
                 backdrop.RequestedTheme(theme);

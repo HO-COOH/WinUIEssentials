@@ -136,6 +136,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)WrapPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)AnimatedValue.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedCursor.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)CachedScrollBar.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ColumnWidthInitializationContext.h" />
