@@ -8,21 +8,61 @@
     xmlns:local="using:WinUI3Example"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <local:ControlExample HeaderText="ModernWindowCaptionButtonToolTip is a helper control that replaces the standard system caption button tooltip with a modern winui3 ToolTip, with Acrylic background">
-        <StackPanel Spacing="8">
-            <essential:GroupBox Header="Original">
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button>Original WinUI3 window</Button>
-                    <Button>Original WinUI3 window with ExtendsContentIntoTitleBar</Button>
-                </StackPanel>
-            </essential:GroupBox>
 
-            <essential:GroupBox Header="With ModernWindowCaptionButtonToolTip">
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Button>Original WinUI3 window + ModernWindowCaptionButtonToolTip</Button>
-                    <Button>Original WinUI3 window with ExtendsContentIntoTitleBar + ModernWindowCaptionButtonToolTip</Button>
-                </StackPanel>
-            </essential:GroupBox>
-        </StackPanel>
-    </local:ControlExample>
+    <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
+        <local:ControlExample HeaderText="Original winui3 window">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Click="OriginalWinUI3WindowButton_Click">Original WinUI3 window</Button>
+                <Button Click="OriginalWinUI3WindowExtendedButton_Click">Original WinUI3 window with ExtendsContentIntoTitleBar</Button>
+            </StackPanel>
+        </local:ControlExample>
+
+        <local:ControlExample HeaderText="ModernWindowCaptionButtonToolTip is a helper control that replaces the standard system caption button tooltip with a modern winui3 ToolTip, with Acrylic background">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Click="OriginalWinUI3WindowWithModernToolTipButton_Click">Original WinUI3 window + ModernWindowCaptionButtonToolTip</Button>
+                <Button Click="OriginalWinUI3WindowExtendedWithModernToolTipButton_Click">Original WinUI3 window with ExtendsContentIntoTitleBar + ModernWindowCaptionButtonToolTip</Button>
+            </StackPanel>
+
+            <local:ControlExample.Options>
+                <ToggleSwitch
+                    x:Name="Animate"
+                    Header="Enable animation"
+                    IsOn="True" />
+            </local:ControlExample.Options>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;Window
+    x:Class=&quot;WinUI3Example.OriginalWinUI3WindowWithModernToolTip&quot;
+    xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+    xmlns:d=&quot;http://schemas.microsoft.com/expression/blend/2008&quot;
+    xmlns:essential=&quot;using:WinUI3Package&quot;
+    xmlns:local=&quot;using:WinUI3Example&quot;
+    xmlns:mc=&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;
+    Title=&quot;OriginalWinUI3WindowWithModernToolTip&quot;
+    mc:Ignorable=&quot;d&quot;&gt;
+
+    &lt;Window.SystemBackdrop&gt;
+        &lt;DesktopAcrylicBackdrop /&gt;
+    &lt;/Window.SystemBackdrop&gt;
+
+    &lt;Grid&gt;
+        &lt;essential:ModernWindowCaptionButtonToolTip Window=&quot;{x:Bind}&quot; /&gt;
+        &lt;TextBlock
+            Margin=&quot;32&quot;
+            HorizontalAlignment=&quot;Right&quot;
+            VerticalAlignment=&quot;Top&quot;
+            FontSize=&quot;32&quot;
+            Text=&quot;Move and hover on these caption buttons to see the ToolTip ↑&quot;
+            TextWrapping=&quot;WrapWholeWords&quot; /&gt;
+    &lt;/Grid&gt;
+&lt;/Window&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
+    </StackPanel>
+
 </Page>

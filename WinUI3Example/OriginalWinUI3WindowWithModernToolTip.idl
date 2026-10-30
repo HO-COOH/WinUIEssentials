@@ -1,0 +1,8 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass OriginalWinUI3WindowWithModernToolTip : Microsoft.UI.Xaml.Window
+    {
+        OriginalWinUI3WindowWithModernToolTip(Boolean animate);
+    }
+}

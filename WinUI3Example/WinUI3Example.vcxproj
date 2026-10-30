@@ -596,6 +596,18 @@
       <DependentUpon>NumberBoxHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="OriginalWinUI3Window.xaml.h">
+      <DependentUpon>OriginalWinUI3Window.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="OriginalWinUI3WindowExtendedWithModernToolTip.xaml.h">
+      <DependentUpon>OriginalWinUI3WindowExtendedWithModernToolTip.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="OriginalWinUI3WindowWithModernToolTip.xaml.h">
+      <DependentUpon>OriginalWinUI3WindowWithModernToolTip.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="PageHeader.xaml.h">
       <DependentUpon>PageHeader.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1020,6 +1032,15 @@
     <Page Include="NumberBoxHelperPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="OriginalWinUI3Window.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OriginalWinUI3WindowExtendedWithModernToolTip.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="OriginalWinUI3WindowWithModernToolTip.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PageHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1429,6 +1450,18 @@
     </ClCompile>
     <ClCompile Include="NumberBoxHelperPage.xaml.cpp">
       <DependentUpon>NumberBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="OriginalWinUI3Window.xaml.cpp">
+      <DependentUpon>OriginalWinUI3Window.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="OriginalWinUI3WindowExtendedWithModernToolTip.xaml.cpp">
+      <DependentUpon>OriginalWinUI3WindowExtendedWithModernToolTip.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="OriginalWinUI3WindowWithModernToolTip.xaml.cpp">
+      <DependentUpon>OriginalWinUI3WindowWithModernToolTip.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="PageHeader.xaml.cpp">
@@ -1923,6 +1956,18 @@
     </Midl>
     <Midl Include="NumberBoxHelperPage.idl">
       <DependentUpon>NumberBoxHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="OriginalWinUI3Window.idl">
+      <DependentUpon>OriginalWinUI3Window.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="OriginalWinUI3WindowExtendedWithModernToolTip.idl">
+      <DependentUpon>OriginalWinUI3WindowExtendedWithModernToolTip.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="OriginalWinUI3WindowWithModernToolTip.idl">
+      <DependentUpon>OriginalWinUI3WindowWithModernToolTip.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="PageHeader.idl">

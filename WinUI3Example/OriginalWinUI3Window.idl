@@ -1,0 +1,9 @@
+namespace WinUI3Example
+{
+    [default_interface]
+    runtimeclass OriginalWinUI3Window : Microsoft.UI.Xaml.Window
+    {
+        OriginalWinUI3Window();
+        Int32 MyProperty;
+    }
+}

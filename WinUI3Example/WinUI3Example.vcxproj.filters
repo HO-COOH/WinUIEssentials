@@ -339,6 +339,15 @@
     <Page Include="ModernWindowCaptionButtonToolTipPage.xaml">
       <Filter>Pages\ModernWindowCaptionButtonToolTiipPage</Filter>
     </Page>
+    <Page Include="OriginalWinUI3WindowExtendedWithModernToolTip.xaml">
+      <Filter>Pages\ModernWindowCaptionButtonToolTiipPage</Filter>
+    </Page>
+    <Page Include="OriginalWinUI3WindowWithModernToolTip.xaml">
+      <Filter>Pages\ModernWindowCaptionButtonToolTiipPage</Filter>
+    </Page>
+    <Page Include="OriginalWinUI3Window.xaml">
+      <Filter>Pages\ModernWindowCaptionButtonToolTiipPage</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
