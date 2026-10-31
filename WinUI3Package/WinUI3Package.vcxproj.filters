@@ -100,6 +100,9 @@
     <ClCompile Include="CaptionButton.cpp">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClCompile>
+    <ClCompile Include="ClassicTitleBarInputSource.cpp">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClCompile>
     <ClCompile Include="InputNonClientPointerSource.cpp">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClCompile>
@@ -119,6 +122,9 @@
       <Filter>Controls\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedToolTipPlacement.cpp">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSourceBase.cpp">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClCompile>
   </ItemGroup>
@@ -371,6 +377,9 @@
     <ClInclude Include="CaptionButton.h">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClInclude>
+    <ClInclude Include="ClassicTitleBarInputSource.h">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClInclude>
     <ClInclude Include="InputNonClientPointerSource.h">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClInclude>
@@ -399,6 +408,9 @@
       <Filter>Controls\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedToolTipPlacement.h">
+      <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSourceBase.hpp">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClInclude>
   </ItemGroup>

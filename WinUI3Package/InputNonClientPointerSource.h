@@ -1,6 +1,6 @@
 #pragma once
 #include <Windows.h>
-
+#include "InputSourceBase.hpp"
 //pch.h already pulled in <windows.h> without NOMINMAX, so hide its min/max macros from tiny/optional.h
 #pragma push_macro("min")
 #pragma push_macro("max")
@@ -10,23 +10,15 @@
 #pragma pop_macro("max")
 #pragma pop_macro("min")
 
-namespace winrt::WinUI3Package::implementation
+class InputNonClientPointerSource : public InputSourceBase
 {
-	struct ModernWindowCaptionButtonToolTip;
-}
-
-class InputNonClientPointerSource
-{
-	HWND m_hwnd{};
 	DWORD m_strippedStyle{};
 	tiny::optional<UINT32, (std::numeric_limits<UINT32>::max)()> m_pressedPointerId;
 	LRESULT m_lastHitTest{ HTNOWHERE };
-	winrt::WinUI3Package::implementation::ModernWindowCaptionButtonToolTip* m_captionButtonTooltip{};
 	bool m_isSettingStyle{};
 
 
 	[[nodiscard]] static bool isNonClientInputSink(HWND hwnd);
-	[[nodiscard]] static HWND find(HWND parent);
 	constexpr static UINT_PTR SubclassId = 103;
 
 	LRESULT onSubclassMessage(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
@@ -39,33 +31,22 @@ class InputNonClientPointerSource
 		DWORD_PTR dwRefData
 	);
 	LRESULT restoreHitTest(LRESULT hitTest) const;
+	
+	using InputSourceBase::onPointerPressed;
 	void onPointerPressed(UINT32 pointerId);
-	void onPointerPressed();
 	bool isPressed();
 
 	void detach();
 
 	void disableMinimizeAndMaximizeTooltipByStyle();
 public:
-	InputNonClientPointerSource(winrt::WinUI3Package::implementation::ModernWindowCaptionButtonToolTip* owner);
+	InputNonClientPointerSource(winrt::WinUI3Package::implementation::ModernWindowCaptionButtonToolTip& owner, HWND sink);
+	~InputNonClientPointerSource();
+	InputNonClientPointerSource(InputNonClientPointerSource const&) = delete;
 
-	//Return whether it is successful
-	bool Initialize(HWND parent);
+	//This is only found when `ExtendsContentIntoTitleBar` is enabled
+	[[nodiscard]] static HWND Find(HWND window);
 
-	[[nodiscard]] bool IsPointerOver() const;
-	
-	constexpr operator HWND() const noexcept
-	{
-		return m_hwnd;
-	}
-
-	constexpr operator bool() const noexcept
-	{ 
-		return m_hwnd;
-	}
-
-	constexpr auto LastHitTest() const noexcept
-	{
-		return m_lastHitTest;
-	}
+	//Screen y of the caption's top edge, or fallback when it is unknown
+	[[nodiscard]] LONG CaptionTop(LONG fallback) const;
 };

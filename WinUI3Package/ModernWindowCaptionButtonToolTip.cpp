@@ -21,8 +21,8 @@ namespace winrt::WinUI3Package::implementation
         {
             try
             {
-                if (m_hwnd && !m_nonClientInputSink)
-                    m_nonClientInputSink.Initialize(m_hwnd);
+                if (m_hwnd)
+                    attachInputSource();
             }
             catch (...)
             {
@@ -123,13 +123,13 @@ namespace winrt::WinUI3Package::implementation
                     CloseToolTip();
             });
         }
-        m_nonClientInputSink.Initialize(m_hwnd);
+        attachInputSource();
     }
 
     void ModernWindowCaptionButtonToolTip::detachWindow()
     {
         //Win32 cleanup first, so a throwing WinRT call below can never leave this object registered with Windows
-        m_nonClientInputSink.Initialize(nullptr);
+        m_inputSource.emplace<std::monostate>();
 
         m_hwnd = nullptr;
         m_window = nullptr;
@@ -138,6 +138,18 @@ namespace winrt::WinUI3Package::implementation
             appWindow.Changed(std::exchange(m_appWindowChangedToken, {}));
 
         SetHoveredButton(CaptionButton::None);
+    }
+
+    void ModernWindowCaptionButtonToolTip::attachInputSource()
+    {
+        //The sink only covers the caption with ExtendsContentIntoTitleBar, with the system title bar the window itself gets the caption input
+        if (auto const sink = InputNonClientPointerSource::Find(m_hwnd))
+        {
+            if (!std::holds_alternative<InputNonClientPointerSource>(m_inputSource))
+                m_inputSource.emplace<InputNonClientPointerSource>(*this, sink);
+        }
+        else if (!std::holds_alternative<ClassicTitleBarInputSource>(m_inputSource))
+            m_inputSource.emplace<ClassicTitleBarInputSource>(*this, m_hwnd);
     }
 
     void ModernWindowCaptionButtonToolTip::SetHoveredButton(CaptionButton button)
@@ -247,10 +259,14 @@ namespace winrt::WinUI3Package::implementation
         POINT cursor{};
         GetCursorPos(&cursor);
 
-        RECT captionRect{ .top = cursor.y };
-        if (m_nonClientInputSink)
-            GetWindowRect(m_nonClientInputSink, &captionRect);
-        POINT captionTop{ cursor.x, (std::min)(captionRect.top, cursor.y) };
+        auto const captionTopY = std::visit([fallback = cursor.y](auto const& source)
+        {
+            if constexpr (std::is_same_v<std::remove_cvref_t<decltype(source)>, std::monostate>)
+                return fallback;
+            else
+                return source.CaptionTop(fallback);
+        }, m_inputSource);
+        POINT captionTop{ cursor.x, (std::min)(captionTopY, cursor.y) };
         ScreenToClient(m_hwnd, &cursor);
         ScreenToClient(m_hwnd, &captionTop);
 

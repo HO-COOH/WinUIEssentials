@@ -317,6 +317,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="CaptionButton.h" />
+    <ClInclude Include="ClassicTitleBarInputSource.h" />
     <ClInclude Include="CombinedWallpaper.h" />
     <ClInclude Include="CombinedWallpaperSurfaces.h" />
     <ClInclude Include="ComboBoxHelper.h">
@@ -417,6 +418,7 @@
     <ClInclude Include="include\WASDK headers\Microsoft.Windows.Widgets.hpp" />
     <ClInclude Include="include\WebView2Helper.hpp" />
     <ClInclude Include="InputNonClientPointerSource.h" />
+    <ClInclude Include="InputSourceBase.hpp" />
     <ClInclude Include="InvalidMenuItemIconTypeError.hpp" />
     <ClInclude Include="ListViewBaseWorkaround.hpp" />
     <ClInclude Include="MediaPlayerElementHelper.h">
@@ -641,6 +643,7 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="CaptionButton.cpp" />
+    <ClCompile Include="ClassicTitleBarInputSource.cpp" />
     <ClCompile Include="CombinedWallpaper.cpp" />
     <ClCompile Include="CombinedWallpaperSurfaces.cpp" />
     <ClCompile Include="ComboBoxHelper.cpp">
@@ -701,6 +704,7 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="InputNonClientPointerSource.cpp" />
+    <ClCompile Include="InputSourceBase.cpp" />
     <ClCompile Include="MediaPlayerElementHelper.cpp">
       <DependentUpon>MediaPlayerElementHelper.idl</DependentUpon>
       <SubType>Code</SubType>

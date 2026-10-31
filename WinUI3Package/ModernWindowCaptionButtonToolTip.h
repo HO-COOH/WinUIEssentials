@@ -2,9 +2,11 @@
 
 #include "ModernWindowCaptionButtonToolTip.g.h"
 #include <chrono>
+#include <variant>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include "CaptionButton.h"
 #include "InputNonClientPointerSource.h"
+#include "ClassicTitleBarInputSource.h"
 #include "AnimatedToolTipPlacement.h"
 
 namespace winrt::WinUI3Package::implementation
@@ -29,7 +31,7 @@ namespace winrt::WinUI3Package::implementation
         CaptionButton m_hoveredButton{ CaptionButton::None };
         winrt::weak_ref<winrt::Microsoft::UI::Xaml::Window> m_window;
         HWND m_hwnd{};
-        InputNonClientPointerSource m_nonClientInputSink{ this };
+        std::variant<std::monostate, InputNonClientPointerSource, ClassicTitleBarInputSource> m_inputSource;
         std::chrono::steady_clock::time_point m_lastToolTipClosedTick{};
         winrt::Microsoft::UI::Xaml::Controls::ToolTip m_tooltip{ nullptr };
         winrt::Microsoft::UI::Xaml::Controls::TextBlock m_toolTipText{ nullptr };
@@ -46,6 +48,7 @@ namespace winrt::WinUI3Package::implementation
         void translateSelf(winrt::Windows::Foundation::Point anchor);
         void setWindow(winrt::Microsoft::UI::Xaml::Window const& window);
         void detachWindow();
+        void attachInputSource();
         void ensureTimers();
         void ensureToolTip();
         void showToolTip();

@@ -17,8 +17,30 @@ bool InputNonClientPointerSource::isNonClientInputSink(HWND hwnd)
     return NonClientInputSinkClassName == className;
 }
 
-HWND InputNonClientPointerSource::find(HWND parent)
+//win32k only shows the system Minimize/Maximize tooltips when the hit-test window has these styles
+constexpr static DWORD CaptionButtonStylesToRemove = WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
+
+//win32k always shows the system tooltip for HTCLOSE, but never for HTBORDER
+constexpr static LRESULT CloseButtonSubstituteHitTest = HTBORDER;
+
+InputNonClientPointerSource::InputNonClientPointerSource(winrt::WinUI3Package::implementation::ModernWindowCaptionButtonToolTip& owner, HWND sink)
+    : InputSourceBase{ owner, sink }
 {
+    if (sink && SetWindowSubclass(sink, &nonClientInputSinkSubclassProc, SubclassId, reinterpret_cast<DWORD_PTR>(this)))
+        disableMinimizeAndMaximizeTooltipByStyle();
+}
+
+InputNonClientPointerSource::~InputNonClientPointerSource()
+{
+    detach();
+}
+
+HWND InputNonClientPointerSource::Find(HWND window)
+{
+    //EnumChildWindows would enumerate the top-level windows instead
+    if (!window)
+        return nullptr;
+
     struct Search
     {
         DWORD threadId;
@@ -26,7 +48,7 @@ HWND InputNonClientPointerSource::find(HWND parent)
     } search{ GetCurrentThreadId(), nullptr };
 
     EnumChildWindows(
-        parent,
+        window,
         [](HWND child, LPARAM lparam) -> BOOL
         {
             auto& search = *reinterpret_cast<Search*>(lparam);
@@ -39,18 +61,10 @@ HWND InputNonClientPointerSource::find(HWND parent)
         },
         reinterpret_cast<LPARAM>(&search)
     );
-    return search.result;
-}
 
-//win32k only shows the system Minimize/Maximize tooltips when the hit-test window has these styles
-constexpr static DWORD CaptionButtonStylesToRemove = WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
-
-//win32k always shows the system tooltip for HTCLOSE, but never for HTBORDER
-constexpr static LRESULT CloseButtonSubstituteHitTest = HTBORDER;
-
-InputNonClientPointerSource::InputNonClientPointerSource(winrt::WinUI3Package::implementation::ModernWindowCaptionButtonToolTip* owner)
-    : m_captionButtonTooltip{ owner }
-{
+    //Not IsWindowVisible, which is also false while the window has not shown yet
+    auto const sink = search.result;
+    return sink && (GetWindowLongPtrW(sink, GWL_STYLE) & WS_VISIBLE) ? sink : nullptr;
 }
 
 LRESULT InputNonClientPointerSource::onSubclassMessage(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
@@ -81,7 +95,7 @@ LRESULT InputNonClientPointerSource::onSubclassMessage(HWND hwnd, UINT msg, WPAR
                 //The system computed the hit-test values in these messages from HTBORDER for the close button
             case WM_NCMOUSEMOVE:
                 wparam = restoreHitTest(wparam);
-                m_captionButtonTooltip->SetHoveredButton(CaptionButton::FromHitTest(wparam));
+                m_captionButtonTooltip.SetHoveredButton(CaptionButton::FromHitTest(wparam));
                 break;
 
             case WM_NCMOUSEHOVER:
@@ -121,7 +135,7 @@ LRESULT InputNonClientPointerSource::onSubclassMessage(HWND hwnd, UINT msg, WPAR
                 if (IS_POINTER_INCONTACT_WPARAM(wparam))
                     onPointerPressed(GET_POINTERID_WPARAM(wparam));
                 else
-                    m_captionButtonTooltip->SetHoveredButton(CaptionButton::FromHitTest(m_lastHitTest));
+                    m_captionButtonTooltip.SetHoveredButton(CaptionButton::FromHitTest(m_lastHitTest));
                 break;
 
             case WM_NCPOINTERDOWN:
@@ -146,16 +160,17 @@ LRESULT InputNonClientPointerSource::onSubclassMessage(HWND hwnd, UINT msg, WPAR
             case WM_MOUSELEAVE:
             case WM_POINTERLEAVE:
                 //Leave notifications are only a hint, the cursor position decides whether the button is still hovered
-                if (!IsPointerOver())
-                    m_captionButtonTooltip->SetHoveredButton(CaptionButton::None);
+                if (!isPointerOver())
+                    m_captionButtonTooltip.SetHoveredButton(CaptionButton::None);
                 break;
 
             case WM_NCDESTROY:
                 RemoveWindowSubclass(hwnd, &nonClientInputSinkSubclassProc, SubclassId);
+                m_hwnd = nullptr;
                 m_strippedStyle = 0;
                 m_lastHitTest = HTNOWHERE;
                 m_pressedPointerId.reset();
-                m_captionButtonTooltip->SetHoveredButton(CaptionButton::None);
+                m_captionButtonTooltip.SetHoveredButton(CaptionButton::None);
                 break;
         }
     }
@@ -178,12 +193,6 @@ void InputNonClientPointerSource::onPointerPressed(UINT32 pointerId)
 {
     m_pressedPointerId = pointerId;
     onPointerPressed();
-}
-
-void InputNonClientPointerSource::onPointerPressed()
-{
-    m_captionButtonTooltip->CloseToolTip();
-    m_captionButtonTooltip->m_isSuppressedUntilButtonChanges = true;
 }
 
 bool InputNonClientPointerSource::isPressed()
@@ -232,32 +241,10 @@ void InputNonClientPointerSource::disableMinimizeAndMaximizeTooltipByStyle()
     }
 }
 
-bool InputNonClientPointerSource::Initialize(HWND parent)
+LONG InputNonClientPointerSource::CaptionTop(LONG fallback) const
 {
+    RECT rect{ .top = fallback };
     if (m_hwnd)
-        detach();
-
-    if (!parent)
-        return false;
-
-    auto sink = find(parent);
-    if (!sink)
-        return false;
-    if (sink == m_hwnd)
-        return true;
-
-    if (!SetWindowSubclass(sink, &nonClientInputSinkSubclassProc, SubclassId, reinterpret_cast<DWORD_PTR>(this)))
-        return false;
-    
-    m_hwnd = sink;
-    disableMinimizeAndMaximizeTooltipByStyle();
-    return true;
-}
-
-bool InputNonClientPointerSource::IsPointerOver() const
-{
-    POINT cursor{};
-	if (!GetCursorPos(&cursor))
-		return false;
-	return WindowFromPoint(cursor) == m_hwnd;
+        GetWindowRect(m_hwnd, &rect);
+    return rect.top;
 }

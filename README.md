@@ -1433,6 +1433,13 @@ Simply declare it under a Xaml control (such as `Grid`) that can accept child co
 ```xml
 <essential:ModernWindowCaptionButtonToolTip Window="{x:Bind}" />
 ```
+Now it is animated!
+
+
+It now support the classic win32 titlebar too! 
+
+![](assets/modern-window-tooltip-classic-titlebar.png)
+
 
 ## MediaPlayerElementHelper
 The WinUI3's built-in `MediaPlayerElement` does not have Acrylic background on its transport controls. We fixed it for you. To use it, simply add `MediaPlayerElementHelper.AcrylicWorkaround="True"` as an attached property on your `MediaPlayerElement`.
