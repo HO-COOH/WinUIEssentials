@@ -18,7 +18,7 @@
         </local:ControlExample>
 
         <local:ControlExample HeaderText="ModernWindowCaptionButtonToolTip is a helper control that replaces the standard system caption button tooltip with a modern winui3 ToolTip, with Acrylic background">
-            <StackPanel Orientation="Horizontal" Spacing="8">
+            <StackPanel Spacing="8">
                 <Button Click="OriginalWinUI3WindowWithModernToolTipButton_Click">Original WinUI3 window + ModernWindowCaptionButtonToolTip</Button>
                 <Button Click="OriginalWinUI3WindowExtendedWithModernToolTipButton_Click">Original WinUI3 window with ExtendsContentIntoTitleBar + ModernWindowCaptionButtonToolTip</Button>
             </StackPanel>

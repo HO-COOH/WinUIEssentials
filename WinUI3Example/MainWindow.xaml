@@ -880,6 +880,7 @@
                         <NavigationViewItem Content="MediaPlayerElementHelper" Tag="{essential:TypeName Type=local:MediaPlayerElementWorkaroundPage}" />
                         <NavigationViewItem Content="TeachingTipHelper" Tag="{essential:TypeName Type=local:TeachingTipHelperPage}" />
                         <NavigationViewItem Content="NumberBoxHelper" Tag="{essential:TypeName Type=local:NumberBoxHelperPage}" />
+                        <NavigationViewItem Content="CursorWorkaround" Tag="{essential:TypeName Type=local:CursorWorkaroundPage}" />
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 

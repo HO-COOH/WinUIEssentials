@@ -51,6 +51,27 @@ namespace winrt::PackageRoot::implementation
 		return winrt::unbox_value< winrt::Windows::UI::Core::CoreCursorType>(obj.GetValue(TypeProperty()));
 	}
 
+#if defined(Build_WinUIPackage)
+	void CursorController::ApplyCursorWorkaround()
+	{
+		EnumThreadWindows(
+			GetCurrentThreadId(),
+			[](HWND hwnd, auto) -> BOOL
+			{
+				wchar_t className[64]{};
+				GetClassNameW(hwnd, className, static_cast<int>(std::size(className)));
+				if (std::wstring_view{ className } == L"Microsoft.UI.Content.PopupWindowSiteBridge" && !GetClassLongPtrW(hwnd, GCLP_HCURSOR))
+				{
+					SetClassLongPtrW(hwnd, GCLP_HCURSOR, reinterpret_cast<LONG_PTR>(LoadCursorW(nullptr, IDC_ARROW)));
+					return FALSE;
+				}
+				return TRUE;
+			},
+			NULL
+		);
+	}
+#endif
+
 	void CursorController::cursorChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& obj, [[maybe_unused]] winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
 	{
 		auto element = obj.try_as<winrt::WinUINamespace::UI::Xaml::UIElement>();

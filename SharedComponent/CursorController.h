@@ -10,6 +10,10 @@ namespace winrt::PackageRoot::implementation
         static void SetType(winrt::WinUINamespace::UI::Xaml::UIElement const& obj, winrt::Windows::UI::Core::CoreCursorType type);
         static winrt::Windows::UI::Core::CoreCursorType GetType(winrt::WinUINamespace::UI::Xaml::UIElement const& obj);
 
+#if defined(Build_WinUIPackage)
+        static void ApplyCursorWorkaround();
+#endif
+
     private:
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_typeProperty;
         static void cursorChanged(

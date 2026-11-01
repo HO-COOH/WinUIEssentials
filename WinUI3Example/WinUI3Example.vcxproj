@@ -401,6 +401,10 @@
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="CursorWorkaroundPage.xaml.h">
+      <DependentUpon>CursorWorkaroundPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="CustomAcrylicWindow.xaml.h">
       <DependentUpon>CustomAcrylicWindow.xaml</DependentUpon>
     </ClInclude>
@@ -906,6 +910,9 @@
     <Page Include="CursorControllerPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="CursorWorkaroundPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="CustomAcrylicWindow.xaml" />
     <Page Include="CustomMicaWindow.xaml" />
     <Page Include="CustomTitleBar.xaml">
@@ -1256,6 +1263,10 @@
     </ClCompile>
     <ClCompile Include="CursorControllerPage.xaml.cpp">
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="CursorWorkaroundPage.xaml.cpp">
+      <DependentUpon>CursorWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="CustomAcrylicWindow.xaml.cpp">
@@ -1771,6 +1782,10 @@
     </Midl>
     <Midl Include="CursorControllerPage.idl">
       <DependentUpon>CursorControllerPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="CursorWorkaroundPage.idl">
+      <DependentUpon>CursorWorkaroundPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="CustomAcrylicWindow.idl" />

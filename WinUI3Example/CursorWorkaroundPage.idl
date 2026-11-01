@@ -1,0 +1,11 @@
+namespace WinUI3Example
+{
+    [default_interface]
+	runtimeclass CursorWorkaroundPage : Microsoft.UI.Xaml.Controls.Page, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        CursorWorkaroundPage();
+        
+        Boolean WorkaroundApplied{ get; };
+		static String GetButtonText(Boolean applied);
+    }
+}

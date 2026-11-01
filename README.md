@@ -306,13 +306,20 @@ FontIcon().Glyph(Glyphs::GlobalNavButton);
 ```
 
 ## CursorController --- *namespace `CursorController`*
-Xaml helper for controlling the cursor type when mouse enters. 
+- Xaml helper for controlling the cursor type when mouse enters. 
 Value for `Type` is [CoreCursorType enum](https://learn.microsoft.com/en-us/uwp/api/windows.ui.core.corecursortype?view=winrt-22621). Usage:
 ```xml
 xmlns:essential="using:WinUI3Package"
 ...
 <Rectangle Fill="Red" essential:CursorController.Type="Hand"/>
 ```
+
+- A one-time workaround for [spinner or resizing cursor showing up](https://github.com/microsoft/microsoft-ui-xaml/issues/8829) when opening a `ContextFlyout` or `ComboBox`.
+To use it, call `CursorController::ApplyCursorWorkaround()` once in your app after your app launches.
+```cpp
+winrt::WinUI3Package::CursorController::ApplyCursorWorkaround();
+```
+
 
 ## PropertyChangeHelper --- *namespace `MvvmHelper`*
 Helper for `OneWay` binding.

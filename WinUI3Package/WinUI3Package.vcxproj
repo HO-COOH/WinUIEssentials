@@ -172,13 +172,13 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
@@ -204,13 +204,13 @@
       </Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
@@ -234,13 +234,13 @@
       last and builds this project on the way.
     -->
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
@@ -270,13 +270,13 @@
       </Command>
     </PostBuildEvent>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
     <Midl>
-      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">Build_WinUIPackage;PackageRoot=WinUI3Package;WinUINamespace=Microsoft</PreprocessorDefinitions>
     </Midl>
   </ItemDefinitionGroup>
   <!--

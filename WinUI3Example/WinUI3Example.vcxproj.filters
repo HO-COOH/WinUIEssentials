@@ -348,6 +348,9 @@
     <Page Include="OriginalWinUI3Window.xaml">
       <Filter>Pages\ModernWindowCaptionButtonToolTiipPage</Filter>
     </Page>
+    <Page Include="CursorWorkaroundPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -758,7 +761,7 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.Dev.appxmanifest" />
+    <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
