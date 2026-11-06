@@ -318,6 +318,10 @@
     </ClInclude>
     <ClInclude Include="CaptionButton.h" />
     <ClInclude Include="ClassicTitleBarInputSource.h" />
+    <ClInclude Include="ColorPickerHelper.h">
+      <DependentUpon>ColorPickerHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="CombinedWallpaper.h" />
     <ClInclude Include="CombinedWallpaperSurfaces.h" />
     <ClInclude Include="ComboBoxHelper.h">
@@ -644,6 +648,10 @@
     </ClCompile>
     <ClCompile Include="CaptionButton.cpp" />
     <ClCompile Include="ClassicTitleBarInputSource.cpp" />
+    <ClCompile Include="ColorPickerHelper.cpp">
+      <DependentUpon>ColorPickerHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="CombinedWallpaper.cpp" />
     <ClCompile Include="CombinedWallpaperSurfaces.cpp" />
     <ClCompile Include="ComboBoxHelper.cpp">
@@ -906,6 +914,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="CalendarDatePickerHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ColorPickerHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ComboBoxHelper.idl">

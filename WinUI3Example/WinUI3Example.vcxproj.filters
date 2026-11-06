@@ -351,6 +351,9 @@
     <Page Include="CursorWorkaroundPage.xaml">
       <Filter>Pages</Filter>
     </Page>
+    <Page Include="ColorPickerHelperPage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

@@ -150,6 +150,7 @@ You can reference Github Action for detailed build steps.
 |MediaPlayerElementHelper | :x: | :white_check_mark: | WinRT component
 |NumberBoxHelper | :x: | :white_check_mark: | WinRT component
 |TeachingTipHelper | :x: | :white_check_mark: | WinRT component
+|ColorPickerHelper | :x: | :white_check_mark: | WinRT component
 
 *means additional settings required, see the sections for info
 
@@ -1506,3 +1507,15 @@ The WinUI3's built-in `TeachingTip` does not have Acrylic background. We fixed i
 |-|------|-----|
 |Light|![](assets/teachingtip-original-light.png)|![](assets/teachingtip-fixed-light.png)|
 |Dark|![](assets/teachingtip-original-dark.png)|![](assets/teachingtip-fixed-dark.png)|
+
+## ColorPickerHelper
+The WinUI3's built-in `ColorPicker` does not have Acrylic background. We fixed it for you. To use it, simply add `ColorPickerHelper.AcrylicWorkaround="True"` as an attached property on your `ColorPicker`.
+```xml
+<ColorPicker
+    essential:ColorPickerHelper.AcrylicWorkaround="True"
+    Header="Pick a color" />
+```
+| |Before|After|
+|-|------|-----|
+|Light|![](assets/colorpicker-rect-original-light.png)<br>![](assets/colorpicker-ring-original-light.png)|![](assets/colorpicker-rect-fixed-light.png)<br>![](assets/colorpicker-ring-fixed-light.png)|
+|Dark|![](assets/colorpicker-rect-original-dark.png)<br>![](assets/colorpicker-ring-original-dark.png)|![](assets/colorpicker-rect-fixed-dark.png)<br>![](assets/colorpicker-ring-fixed-dark.png)|

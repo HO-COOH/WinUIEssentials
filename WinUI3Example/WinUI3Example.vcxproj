@@ -373,6 +373,10 @@
       <DependentUpon>ColorCodeEditor.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ColorPickerHelperPage.xaml.h">
+      <DependentUpon>ColorPickerHelperPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ColorTile.xaml.h">
       <DependentUpon>ColorTile.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -892,6 +896,9 @@
     <Page Include="ColorCodeEditor.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ColorPickerHelperPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ColorTile.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -1239,6 +1246,10 @@
     </ClCompile>
     <ClCompile Include="CodeWindow.xaml.cpp">
       <DependentUpon>CodeWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ColorPickerHelperPage.xaml.cpp">
+      <DependentUpon>ColorPickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ColorTile.xaml.cpp">
@@ -1758,6 +1769,10 @@
     </Midl>
     <Midl Include="CodeWindow.idl">
       <DependentUpon>CodeWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="ColorPickerHelperPage.idl">
+      <DependentUpon>ColorPickerHelperPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="ColorTile.idl">
