@@ -23,6 +23,12 @@
             <Run Text="{x:Bind Dpi, Mode=OneWay}" />
         </TextBlock>
         <TextBlock>
+            <Run>Size:</Run>
+            <Run Text="{x:Bind ActualWidth, Mode=OneWay}" />
+            <Run>,</Run>
+            <Run Text="{x:Bind ActualHeight, Mode=OneWay}" />
+        </TextBlock>
+        <TextBlock>
             <Run>Raw Size:</Run>
             <Run Text="{x:Bind RawWidth, Mode=OneWay}" />
             <Run>,</Run>

@@ -9,7 +9,7 @@ namespace winrt::WinUI3Example::implementation
 {
 	void winrt::WinUI3Example::implementation::AnimatedWindowSize::Button_Click(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&)
 	{
-		WindowAnimation().Begin();
+		(std::exchange(m_isExpand, !m_isExpand) ? WindowAnimation() : RestoreAnimation()).Begin();
 	}
 
 }

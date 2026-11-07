@@ -24,8 +24,18 @@
                     EnableDependentAnimation="True"
                     Storyboard.TargetName="RootWindow"
                     Storyboard.TargetProperty="Width"
-                    From="500"
                     To="1000">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="5" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+
+            <Storyboard x:Name="RestoreAnimation">
+                <DoubleAnimation
+                    EnableDependentAnimation="True"
+                    Storyboard.TargetName="RootWindow"
+                    Storyboard.TargetProperty="Width">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" Exponent="5" />
                     </DoubleAnimation.EasingFunction>

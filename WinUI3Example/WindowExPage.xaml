@@ -72,8 +72,22 @@
                     EnableDependentAnimation=&quot;True&quot;
                     Storyboard.TargetName=&quot;RootWindow&quot;
                     Storyboard.TargetProperty=&quot;Width&quot;
-                    From=&quot;500&quot;
-                    To=&quot;1000&quot; /&gt;
+                    To=&quot;1000&quot;&gt;
+                    &lt;DoubleAnimation.EasingFunction&gt;
+                        &lt;ExponentialEase EasingMode=&quot;EaseOut&quot; Exponent=&quot;5&quot; /&gt;
+                    &lt;/DoubleAnimation.EasingFunction&gt;
+                &lt;/DoubleAnimation&gt;
+            &lt;/Storyboard&gt;
+
+            &lt;Storyboard x:Name=&quot;RestoreAnimation&quot;&gt;
+                &lt;DoubleAnimation
+                    EnableDependentAnimation=&quot;True&quot;
+                    Storyboard.TargetName=&quot;RootWindow&quot;
+                    Storyboard.TargetProperty=&quot;Width&quot;&gt;
+                    &lt;DoubleAnimation.EasingFunction&gt;
+                        &lt;ExponentialEase EasingMode=&quot;EaseOut&quot; Exponent=&quot;5&quot; /&gt;
+                    &lt;/DoubleAnimation.EasingFunction&gt;
+                &lt;/DoubleAnimation&gt;
             &lt;/Storyboard&gt;
         &lt;/Button.Resources&gt;
     &lt;/Button&gt;
@@ -82,12 +96,25 @@
                 </local:CodeSource>
             </local:ControlExample.Xaml>
 
+            <local:ControlExample.Header>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">struct AnimatedWindowSize : AnimatedWindowSizeT&lt;AnimatedWindowSize&gt;
+{
+    void Button_Click(winrt::Windows::Foundation::IInspectable const&amp; sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&amp; e);
+private:
+    bool m_isExpand = true;
+};</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Header>
+
             <local:ControlExample.Cpp>
                 <local:CodeSource>
                     <local:CodeSource.Code>
-                        <x:String xml:space="preserve">	void winrt::WinUI3Example::implementation::AnimatedWindowSize::Button_Click(winrt::Windows::Foundation::IInspectable const&amp;, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&amp;)
+                        <x:String xml:space="preserve">void AnimatedWindowSize::Button_Click(winrt::Windows::Foundation::IInspectable const&amp;, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&amp;)
 {
-	WindowAnimation().Begin();
+    (std::exchange(m_isExpand, !m_isExpand) ? WindowAnimation() : RestoreAnimation()).Begin();
 }</x:String>
                     </local:CodeSource.Code>
                 </local:CodeSource>

@@ -7,6 +7,8 @@ namespace winrt::WinUI3Example::implementation
     struct AnimatedWindowSize : AnimatedWindowSizeT<AnimatedWindowSize>
     {
         void Button_Click(winrt::Windows::Foundation::IInspectable const& sender, winrt::Microsoft::UI::Xaml::RoutedEventArgs const& e);
+    private:
+        bool m_isExpand = true;
     };
 }
 

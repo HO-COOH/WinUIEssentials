@@ -290,7 +290,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Graphics::SizeInt32 windowSizeInPixels();
         void resizeWindowInPixels(int widthInPixels, int heightInPixels);
 
-        /*The same rect in DIPs, the FrameworkElement Width/Height may well be NaN*/
+        /*The same rect in DIPs, the FrameworkElement Width/Height can be held elsewhere by an animation*/
         int currentWidth();
         int currentHeight();
         void resizeWindow(int widthInDips, int heightInDips);
@@ -300,6 +300,7 @@ namespace winrt::WinUI3Package::implementation
         winrt::Windows::Foundation::Size layoutSize(winrt::Windows::Foundation::Size const& availableSize);
         void addFrameworkPropertyCallbacks();
         void syncWindowStateToProperties();
+        void syncSizeToProperties();
         void revokeAppWindowChanged() noexcept;
 
         /*Makes the window show us, once we are allowed to hand out a reference to ourselves*/

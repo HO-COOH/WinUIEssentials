@@ -11,20 +11,22 @@
 
     <StackPanel Style="{StaticResource ControlExamplesStackPanelStyle}">
         <local:ControlExample HeaderText="Original Slider, you don't Acrylic on the tooltip when you drag the Slider">
-            <Grid>
-                <essential:AcrylicVisual />
-                <StackPanel Orientation="Horizontal">
-                    <Slider Width="200" VerticalAlignment="Center" />
-                    <Slider
-                        Width="100"
-                        Height="100"
-                        Maximum="50"
-                        Minimum="-50"
-                        Orientation="Vertical"
-                        TickFrequency="10"
-                        TickPlacement="Outside" />
-                </StackPanel>
-            </Grid>
+            <local:ControlExample.Resources>
+                <SolidColorBrush x:Key="ControlExampleDisplayBrush" Color="Transparent" />
+                <SolidColorBrush x:Key="GalleryBackgroundBrush" Color="Transparent" />
+            </local:ControlExample.Resources>
+
+            <StackPanel Orientation="Horizontal">
+                <Slider Width="200" VerticalAlignment="Center" />
+                <Slider
+                    Width="100"
+                    Height="100"
+                    Maximum="50"
+                    Minimum="-50"
+                    Orientation="Vertical"
+                    TickFrequency="10"
+                    TickPlacement="Outside" />
+            </StackPanel>
 
             <local:ControlExample.Xaml>
                 <local:CodeSource>
@@ -45,24 +47,26 @@
         </local:ControlExample>
 
         <local:ControlExample HeaderText="With SliderHelper.AcrylicWorkaround, you get Acrylic on the tooltip when you drag the Slider">
-            <Grid>
-                <essential:AcrylicVisual />
-                <StackPanel Orientation="Horizontal">
-                    <Slider
-                        Width="200"
-                        VerticalAlignment="Center"
-                        essential:SliderHelper.AcrylicWorkaround="True" />
-                    <Slider
-                        Width="100"
-                        Height="100"
-                        essential:SliderHelper.AcrylicWorkaround="True"
-                        Maximum="50"
-                        Minimum="-50"
-                        Orientation="Vertical"
-                        TickFrequency="10"
-                        TickPlacement="Outside" />
-                </StackPanel>
-            </Grid>
+            <local:ControlExample.Resources>
+                <SolidColorBrush x:Key="ControlExampleDisplayBrush" Color="Transparent" />
+                <SolidColorBrush x:Key="GalleryBackgroundBrush" Color="Transparent" />
+            </local:ControlExample.Resources>
+
+            <StackPanel Orientation="Horizontal">
+                <Slider
+                    Width="200"
+                    VerticalAlignment="Center"
+                    essential:SliderHelper.AcrylicWorkaround="True" />
+                <Slider
+                    Width="100"
+                    Height="100"
+                    essential:SliderHelper.AcrylicWorkaround="True"
+                    Maximum="50"
+                    Minimum="-50"
+                    Orientation="Vertical"
+                    TickFrequency="10"
+                    TickPlacement="Outside" />
+            </StackPanel>
 
             <local:ControlExample.Xaml>
                 <local:CodeSource>

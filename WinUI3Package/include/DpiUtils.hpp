@@ -70,6 +70,14 @@ namespace DpiUtils
 			return static_cast<Result>(unscaled);
 	}
 
+	[[nodiscard]] constexpr winrt::Windows::Graphics::SizeInt32 UnscaleForDpi(winrt::Windows::Graphics::SizeInt32 value, UINT dpi) noexcept
+	{
+		return winrt::Windows::Graphics::SizeInt32{
+			.Width = UnscaleForDpi<int>(value.Width, dpi),
+			.Height = UnscaleForDpi<int>(value.Height, dpi)
+		};
+	}
+
 	[[nodiscard]] constexpr winrt::Windows::Graphics::RectInt32 ScaleRectForDpi(
 		winrt::Windows::Foundation::Rect const& bound,
 		UINT dpi) noexcept

@@ -214,11 +214,17 @@ namespace winrt::WinUI3Package::implementation
 			revokeAppWindowChanged();
 		});
 
-		//Keeps RawWidth/RawHeight following the window, so they are usable as binding sources
+		//Keeps Width/Height and RawWidth/RawHeight following the window, so they are usable as binding sources
 		m_appWindowChangedToken = m_appWindow.Changed({ this, &WindowEx::onAppWindowChanged });
 
 		addFrameworkPropertyCallbacks();
 		syncWindowStateToProperties();
+
+		SizeChanged([this](auto&&...) {
+			//ActualWidth/ActualHeight never notify on their own
+			raisePropertyChange(L"ActualWidth");
+			raisePropertyChange(L"ActualHeight");
+		});
 
 		m_constructed = true;
 	}
@@ -285,15 +291,39 @@ namespace winrt::WinUI3Package::implementation
 			Seed the properties from the window we just created, so a read before the first
 			write reports reality rather than the registered default.
 		*/
-		m_syncingSizeFromWindow = true;
-		auto const size = windowSizeInPixels();
-		m_syncingSizeFromWindow = false;
+		syncSizeToProperties();
 
 		SetValue(s_isMinimizableProperty, winrt::box_value(m_overlappedPresenter.IsMinimizable()));
 		SetValue(s_isMaximizableProperty, winrt::box_value(m_overlappedPresenter.IsMaximizable()));
 		SetValue(s_isResizableProperty, winrt::box_value(m_overlappedPresenter.IsResizable()));
 		SetValue(s_isAlwaysOnTopProperty, winrt::box_value(m_overlappedPresenter.IsAlwaysOnTop()));
 		SetValue(s_isShownInSwitcherProperty, winrt::box_value(m_appWindow.IsShownInSwitchers()));
+	}
+
+	static bool isStale(double property, int currentValue) 
+	{ 
+		return !(std::abs(property - currentValue) < 1.0); 
+	}
+
+	void WindowEx::syncSizeToProperties()
+	{
+		//A minimized window reports the 160x28 of its icon, keep the size it restores to
+		if (IsIconic(m_hwnd))
+			return;
+
+		/*
+			Within a DIP is only rounding, the window is where the property put it. Leaving the
+			property alone then keeps a fractional value, a OneWay binding and the base value
+			of a running animation, all of which a write would replace.
+			Negated so that a NaN property, which nothing has set yet, counts as stale too.
+		*/
+		m_syncingSizeFromWindow = true;
+		auto const currentWindowSize = DpiUtils::UnscaleForDpi(windowSizeInPixels(), Dpi());
+		if (isStale(Width(), currentWindowSize.Width))
+			Width(currentWindowSize.Width);
+		if (isStale(Height(), currentWindowSize.Height))
+			Height(currentWindowSize.Height);
+		m_syncingSizeFromWindow = false;
 	}
 
 	winrt::Microsoft::UI::Xaml::Window WindowEx::Window()
@@ -444,7 +474,7 @@ namespace winrt::WinUI3Package::implementation
 
 	winrt::Windows::Graphics::SizeInt32 WindowEx::windowSizeInPixels()
 	{
-		RECT rect{};
+		RECT rect;
 		if (!GetWindowRect(m_hwnd, &rect))
 			return m_appWindow.Size();
 
@@ -1148,8 +1178,10 @@ namespace winrt::WinUI3Package::implementation
 		if (!args.DidSizeChange())
 			return;
 
+		syncSizeToProperties();
 		raisePropertyChange(L"RawWidth");
 		raisePropertyChange(L"RawHeight");
+		raisePropertyChange(L"Dpi");
 	}
 
 	void WindowEx::onContentChanged(
