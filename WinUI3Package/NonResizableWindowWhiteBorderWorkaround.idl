@@ -5,6 +5,7 @@
     runtimeclass NonResizableWindowWhiteBorderWorkaround 
     {
         NonResizableWindowWhiteBorderWorkaround();
+	    NonResizableWindowWhiteBorderWorkaround(Microsoft.UI.Xaml.Window window);
         
         Microsoft.UI.Xaml.Window Window;
     }

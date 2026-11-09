@@ -13,7 +13,19 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    winrt::Microsoft::UI::Xaml::FrameworkElement TenMicaBackdrop::BindThemeTo()
+	TenMicaBackdrop::TenMicaBackdrop(winrt::Microsoft::UI::Xaml::FrameworkElement const& bindThemeTo) : 
+		m_bindThemeTo{ bindThemeTo }, 
+		m_bindThemeRevoker{ bindThemeTo.ActualThemeChanged(winrt::auto_revoke, [this](winrt::Microsoft::UI::Xaml::FrameworkElement const& sender, auto&&)
+		{
+			if (m_effect)
+				m_effect->SetTheme(sender.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
+		}) }
+	{
+		if (m_effect)
+			m_effect->SetTheme(bindThemeTo.ActualTheme() == winrt::Microsoft::UI::Xaml::ElementTheme::Light);
+	}
+
+	winrt::Microsoft::UI::Xaml::FrameworkElement TenMicaBackdrop::BindThemeTo()
     {
         return m_bindThemeTo.get();
     }

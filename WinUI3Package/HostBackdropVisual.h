@@ -11,8 +11,6 @@ namespace winrt::WinUI3Package::implementation
     struct HostBackdropVisual : HostBackdropVisualT<HostBackdropVisual>, EnsureSystemDispatcherQueueController
     {
         HostBackdropVisual();
-        constexpr static auto ResourceUri = L"ms-appx:///WinUI3Package/HostBackdropVisual_Resource.xaml";
-
     private:
         winrt::Microsoft::UI::Content::ContentExternalOutputLink m_externalLink{ nullptr };
 

@@ -6,6 +6,11 @@
 
 namespace winrt::WinUI3Package::implementation
 {
+    WindowContextMenu::WindowContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& menu, winrt::Microsoft::UI::Xaml::Window const& window) : m_menu{ menu }
+    {
+        Window(window);
+    }
+
     winrt::Microsoft::UI::Xaml::Controls::MenuFlyout WindowContextMenu::Menu()
     {
         return m_menu;

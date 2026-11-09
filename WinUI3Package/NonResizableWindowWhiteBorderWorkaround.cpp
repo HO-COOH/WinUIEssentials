@@ -7,6 +7,11 @@
 #include "HwndHelper.hpp"
 namespace winrt::WinUI3Package::implementation
 {
+    NonResizableWindowWhiteBorderWorkaround::NonResizableWindowWhiteBorderWorkaround(winrt::Microsoft::UI::Xaml::Window const& window)
+    {
+        Window(window);
+    }
+
     winrt::Microsoft::UI::Xaml::Window NonResizableWindowWhiteBorderWorkaround::Window()
     {
         throw GetterNotImplemented{ L"NonResizableWindowWhiteBorderWorkaround.Window" };

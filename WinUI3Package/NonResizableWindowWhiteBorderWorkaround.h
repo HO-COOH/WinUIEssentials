@@ -6,6 +6,8 @@ namespace winrt::WinUI3Package::implementation
 {
     struct NonResizableWindowWhiteBorderWorkaround : NonResizableWindowWhiteBorderWorkaroundT<NonResizableWindowWhiteBorderWorkaround>
     {
+		NonResizableWindowWhiteBorderWorkaround() = default;
+        NonResizableWindowWhiteBorderWorkaround(winrt::Microsoft::UI::Xaml::Window const& window);
 
         winrt::Microsoft::UI::Xaml::Window Window();
         void Window(winrt::Microsoft::UI::Xaml::Window const& value);

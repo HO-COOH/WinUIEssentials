@@ -6,7 +6,7 @@
     unsealed runtimeclass WindowContextMenu
     {
         WindowContextMenu();
-
+	    WindowContextMenu(Microsoft.UI.Xaml.Controls.MenuFlyout menu, Microsoft.UI.Xaml.Window window);
 
         Microsoft.UI.Xaml.Controls.MenuFlyout Menu;
         Microsoft.UI.Xaml.Window Window;

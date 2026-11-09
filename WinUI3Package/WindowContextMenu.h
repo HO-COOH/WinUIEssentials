@@ -9,6 +9,9 @@ namespace winrt::WinUI3Package::implementation
         WindowContextMenuT<WindowContextMenu>,
         WindowContextMenuBase<WindowContextMenu, 0x22002>
     {
+		WindowContextMenu() = default;
+		WindowContextMenu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& menu, winrt::Microsoft::UI::Xaml::Window const& window);
+
         winrt::Microsoft::UI::Xaml::Controls::MenuFlyout Menu();
         void Menu(winrt::Microsoft::UI::Xaml::Controls::MenuFlyout const& value);
 
