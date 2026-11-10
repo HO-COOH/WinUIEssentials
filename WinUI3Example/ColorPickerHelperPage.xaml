@@ -51,5 +51,33 @@
                 </local:CodeSource>
             </local:ControlExample.Xaml>
         </local:ControlExample>
+
+        <local:ControlExample HeaderText="Using ColorPicker.ToolTipDismissWorkaround, the ToolTip will correctly dismiss when losing focus">
+            <StackPanel Orientation="Horizontal" Spacing="20">
+                <ColorPicker
+                    essential:ColorPickerHelper.AcrylicWorkaround="True"
+                    essential:ColorPickerHelper.ToolTipDismissWorkaround="True"
+                    IsAlphaEnabled="True" />
+                <ColorPicker
+                    essential:ColorPickerHelper.AcrylicWorkaround="True"
+                    essential:ColorPickerHelper.ToolTipDismissWorkaround="True"
+                    ColorSpectrumShape="Ring" />
+            </StackPanel>
+
+            <local:ControlExample.Xaml>
+                <local:CodeSource>
+                    <local:CodeSource.Code>
+                        <x:String xml:space="preserve">&lt;ColorPicker
+    essential:ColorPickerHelper.AcrylicWorkaround=&quot;True&quot;
+    essential:ColorPickerHelper.ToolTipDismissWorkaround=&quot;True&quot;
+    IsAlphaEnabled=&quot;True&quot; /&gt;
+&lt;ColorPicker
+    essential:ColorPickerHelper.AcrylicWorkaround=&quot;True&quot;
+    essential:ColorPickerHelper.ToolTipDismissWorkaround=&quot;True&quot;
+    ColorSpectrumShape=&quot;Ring&quot; /&gt;</x:String>
+                    </local:CodeSource.Code>
+                </local:CodeSource>
+            </local:ControlExample.Xaml>
+        </local:ControlExample>
     </StackPanel>
 </Page>

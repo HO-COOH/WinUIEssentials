@@ -69,5 +69,5 @@ ThemeListenerMessageWindow::ThemeListenerMessageWindow(ThemeListener* listener)
 
 ThemeListenerMessageWindow::~ThemeListenerMessageWindow()
 {
-	winrt::check_bool(DestroyWindow(m_hwnd));
+	DestroyWindow(m_hwnd);
 }

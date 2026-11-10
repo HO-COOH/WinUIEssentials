@@ -18,6 +18,17 @@ namespace winrt::WinUI3Package::implementation
 			}
 		);
 
+	winrt::Microsoft::UI::Xaml::DependencyProperty ColorPickerHelper::s_toolTipDismissWorkaroundProperty =
+		winrt::Microsoft::UI::Xaml::DependencyProperty::RegisterAttached(
+			L"ToolTipDismissWorkaround",
+			winrt::xaml_typename<bool>(),
+			winrt::xaml_typename<winrt::WinUI3Package::ColorPickerHelper>(),
+			winrt::Microsoft::UI::Xaml::PropertyMetadata{
+				nullptr,
+				&ColorPickerHelper::toolTipDismissWorkaroundChanged
+			}
+		);
+
 	winrt::Microsoft::UI::Xaml::DependencyProperty ColorPickerHelper::AcrylicWorkaroundProperty()
 	{
 		return s_acrylicWorkaroundProperty;
@@ -34,6 +45,24 @@ namespace winrt::WinUI3Package::implementation
 	)
 	{
 		colorPicker.SetValue(s_acrylicWorkaroundProperty, winrt::box_value(value));
+	}
+
+	winrt::Microsoft::UI::Xaml::DependencyProperty ColorPickerHelper::ToolTipDismissWorkaroundProperty()
+	{
+		return s_toolTipDismissWorkaroundProperty;
+	}
+
+	bool ColorPickerHelper::GetToolTipDismissWorkaround(winrt::Microsoft::UI::Xaml::Controls::ColorPicker const& colorPicker)
+	{
+		return winrt::unbox_value<bool>(colorPicker.GetValue(s_toolTipDismissWorkaroundProperty));
+	}
+
+	void ColorPickerHelper::SetToolTipDismissWorkaround(
+		winrt::Microsoft::UI::Xaml::Controls::ColorPicker const& colorPicker,
+		bool value
+	)
+	{
+		colorPicker.SetValue(s_toolTipDismissWorkaroundProperty, winrt::box_value(value));
 	}
 
 	void ColorPickerHelper::acrylicWorkaroundChanged(
@@ -63,6 +92,59 @@ namespace winrt::WinUI3Package::implementation
 				winrt::WinUI3Package::ComboBoxHelper::SetAcrylicWorkaround(ColorRepresentationComboBox, true);
 
 			loadedRevoker->revoke();
+		});
+	}
+
+	void ColorPickerHelper::toolTipDismissWorkaroundChanged(
+		winrt::Microsoft::UI::Xaml::DependencyObject const& object,
+		winrt::Microsoft::UI::Xaml::DependencyPropertyChangedEventArgs const& arg)
+	{
+		auto const toolTipDismissWorkaround = winrt::unbox_value<bool>(arg.NewValue());
+		if (!toolTipDismissWorkaround)
+			return;
+
+		auto colorPicker = object.as<winrt::Microsoft::UI::Xaml::Controls::ColorPicker>();
+		auto loadedRevoker = std::make_shared<winrt::Microsoft::UI::Xaml::Controls::ColorPicker::Loaded_revoker>();
+		*loadedRevoker = colorPicker.Loaded(winrt::auto_revoke, [loadedRevoker](auto const& sender, auto const& args)
+		{
+			auto colorPicker = sender.as<winrt::Microsoft::UI::Xaml::Controls::ColorPicker>();
+			colorPicker.ApplyTemplate();
+			
+			auto colorSpectrum = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Primitives::ColorSpectrum>(colorPicker, L"ColorSpectrum");
+			colorSpectrum.ApplyTemplate();
+			
+			auto ellipse = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Shapes::Ellipse>(colorSpectrum, L"SelectionEllipse");
+			auto tooltipRef = winrt::Microsoft::UI::Xaml::Controls::ToolTipService::GetToolTip(ellipse);
+			if (!tooltipRef)
+				return;
+
+			if (auto tooltip = tooltipRef.try_as<winrt::Microsoft::UI::Xaml::Controls::ToolTip>())
+			{
+				auto isToolTipOpen = [weakToolTip = winrt::make_weak(tooltip)](bool isOpen)
+				{
+					if (auto tooltip = weakToolTip.get())
+						tooltip.IsOpen(isOpen);
+				};
+
+				auto inputTarget = VisualTreeHelper::FindVisualChildByName<winrt::Microsoft::UI::Xaml::Controls::Canvas>(colorSpectrum, L"InputTarget");
+				inputTarget.AddHandler(
+					winrt::Microsoft::UI::Xaml::UIElement::PointerPressedEvent(),
+					winrt::box_value(winrt::Microsoft::UI::Xaml::Input::PointerEventHandler{ [isToolTipOpen](auto&&...) {isToolTipOpen(true);} }),
+					true
+				);
+
+				winrt::Microsoft::UI::Xaml::Input::PointerEventHandler close{ [isToolTipOpen](auto&&...) {isToolTipOpen(false);} };
+				inputTarget.AddHandler(
+					winrt::Microsoft::UI::Xaml::UIElement::PointerReleasedEvent(),
+					winrt::box_value(close),
+					true
+				);
+				inputTarget.AddHandler(
+					winrt::Microsoft::UI::Xaml::UIElement::PointerCaptureLostEvent(),
+					winrt::box_value(close),
+					true
+				);
+			}
 		});
 	}
 

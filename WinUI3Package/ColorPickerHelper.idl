@@ -5,5 +5,9 @@ namespace WinUI3Package
 		static Microsoft.UI.Xaml.DependencyProperty AcrylicWorkaroundProperty{ get; };
         static Boolean GetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.ColorPicker colorPicker);
 		static void SetAcrylicWorkaround(Microsoft.UI.Xaml.Controls.ColorPicker colorPicker, Boolean value);
+
+		static Microsoft.UI.Xaml.DependencyProperty ToolTipDismissWorkaroundProperty{ get; };
+		static Boolean GetToolTipDismissWorkaround(Microsoft.UI.Xaml.Controls.ColorPicker colorPicker);
+		static void SetToolTipDismissWorkaround(Microsoft.UI.Xaml.Controls.ColorPicker colorPicker, Boolean value);
     }
 }
