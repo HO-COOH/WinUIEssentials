@@ -257,25 +257,25 @@ namespace winrt::PackageRoot::implementation
 
 	void ControlExample::onXamlChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
-		auto self = getSelf(d);
+		auto self = GetSelf(d);
 		self->makePivotItem(self->Xaml(), winrt::PackageRoot::Language::Xaml);
 	}
 
 	void ControlExample::onIdlChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
-		auto self = getSelf(d);
+		auto self = GetSelf(d);
 		self->makePivotItem(self->Idl(), winrt::PackageRoot::Language::Idl);
 	}
 
 	void ControlExample::onHeaderChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
-		auto self = getSelf(d);
+		auto self = GetSelf(d);
 		self->makePivotItem(self->Header(), winrt::PackageRoot::Language::H);
 	}
 
 	void ControlExample::onCppChanged(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d, winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const&)
 	{
-		auto self = getSelf(d);
+		auto self = GetSelf(d);
 		self->makePivotItem(self->Cpp(), winrt::PackageRoot::Language::Cpp);
 	}
 
@@ -306,11 +306,6 @@ namespace winrt::PackageRoot::implementation
 			).as<winrt::WinUINamespace::UI::Xaml::Media::Geometry>()
 		);
 		return result;
-	}
-
-	ControlExample* ControlExample::getSelf(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d)
-	{
-		return winrt::get_self<ControlExample>(d.as<class_type>());
 	}
 
 	winrt::hstring ControlExample::UnboxString(winrt::Windows::Foundation::IInspectable const& value) 

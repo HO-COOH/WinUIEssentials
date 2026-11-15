@@ -5,7 +5,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-	struct ModalWindow : ModalWindowT<ModalWindow>, ModalWindowBase<ModalWindow>
+	struct ModalWindow : ModalWindowT<ModalWindow>, ModalWindowBase
 	{
 		ModalWindow() = default;
 		ModalWindow(winrt::Microsoft::UI::Xaml::Window const& parent);

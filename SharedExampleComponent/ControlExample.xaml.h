@@ -97,7 +97,6 @@ namespace winrt::PackageRoot::implementation
 			winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
 
 		winrt::WinUINamespace::UI::Xaml::Controls::PathIcon languageHeader(winrt::PackageRoot::Language language);
-		static ControlExample* getSelf(winrt::WinUINamespace::UI::Xaml::DependencyObject const& d);
 	public:
 		void Expander_Loaded(
 			winrt::Windows::Foundation::IInspectable const& sender,

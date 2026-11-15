@@ -10,7 +10,7 @@ namespace winrt::WinUI3Package::implementation
 {
 	struct ModernDialogBoxContent;
 
-	struct ModernDialogBox : ModernDialogBoxT<ModernDialogBox>, ModalWindowBase<ModernDialogBox>
+	struct ModernDialogBox : ModernDialogBoxT<ModernDialogBox>, ModalWindowBase
 	{
 		void InitializeComponent();
 
