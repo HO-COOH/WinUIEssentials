@@ -113,7 +113,7 @@ namespace winrt::WinUI3Package::implementation
 		{
 			if (auto strong = weakThis.get())
 			{
-				if (!strong->m_target || (strong->m_effect && strong->m_effect->IsFallback()))
+				if (!strong->m_target.get() || (strong->m_effect && strong->m_effect->IsFallback()))
 					return;
 
 				try
@@ -142,7 +142,7 @@ namespace winrt::WinUI3Package::implementation
 		{
 			if (auto strong = weakThis.get())
 			{
-				if (!strong->m_target || (strong->m_effect && strong->m_effect->IsFallback()))
+				if (!strong->m_target.get() || (strong->m_effect && strong->m_effect->IsFallback()))
 					return;
 
 				try
@@ -197,8 +197,8 @@ namespace winrt::WinUI3Package::implementation
 			if (auto bindThemeTo = m_bindThemeTo.get())
 				m_effect->SetTheme(bindThemeTo.ActualTheme());
 
-			if (m_target)
-				m_target.SystemBackdrop(m_effect->m_inactiveBrush);
+			if (auto target = m_target.get())
+				target.SystemBackdrop(m_effect->m_inactiveBrush);
 		}
 		catch (...)
 		{

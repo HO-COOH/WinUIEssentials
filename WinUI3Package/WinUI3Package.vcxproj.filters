@@ -127,6 +127,9 @@
     <ClCompile Include="InputSourceBase.cpp">
       <Filter>Windows\ModernWindowCaptionButtonToolTip</Filter>
     </ClCompile>
+    <ClCompile Include="TenMicaWindowSubProc.cpp">
+      <Filter>Backdrop\TenMica</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <CommCtrl.h>
 #include <DpiUtils.hpp>
 
 class TenMicaWindowSubProc
@@ -13,17 +14,8 @@ class TenMicaWindowSubProc
 
 	UINT m_dpi = DpiUtils::DefaultDpi;
 
-	void updateBorderPadding()
-	{
-		m_borderPadding = GetSystemMetricsForDpi(SM_CXFRAME, m_dpi) + GetSystemMetricsForDpi(SM_CXPADDEDBORDER, m_dpi);
-	}
-
-	static UINT taskbarCreatedMessage()
-	{
-		static UINT const msg = RegisterWindowMessageW(L"TaskbarCreated");
-		return msg;
-	}
-
+	void updateBorderPadding();
+	static UINT taskbarCreatedMessage();
 
 	template<typename Derived>
 	static LRESULT CALLBACK subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR, DWORD_PTR dwRefData)
@@ -87,7 +79,6 @@ class TenMicaWindowSubProc
 	}
 protected:
 	HWND m_hwnd{};
-
 
 	template<typename Derived>
 	void removeSubClass(this Derived& self)

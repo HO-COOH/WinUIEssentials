@@ -1,7 +1,7 @@
 #pragma once
 
-#include <winrt/base.h>
 #include <ShObjIdl_core.h>
+#include <winrt/base.h>
 
 struct ITaskbarList3;
 
@@ -11,15 +11,10 @@ struct ITaskbarList3;
  */
 class Taskbar
 {
-	static ITaskbarList3* getPtr()
+	static auto getPtr()
 	{
-		static winrt::com_ptr<ITaskbarList3> instance = []
-			{
-				winrt::com_ptr<ITaskbarList3> ptr;
-				CoCreateInstance(CLSID_TaskbarList, nullptr, CLSCTX_ALL, __uuidof(ITaskbarList3), ptr.put_void());
-				return ptr;
-			}();
-			return instance.get();
+		static winrt::com_ptr<ITaskbarList3> instance = winrt::create_instance<ITaskbarList3>(CLSID_TaskbarList, CLSCTX_ALL);
+		return instance;
 	}
 
 public:

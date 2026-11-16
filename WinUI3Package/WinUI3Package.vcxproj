@@ -833,6 +833,7 @@
     <ClCompile Include="TenMicaEffectFactory.cpp" />
     <ClCompile Include="TenMicaRegistry.cpp" />
     <ClCompile Include="TenMicaRegistryWatcher.cpp" />
+    <ClCompile Include="TenMicaWindowSubProc.cpp" />
     <ClCompile Include="ThemeAdaptiveIcon.cpp" />
     <ClCompile Include="BindingHelper.cpp" />
     <ClCompile Include="ThemeListenerMessageWindow.cpp" />

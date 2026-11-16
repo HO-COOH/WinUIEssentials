@@ -36,7 +36,7 @@ namespace winrt::WinUI3Package::implementation
         TenMicaEffect& getEffect();
         void fallbackToInactiveBrush() noexcept;
 
-        winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop m_target{ nullptr };
+        winrt::weak_ref<winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop> m_target;
         winrt::weak_ref<winrt::Microsoft::UI::Xaml::FrameworkElement> m_bindThemeTo;
         winrt::Microsoft::UI::Xaml::FrameworkElement::ActualThemeChanged_revoker m_bindThemeRevoker;
         winrt::Microsoft::UI::Dispatching::DispatcherQueue m_queue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
