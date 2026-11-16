@@ -11,8 +11,14 @@ class WallpaperManager
 	winrt::com_ptr<IDesktopWallpaper> m_desktopWallpaper;
 	winrt::com_ptr<IWICImagingFactory> m_wicFactory;
 	boost::container::small_vector<WallpaperInfo, TenMicaRegistry::MonitorCountEstimate> m_wallpaperInfos;
+	DESKTOP_WALLPAPER_POSITION m_position{ DWPOS_FILL };
+	bool m_forceUpdate{};
 
+	HRESULT callDesktopWallpaper(auto method, auto&&... args);
 	UINT getMonitorCount();
+	wil::unique_cotaskmem_string getMonitorDevicePathAt(UINT index);
+	bool getMonitorRect(PCWSTR monitorId, RECT& rect);
+	wil::unique_cotaskmem_string getWallpaper(PCWSTR monitorId);
 
 	winrt::com_ptr<IWICFormatConverter> createSolidColorWallpaper(
 		RECT const& rect,

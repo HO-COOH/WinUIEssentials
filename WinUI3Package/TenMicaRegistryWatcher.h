@@ -27,9 +27,9 @@ public:
 private:
 	using SmallVector = boost::container::small_vector<std::vector<uint8_t>, TenMicaRegistry::MonitorCountEstimate>;
 
-	std::wstring WallPaperValue = TenMicaRegistry::Wallpaper();
-	std::wstring BackgroundValue = TenMicaRegistry::BackgroundValue();
-	SmallVector transcodedImagesValue = TenMicaRegistry::TranscodedImageCaches();
+	std::wstring m_wallPaperValue = TenMicaRegistry::Wallpaper();
+	std::wstring m_backgroundValue = TenMicaRegistry::BackgroundValue();
+	SmallVector m_transcodedImagesValue = TenMicaRegistry::TranscodedImageCaches();
 
 
 	winrt::WinUI3Package::implementation::TenMicaBackdrop* m_impl{};

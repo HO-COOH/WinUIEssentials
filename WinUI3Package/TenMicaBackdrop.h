@@ -13,7 +13,7 @@
 
 namespace winrt::WinUI3Package::implementation
 {
-    struct TenMicaBackdrop : TenMicaBackdropT<TenMicaBackdrop, CustomBackdropBase>, TenMicaWindowSubProc<TenMicaBackdrop>, EnsureSystemDispatcherQueueController
+    struct TenMicaBackdrop : TenMicaBackdropT<TenMicaBackdrop, CustomBackdropBase>, TenMicaWindowSubProc, EnsureSystemDispatcherQueueController
     {
 		TenMicaBackdrop() = default;
 		TenMicaBackdrop(winrt::Microsoft::UI::Xaml::FrameworkElement const& bindThemeTo);
@@ -31,9 +31,12 @@ namespace winrt::WinUI3Package::implementation
         void onWindowActivated(bool isActive);
         void onWallpaperChanged();
         void onDisplayChanged();
+        void onWatcherError() noexcept;
     private:
         TenMicaEffect& getEffect();
+        void fallbackToInactiveBrush() noexcept;
 
+        winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop m_target{ nullptr };
         winrt::weak_ref<winrt::Microsoft::UI::Xaml::FrameworkElement> m_bindThemeTo;
         winrt::Microsoft::UI::Xaml::FrameworkElement::ActualThemeChanged_revoker m_bindThemeRevoker;
         winrt::Microsoft::UI::Dispatching::DispatcherQueue m_queue = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <winrt/Windows.UI.Composition.h>
+#include <winrt/Microsoft.UI.Xaml.h>
 #include <memory>
 
 class TenMicaEffectFactory;
@@ -15,6 +16,8 @@ struct TenMicaEffect
 	
 
 	void SetBrushOffset(float offsetX, float offsetY);
-	void SetTheme(bool isLightTheme);
+	void SetTheme(winrt::Microsoft::UI::Xaml::ElementTheme theme);
 	void SetActive(bool isActive);
+	void FallbackToInactiveBrush() noexcept;
+	[[nodiscard]] bool IsFallback() const noexcept;
 };

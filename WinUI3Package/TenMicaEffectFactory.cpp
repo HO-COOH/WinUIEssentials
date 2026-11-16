@@ -13,11 +13,6 @@ void TenMicaEffectFactory::createFactory()
 	auto crossFadeEffectInterop = winrt::make_self<CrossFadeInterop>(0.0f, L"Source1", L"Source2");
 	crossFadeEffectInterop->Name(L"CrossFade");
 	finalEffectFactory = compositor.CreateEffectFactory(*crossFadeEffectInterop, { L"CrossFade.CrossFade" });
-
-	auto colorAnimation = compositor.CreateColorKeyFrameAnimation();
-	colorAnimation.InsertExpressionKeyFrame(1.f, L"this.FinalValue");
-	colorAnimation.Target(L"Color");
-	m_implicitInactiveBrushAnimation.Insert(L"Color", colorAnimation);
 }
 
 TenMicaEffectFactory::TenMicaEffectFactory()
@@ -30,6 +25,18 @@ TenMicaEffectFactory::TenMicaEffectFactory()
 	m_crossFadeBackwardAnimation = compositor.CreateScalarKeyFrameAnimation();
 	m_crossFadeBackwardAnimation.InsertKeyFrame(1.f, 1.f, linearEase);
 	m_crossFadeBackwardAnimation.Duration(TenMicaConstants::AnimationDuration);
+
+	auto colorAnimation = compositor.CreateColorKeyFrameAnimation();
+	colorAnimation.InsertExpressionKeyFrame(1.f, L"this.FinalValue");
+	colorAnimation.Target(L"Color");
+	m_implicitInactiveBrushAnimation.Insert(L"Color", colorAnimation);
+}
+
+WallpaperManager& TenMicaEffectFactory::GetWallpaperManager()
+{
+	if (!m_wallpaperManager)
+		m_wallpaperManager.emplace();
+	return *m_wallpaperManager;
 }
 
 TenMicaEffect TenMicaEffectFactory::Get()
@@ -37,7 +44,8 @@ TenMicaEffect TenMicaEffectFactory::Get()
 	if (!themeCrossFadeEffectFactory)
 		createFactory();
 
-	std::ignore = m_wallpaperManager.UpdatedNeeded();
+	auto& wallpaperManager = GetWallpaperManager();
+	std::ignore = wallpaperManager.UpdatedNeeded();
 
 	TenMicaEffect effect
 	{
@@ -45,8 +53,8 @@ TenMicaEffect TenMicaEffectFactory::Get()
 		.m_themeCrossFadeBrush = themeCrossFadeEffectFactory.CreateBrush(),
 		.m_finalCrossFadeBrush = finalEffectFactory.CreateBrush(),
 		.m_inactiveBrush = compositor.CreateColorBrush(TenMicaConstants::WinUI::LuminosityColorDark),
-		.m_lightBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, m_wallpaperManager, true),
-		.m_darkBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, m_wallpaperManager, false)
+		.m_lightBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, wallpaperManager, true),
+		.m_darkBrush = m_wallpaperSurfaces.DrawToSurfaceWithNewBrush(compositor, wallpaperManager, false)
 	};
 
 	effect.m_themeCrossFadeBrush.SetSourceParameter(L"Light", effect.m_lightBrush);
@@ -54,10 +62,20 @@ TenMicaEffect TenMicaEffectFactory::Get()
 	
 	effect.m_inactiveBrush.ImplicitAnimations(m_implicitInactiveBrushAnimation);
 	
-	effect.m_finalCrossFadeBrush = finalEffectFactory.CreateBrush();
 	effect.m_finalCrossFadeBrush.SetSourceParameter(L"Source1", effect.m_themeCrossFadeBrush);
 	effect.m_finalCrossFadeBrush.SetSourceParameter(L"Source2", effect.m_inactiveBrush);
 	
+	return effect;
+}
+
+TenMicaEffect TenMicaEffectFactory::GetFallback()
+{
+	TenMicaEffect effect
+	{
+		.m_factory = shared_from_this(),
+		.m_inactiveBrush = compositor.CreateColorBrush(TenMicaConstants::WinUI::LuminosityColorDark)
+	};
+	effect.m_inactiveBrush.ImplicitAnimations(m_implicitInactiveBrushAnimation);
 	return effect;
 }
 
@@ -76,15 +94,17 @@ std::shared_ptr<TenMicaEffectFactory> TenMicaEffectFactory::GetFactory()
 
 void TenMicaEffectFactory::Redraw()
 {
-	m_wallpaperSurfaces.DrawToSurface(compositor, m_wallpaperManager, true);
-	m_wallpaperSurfaces.DrawToSurface(compositor, m_wallpaperManager, false);
+	auto& wallpaperManager = GetWallpaperManager();
+	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, true);
+	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, false);
 }
 
 void TenMicaEffectFactory::OnDeviceLost(TenMicaEffect& effectToReset)
 {
+	auto& wallpaperManager = GetWallpaperManager();
 	m_wallpaperSurfaces = {};
-	m_wallpaperSurfaces.DrawToSurface(compositor, m_wallpaperManager, true);
-	m_wallpaperSurfaces.DrawToSurface(compositor, m_wallpaperManager, false);
+	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, true);
+	m_wallpaperSurfaces.DrawToSurface(compositor, wallpaperManager, false);
 	effectToReset.m_lightBrush.Surface(m_wallpaperSurfaces.m_surfaceLight);
 	effectToReset.m_darkBrush.Surface(m_wallpaperSurfaces.m_surfaceDark);
 }

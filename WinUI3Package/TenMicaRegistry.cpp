@@ -2,7 +2,7 @@
 #include "TenMicaRegistry.h"
 #include <wil/registry.h>
 
-static std::optional<std::vector<uint8_t>> TranscodedImageCache()
+static auto transcodedImageCache()
 {
 	return wil::reg::try_get_value_binary(
 		HKEY_CURRENT_USER, 
@@ -12,7 +12,7 @@ static std::optional<std::vector<uint8_t>> TranscodedImageCache()
 	);
 }
 
-static std::optional<std::vector<uint8_t>> TranscodedImageCache(int i)
+static auto transcodedImageCache(int i)
 {
 	return wil::reg::try_get_value_binary(
 		HKEY_CURRENT_USER, 
@@ -40,7 +40,7 @@ namespace TenMicaRegistry
 	{
 		boost::container::small_vector<std::vector<uint8_t>, MonitorCountEstimate> result;
 
-		auto firstValue = TranscodedImageCache();
+		auto firstValue = transcodedImageCache();
 		if (!firstValue)
 			return result;
 
@@ -48,7 +48,7 @@ namespace TenMicaRegistry
 
 		for (int i = 0;; ++i)
 		{
-			auto value_n = TranscodedImageCache(i);
+			auto value_n = transcodedImageCache(i);
 			if (!value_n)
 				return result;
 

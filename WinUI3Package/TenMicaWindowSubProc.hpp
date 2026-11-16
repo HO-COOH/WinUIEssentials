@@ -1,17 +1,12 @@
 ﻿#pragma once
 #include <DpiUtils.hpp>
 
-template<typename Derived>
 class TenMicaWindowSubProc
 {
+	template<typename Derived>
 	static auto getThis(DWORD_PTR dwRefData)
 	{
-		return reinterpret_cast<TenMicaWindowSubProc*>(dwRefData);
-	}
-
-	constexpr auto getDerivedThis()
-	{
-		return static_cast<Derived*>(this);
+		return reinterpret_cast<Derived*>(dwRefData);
 	}
 
 	int m_borderPadding{};
@@ -22,22 +17,28 @@ class TenMicaWindowSubProc
 	{
 		m_borderPadding = GetSystemMetricsForDpi(SM_CXFRAME, m_dpi) + GetSystemMetricsForDpi(SM_CXPADDEDBORDER, m_dpi);
 	}
-protected:
-	HWND m_hwnd;
 
-	static LRESULT CALLBACK subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
+	static UINT taskbarCreatedMessage()
+	{
+		static UINT const msg = RegisterWindowMessageW(L"TaskbarCreated");
+		return msg;
+	}
+
+
+	template<typename Derived>
+	static LRESULT CALLBACK subclassProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, UINT_PTR, DWORD_PTR dwRefData)
 	{
 		switch (msg)
 		{
 			case WM_WINDOWPOSCHANGING:
 			{
 				auto* windowPos = reinterpret_cast<WINDOWPOS const*>(lParam);
-				
+
 				//Only update if position actually changed (not just size or z-order)
 				if (!(windowPos->flags & SWP_NOMOVE))
 				{
-					auto* pThis = getThis(dwRefData);
-					pThis->getDerivedThis()->updateBrushOffset(
+					auto* pThis = getThis<Derived>(dwRefData);
+					pThis->updateBrushOffset(
 						windowPos->x + pThis->m_borderPadding,
 						windowPos->y + (IsZoomed(hwnd) ? pThis->m_borderPadding : 0)
 					);
@@ -47,10 +48,10 @@ protected:
 			case WM_DPICHANGED:
 			{
 				auto* suggestedRect = reinterpret_cast<RECT const*>(lParam);
-				auto* pThis = getThis(dwRefData);
+				auto* pThis = getThis<Derived>(dwRefData);
 				pThis->m_dpi = HIWORD(wParam);
 				pThis->updateBorderPadding();
-				pThis->getDerivedThis()->updateBrushOffset(
+				pThis->updateBrushOffset(
 					suggestedRect->left + pThis->m_borderPadding,
 					suggestedRect->top + (IsZoomed(hwnd) ? pThis->m_borderPadding : 0)
 				);
@@ -59,43 +60,52 @@ protected:
 			case WM_ACTIVATE:
 			{
 				auto const isActive = (LOWORD(wParam) != WA_INACTIVE);
-				getThis(dwRefData)->getDerivedThis()->onWindowActivated(isActive);
+				getThis<Derived>(dwRefData)->onWindowActivated(isActive);
 				break;
 			}
 			//This works fine on Windows 10, but NOT on Windows 11
 			//See this link: https://learn.microsoft.com/en-us/answers/questions/5771029/windows-11-changing-wallpaper-in-the-settings-app
 			//We need to use registry watcher to monitor wallpaper registry key on Windows 11
 			case WM_SETTINGCHANGE:
-			{
 				if (wParam == SPI_SETDESKWALLPAPER)
-					getThis(dwRefData)->getDerivedThis()->onWallpaperChanged();
+					getThis<Derived>(dwRefData)->onWallpaperChanged();
 				break;
-			}
 			case WM_DISPLAYCHANGE:
-			{
-				getThis(dwRefData)->getDerivedThis()->onDisplayChanged();
+				getThis<Derived>(dwRefData)->onDisplayChanged();
 				break;
-			}
 			case WM_NCDESTROY:
 				// Remove subclass before window is destroyed
-				RemoveWindowSubclass(hwnd, subclassProc, uIdSubclass);
+				getThis<Derived>(dwRefData)->removeSubClass();
+				break;
+			default:
+				if (msg >= 0xC000 && msg == taskbarCreatedMessage())
+					getThis<Derived>(dwRefData)->onWallpaperChanged();
 				break;
 		}
 
 		return DefSubclassProc(hwnd, msg, wParam, lParam);
 	}
+protected:
+	HWND m_hwnd{};
 
-public:
-	void removeSubClass()
+
+	template<typename Derived>
+	void removeSubClass(this Derived& self)
 	{
-		RemoveWindowSubclass(m_hwnd, subclassProc, 0);
+		if (self.m_hwnd)
+		{
+			RemoveWindowSubclass(self.m_hwnd, &subclassProc<Derived>, 0);
+			self.m_hwnd = nullptr;
+		}
 	}
 
-	void addSubClass(HWND hwnd)
+	template<typename Derived>
+	void addSubClass(this Derived& self, HWND hwnd)
 	{
-		m_hwnd = hwnd;
-		m_dpi = GetDpiForWindow(hwnd);
-		updateBorderPadding();
-		SetWindowSubclass(m_hwnd, subclassProc, 0, reinterpret_cast<DWORD_PTR>(this));
+		self.m_hwnd = hwnd;
+		self.m_dpi = GetDpiForWindow(hwnd);
+		self.updateBorderPadding();
+		ChangeWindowMessageFilterEx(self.m_hwnd, taskbarCreatedMessage(), MSGFLT_ALLOW, nullptr);
+		SetWindowSubclass(self.m_hwnd, &subclassProc<Derived>, 0, reinterpret_cast<DWORD_PTR>(&self));
 	}
 };

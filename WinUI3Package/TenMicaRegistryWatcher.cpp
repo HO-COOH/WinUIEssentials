@@ -8,10 +8,10 @@ bool TenMicaRegistryWatcher::wallpaperChanged()
 		return false;
 
 	auto value = TenMicaRegistry::Wallpaper();
-	if (WallPaperValue == value)
+	if (m_wallPaperValue == value)
 		return false;
 
-	WallPaperValue = std::move(value);
+	m_wallPaperValue = std::move(value);
 	return true;
 }
 
@@ -21,10 +21,10 @@ bool TenMicaRegistryWatcher::transcodedImageChanged()
 		return false;
 
 	auto value = TenMicaRegistry::TranscodedImageCaches();
-	if (transcodedImagesValue == value)
+	if (m_transcodedImagesValue == value)
 		return false;
 
-	transcodedImagesValue = std::move(value);
+	m_transcodedImagesValue = std::move(value);
 	return true;
 }
 
@@ -34,10 +34,10 @@ bool TenMicaRegistryWatcher::backgroundChanged()
 		return false;
 
 	auto value = TenMicaRegistry::BackgroundValue();
-	if (BackgroundValue == value)
+	if (m_backgroundValue == value)
 		return false;
 
-	BackgroundValue = std::move(value);
+	m_backgroundValue = std::move(value);
 	return true;
 }
 
@@ -45,8 +45,16 @@ void TenMicaRegistryWatcher::threadProc()
 {
 	while (!m_requestStop)
 	{
-		if (wallpaperChanged() || transcodedImageChanged() || backgroundChanged())
-			m_impl->onWallpaperChanged();
+		try
+		{
+			if (wallpaperChanged() || transcodedImageChanged() || backgroundChanged())
+				m_impl->onWallpaperChanged();
+		}
+		catch (...)
+		{
+			m_impl->onWatcherError();
+			return;
+		}
 		std::this_thread::sleep_for(std::chrono::seconds{ 1 });
 	}
 }
