@@ -116,7 +116,9 @@
       <SubSystem>Console</SubSystem>
       <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
       <ModuleDefinitionFile>UWPPackage_Svg.def</ModuleDefinitionFile>
-      <AdditionalDependencies>$(ResvgStaticLib);ntdll.lib;userenv.lib;bcrypt.lib;ws2_32.lib;ole32.lib;advapi32.lib;runtimeobject.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <!-- WindowsApp.lib (via %(AdditionalDependencies)) comes first so UWP-supported APIs bind to
+           api-ms-win-core-*; the desktop Win32 libs after it only satisfy fallback symbols in Rust's std. -->
+      <AdditionalDependencies>$(ResvgStaticLib);%(AdditionalDependencies);kernel32.lib;ntdll.lib;userenv.lib;bcrypt.lib;ws2_32.lib;ole32.lib;advapi32.lib;dbghelp.lib;runtimeobject.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">

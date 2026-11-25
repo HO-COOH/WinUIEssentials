@@ -6,6 +6,7 @@
 #include "VisualTreeHelper.hpp"
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <HwndHelper.hpp>
+#include <wil/resource.h>
 
 namespace winrt::WinUI3Package::implementation
 {
@@ -101,6 +102,7 @@ namespace winrt::WinUI3Package::implementation
 
     winrt::Windows::Foundation::IAsyncOperation<winrt::Microsoft::UI::Xaml::Controls::ContentDialogResult> WindowedContentDialog::ShowAsync(winrt::Microsoft::UI::Xaml::Window parentWindow, winrt::WinUI3Package::UnderlayMode underlay)
     {
+        UnderlayElement underlayPopup{ nullptr };
         switch (underlay)
         {
             case UnderlayMode::Smoke:
@@ -108,24 +110,29 @@ namespace winrt::WinUI3Package::implementation
                 winrt::Microsoft::UI::Xaml::Shapes::Rectangle border;
                 border.Fill(winrt::Microsoft::UI::Xaml::Application::Current().Resources().Lookup(winrt::box_value(L"ContentDialogSmokeFill")).as<winrt::Microsoft::UI::Xaml::Media::Brush>());
                 border.Opacity(0.5);
-                m_underlayPopup = UnderlayElement{ parentWindow.Content().XamlRoot(), border };
+                underlayPopup = UnderlayElement{ parentWindow.Content().XamlRoot(), border };
                 break;
             }
             case UnderlayMode::Blur:
             {
-                m_underlayPopup = UnderlayElement{ parentWindow.Content().XamlRoot(), winrt::WinUI3Package::HostBackdropVisual{} };
+                underlayPopup = UnderlayElement{ parentWindow.Content().XamlRoot(), winrt::WinUI3Package::HostBackdropVisual{} };
                 break;
             }
             default:
                 break;
         }
+        auto closeUnderlay = wil::scope_exit([&underlayPopup] 
+        {
+            try
+            {
+                if (underlayPopup)
+                    underlayPopup.IsOpen(false);
+            }
+            catch (...)
+            {
+            }
+        });
         co_return co_await ShowAsync(parentWindow);
-    }
-
-    WindowedContentDialog::~WindowedContentDialog()
-    {
-        if (m_underlayPopup)
-            m_underlayPopup.IsOpen(false);
     }
 
     winrt::Windows::Graphics::SizeInt32 WindowedContentDialog::getDesiredWindowSize()

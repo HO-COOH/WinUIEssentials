@@ -19,7 +19,6 @@ namespace winrt::WinUI3Package::implementation
             winrt::Microsoft::UI::Xaml::Window parentWindow,
             winrt::WinUI3Package::UnderlayMode underlay
         );
-        ~WindowedContentDialog();
     private:
         winrt::Microsoft::UI::Xaml::Window m_window;
         winrt::WinUI3Package::ModernStandardWindowContextMenu m_modernMenu{ m_window };
@@ -29,7 +28,6 @@ namespace winrt::WinUI3Package::implementation
         winrt::Microsoft::UI::Xaml::FrameworkElement::ActualThemeChanged_revoker m_themeChangedRevoker;
         winrt::Microsoft::UI::Xaml::FrameworkElement m_acrylicBackground{ nullptr };
 
-        UnderlayElement m_underlayPopup{ nullptr };
         bool m_isClosingByCode{ false };
 
         winrt::Windows::Graphics::SizeInt32 getDesiredWindowSize();
