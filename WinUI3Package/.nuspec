@@ -25,6 +25,9 @@
     <files>
         <!--build/native-->
         <file src="include/**" target="build/native/include"/>
+        <file src="..\SharedComponent\VectorBase.hpp" target="build/native/include"/>
+        <file src="..\SharedComponent\VectorViewBase.hpp" target="build/native/include"/>
+        <file src="..\SharedComponent\IteratorBase.hpp" target="build/native/include"/>
         <file src="WinUIEssential.WinUI3.targets" target="build/native"/>
         
         <!--lib/native(The last item in each group is control resource)-->

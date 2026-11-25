@@ -182,9 +182,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
       <PreprocessorDefinitions>Build_WinUIExample;PackageRoot=WinUI3Example;WinUINamespace=Microsoft;DISABLE_XAML_GENERATED_MAIN;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp23</LanguageStandard>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -211,9 +211,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
       <PreprocessorDefinitions>Build_WinUIExample;PackageRoot=WinUI3Example;WinUINamespace=Microsoft;DISABLE_XAML_GENERATED_MAIN;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp23</LanguageStandard>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -240,9 +240,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
       <PreprocessorDefinitions>Build_WinUIExample;PackageRoot=WinUI3Example;WinUINamespace=Microsoft;DISABLE_XAML_GENERATED_MAIN;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp23</LanguageStandard>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -267,9 +267,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
     <ClCompile>
       <PreprocessorDefinitions>Build_WinUIExample;PackageRoot=WinUI3Example;WinUINamespace=Microsoft;DISABLE_XAML_GENERATED_MAIN;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp23</LanguageStandard>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">$(SolutionDir)WinUI3Package\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

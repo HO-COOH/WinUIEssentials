@@ -187,9 +187,9 @@
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;PackageRoot=UWPExample;WinUINamespace=Windows;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp23</LanguageStandard>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -228,9 +228,9 @@
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp23</LanguageStandard>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -269,9 +269,9 @@
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;NDEBUG;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_UNICODE;UNICODE</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp23</LanguageStandard>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -311,9 +311,9 @@
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPExample;PackageRoot=UWPExample;WinUINamespace=Windows;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp23</LanguageStandard>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">$(ProjectDir)..\UWPPackage\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

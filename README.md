@@ -44,7 +44,7 @@ Example project build status:
 
 
 > [!WARNING]
-> Make sure to set your C++ language version to C++20 first!
+> Make sure to set your C++ language version to C++23 first!
 
 Open the `WinUIEssential.sln` containing 4 projects:
 - UWPPackage (project for WinUIEssential.UWP nuget package)

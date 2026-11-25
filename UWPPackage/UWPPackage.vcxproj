@@ -292,10 +292,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp23</LanguageStandard>
     </ClCompile>
     <PostBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">nuget.exe pack</Command>
@@ -325,10 +325,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI2'">
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|x64'">stdcpp23</LanguageStandard>
     </ClCompile>
     <PostBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug_CI2|ARM'">
@@ -359,10 +359,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug_CI'">
     <ClCompile>
       <PreprocessorDefinitions>BuildWinUIEssential;_DEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI|ARM'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug_CI|x64'">stdcpp23</LanguageStandard>
     </ClCompile>
     <PostBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug_CI|ARM'">
@@ -384,10 +384,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -418,10 +418,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI2'">
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI2|x64'">stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -456,10 +456,10 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release_CI'">
     <ClCompile>
       <PreprocessorDefinitions>Build_UWPPackage;BuildWinUIEssential;WinUINamespace=Windows;PackageRoot=UWPPackage;NDEBUG;_WINRT_DLL;WIN32_LEAN_AND_MEAN;WINRT_LEAN_AND_MEAN;_WINDLL;_UNICODE;UNICODE;__WRL_NO_DEFAULT_LIB__</PreprocessorDefinitions>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM64'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|x64'">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release_CI|x64'">stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
