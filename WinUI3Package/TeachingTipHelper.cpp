@@ -62,10 +62,17 @@ namespace winrt::WinUI3Package::implementation
         *layoutUpdated_revoker = teachingTip.LayoutUpdated(winrt::auto_revoke, [layoutUpdated_revoker, teachingTip_ref = winrt::make_weak(teachingTip), isLightDismissEnabled](auto&&...)
         {
             auto teachingTip = teachingTip_ref.get();
+            if (!teachingTip)
+            {
+                layoutUpdated_revoker->revoke();
+                return;
+            }
+
+            if (winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChildrenCount(teachingTip) == 0)
+                return;
+
             //Revoke before applying, so it is not retried on every layout pass if it throws
             layoutUpdated_revoker->revoke();
-            if (!teachingTip)
-                return;
 
             auto container = winrt::Microsoft::UI::Xaml::Media::VisualTreeHelper::GetChild(teachingTip, 0).as<winrt::Microsoft::UI::Xaml::FrameworkElement>();
             teachingTip.Target() ? applyForTargeted(teachingTip, container) : applyForNonTargeted(teachingTip, container);
