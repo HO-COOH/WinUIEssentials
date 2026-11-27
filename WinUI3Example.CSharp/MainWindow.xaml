@@ -7,6 +7,7 @@
     xmlns:essential="using:WinUI3Package"
     xmlns:local="using:WinUI3Example.CSharp"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svg="using:WinUI3Package.Svg"
     Title="WinUI3Example.CSharp"
     mc:Ignorable="d">
 
@@ -75,6 +76,16 @@
                             Height="64"
                             Background="#001968"
                             CornerRadius="4" />
+                    </GridViewItem>
+                    <GridViewItem>
+                        <Image
+                            x:Name="LocalUriImage"
+                            Width="64"
+                            Height="64">
+                            <Image.Source>
+                                <svg:SvgImageSource UriSource="https://upload.wikimedia.org/wikipedia/commons/4/4f/SVG_Logo.svg?utm_source=en.wikipedia.org&amp;utm_campaign=imageinfo&amp;utm_content=original" />
+                            </Image.Source>
+                        </Image>
                     </GridViewItem>
                 </GridView>
             </essential:SettingsCard>

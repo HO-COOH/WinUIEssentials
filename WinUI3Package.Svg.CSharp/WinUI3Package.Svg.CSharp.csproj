@@ -1,0 +1,94 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+		<WindowsSdkPackageVersion>10.0.17763.55</WindowsSdkPackageVersion>
+		<CheckEolTargetFramework>false</CheckEolTargetFramework>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<Platforms>x64;ARM64;x86</Platforms>
+		<AssemblyName>WinUIEssential.WinUI3.Svg</AssemblyName>
+		<IsPackable>false</IsPackable>
+
+		<CsWinRTIncludes>WinUI3Package.Svg</CsWinRTIncludes>
+		<CsWinRTWindowsMetadata>sdk</CsWinRTWindowsMetadata>
+
+		<!-- WinUIEssential -->
+		<winuiEssentialRoot>$(MSBuildThisFileDirectory)..\</winuiEssentialRoot>
+
+		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmdDir)' == '' and '$(Platform)' == 'x64'">$(winuiEssentialRoot)x64\$(Configuration)\WinUI3Package.Svg\WinUI3Package.Svg.winmd</WinUIEssentialWinmd>
+		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmdDir)' == '' and '$(Platform)' == 'ARM64'">$(winuiEssentialRoot)ARM64\$(Configuration)\WinUI3Package.Svg\WinUI3Package.Svg.winmd</WinUIEssentialWinmd>
+		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmdDir)' == '' and ('$(Platform)' == 'x86' or '$(Platform)' == 'Win32')">$(winuiEssentialRoot)$(Configuration)\WinUI3Package.Svg\WinUI3Package.Svg.winmd</WinUIEssentialWinmd>
+		<WinUIEssentialWinmd Condition="'$(WinUIEssentialWinmd)' != ''">$([MSBuild]::NormalizePath('$(WinUIEssentialWinmd)'))</WinUIEssentialWinmd>
+
+		<!--
+			The native project spells the 32 bit platform "Win32"; this project spells it "x86".
+			Map it so the ProjectReference below resolves to a configuration that WinUI3Package.Svg
+			actually declares when this project is built on its own (outside the .sln).
+		-->
+		<WinUIEssentialNativePlatform Condition="'$(Platform)' == 'x86' or '$(Platform)' == 'AnyCPU' or '$(Platform)' == ''">Win32</WinUIEssentialNativePlatform>
+		<WinUIEssentialNativePlatform Condition="'$(WinUIEssentialNativePlatform)' == ''">$(Platform)</WinUIEssentialNativePlatform>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
+	  <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.1.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<CsWinRTInputs Include="$(WinUIEssentialWinmd)" />
+	</ItemGroup>
+
+	<!--
+		Build the native component first so the .winmd consumed above is always current.
+		ReferenceOutputAssembly is false because the projection does not reference the
+		native output as an assembly - it feeds the .winmd to cswinrt through CsWinRTInputs,
+		and CsWinRTGenerateProjection is itself incremental on that file's timestamp.
+	-->
+	<ItemGroup Condition="'$(WinUIEssentialBuildNative)' != 'false'">
+		<ProjectReference Include="..\WinUI3Package.Svg\WinUI3Package.Svg.vcxproj"
+						  ReferenceOutputAssembly="false"
+						  SkipGetTargetFrameworkProperties="true"
+						  UndefineProperties="TargetFramework;TargetFrameworks;RuntimeIdentifier"
+						  SetPlatform="Platform=$(WinUIEssentialNativePlatform)" />
+	</ItemGroup>
+
+	<Target Name="WinUIEssentialCheckWinmd" BeforeTargets="CsWinRTGenerateProjection">
+		<Error Condition="'$(WinUIEssentialWinmd)' == ''" Text="WinUIEssentialWinmd is not specified." />
+		<Error Condition="'$(WinUIEssentialWinmd)' != '' and !Exists('$(WinUIEssentialWinmd)')" Text="WinUIEssentialWinmd file not found: $(WinUIEssentialWinmd)" />
+	</Target>
+
+	<!--
+		Pack the Svg NuGet package once everything it ships exists. Unlike WinUI3Package.vcxproj,
+		WinUI3Package.Svg.vcxproj never packed on its own, so the package is produced here, after the
+		native project has been built on the way in. The .nuspec takes the managed assembly from
+		bin\x64\Release, so build x64 last for a package whose bits are all current.
+		Pass -p:WinUIEssentialPack=false to build without producing a package.
+
+		nuget.exe is not on PATH here; the copy next to the .nuspec is used when present, and a PATH
+		install is the fallback for a machine that only has that one.
+	-->
+	<Target Name="WinUIEssentialPack"
+			AfterTargets="Build"
+			Condition="'$(Configuration)' == 'Release' and '$(WinUIEssentialPack)' != 'false'">
+		<PropertyGroup>
+			<WinUIEssentialNuGetExe>$(winuiEssentialRoot)WinUI3Package.Svg\nuget.exe</WinUIEssentialNuGetExe>
+			<WinUIEssentialNuGetExe Condition="!Exists('$(WinUIEssentialNuGetExe)')">nuget.exe</WinUIEssentialNuGetExe>
+		</PropertyGroup>
+		<Error Condition="!Exists('$(WinUIEssentialNuGetExe)')"
+			   Text="nuget.exe was not found next to WinUI3Package.Svg\.nuspec, and is not on PATH either. Drop a nuget.exe there, or build with -p:WinUIEssentialPack=false to skip packing." />
+		<Exec Command="&quot;$(WinUIEssentialNuGetExe)&quot; pack" WorkingDirectory="$(winuiEssentialRoot)WinUI3Package.Svg" />
+	</Target>
+
+	<!--
+		FindInvalidProjectReferences compares the target platform moniker of every project reference
+		against this project's and warns (MSB3851) because WinUI3Package.Svg targets a newer UAP version
+		than the 10.0.17763.0 this projection compiles for. The check only guards assembly references,
+		and the native reference above is build-ordering only - its .winmd is consumed by cswinrt, not
+		by the C# compiler. Microsoft.WindowsAppSDK.targets turns that check on after this project body
+		is evaluated, so the warning is demoted here instead.
+	-->
+	<PropertyGroup>
+		<MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3851</MSBuildWarningsAsMessages>
+	</PropertyGroup>
+
+</Project>

@@ -45,7 +45,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WinUI3Package.Svg\WinUI3Package.Svg.vcxproj" />
     <ProjectReference Include="..\WinUI3Package\WinUI3Package.vcxproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Assets\SVG_Logo.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <!--

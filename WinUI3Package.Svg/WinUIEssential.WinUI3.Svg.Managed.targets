@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!--
+      The projection assembly activates WinUI3Package.Svg through its WinRT activation factory, so the
+      metadata has to be on the compiler's radar - a WindowsMetadataReference rather than a plain
+      Reference, which is how a C# project consumes a .winmd.
+    -->
+    <ItemGroup Condition="'$(WinUIEssentialSvgRegisterWinmd)' != 'false'">
+        <WindowsMetadataReference
+            Include="$(MSBuildThisFileDirectory)..\..\lib\native\Release\x64\WinUI3Package.Svg.winmd"
+            Implementation="WinUI3Package.Svg.dll"/>
+    </ItemGroup>
+
+    <!--
+      The projection assembly is architecture neutral, so a project targeting an architecture this
+      package has no runtimes\win-<arch>\native\WinUI3Package.Svg.dll for still compiles and links. The
+      first sign of trouble is then a System.IO.FileNotFoundException thrown out of WinRT.Runtime.dll
+      when an activation factory is looked up at runtime, which names neither this package nor the
+      architecture. Fail the build instead.
+
+      The check probes the package layout rather than a fixed list, so it starts passing on its own
+      once an architecture is added to the package; only the list in the error message is hardcoded
+      and needs updating alongside the .nuspec. It stays quiet when no architecture is pinned
+      (AnyCPU with no RuntimeIdentifier, as in a class library), because the application that
+      eventually consumes it is what decides the architecture.
+
+      A project that pulls the C++ headers in some other way can turn the metadata reference off
+      with WinUIEssentialSvgRegisterWinmd=false.
+    -->
+    <Target Name="WinUIEssentialSvgCheckNativeRuntime"
+            BeforeTargets="ResolveReferences">
+
+        <!-- Resolved here rather than at import time: PlatformTarget and RuntimeIdentifier are not
+             settled until the SDK targets have run, and this file is imported before them. -->
+        <PropertyGroup>
+            <!-- Always detected, never taken from the project: a hand-set value could name an architecture
+                 other than the one being built and make the check probe the wrong folder. -->
+            <WinUIEssentialSvgArchitecture></WinUIEssentialSvgArchitecture>
+            <!-- A RuntimeIdentifier (win-x64, win-arm64, ...) carries the architecture after its last '-'. -->
+            <WinUIEssentialSvgArchitecture Condition="'$(WinUIEssentialSvgArchitecture)' == '' and '$(RuntimeIdentifier)' != ''">$(RuntimeIdentifier.Substring($([MSBuild]::Add($(RuntimeIdentifier.LastIndexOf('-')), 1))))</WinUIEssentialSvgArchitecture>
+            <!-- No RuntimeIdentifier: an explicit PlatformTarget (x64, x86, ARM64). AnyCPU pins no architecture. -->
+            <WinUIEssentialSvgArchitecture Condition="'$(WinUIEssentialSvgArchitecture)' == '' and '$(PlatformTarget)' != '' and '$(PlatformTarget)' != 'AnyCPU'">$(PlatformTarget)</WinUIEssentialSvgArchitecture>
+            <!-- No usable PlatformTarget either: fall back to the build Platform, again skipping AnyCPU. -->
+            <WinUIEssentialSvgArchitecture Condition="'$(WinUIEssentialSvgArchitecture)' == '' and '$(Platform)' != '' and '$(Platform)' != 'AnyCPU'">$(Platform)</WinUIEssentialSvgArchitecture>
+            <!-- Win32 is the C++ / solution platform name for 32 bit; the runtime identifier spells it x86. -->
+            <WinUIEssentialSvgArchitecture Condition="'$(WinUIEssentialSvgArchitecture)' == 'Win32'">x86</WinUIEssentialSvgArchitecture>
+            <WinUIEssentialSvgArchitecture>$(WinUIEssentialSvgArchitecture.ToLowerInvariant())</WinUIEssentialSvgArchitecture>
+        </PropertyGroup>
+
+        <Error Code="WUE0002"
+               Condition="'$(WinUIEssentialSvgArchitecture)' != '' and !Exists('$(MSBuildThisFileDirectory)..\..\runtimes\win-$(WinUIEssentialSvgArchitecture)\native\WinUI3Package.Svg.dll')"
+               Text="WinUIEssential.WinUI3.Svg has no native WinUI3Package.Svg.dll for $(WinUIEssentialSvgArchitecture), only for: x64, arm64."/>
+    </Target>
+</Project>

@@ -3,6 +3,7 @@
 #include "SvgImageSource.g.cpp"
 
 #include <winrt/Windows.Web.Http.h>
+#include <winrt/Windows.Web.Http.Headers.h>
 #include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Graphics.Imaging.h>
 #if defined Build_WinUIPackage
@@ -398,7 +399,17 @@ namespace winrt::PackageRoot::Svg::implementation
 
         if (scheme == L"http" || scheme == L"https")
         {
-            static winrt::Windows::Web::Http::HttpClient httpClient;
+            static winrt::Windows::Web::Http::HttpClient httpClient = []
+            {
+                winrt::Windows::Web::Http::HttpClient client;
+#if defined Build_WinUIPackage
+                constexpr auto userAgent = L"WinUIEssential.WinUI3.Svg (+https://github.com/HO-COOH/WinUIEssentials)";
+#else
+                constexpr auto userAgent = L"WinUIEssential.UWP.Svg (+https://github.com/HO-COOH/WinUIEssentials)";
+#endif
+                client.DefaultRequestHeaders().TryAppendWithoutValidation(L"User-Agent", userAgent);
+                return client;
+            }();
             co_return co_await httpClient.GetBufferAsync(uri);
         }
 
