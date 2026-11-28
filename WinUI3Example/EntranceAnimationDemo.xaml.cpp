@@ -3,7 +3,7 @@
 #if __has_include("EntranceAnimationDemo.g.cpp")
 #include "EntranceAnimationDemo.g.cpp"
 #endif
-
+#include <DispatcherQueue.h>
 
 
 // To learn more about WinUI, the WinUI project structure,

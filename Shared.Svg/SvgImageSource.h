@@ -7,7 +7,8 @@
 #include "../UWPPackage/include/EnsureDependencyProperty.hpp"
 #endif
 #include <resvg.h>
-#include <mutex>
+#include <atomic>
+#include <memory>
 #include <variant>
 #include "RenderTree.h"
 
@@ -38,6 +39,8 @@ namespace winrt::PackageRoot::Svg::implementation
         winrt::WinUINamespace::UI::Xaml::Controls::Image BindSizeTo();
     private:
         bool m_isHandlingImageSizeChanged{};
+        std::atomic<uint32_t> m_currentVersion{};
+        std::atomic<uint32_t> m_renderVersion{};
         winrt::WinUINamespace::UI::Xaml::FrameworkElement::SizeChanged_revoker m_sizeChangedRevoker;
         // weak_ref breaks the otherwise-circular Image.Source -> SvgImageSource -> Image chain.
         winrt::weak_ref<winrt::WinUINamespace::UI::Xaml::Controls::Image> m_boundImage;
@@ -48,9 +51,7 @@ namespace winrt::PackageRoot::Svg::implementation
         static winrt::WinUINamespace::UI::Xaml::DependencyProperty s_rasterizePixelHeightProperty;
 
         std::variant<std::monostate, winrt::Windows::Foundation::Uri, winrt::hstring> m_currentSource;
-        std::mutex m_treeMutex;
-        resvg::RenderTree m_tree;
-        winrt::Windows::Foundation::IAsyncAction m_currentOp{ nullptr };
+        std::shared_ptr<resvg::RenderTree> m_tree;
 
         static void onUriSourceChanged(
             winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
@@ -65,13 +66,11 @@ namespace winrt::PackageRoot::Svg::implementation
             winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e
         );
 
-        // Cancel m_currentOp (if still Started) and replace it with `next`.
-        // Caller must already be on the UI thread.
-        void replaceOp(winrt::Windows::Foundation::IAsyncAction next);
+        void renderCurrentTree();
 
-        winrt::Windows::Foundation::IAsyncAction loadFromUri(winrt::Windows::Foundation::Uri uri);
-        winrt::Windows::Foundation::IAsyncAction loadFromString(winrt::hstring str);
-        winrt::Windows::Foundation::IAsyncAction renderAsync(double rasterWidth, double rasterHeight);
+        winrt::fire_and_forget loadFromUri(winrt::Windows::Foundation::Uri uri);
+        winrt::fire_and_forget loadFromString(winrt::hstring str);
+        winrt::fire_and_forget renderAsync(double rasterWidth, double rasterHeight);
 
 
 

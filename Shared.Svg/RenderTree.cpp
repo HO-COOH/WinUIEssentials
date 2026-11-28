@@ -10,12 +10,11 @@ namespace resvg
 		auto const err = resvg_parse_tree_from_data(data, length, options, &newTree);
 		if (err != RESVG_OK || !newTree)
 			return false;
-		if (auto oldTree = std::exchange(m_tree, newTree))
-			resvg_tree_destroy(oldTree);
+		m_tree.reset(newTree);
 		return true;
 	}
 
-	std::vector<uint8_t> RenderTree::Render(float scale, uint32_t width, uint32_t height)
+	std::vector<uint8_t> RenderTree::Render(float scale, uint32_t width, uint32_t height) const
 	{
 		resvg_transform transform = resvg_transform_identity();
 		transform.a = scale;
@@ -23,7 +22,7 @@ namespace resvg
 
 		std::vector<uint8_t> pixels(static_cast<size_t>(width) * height * 4, 0);
 		resvg_render(
-			m_tree,
+			m_tree.get(),
 			transform,
 			width,
 			height,
@@ -34,12 +33,6 @@ namespace resvg
 
 	resvg_size RenderTree::GetSize() const noexcept
 	{
-		return resvg_get_image_size(m_tree);
-	}
-
-	RenderTree::~RenderTree()
-	{
-		if (m_tree)
-			resvg_tree_destroy(m_tree);
+		return resvg_get_image_size(m_tree.get());
 	}
 }

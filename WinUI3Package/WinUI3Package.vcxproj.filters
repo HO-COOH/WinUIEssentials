@@ -145,7 +145,6 @@
     <ClInclude Include="include\TemplateControlHelper.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\BadgeGlyphs.hpp">
       <Filter>include</Filter>
     </ClInclude>

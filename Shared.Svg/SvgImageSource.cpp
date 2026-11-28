@@ -41,8 +41,7 @@ namespace winrt::PackageRoot::Svg::implementation
 
     resvg_options* SvgImageSource::GetResvgOptions()
     {
-        static resvg_options* opts = []() {
-            resvg_init_log();
+        static resvg_options* opts = [] {
             auto* o = resvg_options_create();
             resvg_options_load_system_fonts(o);
             return o;
@@ -180,24 +179,32 @@ namespace winrt::PackageRoot::Svg::implementation
         SetValue(s_rasterizePixelHeightProperty, winrt::box_value(value));
     }
 
-    void SvgImageSource::replaceOp(winrt::Windows::Foundation::IAsyncAction next)
+    void SvgImageSource::renderCurrentTree()
     {
-        if (m_currentOp && m_currentOp.Status() == winrt::Windows::Foundation::AsyncStatus::Started)
-            m_currentOp.Cancel();
-        m_currentOp = std::move(next);
+        double scale = 1.0;
+        if (auto image = m_boundImage.get())
+            scale = getDpiScale(image);
+        renderAsync(RasterizePixelWidth() * scale, RasterizePixelHeight() * scale);
     }
 
     void SvgImageSource::onUriSourceChanged(
         winrt::WinUINamespace::UI::Xaml::DependencyObject const& d,
         winrt::WinUINamespace::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
+        auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
+        self->m_renderVersion.fetch_add(1, std::memory_order_relaxed);
+        self->m_tree.reset();
+
         auto uri = e.NewValue().try_as<winrt::Windows::Foundation::Uri>();
         if (!uri)
+        {
+            self->m_currentVersion.fetch_add(1, std::memory_order_relaxed);
+            self->m_currentSource = std::monostate{};
             return;
+        }
 
-        auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
         self->m_currentSource = uri;
-        self->replaceOp(self->loadFromUri(uri));
+        self->loadFromUri(uri);
     }
 
     void SvgImageSource::onStringSourceChanged(
@@ -206,13 +213,17 @@ namespace winrt::PackageRoot::Svg::implementation
     {
         auto str = winrt::unbox_value_or<winrt::hstring>(e.NewValue(), L"");
         auto self = GetSelf(d);
+        self->m_renderVersion.fetch_add(1, std::memory_order_relaxed);
+        self->m_tree.reset();
+
         if (str.empty())
         {
+            self->m_currentVersion.fetch_add(1, std::memory_order_relaxed);
             self->m_currentSource = std::monostate{};
             return;
         }
         self->m_currentSource = str;
-        self->replaceOp(self->loadFromString(str));
+        self->loadFromString(str);
     }
 
     void SvgImageSource::onRasterizeSizeChanged(
@@ -222,105 +233,133 @@ namespace winrt::PackageRoot::Svg::implementation
         auto self = winrt::get_self<SvgImageSource>(d.as<class_type>());
         if (self->m_isHandlingImageSizeChanged || std::holds_alternative<std::monostate>(self->m_currentSource))
             return;
-        self->replaceOp(self->renderAsync(self->RasterizePixelWidth(), self->RasterizePixelHeight()));
+        self->renderAsync(self->RasterizePixelWidth(), self->RasterizePixelHeight());
     }
 
-    winrt::Windows::Foundation::IAsyncAction SvgImageSource::loadFromUri(winrt::Windows::Foundation::Uri uri)
+    winrt::fire_and_forget SvgImageSource::loadFromUri(winrt::Windows::Foundation::Uri uri)
     {
-        auto const rasterWidth = RasterizePixelWidth();
-        auto const rasterHeight = RasterizePixelHeight();
+        auto const version = m_currentVersion.fetch_add(1, std::memory_order_relaxed) + 1;
         auto strong = get_strong();
         try
         {
             auto buffer = co_await getSvgContent(uri);
-            {
-                std::lock_guard lock(strong->m_treeMutex);
-                if (!strong->m_tree.Parse(reinterpret_cast<char const*>(buffer.data()), buffer.Length(), GetResvgOptions()))
-                    co_return;
-            }
+            if (!buffer || buffer.Length() == 0 || version != strong->m_currentVersion.load(std::memory_order_relaxed))
+                co_return;
 
-            co_await strong->renderAsync(rasterWidth, rasterHeight);
+            co_await winrt::resume_background();
+            if (version != strong->m_currentVersion.load(std::memory_order_relaxed))
+                co_return;
+
+            auto tree = std::make_shared<resvg::RenderTree>();
+            if (!tree->Parse(reinterpret_cast<char const*>(buffer.data()), buffer.Length(), GetResvgOptions()))
+                co_return;
+
+            if (version != strong->m_currentVersion.load(std::memory_order_relaxed))
+                co_return;
+
+#if defined Build_WinUIPackage
+            co_await wil::resume_foreground(strong->DispatcherQueue());
+#else
+            co_await wil::resume_foreground(strong->Dispatcher());
+#endif
+            if (version != strong->m_currentVersion.load(std::memory_order_relaxed))
+                co_return;
+
+            strong->m_tree = std::move(tree);
+            strong->renderCurrentTree();
         }
         catch (...)
         {
         }
     }
 
-    winrt::Windows::Foundation::IAsyncAction SvgImageSource::loadFromString(winrt::hstring str)
+    winrt::fire_and_forget SvgImageSource::loadFromString(winrt::hstring str)
     {
-        auto const rasterWidth = RasterizePixelWidth();
-        auto const rasterHeight = RasterizePixelHeight();
+        auto const version = m_currentVersion.fetch_add(1, std::memory_order_relaxed) + 1;
         auto strong = get_strong();
-
         try
         {
             co_await winrt::resume_background();
+            if (version != strong->m_currentVersion.load(std::memory_order_relaxed))
+                co_return;
 
             auto utf8 = winrt::to_string(str);
-            {
-                std::lock_guard lock(strong->m_treeMutex);
-                if (!strong->m_tree.Parse(utf8.data(), utf8.size(), GetResvgOptions()))
-                    co_return;
-            }
+            auto tree = std::make_shared<resvg::RenderTree>();
+            if (!tree->Parse(utf8.data(), utf8.size(), GetResvgOptions()))
+                co_return;
 
-            co_await strong->renderAsync(rasterWidth, rasterHeight);
+            if (version != strong->m_currentVersion.load(std::memory_order_relaxed))
+                co_return;
+
+#if defined Build_WinUIPackage
+            co_await wil::resume_foreground(strong->DispatcherQueue());
+#else
+            co_await wil::resume_foreground(strong->Dispatcher());
+#endif
+            if (version != strong->m_currentVersion.load(std::memory_order_relaxed))
+                co_return;
+
+            strong->m_tree = std::move(tree);
+            strong->renderCurrentTree();
         }
         catch (...)
         {
         }
     }
 
-    winrt::Windows::Foundation::IAsyncAction SvgImageSource::renderAsync(double rasterWidth, double rasterHeight)
+    winrt::fire_and_forget SvgImageSource::renderAsync(double rasterWidth, double rasterHeight)
     {
-        auto cancel = co_await winrt::get_cancellation_token();
-        auto strong = get_strong();
-        co_await winrt::resume_background();
-        if (cancel())
+        if (!m_tree || rasterWidth == 0 || rasterHeight == 0)
             co_return;
 
-        std::vector<uint8_t> pixels;
-        ScaleResult scaleResult;
+        auto const renderVersion = m_renderVersion.fetch_add(1, std::memory_order_relaxed) + 1;
+        auto tree = m_tree;
+        auto strong = get_strong();
+        try
         {
-            std::lock_guard lock(strong->m_treeMutex);
-            if (!strong->m_tree)
+            co_await winrt::resume_background();
+            if (renderVersion != strong->m_renderVersion.load(std::memory_order_relaxed))
                 co_return;
 
-            auto [naturalWidth, naturalHeight] = strong->m_tree.GetSize();
+            auto [naturalWidth, naturalHeight] = tree->GetSize();
             if (naturalWidth == 0 || naturalHeight == 0)
                 co_return;
 
-            scaleResult = ScaleResult{ rasterWidth, rasterHeight, naturalWidth, naturalHeight };
-            pixels = strong->m_tree.Render(scaleResult.scale, scaleResult.width, scaleResult.height);
-        }
+            ScaleResult const scaleResult{ rasterWidth, rasterHeight, naturalWidth, naturalHeight };
 
-        if (cancel())
-            co_return;
+            auto pixels = tree->Render(scaleResult.scale, scaleResult.width, scaleResult.height);
+            if (renderVersion != strong->m_renderVersion.load(std::memory_order_relaxed))
+                co_return;
 
-        winrt::Windows::Storage::Streams::InMemoryRandomAccessStream pngStream;
-        auto encoder = co_await winrt::Windows::Graphics::Imaging::BitmapEncoder::CreateAsync(winrt::Windows::Graphics::Imaging::BitmapEncoder::PngEncoderId(), pngStream);
-        encoder.SetPixelData(
-            winrt::Windows::Graphics::Imaging::BitmapPixelFormat::Rgba8,
-            winrt::Windows::Graphics::Imaging::BitmapAlphaMode::Premultiplied,
-            scaleResult.width, scaleResult.height,
-            96.0, 96.0,
-            winrt::array_view<uint8_t const>{ pixels.data(), pixels.data() + pixels.size() });
-        co_await encoder.FlushAsync();
-        pngStream.Seek(0);
+            winrt::Windows::Storage::Streams::InMemoryRandomAccessStream pngStream;
+            auto encoder = co_await winrt::Windows::Graphics::Imaging::BitmapEncoder::CreateAsync(winrt::Windows::Graphics::Imaging::BitmapEncoder::PngEncoderId(), pngStream);
+            encoder.SetPixelData(
+                winrt::Windows::Graphics::Imaging::BitmapPixelFormat::Rgba8,
+                winrt::Windows::Graphics::Imaging::BitmapAlphaMode::Premultiplied,
+                scaleResult.width, scaleResult.height,
+                96.0, 96.0,
+                winrt::array_view<uint8_t const>{ pixels.data(), pixels.data() + pixels.size() });
+            co_await encoder.FlushAsync();
+            pngStream.Seek(0);
 
-        if (cancel())
-            co_return;
+            if (renderVersion != strong->m_renderVersion.load(std::memory_order_relaxed))
+                co_return;
 
 #if defined Build_WinUIPackage
-        co_await wil::resume_foreground(strong->DispatcherQueue());
+            co_await wil::resume_foreground(strong->DispatcherQueue());
 #else
-        co_await wil::resume_foreground(strong->Dispatcher());
+            co_await wil::resume_foreground(strong->Dispatcher());
 #endif
 
-        if (cancel())
-            co_return;
+            if (renderVersion != strong->m_renderVersion.load(std::memory_order_relaxed) || tree != strong->m_tree)
+                co_return;
 
-        auto op = strong->SetSourceAsync(pngStream);
-        op.Completed([](auto const&, auto) noexcept {});
+            auto op = strong->SetSourceAsync(pngStream);
+            op.Completed([](auto const&, auto) noexcept {});
+        }
+        catch (...)
+        {
+        }
     }
 
     void SvgImageSource::BindSizeTo(winrt::WinUINamespace::UI::Xaml::Controls::Image const& image)
@@ -339,7 +378,7 @@ namespace winrt::PackageRoot::Svg::implementation
         RasterizePixelWidth(width);
         RasterizePixelHeight(height);
         double const scale = getDpiScale(image);
-        replaceOp(renderAsync(width * scale, height * scale));
+        renderAsync(width * scale, height * scale);
 
         m_sizeChangedRevoker = image.SizeChanged(
             winrt::auto_revoke,
@@ -359,7 +398,7 @@ namespace winrt::PackageRoot::Svg::implementation
                 auto [width, height] = e.NewSize();
                 self->RasterizePixelWidth(width);
                 self->RasterizePixelHeight(height);
-                self->replaceOp(self->renderAsync(width * scale, height * scale));
+                self->renderAsync(width * scale, height * scale);
             }
         );
     }

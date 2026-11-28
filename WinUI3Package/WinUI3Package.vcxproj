@@ -398,7 +398,6 @@
     <ClInclude Include="include\BuiltInUris.hpp" />
     <ClInclude Include="include\DpiUtils.hpp" />
     <ClInclude Include="include\EnsureDependencyProperty.hpp" />
-    <ClInclude Include="include\Export.h" />
     <ClInclude Include="include\Glyphs.hpp" />
     <ClInclude Include="include\Handler.hpp" />
     <ClInclude Include="include\HwndHelper.hpp" />

@@ -5,7 +5,6 @@
 #include <winrt/Windows.UI.Composition.h>
 #include <winrt/Microsoft.UI.Content.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
-#include <DispatcherQueue.h>
 #include <winrt/Windows.System.h>
 #include <WindowsAppSDK-VersionInfo.h>
 
